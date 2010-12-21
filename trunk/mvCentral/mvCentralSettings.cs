@@ -1397,7 +1397,7 @@ namespace mvCentral.Settings {
             Description = "The name that appears on the home screen for the plugin.",
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "home_name",
-            Default = "Music Videos",
+            Default = "mvCentral",
             Hidden = true)]
         public string HomeScreenName {
             get { return _homeScreenName; }
