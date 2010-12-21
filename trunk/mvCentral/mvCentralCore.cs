@@ -160,7 +160,7 @@ namespace mvCentral
         private mvCentralCore() { }
 
 
-        // Initializes the database connection to the Movies Plugin database
+        // Initializes the database connection to the Music video Plugin database
         private static void initDB()
         {
             if (_databaseManager != null)

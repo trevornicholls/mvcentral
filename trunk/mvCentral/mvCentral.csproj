@@ -350,7 +350,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)MusicVideos.*" "C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows" /Y</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)mvCentral.*" "C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows" /Y</PostBuildEvent>
     <PreBuildEvent>subwcrev "$(SolutionDir)." "$(ProjectDir)Properties\VersionInfo.cs.tmpl" "$(ProjectDir)Properties\VersionInfo.cs"</PreBuildEvent>
   </PropertyGroup>
 </Project>
