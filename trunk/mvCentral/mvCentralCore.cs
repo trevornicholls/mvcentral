@@ -1,0 +1,555 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
+using System.Reflection;
+using System.Windows.Forms;
+
+
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.GUI.Dialogs;
+using Cornerstone.Tools;
+
+using MediaPortal.Configuration;
+using MediaPortal.Services;
+
+using NLog;
+using NLog.Config;
+using NLog.Targets;
+
+using mvCentral.BackgroundProcesses;
+using mvCentral.Settings;
+using mvCentral.Database;
+using mvCentral.LocalMediaManagement;
+using mvCentral.DataProviders;
+using mvCentral.GUI;
+using mvCentral.Localizations;
+using mvCentral.Utils;
+
+namespace mvCentral
+{
+    class mvCentralCore
+    {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        public static event ProgressDelegate InitializeProgress;
+
+        public enum PowerEvent
+        {
+            Suspend,
+            Resume
+        }
+
+        public delegate void PowerEventDelegate(PowerEvent powerEvent);
+        public static event PowerEventDelegate OnPowerEvent;
+
+        private const string dbFileName = "mvCentral.db3";
+        private const string logFileName = "mvCentral.log";
+        private const string oldLogFileName = "mvCentral.old.log";
+        public const int PluginID = 112011;
+        private static float loadingProgress;
+        private static float loadingTotal;
+        private static string loadingProgressDescription;
+
+        private static object importerLock = new Object();
+        private static object dbLock = new Object();
+        private static object settingsLock = new Object();
+        private static object processLock = new Object();
+
+        #region Properties & Events
+
+        // The MovieImporter object that should be used by all components of the plugin
+        public static MusicVideoImporter Importer
+        {
+            get
+            {
+                lock (importerLock)
+                {
+                    if (_importer == null)
+                        _importer = new MusicVideoImporter();
+                    return _importer;
+                }
+            }
+        } private static MusicVideoImporter _importer;
+
+        // The DatabaseManager that should be used by all components of the plugin.       
+        public static DatabaseManager DatabaseManager
+        {
+            get
+            {
+                lock (dbLock)
+                {
+                    if (_databaseManager == null)
+                        initDB();
+
+                    return _databaseManager;
+                }
+            }
+        }  private static DatabaseManager _databaseManager;
+
+        // The SettingsManager that should be used by all components of the plugin.
+        public static mvCentralSettings Settings
+        {
+            get
+            {
+                lock (settingsLock)
+                {
+                    if (_settings == null)
+                        _settings = new mvCentralSettings(DatabaseManager);
+
+                    return _settings;
+                }
+            }
+        } private static mvCentralSettings _settings = null;
+
+        public static DataProviderManager DataProviderManager
+        {
+            get
+            {
+                return DataProviderManager.GetInstance();
+            }
+        }
+
+        public static BackgroundProcessManager ProcessManager
+        {
+            get
+            {
+                lock (processLock)
+                {
+                    if (_processManager == null)
+                        _processManager = new BackgroundProcessManager();
+
+                    return _processManager;
+                }
+            }
+        } private static BackgroundProcessManager _processManager = null;
+
+ //       public static MovieBrowser Browser
+ //       {
+ //           get
+ //           {
+ //               return _browser;
+ //           }
+
+ //           internal set
+//            {
+//                _browser = value;
+//            }
+//        } private static MovieBrowser _browser = null;
+
+        // Settings from Media Portal
+        // Instead of calling this line whenever we need some MP setting we only define it once
+        // There isn't really a central MePo settings manager (or is there?)
+        public static MediaPortal.Profile.Settings MediaPortalSettings
+        {
+            get
+            {
+                MediaPortal.Profile.Settings mpSettings = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml"));
+                return mpSettings;
+            }
+        }
+
+        #endregion
+
+
+
+        private static mvCentralCore _instance = null;
+
+        // Constructor. Private because we are a singleton.
+        private mvCentralCore() { }
+
+
+        // Initializes the database connection to the Movies Plugin database
+        private static void initDB()
+        {
+            if (_databaseManager != null)
+                return;
+
+            string fullDBFileName = Config.GetFile(Config.Dir.Database, dbFileName);
+            _databaseManager = new DatabaseManager(fullDBFileName);
+
+            // check that we at least have a default user
+            List<DBUser> users = DBUser.GetAll();
+            if (users.Count == 0)
+            {
+                DBUser defaultUser = new DBUser();
+                defaultUser.Name = "Default User";
+                defaultUser.Commit();
+            }
+
+            // add all filter helpers
+ //           _databaseManager.AddFilterHelper<DBMovieInfo>(new FilterHelperDBMovieInfo());
+        }
+
+        private static void closeDB()
+        {
+            if (_databaseManager == null)
+                return;
+
+            _databaseManager.Close();
+        }        
+
+
+
+        // Initializes the logging system.
+        private static void InitLogger( RichTextBox rtb)
+        {
+            // backup the current log file and clear for the new one
+            try
+            {
+                FileInfo logFile = new FileInfo(Config.GetFile(Config.Dir.Log, logFileName));
+                if (logFile.Exists)
+                {
+                    if (File.Exists(Config.GetFile(Config.Dir.Log, oldLogFileName)))
+                        File.Delete(Config.GetFile(Config.Dir.Log, oldLogFileName));
+
+                    logFile.CopyTo(Config.GetFile(Config.Dir.Log, oldLogFileName));
+                    logFile.Delete();
+                }
+            }
+            catch (Exception) { }
+
+            // if no configuration exists go ahead and create one
+            if (LogManager.Configuration == null) LogManager.Configuration = new LoggingConfiguration();
+
+            // Get current Log Level from MediaPortal 
+            LogLevel logLevel;
+            MediaPortal.Profile.Settings xmlreader = MediaPortalSettings;
+            switch ((Level)xmlreader.GetValueAsInt("general", "loglevel", 0))
+            {
+                case Level.Error:
+                    logLevel = LogLevel.Error;
+                    break;
+                case Level.Warning:
+                    logLevel = LogLevel.Warn;
+                    break;
+                case Level.Information:
+                    logLevel = LogLevel.Info;
+                    break;
+                case Level.Debug:
+                default:
+                    logLevel = LogLevel.Debug;
+                    break;
+            }
+
+#if DEBUG
+            logLevel = LogLevel.Debug;
+#endif
+
+            // build the logging target for music videos logging
+            FileTarget mvLogTarget = new FileTarget();
+            mvLogTarget.Name = "music-videos";
+            mvLogTarget.FileName = Config.GetFile(Config.Dir.Log, logFileName);
+            mvLogTarget.Layout = "${date:format=dd-MMM-yyyy HH\\:mm\\:ss} " +
+                                "${level:fixedLength=true:padding=5} " +
+                                "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
+                                "${exception:format=tostring}";
+
+            LogManager.Configuration.AddTarget("music-videos", mvLogTarget);
+
+            if (rtb != null)
+            {
+                // Step 2. Create targets and add them to the configuration 
+                RichTextBoxTarget logTarget = new RichTextBoxTarget();
+                logTarget.Name = "rtb-log";
+                logTarget.ControlName = rtb.Name;
+                logTarget.FormName = rtb.FindForm().Name;
+                logTarget.Layout = "${date:format=dd-MMM-yyyy HH\\:mm\\:ss} " +
+                                    "${level:fixedLength=true:padding=5} " +
+                                    "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
+                                    "${exception:format=tostring}";
+                LogManager.Configuration.AddTarget("rtblog", logTarget);
+                // set the logging rules for music videos logging
+                LoggingRule logRule = new LoggingRule("*", logLevel, logTarget);
+                LogManager.Configuration.LoggingRules.Add(logRule);
+
+            }
+
+
+            // set the logging rules for Music Videos logging
+            LoggingRule mvRule = new LoggingRule("mvCentral.*", logLevel, mvLogTarget);
+            LoggingRule cornerstoneRule = new LoggingRule("Cornerstone.*", logLevel, mvLogTarget);
+            LogManager.Configuration.LoggingRules.Add(mvRule);
+            LogManager.Configuration.LoggingRules.Add(cornerstoneRule);
+
+
+
+            // force NLog to reload the configuration data
+            LogManager.Configuration = LogManager.Configuration;
+
+
+
+
+
+        }
+
+
+                //for production, replace all references in this method from "SettingsManagerNew" to "SettingsManager"
+        private static void initAdditionalSettings() {
+
+            if (Settings.AlbumArtFolder.Trim() == "")
+                Settings.AlbumArtFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Albums\\FullSize";
+
+            // create the albums folder if it doesn't already exist
+            if (!Directory.Exists(Settings.AlbumArtFolder))
+                Directory.CreateDirectory(Settings.AlbumArtFolder);
+
+            if (Settings.AlbumArtThumbsFolder.Trim() == "")
+                Settings.AlbumArtThumbsFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Albums\\Thumbs";
+
+            // create the thumbs folder if it doesn't already exist
+            if (!Directory.Exists(Settings.AlbumArtThumbsFolder))
+                Directory.CreateDirectory(Settings.AlbumArtThumbsFolder);
+
+            if (Settings.TrackArtFolder.Trim() == "")
+                Settings.TrackArtFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Tracks\\FullSize";
+
+            // create the tracks folder if it doesn't already exist
+            if (!Directory.Exists(Settings.TrackArtFolder))
+                Directory.CreateDirectory(Settings.TrackArtFolder);
+
+            if (Settings.TrackArtThumbsFolder.Trim() == "")
+                Settings.TrackArtThumbsFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Tracks\\Thumbs";
+
+            // create the thumbs folder if it doesn't already exist
+            if (!Directory.Exists(Settings.TrackArtThumbsFolder))
+                Directory.CreateDirectory(Settings.TrackArtThumbsFolder);
+
+            if (Settings.ArtistArtFolder.Trim() == "")
+                Settings.ArtistArtFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Artists\\FullSize";
+
+            // create the ArtistArt folder if it doesn't already exist
+            if (!Directory.Exists(Settings.ArtistArtFolder))
+                Directory.CreateDirectory(Settings.ArtistArtFolder);
+
+            if (Settings.ArtistArtThumbsFolder.Trim() == "")
+                Settings.ArtistArtThumbsFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Artists\\Thumbs";
+
+            // create the ArtistArt thumbs folder if it doesn't already exist
+            if (!Directory.Exists(Settings.ArtistArtThumbsFolder))
+                Directory.CreateDirectory(Settings.ArtistArtThumbsFolder);
+        }
+
+        private static void startBackgroundTasks() {
+            logger.Info("Starting Background Processes...");
+            ProcessManager.StartProcess(new MediaInfoUpdateProcess());
+            ProcessManager.StartProcess(new UpdateArtworkProcess());
+        }
+
+        private static void stopBackgroundTasks() {
+            logger.Info("Stopping Background Processes...");
+            
+            // Cancel background processes
+            if (_processManager != null)
+                _processManager.CancelAllProcesses();
+
+            _processManager = null;
+        }
+
+        private static void checkVersionInfo() {
+            // check if the version changed, and update the DB accordingly
+            Version realVer = Assembly.GetExecutingAssembly().GetName().Version;
+
+            if (realVer > GetDBVersionNumber()) {
+                Settings.Version = realVer.ToString();
+                Settings.DataProvidersInitialized = false;
+            }
+        }
+
+        public static Version GetDBVersionNumber() {
+            return new Version(Settings.Version);
+        }
+
+        // Centralized handler for PowerMode events, will in turn fire our own event where the other components hook into
+        private static void onSystemPowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == Microsoft.Win32.PowerModes.Resume)
+            {
+                logger.Info("mvCentral is resuming from standby");
+
+                // The database connection will be automatically reopened on first request
+                // so we don't have to explicitly open it again
+
+                // Start Device Manager
+                DeviceManager.StartMonitor();
+
+                // Start Background Tasks
+                startBackgroundTasks();
+
+                // Fire Event Resume
+                if (OnPowerEvent != null)
+                    OnPowerEvent(PowerEvent.Resume);
+
+            }
+            else if (e.Mode == Microsoft.Win32.PowerModes.Suspend)
+            {
+                logger.Info("mvCentral is suspending");
+
+                // Fire Event Suspend
+                if (OnPowerEvent != null)
+                    OnPowerEvent(PowerEvent.Suspend);
+
+                // Stop Background Tasks
+                stopBackgroundTasks();
+
+                // Stop Device Manager
+                DeviceManager.StopMonitor();
+
+                // Close DB Connection
+                closeDB();
+            }
+        }
+
+
+        private void InitLocalization()
+        {
+            logger.Info("Initializing localization");
+            Localization.Init();
+            Localization.TranslateSkin();
+        }
+
+
+        #region Public Methods
+
+        // Returns instance to this class as we only want to have one 
+        // in existance at a time.
+        public static mvCentralCore Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new mvCentralCore();
+
+                return _instance;
+            }
+        }
+
+
+        // Should be the first thing that is run whenever the plugin launches, either
+        // from the GUI or the Config Screen.
+        public void Initialize(RichTextBox rtb )
+        {
+            InitLogger(rtb);
+            Version ver = Assembly.GetExecutingAssembly().GetName().Version;
+            logger.Info(string.Format("mvCentral ({0}.{1}.{2}.{3})", ver.Major, ver.Minor, ver.Build, ver.Revision));
+            logger.Info("Plugin launched");
+
+
+            InitLocalization();
+            //            InitSettings();
+            //            InitPluginHandlers();
+            //            InitTorrentHandlers();
+
+            // Register Win32 PowerMode Event Handler
+            Microsoft.Win32.SystemEvents.PowerModeChanged += new Microsoft.Win32.PowerModeChangedEventHandler(onSystemPowerModeChanged);
+            DatabaseMaintenanceManager.MaintenanceProgress += new ProgressDelegate(DatabaseMaintenanceManager_MaintenanceProgress);
+
+
+            // setup the data structures sotring our list of startup actions
+            // we use this setup so we can easily add new tasks without having to 
+            // tweak any magic numbers for the progress bar / loading screen
+            List<WorkerDelegate> initActions = new List<WorkerDelegate>();
+            Dictionary<WorkerDelegate, string> actionDescriptions = new Dictionary<WorkerDelegate, string>();
+            WorkerDelegate newAction;
+
+            newAction = new WorkerDelegate(initAdditionalSettings);
+            actionDescriptions.Add(newAction, "Initializing Path Settings...");
+            initActions.Add(newAction);
+
+            newAction = new WorkerDelegate(DatabaseMaintenanceManager.UpdateImportPaths);
+            actionDescriptions.Add(newAction, "Updating Import Paths...");
+            initActions.Add(newAction);
+
+            newAction = new WorkerDelegate(checkVersionInfo);
+            actionDescriptions.Add(newAction, "Initializing Version Information...");
+            initActions.Add(newAction);
+
+            newAction = new WorkerDelegate(DataProviderManager.Initialize);
+            actionDescriptions.Add(newAction, "Initializing Data Provider Manager...");
+            initActions.Add(newAction);
+
+            newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyMusicVideoInformation);
+            actionDescriptions.Add(newAction, "Updating Movie Information...");
+            initActions.Add(newAction);
+
+//            newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyFilterMenu);
+//            actionDescriptions.Add(newAction, "Updating Filtering Menu...");
+//            initActions.Add(newAction);
+
+            // only perform this task when categories are enabled
+//            if (Settings.CategoriesEnabled) {
+//                newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyCategoryMenu);
+//                actionDescriptions.Add(newAction, "Updating Categories Menu...");
+//                initActions.Add(newAction);
+//            }
+
+            newAction = new WorkerDelegate(DeviceManager.StartMonitor);
+            actionDescriptions.Add(newAction, "Starting Device Monitor...");
+            initActions.Add(newAction);
+
+            // load all the above actions and notify any listeners of our progress
+            loadingProgress = 0;
+            loadingTotal = initActions.Count;
+            foreach (WorkerDelegate currAction in initActions) {
+                try {
+                    if (InitializeProgress != null) InitializeProgress(actionDescriptions[currAction], (int)(loadingProgress * 100 / loadingTotal));
+                    loadingProgressDescription = actionDescriptions[currAction];
+                    currAction();
+                }
+                catch (Exception ex) {
+                    // don't log error if the init was aborted on purpose
+                    if (ex.GetType() == typeof(ThreadAbortException))
+                        throw ex;
+
+                    logger.ErrorException("Error: ", ex);
+                }
+                finally {
+                    loadingProgress++;
+                }
+            }
+
+            if (InitializeProgress != null) InitializeProgress("Done!", 100);
+            
+            // stop listening
+            DatabaseMaintenanceManager.MaintenanceProgress -= new ProgressDelegate(DatabaseMaintenanceManager_MaintenanceProgress);
+
+            // Launch background tasks
+            mvCentralCore.Settings.AutoRetrieveMediaInfo = false;
+            startBackgroundTasks();
+
+        }
+
+        static void DatabaseMaintenanceManager_MaintenanceProgress(string actionName, int percentDone) {
+            int baseProgress = (int)(loadingProgress * 100 / loadingTotal);
+            if (InitializeProgress != null) InitializeProgress(loadingProgressDescription, baseProgress + (int)((float)percentDone / loadingTotal));
+        }
+
+        public static void Shutdown() {
+
+            // Unregister Win32 PowerMode Event Handler
+            Microsoft.Win32.SystemEvents.PowerModeChanged -= new Microsoft.Win32.PowerModeChangedEventHandler(onSystemPowerModeChanged);
+            
+            DeviceManager.StopMonitor();
+            
+            // Stop Importer
+            if (_importer != null)
+                _importer.Stop();
+
+            stopBackgroundTasks();
+
+            _importer = null;
+            _settings = null;
+            _databaseManager.Close();
+            _databaseManager = null;
+
+            logger.Info("Plugin Closed");
+
+
+        }
+
+        #endregion
+
+
+    }
+}
