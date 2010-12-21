@@ -8,7 +8,7 @@ using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
-
+using mvCentral.Database;
 
 namespace mvCentral.GUI
 {
@@ -32,17 +32,16 @@ namespace mvCentral.GUI
         /// <param name="items"></param>
         /// <param name="playNow"></param>
         /// <param name="clear"></param>
-        private void addToPlaylist(ArrayList items, bool playNow, bool clear, bool shuffle)
+        private void addToPlaylist(List<DBTrackInfo> items, bool playNow, bool clear, bool shuffle)
         {
             PlayList playlist = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
             if (clear)
             {
                 playlist.Clear();
             }
-//            foreach (mvDetails video in items)
+            foreach (DBTrackInfo video in items)
             {
-//                string artistName = dm.getArtist(int.Parse(video.ArtistID)).ToString();
-//                playlist.Add(new PlayListItem(artistName + " - " + video.ToString(), video.File));
+                playlist.Add(new PlayListItem(video.ArtistInfo[0].Artist + " - " + video.Track, video.LocalMedia[0].File.FullName));
             }
             listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
             if (shuffle)
@@ -67,11 +66,11 @@ namespace mvCentral.GUI
         {
             PlayList playlist = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
             playlist.Clear();
-//            ArrayList videos = dm.getAllVideos();
-//            foreach (mvDetails video in videos)
-//            {
-//                playlist.Add(new PlayListItem(video.Name, video.File));
-//            }
+            List<DBTrackInfo> videos = DBTrackInfo.GetAll();
+            foreach (DBTrackInfo video in videos)
+            {
+                playlist.Add(new PlayListItem(video.Track, video.LocalMedia[0].File.FullName));
+            }
             this.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
             playlist.Shuffle();
             this.listPlayer.Play(0);
