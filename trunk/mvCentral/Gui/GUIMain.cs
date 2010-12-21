@@ -15,8 +15,8 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using mvCentral.Database;
-
-
+using mvCentral;
+  
 namespace mvCentral.GUI
 {
     public partial class GUIMain : GUIWindow
@@ -77,10 +77,10 @@ namespace mvCentral.GUI
 
         public override bool Init()
         {
-            base.Init();
+            base.Init();   
             core.Initialize(null);
             logger.Info("Initializing GUI");
-            return Load(GUIGraphicsContext.Skin + @"\MusicVids.xml");
+            return Load(GUIGraphicsContext.Skin + @"\mvCentral.xml");
         }
 
         public override int GetID
@@ -118,9 +118,9 @@ namespace mvCentral.GUI
           GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
           if (dlgMenu != null)
           {
-              logger.Info("HERE");
+              logger.Info("HERE");  
              dlgMenu.Reset();
-//             dlgMenu.SetHeading(dm.getPluginName() + " - Context Menu");
+             dlgMenu.SetHeading(mvCentralCore.Settings.HomeScreenName + " - Context Menu");
              if (this.facade.Count > 0)
              {
                  dlgMenu.Add("Add to playlist");
@@ -183,7 +183,10 @@ namespace mvCentral.GUI
                         //Add to playlist
                         if (facade.ListView.SelectedListItem.IsFolder)
                         {
-//                            addToPlaylist(dm.getAllVideos(facade.ListView.SelectedListItem.ItemId), false, false, false);
+                            DBArtistInfo currArtist = DBArtistInfo.Get(artistID);
+                            List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
+ 
+                            addToPlaylist(list, false, false, false);
                         }
                         else
                         {
@@ -196,12 +199,16 @@ namespace mvCentral.GUI
                     case 1:
                         if (facade.ListView.SelectedListItem.IsFolder)
                         {
-//                            addToPlaylist(dm.getAllVideos(), true, true, false);
+                            // addToPlaylist(dm.getAllVideos(), true, true, false);
                         }
                         else
                         {
-//                            if (artistID != 0)
-//                                addToPlaylist(dm.getAllVideos(artistID), false, false, false);
+                            if (artistID != 0)
+                            {
+                                DBArtistInfo currArtist = DBArtistInfo.Get(artistID);
+                                List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
+                                addToPlaylist(list, false, false, false);
+                            }
                         }
                         break;
                     case 2:
@@ -263,20 +270,19 @@ namespace mvCentral.GUI
         {
             currentView = View.Artist;
             
-            GUIPropertyManager.SetProperty("#MusicVids.Hierachy", "Artists");
+            GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists");
             GUIPropertyManager.Changed = true;
-//            ArrayList list = dm.getAllArtists();
+            List<DBArtistInfo> list = DBArtistInfo.GetAll();
             ArrayList state = new ArrayList();
             facade.Clear();
-//            for (int i = 0; i < list.Count; i++)
+            foreach(DBArtistInfo db1 in list)
             {
                 GUIListItem item = new GUIListItem();
-//                Artist currArtist = (Artist)list[i];
-//                item.Label = currArtist.ToString();
-//                item.ThumbnailImage = currArtist.Image;
-//                item.TVTag = currArtist.Bio;
-//                item.AlbumInfoTag = currArtist.Bio;
-//                item.ItemId = int.Parse(currArtist.ID);               
+                item.Label = db1.Artist;
+                item.ThumbnailImage = db1.ArtThumbFullPath;
+                item.TVTag = db1.bioContent;
+                item.AlbumInfoTag = db1.bioContent;
+                item.ItemId = (int)db1.ID;               
                 item.IsFolder = true;
                 item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
                 facade.Add(item);
@@ -294,26 +300,25 @@ namespace mvCentral.GUI
         private void LoadVideos(int ArtistID)
         {
             currentView = View.Video;
-//            GUIPropertyManager.SetProperty("#MusicVids.Hierachy", "Artists | " + dm.getArtist(ArtistID).ToString());
+            GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists | " + DBArtistInfo.Get(ArtistID));
             GUIPropertyManager.Changed = true;
-//            ArrayList list = dm.getAllVideos(ArtistID);
-//            Artist currArtist = dm.getArtist(ArtistID);
+            DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
+            List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
             this.artistID = ArtistID;
             facade.Clear();
-            facade.Add(new GUIListItem(".."));           
-//            for (int i = 0; i < list.Count; i++)
-//            {
-//                GUIListItem item = new GUIListItem();
-//                mvDetails currVideo = (mvDetails)list[i];
-//                item.Label = currVideo.ToString();
-//                item.ThumbnailImage = currVideo.Thumbnail;
-//                item.TVTag = currArtist.Bio;
-//                selArtist = currArtist.ToString();
-//                item.Path = currVideo.File;
-//                item.IsFolder = false;
-//                item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
-//                facade.Add(item);
-//            }
+            facade.Add(new GUIListItem(".."));
+            foreach(DBTrackInfo db1 in list)
+            {
+                GUIListItem item = new GUIListItem();
+                item.Label = db1.Track;
+                item.ThumbnailImage = db1.ArtThumbFullPath;
+                item.TVTag = db1.bioContent;
+                selArtist = currArtist.Artist;
+                item.Path = db1.LocalMedia[0].File.FullName;
+                item.IsFolder = false;
+                item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
+                facade.Add(item);
+            }
             if (facade.Count > 0 && ! persisting)
             {
                 onVideoSelected(facade.ListView.ListItems[0], facade);
@@ -323,16 +328,16 @@ namespace mvCentral.GUI
 
         void onArtistSelected(GUIListItem item, GUIControl parent)
         {
- //           GUIPropertyManager.SetProperty("#MusicVids.ArtistBio", dm.getBio(item.ItemId));
-            GUIPropertyManager.SetProperty("#MusicVids.ArtistName", item.Label);
-            GUIPropertyManager.SetProperty("#MusicVids.ArtistImg", item.ThumbnailImage);
+            GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
+            GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
+            GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
             GUIPropertyManager.Changed = true;
             lastItemArt = facade.ListView.SelectedListItemIndex;
         }
 
         void onVideoSelected(GUIListItem item, GUIControl parent)
         {
-            GUIPropertyManager.SetProperty("#MusicVids.VideoImg", item.ThumbnailImage);
+            GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
             GUIPropertyManager.Changed = true;
             if (item.Label != "..")
             {
