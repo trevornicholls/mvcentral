@@ -22,7 +22,7 @@ using Cornerstone.Extensions;
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using NLog;
-using SQLite.NET;
+//using SQLite.NET;
 
 using mvCentral.Database;
 using mvCentral.Properties;
@@ -61,7 +61,7 @@ namespace mvCentral {
         delegate void ClearDGVCallback();
 
         //mainpanel
-        SQLiteResultSet rs;
+//        SQLiteResultSet rs;
 
 
 
@@ -118,6 +118,7 @@ namespace mvCentral {
             artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
             albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
             trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
+            fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
         }
 
         #region ISetupForm Members
@@ -1932,6 +1933,7 @@ namespace mvCentral {
 
             //            artistDetailsList.Enabled = false;
             trackDetailsList.DatabaseObject = CurrentTrack;
+            fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
             //            artistDetailsList.Enabled = true;
 
             //            sendToImporterToolStripMenuItem.Enabled = true;
@@ -2553,6 +2555,11 @@ namespace mvCentral {
         {
             automaticMediaInfoMenuItem.Checked = !automaticMediaInfoMenuItem.Checked;
             mvCentralCore.Settings.AutoRetrieveMediaInfo = automaticMediaInfoMenuItem.Checked;
+        }
+
+        private void btnShowFileDetails_Click(object sender, EventArgs e)
+        {
+            scTrackDetails.Panel2Collapsed = !scTrackDetails.Panel2Collapsed;
         }
 
  
