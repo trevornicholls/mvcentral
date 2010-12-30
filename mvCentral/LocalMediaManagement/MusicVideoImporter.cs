@@ -1600,7 +1600,7 @@ namespace mvCentral.LocalMediaManagement
             }
         }
 
-        private void AssignAndCommit(MusicVideoMatch match, bool update) {
+        public void AssignAndCommit(MusicVideoMatch match, bool update) {
             lock (match) {
                 // if we already have a mv object with assigned files, just update
                 if (match.ExistingMusicVideoInfo != null && update) {
@@ -1625,10 +1625,12 @@ namespace mvCentral.LocalMediaManagement
             }
         }
 
-        private void UpdateMediaInfo(MusicVideoMatch match) {
+        public void UpdateMediaInfo(MusicVideoMatch match) {
             foreach (DBLocalMedia currFile in match.LocalMedia) {
                 currFile.UpdateMediaInfo();
                 currFile.Commit();
+                match.Selected.MusicVideo.PlayTime = new TimeSpan((long)currFile.Duration * 10000).ToString();
+                match.Selected.MusicVideo.Commit();
             }
         }
 

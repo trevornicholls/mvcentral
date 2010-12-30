@@ -54,12 +54,13 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Core, Version=1.1.1.11854, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Core, Version=1.1.6.7736, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1\Core.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.1.2\Core.dll</HintPath>
     </Reference>
-    <Reference Include="Databases">
-      <HintPath>..\External\mediaportal\v1.1\Databases.dll</HintPath>
+    <Reference Include="Databases, Version=1.1.5.2998, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\mediaportal\v1.1.2\Databases.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -82,7 +83,7 @@
   <ItemGroup>
     <ProjectReference Include="..\mvCentral\mvCentral.csproj">
       <Project>{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}</Project>
-      <Name>MusicVideos</Name>
+      <Name>mvCentral</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

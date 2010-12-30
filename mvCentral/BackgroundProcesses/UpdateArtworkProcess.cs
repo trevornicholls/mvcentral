@@ -107,7 +107,7 @@ namespace mvCentral.BackgroundProcesses
 
                         currMusicVideo.Commit();
                     }
-                    if (currMusicVideo.AlbumInfo[0].ArtFullPath.Trim().Length == 0)
+                    if (currMusicVideo.AlbumInfo.Count>0 && currMusicVideo.AlbumInfo[0].ArtFullPath.Trim().Length == 0)
                     {
                         //                        new LocalProvider().GetArtistArt(currMusicVideo.ArtistInfo[0]);
                         mvCentralCore.DataProviderManager.GetAlbumArt(currMusicVideo.AlbumInfo[0]);

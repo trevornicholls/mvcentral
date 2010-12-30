@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO;
+using System.Threading;
 
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
@@ -16,6 +17,7 @@ using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using mvCentral.Database;
 using mvCentral;
+using mvCentral.LocalMediaManagement;
   
 namespace mvCentral.GUI
 {
@@ -25,7 +27,15 @@ namespace mvCentral.GUI
         private mvCentralCore core = mvCentralCore.Instance;
 //        DatabaseManager dm = mvCentralCore.DatabaseManager;
 
-        private Timer checkTrack = new Timer();
+        private bool initComplete = false;
+        private Thread initThread;
+        private bool preventDialogOnLoad = false;
+
+        Dictionary<string, bool> loggedProperties;
+        private readonly object propertySync = new object();
+
+
+        private System.Windows.Forms.Timer checkTrack = new System.Windows.Forms.Timer();
         private string lastTrack = "";
 
         [SkinControlAttribute(2)] protected GUIButtonControl buttonOne = null;
@@ -78,9 +88,50 @@ namespace mvCentral.GUI
         public override bool Init()
         {
             base.Init();   
-            core.Initialize(null);
-            logger.Info("Initializing GUI");
-            return Load(GUIGraphicsContext.Skin + @"\mvCentral.xml");
+            logger.Info("Initializing GUI...");
+
+            // check if we can load the skin
+            bool success = Load(GUIGraphicsContext.Skin + @"\mvCentral.xml");
+
+            // get last active module settings 
+            bool lastActiveModuleSetting = mvCentralCore.MediaPortalSettings.GetValueAsBool("general", "showlastactivemodule", false);
+            int lastActiveModule = mvCentralCore.MediaPortalSettings.GetValueAsInt("general", "lastactivemodule", -1);
+            preventDialogOnLoad = (lastActiveModuleSetting && (lastActiveModule == GetID));
+
+            // set some skin properties
+            SetProperty("#mvCentral.Settings.HomeScreenName", mvCentralCore.Settings.HomeScreenName);
+
+            // start initialization of the moving pictures core services in a seperate thread
+            RichTextBox rtb = null;
+            initThread = new Thread(new ThreadStart(mvCentralCore.Initialize));
+            initThread.Start();
+
+            // ... and listen to the progress
+            mvCentralCore.InitializeProgress += new ProgressDelegate(onCoreInitializationProgress);
+
+            return success;
+
+
+        }
+
+        public override void DeInit()
+        {
+            base.DeInit();
+
+            logger.Info("Deinitializing GUI...");
+
+            // if the plugin was not fully initialized yet
+            // abort the initialization
+            if (!initComplete && initThread.IsAlive)
+            {
+                initThread.Abort();
+                // wait for the thread to be aborted
+                initThread.Join();
+            }
+
+            mvCentralCore.Shutdown();
+            initComplete = false;
+            logger.Info("GUI Deinitialization Complete");
         }
 
         public override int GetID
@@ -93,7 +144,172 @@ namespace mvCentral.GUI
             set
             {
             }
-        }      
+        }
+
+
+        #region Skin and Property Settings
+
+        public void SetProperty(string property, string value)
+        {
+            SetProperty(property, value, false);
+        }
+
+        public void SetProperty(string property, string value, bool forceLogging)
+        {
+            if (property == null)
+                return;
+
+            if (mvCentralCore.Settings.LogAllSkinPropertyChanges)
+                forceLogging = true;
+
+            try
+            {
+                lock (propertySync)
+                {
+
+                    if (loggedProperties == null)
+                        loggedProperties = new Dictionary<string, bool>();
+
+                    if (!loggedProperties.ContainsKey(property) || forceLogging)
+                    {
+                        logger.Debug(property + " = \"" + value + "\"");
+                        loggedProperties[property] = true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                if (e is ThreadAbortException)
+                    throw e;
+
+                logger.Warn("Internal .NET error from dictionary class!");
+            }
+
+            // If the value is empty add a space
+            // otherwise the property will keep 
+            // displaying it's previous value
+            if (String.IsNullOrEmpty(value))
+                GUIPropertyManager.SetProperty(property, " ");
+
+            GUIPropertyManager.SetProperty(property, value);
+        }
+
+        /// <summary>
+        /// Resets the property values for every key that starts with the given string
+        /// </summary>
+        /// <param name="startsWith">the prefix to reset</param>
+        public void ResetProperties(string startsWith)
+        {
+            logger.Debug("Resetting properties: {0}", startsWith);
+            foreach (string key in loggedProperties.Keys)
+            {
+                if (key.StartsWith(startsWith))
+                    SetProperty(key, "");
+            }
+        }
+        #endregion
+
+        #region Loading and initialization
+
+        private void showLoadingDialog()
+        {
+/*            initDialog = (GUIDialogProgress)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_PROGRESS);
+            initDialog.Reset();
+            initDialog.ShowProgressBar(true);
+            initDialog.SetHeading("Loading Moving Pictures");
+            initDialog.SetLine(1, string.Empty);
+            initDialog.SetLine(2, initProgressLastAction);
+            initDialog.SetPercentage(initProgressLastPercent);
+            initDialog.Progress();
+            initDialog.DoModal(GetID);
+*/        }
+
+        private void onCoreInitializationProgress(string actionName, int percentDone)
+        {
+
+            // Update the progress variables
+            if (percentDone == 100)
+            {
+                actionName = "Loading GUI ...";
+            }
+//            initProgressLastAction = actionName;
+//            initProgressLastPercent = percentDone;
+
+            // If the progress dialog exists, update it.
+//            if (initDialog != null)
+//            {
+//                initDialog.SetLine(2, initProgressLastAction);
+//                initDialog.SetPercentage(initProgressLastPercent);
+//                initDialog.Progress();
+//            }
+
+            // When we are finished initializing
+            if (percentDone == 100)
+            {
+
+                // Start the background importer
+                if (mvCentralCore.Settings.EnableImporterInGUI)
+                {
+//                    mvCentralCore.Importer.Start();
+//                    mvCentralCore.Importer.Progress += new MusicVideoImporter.ImportProgressHandler(Importer_Progress);
+                }
+
+                // Load skin based settings from skin file
+//                skinSettings = new mvCentralSkinSettings(_windowXmlFileName);
+
+                // Get Moving Pictures specific autoplay setting
+                try
+                {
+//                    diskInsertedAction = (DiskInsertedAction)Enum.Parse(typeof(DiskInsertedAction), mvCentralCore.Settings.DiskInsertionBehavior);
+                }
+                catch
+                {
+//                    diskInsertedAction = DiskInsertedAction.DETAILS;
+                }
+
+                // setup the image resources for cover and backdrop display
+                int artworkDelay = mvCentralCore.Settings.ArtworkLoadingDelay;
+
+                // setup the time for the random category backdrop refresh
+/*                activeMovieLookup.Timeout = new TimeSpan(0, 0, mvCentralCore.Settings.CategoryRandomArtworkRefreshInterval);
+
+                // create backdrop image swapper
+                backdrop = new ImageSwapper();
+                backdrop.ImageResource.Delay = artworkDelay;
+                backdrop.PropertyOne = "#mvCentral.Backdrop";
+
+                // create cover image swapper
+                cover = new AsyncImageResource();
+                cover.Property = "#mvCentral.Coverart";
+                cover.Delay = artworkDelay;
+
+
+
+                // instantiate player
+                moviePlayer = new MoviePlayer(this);
+                moviePlayer.MovieEnded += new MoviePlayerEvent(onMovieEnded);
+                moviePlayer.MovieStopped += new MoviePlayerEvent(onMovieStopped);
+
+                // Listen to the DeviceManager for external media activity (i.e. disks inserted)
+                logger.Debug("Listening for device changes.");
+                DeviceManager.OnVolumeInserted += new DeviceManager.DeviceManagerEvent(OnVolumeInserted);
+                DeviceManager.OnVolumeRemoved += new DeviceManager.DeviceManagerEvent(OnVolumeRemoved);
+
+                // Flag that the GUI is initialized
+*/                initComplete = true;
+
+                // If the initDialog is present close it
+//                if (initDialog != null)
+//                {
+//                    initDialog.Close();
+//                }
+
+                // Report that we completed the init
+                logger.Info("GUI Initialization Complete");
+            }
+        }
+
+        #endregion
 
         private enum View
         {

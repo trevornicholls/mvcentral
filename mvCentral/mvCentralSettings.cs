@@ -18,6 +18,23 @@ namespace mvCentral.Settings {
         #region Tweaks
 
         [CornerstoneSetting(
+            Name = "Default FPS",
+            Description = "The number of default FPS used by the DVD Extractor.",
+            Groups = "|MusicVideo Importer|Tweaks|",
+            Identifier = "importer_default_fps",
+            Default = 25)]
+        public int DefaultFPS
+        {
+            get { return _defaultfps; }
+            set
+            {
+                _defaultfps = value;
+                OnSettingChanged("importer_default_fps");
+            }
+        }
+        private int _defaultfps;
+
+        [CornerstoneSetting(
             Name = "Thread Count",
             Description = "The number of threads retrieving move details for local media. A higher number uses more system resources, but can help with slow data providers. Do not set this value higher than 10 threads.",
             Groups = "|MusicVideo Importer|Tweaks|",
