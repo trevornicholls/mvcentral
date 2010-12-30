@@ -402,7 +402,7 @@ namespace mvCentral
         }
 
 
-        private void InitLocalization()
+        private static void InitLocalization()
         {
             logger.Info("Initializing localization");
             Localization.Init();
@@ -425,10 +425,14 @@ namespace mvCentral
             }
         }
 
+        public static void Initialize()
+        {
+            Initialize(null);
+        }
 
         // Should be the first thing that is run whenever the plugin launches, either
         // from the GUI or the Config Screen.
-        public void Initialize(RichTextBox rtb )
+        public static void Initialize(RichTextBox rtb )
         {
             InitLogger(rtb);
             Version ver = Assembly.GetExecutingAssembly().GetName().Version;
@@ -515,7 +519,7 @@ namespace mvCentral
             DatabaseMaintenanceManager.MaintenanceProgress -= new ProgressDelegate(DatabaseMaintenanceManager_MaintenanceProgress);
 
             // Launch background tasks
-            mvCentralCore.Settings.AutoRetrieveMediaInfo = false;
+            mvCentralCore.Settings.AutoRetrieveMediaInfo = true;
             startBackgroundTasks();
 
         }

@@ -68,9 +68,9 @@
             this.tsmfromMusicVideo = new System.Windows.Forms.ToolStripMenuItem();
             this.fromOnlinjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmGrabFrame = new System.Windows.Forms.ToolStripMenuItem();
-            this.artworkProgressBar = new System.Windows.Forms.ProgressBar();
             this.lblArtResolution = new System.Windows.Forms.Label();
             this.lblArtNum = new System.Windows.Forms.Label();
+            this.artworkProgressBar = new System.Windows.Forms.ProgressBar();
             this.artImage = new System.Windows.Forms.PictureBox();
             this.coverToolStrip = new System.Windows.Forms.ToolStrip();
             this.btnPrevArt = new System.Windows.Forms.ToolStripButton();
@@ -86,6 +86,8 @@
             this.albumDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
             this.tpTrack = new System.Windows.Forms.TabPage();
             this.scTrackDetails = new System.Windows.Forms.SplitContainer();
+            this.fileDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
+            this.btnShowFileDetails = new System.Windows.Forms.Button();
             this.trackDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
             this.tpImport = new System.Windows.Forms.TabPage();
             this.tcImport = new System.Windows.Forms.TabControl();
@@ -168,7 +170,6 @@
             this.tpAbout = new System.Windows.Forms.TabPage();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LabelFFMpeg = new System.Windows.Forms.LinkLabel();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
@@ -197,8 +198,6 @@
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ArtFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnShowFileDetails = new System.Windows.Forms.Button();
-            this.fileDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
             this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -517,15 +516,6 @@
             this.tsmGrabFrame.Text = "Play / Grab Frame";
             this.tsmGrabFrame.Click += new System.EventHandler(this.btnPlay_Click);
             // 
-            // artworkProgressBar
-            // 
-            this.artworkProgressBar.Location = new System.Drawing.Point(19, 130);
-            this.artworkProgressBar.Name = "artworkProgressBar";
-            this.artworkProgressBar.Size = new System.Drawing.Size(202, 18);
-            this.artworkProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.artworkProgressBar.TabIndex = 18;
-            this.artworkProgressBar.Visible = false;
-            // 
             // lblArtResolution
             // 
             this.lblArtResolution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -546,6 +536,15 @@
             this.lblArtNum.Size = new System.Drawing.Size(22, 12);
             this.lblArtNum.TabIndex = 16;
             this.lblArtNum.Text = "1 / 3";
+            // 
+            // artworkProgressBar
+            // 
+            this.artworkProgressBar.Location = new System.Drawing.Point(19, 130);
+            this.artworkProgressBar.Name = "artworkProgressBar";
+            this.artworkProgressBar.Size = new System.Drawing.Size(202, 18);
+            this.artworkProgressBar.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.artworkProgressBar.TabIndex = 18;
+            this.artworkProgressBar.Visible = false;
             // 
             // artImage
             // 
@@ -573,7 +572,7 @@
             this.coverToolStrip.Location = new System.Drawing.Point(189, 31);
             this.coverToolStrip.Name = "coverToolStrip";
             this.coverToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.coverToolStrip.Size = new System.Drawing.Size(24, 94);
+            this.coverToolStrip.Size = new System.Drawing.Size(32, 113);
             this.coverToolStrip.TabIndex = 14;
             // 
             // btnPrevArt
@@ -582,7 +581,7 @@
             this.btnPrevArt.Image = global::mvCentral.Properties.Resources.resultset_previous;
             this.btnPrevArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrevArt.Name = "btnPrevArt";
-            this.btnPrevArt.Size = new System.Drawing.Size(22, 20);
+            this.btnPrevArt.Size = new System.Drawing.Size(30, 20);
             this.btnPrevArt.Text = "toolStripButton2";
             this.btnPrevArt.ToolTipText = "Previous Art";
             this.btnPrevArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -593,7 +592,7 @@
             this.btnNextArt.Image = global::mvCentral.Properties.Resources.resultset_next;
             this.btnNextArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNextArt.Name = "btnNextArt";
-            this.btnNextArt.Size = new System.Drawing.Size(22, 20);
+            this.btnNextArt.Size = new System.Drawing.Size(30, 20);
             this.btnNextArt.Text = "toolStripButton3";
             this.btnNextArt.ToolTipText = "Next Art";
             this.btnNextArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -604,7 +603,7 @@
             this.btnArtDelete.Image = global::mvCentral.Properties.Resources.cross;
             this.btnArtDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtDelete.Name = "btnArtDelete";
-            this.btnArtDelete.Size = new System.Drawing.Size(22, 20);
+            this.btnArtDelete.Size = new System.Drawing.Size(30, 20);
             this.btnArtDelete.Text = "toolStripButton2";
             this.btnArtDelete.ToolTipText = "Delete Art";
             this.btnArtDelete.Click += new System.EventHandler(this.btnArtDelete_Click);
@@ -615,7 +614,7 @@
             this.btnArtZoom.Image = global::mvCentral.Properties.Resources.zoom;
             this.btnArtZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtZoom.Name = "btnArtZoom";
-            this.btnArtZoom.Size = new System.Drawing.Size(22, 20);
+            this.btnArtZoom.Size = new System.Drawing.Size(30, 20);
             this.btnArtZoom.Text = "toolStripButton2";
             this.btnArtZoom.ToolTipText = "Zoom Art";
             this.btnArtZoom.Click += new System.EventHandler(this.btnArtZoom_Click);
@@ -735,6 +734,26 @@
             this.scTrackDetails.Size = new System.Drawing.Size(381, 340);
             this.scTrackDetails.SplitterDistance = 10;
             this.scTrackDetails.TabIndex = 0;
+            // 
+            // fileDetailsList
+            // 
+            this.fileDetailsList.DatabaseObject = null;
+            this.fileDetailsList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fileDetailsList.Location = new System.Drawing.Point(0, 0);
+            this.fileDetailsList.Name = "fileDetailsList";
+            this.fileDetailsList.Size = new System.Drawing.Size(381, 0);
+            this.fileDetailsList.TabIndex = 98;
+            // 
+            // btnShowFileDetails
+            // 
+            this.btnShowFileDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnShowFileDetails.Image = global::mvCentral.Properties.Resources.arrow_up_small;
+            this.btnShowFileDetails.Location = new System.Drawing.Point(0, -5);
+            this.btnShowFileDetails.Name = "btnShowFileDetails";
+            this.btnShowFileDetails.Size = new System.Drawing.Size(381, 15);
+            this.btnShowFileDetails.TabIndex = 97;
+            this.btnShowFileDetails.UseVisualStyleBackColor = true;
+            this.btnShowFileDetails.Click += new System.EventHandler(this.btnShowFileDetails_Click);
             // 
             // trackDetailsList
             // 
@@ -1089,7 +1108,7 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(578, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(578, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -1139,7 +1158,7 @@
             this.approveButton.Image = global::mvCentral.Properties.Resources.OK;
             this.approveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.approveButton.Name = "approveButton";
-            this.approveButton.Size = new System.Drawing.Size(23, 23);
+            this.approveButton.Size = new System.Drawing.Size(23, 22);
             this.approveButton.Text = "toolStripButton1";
             this.approveButton.ToolTipText = "Approve Selected File(s)";
             this.approveButton.Click += new System.EventHandler(this.approveButton_Click);
@@ -1150,7 +1169,7 @@
             this.manualAssignButton.Image = global::mvCentral.Properties.Resources.page_white_edit;
             this.manualAssignButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.manualAssignButton.Name = "manualAssignButton";
-            this.manualAssignButton.Size = new System.Drawing.Size(23, 23);
+            this.manualAssignButton.Size = new System.Drawing.Size(23, 22);
             this.manualAssignButton.Text = "manualAssignButton";
             this.manualAssignButton.ToolTipText = "Add as Blank (Editable) Movie";
             this.manualAssignButton.Click += new System.EventHandler(this.manualAssignButton_Click);
@@ -1158,7 +1177,7 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // rescanButton
             // 
@@ -1166,7 +1185,7 @@
             this.rescanButton.Image = global::mvCentral.Properties.Resources.find;
             this.rescanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rescanButton.Name = "rescanButton";
-            this.rescanButton.Size = new System.Drawing.Size(23, 23);
+            this.rescanButton.Size = new System.Drawing.Size(23, 22);
             this.rescanButton.Text = "toolStripButton1";
             this.rescanButton.ToolTipText = "Rescan Selected File(s) with Custom Search String";
             this.rescanButton.Click += new System.EventHandler(this.rescanButton_Click);
@@ -1177,7 +1196,7 @@
             this.splitJoinButton.Image = global::mvCentral.Properties.Resources.arrow_divide;
             this.splitJoinButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.splitJoinButton.Name = "splitJoinButton";
-            this.splitJoinButton.Size = new System.Drawing.Size(23, 23);
+            this.splitJoinButton.Size = new System.Drawing.Size(23, 22);
             this.splitJoinButton.Text = "toolStripButton1";
             this.splitJoinButton.ToolTipText = "Split Selected File Group";
             this.splitJoinButton.Click += new System.EventHandler(this.splitJoinButton_Click);
@@ -1185,7 +1204,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // ignoreButton
             // 
@@ -1193,14 +1212,14 @@
             this.ignoreButton.Image = global::mvCentral.Properties.Resources.cross;
             this.ignoreButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ignoreButton.Name = "ignoreButton";
-            this.ignoreButton.Size = new System.Drawing.Size(23, 23);
+            this.ignoreButton.Size = new System.Drawing.Size(23, 22);
             this.ignoreButton.Text = "toolStripButton2";
             this.ignoreButton.ToolTipText = "Ignore Selected File(s)";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // settingsButton
             // 
@@ -1212,7 +1231,7 @@
             this.settingsButton.Image = global::mvCentral.Properties.Resources.cog;
             this.settingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(32, 23);
+            this.settingsButton.Size = new System.Drawing.Size(32, 22);
             this.settingsButton.ToolTipText = "Advanced Actions";
             this.settingsButton.ButtonClick += new System.EventHandler(this.settingsButton_ButtonClick);
             // 
@@ -1243,7 +1262,7 @@
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.ToolTipText = "Help";
             // 
             // unapprovedGrid
@@ -1748,7 +1767,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.LabelFFMpeg);
             this.groupBox1.Controls.Add(this.label17);
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label19);
@@ -1767,17 +1785,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "About  ";
             // 
-            // LabelFFMpeg
-            // 
-            this.LabelFFMpeg.AutoSize = true;
-            this.LabelFFMpeg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LabelFFMpeg.Location = new System.Drawing.Point(241, 130);
-            this.LabelFFMpeg.Name = "LabelFFMpeg";
-            this.LabelFFMpeg.Size = new System.Drawing.Size(46, 13);
-            this.LabelFFMpeg.TabIndex = 30;
-            this.LabelFFMpeg.TabStop = true;
-            this.LabelFFMpeg.Text = "FFMpeg";
-            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -1793,9 +1800,9 @@
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.Location = new System.Drawing.Point(12, 62);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(298, 13);
+            this.label18.Size = new System.Drawing.Size(387, 13);
             this.label18.TabIndex = 27;
-            this.label18.Text = "Based on My Music Videos code . Many thanks to Metalla_nz";
+            this.label18.Text = "Based on MP-TV-series /Moving Pictures code . Many thanks to the developers.";
             // 
             // label19
             // 
@@ -2031,26 +2038,6 @@
             // 
             this.ArtFileDialog.Filter = "\"Image Files|*.jpg;*.png;*.bmp;*.gif\"";
             // 
-            // btnShowFileDetails
-            // 
-            this.btnShowFileDetails.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnShowFileDetails.Image = global::mvCentral.Properties.Resources.arrow_up_small;
-            this.btnShowFileDetails.Location = new System.Drawing.Point(0, -5);
-            this.btnShowFileDetails.Name = "btnShowFileDetails";
-            this.btnShowFileDetails.Size = new System.Drawing.Size(381, 15);
-            this.btnShowFileDetails.TabIndex = 97;
-            this.btnShowFileDetails.UseVisualStyleBackColor = true;
-            this.btnShowFileDetails.Click += new System.EventHandler(this.btnShowFileDetails_Click);
-            // 
-            // fileDetailsList
-            // 
-            this.fileDetailsList.DatabaseObject = null;
-            this.fileDetailsList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.fileDetailsList.Location = new System.Drawing.Point(0, 0);
-            this.fileDetailsList.Name = "fileDetailsList";
-            this.fileDetailsList.Size = new System.Drawing.Size(381, 0);
-            this.fileDetailsList.TabIndex = 98;
-            // 
             // fileNameDataGridViewTextBoxColumn
             // 
             this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
@@ -2215,7 +2202,6 @@
         private System.Windows.Forms.TabPage tpAbout;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.LinkLabel LabelFFMpeg;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;

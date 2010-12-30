@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
 using NLog;
 using mvCentral.Localizations;
+using System;
 
 namespace mvCentral.Utils {
     public static class GUIUtils {
@@ -85,7 +85,7 @@ namespace mvCentral.Utils {
                 if (linesArray.Length > 3) dlgYesNo.SetLine(4, linesArray[3]);
                 dlgYesNo.SetDefaultToYes(defaultYes);
 
-                foreach (System.Windows.UIElement item in dlgYesNo.Children) {
+                foreach (System.Windows.IFrameworkInputElement item in dlgYesNo.Children) {
                     if (item is GUIButtonControl) {
                         GUIButtonControl btn = (GUIButtonControl)item;
                         if (btn.GetID == 11 && !string.IsNullOrEmpty(yesLabel)) // Yes button
@@ -176,7 +176,7 @@ namespace mvCentral.Utils {
 
                 pDlgNotify.SetText(text);
 
-                foreach (System.Windows.UIElement item in pDlgNotify.Children) {
+                foreach (System.Windows.IFrameworkInputElement item in pDlgNotify.Children) {
                     if (item is GUIButtonControl) {
                         GUIButtonControl btn = (GUIButtonControl)item;
                         if (btn.GetID == 4 && !string.IsNullOrEmpty(buttonText) && !string.IsNullOrEmpty(btn.Label)) 

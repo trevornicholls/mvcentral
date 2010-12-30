@@ -7,11 +7,12 @@ using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
-
+using mvCentral.Player;
 namespace mvCentral.GUI
 {
     public partial class GUIMain : GUIWindow
     {
+
         private void VideoActions(Action.ActionType actionType)
         {
             if (actionType == Action.ActionType.ACTION_PLAY || actionType == Action.ActionType.ACTION_SELECT_ITEM)
@@ -26,7 +27,9 @@ namespace mvCentral.GUI
                 {
                     //Play currently selected and activate video window
                     string vidPath = facade.ListView.SelectedListItem.Path;
+//                   IPlayerFactory tt = mv_Player.Factory;
                     g_Player.Play(vidPath, g_Player.MediaType.Video);
+//                    mv_Player.Play(vidPath);
                     GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
                 }
             }

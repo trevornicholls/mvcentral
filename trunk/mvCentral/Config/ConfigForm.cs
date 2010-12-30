@@ -32,6 +32,7 @@ using mvCentral.ConfigScreen.Popups;
 using mvCentral.LocalMediaManagement;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
+using mvCentral.Extractors;
 using System.Threading;
 
 namespace mvCentral {
@@ -46,7 +47,6 @@ namespace mvCentral {
         private delegate void InvokeDelegate();
 
 //        DatabaseManager dm = mvCentralCore.DatabaseManager;
-        private mvCentralCore core = mvCentralCore.Instance;
 //        private SettingsSites RTSites = new SettingsSites();
 //        private SettingsTVSeries RTTVSeries = new SettingsTVSeries();
 //        private AddConfigForm asf = new AddConfigForm();
@@ -238,7 +238,7 @@ namespace mvCentral {
 
             if (action == MusicVideoImporterAction.COMMITED)
             {
-                ReloadList();
+               ReloadList();
             }
 
             if (action == MusicVideoImporterAction.MANUAL)
@@ -373,8 +373,8 @@ namespace mvCentral {
         private void ConfigForm_Load(object sender, EventArgs e)
         {
 
-            //needs to be here otherwise nlog won't use the richtextbox for logging. 
-            core.Initialize(this.rtbLog);
+            //needs to be here otherwise nlog won't use the richtextbox for logging.
+            mvCentralCore.Initialize(this.rtbLog);
 
 
             LoadPaths();
@@ -1745,8 +1745,55 @@ namespace mvCentral {
                             mv.ArtistInfo[0].PrimarySource = r1;
                             if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) mv.AlbumInfo[0].PrimarySource = r1;
                         }
-                    }                   
+                    }
+                    string fileLower = selectedMatch.LongLocalMediaString.ToLower();
+                    string pathlower = Path.GetDirectoryName(fileLower);
+                    pathlower = pathlower.Replace("\\video_ts", "");
+                    pathlower = pathlower.Replace("\\adv_obj", "");
+                    pathlower = pathlower.Replace("\\bdmv", "");
+                    ChapterExtractor ex =
+                   Directory.Exists(Path.Combine(pathlower, "VIDEO_TS")) ?
+                   new DvdExtractor() as ChapterExtractor :
+                   Directory.Exists(Path.Combine(pathlower, "ADV_OBJ")) ?
+                   new HddvdExtractor() as ChapterExtractor :
+                   Directory.Exists(Path.Combine(Path.Combine(pathlower, "BDMV"), "PLAYLIST")) ?
+                   new BlurayExtractor() as ChapterExtractor :
+                   null;
+
+                    if (ex == null)
+                        logger.Info("The location was not detected as DVD, HD-DVD or Blu-Ray.");
+
+                    
+                    
+                    
+                    if (ex !=null)
+                    {
+                        
+                        List<ChapterInfo> rp = ex.GetStreams(pathlower);
+                        ChapterInfo ci = rp[0];
+                        
+                        foreach (ChapterEntry c1 in ci.Chapters)
+                        {
+                            DBTrackInfo db1 = new DBTrackInfo();
+                            db1.Copy(mv);
+                            db1.Track = c1.Name;
+                            db1.Chapter = c1.Name;
+                            db1.ChapterID = c1.chId;
+                            db1.PlayTime = c1.Time.ToString();
+                            db1.ArtistInfo.Add(mv.ArtistInfo[0]);
+                            if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);
+                            db1.LocalMedia.Add(selectedMatch.LocalMedia[0]);
+                            db1.Commit();
+                        }
+                        selectedMatch.LocalMedia[0].UpdateMediaInfo();
+                        selectedMatch.LocalMedia[0].Commit();
+                        mvStatusChangedListener(selectedMatch, MusicVideoImporterAction.COMMITED);
+//                        ReloadList();
+                        return;
+                    }
+                    
                     // update the match
+
                     PossibleMatch selectedMV = new PossibleMatch();
                     selectedMV.MusicVideo = mv;
 
@@ -1772,6 +1819,35 @@ namespace mvCentral {
                 }
             }
 
+        }
+
+
+        public static List<ChapterInfo> ReadPgcListFromFile(string file)
+        {
+            ChapterExtractor ex = null;
+            string fileLower = file.ToLower();
+            if (fileLower.EndsWith("txt"))
+                ex = new TextExtractor();
+            else if (fileLower.EndsWith("xpl"))
+                ex = new XplExtractor();
+            else if (fileLower.EndsWith("ifo"))
+                ex = new Ifo2Extractor();
+            else if (fileLower.EndsWith("mpls"))
+                ex = new MplsExtractor();
+            else if (fileLower.EndsWith("xml"))
+                throw new Exception("Format not yet supported.");
+            else if (fileLower.EndsWith("chapters"))
+            {
+                List<ChapterInfo> ret = new List<ChapterInfo>();
+                ret.Add(ChapterInfo.Load(file));
+                return ret;
+            }
+            else
+            {
+                throw new Exception("The selected file is not a recognized format.");
+            }
+
+            return ex.GetStreams(file);
         }
 
         #endregion
@@ -2499,7 +2575,7 @@ namespace mvCentral {
         private void btnPlay_Click(object sender, EventArgs e)
         {
             GrabberPopup p1 = new GrabberPopup(CurrentTrack);
-            p1.ShowDialog();
+            p1.ShowDialog(this);
             setArtImage();
             updateTrackPage();
 //            ProcessStartInfo processInfo = new ProcessStartInfo(CurrentTrack.LocalMedia[0].File.FullName);

@@ -47,7 +47,43 @@ namespace mvCentral.Database {
             }
         } private string _track;
 
-        [DBField(Filterable=false)]
+        [DBField(AllowDynamicFiltering = false)]
+        public string Chapter
+        {
+            get { return _chapter; }
+            set
+            {
+                _chapter = value;
+                commitNeeded = true;
+            }
+        } private string _chapter;
+
+        [DBField(AllowDynamicFiltering = false)]
+        public int ChapterID
+        {
+            get { return _chapterid; }
+            set
+            {
+                _chapterid = value;
+                commitNeeded = true;
+            }
+        } private int _chapterid;
+
+        [DBField(AllowDynamicFiltering = false)]
+        public String PlayTime
+        {
+            get
+            {
+                return _playtime;
+            }                
+            set
+            {
+                _playtime = value;
+                commitNeeded = true;
+            }
+        } private string _playtime;
+
+        [DBField(Filterable = false)]
         public string SortBy {
             get {
                 if (_sortBy.Trim().Length == 0)

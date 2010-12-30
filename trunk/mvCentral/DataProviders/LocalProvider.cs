@@ -85,7 +85,7 @@ namespace mvCentral.DataProviders
 
             bool found = false;
             
-            found &= getArtistArtFromArtistArtFolder(mv);
+//            found &= getArtistArtFromArtistArtFolder(mv);
             found &= getOldArtistArt(mv);
 
             return found;
@@ -102,7 +102,7 @@ namespace mvCentral.DataProviders
  
             bool found = false;
 
-            found &= getAlbumArtFromAlbumArtFolder(mv);
+//            found &= getAlbumArtFromAlbumArtFolder(mv);
             found &= getOldAlbumArt(mv);
 
             return found;

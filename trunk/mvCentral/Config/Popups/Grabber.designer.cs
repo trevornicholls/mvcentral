@@ -17,7 +17,7 @@
             }
 
             // Clean-up DirectShow interfaces
-            CloseInterfaces();
+            CloseDVDInterfaces();
 
             base.Dispose(disposing);
         }
@@ -39,6 +39,8 @@
             this.btnExit = new System.Windows.Forms.Button();
             this.btnGrabFrame = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.lblTime = new System.Windows.Forms.Label();
+            this.lblTotalTime = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.seekbar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,6 +130,24 @@
             this.timer1.Interval = 200;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // lblTime
+            // 
+            this.lblTime.AutoSize = true;
+            this.lblTime.Location = new System.Drawing.Point(24, 334);
+            this.lblTime.Name = "lblTime";
+            this.lblTime.Size = new System.Drawing.Size(35, 13);
+            this.lblTime.TabIndex = 106;
+            this.lblTime.Text = "label1";
+            // 
+            // lblTotalTime
+            // 
+            this.lblTotalTime.AutoSize = true;
+            this.lblTotalTime.Location = new System.Drawing.Point(327, 334);
+            this.lblTotalTime.Name = "lblTotalTime";
+            this.lblTotalTime.Size = new System.Drawing.Size(35, 13);
+            this.lblTotalTime.TabIndex = 107;
+            this.lblTotalTime.Text = "label2";
+            // 
             // GrabberPopup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -135,6 +155,8 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(575, 356);
+            this.Controls.Add(this.lblTotalTime);
+            this.Controls.Add(this.lblTime);
             this.Controls.Add(this.btnGrabFrame);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.seekbar);
@@ -165,6 +187,8 @@
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnGrabFrame;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label lblTime;
+        private System.Windows.Forms.Label lblTotalTime;
 
     }
 }
