@@ -533,6 +533,7 @@ namespace mvCentral.GUI
                 item.Path = db1.LocalMedia[0].File.FullName;
                 item.IsFolder = false;
                 item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
+                item.MusicTag = db1;
                 facade.Add(item);
             }
             if (facade.Count > 0 && ! persisting)
