@@ -77,7 +77,7 @@ namespace mvCentral.BackgroundProcesses
         }
 
         private void LookForMissingArtwork() {
-            foreach (DBTrackInfo currMusicVideo in DBTrackInfo.GetAll())
+            foreach (DBBasicInfo currMusicVideo in DBBasicInfo.GetAll())
             {
                 try {
                     if (currMusicVideo.ID == null)
@@ -85,46 +85,22 @@ namespace mvCentral.BackgroundProcesses
 
                     if (currMusicVideo.ArtFullPath.Trim().Length == 0)
                     {
-                        mvCentralCore.DataProviderManager.GetTrackArt(currMusicVideo);
+                        mvCentralCore.DataProviderManager.GetArt(currMusicVideo);
                         
                         // because this operation can take some time we check again
-                        // if the movie was not deleted while we were getting artwork
+                        // if the artist/album/track was not deleted while we were getting artwork
                         if (currMusicVideo.ID == null)
                             continue;
 
                         currMusicVideo.Commit();
                     }
 
-                    if (currMusicVideo.ArtistInfo[0].ArtFullPath.Trim().Length == 0)
-                    {
-//                        new LocalProvider().GetArtistArt(currMusicVideo.ArtistInfo[0]);
-                        mvCentralCore.DataProviderManager.GetArtistArt(currMusicVideo.ArtistInfo[0]);
-                        
-                        // because this operation can take some time we check again
-                        // if the movie was not deleted while we were getting the artwork
-                        if (currMusicVideo.ID == null)
-                            continue;
-
-                        currMusicVideo.Commit();
-                    }
-                    if (currMusicVideo.AlbumInfo.Count>0 && currMusicVideo.AlbumInfo[0].ArtFullPath.Trim().Length == 0)
-                    {
-                        //                        new LocalProvider().GetArtistArt(currMusicVideo.ArtistInfo[0]);
-                        mvCentralCore.DataProviderManager.GetAlbumArt(currMusicVideo.AlbumInfo[0]);
-
-                        // because this operation can take some time we check again
-                        // if the movie was not deleted while we were getting the artwork
-                        if (currMusicVideo.ID == null)
-                            continue;
-
-                        currMusicVideo.Commit();
-                    }
                 }
                 catch (Exception e) {
                     if (e is ThreadAbortException)
                         throw e;
 
-                    logger.ErrorException("Error retrieving artwork for " + currMusicVideo.Track, e);
+                    logger.ErrorException("Error retrieving artwork for " + currMusicVideo.Basic, e);
                 }
             }
         }

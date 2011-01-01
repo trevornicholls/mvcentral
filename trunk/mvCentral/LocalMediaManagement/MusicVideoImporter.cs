@@ -1574,9 +1574,9 @@ namespace mvCentral.LocalMediaManagement
             // update, associate, and commit the mv
             if (update) {
                 mvCentralCore.DataProviderManager.Update(mv);
-                mvCentralCore.DataProviderManager.GetTrackArt(mv);
-                mvCentralCore.DataProviderManager.GetArtistArt(mv.ArtistInfo[0]);
-                if (mv.AlbumInfo.Count > 0) mvCentralCore.DataProviderManager.GetAlbumArt(mv.AlbumInfo[0]);
+                mvCentralCore.DataProviderManager.GetArt(mv);
+                mvCentralCore.DataProviderManager.GetArt(mv.ArtistInfo[0]);
+                if (mv.AlbumInfo.Count > 0) mvCentralCore.DataProviderManager.GetArt(mv.AlbumInfo[0]);
             }
 
             foreach (DBLocalMedia currFile in localMedia)

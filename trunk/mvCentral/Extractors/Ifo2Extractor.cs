@@ -121,8 +121,8 @@ namespace mvCentral.Extractors
 
         duration += totalTime;
         if (currentProgram < programChainPrograms)
-            chapters.Add(new ChapterEntry() { Name = string.Format("Chapter {0}", currentProgram + 1), Time = totalTime, chId = currentProgram + 1 });
-        oldTime = totalTime;
+            chapters.Add(new ChapterEntry() { Name = string.Format("Chapter {0}", currentProgram + 1), OffsetTime = oldTime, Time = totalTime, chId = currentProgram + 1 });
+        oldTime = duration;
       }
 
       return chapters;

@@ -41,6 +41,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblTime = new System.Windows.Forms.Label();
             this.lblTotalTime = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.seekbar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,7 +60,7 @@
             // seekbar
             // 
             this.seekbar.Enabled = false;
-            this.seekbar.Location = new System.Drawing.Point(14, 319);
+            this.seekbar.Location = new System.Drawing.Point(63, 318);
             this.seekbar.Name = "seekbar";
             this.seekbar.Size = new System.Drawing.Size(350, 45);
             this.seekbar.TabIndex = 103;
@@ -64,6 +68,7 @@
             this.seekbar.Scroll += new System.EventHandler(this.seekbar_Scroll);
             this.seekbar.MouseCaptureChanged += new System.EventHandler(this.seekbar_MouseCaptureChanged);
             this.seekbar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.seekbar_MouseDown);
+            this.seekbar.MouseUp += new System.Windows.Forms.MouseEventHandler(this.seekbar_MouseUp);
             // 
             // btnFrameStep
             // 
@@ -133,7 +138,7 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(24, 334);
+            this.lblTime.Location = new System.Drawing.Point(12, 318);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(35, 13);
             this.lblTime.TabIndex = 106;
@@ -142,11 +147,51 @@
             // lblTotalTime
             // 
             this.lblTotalTime.AutoSize = true;
-            this.lblTotalTime.Location = new System.Drawing.Point(327, 334);
+            this.lblTotalTime.Location = new System.Drawing.Point(421, 318);
             this.lblTotalTime.Name = "lblTotalTime";
             this.lblTotalTime.Size = new System.Drawing.Size(35, 13);
             this.lblTotalTime.TabIndex = 107;
             this.lblTotalTime.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(516, 316);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 108;
+            this.label1.Text = "label1";
+            this.label1.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(512, 334);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 109;
+            this.label2.Text = "label2";
+            this.label2.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(12, 334);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 110;
+            this.label3.Text = "label3";
+            this.label3.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(421, 334);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 111;
+            this.label4.Text = "label4";
+            this.label4.Visible = false;
             // 
             // GrabberPopup
             // 
@@ -155,6 +200,10 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(575, 356);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblTotalTime);
             this.Controls.Add(this.lblTime);
             this.Controls.Add(this.btnGrabFrame);
@@ -189,6 +238,10 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblTime;
         private System.Windows.Forms.Label lblTotalTime;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
 
     }
 }

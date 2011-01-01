@@ -207,6 +207,7 @@
             this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
             this.scMain.Panel2.SuspendLayout();
@@ -458,9 +459,10 @@
             this.cmLibrary.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sentToImporterToolStripMenuItem,
             this.getArtToolStripMenuItem,
-            this.tsmGrabFrame});
+            this.tsmGrabFrame,
+            this.tsmRemove});
             this.cmLibrary.Name = "cmLibrary";
-            this.cmLibrary.Size = new System.Drawing.Size(169, 70);
+            this.cmLibrary.Size = new System.Drawing.Size(169, 114);
             this.cmLibrary.Opened += new System.EventHandler(this.cmLibrary_Opened);
             // 
             // sentToImporterToolStripMenuItem
@@ -572,7 +574,7 @@
             this.coverToolStrip.Location = new System.Drawing.Point(189, 31);
             this.coverToolStrip.Name = "coverToolStrip";
             this.coverToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.coverToolStrip.Size = new System.Drawing.Size(32, 113);
+            this.coverToolStrip.Size = new System.Drawing.Size(24, 94);
             this.coverToolStrip.TabIndex = 14;
             // 
             // btnPrevArt
@@ -581,7 +583,7 @@
             this.btnPrevArt.Image = global::mvCentral.Properties.Resources.resultset_previous;
             this.btnPrevArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrevArt.Name = "btnPrevArt";
-            this.btnPrevArt.Size = new System.Drawing.Size(30, 20);
+            this.btnPrevArt.Size = new System.Drawing.Size(22, 20);
             this.btnPrevArt.Text = "toolStripButton2";
             this.btnPrevArt.ToolTipText = "Previous Art";
             this.btnPrevArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -592,7 +594,7 @@
             this.btnNextArt.Image = global::mvCentral.Properties.Resources.resultset_next;
             this.btnNextArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNextArt.Name = "btnNextArt";
-            this.btnNextArt.Size = new System.Drawing.Size(30, 20);
+            this.btnNextArt.Size = new System.Drawing.Size(22, 20);
             this.btnNextArt.Text = "toolStripButton3";
             this.btnNextArt.ToolTipText = "Next Art";
             this.btnNextArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -603,7 +605,7 @@
             this.btnArtDelete.Image = global::mvCentral.Properties.Resources.cross;
             this.btnArtDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtDelete.Name = "btnArtDelete";
-            this.btnArtDelete.Size = new System.Drawing.Size(30, 20);
+            this.btnArtDelete.Size = new System.Drawing.Size(22, 20);
             this.btnArtDelete.Text = "toolStripButton2";
             this.btnArtDelete.ToolTipText = "Delete Art";
             this.btnArtDelete.Click += new System.EventHandler(this.btnArtDelete_Click);
@@ -614,7 +616,7 @@
             this.btnArtZoom.Image = global::mvCentral.Properties.Resources.zoom;
             this.btnArtZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtZoom.Name = "btnArtZoom";
-            this.btnArtZoom.Size = new System.Drawing.Size(30, 20);
+            this.btnArtZoom.Size = new System.Drawing.Size(22, 20);
             this.btnArtZoom.Text = "toolStripButton2";
             this.btnArtZoom.ToolTipText = "Zoom Art";
             this.btnArtZoom.Click += new System.EventHandler(this.btnArtZoom_Click);
@@ -2096,6 +2098,13 @@
             this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
             this.unapprovedMatchesBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.unapprovedMatchesBindingSource_ListChanged);
             // 
+            // tsmRemove
+            // 
+            this.tsmRemove.Name = "tsmRemove";
+            this.tsmRemove.Size = new System.Drawing.Size(168, 22);
+            this.tsmRemove.Text = "Remove";
+            this.tsmRemove.Click += new System.EventHandler(this.tsmRemove_Click);
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2355,5 +2364,6 @@
         private System.Windows.Forms.ToolStripButton btnArtZoom;
         private System.Windows.Forms.Button btnShowFileDetails;
         private Cornerstone.GUI.Controls.DBObjectEditor fileDetailsList;
+        private System.Windows.Forms.ToolStripMenuItem tsmRemove;
     }
 }

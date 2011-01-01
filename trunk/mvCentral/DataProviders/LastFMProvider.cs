@@ -231,8 +231,8 @@ namespace mvCentral.DataProviders
            List<DBTrackInfo> results = new List<DBTrackInfo>();
            if (mvSignature == null)
                return results;
-           try
-           {
+ //          try
+ //          {
                lock (lockList)
                {
                    DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
@@ -261,12 +261,12 @@ namespace mvCentral.DataProviders
                        results.Add(mv);
                    }
                }
-           }
-           catch (Exception ex)
-           {
-               logger.ErrorException(String.Format("Error retrieving : {0} {1} from Last.FM", mvSignature.Artist, mvSignature.Track), ex); 
-               return results;
-           }
+ //          }
+ //          catch (Exception ex)
+ //          {
+ //              logger.ErrorException(String.Format("Error retrieving : {0} {1} from Last.FM", mvSignature.Artist, mvSignature.Track), ex); 
+ //              return results;
+ //          }
            
            return results;
         }
@@ -480,7 +480,7 @@ namespace mvCentral.DataProviders
                         {
                             DBAlbumInfo d4 = new DBAlbumInfo();
                             if (node.ChildNodes[1].InnerText.Trim().Length > 0)
-                               setMusicVideoAlbum(ref d4, node.ChildNodes[1].InnerText);
+                               setMusicVideoAlbum(ref d4, node.ChildNodes[2].InnerText);
                             mv.AlbumInfo.Add(d4);
                         }
                         break;
@@ -937,8 +937,8 @@ namespace mvCentral.DataProviders
             grabber.Encoding = Encoding.UTF8;
             grabber.Timeout = 5000;
             grabber.TimeoutIncrement = 10;
-            try
-            {
+//            try
+//            {
                 if (grabber.GetResponse())
                 {
                     //                string str = grabber.GetString();
@@ -950,12 +950,12 @@ namespace mvCentral.DataProviders
                 }
                 else
                     return null;
-            }
-            catch (Exception ex)
-            {
-                logger.ErrorException("grabber ", ex);
-                return null;
-            }
+//            }
+//            catch (Exception ex)
+//            {
+//                logger.ErrorException("grabber ", ex);
+//                return null;
+//            }
         }
 
     }
