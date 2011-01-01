@@ -76,7 +76,7 @@ namespace mvCentral {
         {
             get
             {
-                if (tvLibrary.Nodes.Count == 0  && tvLibrary.SelectedNode.Level != 0)
+                if (tvLibrary.Nodes.Count == 0  && tvLibrary.SelectedNode != null && tvLibrary.SelectedNode.Level != 0)
                     return null;
 
                 return (DBArtistInfo)tvLibrary.SelectedNode.Tag;
@@ -86,7 +86,7 @@ namespace mvCentral {
         {
             get
             {
-                if (tvLibrary.Nodes.Count == 0 && tvLibrary.SelectedNode.Level != 1)
+                if (tvLibrary.Nodes.Count == 0 && tvLibrary.SelectedNode != null && tvLibrary.SelectedNode.Level != 1)
                     return null;
 
                 return (DBAlbumInfo)tvLibrary.SelectedNode.Tag;
@@ -96,7 +96,7 @@ namespace mvCentral {
         {
             get
             {
-                if (tvLibrary.Nodes.Count == 0 && tvLibrary.SelectedNode.Level != 2)
+                if (tvLibrary.Nodes.Count == 0 && tvLibrary.SelectedNode != null && tvLibrary.SelectedNode.Level != 2)
                     return null;
 
                 return (DBTrackInfo)tvLibrary.SelectedNode.Tag;
@@ -1780,6 +1780,7 @@ namespace mvCentral {
                             db1.Chapter = c1.Name;
                             db1.ChapterID = c1.chId;
                             db1.PlayTime = c1.Time.ToString();
+                            db1.OffsetTime = c1.OffsetTime.ToString();
                             db1.ArtistInfo.Add(mv.ArtistInfo[0]);
                             if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);
                             db1.LocalMedia.Add(selectedMatch.LocalMedia[0]);
@@ -1855,241 +1856,85 @@ namespace mvCentral {
         private void tvLibrary_AfterSelect(object sender, TreeViewEventArgs e)
         {
 
-            if (e.Node.Tag.GetType() == typeof(DBArtistInfo))
-            {
-                updateArtistPage();
-                tcMusicVideo.SelectTab("tpArtist");
-//                return;
-            }
-
-            if (e.Node.Tag.GetType() == typeof(DBAlbumInfo))
-            {
-
-                updateAlbumPage();
-                tcMusicVideo.SelectTab("tpAlbum");
-//                return;
-            }
-            if (e.Node.Tag.GetType() == typeof(DBTrackInfo))
-            {
-                updateTrackPage();
-                tcMusicVideo.SelectTab("tpTrack");
-//                return;
-            }
-
+            if (e.Node.Tag.GetType() == typeof(DBArtistInfo)) tcMusicVideo.SelectTab("tpArtist");
+            if (e.Node.Tag.GetType() == typeof(DBAlbumInfo))  tcMusicVideo.SelectTab("tpAlbum");
+            if (e.Node.Tag.GetType() == typeof(DBTrackInfo))  tcMusicVideo.SelectTab("tpTrack");
+            updateDBPage();
             setArtImage();
         }
 
 
-        #region Artist tab
-        private void updateArtistPage()
+        #region Artist/Album/Track tab
+        private void updateDBPage()
         {
+
             if (InvokeRequired)
             {
-                this.Invoke(new InvokeDelegate(updateArtistPage));
+                this.Invoke(new InvokeDelegate(updateDBPage));
                 return;
             }
 
-//            artistDetailsList.Enabled = false;
-            artistDetailsList.DatabaseObject = CurrentArtist;
-//            artistDetailsList.Enabled = true;
-
-//            sendToImporterToolStripMenuItem.Enabled = true;
-//            advancedButton.Enabled = true;
-//            playMovieButton.Enabled = true;
-
-/*            // enable/disable next/previous buttons for coverart
-            if (CurrentMovie.AlternateCovers.Count <= 1)
-            {
-                previousCoverButton.Enabled = false;
-                nextCoverButton.Enabled = false;
-            }
-            else
-            {
-                previousCoverButton.Enabled = true;
-                nextCoverButton.Enabled = true;
-            }
-
-            // enable/disable zoom & delete buttons for cover art
-            if (CurrentMovie.CoverFullPath.Trim().Length != 0)
-            {
-                zoomButton.Enabled = true;
-                deleteCoverButton.Enabled = true;
-            }
-            else
-            {
-                zoomButton.Enabled = false;
-                deleteCoverButton.Enabled = false;
-            }
-
-            // populate movie details fields
-            titleLabel.Text = CurrentMovie.Title;
-
-            if (CurrentMovie.UserSettings[0].WatchedCount == 0)
-            {
-                watchedToggleButton.Visible = true;
-                unwatchedToggleButton.Visible = false;
-            }
-            else
-            {
-                watchedToggleButton.Visible = false;
-                unwatchedToggleButton.Visible = true;
-            }
- */       }
-
-        #endregion
-
-        #region Album tab
-        private void updateAlbumPage()
-        {
-                        if (InvokeRequired)
-                        {
-                            this.Invoke(new InvokeDelegate(updateArtistPage));
-                            return;
-                        }
-
-            //            artistDetailsList.Enabled = false;
-            albumDetailsList.DatabaseObject = CurrentAlbum;
-            //            artistDetailsList.Enabled = true;
-
-            //            sendToImporterToolStripMenuItem.Enabled = true;
-            //            advancedButton.Enabled = true;
-            //            playMovieButton.Enabled = true;
-
-
-            /*            // enable/disable next/previous buttons for coverart
-                        if (CurrentMovie.AlternateCovers.Count <= 1)
-                        {
-                            previousCoverButton.Enabled = false;
-                            nextCoverButton.Enabled = false;
-                        }
-                        else
-                        {
-                            previousCoverButton.Enabled = true;
-                            nextCoverButton.Enabled = true;
-                        }
-
-                        // enable/disable zoom & delete buttons for cover art
-                        if (CurrentMovie.CoverFullPath.Trim().Length != 0)
-                        {
-                            zoomButton.Enabled = true;
-                            deleteCoverButton.Enabled = true;
-                        }
-                        else
-                        {
-                            zoomButton.Enabled = false;
-                            deleteCoverButton.Enabled = false;
-                        }
-
-                        // populate movie details fields
-                        titleLabel.Text = CurrentMovie.Title;
-
-                        if (CurrentMovie.UserSettings[0].WatchedCount == 0)
-                        {
-                            watchedToggleButton.Visible = true;
-                            unwatchedToggleButton.Visible = false;
-                        }
-                        else
-                        {
-                            watchedToggleButton.Visible = false;
-                            unwatchedToggleButton.Visible = true;
-                        }
-             */
-        }
-
-        #endregion
-
-        #region Track tab
-        private void updateTrackPage()
-        {
-                        if (InvokeRequired)
-                        {
-                            this.Invoke(new InvokeDelegate(updateArtistPage));
-                            return;
-                        }
-
-            //            artistDetailsList.Enabled = false;
-            trackDetailsList.DatabaseObject = CurrentTrack;
-            fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
-            //            artistDetailsList.Enabled = true;
-
-            //            sendToImporterToolStripMenuItem.Enabled = true;
-            //            advancedButton.Enabled = true;
-            //            playMovieButton.Enabled = true;
-
-
-            /*            // enable/disable next/previous buttons for coverart
-                        if (CurrentMovie.AlternateCovers.Count <= 1)
-                        {
-                            previousCoverButton.Enabled = false;
-                            nextCoverButton.Enabled = false;
-                        }
-                        else
-                        {
-                            previousCoverButton.Enabled = true;
-                            nextCoverButton.Enabled = true;
-                        }
-
-                        // enable/disable zoom & delete buttons for cover art
-                        if (CurrentMovie.CoverFullPath.Trim().Length != 0)
-                        {
-                            zoomButton.Enabled = true;
-                            deleteCoverButton.Enabled = true;
-                        }
-                        else
-                        {
-                            zoomButton.Enabled = false;
-                            deleteCoverButton.Enabled = false;
-                        }
-
-                        // populate movie details fields
-                        titleLabel.Text = CurrentMovie.Title;
-
-                        if (CurrentMovie.UserSettings[0].WatchedCount == 0)
-                        {
-                            watchedToggleButton.Visible = true;
-                            unwatchedToggleButton.Visible = false;
-                        }
-                        else
-                        {
-                            watchedToggleButton.Visible = false;
-                            unwatchedToggleButton.Visible = true;
-                        }
-             */
-        }
-
-        #endregion
-
-
-        private void btnArtPrevNext_Click(object sender, EventArgs e)
-        {
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
-                    if (CurrentArtist == null) return;
-                    if (sender == btnNextArt) CurrentArtist.NextArt();
-                    if (sender == btnPrevArt) CurrentArtist.PreviousArt();
-//                    updateArtistPage();
+                    artistDetailsList.DatabaseObject = CurrentArtist;
                     break;
                 case "tpAlbum":
-                    if (CurrentAlbum == null) return;
-//                    CurrentAlbum.NextAlbumArt();
-                    if (sender == btnNextArt) CurrentAlbum.NextArt();
-                    if (sender == btnPrevArt) CurrentAlbum.PreviousArt();
-//                    updateAlbumPage();
+                    albumDetailsList.DatabaseObject = CurrentAlbum;
                     break;
                 case "tpTrack":
-                    if (CurrentTrack == null) return;
-//                    CurrentTrack.NextTrack();
-                    if (sender == btnNextArt) CurrentTrack.NextArt();
-                    if (sender == btnPrevArt) CurrentTrack.PreviousArt();
-//                    updateTrackPage();
+                    trackDetailsList.DatabaseObject = CurrentTrack;
+                    fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
                     break;
             }
+        }
+
+        #endregion
+
+         private void btnArtPrevNext_Click(object sender, EventArgs e)
+        {
+            DBBasicInfo mv = null;
+            switch (tcMusicVideo.SelectedTab.Name)
+            {
+                case "tpArtist":
+                    mv = CurrentArtist;
+                    break;
+                case "tpAlbum":
+                    mv = CurrentAlbum;
+                    break;
+                case "tpTrack":
+                    mv = CurrentTrack;
+                    break;
+            }
+            if (mv == null) return;
+            if (sender == btnNextArt) mv.NextArt();
+            if (sender == btnPrevArt) mv.PreviousArt();
             setArtImage();
         }
 
         private void setArtImage()
         {
+            DBBasicInfo mv = null;
+            btnNextArt.Enabled = false;
+            btnPrevArt.Enabled = false;
+            btnArtZoom.Enabled = false;
+            btnArtDelete.Enabled = false;
+            lblArtResolution.Text = "";
+            lblArtNum.Text = "";
+            switch (tcMusicVideo.SelectedTab.Name)
+            {
+                case "tpArtist":
+                    mv = CurrentArtist;
+                    break;
+                case "tpAlbum":
+                    mv = CurrentAlbum;
+                    break;
+                case "tpTrack":
+                    mv = CurrentTrack;
+                    break;
+            }
+            if (mv == null) return;
+
             if (InvokeRequired)
             {
                 this.Invoke(new InvokeDelegate(setArtImage));
@@ -2097,33 +1942,12 @@ namespace mvCentral {
             }
             try
             {
-                btnNextArt.Enabled = true;
-                btnPrevArt.Enabled = true;
-                btnArtZoom.Enabled = true;
-                btnArtDelete.Enabled = true;
                 Image newArt = null;
                 int ArtIndexNum = 0;
                 int ArtCount = 0;
-                switch (tcMusicVideo.SelectedTab.Name)
-                {
-                    case "tpArtist":
-                        newArt = Image.FromFile(CurrentArtist.ArtFullPath);
-                        ArtIndexNum = CurrentArtist.AlternateArts.IndexOf(CurrentArtist.ArtFullPath);
-                        ArtCount = CurrentArtist.AlternateArts.Count;
- 
-                        break;
-                    case "tpAlbum":
-                        newArt = Image.FromFile(CurrentAlbum.ArtFullPath);
-                        ArtIndexNum = CurrentAlbum.AlternateArts.IndexOf(CurrentAlbum.ArtFullPath);
-                        ArtCount = CurrentAlbum.AlternateArts.Count;
-                        break;
-                    case "tpTrack":
-                        newArt = Image.FromFile(CurrentTrack.ArtFullPath);
-                        ArtIndexNum = CurrentTrack.AlternateArts.IndexOf(CurrentTrack.ArtFullPath);
-                        ArtCount = CurrentTrack.AlternateArts.Count;
-                        break;
-                }
-
+                newArt = Image.FromFile(mv.ArtFullPath);
+                ArtIndexNum = mv.AlternateArts.IndexOf(mv.ArtFullPath);
+                ArtCount = mv.AlternateArts.Count;
                 Image oldArt = artImage.Image;
                 artImage.Image = newArt;
                 if (oldArt != null) oldArt.Dispose();
@@ -2136,7 +1960,13 @@ namespace mvCentral {
                 if (ArtIndexNum == 0)
                     btnPrevArt.Enabled = false;
                 else 
-                    btnPrevArt.Enabled = true; 
+                    btnPrevArt.Enabled = true;
+                if (ArtCount > 0)
+                {
+                    btnArtZoom.Enabled = true;
+                    btnArtDelete.Enabled = true;
+                }
+
             }
             catch (Exception)
             {
@@ -2153,30 +1983,23 @@ namespace mvCentral {
 
         private void btnArtZoom_Click(object sender, EventArgs e)
         {
+            DBBasicInfo mv = null;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
-                    if (CurrentArtist == null || CurrentArtist.ArtFullPath.Trim().Length == 0)
-                        return;
-                    ArtPopup popup = new ArtPopup(CurrentArtist.ArtFullPath);
-                    popup.Owner = this.ParentForm;
-                    popup.ShowDialog();
+                    mv = CurrentArtist;
                     break;
                 case "tpAlbum":
-                    if (CurrentAlbum == null || CurrentAlbum.ArtFullPath.Trim().Length == 0)
-                        return;
-                    ArtPopup popup1 = new ArtPopup(CurrentAlbum.ArtFullPath);
-                    popup1.Owner = this.ParentForm;
-                    popup1.ShowDialog();
+                    mv = CurrentAlbum;
                     break;
                 case "tpTrack":
-                    if (CurrentTrack == null || CurrentTrack.ArtFullPath.Trim().Length == 0)
-                        return;
-                    ArtPopup popup2 = new ArtPopup(CurrentTrack.ArtFullPath);
-                    popup2.Owner = this.ParentForm;
-                    popup2.ShowDialog();
+                    mv = CurrentTrack;
                     break;
             }
+            if (mv == null || mv.ArtFullPath.Trim().Length == 0) return;
+            ArtPopup popup = new ArtPopup(mv.ArtFullPath);
+            popup.Owner = this.ParentForm;
+            popup.ShowDialog();
         }
 
         private void loadArtFromFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2187,188 +2010,150 @@ namespace mvCentral {
 
         private void loadArtFromFile()
         {
+            DBBasicInfo mv = null;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
-                    if (CurrentArtist == null) return;
-                   // get the result of the dialog box and only update if the user clicked OK
-                    DialogResult answerArt = ArtFileDialog.ShowDialog(this);
-                    if (ArtFileDialog.FileName.Length != 0 && answerArt == DialogResult.OK)
-                    {
-                        bool success = CurrentArtist.AddArtFromFile(ArtFileDialog.FileName);
-                        if (success)
-                        {
-                            // set new cover to current and update screen
-                            CurrentArtist.ArtFullPath = CurrentArtist.AlternateArts[CurrentArtist.AlternateArts.Count - 1];
-                            setArtImage();
-                            updateArtistPage();
-                        }
-                        else
-                            MessageBox.Show("Failed loading art from specified URL.");
-                    }
+                    mv = CurrentArtist;
+                    break;
+                case "tpAlbum":
+                    mv = CurrentAlbum;
+                    break;
+                case "tpTrack":
+                    mv = CurrentTrack;
                     break;
             }
+
+            if (mv == null) return;
+        // get the result of the dialog box and only update if the user clicked OK
+            DialogResult answerArt = ArtFileDialog.ShowDialog(this);
+            if (ArtFileDialog.FileName.Length != 0 && answerArt == DialogResult.OK)
+            {
+                bool success = mv.AddArtFromFile(ArtFileDialog.FileName);
+                if (success)
+                {
+                 // set new art to current and update screen
+                   mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
+                   mv.Commit();
+                   setArtImage();
+                   updateDBPage();
+                 }
+                 else
+                   MessageBox.Show("Failed loading art from specified location.");
+             }
         }
 
         private void loadArtFromURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DBBasicInfo mv = null;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
-                    if (CurrentArtist == null) return;
-                    ArtURLPopup popup = new ArtURLPopup();
-                    popup.ShowDialog(this);
-                    // do not waste time processing any more if there is no length to the URL when the user clicks OK
-                    if (popup.GetURL().Trim().Length > 0 && popup.DialogResult == DialogResult.OK)
-                    {
-                        DBArtistInfo mv = CurrentArtist;
-
-                        // the retrieval process can take a little time, so spawn it off in another thread
-                        ThreadStart actions = delegate
-                        {
-                            startArtProgressBar();
-                            ImageLoadResults result = mv.AddArtFromURL(popup.GetURL(), true);
-                            stopArtProgressBar();
-
-                            switch (result)
-                            {
-                                case ImageLoadResults.SUCCESS:
-                                case ImageLoadResults.SUCCESS_REDUCED_SIZE:
-                                    // set new cover to current and update screen
-                                    mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
-                                    setArtImage();
-                                    updateArtistPage();
-                                    break;
-                                case ImageLoadResults.FAILED_ALREADY_LOADED:
-                                    MessageBox.Show("Art from the specified URL has already been loaded.");
-                                    break;
-                                case ImageLoadResults.FAILED:
-                                    MessageBox.Show("Failed loading art from specified URL.");
-                                    break;
-                            }
-                        };
-
-                        Thread thread = new Thread(actions);
-                        thread.Name = "ArtUpdater";
-                        thread.Start();
-                    }
+                    mv = CurrentArtist;
                     break;
+                case "tpAlbum":
+                    mv = CurrentAlbum;
+                    break;
+                case "tpTrack":
+                    mv = CurrentTrack;
+                    break;
+            }
+
+            if (mv == null) return;
+            ArtURLPopup popup = new ArtURLPopup();
+            popup.ShowDialog(this);
+            // do not waste time processing any more if there is no length to the URL when the user clicks OK
+            if (popup.GetURL().Trim().Length > 0 && popup.DialogResult == DialogResult.OK)
+            {
+              // the retrieval process can take a little time, so spawn it off in another thread
+                 ThreadStart actions = delegate
+                 {
+                   startArtProgressBar();
+                   ImageLoadResults result = mv.AddArtFromURL(popup.GetURL(), true);
+                   stopArtProgressBar();
+                   switch (result)
+                   {
+                       case ImageLoadResults.SUCCESS:
+                       case ImageLoadResults.SUCCESS_REDUCED_SIZE:
+                          // set new cover to current and update screen
+                           mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
+                           mv.Commit();
+                           break;
+                       case ImageLoadResults.FAILED_ALREADY_LOADED:
+                           MessageBox.Show("Art from the specified URL has already been loaded.");
+                           break;
+                       case ImageLoadResults.FAILED:
+                           MessageBox.Show("Failed loading art from specified URL.");
+                           break;
+                     }
+                  };
+
+                  Thread thread = new Thread(actions);
+                  thread.Name = "ArtUpdater";
+                  thread.Start();
             }
             
         }
 
         private void btnArtDelete_Click(object sender, EventArgs e)
         {
+            DBBasicInfo mv = null;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
-                    if (CurrentArtist == null || CurrentArtist.AlternateArts.Count == 0) return;
-                    DialogResult result;
-                    result = MessageBox.Show("Permanently delete selected art?", "Delete Art", MessageBoxButtons.YesNo);
-
-                    if (result == DialogResult.Yes)
-                    {
-                        //needed otherwise image gets blocked for deletion
-                        if (artImage.Image != null) artImage.Image.Dispose();
-                        CurrentArtist.DeleteCurrentArt();
-                        setArtImage();
-                        updateArtistPage();
-                    }
+                    mv = CurrentArtist;
                     break;
                 case "tpAlbum":
-                    if (CurrentAlbum == null || CurrentAlbum.AlternateArts.Count == 0) return;
-                    DialogResult result1;
-                    result1 = MessageBox.Show("Permanently delete selected art?", "Delete Art", MessageBoxButtons.YesNo);
-
-                    if (result1 == DialogResult.Yes)
-                    {
-                        //needed otherwise image gets blocked for deletion
-                        if (artImage.Image != null) artImage.Image.Dispose();
-                        CurrentAlbum.DeleteCurrentArt();
-                        setArtImage();
-                        updateAlbumPage();
-                    }
+                    mv = CurrentAlbum;
                     break;
                 case "tpTrack":
-                    if (CurrentTrack == null || CurrentTrack.AlternateArts.Count == 0) return;
-                    DialogResult result2;
-                    result2 = MessageBox.Show("Permanently delete selected art?", "Delete Art", MessageBoxButtons.YesNo);
-
-                    if (result2 == DialogResult.Yes)
-                    {
-                        //needed otherwise image gets blocked for deletion
-                        if (artImage.Image != null) artImage.Image.Dispose();
-                        CurrentTrack.DeleteCurrentArt();
-                        setArtImage();
-                        updateTrackPage();
-                    }
+                    mv = CurrentTrack;
                     break;
             }
+            if (mv == null || mv.AlternateArts.Count == 0) return;
 
+            DialogResult result;
+            result = MessageBox.Show("Permanently delete selected art?", "Delete Art", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                 //needed otherwise image gets blocked for deletion
+               if (artImage.Image != null) artImage.Image.Dispose();
+               mv.DeleteCurrentArt();
+               mv.Commit();
+               setArtImage();
+               updateDBPage();
+            }
         }
 
         private void btnArtRefresh_Click(object sender, EventArgs e)
         {
+            DBBasicInfo mv = null;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
-                    if (CurrentArtist == null) return;
-
-                    DBArtistInfo mv = CurrentArtist;
-
-                    // the update process can take a little time, so spawn it off in another thread
-                    ThreadStart actions = delegate
-                    {
-                        startArtProgressBar();
-                        mvCentralCore.DataProviderManager.GetArtistArt(mv);
-                        stopArtProgressBar();
-                        setArtImage();
-                        updateArtistPage();
-                    };
-
-                    Thread thread = new Thread(actions);
-                    thread.Name = "ArtUpdater";
-                    thread.Start();
+                    mv = CurrentArtist;
                     break;
                 case "tpAlbum":
-                    if (CurrentAlbum == null) return;
-
-                    DBAlbumInfo mv1 = CurrentAlbum;
-
-                    // the update process can take a little time, so spawn it off in another thread
-                    ThreadStart actions1 = delegate
-                    {
-                        startArtProgressBar();
-                        mvCentralCore.DataProviderManager.GetAlbumArt(mv1);
-                        stopArtProgressBar();
-                        setArtImage();
-                        updateAlbumPage();
-                    };
-
-                    Thread thread1 = new Thread(actions1);
-                    thread1.Name = "ArtUpdater";
-                    thread1.Start();
+                    mv = CurrentAlbum;
                     break;
                 case "tpTrack":
-                    if (CurrentTrack == null) return;
-
-                    DBTrackInfo mv2 = CurrentTrack;
-
-                    // the update process can take a little time, so spawn it off in another thread
-                    ThreadStart actions2 = delegate
-                    {
-                        startArtProgressBar();
-                        mvCentralCore.DataProviderManager.GetTrackArt(mv2);
-                        stopArtProgressBar();
-                        setArtImage();
-                        updateTrackPage();
-                    };
-
-                    Thread thread2 = new Thread(actions2);
-                    thread2.Name = "ArtUpdater";
-                    thread2.Start();
+                    mv = CurrentTrack;
                     break;
             }
+            if (mv == null || mv.AlternateArts.Count == 0) return;
+
+            // the update process can take a little time, so spawn it off in another thread
+            ThreadStart actions = delegate
+            {
+                startArtProgressBar();
+                mvCentralCore.DataProviderManager.GetArt(mv);
+                stopArtProgressBar();
+             };
+
+             Thread thread = new Thread(actions);
+             thread.Name = "ArtUpdater";
+             thread.Start();
+  
         }
 
         private void startArtProgressBar()
@@ -2389,6 +2174,10 @@ namespace mvCentral {
                 Invoke(new InvokeDelegate(stopArtProgressBar));
                 return;
             }
+            
+            
+            setArtImage();
+            updateDBPage();
 
             artworkProgressBar.Visible = false;
         }
@@ -2559,6 +2348,8 @@ namespace mvCentral {
         private void loadArtFromMusicVideoToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+
+
             string artFolder = mvCentralCore.Settings.TrackArtFolder;
             string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
             string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
@@ -2577,21 +2368,25 @@ namespace mvCentral {
             GrabberPopup p1 = new GrabberPopup(CurrentTrack);
             p1.ShowDialog(this);
             setArtImage();
-            updateTrackPage();
-//            ProcessStartInfo processInfo = new ProcessStartInfo(CurrentTrack.LocalMedia[0].File.FullName);
-//            Process.Start(processInfo);
+            updateDBPage();
         }
 
         private void cmLibrary_Opened(object sender, EventArgs e)
         {
             tsmGrabFrame.Enabled = false;
             tsmfromMusicVideo.Enabled = false;
+            tsmRemove.Enabled = false;
             switch (tcMusicVideo.SelectedTab.Name)
             {
+                case "tpArtist":
+                    break;
+                case "tpAlbum":
+                    break;
                 case "tpTrack":
-                    if (CurrentTrack == null) return;
+                    if (!CurrentTrack.LocalMedia[0].IsDVD)
+                       tsmfromMusicVideo.Enabled = true;
                     tsmGrabFrame.Enabled = true;
-                    tsmfromMusicVideo.Enabled = true;
+                    tsmRemove.Enabled = true;
                     break;
             }
         }
@@ -2636,6 +2431,12 @@ namespace mvCentral {
         private void btnShowFileDetails_Click(object sender, EventArgs e)
         {
             scTrackDetails.Panel2Collapsed = !scTrackDetails.Panel2Collapsed;
+        }
+
+        private void tsmRemove_Click(object sender, EventArgs e)
+        {
+            CurrentTrack.DeleteAndIgnore();
+            tvLibrary.SelectedNode.Remove();
         }
 
  

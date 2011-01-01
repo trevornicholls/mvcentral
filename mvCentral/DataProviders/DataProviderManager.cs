@@ -650,66 +650,68 @@ namespace mvCentral.DataProviders {
             }
         }
 
-        public bool GetArtistArt(DBArtistInfo mv) {
-            // if we have already hit our limit for the number of artist arts to load, quit
-            if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
-                return true;
-            
-            List<DBSourceInfo> sources;
-            lock (artistSources) sources = new List<DBSourceInfo>(artistSources);
+        public bool GetArt(DBBasicInfo mv) {
 
-            foreach (DBSourceInfo currSource in sources) {
-                if (currSource.IsDisabled(DataType.ARTIST))
-                    continue;
-
-                bool success = currSource.Provider.GetArtistArt(mv);
-                if (success) return true;
-            }
-
-            return false;
-        }
-
-        public bool GetAlbumArt(DBAlbumInfo mv) {
-            // if we have already hit our limit for the number of album arts to load, quit
-            if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
-                return true;
-
-            List<DBSourceInfo> sources;
-            lock (albumSources) sources = new List<DBSourceInfo>(albumSources);
-            
-            foreach (DBSourceInfo currSource in sources) {
-                if (currSource.IsDisabled(DataType.ALBUM))
-                    continue;
-
-                bool success = currSource.Provider.GetAlbumArt(mv);
-                if (success) return true;
-            }
-
-            return false;
-        }
-
-        public bool GetTrackArt(DBTrackInfo mv){
-            // if we have already hit our limit for the number of covers to load, quit
-            if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
-                return true;
-        
-            List<DBSourceInfo> sources;
-            lock (trackSources) sources = new List<DBSourceInfo>(trackSources);
-
-            foreach (DBSourceInfo currSource in sources)
+            if (mv.GetType() == typeof(DBArtistInfo))
             {
-                if (currSource.IsDisabled(DataType.TRACK))
-                    continue;
+                // if we have already hit our limit for the number of artist arts to load, quit
+                if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
+                    return true;
 
-                bool success = currSource.Provider.GetTrackArt(mv);
-                if (success) return true;
+                List<DBSourceInfo> sources;
+                lock (artistSources) sources = new List<DBSourceInfo>(artistSources);
+
+                foreach (DBSourceInfo currSource in sources)
+                {
+                    if (currSource.IsDisabled(DataType.ARTIST))
+                        continue;
+
+                    bool success = currSource.Provider.GetArtistArt((DBArtistInfo)mv);
+                    if (success) return true;
+                }
             }
 
+            if (mv.GetType() == typeof(DBAlbumInfo))
+            {
+                // if we have already hit our limit for the number of album arts to load, quit
+                if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
+                    return true;
+
+                List<DBSourceInfo> sources;
+                lock (albumSources) sources = new List<DBSourceInfo>(albumSources);
+
+                foreach (DBSourceInfo currSource in sources)
+                {
+                    if (currSource.IsDisabled(DataType.ALBUM))
+                        continue;
+
+                    bool success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mv);
+                    if (success) return true;
+                }
+            }
+ 
+            if (mv.GetType() == typeof(DBTrackInfo))
+            {
+                // if we have already hit our limit for the number of Track arts to load, quit
+                if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+                    return true;
+
+                List<DBSourceInfo> sources;
+                lock (trackSources) sources = new List<DBSourceInfo>(trackSources);
+
+                foreach (DBSourceInfo currSource in sources)
+                {
+                    if (currSource.IsDisabled(DataType.TRACK))
+                        continue;
+
+                    bool success = currSource.Provider.GetTrackArt((DBTrackInfo)mv);
+                    if (success) return true;
+                }
+            }
             return false;
         }
 
-
-        #endregion
+         #endregion
     }
 
 }

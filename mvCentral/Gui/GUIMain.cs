@@ -25,7 +25,6 @@ namespace mvCentral.GUI
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private mvCentralCore core = mvCentralCore.Instance;
-//        DatabaseManager dm = mvCentralCore.DatabaseManager;
 
         private bool initComplete = false;
         private Thread initThread;
@@ -79,7 +78,6 @@ namespace mvCentral.GUI
             {
                 if (!(currentTrack == "" ))
                 {                   
-//                    dm.play(currentTrack);
                     lastTrack = currentTrack;
                 }
             }

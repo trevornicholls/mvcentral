@@ -29,6 +29,7 @@ namespace mvCentral.Extractors
 	public struct ChapterEntry
 	{
     public TimeSpan Time { get; set; }
+    public TimeSpan OffsetTime { get; set; }
     public string Name { get; set; }
     public int chId { get; set; }
 

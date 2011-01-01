@@ -83,6 +83,20 @@ namespace mvCentral.Database {
             }
         } private string _playtime;
 
+        [DBField(AllowDynamicFiltering = false)]
+        public String OffsetTime
+        {
+            get
+            {
+                return _offsettime;
+            }
+            set
+            {
+                _offsettime = value;
+                commitNeeded = true;
+            }
+        } private string _offsettime;
+
         [DBField(Filterable = false)]
         public string SortBy {
             get {

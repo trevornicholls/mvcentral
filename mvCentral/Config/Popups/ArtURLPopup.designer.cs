@@ -83,6 +83,7 @@
             this.MinimizeBox = false;
             this.Name = "ArtURLPopup";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Art Image URL";
             this.ResumeLayout(false);
             this.PerformLayout();

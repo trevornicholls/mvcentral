@@ -34,7 +34,7 @@ namespace mvCentral.ConfigScreen.Popups {
         const int FRAME_STEP_INCREMENT = 5;   // How many frames to step, when frame-stepping.
         const int ONE_MSEC = 10000;   // The number of 100-ns in 1 msec
         bool m_bFrameStepping;   // TRUE if a frame step is in progress.
-
+        protected ulong _offsetseek = 0;
         protected enum PlayState
         {
             Init,
@@ -102,6 +102,7 @@ namespace mvCentral.ConfigScreen.Popups {
         protected double _currentTime = 0;
         protected bool _visible = true;
         protected bool _started = false;
+        protected bool _IsScrolling = false;
         protected DsROTEntry _rotEntry = null;
 
         protected int _positionX = 80;
@@ -129,6 +130,7 @@ namespace mvCentral.ConfigScreen.Popups {
         protected const int WS_CLIPSIBLINGS = 0x04000000;
         protected const int WM_MOUSEMOVE = 0x0200;
         protected const int WM_LBUTTONUP = 0x0202;
+
 
         protected bool _cyberlinkDVDNavigator = false;
         
@@ -167,7 +169,7 @@ namespace mvCentral.ConfigScreen.Popups {
                 CloseDVDInterfaces();
                 mvs = mv;
                 BuildGraph();
-                RunGraph();
+                btnPlay_Click(null, null);
                 UpdateSeekBar();
             }
             catch (Exception) { }
@@ -270,25 +272,64 @@ namespace mvCentral.ConfigScreen.Popups {
             SystemEvents.DisplaySettingsChanged -= new EventHandler(SystemEvents_DisplaySettingsChanged);
         }
 
+        private TimeSpan ConvertToTimeSpan(DvdHMSFTimeCode t)
+        {
+            string s = String.Format("{0:00}:{1:00}:{2:00}",t.bHours,t.bMinutes,t.bSeconds);
+            TimeSpan result = TimeSpan.Parse(s);
+            return result;
+
+        }
+
+        private DvdHMSFTimeCode ConvertToDvdHMSFTimeCode(TimeSpan t)
+        {
+            DvdHMSFTimeCode result = new DvdHMSFTimeCode();
+            result.bHours = (byte)t.Hours;
+            result.bMinutes = (byte)t.Minutes;
+            result.bSeconds = (byte)t.Seconds;
+            return result;
+        }
+
         private void RunGraph()
         {
-            int hr;
-            if (mvs.LocalMedia[0].IsDVD)
+
+            try
             {
+                int hr = 0;
+                if (mvs.LocalMedia[0].IsDVD)
+                {
 
 
 
-                hr = _mediaCtrl.Run();
-                if (state == FilterState.Stopped) hr = _dvdCtrl.PlayChaptersAutoStop(1, mvs.ChapterID, 1, 0, out _cmdOption);
-                DsError.ThrowExceptionForHR(hr);
-                return;
+                    hr = _mediaCtrl.Run();
+                    hr = _mediaCtrl.Pause();
+                    _offsetseek = (ulong)seekbar.Value;
+                    TimeSpan t1 = TimeSpan.FromMilliseconds(seekbar.Value);
+                    TimeSpan t2 = TimeSpan.Parse(mvs.OffsetTime);
+                    t1 = t1.Add(t2);
+                    t2 = t2.Add(TimeSpan.Parse(mvs.PlayTime));
+                    DvdHMSFTimeCode t3 = ConvertToDvdHMSFTimeCode(t1);
+                    DvdHMSFTimeCode t4 = ConvertToDvdHMSFTimeCode(t2);
+                    //                if (state == FilterState.Stopped) 
+                    hr = _dvdCtrl.PlayPeriodInTitleAutoStop(1, t3, t4, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+                    DsError.ThrowExceptionForHR(hr);
+ //                   hr = _mediaCtrl.Run();
+                    label1.Text = t1.ToString();
+                    label2.Text = t2.ToString();
+                    //               if (state == FilterState.Stopped) hr = _dvdCtrl.PlayChaptersAutoStop(1, mvs.ChapterID, 1, 0, out _cmdOption);
+                    DsError.ThrowExceptionForHR(hr);
+                    return;
+                }
+
+                if (_mediaCtrl != null)
+                {
+                    hr = _mediaCtrl.Run();
+                    DsError.ThrowExceptionForHR(hr);
+                }
             }
-
-            if (_mediaCtrl != null)
-            {
-                hr = _mediaCtrl.Run();
-                DsError.ThrowExceptionForHR(hr);
-            }
+                catch (Exception ex)
+                {
+                    logger.ErrorException("Error in play : \r\n\r\n", ex);
+                }
         }
 
         private void StopGraph()
@@ -366,11 +407,15 @@ namespace mvCentral.ConfigScreen.Popups {
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
+            if (state == FilterState.Running) return;
             RunGraph();
+            _mediaCtrl.Run();
+            state = FilterState.Running;
         }
 
         private void btnPause_Click(object sender, EventArgs e)
         {
+            if (state == FilterState.Paused) return;
             if (_mediaCtrl != null)
             {
                 int hr = _mediaCtrl.Pause();
@@ -381,6 +426,8 @@ namespace mvCentral.ConfigScreen.Popups {
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            if (state == FilterState.Stopped) return;
+
             if (_mediaCtrl != null)
             {
                 int hr = _mediaCtrl.Stop();
@@ -390,6 +437,8 @@ namespace mvCentral.ConfigScreen.Popups {
                         // Seek back to the start.
             if (_mediaPos != null)
             {
+                _offsetseek = 0;
+                seekbar.Value = 0;
                 _mediaPos.put_CurrentPosition(0);
             }
         }
@@ -399,7 +448,7 @@ namespace mvCentral.ConfigScreen.Popups {
             if (_mediaStep != null)
             {
              _mediaStep.Step(FRAME_STEP_INCREMENT,null);
-             state = FilterState.Running;
+             state = FilterState.Paused;
 //            m_bFrameStepping = true;
             }
         }
@@ -416,21 +465,39 @@ namespace mvCentral.ConfigScreen.Popups {
         private void timer1_Tick(object sender, EventArgs e)
         {
 
+            if (_IsScrolling) return;
                        // If the player can seek, update the seek bar with the current position.
             if (_mediaSeek != null)
             {
                 //            if (mediaSeek.GetCapabilitiesControl..CanSeek())
                 //            {
                 long timeNow;
+                try
+                {
+                    int hr = _mediaSeek.GetCurrentPosition(out timeNow);
+                DsError.ThrowExceptionForHR(hr);
+                timeNow = timeNow + (long)(_offsetseek * ONE_MSEC);
+                    TimeSpan duration = new TimeSpan(timeNow);
+                    DateTime dt = new DateTime(duration.Ticks);
+                    lblTime.Text = String.Format("{0:HH:mm:ss}", dt);
+                    if ((int)(timeNow / ONE_MSEC) < seekbar.Maximum)
+                        seekbar.Value = (int)(timeNow / ONE_MSEC);
+                    else btnStop_Click(null, null);
 
-                _mediaSeek.GetCurrentPosition(out timeNow);
+                    TimeSpan t1 = TimeSpan.FromMilliseconds(seekbar.Value);
+                    if (mvs.OffsetTime.Trim().Length > 0)
+                    {
+                        TimeSpan t2 = TimeSpan.Parse(mvs.OffsetTime);
+                        t1 = t1.Add(t2);
+                        //                DvdHMSFTimeCode t3 = ConvertToDvdHMSFTimeCode(t1);
+                        label3.Text = t1.ToString();
+                    }
 
-                TimeSpan duration = new TimeSpan(timeNow);
-                DateTime dt = new DateTime(duration.Ticks);
-                lblTime.Text = String.Format("{0:HH:mm:ss}",dt);
-                if ((int)(timeNow / ONE_MSEC) < seekbar.Maximum)
-                    seekbar.Value = (int)(timeNow / ONE_MSEC);
-                else btnStop_Click(null,null);
+                }
+                catch (Exception ex)
+                {
+                    logger.ErrorException("Error in play position : \r\n\r\n", ex);
+                }
             }
         }
 
@@ -461,18 +528,48 @@ namespace mvCentral.ConfigScreen.Popups {
             }
         }
 
-
+       
 
         private void seekbar_Scroll(object sender, EventArgs e)
-        { 
+        {
+
+
             // Update the position continuously.
             if (_mediaSeek != null)
             {
                 long temp = ONE_MSEC * (long)seekbar.Value;
                 try
                 {
-                    int hr = _mediaSeek.SetPositions(temp, AMSeekingSeekingFlags.AbsolutePositioning, 0, 0);
-                    DsError.ThrowExceptionForHR(hr);
+                    if (!mvs.LocalMedia[0].IsDVD)
+                    {
+                        //                    btnStop_Click(null, null);
+                      int hr = _mediaSeek.SetPositions(temp, AMSeekingSeekingFlags.AbsolutePositioning, null, AMSeekingSeekingFlags.NoPositioning);
+                      DsError.ThrowExceptionForHR(hr);
+                      return;
+                    }
+//                    if (_IsScrolling) return; 
+//                    DvdHMSFTimeCode t5 = ConvertToDvdHMSFTimeCode(TimeSpan.FromMilliseconds(seekbar.Value));
+
+//                    IDvdCmd _cmdOption;
+
+//                    TimeSpan t3 = TimeSpan.Parse(mvs.OffsetTime);
+//                    t3 = t3.Add(TimeSpan.FromMilliseconds(seekbar.Value));
+
+//                    DvdHMSFTimeCode t1 = ConvertToDvdHMSFTimeCode(TimeSpan.Parse(mvs.OffsetTime));
+//                    DvdHMSFTimeCode t2 = ConvertToDvdHMSFTimeCode(t3);
+
+//                    if (state == FilterState.Stopped) hr = _dvdCtrl.PlayPeriodInTitleAutoStop(1, t1, t2, DvdCmdFlags.None, out _cmdOption);
+//                    _IsScrolling = true;
+                    RunGraph();
+//                    _IsScrolling = false;
+                    //                    int hr1 = _dvdCtrl.PlayAtTime(t2, DvdCmdFlags.Flush, out _cmdOption);
+                    //                    DsError.ThrowExceptionForHR(hr1);
+
+                    label4.Text = seekbar.Value.ToString();
+
+
+
+
                 }
                 catch (Exception ex)
                 {
@@ -505,8 +602,18 @@ namespace mvCentral.ConfigScreen.Popups {
 
         private void seekbar_MouseDown(object sender, MouseEventArgs e)
         {
-            int tr = _mediaCtrl.GetState(0, out state);
+            _IsScrolling = true;
             btnPause_Click(sender, e);
+            int tr = _mediaCtrl.GetState(0, out state);
+        }
+
+        private void seekbar_MouseUp(object sender, MouseEventArgs e)
+        {
+            btnPlay_Click(sender, e);
+            int tr = _mediaCtrl.GetState(0, out state);
+            label4.Text = seekbar.Value.ToString();
+            _IsScrolling = false;
+            
         }
 
         private void snapImage(string outFileName)
@@ -1022,6 +1129,7 @@ namespace mvCentral.ConfigScreen.Popups {
             }
         }
 
+ 
 
     }
 }
