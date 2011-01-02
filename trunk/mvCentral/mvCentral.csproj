@@ -102,6 +102,7 @@
     <Compile Include="BackgroundProcesses\FileSyncProcess.cs" />
     <Compile Include="BackgroundProcesses\MediaInfoUpdateProcess.cs" />
     <Compile Include="BackgroundProcesses\UpdateArtworkProcess.cs" />
+    <Compile Include="Config\DragHelper.cs" />
     <Compile Include="Config\loadingDisplay.cs">
       <SubType>Form</SubType>
     </Compile>

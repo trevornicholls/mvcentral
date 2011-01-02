@@ -40,6 +40,18 @@ namespace mvCentral {
     public partial class ConfigForm : Form, ISetupForm {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+
+        // Node being dragged
+        private TreeNode dragNode = null;
+        private bool _dragStarted = false;
+
+        // Temporary drop node for selection
+        private TreeNode tempDropNode = null;
+
+        // Timer for scrolling
+        private System.Windows.Forms.Timer lvtimer = new System.Windows.Forms.Timer();
+
+        
         private bool splitMode;
         private int lastSplitJoinLocation;
         private bool clearSelection;
@@ -76,7 +88,7 @@ namespace mvCentral {
         {
             get
             {
-                if (tvLibrary.Nodes.Count == 0  && tvLibrary.SelectedNode != null && tvLibrary.SelectedNode.Level != 0)
+                if (tvLibrary.Nodes.Count == 0  || tvLibrary.SelectedNode == null || tvLibrary.SelectedNode.Level != 0)
                     return null;
 
                 return (DBArtistInfo)tvLibrary.SelectedNode.Tag;
@@ -86,7 +98,7 @@ namespace mvCentral {
         {
             get
             {
-                if (tvLibrary.Nodes.Count == 0 && tvLibrary.SelectedNode != null && tvLibrary.SelectedNode.Level != 1)
+                if (tvLibrary.Nodes.Count == 0 || tvLibrary.SelectedNode == null || tvLibrary.SelectedNode.Level != 1)
                     return null;
 
                 return (DBAlbumInfo)tvLibrary.SelectedNode.Tag;
@@ -96,7 +108,7 @@ namespace mvCentral {
         {
             get
             {
-                if (tvLibrary.Nodes.Count == 0 && tvLibrary.SelectedNode != null && tvLibrary.SelectedNode.Level != 2)
+                if (tvLibrary.Nodes.Count == 0 || tvLibrary.SelectedNode == null || tvLibrary.SelectedNode.Level == 0)
                     return null;
 
                 return (DBTrackInfo)tvLibrary.SelectedNode.Tag;
@@ -107,6 +119,12 @@ namespace mvCentral {
         public ConfigForm()
         {
             InitializeComponent();
+            lvtimer.Interval = 200;
+            lvtimer.Tick += new EventHandler(lvtimer_Tick);
+
+            
+            
+            
             // if we are in designer, break to prevent errors with rendering, it cant access the DB...
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
@@ -114,6 +132,7 @@ namespace mvCentral {
             tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
             cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
             cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
+            cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
 
             artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
             albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
@@ -1171,7 +1190,7 @@ namespace mvCentral {
 
             if (artistItem == null)
             {
-               artistItem = new TreeNode(mv.ArtistInfo[0].Artist);
+               artistItem = new TreeNode(mv.ArtistInfo[0].Artist,1,1);
                artistItem.Tag = mv.ArtistInfo[0];
                ArtistNodeExist = false;
             }
@@ -1183,12 +1202,15 @@ namespace mvCentral {
                     {
                         if (t2.Level == 1)
                         {
-                            DBAlbumInfo trtag = (DBAlbumInfo)t2.Tag;
-
-                            if (mv.AlbumInfo[0] == trtag)
+                            if (t2.Tag.GetType() == typeof(DBAlbumInfo))
                             {
-                                albumItem = t2;
-                                break;
+                                DBAlbumInfo trtag = (DBAlbumInfo)t2.Tag;
+
+                                if (mv.AlbumInfo[0] == trtag)
+                                {
+                                    albumItem = t2;
+                                    break;
+                                }
                             }
                         }
 
@@ -1197,12 +1219,12 @@ namespace mvCentral {
                 if (albumItem == null)
                 {
                     AlbumNodeExist = false;
-                    albumItem = new TreeNode(mv.AlbumInfo[0].Album);
+                    albumItem = new TreeNode(mv.AlbumInfo[0].Album,2,2);
                     albumItem.Tag = mv.AlbumInfo[0];
                 }
             }
             else AlbumNodeExist = false;
-            TreeNode trackItem = new TreeNode(mv.Track);
+            TreeNode trackItem = new TreeNode(mv.Track,3,3);
             trackItem.Tag = mv;
 
 
@@ -1234,7 +1256,291 @@ namespace mvCentral {
         }
 
 
+        private void tvLibrary_ItemDrag(object sender, System.Windows.Forms.ItemDragEventArgs e)
+        {
 
+            // Get drag node and select it
+            this.dragNode = (TreeNode)e.Item;
+            this.tvLibrary.SelectedNode = this.dragNode;
+//            if (this.dragNode.Tag.GetType() == typeof(DBArtistInfo)) return;
+            // Reset image list used for drag image
+            this.imageListDrag.Images.Clear();
+            int maximagesizeWidth = this.dragNode.Bounds.Size.Width + this.tvLibrary.Indent;
+            if (maximagesizeWidth > 256) maximagesizeWidth = 256;
+            this.imageListDrag.ImageSize = new Size(maximagesizeWidth, this.dragNode.Bounds.Height);
+
+            // Create new bitmap
+            // This bitmap will contain the tree node image to be dragged
+            Bitmap bmp = new Bitmap(maximagesizeWidth, this.dragNode.Bounds.Height);
+
+            // Get graphics from bitmap
+            Graphics gfx = Graphics.FromImage(bmp);
+
+            // Draw node icon into the bitmap
+            gfx.DrawImage(this.imageListTreeView.Images[this.dragNode.ImageIndex], 0, 0);
+
+            // Draw node label into bitmap
+            gfx.DrawString(this.dragNode.Text,
+                this.tvLibrary.Font,
+                new SolidBrush(this.tvLibrary.ForeColor),
+                (float)this.tvLibrary.Indent, 1.0f);
+
+            // Add bitmap to imagelist
+            this.imageListDrag.Images.Add(bmp);
+
+            // Get mouse position in client coordinates
+            Point p = this.tvLibrary.PointToClient(Control.MousePosition);
+
+            // Compute delta between mouse position and node bounds
+            int dx = p.X + this.tvLibrary.Indent - this.dragNode.Bounds.Left;
+            int dy = p.Y - this.dragNode.Bounds.Top;
+
+            // Begin dragging image
+            if (DragHelper.ImageList_BeginDrag(this.imageListDrag.Handle, 0, dx, dy))
+            {
+                // Begin dragging
+                this.tvLibrary.DoDragDrop(bmp, DragDropEffects.Move);
+                // End dragging image
+                DragHelper.ImageList_EndDrag();
+            }
+
+        }
+
+        private void tvLibrary_DragOver(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+
+            // Compute drag position and move image
+            Point formP = this.PointToClient(new Point(e.X, e.Y));
+            DragHelper.ImageList_DragMove(formP.X - this.tvLibrary.Left, formP.Y - this.tvLibrary.Top);
+
+            // Get actual drop node
+            TreeNode dropNode = this.tvLibrary.GetNodeAt(this.tvLibrary.PointToClient(new Point(e.X, e.Y)));
+            if (dropNode == null)
+            {
+                e.Effect = DragDropEffects.None;
+                return;
+            }
+
+            e.Effect = DragDropEffects.Move;
+
+            // if mouse is on a new node select it
+            if (this.tempDropNode != dropNode)
+            {
+                DragHelper.ImageList_DragShowNolock(false);
+                this.tvLibrary.SelectedNode = dropNode;
+                this.tvLibrary.Focus();
+                DragHelper.ImageList_DragShowNolock(true);
+                tempDropNode = dropNode;
+            }
+            
+            // Avoid that drop node is child of drag node 
+            TreeNode tmpNode = dropNode;
+            if (this.dragNode.Parent == dropNode) e.Effect = DragDropEffects.None;
+
+            if (dropNode.Tag.GetType() == typeof(DBTrackInfo)) e.Effect = DragDropEffects.None;
+            if (dragNode.Tag.GetType() == typeof(DBArtistInfo)) e.Effect = DragDropEffects.None;
+            if (this.dragNode.Tag.GetType() == dropNode.Tag.GetType()) e.Effect = DragDropEffects.None;
+
+            while (tmpNode.Parent != null)
+            {
+
+                if (tmpNode == this.dragNode) e.Effect = DragDropEffects.None;
+                tmpNode = tmpNode.Parent;
+            }
+        }
+
+        private void tvLibrary_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+            // Unlock updates
+            DragHelper.ImageList_DragLeave(this.tvLibrary.Handle);
+            // Get drop node
+            TreeNode dropNode = this.tvLibrary.GetNodeAt(this.tvLibrary.PointToClient(new Point(e.X, e.Y)));
+
+            // If drop node isn't equal to drag node, add drag node as child of drop node
+            if (this.dragNode != dropNode)
+            {
+                // Remove drag node from parent
+                if (this.dragNode.Parent == null)
+                {
+                    this.tvLibrary.Nodes.Remove(this.dragNode);
+                }
+                else
+                {
+                    this.dragNode.Parent.Nodes.Remove(this.dragNode);
+                }
+
+                // Add drag node to drop node
+                dropNode.Nodes.Add(this.dragNode);
+                dropNode.ExpandAll();
+                UpdateDB(this.dragNode);
+                // Set drag node to null
+                this.dragNode = null;
+
+                // remove orphaned nodes
+                foreach (TreeNode t1 in tvLibrary.Nodes)
+                {
+                    foreach (TreeNode t2 in t1.Nodes)
+                    {
+                        if (t2.Tag.GetType() == typeof(DBTrackInfo)) continue;
+                        if (t2.FirstNode == null)
+                        {
+                            this.tvLibrary.Nodes.Remove(t2);
+                        }
+                    }
+                    if (t1.FirstNode == null)
+                    {
+                        this.tvLibrary.Nodes.Remove(t1);
+                    }
+
+                }
+                _dragStarted = false;
+
+                // Disable scroll timer
+                this.lvtimer.Enabled = false;
+            }
+        }
+
+
+        private void processNode(TreeNode node)
+        {
+            foreach (TreeNode subnode in node.Nodes)
+            {
+                processNode(subnode);
+                if (subnode.Tag.GetType() == typeof(DBAlbumInfo))
+                {
+                    if (subnode.Nodes.Count == 0) this.tvLibrary.Nodes.Remove(subnode);
+                }
+
+            }
+        }
+
+        private void tvLibrary_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+            DragHelper.ImageList_DragEnter(this.tvLibrary.Handle, e.X - this.tvLibrary.Left,
+                e.Y - this.tvLibrary.Top);
+
+            // Enable timer for scrolling dragged item
+            _dragStarted = true;
+            this.lvtimer.Enabled = true;
+        }
+
+        private void tvLibrary_DragLeave(object sender, System.EventArgs e)
+        {
+            DragHelper.ImageList_DragLeave(this.tvLibrary.Handle);
+            _dragStarted = false;
+            // Disable timer for scrolling dragged item
+            this.lvtimer.Enabled = false;
+            TreeNode tr = tvLibrary.SelectedNode;
+            tvLibrary.SelectedNode = null;
+            tvLibrary.SelectedNode = tr;
+
+        }
+
+        private void tvLibrary_GiveFeedback(object sender, System.Windows.Forms.GiveFeedbackEventArgs e)
+        {
+            if (e.Effect == DragDropEffects.Move)
+            {
+                // Show pointer cursor while dragging
+                e.UseDefaultCursors = false;
+                this.tvLibrary.Cursor = Cursors.Default;
+            }
+            else e.UseDefaultCursors = true;
+
+        }
+
+        private void lvtimer_Tick(object sender, EventArgs e)
+        {
+            // get node at mouse position
+            Point pt = tvLibrary.PointToClient(Control.MousePosition);
+            TreeNode node = this.tvLibrary.GetNodeAt(pt);
+
+            if (node == null) return;
+
+            // if mouse is near to the top, scroll up
+            if (pt.Y < 30)
+            {
+                // set actual node to the upper one
+                if (node.PrevVisibleNode != null)
+                {
+                    node = node.PrevVisibleNode;
+
+                    // hide drag image
+                    DragHelper.ImageList_DragShowNolock(false);
+                    // scroll and refresh
+                    node.EnsureVisible();
+                    this.tvLibrary.Refresh();
+                    // show drag image
+                    DragHelper.ImageList_DragShowNolock(true);
+
+                }
+            }
+            // if mouse is near to the bottom, scroll down
+            else if (pt.Y > this.tvLibrary.Size.Height - 30)
+            {
+                if (node.NextVisibleNode != null)
+                {
+                    node = node.NextVisibleNode;
+
+                    DragHelper.ImageList_DragShowNolock(false);
+                    node.EnsureVisible();
+                    this.tvLibrary.Refresh();
+                    DragHelper.ImageList_DragShowNolock(true);
+                }
+            }
+        }
+
+        private void UpdateDB(TreeNode t) 
+        {
+            if (t.Tag.GetType() == typeof(DBTrackInfo))
+            {
+                DBTrackInfo d1 = (DBTrackInfo)t.Tag;
+                DBArtistInfo a1 = null;
+                DBAlbumInfo a2 = null;
+                if (t.Parent.Parent != null)
+                if ((DBArtistInfo)t.Parent.Parent.Tag != null)
+                {
+                    a1 = (DBArtistInfo)t.Parent.Parent.Tag;
+                }
+                else
+                {
+                    a2 = (DBAlbumInfo)t.Parent.Tag;
+                
+                }
+                
+                if (a1 == null)
+                {
+                    a1 = (DBArtistInfo)t.Parent.Tag;
+                }
+
+
+                d1.ArtistInfo.Clear();
+                d1.AlbumInfo.Clear();
+                d1.ArtistInfo.Add(a1);
+                if (a2 != null) d1.AlbumInfo.Add(a2);
+                d1.Commit();
+            }
+
+            foreach (DBArtistInfo a3 in DBArtistInfo.GetAll())
+            {
+                List<DBTrackInfo> a7 = DBTrackInfo.GetEntriesByArtist(a3);
+                if (a7.Count == 0)
+                {
+                    a3.Delete();
+                    a3.Commit();
+                }
+            }
+
+            foreach (DBAlbumInfo a3 in DBAlbumInfo.GetAll())
+            {
+                List<DBTrackInfo> a7 = DBTrackInfo.GetEntriesByAlbum(a3);
+                if (a7.Count == 0)
+                {
+                    a3.Delete();
+                    a3.Commit();
+                }
+            }
+        }
+ 
         #endregion
 
         #region mainpanel
@@ -1717,6 +2023,7 @@ namespace mvCentral {
             {
                 MusicVideoMatch selectedMatch = (MusicVideoMatch)currRow.DataBoundItem;
                 ManualAssignPopup popup = new ManualAssignPopup(selectedMatch);
+
                 popup.ShowDialog(this);
 
                 if (popup.DialogResult == DialogResult.OK)
@@ -1746,53 +2053,57 @@ namespace mvCentral {
                             if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) mv.AlbumInfo[0].PrimarySource = r1;
                         }
                     }
-                    string fileLower = selectedMatch.LongLocalMediaString.ToLower();
-                    string pathlower = Path.GetDirectoryName(fileLower);
-                    pathlower = pathlower.Replace("\\video_ts", "");
-                    pathlower = pathlower.Replace("\\adv_obj", "");
-                    pathlower = pathlower.Replace("\\bdmv", "");
-                    ChapterExtractor ex =
-                   Directory.Exists(Path.Combine(pathlower, "VIDEO_TS")) ?
-                   new DvdExtractor() as ChapterExtractor :
-                   Directory.Exists(Path.Combine(pathlower, "ADV_OBJ")) ?
-                   new HddvdExtractor() as ChapterExtractor :
-                   Directory.Exists(Path.Combine(Path.Combine(pathlower, "BDMV"), "PLAYLIST")) ?
-                   new BlurayExtractor() as ChapterExtractor :
-                   null;
 
-                    if (ex == null)
-                        logger.Info("The location was not detected as DVD, HD-DVD or Blu-Ray.");
 
-                    
-                    
-                    
-                    if (ex !=null)
+                    if (cbSplitDVD.Checked && selectedMatch.LocalMedia[0].IsDVD)
                     {
-                        
-                        List<ChapterInfo> rp = ex.GetStreams(pathlower);
-                        ChapterInfo ci = rp[0];
-                        
-                        foreach (ChapterEntry c1 in ci.Chapters)
+                        string fileLower = selectedMatch.LongLocalMediaString.ToLower();
+                        string pathlower = Path.GetDirectoryName(fileLower);
+                        pathlower = pathlower.Replace("\\video_ts", "");
+                        pathlower = pathlower.Replace("\\adv_obj", "");
+                        pathlower = pathlower.Replace("\\bdmv", "");
+                        ChapterExtractor ex =
+                       Directory.Exists(Path.Combine(pathlower, "VIDEO_TS")) ?
+                       new DvdExtractor() as ChapterExtractor :
+                       Directory.Exists(Path.Combine(pathlower, "ADV_OBJ")) ?
+                       new HddvdExtractor() as ChapterExtractor :
+                       Directory.Exists(Path.Combine(Path.Combine(pathlower, "BDMV"), "PLAYLIST")) ?
+                       new BlurayExtractor() as ChapterExtractor :
+                       null;
+
+                        if (ex == null)
+                            logger.Info("The location was not detected as DVD, HD-DVD or Blu-Ray.");
+
+
+
+
+                        if (ex != null)
                         {
-                            DBTrackInfo db1 = new DBTrackInfo();
-                            db1.Copy(mv);
-                            db1.Track = c1.Name;
-                            db1.Chapter = c1.Name;
-                            db1.ChapterID = c1.chId;
-                            db1.PlayTime = c1.Time.ToString();
-                            db1.OffsetTime = c1.OffsetTime.ToString();
-                            db1.ArtistInfo.Add(mv.ArtistInfo[0]);
-                            if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);
-                            db1.LocalMedia.Add(selectedMatch.LocalMedia[0]);
-                            db1.Commit();
+
+                            List<ChapterInfo> rp = ex.GetStreams(pathlower);
+                            ChapterInfo ci = rp[0];
+
+                            foreach (ChapterEntry c1 in ci.Chapters)
+                            {
+                                DBTrackInfo db1 = new DBTrackInfo();
+                                db1.Copy(mv);
+                                db1.Track = c1.Name;
+                                db1.Chapter = c1.Name;
+                                db1.ChapterID = c1.chId;
+                                db1.PlayTime = c1.Time.ToString();
+                                db1.OffsetTime = c1.OffsetTime.ToString();
+                                db1.ArtistInfo.Add(mv.ArtistInfo[0]);
+                                if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);
+                                db1.LocalMedia.Add(selectedMatch.LocalMedia[0]);
+                                db1.Commit();
+                            }
+                            selectedMatch.LocalMedia[0].UpdateMediaInfo();
+                            selectedMatch.LocalMedia[0].Commit();
+                            mvStatusChangedListener(selectedMatch, MusicVideoImporterAction.COMMITED);
+                            //                        ReloadList();
+                            return;
                         }
-                        selectedMatch.LocalMedia[0].UpdateMediaInfo();
-                        selectedMatch.LocalMedia[0].Commit();
-                        mvStatusChangedListener(selectedMatch, MusicVideoImporterAction.COMMITED);
-//                        ReloadList();
-                        return;
                     }
-                    
                     // update the match
 
                     PossibleMatch selectedMV = new PossibleMatch();
@@ -1855,7 +2166,7 @@ namespace mvCentral {
 
         private void tvLibrary_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
+            if (_dragStarted) return;
             if (e.Node.Tag.GetType() == typeof(DBArtistInfo)) tcMusicVideo.SelectTab("tpArtist");
             if (e.Node.Tag.GetType() == typeof(DBAlbumInfo))  tcMusicVideo.SelectTab("tpAlbum");
             if (e.Node.Tag.GetType() == typeof(DBTrackInfo))  tcMusicVideo.SelectTab("tpTrack");
@@ -2383,10 +2694,13 @@ namespace mvCentral {
                 case "tpAlbum":
                     break;
                 case "tpTrack":
-                    if (!CurrentTrack.LocalMedia[0].IsDVD)
-                       tsmfromMusicVideo.Enabled = true;
-                    tsmGrabFrame.Enabled = true;
-                    tsmRemove.Enabled = true;
+                    if (CurrentTrack != null)
+                    {
+                        if (!CurrentTrack.LocalMedia[0].IsDVD)
+                            tsmfromMusicVideo.Enabled = true;
+                        tsmGrabFrame.Enabled = true;
+                        tsmRemove.Enabled = true;
+                    }
                     break;
             }
         }

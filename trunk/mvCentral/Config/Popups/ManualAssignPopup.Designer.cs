@@ -44,7 +44,7 @@
             this.okButton.Location = new System.Drawing.Point(316, 207);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 3;
+            this.okButton.TabIndex = 4;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             // 
@@ -55,7 +55,7 @@
             this.cancelButton.Location = new System.Drawing.Point(397, 207);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 4;
+            this.cancelButton.TabIndex = 5;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
             // 
@@ -66,7 +66,7 @@
             this.uxTrack.Location = new System.Drawing.Point(62, 179);
             this.uxTrack.Name = "uxTrack";
             this.uxTrack.Size = new System.Drawing.Size(409, 20);
-            this.uxTrack.TabIndex = 1;
+            this.uxTrack.TabIndex = 3;
             // 
             // lblTrack
             // 
@@ -118,7 +118,7 @@
             this.uxAlbum.Location = new System.Drawing.Point(63, 153);
             this.uxAlbum.Name = "uxAlbum";
             this.uxAlbum.Size = new System.Drawing.Size(409, 20);
-            this.uxAlbum.TabIndex = 17;
+            this.uxAlbum.TabIndex = 2;
             // 
             // lblAlbum
             // 
@@ -137,7 +137,7 @@
             this.uxArtist.Location = new System.Drawing.Point(62, 127);
             this.uxArtist.Name = "uxArtist";
             this.uxArtist.Size = new System.Drawing.Size(409, 20);
-            this.uxArtist.TabIndex = 19;
+            this.uxArtist.TabIndex = 1;
             // 
             // ManualAssignPopup
             // 
