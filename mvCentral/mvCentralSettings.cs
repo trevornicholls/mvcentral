@@ -210,6 +210,23 @@ namespace mvCentral.Settings {
         }
         private bool _preferFolderName;
 
+        [CornerstoneSetting(
+            Name = "Split DVDs in chapters",
+            Description = "Store DVDs as chapters in the database. This can include CDs, DVDs, HD-DVDs, and Bluray disks.",
+            Groups = "|MusicVideo Importer|Matching and Importing|",
+            Identifier = "importer_split_dvd",
+            Default = true,
+            Hidden = true)]
+        public bool SplitDVD
+        {
+            get { return _splitdvd; }
+            set
+            {
+                _splitdvd = value;
+                OnSettingChanged("importer_split_dvd");
+            }
+        }
+        private bool _splitdvd;
 
         [CornerstoneSetting(
             Name = "Automatically Import Inserted DVDs",
