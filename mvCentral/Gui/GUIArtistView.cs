@@ -32,7 +32,7 @@ namespace mvCentral.GUI
             else
             {
                 currentView = View.Video;
-                artistID = facade.ListView.SelectedListItem.ItemId;
+                artistID = facade.ListLayout.SelectedListItem.ItemId;
                 loadCurrent();
             }
         }
