@@ -62,7 +62,7 @@ namespace mvCentral.Database {
 
         #region Static Methods
 
-        public static DBSourceMusicVideoInfo Get(DBBasicInfo mv, DBSourceInfo source)
+        public static DBSourceMusicVideoInfo Get(DBTrackInfo mv, DBSourceInfo source)
         {
             foreach (DBSourceMusicVideoInfo currInfo in mv.SourceMusicVideoInfo)
                 if (currInfo.Source == source)
@@ -77,7 +77,7 @@ namespace mvCentral.Database {
             return null;
         }
 
-        public static DBSourceMusicVideoInfo GetOrCreate(DBBasicInfo mv, DBSourceInfo source)
+        public static DBSourceMusicVideoInfo GetOrCreate(DBTrackInfo mv, DBSourceInfo source)
         {
             DBSourceMusicVideoInfo rtn = Get(mv, source);
             if (rtn != null)

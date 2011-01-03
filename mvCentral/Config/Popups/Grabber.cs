@@ -25,6 +25,7 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Player;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Database;
+using mvCentral.Utils;
 
 
 namespace mvCentral.ConfigScreen.Popups {
@@ -272,22 +273,6 @@ namespace mvCentral.ConfigScreen.Popups {
             SystemEvents.DisplaySettingsChanged -= new EventHandler(SystemEvents_DisplaySettingsChanged);
         }
 
-        private TimeSpan ConvertToTimeSpan(DvdHMSFTimeCode t)
-        {
-            string s = String.Format("{0:00}:{1:00}:{2:00}",t.bHours,t.bMinutes,t.bSeconds);
-            TimeSpan result = TimeSpan.Parse(s);
-            return result;
-
-        }
-
-        private DvdHMSFTimeCode ConvertToDvdHMSFTimeCode(TimeSpan t)
-        {
-            DvdHMSFTimeCode result = new DvdHMSFTimeCode();
-            result.bHours = (byte)t.Hours;
-            result.bMinutes = (byte)t.Minutes;
-            result.bSeconds = (byte)t.Seconds;
-            return result;
-        }
 
         private void RunGraph()
         {
@@ -307,8 +292,8 @@ namespace mvCentral.ConfigScreen.Popups {
                     TimeSpan t2 = TimeSpan.Parse(mvs.OffsetTime);
                     t1 = t1.Add(t2);
                     t2 = t2.Add(TimeSpan.Parse(mvs.PlayTime));
-                    DvdHMSFTimeCode t3 = ConvertToDvdHMSFTimeCode(t1);
-                    DvdHMSFTimeCode t4 = ConvertToDvdHMSFTimeCode(t2);
+                    DvdHMSFTimeCode t3 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t1);
+                    DvdHMSFTimeCode t4 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t2);
                     //                if (state == FilterState.Stopped) 
                     hr = _dvdCtrl.PlayPeriodInTitleAutoStop(1, t3, t4, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
                     DsError.ThrowExceptionForHR(hr);

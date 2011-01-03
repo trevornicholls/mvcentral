@@ -27,12 +27,8 @@ namespace mvCentral.Database {
         private static readonly object lockList = new object();
         public DBTrackInfo()
             : base() {
-            this.LocalMedia.Changed += new ChangedEventHandler(LocalMedia_Changed);
         }
 
-        void LocalMedia_Changed(object sender, EventArgs e) {
-            this.LocalMedia.Sort(new DBLocalMediaComparer());
-        }
 
         #region Database Fields
 
@@ -131,6 +127,35 @@ namespace mvCentral.Database {
                 return _localMedia; 
             }
         } RelationList<DBTrackInfo, DBLocalMedia> _localMedia;
+
+
+        [DBRelation(AutoRetrieve = true, Filterable = false)]
+        public RelationList<DBTrackInfo, DBSourceMusicVideoInfo> SourceMusicVideoInfo
+        {
+            get
+            {
+                if (_sourceIDs == null)
+                {
+                    _sourceIDs = new RelationList<DBTrackInfo, DBSourceMusicVideoInfo>(this);
+                }
+                return _sourceIDs;
+            }
+        } RelationList<DBTrackInfo, DBSourceMusicVideoInfo> _sourceIDs;
+
+
+        public DBSourceMusicVideoInfo GetSourceMusicVideoInfo(int scriptID)
+        {
+            return DBSourceMusicVideoInfo.GetOrCreate(this, scriptID);
+        }
+
+        public DBSourceMusicVideoInfo GetSourceMusicVideoInfo(DBSourceInfo source)
+        {
+            return DBSourceMusicVideoInfo.GetOrCreate(this, source);
+        }
+
+
+
+
 
         [DBRelation(AutoRetrieve = true)]
         public RelationList<DBTrackInfo, DBUserMusicVideoSettings> UserSettings

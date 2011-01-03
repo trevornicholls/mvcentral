@@ -25,9 +25,24 @@ namespace mvCentral.Database {
     public class DBBasicInfo: mvCentralDBTable, IComparable, IAttributeOwner {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private static readonly object lockList = new object();
+
+        // A delegate type for hooking up change notifications.
+        public delegate void ChangedEventHandler(object sender, EventArgs e);
+        public event ChangedEventHandler Changed;
+
+
+
+        
+        
         public DBBasicInfo()
             : base() {
+
+ //               this.Basic.Changed += new ChangedEventHandler(LocalMedia_Changed);
+
         }
+
+
+
 
         public override void AfterDelete() {
             if (ID == null) {
@@ -36,6 +51,17 @@ namespace mvCentral.Database {
             }
         }
 
+
+        // Invoke the Changed event; called whenever basic changes
+        protected virtual void OnChanged(EventArgs e)
+        {
+            if (Changed != null)
+                Changed(this, e);
+        }
+
+
+        
+        
         #region Database Fields
 
         [DBField(AllowDynamicFiltering=false)]
@@ -43,8 +69,12 @@ namespace mvCentral.Database {
             get { return _basic; }
             set { 
                 _basic = value;
+
+                if (AlternateArts != null && AlternateArts.Count > 0)
+                    CheckRenameArt();
                 PopulateSortBy();
                 commitNeeded = true;
+                OnChanged(EventArgs.Empty);
             }
         } private string _basic;
 
@@ -150,29 +180,6 @@ namespace mvCentral.Database {
             }
         } private DBSourceInfo _primarySource;
 
-        [DBRelation(AutoRetrieve = true, Filterable = false)]
-        public RelationList<DBBasicInfo, DBSourceMusicVideoInfo> SourceMusicVideoInfo
-        {
-            get
-            {
-                if (_sourceIDs == null)
-                {
-                    _sourceIDs = new RelationList<DBBasicInfo, DBSourceMusicVideoInfo>(this);
-                }
-                return _sourceIDs;
-            }
-        } RelationList<DBBasicInfo, DBSourceMusicVideoInfo> _sourceIDs;
-
-
-        public DBSourceMusicVideoInfo GetSourceMusicVideoInfo(int scriptID)
-        {
-            return DBSourceMusicVideoInfo.GetOrCreate(this, scriptID);
-        }
-
-        public DBSourceMusicVideoInfo GetSourceMusicVideoInfo(DBSourceInfo source)
-        {
-            return DBSourceMusicVideoInfo.GetOrCreate(this, source);
-        }
         
         [DBField(AllowAutoUpdate = false, Filterable = false)]
         public StringList AlternateArts
@@ -323,6 +330,73 @@ namespace mvCentral.Database {
             AlternateArts.Remove(FilePath);
             commitNeeded = true;
         }
+
+        // renames the current trackimage from the selection list and deletes old ones and it's thumbnail 
+        // from disk
+        public void CheckRenameArt()
+        {
+            string FilePath = _artfullpath;
+            string ThumbFilePath = _thumbfullpath;
+
+            // delete thumbnail
+            if (ThumbFilePath.Trim().Length > 0)
+            {
+                FileInfo thumbFile = new FileInfo(ThumbFilePath);
+                if (thumbFile.Exists)
+                {
+                    try
+                    {
+                        string newname = GenerateName(ThumbFilePath);
+                        thumbFile.CopyTo(newname);
+                        thumbFile.Delete();
+                        _thumbfullpath = newname;
+                    }
+                    catch (Exception e)
+                    {
+                        if (e.GetType() == typeof(ThreadAbortException))
+                            throw e;
+                    }
+                }
+            }
+
+            StringList temp = new StringList();
+            foreach (string str in AlternateArts)
+            {
+                FileInfo File = new FileInfo(str);
+                if (File.Exists)
+                {
+                    try
+                    {
+                        string newname = GenerateName(str);
+                        File.CopyTo(newname);
+                        File.Delete();
+                        temp.Add(newname);
+
+                    }
+                    catch (Exception e)
+                    {
+                        if (e.GetType() == typeof(ThreadAbortException))
+                            throw e;
+                    }
+                }
+  
+            }
+
+            AlternateArts.Clear();
+            AlternateArts.AddRange(temp);
+            _artfullpath = AlternateArts[0];
+            commitNeeded = true;
+        }
+
+        public string GenerateName(string filename)
+        {
+            string ext = Path.GetExtension(filename);
+            Random random = new Random();
+            int val = random.Next(0xFFFFFFF);
+            string result = Path.GetDirectoryName(filename) + "\\{" + Basic + "} " + "[" + val.ToString() + "]"+ext;
+            return result;
+        }
+
 
 /*        public bool AddArtFromFile(string filename) {
             int minWidth = mvCentralCore.Settings.MinimumBasicWidth;
