@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using System.IO;
 using NLog;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using MediaPortal.Player;
 using MediaPortal.Profile;
 using mvCentral.ROT;
 using mvCentral.Database;
+using mvCentral.Utils;
 using DShowNET.Helper;
 using DirectShowLib;
 using DirectShowLib.Dvd;
@@ -41,9 +43,9 @@ namespace mvCentral.GUI
             }
         }
 
-        private void VideoActions(Action.ActionType actionType)
+        private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
         {
-            if (actionType == Action.ActionType.ACTION_PLAY || actionType == Action.ActionType.ACTION_SELECT_ITEM)
+            if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_PLAY || actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
             {
                 //play this song, or return to previous level
                 if (facade.ListView.SelectedListItem.Label == "..")
@@ -75,8 +77,23 @@ namespace mvCentral.GUI
                             _dvdCtrl = _dvdbasefilter as IDvdControl2;
                             _basicVideo = _graphBuilder as IBasicVideo2;
 
-                            int hr = _dvdCtrl.PlayChaptersAutoStop(1, db1.ChapterID, 1, 0, out _cmdOption);
+//                            hr = _mediaCtrl.Run();
+//                            hr = _mediaCtrl.Pause();
+//                            _offsetseek = (ulong)seekbar.Value;
+                            TimeSpan t1 = TimeSpan.FromMilliseconds(0);
+                            TimeSpan t2 = TimeSpan.Parse(db1.OffsetTime);
+                            t1 = t1.Add(t2);
+                            t2 = t2.Add(TimeSpan.Parse(db1.PlayTime));
+                            DvdHMSFTimeCode t3 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t1);
+                            DvdHMSFTimeCode t4 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t2);
+                            //                if (state == FilterState.Stopped) 
+                            int hr = _dvdCtrl.PlayPeriodInTitleAutoStop(1, t3, t4, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
                             DsError.ThrowExceptionForHR(hr);
+
+
+
+//                            int hr = _dvdCtrl.PlayChaptersAutoStop(1, db1.ChapterID, 1, 0, out _cmdOption);
+//                            DsError.ThrowExceptionForHR(hr);
 
 
                         }

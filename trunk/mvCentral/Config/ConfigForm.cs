@@ -133,7 +133,7 @@ namespace mvCentral {
             cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
             cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
             cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
-
+            
             artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
             albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
             trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
@@ -1174,7 +1174,9 @@ namespace mvCentral {
             TreeNode albumItem = null;
             bool ArtistNodeExist = true;
             bool AlbumNodeExist = true;
+            mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
 
+            mv.Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
             foreach (TreeNode t1 in tvLibrary.Nodes)
             {
                 if (t1.Level == 0)
@@ -1541,6 +1543,13 @@ namespace mvCentral {
             }
         }
  
+
+
+        private void basicInfoChanged(object sender, EventArgs e)
+        {
+            tvLibrary.SelectedNode.Text = CurrentTrack.Basic;
+        }
+
         #endregion
 
         #region mainpanel
@@ -2256,7 +2265,13 @@ namespace mvCentral {
                 Image newArt = null;
                 int ArtIndexNum = 0;
                 int ArtCount = 0;
-                newArt = Image.FromFile(mv.ArtFullPath);
+
+    MemoryStream ms = new MemoryStream(File.ReadAllBytes(mv.ArtFullPath));
+    newArt = Image.FromStream(ms);
+
+
+
+//                newArt = Image.FromFile(mv.ArtFullPath);
                 ArtIndexNum = mv.AlternateArts.IndexOf(mv.ArtFullPath);
                 ArtCount = mv.AlternateArts.Count;
                 Image oldArt = artImage.Image;

@@ -9,6 +9,9 @@ using System.IO;
 using System.Net;
 using System.Web;
 
+
+
+using DirectShowLib.Dvd;
 //using dlCentral.PluginHandlers;
 //using dlCentral.Settings;
 //using dlCentral.Settings.Data;
@@ -139,8 +142,24 @@ namespace mvCentral.Utils {
                 return false;
             }
             return true;
-        } 
+        }
 
+        public static TimeSpan ConvertToTimeSpan(DvdHMSFTimeCode t)
+        {
+            string s = String.Format("{0:00}:{1:00}:{2:00}", t.bHours, t.bMinutes, t.bSeconds);
+            TimeSpan result = TimeSpan.Parse(s);
+            return result;
+
+        }
+
+        public static DvdHMSFTimeCode ConvertToDvdHMSFTimeCode(TimeSpan t)
+        {
+            DvdHMSFTimeCode result = new DvdHMSFTimeCode();
+            result.bHours = (byte)t.Hours;
+            result.bMinutes = (byte)t.Minutes;
+            result.bSeconds = (byte)t.Seconds;
+            return result;
+        }
 
     }
 
