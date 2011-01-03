@@ -54,9 +54,9 @@ namespace mvCentral.GUI
         private void doFacadeSort()
         {
             int x = sortString.Length;
-            for (int i = 0; i < facade.ListView.ListItems.Count; i++)
+            for (int i = 0; i < facade.ListLayout.ListItems.Count; i++)
             {
-                string tmp = facade.ListView.ListItems[i].Label.Substring(0, x).ToUpper();
+                string tmp = facade.ListLayout.ListItems[i].Label.Substring(0, x).ToUpper();
                 if (tmp == sortString)
                 {
                     facade.SelectedListItemIndex = i;

@@ -339,7 +339,7 @@ namespace mvCentral.GUI
              {
                  dlgMenu.Add("Add to playlist");
                  dlgMenu.Add("Add all to playlist");
-                 if (listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count > 0 && !(facade.ListView.SelectedListItem.IsFolder))
+                 if (listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count > 0 && !(facade.ListLayout.SelectedListItem.IsFolder))
                  {
                      dlgMenu.Add("Add to Playlist as next item");
                  }
@@ -367,7 +367,7 @@ namespace mvCentral.GUI
             if (controlId == 50)
             {
                 //Clicked on something in the facade
-                if (facade.ListView.SelectedListItem.IsFolder)
+                if (facade.ListLayout.SelectedListItem.IsFolder)
                 {
                     ArtistActions(actionType);
                 }
@@ -395,7 +395,7 @@ namespace mvCentral.GUI
                 {
                     case 0:
                         //Add to playlist
-                        if (facade.ListView.SelectedListItem.IsFolder)
+                        if (facade.ListLayout.SelectedListItem.IsFolder)
                         {
                             DBArtistInfo currArtist = DBArtistInfo.Get(artistID);
                             List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
@@ -405,13 +405,13 @@ namespace mvCentral.GUI
                         else
                         {
                             PlayList playlist = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
-                            string filename = facade.ListView.SelectedListItem.Label;
-                            string path = facade.ListView.SelectedListItem.Path;
+                            string filename = facade.ListLayout.SelectedListItem.Label;
+                            string path = facade.ListLayout.SelectedListItem.Path;
                             playlist.Add(new PlayListItem(filename, path));
                         }
                         break;
                     case 1:
-                        if (facade.ListView.SelectedListItem.IsFolder)
+                        if (facade.ListLayout.SelectedListItem.IsFolder)
                         {
                             // addToPlaylist(dm.getAllVideos(), true, true, false);
                         }
@@ -426,7 +426,7 @@ namespace mvCentral.GUI
                         }
                         break;
                     case 2:
-                        addToPlaylistNext(facade.ListView.SelectedListItem);
+                        addToPlaylistNext(facade.ListLayout.SelectedListItem);
                         break;
                     case 3:
                     case -1:
@@ -504,7 +504,7 @@ namespace mvCentral.GUI
             
             if (facade.Count > 0 && !persisting)
             {
-                onArtistSelected(facade.ListView.ListItems[0], facade);
+                onArtistSelected(facade.ListLayout.ListItems[0], facade);
             }
             persisting = true;
             checkTrack.Start();
@@ -536,7 +536,7 @@ namespace mvCentral.GUI
             }
             if (facade.Count > 0 && ! persisting)
             {
-                onVideoSelected(facade.ListView.ListItems[0], facade);
+                onVideoSelected(facade.ListLayout.ListItems[0], facade);
             }
             dummyLabel.Visibility = System.Windows.Visibility.Visible;
         }
@@ -547,7 +547,7 @@ namespace mvCentral.GUI
             GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
             GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
             GUIPropertyManager.Changed = true;
-            lastItemArt = facade.ListView.SelectedListItemIndex;
+            lastItemArt = facade.ListLayout.SelectedListItemIndex;
         }
 
         void onVideoSelected(GUIListItem item, GUIControl parent)
@@ -556,7 +556,7 @@ namespace mvCentral.GUI
             GUIPropertyManager.Changed = true;
             if (item.Label != "..")
             {
-                lastItemVid = facade.ListView.SelectedListItemIndex;
+                lastItemVid = facade.ListLayout.SelectedListItemIndex;
             }
         }
     }

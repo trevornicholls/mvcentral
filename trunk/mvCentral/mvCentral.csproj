@@ -47,32 +47,33 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\mediaportal\v1.1.2\BassRegistration.dll</HintPath>
     </Reference>
-    <Reference Include="Core, Version=1.2.0.42486, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Core, Version=1.1.2.20593, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\Core.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\Core.dll</HintPath>
     </Reference>
-    <Reference Include="Cornerstone, Version=1.2.0.1187, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Cornerstone, Version=1.2.0.1201, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\Cornerstone.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\Cornerstone.dll</HintPath>
     </Reference>
-    <Reference Include="Cornerstone.MP">
-      <HintPath>..\External\Cornerstone.MP.dll</HintPath>
-    </Reference>
-    <Reference Include="Databases, Version=1.1.5.2998, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Cornerstone.MP, Version=1.2.0.1201, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\Databases.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\Cornerstone.MP.dll</HintPath>
     </Reference>
-    <Reference Include="Dialogs, Version=1.1.1.11860, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Databases, Version=1.1.2.20596, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\Dialogs.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\Databases.dll</HintPath>
+    </Reference>
+    <Reference Include="Dialogs, Version=1.1.2.20600, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\mediaportal\v1.2.6\Dialogs.dll</HintPath>
     </Reference>
     <Reference Include="DirectShowLib, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\DirectShowLib.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\DirectShowLib.dll</HintPath>
     </Reference>
-    <Reference Include="MediaPortal.Support, Version=1.1.1.11847, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="MediaPortal.Support, Version=1.1.2.20586, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\MediaPortal.Support.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\MediaPortal.Support.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -92,9 +93,9 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utils, Version=2.2.7.11849, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="Utils, Version=2.2.7.20588, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\Utils.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
