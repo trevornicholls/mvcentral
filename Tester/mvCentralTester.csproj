@@ -112,6 +112,6 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)mvCentral.*" "C:\Program Files\Team MediaPortal\MediaPortal\plugins\Windows" /Y</PostBuildEvent>
+    <PostBuildEvent>if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
   </PropertyGroup>
 </Project>
