@@ -37,29 +37,58 @@ namespace mvCentral.GUI
         private System.Windows.Forms.Timer checkTrack = new System.Windows.Forms.Timer();
         private string lastTrack = "";
 
-        [SkinControlAttribute(2)] protected GUIButtonControl buttonOne = null;
-        [SkinControlAttribute(3)] protected GUIButtonControl buttonTwo = null;
-        [SkinControlAttribute(4)] protected GUIButtonControl buttonThree = null;
-        [SkinControlAttribute(10)] protected GUILabelControl hierachy = null;
-        [SkinControlAttribute(11)] protected GUILabelControl artistName = null;
-        [SkinControlAttribute(12)] protected GUITextScrollUpControl artistBio = null;
-        [SkinControlAttribute(13)] protected GUIImage artistImage = null;
-        [SkinControlAttribute(14)] protected GUIImage videoImage = null;
-        [SkinControlAttribute(15)] protected GUILabelControl videoCount = null;
-        [SkinControlAttribute(16)] protected GUILabelControl artistCount = null;
-        [SkinControlAttribute(17)] protected GUIFadeLabel favVidLabel = null;
-        [SkinControlAttribute(18)] protected GUIImage favVidImage = null;
-        [SkinControlAttribute(19)] protected GUILabelControl favArtLabel = null;
-        [SkinControlAttribute(20)] protected GUIImage favArtImage = null;
-        [SkinControlAttribute(22)] protected GUILabelControl SortLabel = null;
-        [SkinControlAttribute(99)] protected GUILabelControl dummyLabel = null;
-        [SkinControlAttribute(50)] protected GUIFacadeControl facade;
+
 
         private PlayListPlayer listPlayer = PlayListPlayer.SingletonPlayer;
         private bool persisting = false;
         private View currentView = View.None;
         int lastItemArt = 0, lastItemVid = 0, artistID = 0;
         private string selArtist = "";
+
+
+        #region Skin Connection
+
+        private enum GUIControls
+        {
+          PlayAllRandom = 2,
+          PlaySmart = 3,
+          PlayList = 4,
+          Hierachy = 10,
+          ArtistName = 11,
+          ArtistBio = 12,
+          ArtistImage = 13,
+          VideoImage = 14,
+          VideoCount = 15,
+          ArtistCount = 16,
+          FavVidLabel = 17,
+          FavVidImage = 18,
+          FavArtLabel = 19,
+          FavArtImage = 20,
+          SortLabel = 22,
+          DummyLabel = 30,
+          Facade = 50
+        }
+
+        [SkinControlAttribute((int)GUIControls.PlayAllRandom)]    protected GUIButtonControl playAllRandom = null;
+        [SkinControlAttribute((int)GUIControls.PlaySmart)]        protected GUIButtonControl playSmartList = null;
+        [SkinControlAttribute((int)GUIControls.PlayList)]         protected GUIButtonControl sowPlayList = null;
+        [SkinControlAttribute((int)GUIControls.Hierachy)]         protected GUILabelControl hierachy = null;
+        [SkinControlAttribute((int)GUIControls.ArtistName)]       protected GUILabelControl artistName = null;
+        [SkinControlAttribute((int)GUIControls.ArtistBio)]        protected GUITextScrollUpControl artistBio = null;
+        [SkinControlAttribute((int)GUIControls.ArtistImage)]      protected GUIImage artistImage = null;
+        [SkinControlAttribute((int)GUIControls.VideoImage)]       protected GUIImage videoImage = null;
+        [SkinControlAttribute((int)GUIControls.VideoCount)]       protected GUILabelControl videoCount = null;
+        [SkinControlAttribute((int)GUIControls.ArtistCount)]      protected GUILabelControl artistCount = null;
+        [SkinControlAttribute((int)GUIControls.FavVidLabel)]      protected GUIFadeLabel favVidLabel = null;
+        [SkinControlAttribute((int)GUIControls.FavVidImage)]      protected GUIImage favVidImage = null;
+        [SkinControlAttribute((int)GUIControls.FavArtLabel)]      protected GUILabelControl favArtLabel = null;
+        [SkinControlAttribute((int)GUIControls.FavArtImage)]      protected GUIImage favArtImage = null;
+        [SkinControlAttribute((int)GUIControls.SortLabel)]        protected GUILabelControl SortLabel = null;
+        [SkinControlAttribute((int)GUIControls.DummyLabel)]       protected GUILabelControl dummyLabel = null;
+        [SkinControlAttribute((int)GUIControls.Facade)]           protected GUIFacadeControl facade;
+
+        #endregion
+
 
         public GUIMain() 
         {
@@ -355,29 +384,33 @@ namespace mvCentral.GUI
           return -1;
        }
 
-        protected override void OnClicked(int controlId, GUIControl control,
-                MediaPortal.GUI.Library.Action.ActionType actionType)
+        protected override void OnClicked(int controlId, GUIControl control,MediaPortal. GUI.Library.Action.ActionType actionType)
         {
-            if (controlId == 2)
-                playRandomAll();
-            if (control == buttonTwo)
-                playSmart(ChooseSmartPlay());
-            if (controlId == 4)
-                GUIWindowManager.ActivateWindow(28);
-            if (controlId == 50)
-            {
-                //Clicked on something in the facade
-                if (facade.ListLayout.SelectedListItem.IsFolder)
-                {
-                    ArtistActions(actionType);
-                }
-                else 
-                {
-                    VideoActions(actionType);
-                }
-            }
-            //DebugMsg("Pressed: " + actionType.ToString());
-            base.OnClicked(controlId, control, actionType);
+          switch (controlId)
+          {
+            case (int)GUIControls.PlayAllRandom:
+              playRandomAll();
+              break;
+            case (int)GUIControls.PlaySmart:
+              playSmart(ChooseSmartPlay());
+              break;
+            case (int)GUIControls.PlayList:
+              GUIWindowManager.ActivateWindow(28);
+              break;
+            case (int)GUIControls.Facade:
+              //Clicked on something in the facade
+              if (facade.ListLayout.SelectedListItem.IsFolder)
+              {
+                ArtistActions(actionType);
+              }
+              else
+              {
+                VideoActions(actionType);
+              }
+              break;
+          }
+          //DebugMsg("Pressed: " + actionType.ToString());
+          base.OnClicked(controlId, control, actionType);
         }
 
         public override void OnAction(MediaPortal.GUI.Library.Action action)
