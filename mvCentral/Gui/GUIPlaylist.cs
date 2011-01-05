@@ -92,7 +92,7 @@ namespace mvCentral.GUI
                     dlgMenu.Add("Random");
                     dlgMenu.Add("Least Played");
                 }
-                dlgMenu.DoModal(880);
+                dlgMenu.DoModal(GetID);
 
                 if (dlgMenu.SelectedLabel == -1) // Nothing was selected
                     return SmartMode.Cancel;
