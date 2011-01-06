@@ -95,7 +95,7 @@ namespace mvCentral.DataProviders
         }
 
 
-        public bool GetDetails(DBTrackInfo mv)
+        public bool GetDetails(DBBasicInfo mv)
         {
             throw new NotImplementedException();
         }

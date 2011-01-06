@@ -389,6 +389,7 @@ namespace mvCentral.DataProviders {
 //            AddSource(typeof(ScriptableProvider), Resources.Script_EmberMediaManager);            
 //            AddSource(typeof(MyVideosProvider));
             AddSource(typeof(LastFMProvider));
+            AddSource(typeof(DGProvider));
             AddSource(typeof(ManualProvider));
             // remove the impawards script (requested by site owner)
 //            DBSourceInfo impSource = DBSourceInfo.GetFromScriptID(874903);
@@ -711,7 +712,62 @@ namespace mvCentral.DataProviders {
             return false;
         }
 
-         #endregion
+        public bool GetDetails(DBBasicInfo mv)
+        {
+
+            if (mv.GetType() == typeof(DBArtistInfo))
+            {
+                List<DBSourceInfo> sources;
+                lock (artistSources) sources = new List<DBSourceInfo>(artistSources);
+
+                foreach (DBSourceInfo currSource in sources)
+                {
+                    if (currSource.IsDisabled(DataType.ARTIST))
+                        continue;
+
+                    bool success = currSource.Provider.GetDetails((DBArtistInfo)mv);
+                    if (success) return true;
+                }
+            }
+
+            if (mv.GetType() == typeof(DBAlbumInfo))
+            {
+
+                List<DBSourceInfo> sources;
+                lock (albumSources) sources = new List<DBSourceInfo>(albumSources);
+
+                foreach (DBSourceInfo currSource in sources)
+                {
+                    if (currSource.IsDisabled(DataType.ALBUM))
+                        continue;
+
+                    bool success = currSource.Provider.GetDetails((DBAlbumInfo)mv);
+                    if (success) return true;
+                }
+            }
+
+            if (mv.GetType() == typeof(DBTrackInfo))
+            {
+                // if we have already hit our limit for the number of Track arts to load, quit
+                if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+                    return true;
+
+                List<DBSourceInfo> sources;
+                lock (trackSources) sources = new List<DBSourceInfo>(trackSources);
+
+                foreach (DBSourceInfo currSource in sources)
+                {
+                    if (currSource.IsDisabled(DataType.TRACK))
+                        continue;
+
+                    bool success = currSource.Provider.GetDetails((DBTrackInfo)mv);
+                    if (success) return true;
+                }
+            }
+            return false;
+        }
+        
+        #endregion
     }
 
 }

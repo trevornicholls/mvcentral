@@ -5,9 +5,13 @@ using System.IO;
 using System.Reflection;
 using System.Xml;
 using System.Text.RegularExpressions;
+
+
+using mvCentral.Utils; 
+
+
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
-using mvCentral.Utils; 
 using NLog;
  
 namespace mvCentral.Localizations {
@@ -33,7 +37,7 @@ namespace mvCentral.Localizations {
 
             logger.Info("Using language: " + Lang);
 
-            _path = Config.GetSubFolder(Config.Dir.Language, "mvCentral");
+            _path = MediaPortal.Configuration.Config.GetSubFolder(MediaPortal.Configuration.Config.Dir.Language, "mvCentral");
 
             if (!Directory.Exists(_path))
                 Directory.CreateDirectory(_path);

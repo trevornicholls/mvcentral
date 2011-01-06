@@ -202,6 +202,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ArtFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.imageListDrag = new System.Windows.Forms.ImageList(this.components);
+            this.tsmGetInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -473,9 +474,10 @@
             this.sentToImporterToolStripMenuItem,
             this.getArtToolStripMenuItem,
             this.tsmGrabFrame,
-            this.tsmRemove});
+            this.tsmRemove,
+            this.tsmGetInfo});
             this.cmLibrary.Name = "cmLibrary";
-            this.cmLibrary.Size = new System.Drawing.Size(169, 92);
+            this.cmLibrary.Size = new System.Drawing.Size(169, 114);
             this.cmLibrary.Opened += new System.EventHandler(this.cmLibrary_Opened);
             // 
             // sentToImporterToolStripMenuItem
@@ -603,7 +605,7 @@
             this.coverToolStrip.Location = new System.Drawing.Point(189, 31);
             this.coverToolStrip.Name = "coverToolStrip";
             this.coverToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.coverToolStrip.Size = new System.Drawing.Size(24, 94);
+            this.coverToolStrip.Size = new System.Drawing.Size(32, 113);
             this.coverToolStrip.TabIndex = 14;
             // 
             // btnPrevArt
@@ -612,7 +614,7 @@
             this.btnPrevArt.Image = global::mvCentral.Properties.Resources.resultset_previous;
             this.btnPrevArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrevArt.Name = "btnPrevArt";
-            this.btnPrevArt.Size = new System.Drawing.Size(22, 20);
+            this.btnPrevArt.Size = new System.Drawing.Size(30, 20);
             this.btnPrevArt.Text = "toolStripButton2";
             this.btnPrevArt.ToolTipText = "Previous Art";
             this.btnPrevArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -623,7 +625,7 @@
             this.btnNextArt.Image = global::mvCentral.Properties.Resources.resultset_next;
             this.btnNextArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNextArt.Name = "btnNextArt";
-            this.btnNextArt.Size = new System.Drawing.Size(22, 20);
+            this.btnNextArt.Size = new System.Drawing.Size(30, 20);
             this.btnNextArt.Text = "toolStripButton3";
             this.btnNextArt.ToolTipText = "Next Art";
             this.btnNextArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -634,7 +636,7 @@
             this.btnArtDelete.Image = global::mvCentral.Properties.Resources.cross;
             this.btnArtDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtDelete.Name = "btnArtDelete";
-            this.btnArtDelete.Size = new System.Drawing.Size(22, 20);
+            this.btnArtDelete.Size = new System.Drawing.Size(30, 20);
             this.btnArtDelete.Text = "toolStripButton2";
             this.btnArtDelete.ToolTipText = "Delete Art";
             this.btnArtDelete.Click += new System.EventHandler(this.btnArtDelete_Click);
@@ -645,7 +647,7 @@
             this.btnArtZoom.Image = global::mvCentral.Properties.Resources.zoom;
             this.btnArtZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtZoom.Name = "btnArtZoom";
-            this.btnArtZoom.Size = new System.Drawing.Size(22, 20);
+            this.btnArtZoom.Size = new System.Drawing.Size(30, 20);
             this.btnArtZoom.Text = "toolStripButton2";
             this.btnArtZoom.ToolTipText = "Zoom Art";
             this.btnArtZoom.Click += new System.EventHandler(this.btnArtZoom_Click);
@@ -2088,6 +2090,13 @@
             this.imageListDrag.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListDrag.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // tsmGetInfo
+            // 
+            this.tsmGetInfo.Name = "tsmGetInfo";
+            this.tsmGetInfo.Size = new System.Drawing.Size(168, 22);
+            this.tsmGetInfo.Text = "Get Info";
+            this.tsmGetInfo.Click += new System.EventHandler(this.tsmGetInfo_Click);
+            // 
             // fileNameDataGridViewTextBoxColumn
             // 
             this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
@@ -2410,5 +2419,6 @@
         private System.Windows.Forms.ImageList imageListDrag;
         private System.Windows.Forms.ImageList imageListTreeView;
         private Cornerstone.GUI.Controls.SettingCheckBox cbSplitDVD;
+        private System.Windows.Forms.ToolStripMenuItem tsmGetInfo;
     }
 }

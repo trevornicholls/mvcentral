@@ -11,8 +11,6 @@ using Cornerstone.Database.Tables;
 using Cornerstone.GUI.Dialogs;
 using Cornerstone.Tools;
 
-using MediaPortal.Configuration;
-using MediaPortal.Services;
 
 using NLog;
 using NLog.Config;
@@ -25,7 +23,9 @@ using mvCentral.LocalMediaManagement;
 using mvCentral.DataProviders;
 using mvCentral.GUI;
 using mvCentral.Localizations;
-using mvCentral.Utils;
+//using mvCentral.Utils;
+using MediaPortal.Configuration;
+using MediaPortal.Services;
 
 namespace mvCentral
 {
@@ -145,7 +145,7 @@ namespace mvCentral
         {
             get
             {
-                MediaPortal.Profile.Settings mpSettings = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml"));
+                MediaPortal.Profile.Settings mpSettings = new MediaPortal.Profile.Settings(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Config, "MediaPortal.xml"));
                 return mpSettings;
             }
         }
@@ -166,7 +166,7 @@ namespace mvCentral
             if (_databaseManager != null)
                 return;
 
-            string fullDBFileName = Config.GetFile(Config.Dir.Database, dbFileName);
+            string fullDBFileName = MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Database, dbFileName);
             _databaseManager = new DatabaseManager(fullDBFileName);
 
             // check that we at least have a default user
@@ -198,13 +198,13 @@ namespace mvCentral
             // backup the current log file and clear for the new one
             try
             {
-                FileInfo logFile = new FileInfo(Config.GetFile(Config.Dir.Log, logFileName));
+                FileInfo logFile = new FileInfo(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Log, logFileName));
                 if (logFile.Exists)
                 {
-                    if (File.Exists(Config.GetFile(Config.Dir.Log, oldLogFileName)))
-                        File.Delete(Config.GetFile(Config.Dir.Log, oldLogFileName));
+                    if (File.Exists(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Log, oldLogFileName)))
+                        File.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Log, oldLogFileName));
 
-                    logFile.CopyTo(Config.GetFile(Config.Dir.Log, oldLogFileName));
+                    logFile.CopyTo(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Log, oldLogFileName));
                     logFile.Delete();
                 }
             }
@@ -240,7 +240,7 @@ namespace mvCentral
             // build the logging target for music videos logging
             FileTarget mvLogTarget = new FileTarget();
             mvLogTarget.Name = "music-videos";
-            mvLogTarget.FileName = Config.GetFile(Config.Dir.Log, logFileName);
+            mvLogTarget.FileName = MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Log, logFileName);
             mvLogTarget.Layout = "${date:format=dd-MMM-yyyy HH\\:mm\\:ss} " +
                                 "${level:fixedLength=true:padding=5} " +
                                 "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
@@ -289,42 +289,42 @@ namespace mvCentral
         private static void initAdditionalSettings() {
 
             if (Settings.AlbumArtFolder.Trim() == "")
-                Settings.AlbumArtFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Albums\\FullSize";
+                Settings.AlbumArtFolder = MediaPortal.Configuration.Config.GetFolder(MediaPortal.Configuration.Config.Dir.Thumbs) + "\\mvCentral\\Albums\\FullSize";
 
             // create the albums folder if it doesn't already exist
             if (!Directory.Exists(Settings.AlbumArtFolder))
                 Directory.CreateDirectory(Settings.AlbumArtFolder);
 
             if (Settings.AlbumArtThumbsFolder.Trim() == "")
-                Settings.AlbumArtThumbsFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Albums\\Thumbs";
+                Settings.AlbumArtThumbsFolder = MediaPortal.Configuration.Config.GetFolder(MediaPortal.Configuration.Config.Dir.Thumbs) + "\\mvCentral\\Albums\\Thumbs";
 
             // create the thumbs folder if it doesn't already exist
             if (!Directory.Exists(Settings.AlbumArtThumbsFolder))
                 Directory.CreateDirectory(Settings.AlbumArtThumbsFolder);
 
             if (Settings.TrackArtFolder.Trim() == "")
-                Settings.TrackArtFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Tracks\\FullSize";
+                Settings.TrackArtFolder = MediaPortal.Configuration.Config.GetFolder(MediaPortal.Configuration.Config.Dir.Thumbs) + "\\mvCentral\\Tracks\\FullSize";
 
             // create the tracks folder if it doesn't already exist
             if (!Directory.Exists(Settings.TrackArtFolder))
                 Directory.CreateDirectory(Settings.TrackArtFolder);
 
             if (Settings.TrackArtThumbsFolder.Trim() == "")
-                Settings.TrackArtThumbsFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Tracks\\Thumbs";
+                Settings.TrackArtThumbsFolder = MediaPortal.Configuration.Config.GetFolder(MediaPortal.Configuration.Config.Dir.Thumbs) + "\\mvCentral\\Tracks\\Thumbs";
 
             // create the thumbs folder if it doesn't already exist
             if (!Directory.Exists(Settings.TrackArtThumbsFolder))
                 Directory.CreateDirectory(Settings.TrackArtThumbsFolder);
 
             if (Settings.ArtistArtFolder.Trim() == "")
-                Settings.ArtistArtFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Artists\\FullSize";
+                Settings.ArtistArtFolder = MediaPortal.Configuration.Config.GetFolder(MediaPortal.Configuration.Config.Dir.Thumbs) + "\\mvCentral\\Artists\\FullSize";
 
             // create the ArtistArt folder if it doesn't already exist
             if (!Directory.Exists(Settings.ArtistArtFolder))
                 Directory.CreateDirectory(Settings.ArtistArtFolder);
 
             if (Settings.ArtistArtThumbsFolder.Trim() == "")
-                Settings.ArtistArtThumbsFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\mvCentral\\Artists\\Thumbs";
+                Settings.ArtistArtThumbsFolder = MediaPortal.Configuration.Config.GetFolder(MediaPortal.Configuration.Config.Dir.Thumbs) + "\\mvCentral\\Artists\\Thumbs";
 
             // create the ArtistArt thumbs folder if it doesn't already exist
             if (!Directory.Exists(Settings.ArtistArtThumbsFolder))

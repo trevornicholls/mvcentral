@@ -193,6 +193,18 @@ namespace mvCentral.Database {
             }
         } private StringList _alternatearts;
 
+        [DBField(AllowAutoUpdate = false, Filterable = false)]
+        public StringList ArtUrls
+        {
+            get { return _arturls; }
+
+            set
+            {
+                _arturls = value;
+                commitNeeded = true;
+            }
+        } private StringList _arturls;
+
 
         [DBField(AllowAutoUpdate = false, Filterable=false)]
         public String ArtFullPath
@@ -381,11 +393,13 @@ namespace mvCentral.Database {
                 }
   
             }
-
-            AlternateArts.Clear();
-            AlternateArts.AddRange(temp);
-            _artfullpath = AlternateArts[0];
-            commitNeeded = true;
+            if (temp.Count > 0)
+            {
+                AlternateArts.Clear();
+                AlternateArts.AddRange(temp);
+                _artfullpath = AlternateArts[0];
+                commitNeeded = true;
+            }
         }
 
         public string GenerateName(string filename)
