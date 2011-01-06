@@ -5,6 +5,7 @@ using System.Threading;
 using System.Text;
 using System.IO;
 using System.Xml;
+using System.Windows.Forms;
 using Cornerstone.Tools;
 using mvCentral.Database;
 using mvCentral.SignatureBuilders;
@@ -12,6 +13,7 @@ using mvCentral.LocalMediaManagement;
 using NLog;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
+using mvCentral.ConfigScreen.Popups;
 
 namespace mvCentral.DataProviders
 {
@@ -43,12 +45,13 @@ namespace mvCentral.DataProviders
 
         private static string apiArtistGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}", apikey);
         private static string apiArtistmbidGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&mbid={0}", apikey);
-        private static string apiArtistNameGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}", apikey);
         private static string apiArtistmbidGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&mbid={0}", apikey);
         private static string apiArtistGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&artist={0}", apikey);
         private static string apiAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&album={0}", apikey);
         private static string apiAlbummbidGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&mbid={0}", apikey);
         private static string apiArtistAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&artist={0}&album={1}", apikey);
+        private static string apiArtistTopAlbums = string.Format(apiMusicVideoUrl, "artist.gettopalbums&artist={0}", apikey);
+        private static string apiArtistTopTracks = string.Format(apiMusicVideoUrl, "artist.gettoptracks&artist={0}", apikey);
         private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&track={0}", apikey);
         private static string apiTrackmbidGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&mbid={0}", apikey);
         private static string apiArtistTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&artist={0}&track={1}", apikey);
@@ -92,6 +95,111 @@ namespace mvCentral.DataProviders
             get { return true; }
         }
 
+        public bool GetDetails(DBBasicInfo mv)
+        {
+
+
+            if (mv.GetType() == typeof(DBAlbumInfo))
+            {
+
+                List<DBTrackInfo> a1 = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)mv);
+                if (a1.Count > 0)
+                {
+                    string artist = a1[0].ArtistInfo[0].Artist;
+                    XmlNodeList xml = null;
+
+                    if (artist != null)
+                        xml = getXML(string.Format(apiArtistTopAlbums, artist));
+                    else return false;
+
+                    if (xml == null)
+                        return false;
+                    XmlNode root = xml.Item(0).ParentNode;
+                    if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
+                    XmlNode n1 = root.SelectSingleNode(@"/lfm/topalbums");
+
+                    List<Release> r1 = new List<Release>();
+                    foreach (XmlNode x1 in n1.ChildNodes)
+                    {
+                        Release r2 = new Release(x1);
+                        r1.Add(r2);
+                    }
+                    DetailsPopup d1 = new DetailsPopup(r1);
+
+                    if (d1.ShowDialog() == DialogResult.OK)
+                    {
+                        DBAlbumInfo mv1 = (DBAlbumInfo)mv;
+                        mv.ArtUrls.Clear();
+                        setMusicVideoAlbum(ref mv1, d1.label8.Text);
+                        GetAlbumArt((DBAlbumInfo)mv);
+                    };
+
+
+                }
+            }
+
+            if (mv.GetType() == typeof(DBTrackInfo))
+            {
+                string artist = ((DBTrackInfo)mv).ArtistInfo[0].Artist;
+                //first get artist info
+                XmlNodeList xml = null;
+
+                if (artist != null)
+                    xml = getXML(string.Format(apiArtistTopTracks, artist));
+                else return false;
+
+                if (xml == null)
+                    return false;
+                XmlNode root = xml.Item(0).ParentNode;
+                if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
+                XmlNode n1 = root.SelectSingleNode(@"/lfm/toptracks");
+
+                int page = Convert.ToInt16(n1.Attributes["page"].Value);
+                int perPage = Convert.ToInt16(n1.Attributes["perPage"].Value);
+                int totalPages = Convert.ToInt16(n1.Attributes["totalPages"].Value);
+                int total = Convert.ToInt16(n1.Attributes["total"].Value);
+
+
+
+
+                List<Release> r1 = new List<Release>();
+                while (page < totalPages-1)
+                {
+                    xml = getXML(string.Format(apiArtistTopTracks, artist) + "page=" + page);
+                    n1 = root.SelectSingleNode(@"/lfm/toptracks");
+
+                    foreach (XmlNode x1 in n1.ChildNodes)
+                    {
+                        Release r2 = new Release(x1);
+                        r1.Add(r2);
+                    }
+                    page++;
+                }
+                DetailsPopup d1 = new DetailsPopup(r1);
+
+                if (d1.ShowDialog() == DialogResult.OK)
+                {
+                    DBTrackInfo mv1 = (DBTrackInfo)mv;
+                    mv.ArtUrls.Clear();
+                    if (artist.Trim().Length == 0) artist = null;
+                    string title = d1.textBox1.Text;
+                    string mbid = d1.label8.Text;
+                    if (title.Trim().Length == 0) title = null;
+                    if (mbid.Trim().Length == 0) mbid = null;
+                    setMusicVideoTrack(ref mv1, artist, title, mbid);
+                    GetTrackArt((DBTrackInfo)mv);
+                };
+
+
+
+            }
+
+            return true;
+
+
+        }
+
+
         public bool GetArtistArt(DBArtistInfo mv)
         {
             if (mv == null)
@@ -109,15 +217,15 @@ namespace mvCentral.DataProviders
 
             if (mv.ArtFullPath.Trim().Length == 0)
             {
-                List<string> at = GetArtistImages(mv.MdID);
-                if (at != null)
+                GetArtistImages(mv);
+                if (mv.ArtUrls != null)
                 {
                     // grab artistart loading settings
                     int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
 
                     int artistartAdded = 0;
                     int count = 0;
-                    foreach (string a2 in at)
+                    foreach (string a2 in mv.ArtUrls)
                     {
                         if (mv.AlternateArts.Count >= maxArtistArts) break;
                         if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) artistartAdded++;
@@ -192,9 +300,9 @@ namespace mvCentral.DataProviders
 //                return false;
 //            }
 
-            if (mv.ArtFullPath.Trim().Length == 0 )
+//            if (mv.ArtFullPath.Trim().Length == 0 )
             {
-                List<string> at = GetAlbumImages(mv.MdID);
+                List<string> at = mv.ArtUrls;
                 if (at != null)
                 {
                     // grab album art loading settings
@@ -295,18 +403,11 @@ namespace mvCentral.DataProviders
             return null;
         }
 
-        private void setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)
+        private void setMusicVideoArtist(ref DBArtistInfo mv, string artistmbid)
         {
-          if (string.IsNullOrEmpty(artistName) && string.IsNullOrEmpty(artistmbid))  
+            if (artistmbid == null)
                 return ;
-
-          XmlNodeList xml = null;;
-
-          if (string.IsNullOrEmpty(artistmbid))
-            xml = getXML(string.Format(apiArtistNameGetInfo, artistName));
-          else
-            xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid));
-
+            XmlNodeList xml = getXML(string.Format(apiArtistmbidGetInfo,artistmbid));
             if (xml == null)
                 return ;
             XmlNode root = xml.Item(0).ParentNode;
@@ -408,7 +509,9 @@ namespace mvCentral.DataProviders
                         break;
 
                     case "image" :
-
+                        if (!mv.ArtUrls.Contains(value))
+                           
+                            mv.ArtUrls.Add(value);
                         break;
                     case "wiki":
                         XmlNode n1 = root.SelectSingleNode(@"/lfm/album/wiki/summary");
@@ -433,6 +536,72 @@ namespace mvCentral.DataProviders
                 }
             }
             return ;
+        }
+
+        private void setMusicVideoTrack(ref DBTrackInfo mv, string artist, string track, string mbid)
+        {
+            if (track == null && mbid == null)
+                return;
+
+            XmlNodeList xml = null;
+
+            if (artist == null && mbid == null) xml = getXML(string.Format(apiTrackGetInfo, track));
+            if (track == null && artist == null) xml = getXML(string.Format(apiTrackmbidGetInfo, mbid));
+            if (mbid == null) xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track));
+
+            if (xml == null)
+                return;
+            XmlNode root = xml.Item(0).ParentNode;
+            if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
+
+            XmlNodeList mvNodes = xml.Item(0).ChildNodes;
+
+            foreach (XmlNode node in mvNodes)
+            {
+                string value = node.InnerText;
+                switch (node.Name)
+                {
+                    case "name":
+
+                        mv.Track = value;
+                        break;
+                    case "mbid":
+                        mv.MdID = value;
+                        break;
+                    case "tags": // Actors, Directors and Writers
+                        foreach (XmlNode tag in node.ChildNodes)
+                        {
+                            string tagstr = tag.FirstChild.LastChild.Value;
+                            mv.Tag.Add(tagstr);
+                        }
+                        break;
+
+                    case "image":
+                             mv.ArtUrls.Add(value);
+                        break;
+                    case "wiki":
+                        XmlNode n1 = root.SelectSingleNode(@"/lfm/track/wiki/summary");
+                        if (n1 != null && n1.ChildNodes != null)
+                        {
+                            XmlNode childNode1 = n1.ChildNodes[0];
+                            if (childNode1 is XmlCDataSection)
+                            {
+                                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
+                                mv.bioSummary = cdataSection.Value;
+                            }
+                            n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
+                            childNode1 = n1.ChildNodes[0];
+                            if (childNode1 is XmlCDataSection)
+                            {
+                                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
+                                mv.bioContent = cdataSection.Value;
+                            }
+                        }
+
+                        break;
+                }
+            }
+            return;
         }
 
         private DBTrackInfo getMusicVideoTrack(string track)
@@ -473,12 +642,12 @@ namespace mvCentral.DataProviders
                         mv.MdID = value;
                         break;
                     case "artist":
-
                         if (node.ChildNodes[0].InnerText.Trim().Length > 0)
                         {
-                          DBArtistInfo d4 = new DBArtistInfo();
-                          setMusicVideoArtist(ref d4, node.ChildNodes[0].InnerText, node.ChildNodes[1].InnerText);
-                          mv.ArtistInfo.Add(d4);
+                            DBArtistInfo d4 = new DBArtistInfo();
+                            if (node.ChildNodes[1].InnerText.Trim().Length > 0)
+                               setMusicVideoArtist(ref d4, node.ChildNodes[1].InnerText);
+                            mv.ArtistInfo.Add(d4);
                         }
                         break;
 
@@ -525,7 +694,7 @@ namespace mvCentral.DataProviders
             }
 
             if (mv.ArtistInfo.Count == 0) return null;
-            //if (mv.ArtistInfo[0].MdID.Trim().Length == 0) return null;
+            if (mv.ArtistInfo[0].MdID.Trim().Length == 0) return null;
 
             return mv;
         }
@@ -563,14 +732,14 @@ namespace mvCentral.DataProviders
             return null;
         }
 
-        private List<string> GetArtistImages(string mbid)
+        private void GetArtistImages(DBArtistInfo mv)
         {
             XmlNodeList xml = null;
-            xml = getXML(string.Format(apiArtistmbidGetImagesInfo, mbid));
-            if (xml == null) return null;
+            xml = getXML(string.Format(apiArtistmbidGetImagesInfo, mv.MdID));
+            if (xml == null) return;
             List<string> result = new List<string>();
             XmlNode root = xml.Item(0).ParentNode;
-            if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
+            if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
             XmlNode n1 = root.SelectSingleNode(@"/lfm/images");
             if (n1 != null)
             {
@@ -586,8 +755,8 @@ namespace mvCentral.DataProviders
                                 {
                                     case "sizes" :
                                         XmlNode n4 = n3.FirstChild;
-
-                                        result.Add(n4.InnerText);
+                                        mv.ArtUrls.Add(n4.InnerText);
+                 //                       result.Add(n4.InnerText);
 
                                         break;
                                 }
@@ -603,7 +772,6 @@ namespace mvCentral.DataProviders
             
             
             
-            return result;
         }
 
         private List<string> GetAlbumImages(string mbid)
