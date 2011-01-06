@@ -499,6 +499,10 @@ namespace mvCentral.GUI
       //            GUIPropertyManager.SetProperty("#MusicVids.FavArtist", stats[4]);
       //            favVidImage.SetFileName(stats[3]);
       //            favArtImage.SetFileName(stats[5]);
+
+      List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
+      GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count.ToString() + " Videos");
+      
       SortLabel.Label = "";
       GUIPropertyManager.Changed = true;
       if (persisting)

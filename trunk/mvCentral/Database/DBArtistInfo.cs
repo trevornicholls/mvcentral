@@ -48,6 +48,7 @@ namespace mvCentral.Database {
         
 
         #endregion
+
         #region Database Management Methods
 
         public static DBArtistInfo Get(int id) {
