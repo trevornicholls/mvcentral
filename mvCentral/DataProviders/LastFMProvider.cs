@@ -43,6 +43,7 @@ namespace mvCentral.DataProviders
 
         private static string apiArtistGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}", apikey);
         private static string apiArtistmbidGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&mbid={0}", apikey);
+        private static string apiArtistNameGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}", apikey);
         private static string apiArtistmbidGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&mbid={0}", apikey);
         private static string apiArtistGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&artist={0}", apikey);
         private static string apiAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&album={0}", apikey);
@@ -294,11 +295,18 @@ namespace mvCentral.DataProviders
             return null;
         }
 
-        private void setMusicVideoArtist(ref DBArtistInfo mv, string artistmbid)
+        private void setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)
         {
-            if (artistmbid == null)
+          if (string.IsNullOrEmpty(artistName) && string.IsNullOrEmpty(artistmbid))  
                 return ;
-            XmlNodeList xml = getXML(string.Format(apiArtistmbidGetInfo,artistmbid));
+
+          XmlNodeList xml = null;;
+
+          if (string.IsNullOrEmpty(artistmbid))
+            xml = getXML(string.Format(apiArtistNameGetInfo, artistName));
+          else
+            xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid));
+
             if (xml == null)
                 return ;
             XmlNode root = xml.Item(0).ParentNode;
@@ -465,12 +473,12 @@ namespace mvCentral.DataProviders
                         mv.MdID = value;
                         break;
                     case "artist":
+
                         if (node.ChildNodes[0].InnerText.Trim().Length > 0)
                         {
-                            DBArtistInfo d4 = new DBArtistInfo();
-                            if (node.ChildNodes[1].InnerText.Trim().Length > 0)
-                               setMusicVideoArtist(ref d4, node.ChildNodes[1].InnerText);
-                            mv.ArtistInfo.Add(d4);
+                          DBArtistInfo d4 = new DBArtistInfo();
+                          setMusicVideoArtist(ref d4, node.ChildNodes[0].InnerText, node.ChildNodes[1].InnerText);
+                          mv.ArtistInfo.Add(d4);
                         }
                         break;
 
@@ -517,7 +525,7 @@ namespace mvCentral.DataProviders
             }
 
             if (mv.ArtistInfo.Count == 0) return null;
-            if (mv.ArtistInfo[0].MdID.Trim().Length == 0) return null;
+            //if (mv.ArtistInfo[0].MdID.Trim().Length == 0) return null;
 
             return mv;
         }
