@@ -74,6 +74,13 @@ namespace mvCentral.DataProviders
             get { return true; }
         }
 
+        public bool GetDetails(DBBasicInfo mv)
+        {
+            //            throw new NotImplementedException();
+            return false;
+        }
+
+
         public bool GetArtistArt(DBArtistInfo mv)
         {
             if (mv == null) 

@@ -128,6 +128,12 @@
     <Compile Include="Config\Popups\ArtURLPopup.designer.cs">
       <DependentUpon>ArtURLPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Config\Popups\DetailsPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\DetailsPopup.Designer.cs">
+      <DependentUpon>DetailsPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config\Popups\Grabber.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +145,12 @@
     </Compile>
     <Compile Include="Config\Popups\ManualAssignPopup.designer.cs">
       <DependentUpon>ManualAssignPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\SourcePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\SourcePopup.Designer.cs">
+      <DependentUpon>SourcePopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\DatabaseMaintenanceManager.cs" />
     <Compile Include="Database\DBAlbumInfo.cs" />
@@ -157,6 +169,7 @@
     <Compile Include="Database\DBWatchedHistory.cs" />
     <Compile Include="Database\MusicVideosDBTable.cs" />
     <Compile Include="DataProviders\DataProviderManager.cs" />
+    <Compile Include="DataProviders\DGProvider.cs" />
     <Compile Include="DataProviders\IMusicVideoProvider.cs" />
     <Compile Include="DataProviders\InternalProvider.cs" />
     <Compile Include="DataProviders\LastFMProvider.cs" />
@@ -238,11 +251,17 @@
     <EmbeddedResource Include="Config\Popups\ArtURLPopup.resx">
       <DependentUpon>ArtURLPopup.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\DetailsPopup.resx">
+      <DependentUpon>DetailsPopup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\Grabber.resx">
       <DependentUpon>Grabber.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\ManualAssignPopup.resx">
       <DependentUpon>ManualAssignPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\SourcePopup.resx">
+      <DependentUpon>SourcePopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -1174,9 +1174,6 @@ namespace mvCentral {
             TreeNode albumItem = null;
             bool ArtistNodeExist = true;
             bool AlbumNodeExist = true;
-            mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
-
-            mv.Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
             foreach (TreeNode t1 in tvLibrary.Nodes)
             {
                 if (t1.Level == 0)
@@ -1193,6 +1190,9 @@ namespace mvCentral {
             if (artistItem == null)
             {
                artistItem = new TreeNode(mv.ArtistInfo[0].Artist,1,1);
+               mv.ArtistInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+
+               mv.ArtistInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
                artistItem.Tag = mv.ArtistInfo[0];
                ArtistNodeExist = false;
             }
@@ -1223,10 +1223,17 @@ namespace mvCentral {
                     AlbumNodeExist = false;
                     albumItem = new TreeNode(mv.AlbumInfo[0].Album,2,2);
                     albumItem.Tag = mv.AlbumInfo[0];
+                    mv.AlbumInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+
+                    mv.AlbumInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
                 }
             }
             else AlbumNodeExist = false;
             TreeNode trackItem = new TreeNode(mv.Track,3,3);
+            mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+
+            mv.Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+            
             trackItem.Tag = mv;
 
 
@@ -1522,6 +1529,19 @@ namespace mvCentral {
                 d1.Commit();
             }
 
+            
+
+            if (t.Tag.GetType() == typeof(DBAlbumInfo))
+            {
+                DBAlbumInfo a3 = (DBAlbumInfo)t.Tag;
+                DBArtistInfo a1 = (DBArtistInfo)t.Parent.Tag;
+                foreach (TreeNode t1 in t.Nodes)
+                {
+                    ((DBTrackInfo)t1.Tag).ArtistInfo.Clear();
+                    ((DBTrackInfo)t1.Tag).ArtistInfo.Add(a1);
+                }
+            }
+
             foreach (DBArtistInfo a3 in DBArtistInfo.GetAll())
             {
                 List<DBTrackInfo> a7 = DBTrackInfo.GetEntriesByArtist(a3);
@@ -1529,6 +1549,7 @@ namespace mvCentral {
                 {
                     a3.Delete();
                     a3.Commit();
+                    break;
                 }
             }
 
@@ -1539,6 +1560,7 @@ namespace mvCentral {
                 {
                     a3.Delete();
                     a3.Commit();
+                    break;
                 }
             }
         }
@@ -1547,7 +1569,17 @@ namespace mvCentral {
 
         private void basicInfoChanged(object sender, EventArgs e)
         {
-            tvLibrary.SelectedNode.Text = CurrentTrack.Basic;
+                        // This ensures we are thread safe. Makes sure this method is run by
+            // the thread that created this panel.
+
+            if (InvokeRequired)
+            {
+                Invoke(new DBBasicInfo.ChangedEventHandler(basicInfoChanged), new object[] {sender, e});
+                return;
+            }
+      
+
+            tvLibrary.SelectedNode.Text = (sender as DBBasicInfo).Basic;
         }
 
         #endregion
@@ -1584,8 +1616,8 @@ namespace mvCentral {
         {
             try
             {
-                System.IO.Directory.Delete(Config.GetFile(Config.Dir.Thumbs, "Music Vids\\Thumbs\\"), true);
-                System.IO.Directory.Delete(Config.GetFile(Config.Dir.Thumbs, "Music Vids\\Artists\\"), true);
+                System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "Music Vids\\Thumbs\\"), true);
+                System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "Music Vids\\Artists\\"), true);
             }
             catch { }
 //            dm.Execute("DELETE FROM Artists");
@@ -2702,11 +2734,13 @@ namespace mvCentral {
             tsmGrabFrame.Enabled = false;
             tsmfromMusicVideo.Enabled = false;
             tsmRemove.Enabled = false;
+            tsmGetInfo.Enabled = false;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
                     break;
                 case "tpAlbum":
+                    tsmGetInfo.Enabled = true;
                     break;
                 case "tpTrack":
                     if (CurrentTrack != null)
@@ -2715,6 +2749,7 @@ namespace mvCentral {
                             tsmfromMusicVideo.Enabled = true;
                         tsmGrabFrame.Enabled = true;
                         tsmRemove.Enabled = true;
+                        tsmGetInfo.Enabled = true;
                     }
                     break;
             }
@@ -2767,6 +2802,54 @@ namespace mvCentral {
             CurrentTrack.DeleteAndIgnore();
             tvLibrary.SelectedNode.Remove();
         }
+
+        private void tsmGetInfo_Click(object sender, EventArgs e)
+        {
+            DBBasicInfo mv = null;
+            switch (tcMusicVideo.SelectedTab.Name)
+            {
+                case "tpArtist":
+                    mv = CurrentArtist;
+                    break;
+                case "tpAlbum":
+                    mv = CurrentAlbum;
+                    break;
+                case "tpTrack":
+                    mv = CurrentTrack;
+                    break;
+            }
+            if (mv == null) return;
+
+
+//            List<DBSourceInfo> r1 = new List<string>();
+            foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
+            {
+//               if (r2.Provider is ManualProvider)
+               {
+//                  r1.add(r2.ToString());
+                }
+            }
+
+            SourcePopup sp = new SourcePopup(mvCentralCore.DataProviderManager.AllSources);
+            if(sp.ShowDialog() == DialogResult.OK)
+            {
+
+                mv.PrimarySource = mvCentralCore.DataProviderManager.AllSources[sp.listBox1.SelectedIndex]; 
+
+            // the update process can take a little time, so spawn it off in another thread
+                ThreadStart actions = delegate
+                 {
+                     startArtProgressBar();
+                     mvCentralCore.DataProviderManager.GetDetails(mv);
+                     mv.Commit();
+                     stopArtProgressBar();
+                 };
+
+                Thread thread = new Thread(actions);
+                thread.Name = "DetailsUpdater";
+                thread.Start();
+                    }
+            }
 
  
 
