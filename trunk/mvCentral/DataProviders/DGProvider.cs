@@ -388,7 +388,7 @@ namespace mvCentral.DataProviders
 
         private DBTrackInfo getMusicVideoTrack(string artist, string album, string track)
         {
-            if (track == null)
+            if (track == null || track.Trim().Length == 0)
                 return null;
 
             XmlNodeList xml = null;
