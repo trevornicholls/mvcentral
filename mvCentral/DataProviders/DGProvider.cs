@@ -216,6 +216,8 @@ namespace mvCentral.DataProviders
                         Release r2 = new Release(x1);
                         r1.Add(r2);
                     }
+                    r1.Sort(Release.TitleComparison);
+
                     DetailsPopup d1 = new DetailsPopup(r1);
 
                     if (d1.ShowDialog() == DialogResult.OK)
@@ -251,6 +253,7 @@ namespace mvCentral.DataProviders
                         Release r2 = new Release(x1);
                         r1.Add(r2);
                     }
+                    r1.Sort(Release.TitleComparison);
                     DetailsPopup d1 = new DetailsPopup(r1);
 
                     if (d1.ShowDialog() == DialogResult.OK)
@@ -616,10 +619,13 @@ namespace mvCentral.DataProviders
 
     }
 
-    public class Release
+
+
+    public class Release : IComparable<Release>
     {
         public Release(XmlNode x1)
         {
+
             if (x1.Attributes["type"] != null) type = x1.Attributes["type"].Value;
             if (x1.Attributes["status"] != null) status = x1.Attributes["status"].Value;
             if (x1["title"] != null) title = x1["title"].InnerText;
@@ -627,8 +633,8 @@ namespace mvCentral.DataProviders
             if (x1["label"] != null) label = x1["label"].InnerText;
             if (x1["uri"] != null) uri = x1["uri"].InnerText;
             if (x1["summary"] != null) summary = x1["summary"].InnerText;
-            if (uri != null) id = uri.Substring(uri.LastIndexOf("/")+1);
-            else if (x1.Attributes["id"] != null)  id = x1.Attributes["id"].Value;
+            if (uri != null) id = uri.Substring(uri.LastIndexOf("/") + 1);
+            else if (x1.Attributes["id"] != null) id = x1.Attributes["id"].Value;
 
             if (id == null)
             {
@@ -655,11 +661,24 @@ namespace mvCentral.DataProviders
         public String label { get; set; }
         public String uri { get; set; }
         public String summary { get; set; }
-        public String id { get; set; } 
+        public String id { get; set; }
 
-    } 
+        public static Comparison<Release> TitleComparison = delegate(Release p1, Release p2)
+        {
+            return p1.title.CompareTo(p2.title);
+        };    
+        public static Comparison<Release> IDComparison = delegate(Release p1, Release p2)
+        {
+            return p1.id.CompareTo(p2.id);
+        };
 
+        #region IComparable<Product> Members    
+        public int CompareTo(Release other)    
+        {        
+            return title.CompareTo(other.title);
+        }
+        #endregion
 
-
-
+    
+    }
 }

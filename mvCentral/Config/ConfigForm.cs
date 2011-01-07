@@ -2501,7 +2501,7 @@ namespace mvCentral {
                     mv = CurrentTrack;
                     break;
             }
-            if (mv == null || mv.AlternateArts.Count == 0) return;
+            if (mv == null ) return;
 
             // the update process can take a little time, so spawn it off in another thread
             ThreadStart actions = delegate
@@ -2735,24 +2735,22 @@ namespace mvCentral {
         private void cmLibrary_Opened(object sender, EventArgs e)
         {
             tsmGrabFrame.Enabled = false;
-            tsmfromMusicVideo.Enabled = false;
             tsmRemove.Enabled = false;
-            tsmGetInfo.Enabled = false;
+//            tsmGetInfo.Enabled = false;
             switch (tcMusicVideo.SelectedTab.Name)
             {
                 case "tpArtist":
                     break;
                 case "tpAlbum":
-                    tsmGetInfo.Enabled = true;
+//                    tsmGetInfo.Enabled = true;
                     break;
                 case "tpTrack":
                     if (CurrentTrack != null)
                     {
                         if (!CurrentTrack.LocalMedia[0].IsDVD)
-                            tsmfromMusicVideo.Enabled = true;
                         tsmGrabFrame.Enabled = true;
                         tsmRemove.Enabled = true;
-                        tsmGetInfo.Enabled = true;
+//                        tsmGetInfo.Enabled = true;
                     }
                     break;
             }
@@ -2824,26 +2822,29 @@ namespace mvCentral {
             if (mv == null) return;
 
 
-//            List<DBSourceInfo> r1 = new List<string>();
+            List<DBSourceInfo> r1 = new List<DBSourceInfo>();
             foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
             {
-//               if (r2.Provider is ManualProvider)
+
+                if (r2.Provider is LastFMProvider || r2.Provider is DGProvider) 
                {
-//                  r1.add(r2.ToString());
+                   if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DGProvider)
+                   { }
+                   else r1.Add(r2);
                 }
             }
 
-            SourcePopup sp = new SourcePopup(mvCentralCore.DataProviderManager.AllSources);
+            SourcePopup sp = new SourcePopup(r1);
             if(sp.ShowDialog() == DialogResult.OK)
             {
 
-                mv.PrimarySource = mvCentralCore.DataProviderManager.AllSources[sp.listBox1.SelectedIndex]; 
+                mv.PrimarySource = r1[sp.listBox1.SelectedIndex]; 
 
             // the update process can take a little time, so spawn it off in another thread
                 ThreadStart actions = delegate
                  {
                      startArtProgressBar();
-                     mvCentralCore.DataProviderManager.GetDetails(mv);
+                     mv.PrimarySource.Provider.GetDetails(mv);
                      mv.Commit();
                      stopArtProgressBar();
                  };

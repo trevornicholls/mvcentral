@@ -65,10 +65,10 @@
             this.getArtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmfromMusicVideo = new System.Windows.Forms.ToolStripMenuItem();
             this.fromOnlinjeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmGrabFrame = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmGetInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
             this.lblArtResolution = new System.Windows.Forms.Label();
             this.lblArtNum = new System.Windows.Forms.Label();
@@ -102,6 +102,14 @@
             this.colParseExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colParsePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colParseVolumeLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pathsGroupBox = new System.Windows.Forms.GroupBox();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.addSourceButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -202,15 +210,6 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.ArtFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.imageListDrag = new System.Windows.Forms.ImageList(this.components);
-            this.tsmGetInfo = new System.Windows.Forms.ToolStripMenuItem();
-            this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.scMain.Panel1.SuspendLayout();
@@ -239,6 +238,7 @@
             this.tcImport.SuspendLayout();
             this.tpImportPathParser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
             this.pathsGroupBox.SuspendLayout();
             this.toolStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pathsGridView)).BeginInit();
@@ -266,7 +266,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.gbProgress.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -477,7 +476,7 @@
             this.tsmRemove,
             this.tsmGetInfo});
             this.cmLibrary.Name = "cmLibrary";
-            this.cmLibrary.Size = new System.Drawing.Size(169, 114);
+            this.cmLibrary.Size = new System.Drawing.Size(169, 136);
             this.cmLibrary.Opened += new System.EventHandler(this.cmLibrary_Opened);
             // 
             // sentToImporterToolStripMenuItem
@@ -492,7 +491,6 @@
             this.getArtToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fromFileToolStripMenuItem,
             this.fromURLToolStripMenuItem,
-            this.tsmfromMusicVideo,
             this.fromOnlinjeToolStripMenuItem});
             this.getArtToolStripMenuItem.Name = "getArtToolStripMenuItem";
             this.getArtToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
@@ -501,28 +499,21 @@
             // fromFileToolStripMenuItem
             // 
             this.fromFileToolStripMenuItem.Name = "fromFileToolStripMenuItem";
-            this.fromFileToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.fromFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fromFileToolStripMenuItem.Text = "From File";
             this.fromFileToolStripMenuItem.Click += new System.EventHandler(this.loadArtFromFileToolStripMenuItem_Click);
             // 
             // fromURLToolStripMenuItem
             // 
             this.fromURLToolStripMenuItem.Name = "fromURLToolStripMenuItem";
-            this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fromURLToolStripMenuItem.Text = "From URL";
             this.fromURLToolStripMenuItem.Click += new System.EventHandler(this.loadArtFromURLToolStripMenuItem_Click);
-            // 
-            // tsmfromMusicVideo
-            // 
-            this.tsmfromMusicVideo.Name = "tsmfromMusicVideo";
-            this.tsmfromMusicVideo.Size = new System.Drawing.Size(170, 22);
-            this.tsmfromMusicVideo.Text = "From Music Video";
-            this.tsmfromMusicVideo.Click += new System.EventHandler(this.loadArtFromMusicVideoToolStripMenuItem_Click);
             // 
             // fromOnlinjeToolStripMenuItem
             // 
             this.fromOnlinjeToolStripMenuItem.Name = "fromOnlinjeToolStripMenuItem";
-            this.fromOnlinjeToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.fromOnlinjeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.fromOnlinjeToolStripMenuItem.Text = "From Online";
             this.fromOnlinjeToolStripMenuItem.Click += new System.EventHandler(this.btnArtRefresh_Click);
             // 
@@ -539,6 +530,13 @@
             this.tsmRemove.Size = new System.Drawing.Size(168, 22);
             this.tsmRemove.Text = "Remove";
             this.tsmRemove.Click += new System.EventHandler(this.tsmRemove_Click);
+            // 
+            // tsmGetInfo
+            // 
+            this.tsmGetInfo.Name = "tsmGetInfo";
+            this.tsmGetInfo.Size = new System.Drawing.Size(168, 22);
+            this.tsmGetInfo.Text = "Get Info";
+            this.tsmGetInfo.Click += new System.EventHandler(this.tsmGetInfo_Click);
             // 
             // imageListTreeView
             // 
@@ -605,7 +603,7 @@
             this.coverToolStrip.Location = new System.Drawing.Point(189, 31);
             this.coverToolStrip.Name = "coverToolStrip";
             this.coverToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.coverToolStrip.Size = new System.Drawing.Size(32, 113);
+            this.coverToolStrip.Size = new System.Drawing.Size(24, 94);
             this.coverToolStrip.TabIndex = 14;
             // 
             // btnPrevArt
@@ -614,7 +612,7 @@
             this.btnPrevArt.Image = global::mvCentral.Properties.Resources.resultset_previous;
             this.btnPrevArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrevArt.Name = "btnPrevArt";
-            this.btnPrevArt.Size = new System.Drawing.Size(30, 20);
+            this.btnPrevArt.Size = new System.Drawing.Size(22, 20);
             this.btnPrevArt.Text = "toolStripButton2";
             this.btnPrevArt.ToolTipText = "Previous Art";
             this.btnPrevArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -625,7 +623,7 @@
             this.btnNextArt.Image = global::mvCentral.Properties.Resources.resultset_next;
             this.btnNextArt.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNextArt.Name = "btnNextArt";
-            this.btnNextArt.Size = new System.Drawing.Size(30, 20);
+            this.btnNextArt.Size = new System.Drawing.Size(22, 20);
             this.btnNextArt.Text = "toolStripButton3";
             this.btnNextArt.ToolTipText = "Next Art";
             this.btnNextArt.Click += new System.EventHandler(this.btnArtPrevNext_Click);
@@ -636,7 +634,7 @@
             this.btnArtDelete.Image = global::mvCentral.Properties.Resources.cross;
             this.btnArtDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtDelete.Name = "btnArtDelete";
-            this.btnArtDelete.Size = new System.Drawing.Size(30, 20);
+            this.btnArtDelete.Size = new System.Drawing.Size(22, 20);
             this.btnArtDelete.Text = "toolStripButton2";
             this.btnArtDelete.ToolTipText = "Delete Art";
             this.btnArtDelete.Click += new System.EventHandler(this.btnArtDelete_Click);
@@ -647,7 +645,7 @@
             this.btnArtZoom.Image = global::mvCentral.Properties.Resources.zoom;
             this.btnArtZoom.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnArtZoom.Name = "btnArtZoom";
-            this.btnArtZoom.Size = new System.Drawing.Size(30, 20);
+            this.btnArtZoom.Size = new System.Drawing.Size(22, 20);
             this.btnArtZoom.Text = "toolStripButton2";
             this.btnArtZoom.ToolTipText = "Zoom Art";
             this.btnArtZoom.Click += new System.EventHandler(this.btnArtZoom_Click);
@@ -921,6 +919,59 @@
             this.colParseVolumeLabel.HeaderText = "VolumeLabel";
             this.colParseVolumeLabel.Name = "colParseVolumeLabel";
             this.colParseVolumeLabel.ReadOnly = true;
+            // 
+            // fileNameDataGridViewTextBoxColumn
+            // 
+            this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
+            this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
+            this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
+            this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // artistDataGridViewTextBoxColumn
+            // 
+            this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
+            this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
+            this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
+            this.artistDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // albumDataGridViewTextBoxColumn
+            // 
+            this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
+            this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
+            this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
+            this.albumDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // trackDataGridViewTextBoxColumn
+            // 
+            this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
+            this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
+            this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
+            this.trackDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // extDataGridViewTextBoxColumn
+            // 
+            this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
+            this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
+            this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
+            this.extDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // volumeLabelDataGridViewTextBoxColumn
+            // 
+            this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
+            this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
+            this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
+            this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pathDataGridViewTextBoxColumn
+            // 
+            this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
+            this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
+            this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
+            this.pathDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // ParserBindingSource
+            // 
+            this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
             // 
             // pathsGroupBox
             // 
@@ -2090,66 +2141,6 @@
             this.imageListDrag.ImageSize = new System.Drawing.Size(16, 16);
             this.imageListDrag.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // tsmGetInfo
-            // 
-            this.tsmGetInfo.Name = "tsmGetInfo";
-            this.tsmGetInfo.Size = new System.Drawing.Size(168, 22);
-            this.tsmGetInfo.Text = "Get Info";
-            this.tsmGetInfo.Click += new System.EventHandler(this.tsmGetInfo_Click);
-            // 
-            // fileNameDataGridViewTextBoxColumn
-            // 
-            this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
-            this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
-            this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
-            this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // artistDataGridViewTextBoxColumn
-            // 
-            this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
-            this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
-            this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
-            this.artistDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // albumDataGridViewTextBoxColumn
-            // 
-            this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
-            this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
-            this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
-            this.albumDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // trackDataGridViewTextBoxColumn
-            // 
-            this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
-            this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
-            this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
-            this.trackDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // extDataGridViewTextBoxColumn
-            // 
-            this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
-            this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
-            this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
-            this.extDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // volumeLabelDataGridViewTextBoxColumn
-            // 
-            this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
-            this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
-            this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
-            this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pathDataGridViewTextBoxColumn
-            // 
-            this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
-            this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
-            this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
-            this.pathDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // ParserBindingSource
-            // 
-            this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
-            // 
             // unapprovedMatchesBindingSource
             // 
             this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
@@ -2201,6 +2192,7 @@
             this.tcImport.ResumeLayout(false);
             this.tpImportPathParser.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
             this.pathsGroupBox.ResumeLayout(false);
             this.pathsGroupBox.PerformLayout();
             this.toolStrip.ResumeLayout(false);
@@ -2237,7 +2229,6 @@
             this.groupBox1.PerformLayout();
             this.gbProgress.ResumeLayout(false);
             this.gbProgress.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -2379,7 +2370,6 @@
         private System.Windows.Forms.ToolStripMenuItem getArtToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromURLToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tsmfromMusicVideo;
         private System.Windows.Forms.ToolStripMenuItem fromOnlinjeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmGrabFrame;
         private System.Windows.Forms.ToolStrip toolStrip;
