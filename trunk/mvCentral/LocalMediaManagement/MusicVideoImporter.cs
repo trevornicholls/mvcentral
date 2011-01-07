@@ -1539,7 +1539,7 @@ namespace mvCentral.LocalMediaManagement
                 if (MusicVideoStatusChanged != null)
                     MusicVideoStatusChanged(mediaMatch, MusicVideoImporterAction.APPROVED);
             }
-//            else 
+            else 
             {
                 matchesNeedingInput.Add(mediaMatch);
                 logger.Info("No exact match for {0}", mediaMatch.LocalMediaString);
@@ -1949,18 +1949,19 @@ namespace mvCentral.LocalMediaManagement
             if (!this.Result.AutoApprove() && otherResult.AutoApprove())
                 return 1;
 
-            // IMDB Score - matching id's rank higher
-            if (this.Result.MdMatch && !otherResult.MdMatch)
-                return -1;
-
-            if (!this.Result.MdMatch && otherResult.MdMatch)
-                return 1;
 
             // Title Score - lower scores rank higher
             if (this.Result.TitleScore < otherResult.TitleScore)
                 return -1;
 
             if (this.Result.TitleScore > otherResult.TitleScore)
+                return 1;
+
+            // IMDB Score - matching id's rank higher
+            if (this.Result.MdMatch && !otherResult.MdMatch)
+                return -1;
+
+            if (!this.Result.MdMatch && otherResult.MdMatch)
                 return 1;
 
             // Alternate title score will rank lower
