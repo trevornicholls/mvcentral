@@ -388,7 +388,7 @@ namespace mvCentral.DataProviders
 
         private DBTrackInfo getMusicVideoTrack(string artist, string album, string track)
         {
-            if (track == null || track.Trim().Length == 0)
+            if (track == null)
                 return null;
 
             XmlNodeList xml = null;
@@ -471,11 +471,14 @@ namespace mvCentral.DataProviders
             int numresults = Convert.ToInt16(root.FirstChild.Attributes["numResults"].Value);
             int page = 1;
             mvNodes = xml.Item(0).ChildNodes;
-            Release r2 = new Release(mvNodes[0]);
-            mv.Track = r2.title;
-            mv.MdID = r2.id;
-            mv.bioContent = r2.summary;
-
+            if (numresults > 0)
+            {
+                Release r2 = new Release(mvNodes[0]);
+                mv.Track = r2.title;
+                mv.MdID = r2.id;
+                mv.bioContent = r2.summary;
+            }
+            else return null;
 /*            List <Release> r1 = new List<Release>(); 
 
             foreach (XmlNode x1 in mvNodes)
