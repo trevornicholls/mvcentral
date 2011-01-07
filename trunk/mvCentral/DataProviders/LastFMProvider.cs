@@ -130,8 +130,11 @@ namespace mvCentral.DataProviders
                     {
                         DBAlbumInfo mv1 = (DBAlbumInfo)mv;
                         mv.ArtUrls.Clear();
-                        setMusicVideoAlbum(ref mv1, d1.label8.Text);
-                        GetAlbumArt((DBAlbumInfo)mv);
+                        if (d1.label8.Text != null && d1.label8.Text.Trim().Length > 0)
+                        {
+                            setMusicVideoAlbum(ref mv1, d1.label8.Text);
+                            GetAlbumArt((DBAlbumInfo)mv);
+                        }
                     };
 
 
@@ -472,7 +475,7 @@ namespace mvCentral.DataProviders
 
         private void setMusicVideoAlbum(ref DBAlbumInfo mv, string artist, string album, string mbid)
         {
-            if (album == null && mbid == null)
+            if (album == null && mbid == null )
                 return ;
 
             XmlNodeList xml = null;
@@ -656,8 +659,10 @@ namespace mvCentral.DataProviders
                         if (node.ChildNodes[0].InnerText.Trim().Length > 0)
                         {
                             DBAlbumInfo d4 = new DBAlbumInfo();
-                            if (node.ChildNodes[1].InnerText.Trim().Length > 0)
+                            if (node.ChildNodes[2].InnerText.Trim().Length > 0)
                                setMusicVideoAlbum(ref d4, node.ChildNodes[2].InnerText);
+                            else
+                                setMusicVideoAlbum(ref d4, node.ChildNodes[0].InnerText, node.ChildNodes[1].InnerText,null);
                             mv.AlbumInfo.Add(d4);
                         }
                         break;
