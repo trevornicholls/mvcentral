@@ -41,11 +41,11 @@
   <ItemGroup>
     <Reference Include="Bass.Net, Version=2.4.4.3, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\Bass.Net.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\Bass.Net.dll</HintPath>
     </Reference>
     <Reference Include="BassRegistration, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.1.2\BassRegistration.dll</HintPath>
+      <HintPath>..\External\mediaportal\v1.2.6\BassRegistration.dll</HintPath>
     </Reference>
     <Reference Include="Core, Version=1.1.2.20593, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
@@ -268,16 +268,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoMatch.datasource" />

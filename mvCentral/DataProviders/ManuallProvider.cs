@@ -24,7 +24,7 @@ namespace mvCentral.DataProviders
         // we should be using the MusicVideo object but we have to assign it before locking which 
         // is not good if the thread gets interupted after the asssignment, but before it gets 
         // locked. So we use this dumby var.
-        private String lockObj = "";     
+//        private String lockObj = "";     
 
         public string Name {
             get {

@@ -7,7 +7,7 @@ using mvCentral.Extensions;
 using mvCentral.LocalMediaManagement;
 using NLog;
 using System.Collections.ObjectModel;
-using mvCentral.LocalMediaManagement;
+
 
 
 namespace mvCentral.SignatureBuilders

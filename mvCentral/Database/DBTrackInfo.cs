@@ -93,30 +93,7 @@ namespace mvCentral.Database {
             }
         } private string _offsettime;
 
-        [DBField(Filterable = false)]
-        public string SortBy {
-            get {
-                if (_sortBy.Trim().Length == 0)
-                    PopulateSortBy();
-
-                return _sortBy; 
-            }
-
-            set {
-                _sortBy = value;
-                commitNeeded = true;
-            }
-        } private string _sortBy;
-        
-        [DBField(AllowAutoUpdate = false, FieldName = "date_added")]
-        public DateTime DateAdded {
-            get { return _dateAdded; }
-
-            set {
-                _dateAdded = value;
-                commitNeeded = true;
-            }
-        } private DateTime _dateAdded;
+    
 
         [DBRelation(AutoRetrieve=true)]
         public RelationList<DBTrackInfo, DBLocalMedia> LocalMedia {
@@ -278,7 +255,7 @@ namespace mvCentral.Database {
             return mvCentralCore.DatabaseManager.Get<DBTrackInfo>(id);
         }
 
-        public static List<DBTrackInfo> GetAll() {
+        public static new List<DBTrackInfo> GetAll() {
             return mvCentralCore.DatabaseManager.Get<DBTrackInfo>(null);
         }
 
@@ -429,7 +406,7 @@ namespace mvCentral.Database {
             return Track;
         }
 
-        public bool PopulateDateAdded()
+/*        public bool PopulateDateAdded()
         {
             String dateOption = mvCentralCore.Settings.DateImportOption;
 
@@ -460,6 +437,6 @@ namespace mvCentral.Database {
 
             return true;
         }
-
+        */
     }
 }

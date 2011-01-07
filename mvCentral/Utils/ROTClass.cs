@@ -150,7 +150,6 @@ namespace mvCentral.ROT
         {
             IRunningObjectTable rtt = null;
             int hr = ROTClass.GetRunningObjectTable(0, out rtt);
-            object o;
             hr = rtt.GetObject(_mon, out _filterGraph);
             Marshal.ReleaseComObject(rtt);
             return _filterGraph as IFilterGraph;

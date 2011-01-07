@@ -55,7 +55,7 @@ namespace mvCentral.Database {
             return mvCentralCore.DatabaseManager.Get<DBArtistInfo>(id);
         }
 
-        public static List<DBArtistInfo> GetAll() {
+        public static new List<DBArtistInfo> GetAll() {
             return mvCentralCore.DatabaseManager.Get<DBArtistInfo>(null);
         }
 

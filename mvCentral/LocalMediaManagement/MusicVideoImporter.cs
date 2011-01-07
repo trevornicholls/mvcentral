@@ -1232,7 +1232,7 @@ namespace mvCentral.LocalMediaManagement
             parseResult CurrentParseResult;
             int nFailed = 0;
             FilenameParser parser = null;
-            System.Windows.Forms.ListViewItem item = null;
+//            System.Windows.Forms.ListViewItem item = null;
             foreach (MusicVideoMatch mediaMatch in MatchesNeedingInput)
             {
                 DBLocalMedia file = mediaMatch.LocalMedia[0];
