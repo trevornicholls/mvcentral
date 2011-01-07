@@ -249,7 +249,7 @@ namespace mvCentral.SignatureBuilders
             MatchResult result = new MatchResult();
 
             // Get the default scores for this mv
-            result.TitleScore = matchTitle(mv.Track);
+            result.TitleScore = matchTitle(mv.ArtistInfo[0].Artist + " " + mv.Track);
 //            result.YearScore = matchYear(mv.Year);
             result.MdMatch = matchMd(mv.MdID);
             result.ArtistMdMatch = matchArtistMd(ArtistMdId);

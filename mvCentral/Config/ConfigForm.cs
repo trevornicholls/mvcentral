@@ -2081,8 +2081,11 @@ namespace mvCentral {
                         mv.AlbumInfo.Add(db1);
                     }
                     DBArtistInfo db2 = DBArtistInfo.Get(popup.Artist);
-                    if (db2 == null) db2 = new DBArtistInfo();
-                    db2.Artist = popup.Artist;
+                    if (db2 == null)
+                    {
+                        db2 = new DBArtistInfo();
+                        db2.Artist = popup.Artist;
+                    }
                     mv.ArtistInfo.Add(db2);
 
                     foreach (DBSourceInfo r1 in mvCentralCore.DataProviderManager.AllSources)
