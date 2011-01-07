@@ -30,15 +30,10 @@ namespace mvCentral.DataProviders
 
         #region API variables
 
-//         3b40fddfaeaf4bf786fad7e4a42ac81c
 
 
         private const string apiMusicVideoUrl = "http://ws.audioscrobbler.com/2.0/?method={0}&api_key={1}";
         private const string apikey = "3b40fddfaeaf4bf786fad7e4a42ac81c";
-        private static string apiMusicVideoImdbLookup = string.Format(apiMusicVideoUrl, "MusicVideo.imdbLookup", "en");
-        private static string apiMusicVideoSearch = string.Format(apiMusicVideoUrl, "MusicVideo.search", "en");
-        private static string apiMusicVideoGetInfo = string.Format(apiMusicVideoUrl, "MusicVideo.getInfo", "en");
-        private static string apiHashGetInfo = string.Format(apiMusicVideoUrl, "Hash.getInfo", "en");
 
 //        http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=cher&track=believe
 //        http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=Cher&album=Believe
@@ -67,7 +62,7 @@ namespace mvCentral.DataProviders
         }
 
         public string Description {
-            get { return "Returns details, covers and backdrops from lastfm."; }
+            get { return "Returns details, art from lastfm."; }
         }
 
         public string Language {
@@ -212,12 +207,6 @@ namespace mvCentral.DataProviders
             if (mv.ArtFullPath.Trim().Length > 0)
                 return true;
 
-            // do we have an id?
- //           string tmdbID = getTheMusicVideoDbId(mv, true);
- //           if (tmdbID == null) {
- //               return false;
-//            }
-
             if (mv.ArtFullPath.Trim().Length == 0)
             {
                 GetArtistImages(mv);
@@ -281,7 +270,7 @@ namespace mvCentral.DataProviders
                     }
                     if (trackartAdded > 0)
                     {
-  //                      mv.TrackArtFullPath = mv.AlternateTrackArts[0];
+                        mv.ArtFullPath = mv.AlternateArts[0];
                         // Update source info
 //                        mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = mv.MdID;
                         return true;
@@ -296,15 +285,6 @@ namespace mvCentral.DataProviders
         {
             if (mv == null)
                 return false;
-            // do we have an id?
-//            string tmdID = getTheMusicVideoDbId(mv, true);
-//            if (tmdID == null)
-//            {
-//                return false;
-//            }
-
-//            if (mv.ArtFullPath.Trim().Length == 0 )
-            {
                 List<string> at = mv.ArtUrls;
                 if (at != null)
                 {
@@ -327,7 +307,6 @@ namespace mvCentral.DataProviders
                         return true;
                     }
                 }
-            }
 
 
             return true;
@@ -343,8 +322,6 @@ namespace mvCentral.DataProviders
            List<DBTrackInfo> results = new List<DBTrackInfo>();
            if (mvSignature == null)
                return results;
- //          try
- //          {
                lock (lockList)
                {
                    DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
@@ -373,12 +350,6 @@ namespace mvCentral.DataProviders
                        results.Add(mv);
                    }
                }
- //          }
- //          catch (Exception ex)
- //          {
- //              logger.ErrorException(String.Format("Error retrieving : {0} {1} from Last.FM", mvSignature.Artist, mvSignature.Track), ex); 
- //              return results;
- //          }
            
            return results;
         }
@@ -430,7 +401,7 @@ namespace mvCentral.DataProviders
                     case "mbid":
                         mv.MdID = value;
                         break;
-                    case "tags": // Actors, Directors and Writers
+                    case "tags":
                         foreach (XmlNode tag in node.ChildNodes)
                         {
                             string tagstr = tag.FirstChild.LastChild.Value;
@@ -916,7 +887,7 @@ namespace mvCentral.DataProviders
                 DBArtistInfo db1 = DBArtistInfo.Get(mv);
                 if (db1 != null)
                 {
-                  mv.ArtistInfo[0] = db1;
+                    mv.ArtistInfo[0] = db1;
                 }
                 if (mv.ArtistInfo.Count > 0)
                 {
@@ -933,183 +904,8 @@ namespace mvCentral.DataProviders
                     mv.AlbumInfo[0].PrimarySource = mv.PrimarySource;
                     mv.AlbumInfo[0].Commit();
                 }
-/*                foreach (DBArtistInfo currInfo in mv.ArtistInfo)
-                {
-                    DBArtistInfo db1 = DBArtistInfo.Get(mv);
-                    if (db1 != null)
-                    {
-                        db1.Copy(DBArtistInfo db2);
-                        mv.ArtistInfo.Clear();
-                        db1.Commit();
-                        db1.CommitNeeded = false;
-                        mv.ArtistInfo.Add(db1);
-                        continue;
-                    }
-                    currInfo.Commit();
-                    currInfo.CommitNeeded = false;
-                }
-
-                /*                foreach (DBAlbumInfo currInfo in AlbumInfo)
-                    {
-                        DBAlbumInfo db1 = DBAlbumInfo.Get(this);
-                        if (db1 != null)
-                        {
-                            this.AlbumInfo.Clear();
-                            this.AlbumInfo.Add(db1);
-                        }
-                        currInfo.Commit();
-                    }
-                    */
             }
-/*            lock (mv)
-            {
- //               mv.Commit();
-                mv.AddTables(mv);
-            
-                // create/commit album/artist info
-                List<DBAlbumInfo> d1 = DBAlbumInfo.GetAll();
-                foreach (DBAlbumInfo d3 in d1)
-                {
-                    foreach (string tr3 in d3.IntTrackID)
-                        if (String.Equals(tr3, mv.IntTrackID))
-                        {
-                            if (mv.AlbumMdID == null) d3.Album = mv.Album;
-                            else
-                            {
-                                DBAlbumInfo d4 = d3;
-                                setMusicVideoAlbum(ref d4, mv.AlbumMdID);
-                            }
-                            d3.Commit();
-                        }
-                }
-            
-                logger.Info(" after update artist/album : " + mv.Track + " " + Thread.CurrentThread.GetHashCode().ToString());
-            }*/
-   //         string tmdbId = getTheMusicVideoDbId(mv, false);
-            // check if tmdbId is still null, if so request id.
-   //         if (tmdbId == null)
-
             return UpdateResults.SUCCESS;
-//                return UpdateResults.FAILED_NEED_ID;
-
-            // Grab the mv using the TMDB ID
-  //          DBTrackInfo newMusicVideo = getMusicVideoById(tmdbId);
-  //          if (newMusicVideo != null) {
-  //              mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = tmdbId;
-  //              mv.CopyUpdatableValues(newMusicVideo);
-  //              return UpdateResults.SUCCESS;
-  //          }
-  //          else {
-  //              return UpdateResults.FAILED;
-  //          }
-        }
-
- 
-        private string getTheMusicVideoDbId(DBTrackInfo mv, bool fuzzyMatch) {            
-            // check for internally stored ID
-/*            DBSourceMusicVideoInfo idObj = mv.GetSourceMusicVideoInfo(SourceInfo);
-            if (idObj != null && idObj.Identifier != null) {
-                return idObj.Identifier;
-            }
-
-            // if available, lookup based on mdb ID
-            else if (mv.MdID != null && mv.MdID.Trim().Length > 0) {
-                string imdbId = mv.MdID.Trim();
-                XmlNodeList xml = getXML(apiMusicVideoImdbLookup + imdbId);
-                if (xml != null && xml.Count > 0) {
-                    // Get TMDB Id
-                    XmlNodeList idNodes = xml.Item(0).SelectNodes("//id");
-                    if (idNodes.Count != 0) {
-                        return idNodes[0].InnerText;
-                    }
-                }
-            }
-
-            // if asked for, do a fuzzy match based on title
-            else if (fuzzyMatch) {
-                // grab possible matches by main title
-                List<DBTrackInfo> results = Search(mv.Track);
-
-                // grab possible matches by alt titles
-//                foreach (string currAltTitle in mv.AlternateTitles) {
-//                    List<DBTrackInfo> tempResults = Search(mv.Title, mv.Year);
-//                    if (results.Count == 0) tempResults = Search(mv.Title);
-
-//                    results.AddRange(tempResults);
-//                }
-
-                // pick a possible match if one meets our requirements
-                foreach (DBTrackInfo currMatch in results) {
-                    if (CloseEnough(currMatch, mv))
-                        return currMatch.GetSourceMusicVideoInfo(SourceInfo).Identifier;
-                }
-            }
-  */          
-            return null;
-        }
-
-        private bool CloseEnough(DBTrackInfo mv1, DBTrackInfo mv2) {
-            if (CloseEnough(mv1.Track, mv2)) return true;
-
-//            foreach (string currAltTitle in mv1.AlternateTitles) 
-//                if (CloseEnough(currAltTitle, mv2)) return true;
-
-            return false;
-        }
-
-        private bool CloseEnough(string title, DBTrackInfo mv) {
-            int distance;
-            
-            distance = AdvancedStringComparer.Levenshtein(title, mv.Track);
-            if (distance <= mvCentralCore.Settings.AutoApproveThreshold)
-                return true;
-
-//            foreach (string currAltTitle in mv.AlternateTitles) {
-//                distance = AdvancedStringComparer.Levenshtein(title, currAltTitle);
-//                if (distance <= mvCentralCore.Settings.AutoApproveThreshold)
-//                    return true;
-//            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Returns a mv list queries by filehash
-        /// </summary>
-        /// <param name="hash"></param>
-        /// <returns></returns>
-        public static List<DBTrackInfo> GetmvCentralByHashLookup(string hash) {
-            List<DBTrackInfo> results = new List<DBTrackInfo>();
-            XmlNodeList xml = getXML(apiHashGetInfo + hash);
-            if (xml == null)
-                return results;
-
-            XmlNodeList mvNodes = xml.Item(0).SelectNodes("//mv");
-            foreach (XmlNode mvNode in mvNodes) {
-
-                if (mvNode == null || mvNode.ChildNodes.Count < 2)
-                    continue;
-
-                DBTrackInfo mv = new DBTrackInfo();
-                foreach (XmlNode node in mvNode.ChildNodes) {
-                    string value = node.InnerText;
-                    switch (node.Name) {
-                        case "name":
-//                            mv.Title = value;
-                            break;
-                        case "imdb_id":
-//                            mv.ImdbID = value;
-                            break;
-                        case "released":
-                            DateTime date;
-//                            if (DateTime.TryParse(value, out date))
-//                                mv.Year = date.Year;
-                            break;
-                    }
-                }
-                results.Add(mv);
-            }
-            return results;
         }
 
         // given a url, retrieves the xml result set and returns the nodelist of Item objects
@@ -1118,25 +914,12 @@ namespace mvCentral.DataProviders
             grabber.Encoding = Encoding.UTF8;
             grabber.Timeout = 5000;
             grabber.TimeoutIncrement = 10;
-//            try
-//            {
                 if (grabber.GetResponse())
                 {
-                    //                string str = grabber.GetString();
-                    //                XmlDocument doc = new XmlDocument();
-
-                    //                doc.Load(new StringReader(str));
-                    //                return doc.DocumentElement.ChildNodes;
                     return grabber.GetXML();
                 }
                 else
                     return null;
-//            }
-//            catch (Exception ex)
-//            {
-//                logger.ErrorException("grabber ", ex);
-//                return null;
-//            }
         }
 
     }

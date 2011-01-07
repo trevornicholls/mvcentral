@@ -241,11 +241,6 @@ namespace mvCentral.Database {
 
         #region General Management Methods
         
-        // deletes this artist from the database and sets all related DBLocalMedia to ignored
-        public void DeleteAndIgnore() {
-            Delete();
-        }
-
         public override void Delete()
         {
             if (this.ID == null)
@@ -602,9 +597,9 @@ namespace mvCentral.Database {
 
         #region Database Management Methods
 
-        public static DBBasicInfo Get(int id) {
-            return mvCentralCore.DatabaseManager.Get<DBBasicInfo>(id);
-        }
+ //       public static DBBasicInfo Get(int id) {
+ //           return mvCentralCore.DatabaseManager.Get<DBBasicInfo>(id);
+ //       }
 
         public static List<DBBasicInfo> GetAll() {
             return mvCentralCore.DatabaseManager.Get<DBBasicInfo>(null);

@@ -1670,7 +1670,7 @@ namespace mvCentral {
                 pb.SizeMode = PictureBoxSizeMode.CenterImage;
                 pb.Image = finalImg;
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
 
             }

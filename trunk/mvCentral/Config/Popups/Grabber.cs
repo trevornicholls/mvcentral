@@ -34,7 +34,6 @@ namespace mvCentral.ConfigScreen.Popups {
 
         const int FRAME_STEP_INCREMENT = 5;   // How many frames to step, when frame-stepping.
         const int ONE_MSEC = 10000;   // The number of 100-ns in 1 msec
-        bool m_bFrameStepping;   // TRUE if a frame step is in progress.
         protected ulong _offsetseek = 0;
         protected enum PlayState
         {
@@ -114,8 +113,6 @@ namespace mvCentral.ConfigScreen.Popups {
         protected int _videoHeight = 100;
         protected bool _updateNeeded = false;
         protected bool _fullScreen = true;
-        private string _defaultAudioLanguage = "";
-        private string _defaultSubtitleLanguage = "";
         protected bool _forceSubtitles = true;
         protected bool _freeNavigator = false;
         protected int _UOPs;
@@ -144,15 +141,6 @@ namespace mvCentral.ConfigScreen.Popups {
         private IVMRWindowlessControl9 windowlessCtrl = null;
 
 
-
-        private bool handlersAdded = false;
-        private TableLayoutPanel tableLayoutPanelMain;
-        private TableLayoutPanel tableLayoutPanelButtons;
-//        private Button btnSnap;
-//        private Button btnOpen;
-//        private Button btnPlay;
-//        private Button btnPause;
-//        private Panel panel1; // Needed to remove delegates
 
 
 
@@ -260,13 +248,11 @@ namespace mvCentral.ConfigScreen.Popups {
             this.Resize += new EventHandler(MainForm_ResizeMove); // for WM_SIZE
             this.Move += new EventHandler(MainForm_ResizeMove); // for WM_MOVE
             SystemEvents.DisplaySettingsChanged += new EventHandler(SystemEvents_DisplaySettingsChanged); // for WM_DISPLAYCHANGE
-            handlersAdded = true;
         }
 
         private void RemoveHandlers()
         {
             // remove handlers when they are no more needed
-            handlersAdded = false;
             this.Paint -= new PaintEventHandler(GrabberPopup_Paint);
             this.Resize -= new EventHandler(MainForm_ResizeMove);
             this.Move -= new EventHandler(MainForm_ResizeMove);
@@ -443,6 +429,7 @@ namespace mvCentral.ConfigScreen.Popups {
             timer1.Enabled = false;
             StopGraph();
             CloseDVDInterfaces();
+            RemoveHandlers();
             this.Dispose();
 
         }

@@ -146,7 +146,6 @@ namespace mvCentral.GUI
       SetProperty("#mvCentral.Settings.HomeScreenName", mvCentralCore.Settings.HomeScreenName);
 
       // start initialization of the moving pictures core services in a seperate thread
-      RichTextBox rtb = null;
       initThread = new Thread(new ThreadStart(mvCentralCore.Initialize));
       initThread.Start();
 
