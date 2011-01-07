@@ -18,7 +18,7 @@ namespace mvCentral.ConfigScreen.Popups
             InitializeComponent();
         }
 
-        public SourcePopup(ReadOnlyCollection<DBSourceInfo> r1)
+        public SourcePopup(List<DBSourceInfo> r1)
         {
             InitializeComponent();
             listBox1.DataSource = r1;

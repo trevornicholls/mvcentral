@@ -51,6 +51,7 @@ namespace mvCentral.DataProviders
         private static string apiTrackmbidGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&mbid={0}", apikey);
         private static string apiArtistTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&artist={0}&track={1}", apikey);
         private static string apiTrackSearch = string.Format(apiMusicVideoUrl, "track.search&track={0}", apikey);
+        private static string apiArtistSearch = string.Format(apiMusicVideoUrl, "artist.search&artist={0}", apikey);
         private static string apiArtistTrackSearch = string.Format(apiMusicVideoUrl, "track.search&artist={0}&track={1}", apikey);
 
         #endregion
@@ -93,6 +94,45 @@ namespace mvCentral.DataProviders
         public bool GetDetails(DBBasicInfo mv)
         {
 
+            if (mv.GetType() == typeof(DBArtistInfo))
+            {
+
+                    string artist = ((DBArtistInfo)mv).Artist;
+                    XmlNodeList xml = null;
+
+                    if (artist != null)
+                        xml = getXML(string.Format(apiArtistSearch, artist));
+                    else return false;
+
+                    if (xml == null)
+                        return false;
+                    XmlNode root = xml.Item(0).ParentNode;
+                    if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
+                    XmlNode n1 = root.SelectSingleNode(@"/lfm/results/artistmatches");
+
+                    List<Release> r1 = new List<Release>();
+                    foreach (XmlNode x1 in n1.ChildNodes)
+                    {
+                        Release r2 = new Release(x1);
+                        if(r2.id != null || r2.id.Trim().Length > 0) 
+                        r1.Add(r2);
+                    }
+                    r1.Sort(Release.TitleComparison);
+                    DetailsPopup d1 = new DetailsPopup(r1);
+
+                    if (d1.ShowDialog() == DialogResult.OK)
+                    {
+                        DBArtistInfo mv1 = (DBArtistInfo)mv;
+                        mv.ArtUrls.Clear();
+                        string title = d1.textBox1.Text;
+                        string mbid = d1.label8.Text;
+                        if (title.Trim().Length == 0) title = null;
+                        if (mbid.Trim().Length == 0) mbid = null;
+                        setMusicVideoArtist(ref mv1, mbid);
+                        GetArtistArt((DBArtistInfo)mv);
+                    };
+            }
+
 
             if (mv.GetType() == typeof(DBAlbumInfo))
             {
@@ -119,17 +159,19 @@ namespace mvCentral.DataProviders
                         Release r2 = new Release(x1);
                         r1.Add(r2);
                     }
+                    r1.Sort(Release.TitleComparison);
                     DetailsPopup d1 = new DetailsPopup(r1);
 
                     if (d1.ShowDialog() == DialogResult.OK)
                     {
                         DBAlbumInfo mv1 = (DBAlbumInfo)mv;
                         mv.ArtUrls.Clear();
-                        if (d1.label8.Text != null && d1.label8.Text.Trim().Length > 0)
-                        {
-                            setMusicVideoAlbum(ref mv1, d1.label8.Text);
-                            GetAlbumArt((DBAlbumInfo)mv);
-                        }
+                        string title = d1.textBox1.Text;
+                        string mbid = d1.label8.Text;
+                        if (title.Trim().Length == 0) title = null;
+                        if (mbid.Trim().Length == 0) mbid = null;
+                        setMusicVideoAlbum(ref mv1, artist, title, mbid);
+                        GetAlbumArt((DBAlbumInfo)mv);
                     };
 
 
@@ -173,6 +215,9 @@ namespace mvCentral.DataProviders
                     }
                     page++;
                 }
+
+                 r1.Sort(Release.TitleComparison);
+
                 DetailsPopup d1 = new DetailsPopup(r1);
 
                 if (d1.ShowDialog() == DialogResult.OK)
