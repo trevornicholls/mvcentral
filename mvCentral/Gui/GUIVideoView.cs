@@ -43,25 +43,8 @@ namespace mvCentral.GUI
             }
         }
 
-        private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
+        public void PlayDVD(DBTrackInfo db1)
         {
-            if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_PLAY || actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
-            {
-                //play this song, or return to previous level
-                if (facade.ListLayout.SelectedListItem.Label == "..")
-                {
-                    currentView = View.Artist;
-                    loadCurrent();
-                }
-                else
-                {
-                    //Play currently selected and activate video window
-                    string vidPath = facade.ListLayout.SelectedListItem.Path;
-                    DBTrackInfo db1 = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
-
-                    g_Player.Play(db1.LocalMedia[0].File.FullName);
-                    if (db1.LocalMedia[0].IsDVD)
-                    {
                         string dvdNavigator;
                         using (MediaPortal.Profile.Settings xmlreader = new MPSettings())
                         {
@@ -83,6 +66,7 @@ namespace mvCentral.GUI
                             TimeSpan t1 = TimeSpan.FromMilliseconds(0);
                             TimeSpan t2 = TimeSpan.Parse(db1.OffsetTime);
                             t1 = t1.Add(t2);
+//                            t1 = TimeSpan.Parse(db1.PlayTime);
                             t2 = t2.Add(TimeSpan.Parse(db1.PlayTime));
                             DvdHMSFTimeCode t3 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t1);
                             DvdHMSFTimeCode t4 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t2);
@@ -94,15 +78,35 @@ namespace mvCentral.GUI
 
 //                            int hr = _dvdCtrl.PlayChaptersAutoStop(1, db1.ChapterID, 1, 0, out _cmdOption);
 //                            DsError.ThrowExceptionForHR(hr);
-
-
                         }
-                    }
+        }
 
-                    GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+        private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
+        {
+            if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_PLAY || actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
+            {
+                //play this song, or return to previous level
+                if (facade.ListLayout.SelectedListItem.Label == "..")
+                {
+                    currentView = View.Artist;
+                    loadCurrent();
+                }
+                else
+                {
+                    //Play currently selected and activate video window
+                    string vidPath = facade.ListLayout.SelectedListItem.Path;
+                    DBTrackInfo db1 = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
+                    
+                    g_Player.Play(db1.LocalMedia[0].File.FullName);
+                    if (db1.LocalMedia[0].IsDVD)
+                    {
+//                        PlayDVD(db1);
+                    }
+                 }
+
+                 GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
 
                 }
             }
         }
-    }
 }

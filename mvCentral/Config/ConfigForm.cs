@@ -2747,7 +2747,7 @@ namespace mvCentral {
                 case "tpTrack":
                     if (CurrentTrack != null)
                     {
-                        if (!CurrentTrack.LocalMedia[0].IsDVD)
+                //        if (!CurrentTrack.LocalMedia[0].IsDVD)
                         tsmGrabFrame.Enabled = true;
                         tsmRemove.Enabled = true;
 //                        tsmGetInfo.Enabled = true;
