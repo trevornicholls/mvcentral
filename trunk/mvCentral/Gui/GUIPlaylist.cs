@@ -41,7 +41,9 @@ namespace mvCentral.GUI
             }
             foreach (DBTrackInfo video in items)
             {
-                playlist.Add(new PlayListItem(video.ArtistInfo[0].Artist + " - " + video.Track, video.LocalMedia[0].File.FullName));
+                PlayListItem p1 = new PlayListItem(video.ArtistInfo[0].Artist + " - " + video.Track, video.LocalMedia[0].File.FullName);
+                p1.MusicTag = video;
+                playlist.Add(p1);
             }
             listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
             if (shuffle)

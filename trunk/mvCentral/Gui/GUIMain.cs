@@ -40,6 +40,7 @@ namespace mvCentral.GUI
 
 
     private PlayListPlayer listPlayer = PlayListPlayer.SingletonPlayer;
+    private PlayList currentPlayList;
     private bool persisting = false;
     private View currentView = View.None;
     int lastItemArt = 0, lastItemVid = 0, artistID = 0;
@@ -110,9 +111,82 @@ namespace mvCentral.GUI
     public GUIMain()
     {
       timeOut.Tick += new EventHandler(checkTime);
+
+      g_Player.PlayBackChanged += new g_Player.ChangedHandler(OnChanged);
+      g_Player.PlayBackStarted += new g_Player.StartedHandler(OnStarted);
+      g_Player.PlayBackStopped += new g_Player.StoppedHandler(OnStopped);
+      g_Player.PlayBackEnded += new g_Player.EndedHandler(OnEnded);
+      
+ //     GUIWindowManager.Receivers += new SendMessageHandler(this.On1Message);
+ //     GUIGraphicsContext.Receivers += new SendMessageHandler(this.On1Message);
+
     }
 
-    void TrackChanged(object sender, EventArgs e)
+    public override bool OnMessage(GUIMessage message)
+    {
+        switch (message.Message)
+        {
+            case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
+//                if (listPlayer.CurrentSong == -1) break;
+//                DBTrackInfo mv = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
+
+                listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
+                int count = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count;
+                lastItemVid++;
+                if (lastItemVid <= count)
+                {
+                    PlayListItem p1 = currentPlayList[lastItemVid-1];
+                    if (p1.MusicTag != null)
+                    {
+                        DBTrackInfo mv = (DBTrackInfo)p1.MusicTag;
+                        if (mv != null)
+                        {
+                            if (mv.LocalMedia[0].IsDVD)
+                            {
+                                    listPlayer.Play(lastItemVid-1);
+                                    //                listPlayer.PlayNext();
+//                                    PlayDVD(mv);
+                            }
+                        }
+                    }
+                }
+        break;
+        }
+
+
+//        base.OnMessage(message);
+
+        return base.OnMessage(message);
+    }
+    private void OnStopped(g_Player.MediaType type, int stoptime, string filename)
+    {
+        //       listPlayer.PlayNext();
+    }
+
+    private void OnChanged(g_Player.MediaType type, int stoptime, string filename)
+    {
+ //       listPlayer.PlayNext();
+    }
+
+    void OnStarted(g_Player.MediaType type, string filename)
+    {
+        if (listPlayer.CurrentSong == -1) return;
+        object o = listPlayer.GetCurrentItem().MusicTag;
+        if (o != null && o.GetType() == typeof(DBTrackInfo))
+        {
+            DBTrackInfo mv = (DBTrackInfo)o;
+            if (mv.LocalMedia[0].IsDVD)
+            {
+                PlayDVD(mv);
+            }
+        }
+    }
+
+    void OnEnded(g_Player.MediaType type, string filename)
+    {
+    }
+
+      void TrackChanged(object sender, EventArgs e)
     {
       string currentTrack = "";
       try
@@ -145,7 +219,7 @@ namespace mvCentral.GUI
       // set some skin properties
       SetProperty("#mvCentral.Settings.HomeScreenName", mvCentralCore.Settings.HomeScreenName);
 
-      // start initialization of the moving pictures core services in a seperate thread
+      // start initialization of the music videos core services in a seperate thread
       initThread = new Thread(new ThreadStart(mvCentralCore.Initialize));
       initThread.Start();
 
@@ -423,7 +497,37 @@ namespace mvCentral.GUI
           }
           else
           {
-            VideoActions(actionType);
+            GUIListItem selectedItem = facade.ListLayout.SelectedListItem;
+            if (!selectedItem.IsFolder && selectedItem.MusicTag != null)
+          { // we have a track selected so add any other tracks which
+            // are on showing on the facade
+            List<DBTrackInfo> list1 = new List<DBTrackInfo>();
+            for(int i = 0; i < facade.ListLayout.Count; i++)
+            {
+              GUIListItem trackItem = facade.ListLayout[i];
+
+              if (!trackItem.IsFolder && trackItem.MusicTag != null)
+              {
+                  list1.Add((DBTrackInfo)trackItem.MusicTag);
+              }
+            }
+                
+            addToPlaylist(list1, false, true, false);
+            listPlayer.CurrentPlaylistName = "Test";
+            currentPlayList  = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+//            facade.ListLayout.SelectedItem = facade.ListLayout.SelectedListItemIndex - 1;
+            listPlayer.Play(lastItemVid-1);
+//            GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+            break;
+          }
+            //return to previous level
+            if (facade.ListLayout.SelectedListItem.Label == "..")
+            {
+                currentView = View.Artist;
+                loadCurrent();
+            }
+
+//            VideoActions(actionType);
           }
           break;
       }
@@ -458,7 +562,12 @@ namespace mvCentral.GUI
               PlayList playlist = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
               string filename = facade.ListLayout.SelectedListItem.Label;
               string path = facade.ListLayout.SelectedListItem.Path;
-              playlist.Add(new PlayListItem(filename, path));
+              DBTrackInfo video = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
+              PlayListItem p1 = new PlayListItem(video.ArtistInfo[0].Artist + " - " + video.Track, video.LocalMedia[0].File.FullName);
+              p1.MusicTag = video;
+              playlist.Add(p1);
+
+//              playlist.Add(new PlayListItem(filename, path));
             }
             break;
           case 1:
@@ -515,6 +624,7 @@ namespace mvCentral.GUI
       checkTrack.Interval = 5000;
       checkTrack.Start();
       checkTrack.Tick += new EventHandler(TrackChanged);
+
       base.OnPageLoad();
     }
 
