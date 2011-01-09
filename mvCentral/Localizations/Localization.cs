@@ -184,7 +184,10 @@ namespace mvCentral.Localizations {
         public static string Back = "Back";
 
         // C
-        public static string CannotLoadSkin = "Could not load the skin\nfile for dlCentral!";
+        public static string Cancel = "Cancel";
+        public static string CannotLoadSkin = "Could not load the skin\nfile for mvCentral!";
+        public static string ContinueToNextPartBody = "Do you wish to continue with part {0}?";
+        public static string ContinueToNextPartHeader = "Continue to next part?";
 
         // D
         public static string DownloadS = "Download(s)";
@@ -200,6 +203,7 @@ namespace mvCentral.Localizations {
         public static string ErrorDownloadNotQueued = "Error download not Queued!";
 
         // F
+        public static string FailedMountingImage = "Sorry, failed mounting DVD Image";
 
         // G
 
@@ -212,7 +216,12 @@ namespace mvCentral.Localizations {
         // L
 
         // M
-
+ 
+        public static string MediaIsMissing = "The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...";
+        public static string MediaNotAvailableBody = "The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}";
+        public static string MediaNotAvailableHeader = "Media Not Available";
+        public static string MissingExternalPlayerExe = "The executable for HD playback is missing.\nPlease correct the path to the executable.";
+ 
         // N
         public static string NoResultsFound = "No results found";
         public static string Name = "Name";
@@ -222,11 +231,16 @@ namespace mvCentral.Localizations {
         public static string OK = "OK";
 
         // P
+        public static string PlaybackFailed = "Playback is not possible because the '{0}'\nextension is not listed in your mediaportal configuration.\nPlease add this extension or setup an external player\nand try again.";
+        public static string PlaybackFailedHeader = "Playback Failed";
 
         // Q
 
         // R
-
+        public static string Retry = "Retry";
+        public static string ResumeFrom = "Resume from:";
+        public static string ResumeFromLast = "Resume muicvideo from last time?";
+        
         // S
         public static string Sites = "Site(s)";
         public static string SearchingSite = "Searching Site...";
@@ -244,6 +258,8 @@ namespace mvCentral.Localizations {
         // U
 
         // V
+        public static string VirtualDriveHeader = "Virtual drive not ready";
+        public static string VirtualDriveMessage = "The virtual drive wasn't ready in time.\nPlease try again or cancel playback.";
 
         // W
         #endregion

@@ -10,7 +10,7 @@ using MediaPortal.Player;
 
 namespace mvCentral.GUI
 {
-    public partial class GUIMain : GUIWindow
+    public partial class mvGUIMain : GUIWindow
     {
         private void ArtistActions(Action.ActionType actionType)
         {
