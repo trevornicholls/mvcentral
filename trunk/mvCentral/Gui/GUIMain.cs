@@ -21,7 +21,7 @@ using mvCentral.LocalMediaManagement;
 
 namespace mvCentral.GUI
 {
-  public partial class GUIMain : GUIWindow
+  public partial class mvGUIMain : GUIWindow
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
     private mvCentralCore core = mvCentralCore.Instance;
@@ -39,11 +39,10 @@ namespace mvCentral.GUI
 
 
 
-    private PlayListPlayer listPlayer = PlayListPlayer.SingletonPlayer;
-    private PlayList currentPlayList;
+    private mvPlayer play1 ;
     private bool persisting = false;
     private View currentView = View.None;
-    int lastItemArt = 0, lastItemVid = 0, artistID = 0;
+    public int lastItemArt = 0, lastItemVid = 0, artistID = 0;
     private string selArtist = "";
 
 
@@ -108,56 +107,20 @@ namespace mvCentral.GUI
     #endregion
 
 
-    public GUIMain()
+    public mvGUIMain()
     {
       timeOut.Tick += new EventHandler(checkTime);
-
-      g_Player.PlayBackChanged += new g_Player.ChangedHandler(OnChanged);
-      g_Player.PlayBackStarted += new g_Player.StartedHandler(OnStarted);
-      g_Player.PlayBackStopped += new g_Player.StoppedHandler(OnStopped);
-      g_Player.PlayBackEnded += new g_Player.EndedHandler(OnEnded);
+      play1 = new mvPlayer(this);
+//      g_Player.PlayBackChanged += new g_Player.ChangedHandler(OnChanged);
+//      g_Player.PlayBackStarted += new g_Player.StartedHandler(OnStarted);
+//      g_Player.PlayBackStopped += new g_Player.StoppedHandler(OnStopped);
+//      g_Player.PlayBackEnded += new g_Player.EndedHandler(OnEnded);
       
  //     GUIWindowManager.Receivers += new SendMessageHandler(this.On1Message);
  //     GUIGraphicsContext.Receivers += new SendMessageHandler(this.On1Message);
 
     }
 
-    public override bool OnMessage(GUIMessage message)
-    {
-        switch (message.Message)
-        {
-            case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
-//                if (listPlayer.CurrentSong == -1) break;
-//                DBTrackInfo mv = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
-
-                listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
-                int count = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count;
-                lastItemVid++;
-                if (lastItemVid <= count)
-                {
-                    PlayListItem p1 = currentPlayList[lastItemVid-1];
-                    if (p1.MusicTag != null)
-                    {
-                        DBTrackInfo mv = (DBTrackInfo)p1.MusicTag;
-                        if (mv != null)
-                        {
-                            if (mv.LocalMedia[0].IsDVD)
-                            {
-                                    listPlayer.Play(lastItemVid-1);
-                                    //                listPlayer.PlayNext();
-//                                    PlayDVD(mv);
-                            }
-                        }
-                    }
-                }
-        break;
-        }
-
-
-//        base.OnMessage(message);
-
-        return base.OnMessage(message);
-    }
     private void OnStopped(g_Player.MediaType type, int stoptime, string filename)
     {
         //       listPlayer.PlayNext();
@@ -170,14 +133,14 @@ namespace mvCentral.GUI
 
     void OnStarted(g_Player.MediaType type, string filename)
     {
-        if (listPlayer.CurrentSong == -1) return;
-        object o = listPlayer.GetCurrentItem().MusicTag;
+        if (play1.listPlayer.CurrentSong == -1) return;
+        object o = play1.listPlayer.GetCurrentItem().MusicTag;
         if (o != null && o.GetType() == typeof(DBTrackInfo))
         {
             DBTrackInfo mv = (DBTrackInfo)o;
             if (mv.LocalMedia[0].IsDVD)
             {
-                PlayDVD(mv);
+//                PlayDVD(mv);
             }
         }
     }
@@ -191,7 +154,7 @@ namespace mvCentral.GUI
       string currentTrack = "";
       try
       {
-        currentTrack = listPlayer.GetCurrentItem().FileName;
+          currentTrack = play1.listPlayer.GetCurrentItem().FileName;
       }
       catch { }
       if (lastTrack != currentTrack)
@@ -460,7 +423,7 @@ namespace mvCentral.GUI
         {
           dlgMenu.Add("Add to playlist");
           dlgMenu.Add("Add all to playlist");
-          if (listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count > 0 && !(facade.ListLayout.SelectedListItem.IsFolder))
+          if (play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count > 0 && !(facade.ListLayout.SelectedListItem.IsFolder))
           {
             dlgMenu.Add("Add to Playlist as next item");
           }
@@ -513,10 +476,11 @@ namespace mvCentral.GUI
             }
                 
             addToPlaylist(list1, false, true, false);
-            listPlayer.CurrentPlaylistName = "Test";
-            currentPlayList  = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+            play1.listPlayer.CurrentPlaylistName = "Test";
+            play1.currentPlayList = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
 //            facade.ListLayout.SelectedItem = facade.ListLayout.SelectedListItemIndex - 1;
-            listPlayer.Play(lastItemVid-1);
+            play1.Play((DBTrackInfo)play1.currentPlayList[lastItemVid - 1].MusicTag);
+//            listPlayer.Play(lastItemVid-1);
 //            GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
             break;
           }
@@ -559,7 +523,7 @@ namespace mvCentral.GUI
             }
             else
             {
-              PlayList playlist = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+                PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
               string filename = facade.ListLayout.SelectedListItem.Label;
               string path = facade.ListLayout.SelectedListItem.Path;
               DBTrackInfo video = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
@@ -724,5 +688,69 @@ namespace mvCentral.GUI
         lastItemVid = facade.ListLayout.SelectedListItemIndex;
       }
     }
+
+
+    #region dialogboxes
+              public void ShowMessage(string heading, string lines) {
+            string line1 = null, line2 = null, line3 = null, line4 = null;
+            string[] linesArray = lines.Split(new string[] { "\\n" }, StringSplitOptions.None);
+
+            if (linesArray.Length >= 1) line1 = linesArray[0];
+            if (linesArray.Length >= 2) line2 = linesArray[1];
+            if (linesArray.Length >= 3) line3 = linesArray[2];
+            if (linesArray.Length >= 4) line4 = linesArray[3];
+
+            ShowMessage(heading, line1, line2, line3, line4);
+        }
+
+        public void ShowMessage(string heading, string line1, string line2, string line3, string line4) {
+            GUIDialogOK dialog = (GUIDialogOK)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_OK);
+            dialog.Reset();
+            dialog.SetHeading(heading);
+            if (line1 != null) dialog.SetLine(1, line1);
+            if (line2 != null) dialog.SetLine(2, line2);
+            if (line3 != null) dialog.SetLine(3, line3);
+            if (line4 != null) dialog.SetLine(4, line4);
+            dialog.DoModal(GetID);
+        }
+
+        /// <summary>
+        /// Displays a yes/no dialog with custom labels for the buttons
+        /// This method may become obsolete in the future if media portal adds more dialogs
+        /// </summary>
+        /// <returns>True if yes was clicked, False if no was clicked</returns>
+        public bool ShowCustomYesNo(string heading, string lines, string yesLabel, string noLabel, bool defaultYes) {
+            GUIDialogYesNo dialog = (GUIDialogYesNo)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_YES_NO);
+            try {
+                dialog.Reset();
+                dialog.SetHeading(heading);
+                string[] linesArray = lines.Split(new string[] { "\\n" }, StringSplitOptions.None);
+                if (linesArray.Length > 0) dialog.SetLine(1, linesArray[0]);
+                if (linesArray.Length > 1) dialog.SetLine(2, linesArray[1]);
+                if (linesArray.Length > 2) dialog.SetLine(3, linesArray[2]);
+                if (linesArray.Length > 3) dialog.SetLine(4, linesArray[3]);
+                dialog.SetDefaultToYes(defaultYes);
+
+                foreach (GUIControl item in dialog.controlList) {
+                    if (item is GUIButtonControl) {
+                        GUIButtonControl btn = (GUIButtonControl)item;
+                        if (btn.GetID == 11 && !String.IsNullOrEmpty(yesLabel)) // Yes button
+                            btn.Label = yesLabel;
+                        else if (btn.GetID == 10 && !String.IsNullOrEmpty(noLabel)) // No button
+                            btn.Label = noLabel;
+                    }
+                }
+                dialog.DoModal(GetID);
+                return dialog.IsConfirmed;
+            }
+            finally {
+                // set the standard yes/no dialog back to it's original state (yes/no buttons)
+                if (dialog != null) {
+                    dialog.ClearAll();
+                }
+            }
+        }
+
+    #endregion
   }
 }

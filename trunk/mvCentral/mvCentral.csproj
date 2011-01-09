@@ -79,6 +79,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="RemotePlugins">
+      <HintPath>..\External\mediaportal\v1.2.6\RemotePlugins.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -201,6 +204,7 @@
     <Compile Include="Extractors\MplsExtractor.cs" />
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
+    <Compile Include="Gui\GUIPlayer.cs" />
     <Compile Include="Gui\GUIVideoView.cs" />
     <Compile Include="Gui\GUIArtistView.cs" />
     <Compile Include="Gui\GUISort.cs" />
