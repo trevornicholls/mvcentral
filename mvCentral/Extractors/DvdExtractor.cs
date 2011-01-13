@@ -14,7 +14,7 @@ namespace mvCentral.Extractors
       get { return new string[] { }; }
     }
 
-    public override List<ChapterInfo> GetStreams(string location)
+    public override List<ChapterInfo> GetStreams(string location, int numtitle)
     {
       string path = Path.Combine(location, "VIDEO_TS");
 
@@ -46,7 +46,10 @@ namespace mvCentral.Extractors
             Trace.WriteLine(string.Format("VTS IFO file missing: {0}", Path.GetFileName(vtsIFO)));
             continue;
           }
-          streams.Add(ex.GetStreams(vtsIFO)[0]);
+
+          ChapterInfo c1 = ex.GetStreams(vtsIFO, titleSetTitleNumber)[0];
+          c1.TitleID = currentTitle; 
+          streams.Add(c1);
         }
       }
       else
@@ -55,13 +58,13 @@ namespace mvCentral.Extractors
         //read all the ifo files
         foreach (string file in Directory.GetFiles(path, "VTS_*_0.IFO"))
         {
-          ChapterInfo pgc = ex.GetStreams(file)[0];
+          ChapterInfo pgc = ex.GetStreams(file, 1)[0];
           pgc.SourceName = Path.GetFileNameWithoutExtension(file);
           streams.Add(pgc);
         }
       }
 
-      streams = streams.OrderByDescending(p => p.Duration).ToList();
+//      streams = streams.OrderByDescending(p => p.Duration).ToList();
 
       OnExtractionComplete();
       return streams;

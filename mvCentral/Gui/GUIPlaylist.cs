@@ -4,11 +4,12 @@ using System;
 using NLog;
 using System.Collections.Generic;
 using System.Collections;
-using MediaPortal.Playlists;
+//using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using mvCentral.Database;
+using mvCentral.Playlist;
 
 namespace mvCentral.GUI
 {
@@ -34,18 +35,19 @@ namespace mvCentral.GUI
         /// <param name="clear"></param>
         private void addToPlaylist(List<DBTrackInfo> items, bool playNow, bool clear, bool shuffle)
         {
-            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
             if (clear)
             {
                 playlist.Clear();
             }
             foreach (DBTrackInfo video in items)
             {
-                PlayListItem p1 = new PlayListItem(video.ArtistInfo[0].Artist + " - " + video.Track, video.LocalMedia[0].File.FullName);
-                p1.MusicTag = video;
+                PlayListItem p1 = new PlayListItem(video);
+                p1.Track = video;
+                p1.FileName = video.LocalMedia[0].File.FullName;
                 playlist.Add(p1);
             }
-            play1.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
+            play1.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
             if (shuffle)
             {
                 playlist.Shuffle();
@@ -59,21 +61,23 @@ namespace mvCentral.GUI
 
         private void addToPlaylistNext(GUIListItem listItem)
         {
-            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
-            PlayListItem item = new PlayListItem(listItem.Label, listItem.Path);
-            playlist.Insert(item, play1.listPlayer.CurrentSong);
+            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+            PlayListItem item = new PlayListItem(listItem.TVTag as DBTrackInfo);
+
+
+            playlist.Insert(item, play1.listPlayer.CurrentItem);
         }
 
         private void playRandomAll()
         {
-            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
             playlist.Clear();
             List<DBTrackInfo> videos = DBTrackInfo.GetAll();
             foreach (DBTrackInfo video in videos)
             {
-                playlist.Add(new PlayListItem(video.Track, video.LocalMedia[0].File.FullName));
+                playlist.Add(new PlayListItem(video));
             }
-            play1.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
+            play1.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
             playlist.Shuffle();
             play1.listPlayer.Play(0);
             GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);

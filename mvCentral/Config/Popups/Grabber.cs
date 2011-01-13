@@ -23,6 +23,8 @@ using Microsoft.Win32;
 using MediaPortal.Profile;
 using MediaPortal.GUI.Library;
 using MediaPortal.Player;
+
+using mvCentral.LocalMediaManagement;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Database;
 using mvCentral.Utils;
@@ -105,6 +107,8 @@ namespace mvCentral.ConfigScreen.Popups {
         protected bool _IsScrolling = false;
         protected DsROTEntry _rotEntry = null;
 
+        protected DBLocalMedia mediaToPlay;
+
         protected int _positionX = 80;
         protected int _positionY = 400;
         protected int _width = 200;
@@ -177,7 +181,22 @@ namespace mvCentral.ConfigScreen.Popups {
 
                 if (mvs.LocalMedia[0].IsDVD)
                 {
-                    FirstPlayDvd(mvs.LocalMedia[0].File.FullName);
+
+                    mediaToPlay = mvs.LocalMedia[0];
+                    MediaState mediaState = mediaToPlay.State;
+                    if (mediaState == MediaState.NotMounted)
+                    {
+                        MountResult result = mediaToPlay.Mount();
+                    }
+
+
+
+                    string videoPath = mediaToPlay.GetVideoPath();
+
+                    if (videoPath != null)
+                        FirstPlayDvd(videoPath);
+                    else 
+                      FirstPlayDvd(mvs.LocalMedia[0].File.FullName);
                     // Add delegates for Windowless operations
                     AddHandlers();
                     MainForm_ResizeMove(null, null);
@@ -272,7 +291,12 @@ namespace mvCentral.ConfigScreen.Popups {
 
 
                     hr = _mediaCtrl.Run();
-                    hr = _mediaCtrl.Pause();
+//                    hr = _dvdCtrl.PlayTitle(1, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+//                    hr = _dvdCtrl.ShowMenu(DvdMenuId.Chapter, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+//                    hr = _mediaCtrl.Stop();
+//                    hr = _mediaCtrl.Stop();
+//                    hr = _mediaCtrl.Run();
+//                   hr = _mediaCtrl.Pause();
                     _offsetseek = (ulong)seekbar.Value;
                     TimeSpan t1 = TimeSpan.FromMilliseconds(seekbar.Value);
                     TimeSpan t2 = TimeSpan.Parse(mvs.OffsetTime);
@@ -281,7 +305,14 @@ namespace mvCentral.ConfigScreen.Popups {
                     DvdHMSFTimeCode t3 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t1);
                     DvdHMSFTimeCode t4 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t2);
                     //                if (state == FilterState.Stopped) 
-                    hr = _dvdCtrl.PlayPeriodInTitleAutoStop(1, t3, t4, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+//                    hr = _dvdCtrl.PlayPeriodInTitleAutoStop(1, t3, t4, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+
+
+                    hr = _dvdCtrl.PlayTitle(mvs.TitleID, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+                    hr = _dvdCtrl.PlayAtTime( t3, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
+    
+
+//                    hr = _dvdCtrl.PlayAtTimeInTitle(mvs.TitleID, t3, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
                     DsError.ThrowExceptionForHR(hr);
  //                   hr = _mediaCtrl.Run();
                     label1.Text = t1.ToString();
@@ -430,8 +461,8 @@ namespace mvCentral.ConfigScreen.Popups {
             StopGraph();
             CloseDVDInterfaces();
             RemoveHandlers();
+            if (mediaToPlay != null) mediaToPlay.UnMount();
             this.Dispose();
-
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -861,6 +892,9 @@ namespace mvCentral.ConfigScreen.Popups {
             {
                 dvdNavigator = xmlreader.GetValueAsString("dvdplayer", "navigator", "DVD Navigator");
                 aspectRatioMode = xmlreader.GetValueAsString("dvdplayer", "armode", "").ToLower();
+
+                dvdNavigator = "dslibdvdnav";
+
                 if (aspectRatioMode == "crop")
                 {
                     arMode = AspectRatioMode.Crop;

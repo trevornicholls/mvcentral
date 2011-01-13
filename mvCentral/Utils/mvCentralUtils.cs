@@ -19,7 +19,9 @@ using mvCentral.LocalMediaManagement;
 //using dlCentral.Settings;
 //using dlCentral.Settings.Data;
 using Cornerstone.Tools;
+using MediaPortal.GUI.Library;
 using MediaPortal.Util;
+using MediaPortal.Ripper;
 
 namespace mvCentral.Utils {
     public static class mvCentralUtils {
@@ -249,6 +251,9 @@ namespace mvCentral.Utils {
             }
         }
 
+
+
+
         public static bool IsImageFile(string imagePath)
         {
             return DaemonTools.IsImageFile(Path.GetExtension(imagePath));
@@ -277,6 +282,21 @@ namespace mvCentral.Utils {
             return VideoUtility.GetVideoPath(drive);
         }
 
+
+        public static void disableNativeAutoplay()
+        {
+            logger.Info("Disabling native autoplay.");
+            AutoPlay.StopListening();
+        }
+
+        public static void enableNativeAutoplay()
+        {
+            if (GUIGraphicsContext.CurrentState == GUIGraphicsContext.State.RUNNING)
+            {
+                logger.Info("Re-enabling native autoplay.");
+                AutoPlay.StartListening();
+            }
+        }
         #endregion
 
 

@@ -2063,6 +2063,12 @@ namespace mvCentral {
             foreach (DataGridViewRow currRow in unapprovedGrid.SelectedRows)
             {
                 MusicVideoMatch selectedMatch = (MusicVideoMatch)currRow.DataBoundItem;
+
+                DBLocalMedia mediaToPlay = selectedMatch.LocalMedia[0];
+
+                if (mediaToPlay.State != MediaState.Online) mediaToPlay.Mount();
+                while (mediaToPlay.State != MediaState.Online) { Thread.Sleep(1000); };
+
                 ManualAssignPopup popup = new ManualAssignPopup(selectedMatch);
 
                 popup.ShowDialog(this);
@@ -2099,47 +2105,55 @@ namespace mvCentral {
                     }
 
 
-                    if (cbSplitDVD.Checked && selectedMatch.LocalMedia[0].IsDVD)
+
+
+                    if (selectedMatch.LocalMedia[0].IsDVD && cbSplitDVD.Checked)
                     {
-                        string fileLower = selectedMatch.LongLocalMediaString.ToLower();
-                        string pathlower = Path.GetDirectoryName(fileLower);
+
+                        string videoPath = mediaToPlay.GetVideoPath();
+                        if (videoPath == null) videoPath = selectedMatch.LongLocalMediaString;
+                        string pathlower = Path.GetDirectoryName(videoPath).ToLower();
                         pathlower = pathlower.Replace("\\video_ts", "");
                         pathlower = pathlower.Replace("\\adv_obj", "");
                         pathlower = pathlower.Replace("\\bdmv", "");
+                        if (pathlower.Length < 3) pathlower = pathlower + "\\";
                         ChapterExtractor ex =
-                       Directory.Exists(Path.Combine(pathlower, "VIDEO_TS")) ?
-                       new DvdExtractor() as ChapterExtractor :
-                       Directory.Exists(Path.Combine(pathlower, "ADV_OBJ")) ?
-                       new HddvdExtractor() as ChapterExtractor :
-                       Directory.Exists(Path.Combine(Path.Combine(pathlower, "BDMV"), "PLAYLIST")) ?
-                       new BlurayExtractor() as ChapterExtractor :
-                       null;
-
-                        if (ex == null)
-                            logger.Info("The location was not detected as DVD, HD-DVD or Blu-Ray.");
-
-
-
+                        Directory.Exists(Path.Combine(pathlower, "VIDEO_TS")) ?
+                        new DvdExtractor() as ChapterExtractor :
+                        Directory.Exists(Path.Combine(pathlower, "ADV_OBJ")) ?
+                        new HddvdExtractor() as ChapterExtractor :
+                        Directory.Exists(Path.Combine(Path.Combine(pathlower, "BDMV"), "PLAYLIST")) ?
+                        new BlurayExtractor() as ChapterExtractor :
+                        null;
 
                         if (ex != null)
                         {
-
-                            List<ChapterInfo> rp = ex.GetStreams(pathlower);
-                            ChapterInfo ci = rp[0];
-
-                            foreach (ChapterEntry c1 in ci.Chapters)
+                            List<ChapterInfo> rp = ex.GetStreams(pathlower,1);
+                            
+                            if (mediaToPlay.IsMounted)
                             {
-                                DBTrackInfo db1 = new DBTrackInfo();
-                                db1.Copy(mv);
-                                db1.Track = c1.Name;
-                                db1.Chapter = c1.Name;
-                                db1.ChapterID = c1.chId;
-                                db1.PlayTime = c1.Time.ToString();
-                                db1.OffsetTime = c1.OffsetTime.ToString();
-                                db1.ArtistInfo.Add(mv.ArtistInfo[0]);
-                                if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);
-                                db1.LocalMedia.Add(selectedMatch.LocalMedia[0]);
-                                db1.Commit();
+                                mediaToPlay.UnMount();
+                                while (mediaToPlay.IsMounted) { Thread.Sleep(1000); };
+                            }
+                            foreach (ChapterInfo ci in rp)
+                            {
+                                foreach (ChapterEntry c1 in ci.Chapters)
+                                {
+                                    //skip menus/small crap
+//                                    if (c1.Time.TotalSeconds < 20) continue;
+                                    DBTrackInfo db1 = new DBTrackInfo();
+                                    db1.Copy(mv);
+                                    db1.TitleID = ci.TitleID;
+                                    db1.Track = "Chapter " + ci.TitleID.ToString("##") + " - " + c1.chId.ToString("##");
+                                    db1.Chapter = "Chapter " + c1.chId.ToString("##");
+                                    db1.ChapterID = c1.chId;
+                                    db1.PlayTime = c1.Time.ToString();
+                                    db1.OffsetTime = c1.OffsetTime.ToString();
+                                    db1.ArtistInfo.Add(mv.ArtistInfo[0]);
+                                    if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);
+                                    db1.LocalMedia.Add(selectedMatch.LocalMedia[0]);
+                                    db1.Commit();
+                                }
                             }
                             selectedMatch.LocalMedia[0].UpdateMediaInfo();
                             selectedMatch.LocalMedia[0].Commit();
@@ -2203,7 +2217,7 @@ namespace mvCentral {
                 throw new Exception("The selected file is not a recognized format.");
             }
 
-            return ex.GetStreams(file);
+            return ex.GetStreams(file,1);
         }
 
         #endregion

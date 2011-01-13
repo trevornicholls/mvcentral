@@ -100,6 +100,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\mediaportal\v1.2.6\Utils.dll</HintPath>
     </Reference>
+    <Reference Include="WindowPlugins">
+      <HintPath>..\External\mediaportal\v1.2.6\WindowPlugins.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +207,7 @@
     <Compile Include="Extractors\MplsExtractor.cs" />
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
+    <Compile Include="Gui\GUImvPlaylist.cs" />
     <Compile Include="Gui\GUIPlayer.cs" />
     <Compile Include="Gui\GUIVideoView.cs" />
     <Compile Include="Gui\GUIArtistView.cs" />
@@ -226,6 +230,14 @@
     <Compile Include="LocalMediaManagement\VideoUtility.cs" />
     <Compile Include="mvCentralCore.cs" />
     <Compile Include="mvCentralSettings.cs" />
+    <Compile Include="Playlist\GUImvPlaylist.cs" />
+    <Compile Include="Playlist\IPlayListIO.cs" />
+    <Compile Include="Playlist\PlayList.cs" />
+    <Compile Include="Playlist\PlayListFactory.cs" />
+    <Compile Include="Playlist\PlayListIO.cs" />
+    <Compile Include="Playlist\PlayListItem.cs" />
+    <Compile Include="Playlist\PlayListPlayer.cs" />
+    <Compile Include="Playlist\PlayListType.cs" />
     <Compile Include="Utils\ROTClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

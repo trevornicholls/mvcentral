@@ -112,6 +112,66 @@ namespace mvCentral.Settings {
 
         #endregion
 
+
+        #region Playlist
+
+        [CornerstoneSetting(
+            Name = "Repeat playlist",
+            Description = "Repeat the playlist.",
+            Groups = "|MusicVideo General|playlist|",
+            Identifier = "general_repeatplaylist",
+            Default = true,
+            Hidden = true)]
+        public bool repeatPlayList{
+            get { return _repeatplaylist; }
+            set
+            {
+                _repeatplaylist = value;
+                OnSettingChanged("general_repeatplaylist");
+            }
+        }
+        private bool _repeatplaylist;
+
+        [CornerstoneSetting(
+            Name = "Autoplay playlist",
+            Description = "Play the playlist after load.",
+            Groups = "|MusicVideo General|playlist|",
+            Identifier = "general_playlistautoplay",
+            Default = true, 
+            Hidden = true)]
+        public bool playlistAutoPlay
+        {
+            get { return _playlistautoplay; }
+            set
+            {
+                _playlistautoplay = value;
+                OnSettingChanged("general_playlistautoplay");
+            }
+        }
+        private bool _playlistautoplay;
+
+
+        [CornerstoneSetting(
+            Name = "Autoshuffle playlist",
+            Description = "Automatic shuffle of playlists.",
+            Groups = "|MusicVideo General|playlist|",
+            Identifier = "general_playlistautoshuffle",
+            Default = true,
+            Hidden = true)]
+        public bool playlistAutoShuffle
+        {
+            get { return _playlistautoshuffle; }
+            set
+            {
+                _playlistautoshuffle = value;
+                OnSettingChanged("general_playlistautoshuffle");
+            }
+        }
+        private bool _playlistautoshuffle;
+
+        #endregion
+
+
         #region Matching and Importing
 
         [CornerstoneSetting(
