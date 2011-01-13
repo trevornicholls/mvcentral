@@ -13,7 +13,7 @@ namespace mvCentral.Extractors
       get { return new string[] { }; }
     }
 
-    public override List<ChapterInfo> GetStreams(string location)
+    public override List<ChapterInfo> GetStreams(string location, int numtitle)
     {
       List<ChapterInfo> pgcs = new List<ChapterInfo>();
       string path = Path.Combine(location, "ADV_OBJ");
@@ -26,7 +26,7 @@ namespace mvCentral.Extractors
 
       foreach (string file in Directory.GetFiles(path, "*.xpl"))
       {
-        pgcs.Add(ex.GetStreams(file)[0]);
+        pgcs.Add(ex.GetStreams(file , numtitle)[0]);
       }
 
       pgcs = pgcs.OrderByDescending(p => p.Duration).ToList();

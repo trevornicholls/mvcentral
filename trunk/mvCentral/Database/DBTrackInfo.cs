@@ -44,6 +44,17 @@ namespace mvCentral.Database {
         } private string _track;
 
         [DBField(AllowDynamicFiltering = false)]
+        public int TitleID
+        {
+            get { return _titleid; }
+            set
+            {
+                _titleid = value;
+                commitNeeded = true;
+            }
+        } private int _titleid;
+
+        [DBField(AllowDynamicFiltering = false)]
         public string Chapter
         {
             get { return _chapter; }

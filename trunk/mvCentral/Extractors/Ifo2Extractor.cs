@@ -21,9 +21,9 @@ namespace mvCentral.Extractors
       get { return false; }
     }
 
-    public override List<ChapterInfo> GetStreams(string location)
+    public override List<ChapterInfo> GetStreams(string location, int titlenum)
     {
-      int titleSetNum = 1;
+        int titleSetNum = titlenum;
 
       if (location.StartsWith("VTS_"))
       {

@@ -182,6 +182,7 @@ namespace mvCentral.Localizations {
 
         // B
         public static string Back = "Back";
+        public static string ButtonAutoPlay = "Auto Play";
 
         // C
         public static string Cancel = "Cancel";
@@ -226,6 +227,7 @@ namespace mvCentral.Localizations {
         public static string NoResultsFound = "No results found";
         public static string Name = "Name";
         public static string NoDownloadsActive = "No downloads active";
+        public static string NoPlaylistsFound = "No Playlists found in:";
 
         // O
         public static string OK = "OK";

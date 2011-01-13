@@ -12,14 +12,14 @@ using Cornerstone.Database.CustomTypes;
 using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
 using MediaPortal.Player;
-using MediaPortal.Playlists;
+//using MediaPortal.Playlists;
 using mvCentral.ROT;
 using mvCentral.Localizations;
-using mvCentral.Database;
+using mvCentral.Database; 
 using mvCentral.LocalMediaManagement;
 using mvCentral.GUI;
 using mvCentral.Utils;
-
+using mvCentral.Playlist;
 using MediaPortal.Util;
 using MediaPortal.InputDevices;
 using NLog;
@@ -29,7 +29,7 @@ namespace mvCentral.GUI
 
     public delegate void mvPlayerEvent(DBTrackInfo mv);
 
-    public class mvPlayer
+    public partial class mvPlayer
     {
 
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -49,8 +49,9 @@ namespace mvCentral.GUI
         public PlayListPlayer listPlayer = PlayListPlayer.SingletonPlayer;
         public PlayList currentPlayList;
 
-
-
+        private System.Windows.Forms.Timer playTimer = new System.Windows.Forms.Timer();
+        private TimeSpan CurrentTime ;
+        const int ONE_MSEC = 10000;   // The number of 100-ns in 1 msec
         List<DSGrapheditROTEntry> l1;
         protected IGraphBuilder _graphBuilder = null;
         protected IBasicVideo2 _basicVideo = null;
@@ -82,19 +83,24 @@ namespace mvCentral.GUI
             MediaPortal.Util.Utils.OnStopExternal += new MediaPortal.Util.Utils.UtilEventHandler(onStopExternal);
 
             // default player handlers
-            g_Player.PlayBackStarted += new g_Player.StartedHandler(onPlaybackStarted);
-            g_Player.PlayBackEnded += new g_Player.EndedHandler(onPlayBackEnded);
-            g_Player.PlayBackStopped += new g_Player.StoppedHandler(onPlayBackStoppedOrChanged);
-            GUIGraphicsContext.Receivers += new SendMessageHandler(this.OnMessage);
+ //           g_Player.PlayBackStarted += new g_Player.StartedHandler(onPlaybackStarted);
+ //           g_Player.PlayBackEnded += new g_Player.EndedHandler(onPlayBackEnded);
+ //           g_Player.PlayBackStopped += new g_Player.StoppedHandler(onPlayBackStoppedOrChanged);
+//            GUIGraphicsContext.Receivers += new SendMessageHandler(this.OnMessage);
 
             try {
                 // This is a handler added in RC4 - if we are using an older mediaportal version
                 // this would throw an exception.
-                g_Player.PlayBackChanged += new g_Player.ChangedHandler(onPlayBackStoppedOrChanged);
+//                g_Player.PlayBackChanged += new g_Player.ChangedHandler(onPlayBackStoppedOrChanged);
             }
             catch (Exception) {
                 logger.Warn("Running MediaPortal 1.0 RC3 or earlier. Unexpected behavior may occur when starting playback of a new mv without stopping previous mv. Please upgrade for better performance.");
             }
+
+            playTimer.Interval = 1000;
+            playTimer.Tick += new EventHandler(playEvent);
+//            listPlayer.InitTest();
+
 
             logger.Info("mv Player initialized.");
         }
@@ -164,10 +170,28 @@ namespace mvCentral.GUI
 
         #region Public Methods
 
+
+
+
+
         public void Play(DBTrackInfo mv) {
             CurrentTrack = mv;
+            resetPlayer();
+            // needed so everything goes in sequence otherwise stop gets handled after the play events
+            GUIWindowManager.Process();
             Play(mv, 1);
+            if (CurrentTrack.LocalMedia[0].IsDVD)
+            {
+                PlayDVD(CurrentTrack);
+            }
+            SetInitTimerValues();
+            playTimer.Start();
+
         }
+
+
+
+
 
         public void Play(DBTrackInfo mv, int part) {
 
@@ -192,6 +216,7 @@ namespace mvCentral.GUI
         }
 
         public void Stop() {
+            playTimer.Stop();
             if (g_Player.Playing)
                 g_Player.Stop();
             
@@ -566,7 +591,23 @@ namespace mvCentral.GUI
 
         #region Internal Player Event Handlers
 
-        public void OnMessage(GUIMessage message)
+/*        public override bool OnMessage(GUIMessage message)
+        {
+            switch (message.Message)
+            {
+                case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
+                    //                PlayCD(message.Label);
+                    break;
+
+                case GUIMessage.MessageType.GUI_MSG_VOLUME_REMOVED:
+                    //                MusicCD = null;
+                    break;
+            }
+            return base.OnMessage(message);
+
+        }
+        */
+        public void OnMessage1(GUIMessage message)
         {
             switch (message.Message)
             {
@@ -578,19 +619,19 @@ namespace mvCentral.GUI
                         if (!g_Player.Playing)
                         {
 //                        listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
-                        int count = listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count;
+                        int count = listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count;
                         _gui.lastItemVid++;
                         if (_gui.lastItemVid <= count)
                         {
                             PlayListItem p1 = currentPlayList[_gui.lastItemVid - 1];
-                            if (p1.MusicTag != null)
+                            if (p1.Track != null)
                             {
-                                DBTrackInfo mv = (DBTrackInfo)p1.MusicTag;
+                                DBTrackInfo mv = p1.Track;
                                 if (mv != null)
                                 {
 //                                    if (mv.LocalMedia[0].IsDVD)
                                     {
-                                        Play(mv);
+           //                                 Play(mv);
            //                               CurrentTrack = mv;
           //                                listPlayer.Play(_gui.lastItemVid - 1);
                                         //                listPlayer.PlayNext();
@@ -607,6 +648,53 @@ namespace mvCentral.GUI
             //        base.OnMessage(message);
 //            return true;
 //            return base.OnMessage(message);
+        }
+
+        private void SetInitTimerValues()
+        {
+            CurrentTime = TimeSpan.FromSeconds(0);
+        }
+
+        private void playEvent(object sender, EventArgs e)
+        {
+            CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
+            TimeSpan t1 = TimeSpan.FromSeconds(g_Player.CurrentPosition);
+            TimeSpan t2 = TimeSpan.Parse(CurrentTrack.PlayTime);
+            if (CurrentTrack.OffsetTime.Trim().Length>0) t2 = t2.Add(TimeSpan.Parse(CurrentTrack.OffsetTime));
+
+            if (t1 > t2)
+//            if (CurrentTime > TimeSpan.Parse(CurrentTrack.PlayTime))
+            {
+                Stop();
+            }
+
+            if (!g_Player.Playing)
+            {
+                playNext();
+            }
+
+        }
+
+
+        private void playNext()
+        {
+            if (!g_Player.Playing)
+            {
+                playTimer.Stop();
+                int count = listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count;
+                _gui.lastItemVid++;
+                if (_gui.lastItemVid <= count)
+                {
+                    PlayListItem p1 = currentPlayList[_gui.lastItemVid - 1];
+                    if (p1.Track != null)
+                    {
+                        DBTrackInfo mv = (DBTrackInfo)p1.Track;
+                        if (mv != null)
+                         Play(mv);
+                         CurrentTrack = mv;
+                    }
+                }
+            }
         }
 
         private void onPlaybackStarted(g_Player.MediaType type, string filename)

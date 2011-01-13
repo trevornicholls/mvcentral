@@ -21,7 +21,7 @@ namespace mvCentral.Extractors
       get { return false; }
     }
 
-    public override List<ChapterInfo> GetStreams(string location)
+    public override List<ChapterInfo> GetStreams(string location, int numtitle)
     {
       ChapterInfo pgc = new ChapterInfo();
       pgc.Chapters = new List<ChapterEntry>();

@@ -10,7 +10,7 @@ namespace mvCentral.Extractors
   {
     public abstract string[] Extensions { get; }
     public virtual bool SupportsMultipleStreams { get { return true; } }
-    public abstract List<ChapterInfo> GetStreams(string location);
+    public abstract List<ChapterInfo> GetStreams(string location, int titlenum);
 
     public event EventHandler<ProgramChainArg> StreamDetected;
     public event EventHandler<ProgramChainArg> ChaptersLoaded;

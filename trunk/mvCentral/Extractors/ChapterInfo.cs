@@ -12,6 +12,7 @@ namespace mvCentral.Extractors
     public class ChapterInfo
     {
         public string Title { get; set; }
+        public int TitleID { get; set; }
         public int? ChapterSetId { get; set; }
         public String ImdbId { get; set; }
         public int? MovieDbId { get; set; }

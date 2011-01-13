@@ -20,7 +20,7 @@ namespace mvCentral.Extractors
       get { return new string[] { "txt" }; }
     }
 
-    public override List<ChapterInfo> GetStreams(string location)
+    public override List<ChapterInfo> GetStreams(string location, int numtitle)
     {
       List<ChapterInfo> pgcs = new List<ChapterInfo>();
 

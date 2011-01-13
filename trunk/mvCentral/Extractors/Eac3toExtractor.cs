@@ -17,7 +17,7 @@ namespace mvCentral.Extractors
       get { return new string[0]; }
     }
 
-    public override List<ChapterInfo> GetStreams(string location)
+    public override List<ChapterInfo> GetStreams(string location, int numtitle)
     {
       List<ChapterInfo> pgcs = new List<ChapterInfo>();
 
@@ -76,7 +76,7 @@ namespace mvCentral.Extractors
             throw new Exception("Error creating chapters file.");
           }
           TextExtractor extractor = new TextExtractor();
-          pgc.Chapters = extractor.GetStreams("chapters.txt")[0].Chapters;
+          pgc.Chapters = extractor.GetStreams("chapters.txt", numtitle)[0].Chapters;
           OnChaptersLoaded(pgc);
         }
       }

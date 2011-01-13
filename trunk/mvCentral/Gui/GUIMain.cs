@@ -11,13 +11,14 @@ using Cornerstone.Tools;
 using NLog;
 using System.Collections.Generic;
 using System.Collections;
-using MediaPortal.Playlists;
+
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using mvCentral.Database;
 using mvCentral;
 using mvCentral.LocalMediaManagement;
+using mvCentral.Playlist;
 
 namespace mvCentral.GUI
 {
@@ -39,7 +40,7 @@ namespace mvCentral.GUI
 
 
 
-    private mvPlayer play1 ;
+    public mvPlayer play1 ;
     private bool persisting = false;
     private View currentView = View.None;
     public int lastItemArt = 0, lastItemVid = 0, artistID = 0;
@@ -121,6 +122,54 @@ namespace mvCentral.GUI
 
     }
 
+
+    public override bool OnMessage(GUIMessage message)
+    {
+        switch (message.Message)
+        {
+            case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
+//                PlayCD(message.Label);
+                break;
+
+                if (!g_Player.Playing)
+                {
+                    //                        listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_VIDEO;
+                    int count = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count;
+                    lastItemVid++;
+                    if (lastItemVid <= count)
+                    {
+                        PlayListItem p1 = play1.currentPlayList[lastItemVid - 1];
+                        if (p1.Track != null)
+                        {
+                            DBTrackInfo mv = p1.Track;
+                            if (mv != null)
+                            {
+                                //                                    if (mv.LocalMedia[0].IsDVD)
+                                {
+                                    play1.Play(mv);
+                                    //                               CurrentTrack = mv;
+                                    //                                listPlayer.Play(_gui.lastItemVid - 1);
+                                    //                listPlayer.PlayNext();
+                                    //                                    PlayDVD(mv);
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                break;
+
+            case GUIMessage.MessageType.GUI_MSG_VOLUME_REMOVED:
+//                MusicCD = null;
+                break;
+        }
+        return base.OnMessage(message);
+
+    }
+
+
+
     private void OnStopped(g_Player.MediaType type, int stoptime, string filename)
     {
         //       listPlayer.PlayNext();
@@ -133,8 +182,8 @@ namespace mvCentral.GUI
 
     void OnStarted(g_Player.MediaType type, string filename)
     {
-        if (play1.listPlayer.CurrentSong == -1) return;
-        object o = play1.listPlayer.GetCurrentItem().MusicTag;
+        if (play1.listPlayer.CurrentItem == -1) return;
+        object o = play1.listPlayer.GetCurrentItem().Track;
         if (o != null && o.GetType() == typeof(DBTrackInfo))
         {
             DBTrackInfo mv = (DBTrackInfo)o;
@@ -423,7 +472,7 @@ namespace mvCentral.GUI
         {
           dlgMenu.Add("Add to playlist");
           dlgMenu.Add("Add all to playlist");
-          if (play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO).Count > 0 && !(facade.ListLayout.SelectedListItem.IsFolder))
+          if (play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count > 0 && !(facade.ListLayout.SelectedListItem.IsFolder))
           {
             dlgMenu.Add("Add to Playlist as next item");
           }
@@ -450,7 +499,7 @@ namespace mvCentral.GUI
           playSmart(ChooseSmartPlay());
           break;
         case (int)GUIControls.PlayList:
-          GUIWindowManager.ActivateWindow(28);
+          GUIWindowManager.ActivateWindow(88889);
           break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
@@ -476,10 +525,13 @@ namespace mvCentral.GUI
             }
                 
             addToPlaylist(list1, false, true, false);
+
+            GUImvPlayList pgui = (GUImvPlayList)GUIWindowManager.GetWindow(88889);
+            pgui.playlistPlayer.Play(lastItemVid - 1);
             play1.listPlayer.CurrentPlaylistName = "Test";
-            play1.currentPlayList = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+            play1.currentPlayList = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
 //            facade.ListLayout.SelectedItem = facade.ListLayout.SelectedListItemIndex - 1;
-            play1.Play((DBTrackInfo)play1.currentPlayList[lastItemVid - 1].MusicTag);
+//            play1.Play((DBTrackInfo)play1.currentPlayList[lastItemVid - 1].Track);
 //            listPlayer.Play(lastItemVid-1);
 //            GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
             break;
@@ -523,12 +575,12 @@ namespace mvCentral.GUI
             }
             else
             {
-                PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_VIDEO);
+                PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
               string filename = facade.ListLayout.SelectedListItem.Label;
               string path = facade.ListLayout.SelectedListItem.Path;
               DBTrackInfo video = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
-              PlayListItem p1 = new PlayListItem(video.ArtistInfo[0].Artist + " - " + video.Track, video.LocalMedia[0].File.FullName);
-              p1.MusicTag = video;
+              PlayListItem p1 = new PlayListItem(video);
+              p1.Track = video;
               playlist.Add(p1);
 
 //              playlist.Add(new PlayListItem(filename, path));
