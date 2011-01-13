@@ -210,6 +210,13 @@ namespace mvCentral.Playlist
 
                 MediaPortal.Player.g_Player.Play(mediaToPlay.GetVideoPath());
 
+                // reset setting back to original
+                if (dvdNavigator == "dslibdvdnav") 
+                using (MediaPortal.Profile.Settings xmlreader = mvCentralCore.MediaPortalSettings)
+                {
+                    xmlreader.SetValue("dvdplayer", "navigator", "DVD Navigator");
+                }
+ 
                 PurgeEntries();
                 l1 = ROTClass.GetFilterGraphsFromROT();
                 foreach (DSGrapheditROTEntry e1 in l1)
