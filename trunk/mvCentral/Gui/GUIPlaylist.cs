@@ -35,7 +35,7 @@ namespace mvCentral.GUI
         /// <param name="clear"></param>
         private void addToPlaylist(List<DBTrackInfo> items, bool playNow, bool clear, bool shuffle)
         {
-            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+            PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
             if (clear)
             {
                 playlist.Clear();
@@ -47,39 +47,39 @@ namespace mvCentral.GUI
                 p1.FileName = video.LocalMedia[0].File.FullName;
                 playlist.Add(p1);
             }
-            play1.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+            Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
             if (shuffle)
             {
                 playlist.Shuffle();
             }
             if (playNow)
             {
-                play1.listPlayer.Play(0);               
+                Player.playlistPlayer.Play(0);               
                 GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
             }
         }
 
         private void addToPlaylistNext(GUIListItem listItem)
         {
-            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+            PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
             PlayListItem item = new PlayListItem(listItem.TVTag as DBTrackInfo);
 
 
-            playlist.Insert(item, play1.listPlayer.CurrentItem);
+            playlist.Insert(item, Player.playlistPlayer.CurrentItem);
         }
 
         private void playRandomAll()
         {
-            PlayList playlist = play1.listPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+            PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
             playlist.Clear();
             List<DBTrackInfo> videos = DBTrackInfo.GetAll();
             foreach (DBTrackInfo video in videos)
             {
                 playlist.Add(new PlayListItem(video));
             }
-            play1.listPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+            Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
             playlist.Shuffle();
-            play1.listPlayer.Play(0);
+            Player.playlistPlayer.Play(0);
             GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
         }
 

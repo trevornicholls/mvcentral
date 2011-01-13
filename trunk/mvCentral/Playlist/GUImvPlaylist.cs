@@ -218,7 +218,7 @@ namespace mvCentral.Playlist
                 }
             }
 
-            // Prompt to load a Playlist if there is no items in current plalist
+            // Prompt to load a Playlist if there is no items in current playlist
             if (m_Facade.Count <= 0 && btnLoad != null)
             {
                 GUIControl.FocusControl(GetID, btnLoad.GetID);
