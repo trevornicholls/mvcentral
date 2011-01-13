@@ -207,8 +207,6 @@
     <Compile Include="Extractors\MplsExtractor.cs" />
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
-    <Compile Include="Gui\GUImvPlaylist.cs" />
-    <Compile Include="Gui\GUIPlayer.cs" />
     <Compile Include="Gui\GUIVideoView.cs" />
     <Compile Include="Gui\GUIArtistView.cs" />
     <Compile Include="Gui\GUISort.cs" />
