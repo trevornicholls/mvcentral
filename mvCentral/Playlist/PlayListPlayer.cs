@@ -43,11 +43,14 @@ using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using MediaPortal.Configuration;
+using MediaPortal.GUI.Library;
+
 using mvCentral.Database;
 using mvCentral.ROT;
 using mvCentral.Utils;
 using mvCentral.Localizations;
 using mvCentral.LocalMediaManagement;
+using mvCentral.GUI;
 
 namespace mvCentral.Playlist
 {
@@ -268,7 +271,22 @@ namespace mvCentral.Playlist
                 CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
                 TimeSpan t1 = TimeSpan.FromSeconds(MediaPortal.Player.g_Player.CurrentPosition);
                 TimeSpan t2 = TimeSpan.Parse(CurrentTrack.PlayTime);
+                TimeSpan t3 = TimeSpan.Parse(CurrentTrack.PlayTime);
+                DateTime dt2 = new DateTime(t3.Ticks);
                 if (CurrentTrack.OffsetTime.Trim().Length > 0) t2 = t2.Add(TimeSpan.Parse(CurrentTrack.OffsetTime));
+                if (CurrentTrack.OffsetTime.Trim().Length > 0)
+                    t3 = t1.Subtract(TimeSpan.Parse(CurrentTrack.OffsetTime));
+                else
+                    t3 = t1;
+
+
+                DateTime dt = new DateTime();
+                if (t3.Ticks>0)
+                 dt = new DateTime(t3.Ticks);
+                GUIPropertyManager.SetProperty("#mvCentral.Duration", String.Format("{0:HH:mm:ss}", dt2));
+                GUIPropertyManager.SetProperty("#mvCentral.PlayTime", String.Format("{0:HH:mm:ss}", dt));
+                GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", CurrentTrack.ArtistInfo[0].Artist + " - " + CurrentTrack.Track);
+
                 if (playTimer.Enabled)
                 if (t1 > t2)
                 //            if (CurrentTime > TimeSpan.Parse(CurrentTrack.PlayTime))
@@ -364,7 +382,8 @@ namespace mvCentral.Playlist
  //                        SetProperties(item, true);
                     }
                     GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
-                    GUIGraphicsContext.SendMessage(msg);                    
+                    GUIGraphicsContext.SendMessage(msg);
+
                 }
                 break;
 
@@ -682,6 +701,7 @@ namespace mvCentral.Playlist
                 // Play File
                 playResult = g_Player.Play(playlist, _currentItem);
 
+
                 // Stope Listening to any External Player Events
 				listenToExternalPlayerEvents = false;
 
@@ -708,11 +728,26 @@ namespace mvCentral.Playlist
                     if (MediaPortal.Util.Utils.IsVideo(item.FileName))
                     {
                         if (g_Player.HasVideo)
-                        {                            
-                            g_Player.ShowFullScreenWindow();
+                        {
+                            // needed so everything goes in sequence otherwise stop gets handled after the play events
+//                            g_Player.ShowFullScreenWindow();
+                            GUIGraphicsContext.IsFullScreenVideo = false;
+
+                            MediaPortal.Player.g_Player.FullScreen = false;
+//                            GUIMessage msg1 = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED, mvCentralCore.PluginID, 0, 0, -1, CurrentItem, null);
+                            //                            GUIGraphicsContext.SendMessage(msg1);
+//                            GUIWindowManager.SendMessage(msg1);
+
+                            MediaPortal.GUI.Library.Action actionCloseDialog = new MediaPortal.GUI.Library.Action(MediaPortal.GUI.Library.Action.ActionType.ACTION_QUEUE_ITEM, 0, 0);
+//                            GUIGraphicsContext.OnAction(actionCloseDialog);
+
+                            GUIWindow g1 = GUIWindowManager.GetWindow(mvCentralCore.PluginID);
+                            g1.OnAction(actionCloseDialog);
+                            GUIWindowManager.Process(); 
                             System.Threading.Thread.Sleep(2000);
- //                           SetProperties(item, false);
-                        }
+//                            g_Player.ShowFullScreenWindow();
+                            //                           SetProperties(item, false);
+                        }  
                     }
                 }
             }

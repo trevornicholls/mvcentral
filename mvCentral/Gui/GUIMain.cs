@@ -106,6 +106,22 @@ namespace mvCentral.GUI
     #endregion
 
 
+
+    public override bool OnMessage(GUIMessage message)
+    {
+        switch (message.Message)
+        {
+            case GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED:
+                {
+                    facade.SelectedListItemIndex = message.Param2;
+                    return true;
+                }
+                break;
+        }
+        return base.OnMessage(message);
+    }
+
+
     public mvGUIMain()
     {
       timeOut.Tick += new EventHandler(checkTime);
@@ -444,13 +460,29 @@ namespace mvCentral.GUI
       base.OnClicked(controlId, control, actionType);
     }
 
+    public void SetFocusItem(int index)
+    {
+        facade.SelectedListItemIndex = index;
+      
+    }
+
     public override void OnAction(MediaPortal.GUI.Library.Action action)
     {
       MediaPortal.GUI.Library.Action.ActionType wID = action.wID;
+
+      if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_QUEUE_ITEM)
+      {
+          facade.SelectedListItemIndex = Player.playlistPlayer.CurrentItem;
+          return;
+      }
+
+        
+        
+        
       if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU && currentView == View.Video)
       {
-        currentView = View.Artist;
-        loadCurrent();
+          currentView = View.Artist;
+          loadCurrent();
       }
       else if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU)
       {
