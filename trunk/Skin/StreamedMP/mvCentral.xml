@@ -242,15 +242,17 @@
           <width>500</width>
           <height>300</height>
           <textXOff>-60</textXOff>
-          <textXOff2>367</textXOff2>
-          <textXOff3>415</textXOff3>
-          <textYOff3>11</textYOff3>
+          <textXOff2>0</textXOff2>
+          <textXOff3>200</textXOff3>
+          <textYOff>11</textYOff>
+          <textYOff2>32</textYOff2>
+          <textYOff3>32</textYOff3>
           <font>mediastream11c</font>
           <font3>mediastream9c</font3>
           <textureFocus>listbg_fo.png</textureFocus>
           <IconYOff>12</IconYOff>
           <IconXOff>390</IconXOff>
-          <itemHeight>18</itemHeight>
+          <itemHeight>32</itemHeight>
           <itemWidth>72</itemWidth>
           <dimColor>50ffffff</dimColor>
           <!-- Spin Controls -->
@@ -449,7 +451,7 @@
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>
     </control>
-    <import>common.overlays2.xml</import>
+    <import>mvCentral.overlays2.xml</import>
     <!-- <import>common.window.xml</import> -->
     <import>common.time.xml</import>
   </controls>
