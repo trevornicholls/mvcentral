@@ -1539,6 +1539,7 @@ namespace mvCentral {
                 {
                     ((DBTrackInfo)t1.Tag).ArtistInfo.Clear();
                     ((DBTrackInfo)t1.Tag).ArtistInfo.Add(a1);
+                    ((DBTrackInfo)t1.Tag).Commit();
                 }
             }
 

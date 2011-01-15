@@ -476,7 +476,7 @@
             this.tsmRemove,
             this.tsmGetInfo});
             this.cmLibrary.Name = "cmLibrary";
-            this.cmLibrary.Size = new System.Drawing.Size(169, 114);
+            this.cmLibrary.Size = new System.Drawing.Size(169, 136);
             this.cmLibrary.Opened += new System.EventHandler(this.cmLibrary_Opened);
             // 
             // sentToImporterToolStripMenuItem
@@ -1140,10 +1140,9 @@
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip1.Size = new System.Drawing.Size(578, 26);
+            this.toolStrip1.Size = new System.Drawing.Size(578, 25);
             this.toolStrip1.TabIndex = 6;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.Visible = false;
             // 
             // filterSplitButton
             // 
@@ -1191,7 +1190,7 @@
             this.approveButton.Image = global::mvCentral.Properties.Resources.OK;
             this.approveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.approveButton.Name = "approveButton";
-            this.approveButton.Size = new System.Drawing.Size(23, 23);
+            this.approveButton.Size = new System.Drawing.Size(23, 22);
             this.approveButton.Text = "toolStripButton1";
             this.approveButton.ToolTipText = "Approve Selected File(s)";
             this.approveButton.Click += new System.EventHandler(this.approveButton_Click);
@@ -1202,7 +1201,7 @@
             this.manualAssignButton.Image = global::mvCentral.Properties.Resources.page_white_edit;
             this.manualAssignButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.manualAssignButton.Name = "manualAssignButton";
-            this.manualAssignButton.Size = new System.Drawing.Size(23, 23);
+            this.manualAssignButton.Size = new System.Drawing.Size(23, 22);
             this.manualAssignButton.Text = "manualAssignButton";
             this.manualAssignButton.ToolTipText = "Add as Blank (Editable) Movie";
             this.manualAssignButton.Click += new System.EventHandler(this.manualAssignButton_Click);
@@ -1210,7 +1209,7 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
             // rescanButton
             // 
@@ -1218,7 +1217,7 @@
             this.rescanButton.Image = global::mvCentral.Properties.Resources.find;
             this.rescanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.rescanButton.Name = "rescanButton";
-            this.rescanButton.Size = new System.Drawing.Size(23, 23);
+            this.rescanButton.Size = new System.Drawing.Size(23, 22);
             this.rescanButton.Text = "toolStripButton1";
             this.rescanButton.ToolTipText = "Rescan Selected File(s) with Custom Search String";
             this.rescanButton.Click += new System.EventHandler(this.rescanButton_Click);
@@ -1229,7 +1228,7 @@
             this.splitJoinButton.Image = global::mvCentral.Properties.Resources.arrow_divide;
             this.splitJoinButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.splitJoinButton.Name = "splitJoinButton";
-            this.splitJoinButton.Size = new System.Drawing.Size(23, 23);
+            this.splitJoinButton.Size = new System.Drawing.Size(23, 22);
             this.splitJoinButton.Text = "toolStripButton1";
             this.splitJoinButton.ToolTipText = "Split Selected File Group";
             this.splitJoinButton.Click += new System.EventHandler(this.splitJoinButton_Click);
@@ -1237,7 +1236,7 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
             // 
             // ignoreButton
             // 
@@ -1245,14 +1244,14 @@
             this.ignoreButton.Image = global::mvCentral.Properties.Resources.cross;
             this.ignoreButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ignoreButton.Name = "ignoreButton";
-            this.ignoreButton.Size = new System.Drawing.Size(23, 23);
+            this.ignoreButton.Size = new System.Drawing.Size(23, 22);
             this.ignoreButton.Text = "toolStripButton2";
             this.ignoreButton.ToolTipText = "Ignore Selected File(s)";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // settingsButton
             // 
@@ -1264,7 +1263,7 @@
             this.settingsButton.Image = global::mvCentral.Properties.Resources.cog;
             this.settingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(32, 23);
+            this.settingsButton.Size = new System.Drawing.Size(32, 22);
             this.settingsButton.ToolTipText = "Advanced Actions";
             this.settingsButton.ButtonClick += new System.EventHandler(this.settingsButton_ButtonClick);
             // 
@@ -1295,7 +1294,7 @@
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.ToolTipText = "Help";
             // 
             // unapprovedGrid

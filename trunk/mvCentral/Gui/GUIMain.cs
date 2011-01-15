@@ -622,7 +622,7 @@ namespace mvCentral.GUI
       List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
       this.artistID = ArtistID;
       facade.Clear();
-      facade.Add(new GUIListItem(".."));
+//      facade.Add(new GUIListItem(".."));
       foreach (DBTrackInfo db1 in list)
       {
         GUIListItem item = new GUIListItem();
