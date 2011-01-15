@@ -499,6 +499,7 @@ namespace mvCentral.DataProviders
             if (artist == null && mbid == null) xml = getXML(string.Format(apiAlbumGetInfo, album));
             if (album == null && artist == null) xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
             if (mbid == null) xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album));
+            if (mbid != null) xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
 
             if (xml == null)
                 return ;

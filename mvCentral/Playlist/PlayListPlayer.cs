@@ -730,20 +730,20 @@ namespace mvCentral.Playlist
                         if (g_Player.HasVideo)
                         {
                             // needed so everything goes in sequence otherwise stop gets handled after the play events
-//                            g_Player.ShowFullScreenWindow();
-                            GUIGraphicsContext.IsFullScreenVideo = false;
+                            g_Player.ShowFullScreenWindow();
+//                            GUIGraphicsContext.IsFullScreenVideo = false;
 
-                            MediaPortal.Player.g_Player.FullScreen = false;
+//                            MediaPortal.Player.g_Player.FullScreen = false;
 //                            GUIMessage msg1 = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED, mvCentralCore.PluginID, 0, 0, -1, CurrentItem, null);
                             //                            GUIGraphicsContext.SendMessage(msg1);
 //                            GUIWindowManager.SendMessage(msg1);
 
-                            MediaPortal.GUI.Library.Action actionCloseDialog = new MediaPortal.GUI.Library.Action(MediaPortal.GUI.Library.Action.ActionType.ACTION_QUEUE_ITEM, 0, 0);
+//                            MediaPortal.GUI.Library.Action actionCloseDialog = new MediaPortal.GUI.Library.Action(MediaPortal.GUI.Library.Action.ActionType.ACTION_QUEUE_ITEM, 0, 0);
 //                            GUIGraphicsContext.OnAction(actionCloseDialog);
 
-                            GUIWindow g1 = GUIWindowManager.GetWindow(mvCentralCore.PluginID);
-                            g1.OnAction(actionCloseDialog);
-                            GUIWindowManager.Process(); 
+//                            GUIWindow g1 = GUIWindowManager.GetWindow(mvCentralCore.PluginID);
+//                            g1.OnAction(actionCloseDialog);
+//                            GUIWindowManager.Process(); 
                             System.Threading.Thread.Sleep(2000);
 //                            g_Player.ShowFullScreenWindow();
                             //                           SetProperties(item, false);
