@@ -41,8 +41,9 @@ namespace mvCentral.GUI
 
     private bool persisting = false;
     private View currentView = View.None;
-    public int lastItemArt = 0, lastItemVid = 0, artistID = 0;
+    public int lastItemArt = 0, lastItemVid = 0, artistID = 0, albumID = 0;
     private string selArtist = "";
+    private string selAlbum = "";
 
 
     #region Skin Connection
@@ -362,6 +363,7 @@ namespace mvCentral.GUI
     {
       None,
       Artist,
+      Album,
       Video
     }
 
@@ -579,6 +581,10 @@ namespace mvCentral.GUI
           LoadVideos(artistID);
           facade.SelectedListItemIndex = lastItemVid;
           break;
+        case View.Album:
+          LoadAlbums(albumID);
+          facade.SelectedListItemIndex = lastItemVid;
+          break;
       }
 
     }
@@ -618,33 +624,119 @@ namespace mvCentral.GUI
       currentView = View.Video;
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists | " + DBArtistInfo.Get(ArtistID));
       GUIPropertyManager.Changed = true;
+
+      if (facade.SelectedListItem == null)
+      {
+          if (albumID != 0)
+          {
+              LoadAlbums(albumID);
+              return;
+          }
+
+      }
+
+      if (facade.SelectedListItem != null)
+      if (facade.SelectedListItem.MusicTag  != null && facade.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
+      {
+          DBAlbumInfo db1 = (DBAlbumInfo)facade.SelectedListItem.MusicTag;
+          albumID = db1.ID.Value;
+          LoadAlbums(db1.ID.Value);
+          return;
+
+      }
+
+
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
       List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
       this.artistID = ArtistID;
       facade.Clear();
 //      facade.Add(new GUIListItem(".."));
+
       foreach (DBTrackInfo db1 in list)
       {
-        GUIListItem item = new GUIListItem();
-        item.Label = db1.Track;
-        if (db1.LocalMedia[0].IsDVD)
-            item.Label2 = "DVD entry";
-        else item.Label2 = "Track entry";
-        item.Label3 = db1.PlayTime;
-        item.ThumbnailImage = db1.ArtThumbFullPath;
-        item.TVTag = db1.bioContent;
-        selArtist = currArtist.Artist;
-        item.Path = db1.LocalMedia[0].File.FullName;
-        item.IsFolder = false;
-        item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
-        item.MusicTag = db1;
-        facade.Add(item);
+          if (db1.AlbumInfo.Count == 0) continue;
+
+          bool IsPresent = false;
+          for (int i = 0; i <= facade.Count - 1; i++)
+          {
+              if (facade[i].Label == db1.AlbumInfo[0].Album) IsPresent = true;
+          }
+          if (IsPresent) continue;    
+              
+              {
+                  GUIListItem item = new GUIListItem();
+                  item.Label = db1.AlbumInfo[0].Album;
+                  item.ThumbnailImage = db1.AlbumInfo[0].ArtThumbFullPath;
+                  item.TVTag = db1.AlbumInfo[0].bioContent;
+                  selArtist = currArtist.Artist;
+                  item.IsFolder = true;
+                  item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
+                  item.MusicTag = db1.AlbumInfo[0];
+                  facade.Add(item);
+                  
+              }
+          
       }
-      if (facade.Count > 0 && !persisting)
+
+      foreach (DBTrackInfo db1 in list)
+      {
+          if (db1.AlbumInfo.Count > 0) continue;
+          GUIListItem item = new GUIListItem();
+          item.Label = db1.Track;
+          if (db1.LocalMedia[0].IsDVD)
+              item.Label2 = "DVD entry";
+          else item.Label2 = "Track entry";
+          item.Label3 = db1.PlayTime;
+          item.ThumbnailImage = db1.ArtThumbFullPath;
+          item.TVTag = db1.bioContent;
+          selArtist = currArtist.Artist;
+          item.Path = db1.LocalMedia[0].File.FullName;
+          item.IsFolder = false;
+          item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
+          item.MusicTag = db1;
+          facade.Add(item);
+      }
+
+        if (facade.Count > 0 && !persisting)
       {
         onVideoSelected(facade.ListLayout.ListItems[0], facade);
       }
       dummyLabel.Visibility = System.Windows.Visibility.Visible;
+    }
+
+    private void LoadAlbums(int AlbumID)
+    {
+        currentView = View.Video;
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists | " + DBAlbumInfo.Get(AlbumID));
+        GUIPropertyManager.Changed = true;
+        DBAlbumInfo currAlbum = DBAlbumInfo.Get(AlbumID);
+        List<DBTrackInfo> list = DBTrackInfo.GetEntriesByAlbum(currAlbum);
+        this.albumID = AlbumID;
+        facade.Clear();
+        //      facade.Add(new GUIListItem(".."));
+        foreach (DBTrackInfo db1 in list)
+        {
+            GUIListItem item = new GUIListItem();
+            item.Label = db1.Track;
+            if (db1.LocalMedia[0].IsDVD)
+                item.Label2 = "DVD entry";
+            else item.Label2 = "Track entry";
+            item.Label3 = db1.PlayTime;
+            item.ThumbnailImage = db1.ArtThumbFullPath;
+            item.TVTag = db1.bioContent;
+            selAlbum = currAlbum.Album;
+            item.Path = db1.LocalMedia[0].File.FullName;
+            item.IsFolder = false;
+            item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
+            item.MusicTag = db1;
+            facade.Add(item);
+        }
+
+        if (facade.Count > 0 && !persisting)
+        {
+            onVideoSelected(facade.ListLayout.ListItems[0], facade);
+        }
+        dummyLabel.Visibility = System.Windows.Visibility.Visible;
     }
 
     void onArtistSelected(GUIListItem item, GUIControl parent)
