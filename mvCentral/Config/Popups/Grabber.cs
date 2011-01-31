@@ -98,7 +98,7 @@ namespace mvCentral.ConfigScreen.Popups {
         protected IMediaPosition _mediaPos = null;
         protected IMediaSeeking _mediaSeek = null;
         protected IVideoFrameStep _mediaStep = null;
-        private VMR7Util _vmr7 = null;
+        //private VMR7Util _vmr7 = null;
         protected IBaseFilter _vmr9Filter = null;
         protected int _speed = 1;
         protected double _currentTime = 0;
@@ -800,11 +800,11 @@ namespace mvCentral.ConfigScreen.Popups {
                 _mediaSeek = null;
                 _mediaStep = null;
 
-                if (_vmr7 != null)
-                {
-                    _vmr7.RemoveVMR7();
-                }
-                _vmr7 = null;
+                //if (_vmr7 != null)
+                //{
+                //    _vmr7.RemoveVMR7();
+                //}
+                //_vmr7 = null;
 
 
 
