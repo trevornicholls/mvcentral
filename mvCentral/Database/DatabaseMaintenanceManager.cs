@@ -46,6 +46,33 @@ namespace mvCentral.Database
                     continue;
                 }
 
+                // Remove Orphan albums
+                List<DBAlbumInfo> dbs = DBAlbumInfo.GetAll();
+                foreach (DBAlbumInfo db1 in dbs)
+                {
+                    List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByAlbum(db1);
+                    if (mvs.Count == 0)
+                    {
+                        logger.Info("Removing: {0} (albuminfo orphan)", db1.Album);
+                        db1.Delete();
+                        cleaned++;
+                    }
+
+                }
+
+                // Remove Orphan artist
+                List<DBArtistInfo> ars = DBArtistInfo.GetAll();
+                foreach (DBArtistInfo ar1 in ars)
+                {
+                    List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByArtist(ar1);
+                    if (mvs.Count == 0)
+                    {
+                        logger.Info("Removing: {0} (artistinfo orphan)", ar1.Artist);
+                        ar1.Delete();
+                        cleaned++;
+                    }
+
+                }
                 // Remove Orphan Files
                 if (currFile.AttachedmvCentral.Count == 0 && !currFile.Ignored) {
                     logger.Info("Removing: {0} (orphan)", currFile.FullPath);
