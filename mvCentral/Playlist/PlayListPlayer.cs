@@ -857,6 +857,10 @@ namespace mvCentral.Playlist
             if (item == null)
                 return;
 
+            DBUserMusicVideoSettings userSettings = item.Track.ActiveUserSettings;
+            userSettings.WatchedCount++;
+            userSettings.Commit();        
+
 //            item.Watched = true;
         }
 
