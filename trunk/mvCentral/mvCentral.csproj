@@ -47,6 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\mediaportal\v1.2.6\BassRegistration.dll</HintPath>
     </Reference>
+    <Reference Include="Common.Utils">
+      <HintPath>..\External\mediaportal\v1.2.6\Common.Utils.dll</HintPath>
+    </Reference>
     <Reference Include="Core, Version=1.1.2.20593, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\mediaportal\v1.2.6\Core.dll</HintPath>

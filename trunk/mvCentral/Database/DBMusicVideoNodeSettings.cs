@@ -5,7 +5,6 @@ using System.Text;
 using Cornerstone.Database.Tables;
 using Cornerstone.Database;
 using System.IO;
-//using MediaPortal.Plugins.MovingPictures.MainUI;
 
 namespace mvCentral.Database
 {
