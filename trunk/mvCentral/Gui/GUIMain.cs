@@ -11,6 +11,7 @@ using Cornerstone.Tools;
 using NLog;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
@@ -308,27 +309,19 @@ namespace mvCentral.GUI
     protected override void OnPageLoad()
     {
       int watchedCount = 0;
-      DBTrackInfo mostPlayedTrack = null;
       DBArtistInfo mostPlayedArtist = null;
 
       List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
       List<DBArtistInfo> artList = DBArtistInfo.GetAll();
 
+      // Set Total Artists and Video Porperties
       GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count.ToString() + " Videos");
       GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count.ToString() + " Artists");
-      //
-      // Work out the most played track
-      //
-      foreach (DBTrackInfo track in vidList)
-      {
-        if (track.ActiveUserSettings.WatchedCount > watchedCount)
-        {
-          watchedCount = track.ActiveUserSettings.WatchedCount;
-          mostPlayedTrack = track;
-        }
-      }
-      GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", mostPlayedTrack.Track);
-      DBArtistInfo artInfo = DBArtistInfo.Get(mostPlayedTrack);
+
+      // get the most played Track and Image
+      vidList.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.ActiveUserSettings.WatchedCount.CompareTo(p1.ActiveUserSettings.WatchedCount); });
+      GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", vidList[0].Track);
+      DBArtistInfo artInfo = DBArtistInfo.Get(vidList[0]);
       favVidImage.SetFileName(artInfo.ArtFullPath);
       //
       // Work out the most played artist
@@ -348,8 +341,15 @@ namespace mvCentral.GUI
           mostPlayedArtist = currArtist;
         }
       }
-      GUIPropertyManager.SetProperty("#mvCentral.FavArtist", mostPlayedArtist.Artist);
-      favArtImage.SetFileName(mostPlayedArtist.ArtFullPath);
+      if (mostPlayedArtist != null)
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.FavArtist", mostPlayedArtist.Artist);
+        favArtImage.SetFileName(mostPlayedArtist.ArtFullPath);
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.FavArtist", " ");
+      }
 
 
       SortLabel.Label = "";
@@ -452,6 +452,9 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists");
       GUIPropertyManager.Changed = true;
       List<DBArtistInfo> list = DBArtistInfo.GetAll();
+      // Sort Artist decending
+      list.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p1.Artist.CompareTo(p2.Artist); });
+
       ArrayList state = new ArrayList();
       facade.Clear();
       foreach (DBArtistInfo db1 in list)
@@ -504,6 +507,7 @@ namespace mvCentral.GUI
 
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
       List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
+      list.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p1.Track.CompareTo(p2.Track); });
       this.artistID = ArtistID;
       facade.Clear();
       //      facade.Add(new GUIListItem(".."));
@@ -542,7 +546,9 @@ namespace mvCentral.GUI
         if (db1.LocalMedia[0].IsDVD)
           item.Label2 = "DVD entry";
         else item.Label2 = "Track entry";
-        item.Label3 = db1.PlayTime;
+        TimeSpan tt = TimeSpan.Parse(db1.PlayTime);
+        DateTime dt = new DateTime(tt.Ticks);
+        item.Label3 = String.Format("{0:HH:mm:ss}", dt);
         item.ThumbnailImage = db1.ArtThumbFullPath;
         item.TVTag = db1.bioContent;
         selArtist = currArtist.Artist;
