@@ -74,9 +74,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\mediaportal\v1.2.6\DirectShowLib.dll</HintPath>
     </Reference>
+    <Reference Include="lastfm-sharp">
+      <HintPath>..\External\lastfm-sharp.dll</HintPath>
+    </Reference>
     <Reference Include="MediaPortal.Support, Version=1.1.2.20586, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\mediaportal\v1.2.6\MediaPortal.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="MusicBrainz">
+      <HintPath>..\External\MusicBrainz.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
