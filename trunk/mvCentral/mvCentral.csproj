@@ -404,7 +404,10 @@
   <ItemGroup>
     <None Include="Resources\zoom.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Images\mvCentral_Icon_Disabled.png" />
+    <EmbeddedResource Include="Config\Images\mvCentral_Icon_Enabled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

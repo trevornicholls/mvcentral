@@ -20,6 +20,7 @@ using mvCentral.Database;
 using mvCentral;
 using mvCentral.LocalMediaManagement;
 using mvCentral.Playlist;
+using mvCentral.Utils;
 
 namespace mvCentral.GUI
 {
@@ -470,6 +471,7 @@ namespace mvCentral.GUI
         facade.Add(item);
       }
 
+
       if (facade.Count > 0 && !persisting)
       {
         onArtistSelected(facade.ListLayout.ListItems[0], facade);
@@ -603,7 +605,11 @@ namespace mvCentral.GUI
 
     void onArtistSelected(GUIListItem item, GUIControl parent)
     {
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
+      if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", "No Artist Bio Avaiable");
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", mvCentralUtils.StripHTML(item.TVTag.ToString()));
+
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
       GUIPropertyManager.Changed = true;
@@ -613,6 +619,12 @@ namespace mvCentral.GUI
     void onVideoSelected(GUIListItem item, GUIControl parent)
     {
       GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
+      if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", "No Track Information Avaiable");
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", mvCentralUtils.StripHTML(item.TVTag.ToString()));
+
+
       GUIPropertyManager.Changed = true;
       if (item.Label != "..")
       {

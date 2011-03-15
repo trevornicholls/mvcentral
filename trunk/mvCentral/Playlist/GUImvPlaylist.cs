@@ -250,7 +250,7 @@ namespace mvCentral.Playlist
             currentSelectedItem = m_Facade.SelectedListItemIndex;
             mvCentralCore.Settings.playlistAutoPlay = playlistPlayer.PlaylistAutoPlay;
             mvCentralCore.Settings.repeatPlayList = playlistPlayer.RepeatPlaylist;
-            prevSelectedEpisode = null;
+            prevSelectedmvTrack = null;
             mvCentralUtils.enableNativeAutoplay();
             base.OnPageDestroy(newWindowId);
         }
@@ -533,36 +533,36 @@ namespace mvCentral.Playlist
                     pItem.Path = strFileName;
                     pItem.IsFolder = false;
                     pItem.TVTag = item.Track;
-                    
+                    DBArtistInfo artistInfo = DBArtistInfo.Get(item.Track);
+                    pItem.ThumbnailImage = artistInfo.ArtThumbFullPath;
+                    pItem.IconImageBig = artistInfo.ArtThumbFullPath;
+                    pItem.IconImage = artistInfo.ArtThumbFullPath;
                     // update images
-//                    pItem.ThumbnailImage = item.EpisodeThumb;
-                    //pItem.IconImageBig = item.EpisodeThumb;
-                    //pItem.IconImage = item.EpisodeThumb;                    
-
-//                    if (item.IsWatched)
+                    if (item.Track.ActiveUserSettings.WatchedCount > 0)
                     {
                         pItem.IsPlayed = true; // facade colours...dont seem to work!
                         pItem.IconImage = GUIGraphicsContext.Skin + @"\Media\tvseries_Watched.png";
                     }
-//                    else
+                   else
                     {
                         pItem.IsPlayed = false;
                         pItem.IconImage = GUIGraphicsContext.Skin + @"\Media\tvseries_UnWatched.png";
                     }
 
-//                    if (item.Duration > 0)
-                    {
-//                        double nDuration = item.Duration;
-//                        if (nDuration > 0)
-                        {
-//                            string str = Helper.MSToMMSS(nDuration);
-//                            pItem.Label2 = str;
-                        }
-//                        else
-                        {
-                            pItem.Label2 = string.Empty;
-                        }
-                    }
+                    //if (item.Duration > 0)
+                    //{
+                    //    double nDuration = item.Duration;
+                    //    if (nDuration > 0)
+                    //    {
+                    //        string str = Helper.MSToMMSS(nDuration);
+                    //        pItem.Label2 = str;
+                    //    }
+                    //    else
+                    //    {
+                    //        pItem.Label2 = string.Empty;
+                    //    }
+                    //}
+
 
                     itemlist.Add(pItem);
                     //MediaPortal.Util.Utils.SetDefaultIcons(pItem);
@@ -614,7 +614,7 @@ namespace mvCentral.Playlist
                 //set object count label
                 int iTotalItems = itemlist.Count;
 //                GUIPropertyManager.SetProperty("#itemcount", Translation.Episodes + ": " + iTotalItems.ToString());
-                GUIPropertyManager.SetProperty("#TVSeries.Playlist.Count", iTotalItems.ToString());
+                GUIPropertyManager.SetProperty("#mvCentral.Playlist.Count", iTotalItems.ToString());
 
                 if (currentSelectedItem >= 0)
                 {
@@ -670,7 +670,7 @@ namespace mvCentral.Playlist
         }
 
         // triggered when a selection change was made on the facade
-        DBTrackInfo prevSelectedEpisode = null;
+        DBTrackInfo prevSelectedmvTrack = null;
         private void onFacadeItemSelected(GUIListItem item, GUIControl parent)
         {
             // if this is not a message from the facade, exit
@@ -682,33 +682,40 @@ namespace mvCentral.Playlist
             if (item == null || item.TVTag == null)
                 return;
 
-            DBTrackInfo episode = item.TVTag as DBTrackInfo;
-            if (episode == null || prevSelectedEpisode == episode) 
+            DBTrackInfo mvTrack = item.TVTag as DBTrackInfo;
+            if (mvTrack == null || prevSelectedmvTrack == mvTrack) 
                 return;
 
- //           if (item.IsPlayed) episode[DBOnlineEpisode.cWatched] = true;
+            //if (item.IsPlayed) episode[DBOnlineEpisode.cWatched] = true;
 
-            // Push properties to skin            
- //           TVSeriesPlugin.setGUIProperty(guiProperty.Title.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeTitle, episode));
- //           TVSeriesPlugin.setGUIProperty(guiProperty.Subtitle.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeSubtitle, episode));            
- //           TVSeriesPlugin.setGUIProperty(guiProperty.Description.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeMain, episode));
- //           TVSeriesPlugin.setGUIProperty(guiProperty.Logos.ToString(), localLogos.getLogos(ref episode, TVSeriesPlugin.logosHeight, TVSeriesPlugin.logosWidth));
- //           if (episode[DBOnlineEpisode.cWatched] || item.IsPlayed || !DBOption.GetOptions(DBOption.cView_Episode_HideUnwatchedThumbnail))
-            {
- //               GUIPropertyManager.SetProperty("#selectedthumb", ImageAllocator.GetEpisodeImage(episode));
- //               TVSeriesPlugin.setGUIProperty(guiProperty.EpisodeImage.ToString(), ImageAllocator.GetEpisodeImage(episode));
-            }
- //           else
-            {
-                GUIPropertyManager.SetProperty("#selectedthumb", " ");
- //               TVSeriesPlugin.clearGUIProperty(guiProperty.EpisodeImage.ToString());
-            }
+            // Push properties to skin    
+            DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
 
- //           TVSeriesPlugin.pushFieldsToSkin(episode, "Episode");
+            GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
+            GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
+            GUIPropertyManager.SetProperty("#mvCentral.Description",mvCentralUtils.StripHTML(mvTrack.bioContent));
+          
+
+            //TVSeriesPlugin.setGUIProperty(guiProperty.Title.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeTitle, episode));
+            //TVSeriesPlugin.setGUIProperty(guiProperty.Subtitle.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeSubtitle, episode));            
+            //TVSeriesPlugin.setGUIProperty(guiProperty.Description.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeMain, episode));
+            //TVSeriesPlugin.setGUIProperty(guiProperty.Logos.ToString(), localLogos.getLogos(ref episode, TVSeriesPlugin.logosHeight, TVSeriesPlugin.logosWidth));
+            //if (episode[DBOnlineEpisode.cWatched] || item.IsPlayed || !DBOption.GetOptions(DBOption.cView_Episode_HideUnwatchedThumbnail))
+            //{
+            //    GUIPropertyManager.SetProperty("#selectedthumb", ImageAllocator.GetEpisodeImage(episode));
+            //    TVSeriesPlugin.setGUIProperty(guiProperty.EpisodeImage.ToString(), ImageAllocator.GetEpisodeImage(episode));
+            //}
+            //else
+            //{
+            //    GUIPropertyManager.SetProperty("#selectedthumb", " ");
+            //    TVSeriesPlugin.clearGUIProperty(guiProperty.EpisodeImage.ToString());
+            //}
+
+            //TVSeriesPlugin.pushFieldsToSkin(episode, "Episode");
             
             // Some strange issues with logos when using mouse and hovering over current item
             // Dont push properties next time if the same episode is selected
-            prevSelectedEpisode = episode;
+            prevSelectedmvTrack = mvTrack;
 
         } 
 
@@ -956,7 +963,7 @@ namespace mvCentral.Playlist
             playlistPlayer.CurrentPlaylistName = System.IO.Path.GetFileNameWithoutExtension(strPlayList);
             if (playlist.Count == 1 && playlistPlayer.PlaylistAutoPlay)
             {
-                logger.Info(string.Format("GUITVSeriesPlaylist: play single playlist item - {0}", playlist[0].FileName));
+                logger.Info(string.Format("GUImvCentralPlaylist: play single playlist item - {0}", playlist[0].FileName));
 
                 // If the file is an image file, it should be mounted before playing
                 string filename = playlist[0].FileName;
@@ -1139,5 +1146,7 @@ namespace mvCentral.Playlist
 
             UpdateButtonStates();
         }
+
+
     }
 }

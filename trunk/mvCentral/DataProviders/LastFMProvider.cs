@@ -780,7 +780,10 @@ namespace mvCentral.DataProviders
       if (n1 != null && n1.InnerText != "") return n1.InnerText;
       return null;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mv"></param>
     private void GetArtistImages(DBArtistInfo mv)
     {
       int minWidth = mvCentralCore.Settings.MinimumArtistWidth;
@@ -820,9 +823,11 @@ namespace mvCentral.DataProviders
         }
       }
     }
-
-
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mbid"></param>
+    /// <returns></returns>
     private List<string> GetAlbumImages(string mbid)
     {
       XmlNodeList xml = null;
