@@ -15,7 +15,6 @@ using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
 using mvCentral.ConfigScreen.Popups;
 
-using MusicBrainz;
 
 namespace mvCentral.DataProviders
 {
