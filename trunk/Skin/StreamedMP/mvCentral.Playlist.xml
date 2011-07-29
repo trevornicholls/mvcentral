@@ -4,28 +4,11 @@
   <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.label:136</define>
-  <define>#header.hover:hover_my tv series.png</define>
-  <define>#shadow.dark:ff111111</define>
-  <define>#shadow.light:ff222222</define>
+  <define>#usePlayFanart:Yes</define>
+  <define>#useSelectedFanart:Yes</define>
   <controls>
-    <control>
-      <type>image</type>
-      <description>BG</description>
-      <id>0</id>
-      <width>1280</width>
-      <height>720</height>
-      <animation effect="fade" time="400" delay="0">WindowOpen</animation>
-    </control>
-    <control>
-      <type>image</type>
-      <id>0</id>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1280</width>
-      <height>720</height>
-      <texture>#header.hover</texture>
-      <animation effect="fade" time="400" delay="0">WindowOpen</animation>
-    </control>
+    <import>mymusic.autofanart.xml</import>
+    <import>mymusic.selected.fanart.xml</import>
     <control>
       <type>image</type>
       <id>0</id>
@@ -35,7 +18,7 @@
       <height>720</height>
       <texture>mainoverlay.png</texture>
     </control>
-    <control>
+    <!--    <control>
       <description>Season Number BG</description>
       <type>image</type>
       <id>0</id>
@@ -70,6 +53,7 @@
       <texture>tvtitlebg.png</texture>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
+
     <control>
       <type>fadelabel</type>
       <description>TV Shows Label</description>
@@ -83,6 +67,95 @@
       <visible>true</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
+    -->
+    <control>
+      <description>Top Title Extension Background</description>
+      <type>image</type>
+      <id>1</id>
+      <posX>381</posX>
+      <posY>11</posY>
+      <width>486</width>
+      <height>36</height>
+      <texture>tvtitlebg.png</texture>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
+      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300" delay="300">WindowOpen</animation>
+      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="600" delay="0">WindowClose</animation>
+    </control>
+    <control>
+      <description>Item Count Background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>1113</posX>
+      <posY>12</posY>
+      <width>159</width>
+      <height>27</height>
+      <texture>mediacountbackground.png</texture>
+      <visible>control.isvisible(50)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Number of Files Label</description>
+      <id>1</id>
+      <posX>1246</posX>
+      <posY>14</posY>
+      <width>350</width>
+      <font>mediastream10c</font>
+      <textcolor>ff006698</textcolor>
+      <align>right</align>
+      <label>#mvCentral.TotalVideos</label>
+      <visible>control.isvisible(50)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <description>Musicvideos Title Background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>77</posX>
+      <posY>11</posY>
+      <width>437</width>
+      <height>35</height>
+      <texture>tvtitlebg.png</texture>
+    </control>
+    <control>
+      <type>fadelabel</type>
+      <description>Musicvideos Title</description>
+      <id>0</id>
+      <posX>493</posX>
+      <posY>13</posY>
+      <width>350</width>
+      <font>mediastream12c</font>
+      <align>right</align>
+      <visible>yes</visible>
+      <label>Musicvideos</label>
+    </control>
+    <control>
+      <type>fadelabel</type>
+      <description>Musicvideos Hierarchy</description>
+      <id>0</id>
+      <posX>839</posX>
+      <posY>13</posY>
+      <width>600</width>
+      <font>mediastream12c</font>
+      <align>right</align>
+      <visible>yes</visible>
+      <label>#mvCentral.Hierachy</label>
+    </control>
+    <control>
+      <description>Sort Label Overlay</description>
+      <type>label</type>
+      <id>22</id>
+      <posX>1250</posX>
+      <posY>600</posY>
+      <label>#mvCentral.Sort</label>
+      <align>right</align>
+      <font>mediastream28tc</font>
+      <textcolor>20ffffff</textcolor>
+    </control>
+    <!--
     <control>
       <description>Default Episode Thumb</description>
       <type>image</type>
@@ -95,6 +168,7 @@
       <visible>facadeview.playlist|facadeview.filmstrip</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
+    -->
     <control>
       <id>0</id>
       <type>image</type>
@@ -103,8 +177,8 @@
       <height>200</height>
       <width>354</width>
       <keepaspectratio>yes</keepaspectratio>
-      <zoom>yes</zoom>
-      <texture flipY="true" diffuse="diffusemirrorwide.png">#TVSeries.EpisodeImage</texture>
+      <zoom>no</zoom>
+      <texture flipY="true" diffuse="diffusemirrorwide.png">#mvCentral.VideoImage</texture>
       <visible>facadeview.playlist | facadeview.filmstrip</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
@@ -468,7 +542,7 @@
       <textcolor>ffffffff</textcolor>
       <font>mediastream11</font>
       <visible>facadeview.list|facadeview.playlist</visible>
-      <label>#TVSeries.Description</label>
+      <label>#mvCentral.Description</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     <control>
@@ -483,7 +557,7 @@
       <textcolor>ffffffff</textcolor>
       <font>mediastream11</font>
       <visible>facadeview.filmstrip</visible>
-      <label>#TVSeries.Description</label>
+      <label>#mvCentral.Description</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     <control>
@@ -821,7 +895,7 @@
     <control>
       <description>Media Count Label</description>
       <type>label</type>
-      <label>#TVSeries.Translation.Episodes.Label</label>
+      <label>Videos</label>
       <id>0</id>
       <posX>1102</posX>
       <posY>14</posY>
@@ -833,7 +907,7 @@
     <control>
       <description>Media Count Label</description>
       <type>label</type>
-      <label>#TVSeries.Playlist.Count</label>
+      <label>#mvCentral.TotalVideos</label>
       <id>0</id>
       <posX>1246</posX>
       <posY>12</posY>
@@ -846,4 +920,4 @@
     <import>common.time.xml</import>
   </controls>
 </window>
-<!--Checksum:51ef677aaa09100df341fb6b18e09c6e-->
+<!--Checksum:aa2e6d709eec5b7a5775aeb3a2b1afaa-->

@@ -7,6 +7,7 @@
   <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
   <controls>
+    <import>mymusic.autofanart.xml</import>
     <import>mymusic.selected.fanart.xml</import>
     <!--
     :::::::::::::::::::::::::::::
@@ -456,4 +457,4 @@
     <import>common.time.xml</import>
   </controls>
 </window>
-<!--Checksum:b1a891eaea02b0e26223850e9411025c-->
+<!--Checksum:9a7c8ec997f869d568cedba4df888be7-->
