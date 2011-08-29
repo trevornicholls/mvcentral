@@ -39,51 +39,42 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bass.Net, Version=2.4.4.3, Culture=neutral, PublicKeyToken=b7566c273e6ef480, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Bass.Net.dll</HintPath>
+    <Reference Include="Bass.Net">
+      <HintPath>..\External\mediaportal\V1.1.8\Bass.Net.dll</HintPath>
     </Reference>
-    <Reference Include="BassRegistration, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\BassRegistration.dll</HintPath>
+    <Reference Include="BassRegistration">
+      <HintPath>..\External\mediaportal\V1.1.8\BassRegistration.dll</HintPath>
     </Reference>
     <Reference Include="Common.Utils">
-      <HintPath>..\External\mediaportal\v1.2.6\Common.Utils.dll</HintPath>
+      <HintPath>..\External\mediaportal\V1.1.8\Common.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Core, Version=1.1.2.20593, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Core.dll</HintPath>
+    <Reference Include="Core">
+      <HintPath>..\External\mediaportal\V1.1.8\Core.dll</HintPath>
     </Reference>
-    <Reference Include="Cornerstone, Version=1.2.0.1201, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Cornerstone.dll</HintPath>
+    <Reference Include="Cornerstone">
+      <HintPath>..\External\mediaportal\V1.1.8\Cornerstone.dll</HintPath>
     </Reference>
-    <Reference Include="Cornerstone.MP, Version=1.2.0.1201, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Cornerstone.MP.dll</HintPath>
+    <Reference Include="Cornerstone.MP">
+      <HintPath>..\External\mediaportal\V1.1.8\Cornerstone.MP.dll</HintPath>
     </Reference>
-    <Reference Include="Databases, Version=1.1.2.20596, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Databases.dll</HintPath>
+    <Reference Include="Databases">
+      <HintPath>..\External\mediaportal\V1.1.8\Databases.dll</HintPath>
     </Reference>
-    <Reference Include="Dialogs, Version=1.1.2.20600, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Dialogs.dll</HintPath>
+    <Reference Include="Dialogs">
+      <HintPath>..\External\mediaportal\V1.1.8\Dialogs.dll</HintPath>
     </Reference>
-    <Reference Include="DirectShowLib, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\DirectShowLib.dll</HintPath>
+    <Reference Include="DirectShowLib">
+      <HintPath>..\External\mediaportal\V1.1.8\DirectShowLib.dll</HintPath>
     </Reference>
-    <Reference Include="MediaPortal.Support, Version=1.1.2.20586, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\MediaPortal.Support.dll</HintPath>
+    <Reference Include="MediaPortal.Support">
+      <HintPath>..\External\mediaportal\V1.1.8\MediaPortal.Support.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External\NLog.dll</HintPath>
     </Reference>
     <Reference Include="RemotePlugins">
-      <HintPath>..\External\mediaportal\v1.2.6\RemotePlugins.dll</HintPath>
+      <HintPath>..\External\mediaportal\V1.1.8\RemotePlugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -99,12 +90,11 @@
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Utils, Version=2.2.7.20588, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\External\mediaportal\v1.2.6\Utils.dll</HintPath>
+    <Reference Include="Utils">
+      <HintPath>..\External\mediaportal\V1.1.8\Utils.dll</HintPath>
     </Reference>
     <Reference Include="WindowPlugins">
-      <HintPath>..\External\mediaportal\v1.2.6\WindowPlugins.dll</HintPath>
+      <HintPath>..\External\mediaportal\V1.1.8\WindowPlugins.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
