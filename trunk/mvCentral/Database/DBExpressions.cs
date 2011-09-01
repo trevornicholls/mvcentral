@@ -112,15 +112,18 @@ namespace mvCentral.Database
 
         public static void AddDefaults()
         {
-            ClearAll();
-//            add(true, DBExpression.cType_Regexp,@"^.*?\\?(?<series>[^\\$]+?)[ _.\-\[]+(?:[s]?(?<season>\d+)[ _.\-\[\]]*[ex](?<episode>\d+)|(?:\#|\-\s)(?<season>\d+)\.(?<episode>\d+))(?:[ _.+-]+(?:[s]?\k<season>[ _.\-\[\]]*[ex](?<episode2>\d+)|(?:\#|\-\s)\k<season>\.(?<episode2>\d+))|(?:[ _.+-]*[ex+-]+(?<episode2>\d+)))*[ _.\-\[\]]*(?<title>(?![^\\]*?(?<!the)[ .(-]sample[ .)-]).*?)\.(?<ext>[^.]*)$"); 
-//            add(true, DBExpression.cType_Regexp,@"^.*?\\?(?<series>[^\\$]+?)(?:s(?<season>[0-3]?\d)\s?ep?(?<episode>\d\d)|(?<season>(?:[0-1]\d|(?<!\d)\d))x?(?<episode>\d\d))(?!\d)(?:[ .-]?(?:s\k<season>e?(?<episode2>\d{2}(?!\d))|\k<season>x?(?<episode2>\d{2}(?!\d))|(?<episode2>\d\d(?!\d))|E(?<episode2>\d\d))|)[ -.]*(?<title>(?![^\\]*?sample)[^\\]*?[^\\]*?)\.(?<ext>[^.]*)$");          
-//            add(true, DBExpression.cType_Regexp,@"^(?<series>[^\\$]+)\\[^\\$]*?(?:s(?<season>[0-1]?\d)ep?(?<episode>\d\d)|(?<season>(?:[0-1]\d|(?<!\d)\d))x?(?<episode>\d\d))(?!\d)(?:[ .-]?(?:s\k<season>e?(?<episode2>\d{2}(?!\d))|\k<season>x?(?<episode2>\d{2}(?!\d))|(?<episode2>\d\d(?!\d))|E(?<episode2>\d\d))|)[ -.]*(?<title>(?!.*sample)[^\\]*?[^\\]*?)\.(?<ext>[^.]*)$");
-//            add(true, DBExpression.cType_Regexp,@"(?<series>[^\\\[]*) - \[(?<season>[0-9]{1,2})x(?<episode>[0-9\W]+)\](( |)(-( |)|))(?<title>(?![^\\]*?sample)[^$]*?)\.(?<ext>[^.]*)");
-//            add(true, DBExpression.cType_Regexp,@"(?<series>[^\\$]*) - season (?<season>[0-9]{1,2}) - (?<title>(?![^\\]*?sample)[^$]*?)\.(?<ext>[^.]*)");
-//            add(true, DBExpression.cType_Simple,@"<series> - <season>x<episode> - <title>.<ext>");
-//            add(true, DBExpression.cType_Simple,@"<series>\Season <season>\Episode <episode> - <title>.<ext>");
-            add(true, DBExpression.cType_Simple, @"\<album>\<artist> - <track>.");
+          ClearAll();
+          //            add(true, DBExpression.cType_Regexp,@"^.*?\\?(?<series>[^\\$]+?)[ _.\-\[]+(?:[s]?(?<season>\d+)[ _.\-\[\]]*[ex](?<episode>\d+)|(?:\#|\-\s)(?<season>\d+)\.(?<episode>\d+))(?:[ _.+-]+(?:[s]?\k<season>[ _.\-\[\]]*[ex](?<episode2>\d+)|(?:\#|\-\s)\k<season>\.(?<episode2>\d+))|(?:[ _.+-]*[ex+-]+(?<episode2>\d+)))*[ _.\-\[\]]*(?<title>(?![^\\]*?(?<!the)[ .(-]sample[ .)-]).*?)\.(?<ext>[^.]*)$"); 
+          //            add(true, DBExpression.cType_Regexp,@"^.*?\\?(?<series>[^\\$]+?)(?:s(?<season>[0-3]?\d)\s?ep?(?<episode>\d\d)|(?<season>(?:[0-1]\d|(?<!\d)\d))x?(?<episode>\d\d))(?!\d)(?:[ .-]?(?:s\k<season>e?(?<episode2>\d{2}(?!\d))|\k<season>x?(?<episode2>\d{2}(?!\d))|(?<episode2>\d\d(?!\d))|E(?<episode2>\d\d))|)[ -.]*(?<title>(?![^\\]*?sample)[^\\]*?[^\\]*?)\.(?<ext>[^.]*)$");          
+          //            add(true, DBExpression.cType_Regexp,@"^(?<series>[^\\$]+)\\[^\\$]*?(?:s(?<season>[0-1]?\d)ep?(?<episode>\d\d)|(?<season>(?:[0-1]\d|(?<!\d)\d))x?(?<episode>\d\d))(?!\d)(?:[ .-]?(?:s\k<season>e?(?<episode2>\d{2}(?!\d))|\k<season>x?(?<episode2>\d{2}(?!\d))|(?<episode2>\d\d(?!\d))|E(?<episode2>\d\d))|)[ -.]*(?<title>(?!.*sample)[^\\]*?[^\\]*?)\.(?<ext>[^.]*)$");
+          //add(true, DBExpression.cType_Regexp,@"(?<artist>[^\\\[]*) - \[(?<season>[0-9]{1,2})x(?<episode>[0-9\W]+)\](( |)(-( |)|))(?<title>(?![^\\]*?sample)[^$]*?)\.(?<ext>[^.]*)");
+
+          //            add(true, DBExpression.cType_Simple,@"<series> - <season>x<episode> - <title>.<ext>");
+          //            add(true, DBExpression.cType_Simple,@"<series>\Season <season>\Episode <episode> - <title>.<ext>");
+          add(true, DBExpression.cType_Simple, @"\<album>\<artist> - <track>");
+          add(true, DBExpression.cType_Simple, @"\<artist> - <track>");
+          add(true, DBExpression.cType_Simple, @"\<artist>\<track>");
+          add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\$]*) - (?<track>(?![^\\]*?sample)[^$]*?)\.(?<ext>[^.]*)");
         }
 
         private void InitColumns()

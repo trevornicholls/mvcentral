@@ -395,6 +395,7 @@ namespace mvCentral.LocalMediaManagement
 
             // notify any listeners of the status change
             logger.Info("User reprocessing " + match.LocalMediaString);
+
             if (MusicVideoStatusChanged != null)
                 MusicVideoStatusChanged(match, MusicVideoImporterAction.PENDING);
         }
@@ -1512,6 +1513,7 @@ namespace mvCentral.LocalMediaManagement
 
             // get possible matches for this set of media files
             GetMatches(mediaMatch);
+            logger.Debug("Total Possible Matches: {0}", mediaMatch.PossibleMatches.Count);
 
             // if the match has been set to disable by the user while searching, cancel out
             if (mediaMatch.LocalMedia[0].Ignored) {

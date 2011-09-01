@@ -142,22 +142,25 @@ namespace mvCentral.Database
 
         public static void AddDefaults()
         {
-//            List<DBReplacements> rep = new DBReplacements();
-            ClearAll();
-            add(false, false, false, ".", @"<space>");
-            add(false, false, false, "_", @"<space>");
-            add(false, false, false, "-<space>", @"<empty>");
-            add(false, true, true, "720p", @"<empty>");
-            add(false, true, true, "1080i", @"<empty>");
-            add(false, true, true, "1080p", @"<empty>");
-            add(false, true, true, "x264", @"<empty>");
-            add(false, true, false, "DSR", @"<empty>");
-            add(false, true, false, "HR-HDTV", @"<empty>");
-            add(false, true, false, "HR.HDTV", @"<empty>");
-            add(false, true, false, "HDTV", @"<empty>");
-            add(false, true, false, "DVDMux", @"<empty>");
-
-//            DBReplacements.GlobalSet(new DBReplacements(), DBReplacements.cIsRegex, new DBValue(0), new SQLCondition());
+          //List<DBReplacements> rep = new DBReplacements();
+          ClearAll();
+          add(true, false, false, ".", @"<space>");
+          add(true, false, false, "_", @"<space>");
+          add(true, false, false, "-<space>", @"<empty>");
+          add(true, true, true, "(Full HD)", @"<empty>");
+          add(true, true, true, "(HD)", @"<empty>");
+          add(true, true, true, "(High)", @"<empty>");
+          add(true, true, true, "(Low)", @"<empty>");
+          add(true, true, true, "[", @"<empty>");
+          add(true, true, true, "]", @"<empty>");
+          add(true, true, true, "1080i", @"<empty>");
+          add(true, true, true, "1080p", @"<empty>");
+          add(true, true, true, "HDTV", @"<empty>");
+          //add(false, true, false, "DVDMux", @"<empty>");
+          //add(false, true, false, "DSR", @"<empty>");
+          //add(false, true, false, "HR-HDTV", @"<empty>");
+          //add(false, true, false, "HR.HDTV", @"<empty>");
+          //DBReplacements.GlobalSet(new DBReplacements(), DBReplacements.cIsRegex, new DBValue(0), new SQLCondition());
 
         }
         public static void add(bool enabled, bool tagenabled, bool before, string toreplace, string with)

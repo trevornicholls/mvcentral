@@ -2054,6 +2054,14 @@ namespace mvCentral {
                     }
 
                 }
+
+                SearchStringPopup popup = new SearchStringPopup(selectedMatch);
+                popup.ShowDialog(this);
+
+                // reprocess
+                if (popup.DialogResult == DialogResult.OK)
+                  mvCentralCore.Importer.Reprocess(selectedMatch);
+
             }
         }
 
