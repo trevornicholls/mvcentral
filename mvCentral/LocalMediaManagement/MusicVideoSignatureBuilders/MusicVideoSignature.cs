@@ -179,6 +179,10 @@ namespace mvCentral.SignatureBuilders
 
                 return artist;
             }
+          set
+          {
+            artist = value;
+          }
         } private string artist = null;
 
         /// <summary>
@@ -207,6 +211,10 @@ namespace mvCentral.SignatureBuilders
 
                 return track;
             }
+          set
+          {
+            track = value;
+          }
         } private string track = null;
         
         #endregion

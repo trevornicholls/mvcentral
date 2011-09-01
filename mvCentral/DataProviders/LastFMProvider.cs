@@ -260,6 +260,7 @@ namespace mvCentral.DataProviders
 
     public bool GetArtistArt(DBArtistInfo mv)
     {
+      logger.Info("In Method : GetArtistArt(DBArtistInfo mv)");
       if (mv == null)
         return false;
 
@@ -279,8 +280,10 @@ namespace mvCentral.DataProviders
           int count = 0;
           foreach (string a2 in mv.ArtUrls)
           {
-            if (mv.AlternateArts.Count >= maxArtistArts) break;
-            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) artistartAdded++;
+            if (mv.AlternateArts.Count >= maxArtistArts) 
+              break;
+            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) 
+              artistartAdded++;
 
             count++;
           }
@@ -300,6 +303,7 @@ namespace mvCentral.DataProviders
 
     public bool GetTrackArt(DBTrackInfo mv)
     {
+      logger.Info("In Method : GetTrackArt(DBTrackInfo mv)");
       if (mv == null)
         return false;
 
@@ -322,7 +326,8 @@ namespace mvCentral.DataProviders
         int count = 0;
         foreach (string a2 in at)
         {
-          if (mv.AlternateArts.Count >= maxTrackArt) break;
+          if (mv.AlternateArts.Count >= maxTrackArt) 
+            break;
           if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
             trackartAdded++;
 
@@ -343,6 +348,7 @@ namespace mvCentral.DataProviders
 
     public bool GetAlbumArt(DBAlbumInfo mv)
     {
+      logger.Info("In Method : GetAlbumArt(DBAlbumInfo mv)");
       if (mv == null)
         return false;
       List<string> at = mv.ArtUrls;
@@ -355,8 +361,10 @@ namespace mvCentral.DataProviders
         int count = 0;
         foreach (string a2 in at)
         {
-          if (mv.AlternateArts.Count >= maxAlbumArt) break;
-          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) albumartAdded++;
+          if (mv.AlternateArts.Count >= maxAlbumArt) 
+            break;
+          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) 
+            albumartAdded++;
 
           count++;
         }
@@ -367,8 +375,6 @@ namespace mvCentral.DataProviders
           return true;
         }
       }
-
-
       return true;
     }
 
