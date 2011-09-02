@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
-  <id>88889</id>
-  <defaultcontrol>50</defaultcontrol>
-  <allowoverlay>no</allowoverlay>
+	<id>88889</id>
+	<defaultcontrol>50</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
   <define>#header.label:136</define>
   <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
@@ -18,56 +18,6 @@
       <height>720</height>
       <texture>mainoverlay.png</texture>
     </control>
-    <!--    <control>
-      <description>Season Number BG</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>381</posX>
-      <posY>11</posY>
-      <width>256</width>
-      <height>36</height>
-      <texture>tvtitlebgshort.png</texture>
-      <visible>true</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <type>label</type>
-      <description>Season Number</description>
-      <id>0</id>
-      <posX>616</posX>
-      <posY>14</posY>
-      <font>mediastream11c</font>
-      <label>#TVSeries.Episode.SeasonLabel</label>
-      <align>right</align>
-      <visible>true</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Series Name BG</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>77</posX>
-      <posY>11</posY>
-      <width>437</width>
-      <height>35</height>
-      <texture>tvtitlebg.png</texture>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-
-    <control>
-      <type>fadelabel</type>
-      <description>TV Shows Label</description>
-      <id>0</id>
-      <posX>493</posX>
-      <posY>13</posY>
-      <width>350</width>
-      <font>mediastream12c</font>
-      <label>#TVSeries.Episode.SeriesName</label>
-      <align>right</align>
-      <visible>true</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    -->
     <control>
       <description>Top Title Extension Background</description>
       <type>image</type>
@@ -81,34 +31,6 @@
       <animation effect="fade" time="300" delay="0">WindowClose</animation>
       <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300" delay="300">WindowOpen</animation>
       <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="600" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Item Count Background</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>1113</posX>
-      <posY>12</posY>
-      <width>159</width>
-      <height>27</height>
-      <texture>mediacountbackground.png</texture>
-      <visible>control.isvisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control>
-      <type>label</type>
-      <description>Number of Files Label</description>
-      <id>1</id>
-      <posX>1246</posX>
-      <posY>14</posY>
-      <width>350</width>
-      <font>mediastream10c</font>
-      <textcolor>ff006698</textcolor>
-      <align>right</align>
-      <label>#mvCentral.TotalVideos</label>
-      <visible>control.isvisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control>
       <description>Musicvideos Title Background</description>
@@ -144,6 +66,7 @@
       <visible>yes</visible>
       <label>#mvCentral.Hierachy</label>
     </control>
+    <!--
     <control>
       <description>Sort Label Overlay</description>
       <type>label</type>
@@ -154,19 +77,6 @@
       <align>right</align>
       <font>mediastream28tc</font>
       <textcolor>20ffffff</textcolor>
-    </control>
-    <!--
-    <control>
-      <description>Default Episode Thumb</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>23</posX>
-      <posY>266</posY>
-      <width>364</width>
-      <height>208</height>
-      <texture>defaultepisodethumb.png</texture>
-      <visible>facadeview.playlist|facadeview.filmstrip</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     -->
     <control>
@@ -353,6 +263,10 @@
         </control>
       </control>
     </control>
+
+
+
+
     <!-- PAGE COUNT -->
     <control>
       <description>Page Count Background</description>
@@ -515,371 +429,7 @@
           <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
         </control>
       </control>
-    </control>
-    <control>
-      <description>Logos</description>
-      <type>image</type>
-      <id>66</id>
-      <posX>28</posX>
-      <posY>671</posY>
-      <width>900</width>
-      <height>32</height>
-      <texture flipY="true" diffuse="Thumb_Mask.png">#TVSeries.Logos</texture>
-      <keepaspectratio>yes</keepaspectratio>
-      <spaceBetweenItems>0</spaceBetweenItems>
-      <visible>facadeview.list|facadeview.playlist</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Episode Description</description>
-      <type>textboxscrollup</type>
-      <id>1</id>
-      <posX>30</posX>
-      <posY>500</posY>
-      <width>670</width>
-      <height>150</height>
-      <seperator>----------------------------------------------------------------------------------------------------</seperator>
-      <textcolor>ffffffff</textcolor>
-      <font>mediastream11</font>
-      <visible>facadeview.list|facadeview.playlist</visible>
-      <label>#mvCentral.Description</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Episode Description</description>
-      <type>textboxscrollup</type>
-      <id>1</id>
-      <posX>750</posX>
-      <posY>260</posY>
-      <width>500</width>
-      <height>220</height>
-      <seperator>----------------------------------------------------------------------------------------------------</seperator>
-      <textcolor>ffffffff</textcolor>
-      <font>mediastream11</font>
-      <visible>facadeview.filmstrip</visible>
-      <label>#mvCentral.Description</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Episode Description</description>
-      <type>textboxscrollup</type>
-      <id>1</id>
-      <posX>30</posX>
-      <posY>260</posY>
-      <width>470</width>
-      <height>360</height>
-      <seperator>----------------------------------------------------------------------------------------------------</seperator>
-      <textcolor>ffffffff</textcolor>
-      <font>mediastream11</font>
-      <visible>facadeview.smallicons|facadeview.largeicons</visible>
-      <label>#TVSeries.Description</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <type>label</type>
-      <description>Season Label Shadow</description>
-      <label>#TVSeries.Episode.SeasonLabel</label>
-      <id>0</id>
-      <posX>404</posX>
-      <posY>273</posY>
-      <width>300</width>
-      <font>mediastream12tc</font>
-      <textcolor>ff909090</textcolor>
-      <textcolor>#shadow.dark</textcolor>
-      <visible>facadeview.list|facadeview.playlist|facadeview.filmstrip</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <type>label</type>
-      <description>Season Label</description>
-      <label>#TVSeries.Episode.SeasonLabel</label>
-      <id>0</id>
-      <posX>400</posX>
-      <posY>270</posY>
-      <width>300</width>
-      <font>mediastream12tc</font>
-      <textcolor>ff909090</textcolor>
-      <visible>facadeview.list|facadeview.playlist|facadeview.filmstrip</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Episode Title Shadow</description>
-      <type>textboxscrollup</type>
-      <label>#TVSeries.Episode.LocalEpisodeName</label>
-      <id>0</id>
-      <posX>402</posX>
-      <posY>292</posY>
-      <width>325</width>
-      <height>75</height>
-      <font>mediastream12tc</font>
-      <textcolor>#shadow.light</textcolor>
-      <visible>facadeview.list|facadeview.playlist|facadeview.filmstrip</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Episode Title</description>
-      <type>textboxscrollup</type>
-      <label>#TVSeries.Episode.LocalEpisodeName</label>
-      <id>0</id>
-      <posX>400</posX>
-      <posY>290</posY>
-      <width>325</width>
-      <height>75</height>
-      <font>mediastream12tc</font>
-      <textcolor>ffffffff</textcolor>
-      <visible>facadeview.list|facadeview.playlist|facadeview.filmstrip</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Episode Title - Shadow</description>
-      <type>label</type>
-      <label>#TVSeries.Episode.LocalEpisodeName</label>
-      <id>0</id>
-      <posX>33</posX>
-      <posY>224</posY>
-      <width>1200</width>
-      <font>mediastream14tc</font>
-      <textcolor>#shadow.light</textcolor>
-      <visible>facadeview.smallicons|facadeview.largeicons</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <type>label</type>
-      <label>#TVSeries.Episode.LocalEpisodeName</label>
-      <id>0</id>
-      <posX>30</posX>
-      <posY>222</posY>
-      <width>1200</width>
-      <font>mediastream14tc</font>
-      <textcolor>ffffffff</textcolor>
-      <visible>facadeview.smallicons|facadeview.largeicons</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <description>DataPanelLine2Key Shadow</description>
-      <label>#TVSeries.Episode.DataPanelLine2Key</label>
-      <type>label</type>
-      <posX>401</posX>
-      <posY>385</posY>
-      <width>130</width>
-      <textcolor>#shadow.dark</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(10002)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <label>#TVSeries.Episode.DataPanelLine2Key</label>
-      <type>label</type>
-      <posX>400</posX>
-      <posY>384</posY>
-      <width>130</width>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(10002)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>DataPanelLine2Value Shadow</description>
-      <id>10002</id>
-      <label>#TVSeries.Episode.DataPanelLine2Value</label>
-      <type>label</type>
-      <posX>541</posX>
-      <posY>386</posY>
-      <textcolor>#shadow.light</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+Control.HasText(10002)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>DataPanelLine2Value</description>
-      <id>10002</id>
-      <label>#TVSeries.Episode.DataPanelLine2Value</label>
-      <type>label</type>
-      <posX>540</posX>
-      <posY>385</posY>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+Control.HasText(10002)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <description>DataPanelLine3Key Shadow</description>
-      <label>#TVSeries.Episode.DataPanelLine3Key</label>
-      <type>label</type>
-      <posX>401</posX>
-      <posY>408</posY>
-      <width>130</width>
-      <textcolor>#shadow.dark</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <label>#TVSeries.Episode.DataPanelLine3Key</label>
-      <type>label</type>
-      <posX>400</posX>
-      <posY>407</posY>
-      <width>130</width>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Dummy label for Rating Display</description>
-      <id>5557</id>
-      <type>label</type>
-      <label>#TVSeries.Episode.Rating</label>
-      <posX>-50</posX>
-      <posY>-50</posY>
-      <visible>Control.HasText(5557)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Dummy label for Rating Display</description>
-      <id>5558</id>
-      <type>label</type>
-      <label>#TVSeries.Episode.myRating</label>
-      <posX>-50</posX>
-      <posY>-50</posY>
-      <visible>Control.HasText(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>Rating Shadow</description>
-      <id>0</id>
-      <label>#TVSeries.Episode.DataPanelLine31Value #TVSeries.Episode.DataPanelLine32Value</label>
-      <type>label</type>
-      <posX>541</posX>
-      <posY>409</posY>
-      <textcolor>#shadow.light</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(5557)+control.isvisible(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <id>0</id>
-      <label>#TVSeries.Episode.DataPanelLine31Value #TVSeries.Episode.DataPanelLine32Value</label>
-      <type>label</type>
-      <posX>540</posX>
-      <posY>408</posY>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(5557)+control.isvisible(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>Rating Shadow</description>
-      <id>0</id>
-      <label>#TVSeries.Episode.DataPanelLine31Value</label>
-      <type>label</type>
-      <posX>541</posX>
-      <posY>409</posY>
-      <textcolor>#shadow.light</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(5557)+!control.isvisible(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <id>0</id>
-      <label>#TVSeries.Episode.DataPanelLine31Value</label>
-      <type>label</type>
-      <posX>540</posX>
-      <posY>408</posY>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(5557)+!control.isvisible(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>Rating Shadow</description>
-      <id>0</id>
-      <label> / 10</label>
-      <type>label</type>
-      <posX>541</posX>
-      <posY>409</posY>
-      <textcolor>#shadow.light</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+!control.isvisible(5557)+!control.isvisible(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <id>0</id>
-      <label> / 10</label>
-      <type>label</type>
-      <posX>540</posX>
-      <posY>408</posY>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+!control.isvisible(5557)+!control.isvisible(5558)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <description>DataPanelLine4Key Shadow</description>
-      <label>#TVSeries.Episode.DataPanelLine4Key</label>
-      <type>label</type>
-      <posX>401</posX>
-      <posY>431</posY>
-      <width>130</width>
-      <textcolor>#shadow.dark</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(10004)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <label>#TVSeries.Episode.DataPanelLine4Key</label>
-      <type>label</type>
-      <posX>400</posX>
-      <posY>430</posY>
-      <width>130</width>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(10004)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>DataPanelLine4Value Shadow</description>
-      <id>10004</id>
-      <label>#TVSeries.Episode.DataPanelLine4Value</label>
-      <type>label</type>
-      <posX>541</posX>
-      <posY>432</posY>
-      <width>200</width>
-      <textcolor>#shadow.light</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+Control.HasText(10004)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <id>10004</id>
-      <label>#TVSeries.Episode.DataPanelLine4Value</label>
-      <type>label</type>
-      <posX>540</posX>
-      <posY>431</posY>
-      <width>200</width>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+Control.HasText(10004)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <description>DataPanelLine5Key Shadow</description>
-      <label>#TVSeries.Episode.DataPanelLine5Key</label>
-      <type>label</type>
-      <posX>401</posX>
-      <posY>454</posY>
-      <width>130</width>
-      <textcolor>#shadow.dark</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(10005)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitleB">
-      <label>#TVSeries.Episode.DataPanelLine5Key</label>
-      <type>label</type>
-      <posX>400</posX>
-      <posY>453</posY>
-      <width>130</width>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+control.isvisible(10005)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <description>DataPanelLine5Value Shadow</description>
-      <id>10005</id>
-      <label>#TVSeries.Episode.DataPanelLine5Value</label>
-      <type>label</type>
-      <posX>541</posX>
-      <posY>455</posY>
-      <width>200</width>
-      <textcolor>#shadow.light</textcolor>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+Control.HasText(10005)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <control Style="smallTitle">
-      <id>10005</id>
-      <label>#TVSeries.Episode.DataPanelLine5Value</label>
-      <type>label</type>
-      <posX>540</posX>
-      <posY>454</posY>
-      <width>200</width>
-      <visible>[facadeview.list|facadeview.playlist|facadeview.filmstrip]+Control.HasText(10005)</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
+		</control>
     <!-- MEDIA COUNT -->
     <control>
       <description>Media Count Background</description>
@@ -918,6 +468,5 @@
     </control>
     <import>mvCentral.overlays2.xml</import>
     <import>common.time.xml</import>
-  </controls>
+	</controls>
 </window>
-<!--Checksum:aa2e6d709eec5b7a5775aeb3a2b1afaa-->

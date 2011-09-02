@@ -135,6 +135,10 @@ namespace mvCentral.GUI
       return success;
     }
 
+    /// <summary>
+    /// Handle action
+    /// </summary>
+    /// <param name="action"></param>
     public override void OnAction(MediaPortal.GUI.Library.Action action)
     {
       MediaPortal.GUI.Library.Action.ActionType wID = action.wID;
@@ -157,15 +161,17 @@ namespace mvCentral.GUI
         {
           case 0:
             //Add to playlist
+            // If on a folder add all Videos for Artist
             if (facade.ListLayout.SelectedListItem.IsFolder)
             {
-              DBArtistInfo currArtist = DBArtistInfo.Get(artistID);
-              List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
+              DBArtistInfo currArtist = DBArtistInfo.Get(facade.ListLayout.SelectedListItem.Label);
+              List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
 
-              addToPlaylist(list, false, false, false);
+              addToPlaylist(allTracksByArtist, false, false, false);
             }
             else
             {
+              // Add video to playlist
               PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
               string filename = facade.ListLayout.SelectedListItem.Label;
               string path = facade.ListLayout.SelectedListItem.Path;
@@ -173,30 +179,17 @@ namespace mvCentral.GUI
               PlayListItem p1 = new PlayListItem(video);
               p1.Track = video;
               playlist.Add(p1);
-
-              //              playlist.Add(new PlayListItem(filename, path));
             }
             break;
           case 1:
-            if (facade.ListLayout.SelectedListItem.IsFolder)
-            {
-              // addToPlaylist(dm.getAllVideos(), true, true, false);
-            }
-            else
-            {
-              if (artistID != 0)
-              {
-                DBArtistInfo currArtist = DBArtistInfo.Get(artistID);
-                List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
-                addToPlaylist(list, false, false, false);
-              }
-            }
+            // Add all videos to the playlist
+            List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
+            addToPlaylist(allTracks, false, false, false);
             break;
           case 2:
             addToPlaylistNext(facade.ListLayout.SelectedListItem);
             break;
-          case 3:
-          case -1:
+          default:
             //Exit
             break;
         }

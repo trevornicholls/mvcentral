@@ -65,17 +65,33 @@ namespace mvCentral.Playlist
         #endregion
 
         #region skin variables
-        [SkinControl(2)]  protected GUIButtonControl btnViewAs = null;
-        [SkinControl(9)]  protected GUIButtonControl btnLoad = null;        
-        [SkinControl(20)] protected GUIButtonControl btnShuffle = null;
-        [SkinControl(21)] protected GUIButtonControl btnSave = null;
-        [SkinControl(22)] protected GUIButtonControl btnClear = null;
-        [SkinControl(23)] protected GUIButtonControl btnPlay = null;
-        [SkinControl(24)] protected GUIButtonControl btnNext = null;
-        [SkinControl(25)] protected GUIButtonControl btnPrevious = null;
-        [SkinControl(30)] protected GUIToggleButtonControl btnRepeat = null;
-        [SkinControl(40)] protected GUIToggleButtonControl btnAutoPlay = null;
-        [SkinControl(50)] protected GUIFacadeControl m_Facade = null;
+
+        private enum GUIControls
+        {
+          ViewAs = 2,
+          LoadPlaylist = 9,
+          ShufflePlaylist = 20,
+          SavePlaylist = 21,
+          ClearPlaylist = 22,
+          PlayPlaylist = 23,
+          NextTrack = 24,
+          PrevTrack = 24,
+          RepeatPlaylist = 30,
+          AutoPlayPlaylist = 40,
+          Facade = 50
+        }
+
+        [SkinControl((int)GUIControls.ViewAs)] protected GUIButtonControl btnViewAs = null;
+        [SkinControl((int)GUIControls.LoadPlaylist)]  protected GUIButtonControl btnLoad = null;        
+        [SkinControl((int)GUIControls.ShufflePlaylist)] protected GUIButtonControl btnShuffle = null;
+        [SkinControl((int)GUIControls.SavePlaylist)] protected GUIButtonControl btnSave = null;
+        [SkinControl((int)GUIControls.ClearPlaylist)] protected GUIButtonControl btnClear = null;
+        [SkinControl((int)GUIControls.PlayPlaylist)] protected GUIButtonControl btnPlay = null;
+        [SkinControl((int)GUIControls.NextTrack)] protected GUIButtonControl btnNext = null;
+        [SkinControl((int)GUIControls.PrevTrack)] protected GUIButtonControl btnPrevious = null;
+        [SkinControl((int)GUIControls.RepeatPlaylist)] protected GUIToggleButtonControl btnRepeat = null;
+        [SkinControl((int)GUIControls.AutoPlayPlaylist)] protected GUIToggleButtonControl btnAutoPlay = null;
+        [SkinControl((int)GUIControls.Facade)] protected GUIFacadeControl m_Facade = null;
         #endregion
 
         public enum View
@@ -181,6 +197,8 @@ namespace mvCentral.Playlist
                                 playlistPlayer.Play(0);
                                 UpdateButtonStates();
                             }
+                            if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
+                              playlistPlayer.PlayNext();
                         }
                     }
                     break;

@@ -147,6 +147,7 @@ namespace mvCentral.Database
           add(true, false, false, ".", @"<space>");
           add(true, false, false, "_", @"<space>");
           add(true, false, false, "-<space>", @"<empty>");
+          add(true, true, true, "&", "and");
           add(true, true, true, "(Full HD)", @"<empty>");
           add(true, true, true, "(HD)", @"<empty>");
           add(true, true, true, "(High)", @"<empty>");
