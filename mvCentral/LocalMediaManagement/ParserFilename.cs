@@ -169,7 +169,8 @@ namespace mvCentral.LocalMediaManagement
                         logger.ErrorException("Cannot use the following Expression: ",e);
                     }
                 }
-                logger.Info("Finished Compiling Replacement Expressions, found " + (replacementRegexBefore.Count + replacementRegexAfter.Count).ToString() + " valid expressions");
+                logger.Info("Finished Compiling Replacement Expressions(Before), found " + replacementRegexBefore.Count.ToString() + " valid expressions");
+                logger.Info("Finished Compiling Replacement Expressions(After), found " + replacementRegexAfter.Count.ToString() + " valid expressions");
                 
                 return error;
             }
@@ -184,8 +185,7 @@ namespace mvCentral.LocalMediaManagement
         {
             foreach (var replacement in replacements)
             {
-                if (replacement.Key.IsMatch(runAgainst)
-                    && tags.Contains(replacement.Key.ToString()))
+                if (replacement.Key.IsMatch(runAgainst) && tags.Contains(replacement.Key.ToString()))
                 {
                     m_Tags.Add(replacement.Key.ToString());
                 }

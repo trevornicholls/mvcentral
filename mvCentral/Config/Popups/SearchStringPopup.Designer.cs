@@ -38,7 +38,7 @@
       // 
       this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.okButton.Location = new System.Drawing.Point(316, 156);
+      this.okButton.Location = new System.Drawing.Point(316, 159);
       this.okButton.Name = "okButton";
       this.okButton.Size = new System.Drawing.Size(75, 23);
       this.okButton.TabIndex = 3;
@@ -50,7 +50,7 @@
       // 
       this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.cancelButton.Location = new System.Drawing.Point(397, 156);
+      this.cancelButton.Location = new System.Drawing.Point(397, 159);
       this.cancelButton.Name = "cancelButton";
       this.cancelButton.Size = new System.Drawing.Size(75, 23);
       this.cancelButton.TabIndex = 2;
@@ -88,12 +88,12 @@
       this.fileListBox.Size = new System.Drawing.Size(461, 44);
       this.fileListBox.TabIndex = 6;
       // 
-      // uxTitle
+      // uxArtistName
       // 
       this.uxArtistName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.uxArtistName.Location = new System.Drawing.Point(15, 118);
-      this.uxArtistName.Name = "uxTitle";
+      this.uxArtistName.Name = "uxArtistName";
       this.uxArtistName.Size = new System.Drawing.Size(291, 20);
       this.uxArtistName.TabIndex = 7;
       // 
@@ -112,7 +112,7 @@
       // 
       this.uxTrackName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.uxTrackName.Location = new System.Drawing.Point(15, 156);
+      this.uxTrackName.Location = new System.Drawing.Point(15, 159);
       this.uxTrackName.Name = "uxTrackName";
       this.uxTrackName.Size = new System.Drawing.Size(291, 20);
       this.uxTrackName.TabIndex = 18;
