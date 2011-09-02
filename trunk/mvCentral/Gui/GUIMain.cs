@@ -200,16 +200,16 @@ namespace mvCentral.GUI
 
     public override bool OnMessage(GUIMessage message)
     {
-        switch (message.Message)
-        {
-            case GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED:
-                {
-                    facade.SelectedListItemIndex = message.Param2;
-                    return true;
-                }
-                break;
-        }
-        return base.OnMessage(message);
+      switch (message.Message)
+      {
+        case GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED:
+          {
+            facade.SelectedListItemIndex = message.Param2;
+            return true;
+          }
+          break;
+      }
+      return base.OnMessage(message);
     }
 
     public override void DeInit()

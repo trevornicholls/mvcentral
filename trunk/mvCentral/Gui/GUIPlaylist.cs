@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using System.IO;
 using System;
+using System.Linq;
 using NLog;
 using System.Collections.Generic;
 using System.Collections;
@@ -10,6 +11,7 @@ using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using mvCentral.Database;
 using mvCentral.Playlist;
+using mvCentral.Utils;
 
 namespace mvCentral.GUI
 {
@@ -89,7 +91,7 @@ namespace mvCentral.GUI
             if (dlgMenu != null)
             {
                 dlgMenu.Reset();
-//                dlgMenu.SetHeading(dm.getPluginName() + " - Smart Playlist Options");
+                dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - Smart Playlist Options");
                 if (this.facade.Count > 0)
                 {
                     dlgMenu.Add("Favourite Videos");
@@ -134,6 +136,7 @@ namespace mvCentral.GUI
 
         private void playFavourites() 
         {
+          { DebugMsg("NOT IMPLEMENTED"); }
 //            string avgPlayCount = dm.Execute("SELECT AVG(playCount) FROM Videos", true).Rows[0].fields[0];
 //            int i = int.Parse(avgPlayCount.Split('.')[0]);
 //            ArrayList leastPlayed = dm.getAllVideos(i, true);
@@ -142,8 +145,19 @@ namespace mvCentral.GUI
 
         private void playFreshTracks() 
         {
-//            ArrayList newVideos = dm.getNewestVideos();
-//            addToPlaylist(newVideos, true, true, false);
+          PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+          playlist.Clear();
+          List<DBTrackInfo> videos = DBTrackInfo.GetAll();
+          videos.RemoveAll(video => video.DateAdded < DateTime.Now.Subtract(new TimeSpan(0, 1, 0, 0, 0)));
+
+          foreach (DBTrackInfo video in videos)
+          {
+            playlist.Add(new PlayListItem(video));
+          }
+          Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+          playlist.Shuffle();
+          Player.playlistPlayer.Play(0);
+          GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
         }
 
         private void playHighestRated() 
@@ -151,6 +165,7 @@ namespace mvCentral.GUI
 
         private void playLeastPlayed() 
         {
+          { DebugMsg("NOT IMPLEMENTED"); }
 //            string avgPlayCount = dm.Execute("SELECT AVG(playCount) FROM Videos", true).Rows[0].fields[0];           
 //            int i = int.Parse(avgPlayCount.Split('.')[0]);
 //            ArrayList leastPlayed = dm.getAllVideos(i, false);

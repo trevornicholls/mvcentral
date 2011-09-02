@@ -102,14 +102,6 @@
       this.colParseExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.colParsePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.colParseVolumeLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.pathsGroupBox = new System.Windows.Forms.GroupBox();
       this.toolStrip = new System.Windows.Forms.ToolStrip();
       this.addSourceButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -173,7 +165,10 @@
       this.tpSettings = new System.Windows.Forms.TabPage();
       this.splitContainer5 = new System.Windows.Forms.SplitContainer();
       this.groupBox4 = new System.Windows.Forms.GroupBox();
+      this.label2 = new System.Windows.Forms.Label();
       this.cbSplitDVD = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this.tbLatestVideos = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.label4 = new System.Windows.Forms.Label();
       this.tbHomeScreen = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.cbUseMDAlbum = new Cornerstone.GUI.Controls.SettingCheckBox();
@@ -210,6 +205,14 @@
       this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
       this.ArtFileDialog = new System.Windows.Forms.OpenFileDialog();
       this.imageListDrag = new System.Windows.Forms.ImageList(this.components);
+      this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
       this.scMain.Panel1.SuspendLayout();
@@ -238,7 +241,6 @@
       this.tcImport.SuspendLayout();
       this.tpImportPathParser.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       this.pathsGroupBox.SuspendLayout();
       this.toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pathsGridView)).BeginInit();
@@ -266,6 +268,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.gbProgress.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).BeginInit();
       this.SuspendLayout();
       // 
@@ -920,59 +923,6 @@
       this.colParseVolumeLabel.Name = "colParseVolumeLabel";
       this.colParseVolumeLabel.ReadOnly = true;
       // 
-      // fileNameDataGridViewTextBoxColumn
-      // 
-      this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
-      this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
-      this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
-      this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // artistDataGridViewTextBoxColumn
-      // 
-      this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
-      this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
-      this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
-      this.artistDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // albumDataGridViewTextBoxColumn
-      // 
-      this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
-      this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
-      this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
-      this.albumDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // trackDataGridViewTextBoxColumn
-      // 
-      this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
-      this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
-      this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
-      this.trackDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // extDataGridViewTextBoxColumn
-      // 
-      this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
-      this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
-      this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
-      this.extDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // volumeLabelDataGridViewTextBoxColumn
-      // 
-      this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
-      this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
-      this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
-      this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // pathDataGridViewTextBoxColumn
-      // 
-      this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
-      this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
-      this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
-      this.pathDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // ParserBindingSource
-      // 
-      this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
-      // 
       // pathsGroupBox
       // 
       this.pathsGroupBox.BackColor = System.Drawing.SystemColors.Control;
@@ -1192,7 +1142,7 @@
       this.toolStrip1.Location = new System.Drawing.Point(0, 0);
       this.toolStrip1.Name = "toolStrip1";
       this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-      this.toolStrip1.Size = new System.Drawing.Size(578, 26);
+      this.toolStrip1.Size = new System.Drawing.Size(578, 25);
       this.toolStrip1.TabIndex = 6;
       this.toolStrip1.Text = "toolStrip1";
       // 
@@ -1242,7 +1192,7 @@
       this.approveButton.Image = global::mvCentral.Properties.Resources.OK;
       this.approveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.approveButton.Name = "approveButton";
-      this.approveButton.Size = new System.Drawing.Size(23, 23);
+      this.approveButton.Size = new System.Drawing.Size(23, 22);
       this.approveButton.Text = "toolStripButton1";
       this.approveButton.ToolTipText = "Approve Selected File(s)";
       this.approveButton.Click += new System.EventHandler(this.approveButton_Click);
@@ -1253,7 +1203,7 @@
       this.manualAssignButton.Image = global::mvCentral.Properties.Resources.page_white_edit;
       this.manualAssignButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.manualAssignButton.Name = "manualAssignButton";
-      this.manualAssignButton.Size = new System.Drawing.Size(23, 23);
+      this.manualAssignButton.Size = new System.Drawing.Size(23, 22);
       this.manualAssignButton.Text = "manualAssignButton";
       this.manualAssignButton.ToolTipText = "Add as Blank (Editable) Movie";
       this.manualAssignButton.Click += new System.EventHandler(this.manualAssignButton_Click);
@@ -1261,7 +1211,7 @@
       // toolStripSeparator3
       // 
       this.toolStripSeparator3.Name = "toolStripSeparator3";
-      this.toolStripSeparator3.Size = new System.Drawing.Size(6, 26);
+      this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
       // 
       // rescanButton
       // 
@@ -1269,7 +1219,7 @@
       this.rescanButton.Image = global::mvCentral.Properties.Resources.find;
       this.rescanButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.rescanButton.Name = "rescanButton";
-      this.rescanButton.Size = new System.Drawing.Size(23, 23);
+      this.rescanButton.Size = new System.Drawing.Size(23, 22);
       this.rescanButton.Text = "toolStripButton1";
       this.rescanButton.ToolTipText = "Rescan Selected File(s) with Custom Search String";
       this.rescanButton.Click += new System.EventHandler(this.rescanButton_Click);
@@ -1280,7 +1230,7 @@
       this.splitJoinButton.Image = global::mvCentral.Properties.Resources.arrow_divide;
       this.splitJoinButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.splitJoinButton.Name = "splitJoinButton";
-      this.splitJoinButton.Size = new System.Drawing.Size(23, 23);
+      this.splitJoinButton.Size = new System.Drawing.Size(23, 22);
       this.splitJoinButton.Text = "toolStripButton1";
       this.splitJoinButton.ToolTipText = "Split Selected File Group";
       this.splitJoinButton.Click += new System.EventHandler(this.splitJoinButton_Click);
@@ -1288,7 +1238,7 @@
       // toolStripSeparator2
       // 
       this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 26);
+      this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
       // 
       // ignoreButton
       // 
@@ -1296,14 +1246,14 @@
       this.ignoreButton.Image = global::mvCentral.Properties.Resources.cross;
       this.ignoreButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.ignoreButton.Name = "ignoreButton";
-      this.ignoreButton.Size = new System.Drawing.Size(23, 23);
+      this.ignoreButton.Size = new System.Drawing.Size(23, 22);
       this.ignoreButton.Text = "toolStripButton2";
       this.ignoreButton.ToolTipText = "Ignore Selected File(s)";
       // 
       // toolStripSeparator4
       // 
       this.toolStripSeparator4.Name = "toolStripSeparator4";
-      this.toolStripSeparator4.Size = new System.Drawing.Size(6, 26);
+      this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
       // 
       // settingsButton
       // 
@@ -1315,7 +1265,7 @@
       this.settingsButton.Image = global::mvCentral.Properties.Resources.cog;
       this.settingsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.settingsButton.Name = "settingsButton";
-      this.settingsButton.Size = new System.Drawing.Size(32, 23);
+      this.settingsButton.Size = new System.Drawing.Size(32, 22);
       this.settingsButton.ToolTipText = "Advanced Actions";
       this.settingsButton.ButtonClick += new System.EventHandler(this.settingsButton_ButtonClick);
       // 
@@ -1346,7 +1296,7 @@
       this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
       this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
       this.toolStripButton1.Name = "toolStripButton1";
-      this.toolStripButton1.Size = new System.Drawing.Size(23, 23);
+      this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
       this.toolStripButton1.ToolTipText = "Help";
       // 
       // unapprovedGrid
@@ -1772,23 +1722,35 @@
       // 
       // groupBox4
       // 
+      this.groupBox4.Controls.Add(this.label2);
       this.groupBox4.Controls.Add(this.cbSplitDVD);
+      this.groupBox4.Controls.Add(this.label1);
+      this.groupBox4.Controls.Add(this.tbLatestVideos);
       this.groupBox4.Controls.Add(this.label4);
       this.groupBox4.Controls.Add(this.tbHomeScreen);
       this.groupBox4.Controls.Add(this.cbUseMDAlbum);
       this.groupBox4.Controls.Add(this.cbAutoApprove);
-      this.groupBox4.Location = new System.Drawing.Point(26, 20);
+      this.groupBox4.Location = new System.Drawing.Point(26, 15);
       this.groupBox4.Name = "groupBox4";
-      this.groupBox4.Size = new System.Drawing.Size(552, 159);
+      this.groupBox4.Size = new System.Drawing.Size(552, 174);
       this.groupBox4.TabIndex = 0;
       this.groupBox4.TabStop = false;
       this.groupBox4.Text = "Settings";
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(275, 114);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(37, 13);
+      this.label2.TabIndex = 48;
+      this.label2.Text = "Day(s)";
       // 
       // cbSplitDVD
       // 
       this.cbSplitDVD.AutoSize = true;
       this.cbSplitDVD.IgnoreSettingName = true;
-      this.cbSplitDVD.Location = new System.Drawing.Point(23, 77);
+      this.cbSplitDVD.Location = new System.Drawing.Point(23, 70);
       this.cbSplitDVD.Name = "cbSplitDVD";
       this.cbSplitDVD.Setting = null;
       this.cbSplitDVD.Size = new System.Drawing.Size(127, 17);
@@ -1796,10 +1758,31 @@
       this.cbSplitDVD.Text = "Split DVD in chapters";
       this.cbSplitDVD.UseVisualStyleBackColor = true;
       // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(20, 114);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(214, 13);
+      this.label1.TabIndex = 47;
+      this.label1.Text = "Video is considered new if added in the  last";
+      // 
+      // tbLatestVideos
+      // 
+      this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbLatestVideos.Location = new System.Drawing.Point(244, 111);
+      this.tbLatestVideos.MaxLength = 2;
+      this.tbLatestVideos.Name = "tbLatestVideos";
+      this.tbLatestVideos.Setting = null;
+      this.tbLatestVideos.Size = new System.Drawing.Size(25, 20);
+      this.tbLatestVideos.TabIndex = 46;
+      this.tbLatestVideos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      // 
       // label4
       // 
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(20, 129);
+      this.label4.Location = new System.Drawing.Point(20, 146);
       this.label4.Name = "label4";
       this.label4.Size = new System.Drawing.Size(146, 13);
       this.label4.TabIndex = 44;
@@ -1809,7 +1792,7 @@
       // 
       this.tbHomeScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbHomeScreen.Location = new System.Drawing.Point(172, 126);
+      this.tbHomeScreen.Location = new System.Drawing.Point(172, 143);
       this.tbHomeScreen.Name = "tbHomeScreen";
       this.tbHomeScreen.Setting = null;
       this.tbHomeScreen.Size = new System.Drawing.Size(173, 20);
@@ -1819,7 +1802,7 @@
       // 
       this.cbUseMDAlbum.AutoSize = true;
       this.cbUseMDAlbum.IgnoreSettingName = true;
-      this.cbUseMDAlbum.Location = new System.Drawing.Point(23, 54);
+      this.cbUseMDAlbum.Location = new System.Drawing.Point(23, 47);
       this.cbUseMDAlbum.Name = "cbUseMDAlbum";
       this.cbUseMDAlbum.Setting = null;
       this.cbUseMDAlbum.Size = new System.Drawing.Size(294, 17);
@@ -1831,7 +1814,7 @@
       // 
       this.cbAutoApprove.AutoSize = true;
       this.cbAutoApprove.IgnoreSettingName = true;
-      this.cbAutoApprove.Location = new System.Drawing.Point(23, 31);
+      this.cbAutoApprove.Location = new System.Drawing.Point(23, 24);
       this.cbAutoApprove.Name = "cbAutoApprove";
       this.cbAutoApprove.Setting = null;
       this.cbAutoApprove.Size = new System.Drawing.Size(219, 17);
@@ -2141,6 +2124,59 @@
       this.imageListDrag.ImageSize = new System.Drawing.Size(16, 16);
       this.imageListDrag.TransparentColor = System.Drawing.Color.Transparent;
       // 
+      // fileNameDataGridViewTextBoxColumn
+      // 
+      this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
+      this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
+      this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
+      this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // artistDataGridViewTextBoxColumn
+      // 
+      this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
+      this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
+      this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
+      this.artistDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // albumDataGridViewTextBoxColumn
+      // 
+      this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
+      this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
+      this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
+      this.albumDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // trackDataGridViewTextBoxColumn
+      // 
+      this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
+      this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
+      this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
+      this.trackDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // extDataGridViewTextBoxColumn
+      // 
+      this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
+      this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
+      this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
+      this.extDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // volumeLabelDataGridViewTextBoxColumn
+      // 
+      this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
+      this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
+      this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
+      this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // pathDataGridViewTextBoxColumn
+      // 
+      this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
+      this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
+      this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
+      this.pathDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // ParserBindingSource
+      // 
+      this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
+      // 
       // unapprovedMatchesBindingSource
       // 
       this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
@@ -2192,7 +2228,6 @@
       this.tcImport.ResumeLayout(false);
       this.tpImportPathParser.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       this.pathsGroupBox.ResumeLayout(false);
       this.pathsGroupBox.PerformLayout();
       this.toolStrip.ResumeLayout(false);
@@ -2229,6 +2264,7 @@
       this.groupBox1.PerformLayout();
       this.gbProgress.ResumeLayout(false);
       this.gbProgress.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).EndInit();
       this.ResumeLayout(false);
 
@@ -2410,5 +2446,8 @@
         private System.Windows.Forms.ImageList imageListTreeView;
         private Cornerstone.GUI.Controls.SettingCheckBox cbSplitDVD;
         private System.Windows.Forms.ToolStripMenuItem tsmGetInfo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbLatestVideos;
     }
 }

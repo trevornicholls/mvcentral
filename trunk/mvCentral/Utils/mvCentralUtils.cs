@@ -33,8 +33,8 @@ namespace mvCentral.Utils {
 
         public static string PluginName() {
             return "mvCentral";
-//            if (SettingsManager.Properties == null || SettingsManager.Properties.GUISettings == null) return "dlCentral";
-//            return string.IsNullOrEmpty(SettingsManager.Properties.GUISettings.PluginName) ? "dlCentral" : SettingsManager.Properties.GUISettings.PluginName;
+//            if (SettingsManager.Properties == null || SettingsManager.Properties.GUISettings == null) return "mvCentral";
+//            return string.IsNullOrEmpty(SettingsManager.Properties.GUISettings.PluginName) ? "mvCentral" : SettingsManager.Properties.GUISettings.PluginName;
         }
 
 

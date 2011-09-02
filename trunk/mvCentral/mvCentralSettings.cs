@@ -552,6 +552,26 @@ namespace mvCentral.Settings {
         }
         private bool _autoapprove;
 
+
+        [CornerstoneSetting(
+      Name = "Latest musicvideos",
+      Description = "Consider new if added with these number of days. ",
+      Groups = "|MusicVideo|Player|",
+      Identifier = "oldAfter_days",
+      Default = 7,
+      Hidden = true)]
+        public int OldAFterDays
+        {
+          get { return _oldafterdays; }
+          set
+          {
+            _oldafterdays = value;
+            OnSettingChanged("oldAfter_days");
+          }
+        }
+        private int _oldafterdays;
+
+
         #endregion
 
         #region SampleFilter
