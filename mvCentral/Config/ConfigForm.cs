@@ -133,6 +133,7 @@ namespace mvCentral {
             cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
             cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
             cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
+            tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
             
             artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
             albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
@@ -2877,9 +2878,5 @@ namespace mvCentral {
                 thread.Start();
                     }
             }
-
- 
-
-
      }
 }

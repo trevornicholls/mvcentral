@@ -92,6 +92,7 @@ namespace mvCentral.Playlist
         [SkinControl((int)GUIControls.RepeatPlaylist)] protected GUIToggleButtonControl btnRepeat = null;
         [SkinControl((int)GUIControls.AutoPlayPlaylist)] protected GUIToggleButtonControl btnAutoPlay = null;
         [SkinControl((int)GUIControls.Facade)] protected GUIFacadeControl m_Facade = null;
+
         #endregion
 
         public enum View
@@ -708,6 +709,8 @@ namespace mvCentral.Playlist
 
             // Push properties to skin    
             DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
+
+            GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
 
             GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
             GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
