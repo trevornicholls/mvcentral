@@ -262,6 +262,7 @@ namespace mvCentral
       //LogManager.Configuration.LoggingRules.Add(cornerstoneRule);
 
       MyLogManager.Instance.Configuration.LoggingRules.Add(mvRule);
+      //MyLogManager.Instance.Configuration.LoggingRules.Add(cornerstoneRule);
 
 
       // force NLog to reload the configuration data
