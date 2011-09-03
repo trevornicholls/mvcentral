@@ -46,7 +46,7 @@ namespace mvCentral.ConfigScreen.Popups {
             Stopped
         }
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         /// <summary> current state of playback (playing/paused/...) </summary>
         protected PlayState _state;

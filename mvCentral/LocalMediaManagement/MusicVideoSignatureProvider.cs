@@ -8,7 +8,7 @@ namespace mvCentral.LocalMediaManagement
   /// THIS CLASS IS A CANDIDATE FOR REFACTORING
   /// </summary>
   public static class MusicVideoSignatureProvider {
-      private static Logger logger = LogManager.GetCurrentClassLogger();
+      private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
       private static List<ISignatureBuilder> signatureBuilders;
       private static object loadingLock = new object();

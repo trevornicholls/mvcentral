@@ -32,7 +32,7 @@ namespace mvCentral.LocalMediaManagement
 {
     public class FilenameParser
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private string m_Filename = string.Empty;
         private string m_FileNameAfterReplacement = string.Empty;
         private Dictionary<string, string> m_Matches = new Dictionary<string, string>();
@@ -102,24 +102,24 @@ namespace mvCentral.LocalMediaManagement
                                 break;
                         }
                         sExpression = sExpression.ToLower();
-                        // replace series, season and episode by the valid DBEpisode column names
                         sExpression = sExpression.Replace("<artist>", "<" + MusicVideoImporter.cArtist + ">");
                         sExpression = sExpression.Replace("<album>", "<" + MusicVideoImporter.cAlbum + ">");
                         sExpression = sExpression.Replace("<track>", "<" + MusicVideoImporter.cTrack + ">");
-//                        sExpression = sExpression.Replace("<ext>", "<" + LocalParse.cExt + ">");
-//                        sExpression = sExpression.Replace("<title>", "<" + DBEpisode.cEpisodeName + ">");
-//                        sExpression = sExpression.Replace("<firstaired>", "<" + DBOnlineEpisode.cFirstAired + ">");
+
 
                         // we precompile the expressions here which is faster in the end
                         try
                         {
-                            regularExpressions.Add(new Regex(sExpression, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled));
-                            sExpressions.Add(sExpression);
+                          logger.Info("Adding to regularExpressions : " + sExpression);
+                          regularExpressions.Add(new Regex(sExpression, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled));
+
+                          logger.Info("Adding to sExpressions : " + sExpression);
+                          sExpressions.Add(sExpression);
                         }
                         catch (Exception e)
                         {
-                            // wrong regex
-                            logger.Info("Cannot use the following Expression: " + e.Message);
+                          // wrong regex
+                          logger.Info("Cannot use the following Expression: " + e.Message);
                         }
                     }
                 }
@@ -130,7 +130,9 @@ namespace mvCentral.LocalMediaManagement
                 logger.Info("Error loading Parsing Expressions: " + ex.Message);
                 error = true;
             }
-                // now go for the replacements
+            //
+            // now go for the replacements
+            //
             try
             {
                 logger.Info("Compiling Replacement Expressions");
@@ -142,23 +144,27 @@ namespace mvCentral.LocalMediaManagement
                         if (replacement.Enabled)
                         {
                             String searchString = replacement.ToReplace;
-                            searchString = searchString
-                                .Replace("<space>", " ");
+                            searchString = searchString.Replace("<space>", " ");
+
                             string regexSearchString = searchString;
                             if (!replacement.IsRegex)
                                 regexSearchString = Regex.Escape(searchString);
 
                             String replaceString = replacement.With;
-                            replaceString = replaceString
-                                .Replace("<space>", " ")
-                                .Replace("<empty>", "");
+                            replaceString = replaceString.Replace("<space>", " ").Replace("<empty>", "");
 
                             var replaceRegex = new Regex(regexSearchString, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                            
+
                             if (replacement.Before)
-                                replacementRegexBefore.Add(replaceRegex, replaceString);
+                            {
+                              logger.Info("Adding to replacementRegexBefore : " + replaceString);
+                              replacementRegexBefore.Add(replaceRegex, replaceString);
+                            }
                             else
-                                replacementRegexAfter.Add(replaceRegex, replaceString);
+                            {
+                              logger.Info("Adding to replacementRegexAfter : " + replaceString);
+                              replacementRegexAfter.Add(replaceRegex, replaceString);
+                            }
 
                             if (replacement.TagEnabled)
                                 tags.Add(searchString);
@@ -202,7 +208,11 @@ namespace mvCentral.LocalMediaManagement
                 // Parsing filename for all recognized naming formats to extract episode information
                 ////////////////////////////////////////////////////////////////////////////////////////////
                 m_Filename = filename;
-                if (sExpressions.Count == 0) reLoadExpressions();
+                if (sExpressions.Count == 0)
+                {
+                  logger.Info("Reload Expresssions should be called from : FilenameParser as there are no sExpressions");
+                  //reLoadExpressions();
+                }
 
                 int index = 0;
                

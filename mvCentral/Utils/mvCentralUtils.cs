@@ -25,7 +25,7 @@ using MediaPortal.Ripper;
 
 namespace mvCentral.Utils {
     public static class mvCentralUtils {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         public static readonly string SettingsFileName = "mvCentral.xml";
         public static string LogFileName = "mvCentral.log";
         public static string OldLogFileName = "mvCentral.log.bak";

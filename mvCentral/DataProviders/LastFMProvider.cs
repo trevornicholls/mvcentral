@@ -21,7 +21,7 @@ namespace mvCentral.DataProviders
 
   class LastFMProvider : InternalProvider, IMusicVideoProvider
   {
-    private static Logger logger = LogManager.GetCurrentClassLogger();
+    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
     private static readonly object lockList = new object();
 

@@ -20,7 +20,7 @@ namespace mvCentral.SignatureBuilders
 
         #region Private Variables
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private string baseTitle = null;
 
         #endregion

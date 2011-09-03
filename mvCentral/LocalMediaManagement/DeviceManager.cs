@@ -19,7 +19,7 @@ namespace mvCentral.LocalMediaManagement {
         #region Private Variables
 
         // Log object
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private static readonly object syncRoot = new object();
 
         #endregion

@@ -7,7 +7,7 @@ using System;
 
 namespace mvCentral.Utils {
     public static class GUIUtils {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         private delegate bool ShowCustomYesNoDialogDelegate(string heading, string lines, string yesLabel, string noLabel, bool defaultYes);
         private delegate void ShowOKDialogDelegate(string heading, string lines);

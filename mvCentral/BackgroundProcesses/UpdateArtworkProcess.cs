@@ -12,7 +12,7 @@ using System.Threading;
 namespace mvCentral.BackgroundProcesses
 {
     internal class UpdateArtworkProcess: AbstractBackgroundProcess {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
 
         public override string Name {

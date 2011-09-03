@@ -14,7 +14,7 @@ namespace mvCentral.LocalMediaManagement.MusicVideoResources
             SUCCESS, INCOMPLETE, TIMED_OUT, FAILED
         }
 
-        protected static Logger logger = LogManager.GetCurrentClassLogger();
+        protected static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         public virtual string Filename {
             get { return _filename; }

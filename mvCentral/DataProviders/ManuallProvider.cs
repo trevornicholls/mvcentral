@@ -19,7 +19,7 @@ namespace mvCentral.DataProviders
 {
     public class ManualProvider : IMusicVideoProvider
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         // we should be using the MusicVideo object but we have to assign it before locking which 
         // is not good if the thread gets interupted after the asssignment, but before it gets 

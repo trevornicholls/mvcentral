@@ -10,7 +10,7 @@ using System.Threading;
 namespace mvCentral.BackgroundProcesses
 {
     internal class FileSyncProcess: AbstractBackgroundProcess {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         public override string Name {
             get { return "Removed File Check"; }

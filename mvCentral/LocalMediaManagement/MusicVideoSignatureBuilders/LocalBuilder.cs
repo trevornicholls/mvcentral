@@ -15,7 +15,7 @@ namespace mvCentral.SignatureBuilders
     /// </summary>
     class LocalBuilder : ISignatureBuilder {
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private static Dictionary<string, string> replacements;
 
         static LocalBuilder() {

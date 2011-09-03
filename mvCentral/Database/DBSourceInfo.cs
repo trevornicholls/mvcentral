@@ -11,7 +11,7 @@ using System.Threading;
 namespace mvCentral.Database {
     [DBTableAttribute("source_info")]
     public class DBSourceInfo: mvCentralDBTable {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         #region Database Fields
         

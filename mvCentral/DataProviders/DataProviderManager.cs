@@ -25,7 +25,7 @@ namespace mvCentral.DataProviders {
             FAILED_DATE       // published date conflict
         }     
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private static DataProviderManager instance = null;
         private static String lockObj = "";
 

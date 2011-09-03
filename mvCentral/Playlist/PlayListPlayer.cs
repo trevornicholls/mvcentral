@@ -332,7 +332,7 @@ namespace mvCentral.Playlist
         #endregion
 
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         int _entriesNotFound = 0;
         int _currentItem = -1;
         PlayListType _currentPlayList = PlayListType.PLAYLIST_NONE;

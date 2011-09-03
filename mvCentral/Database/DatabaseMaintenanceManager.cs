@@ -15,7 +15,7 @@ namespace mvCentral.Database
 {
     public class DatabaseMaintenanceManager {
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         
         public static event ProgressDelegate MaintenanceProgress;
 

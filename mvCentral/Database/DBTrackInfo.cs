@@ -23,7 +23,7 @@ using Cornerstone.Extensions;
 namespace mvCentral.Database {
     [DBTableAttribute("track_info")]
     public class DBTrackInfo: DBBasicInfo, IComparable, IAttributeOwner {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private static readonly object lockList = new object();
         public DBTrackInfo()
             : base() {

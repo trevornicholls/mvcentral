@@ -26,7 +26,7 @@ namespace mvCentral.LocalMediaManagement {
 
         #region Ctor / Private variables
         
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         private Utility() {
 

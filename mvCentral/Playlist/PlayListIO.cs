@@ -37,7 +37,7 @@ namespace mvCentral.Playlist
 {
     public class PlayListIO : IPlayListIO
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger(); 
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger(); 
         private PlayList playlist;        
         private string basePath;
 

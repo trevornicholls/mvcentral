@@ -36,7 +36,7 @@ namespace mvCentral.Playlist
     [Serializable()]
     public class PlayList : IEnumerable<PlayListItem> //, IComparer
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger(); 
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger(); 
         protected string _playListName = "";
         protected List<PlayListItem> _listPlayListItems = new List<PlayListItem>();
 
