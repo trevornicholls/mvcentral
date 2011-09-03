@@ -38,7 +38,7 @@ using System.Threading;
 namespace mvCentral {
     [PluginIcons("mvCentral.Config.Images.mvCentral_Icon_Enabled.png", "mvCentral.Config.Images.mvCentral_Icon_Disabled.png")]
     public partial class ConfigForm : Form, ISetupForm {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
 
         // Node being dragged
@@ -396,11 +396,13 @@ namespace mvCentral {
             //needs to be here otherwise nlog won't use the richtextbox for logging.
             mvCentralCore.Initialize(this.rtbLog);
 
-
+            logger.Info("Load Paths, Replacements and Expressions");
             LoadPaths();
             LoadReplacements();
             LoadExpressions();
             ReloadList();
+            logger.Info("Compile Parsing and Replacement Expressions");
+            FilenameParser.reLoadExpressions();
 
             if (!DesignMode)
             {
@@ -1033,7 +1035,6 @@ namespace mvCentral {
         #region Test Parsing Handling
         private void btnTestReparse_Click(object sender, EventArgs e)
         {
-            FilenameParser.reLoadExpressions();
             ParserBindingSource.Clear();
             logger.Info("Starting Parsing test, getting all files");
             mvCentralCore.Importer.StartParse();

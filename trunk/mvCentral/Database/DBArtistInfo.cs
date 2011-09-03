@@ -23,7 +23,7 @@ using Cornerstone.Extensions;
 namespace mvCentral.Database {
     [DBTableAttribute("artist_info")]
     public class DBArtistInfo: DBBasicInfo, IComparable, IAttributeOwner {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         
         public DBArtistInfo()
             : base() {

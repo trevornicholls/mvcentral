@@ -12,7 +12,7 @@ using NLog;
 namespace mvCentral.Database {
     [DBTableAttribute("import_path")]
     public class DBImportPath : mvCentralDBTable {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         public DBImportPath()
             : base() {

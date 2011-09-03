@@ -8,7 +8,7 @@ using NLog;
 namespace mvCentral.Database {
     [DBTable("source_musicvideo_info")]
     public class DBSourceMusicVideoInfo: mvCentralDBTable{
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         [DBField]
         public DBSourceInfo Source {

@@ -29,7 +29,7 @@ namespace mvCentral.LocalMediaManagement {
     /// </summary>
     public static class VideoFormatExtensions {
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         /// <summary>
         /// Gets the path 'signature' of this video format.
@@ -253,7 +253,7 @@ namespace mvCentral.LocalMediaManagement {
     /// </summary>
     public static class VideoUtility {
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         /// <summary>
         /// Returns the videoformat that matches the given path

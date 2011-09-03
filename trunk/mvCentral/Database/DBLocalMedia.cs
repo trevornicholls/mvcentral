@@ -13,7 +13,7 @@ namespace mvCentral.Database {
     [DBTableAttribute("local_media")]
     public class DBLocalMedia : mvCentralDBTable {
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         private bool deleting = false;
 

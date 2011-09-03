@@ -41,7 +41,8 @@ namespace mvCentral.GUI
 
     #region Declarations
 
-    private static Logger logger = LogManager.GetCurrentClassLogger();
+    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+
     private mvCentralCore core = mvCentralCore.Instance;
 
     private bool initComplete = false;

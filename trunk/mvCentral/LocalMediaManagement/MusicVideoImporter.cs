@@ -45,7 +45,7 @@ namespace mvCentral.LocalMediaManagement
 
         #region Private Variables
 
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private readonly object syncRoot = new object();
 
         // threads that do actual processing
@@ -188,6 +188,9 @@ namespace mvCentral.LocalMediaManagement
         public void Start() {
 
             lock (syncRoot) {
+
+                //logger.Info("Reload Expressions");
+                //FilenameParser.reLoadExpressions();
 
                 mvCentralCore.OnPowerEvent += new mvCentralCore.PowerEventDelegate(PowerEventHandler);
                 mvCentralCore.DatabaseManager.ObjectDeleted += new DatabaseManager.ObjectAffectedDelegate(DatabaseManager_ObjectDeleted);
@@ -1308,67 +1311,75 @@ namespace mvCentral.LocalMediaManagement
 
         // Monitors the mediaQueue for files imported from the ScanAndMonitorPaths thread. When elements
         // exist, possble matches will be imported and subsequently written to the database.
-        private void ScanMedia() {
-            try {
-                while (true) {
-                    int previousCommittedCount = commitedMatches.Count;
+        private void ScanMedia()
+        {
+          try
+          {
+            while (true)
+            {
+              int previousCommittedCount = commitedMatches.Count;
 
-                    // if there is nothing to process, then sleep
-                    while (pendingMatches.Count == 0 &&
-                           approvedMatches.Count == 0 &&
-                           priorityPendingMatches.Count == 0 &&
-                           priorityApprovedMatches.Count == 0 &&
-                           commitedMatches.Count == previousCommittedCount)
-                        Thread.Sleep(1000);
-
-
-                    // so long as there is media to scan, we don't start processing the approved
-                    // matches. The goal is to get as much for the user to approve, as fast as
-                    // possible.
-                    if (priorityPendingMatches.Count > 0)
-                        ProcessNextPendingMatch();
-                    else if (priorityApprovedMatches.Count > 0)
-                        ProcessNextApprovedMatches();
-                    else if (pendingMatches.Count > 0)
-                        ProcessNextPendingMatch();
-                    else if (approvedMatches.Count > 0)
-                        ProcessNextApprovedMatches();
-
-                    UpdatePercentDone();
-
-                    // if we are now just waiting on the user, say so
-                    if (pendingMatches.Count == 0 && approvedMatches.Count == 0 &&
-                        priorityPendingMatches.Count == 0 && priorityApprovedMatches.Count == 0 &&
-                        matchesNeedingInput.Count > 0) {
-                        if (Progress != null)
-                            Progress(percentDone, 0, matchesNeedingInput.Count, "Waiting for Close Match Approvals...");
-                    }
-
-                    // if we are now just waiting on the user, say so
-                    if (pendingMatches.Count == 0 && approvedMatches.Count == 0 &&
-                        priorityPendingMatches.Count == 0 && priorityApprovedMatches.Count == 0 &&
-                        matchesNeedingInput.Count == 0) {
-
-                        //currentlyProccessing.Clear();
-                        percentDone = 0;
-
-                        if (Progress != null) {
-                            UpdatePercentDone();
-                            if (percentDone == 100)
-                                Progress(100, 0, 0, "Done!");
-                        }
-                    }
+              // if there is nothing to process, then sleep
+              while (pendingMatches.Count == 0 &&
+                     approvedMatches.Count == 0 &&
+                     priorityPendingMatches.Count == 0 &&
+                     priorityApprovedMatches.Count == 0 &&
+                     commitedMatches.Count == previousCommittedCount)
+                Thread.Sleep(1000);
 
 
+              // so long as there is media to scan, we don't start processing the approved
+              // matches. The goal is to get as much for the user to approve, as fast as
+              // possible.
+              if (priorityPendingMatches.Count > 0)
+                ProcessNextPendingMatch();
+              else if (priorityApprovedMatches.Count > 0)
+                ProcessNextApprovedMatches();
+              else if (pendingMatches.Count > 0)
+                ProcessNextPendingMatch();
+              else if (approvedMatches.Count > 0)
+                ProcessNextApprovedMatches();
+
+              UpdatePercentDone();
+
+              // if we are now just waiting on the user, say so
+              if (pendingMatches.Count == 0 && approvedMatches.Count == 0 &&
+                  priorityPendingMatches.Count == 0 && priorityApprovedMatches.Count == 0 &&
+                  matchesNeedingInput.Count > 0)
+              {
+                if (Progress != null)
+                  Progress(percentDone, 0, matchesNeedingInput.Count, "Waiting for Close Match Approvals...");
+              }
+
+              // if we are now just waiting on the user, say so
+              if (pendingMatches.Count == 0 && approvedMatches.Count == 0 &&
+                  priorityPendingMatches.Count == 0 && priorityApprovedMatches.Count == 0 &&
+                  matchesNeedingInput.Count == 0)
+              {
+
+                //currentlyProccessing.Clear();
+                percentDone = 0;
+
+                if (Progress != null)
+                {
+                  UpdatePercentDone();
+                  if (percentDone == 100)
+                    Progress(100, 0, 0, "Done!");
                 }
+              }
+
 
             }
-            catch (ThreadAbortException) {
-                // expected when threads shutdown. disable.
-            }
-            catch (Exception e) {
-                logger.FatalException("Unhandled error in MediaScanner.", e);
-            }
+
+          }
+          catch (ThreadAbortException)
+          {
+            // expected when threads shutdown. disable.
+          }
+          catch (Exception e)
+          {
+            logger.FatalException("Unhandled error in MediaScanner.", e);
+          }
         }
 
         // updates the local variables of the current progress

@@ -23,7 +23,7 @@ using Cornerstone.Extensions;
 namespace mvCentral.Database {
     [DBTableAttribute("basic_info")]
     public class DBBasicInfo: mvCentralDBTable, IComparable, IAttributeOwner {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
         private static readonly object lockList = new object();
 
         // A delegate type for hooking up change notifications.

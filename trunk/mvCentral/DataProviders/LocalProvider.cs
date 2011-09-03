@@ -19,7 +19,7 @@ namespace mvCentral.DataProviders
 {
     public class LocalProvider : IMusicVideoProvider
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
         private DBTrackInfo mv;
 

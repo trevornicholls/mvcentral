@@ -24,7 +24,7 @@ namespace mvCentral.LocalMediaManagement
   {
     #region private vars
 
-    private static Logger logger = LogManager.GetCurrentClassLogger();
+    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
 
     private MediaInfo _mI = null;
 
