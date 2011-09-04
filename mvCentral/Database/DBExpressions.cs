@@ -25,10 +25,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Cornerstone.Extensions;
-//using Cornerstone.Extensions.IO;
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
+using mvCornerstone.Extensions;
+//using mvCornerstone.Extensions.IO;
+using mvCornerstone.Database;
+using mvCornerstone.Database.Tables;
 using MediaPortal.Database;
 
 namespace mvCentral.Database

@@ -10,15 +10,15 @@ using System.Web;
 using System.Net;
 using System.Threading;
 using System.Collections;
-using Cornerstone.Database;
-using Cornerstone.Database.CustomTypes;
-using Cornerstone.Database.Tables;
+using mvCornerstone.Database;
+using mvCornerstone.Database.CustomTypes;
+using mvCornerstone.Database.Tables;
 using mvCentral.LocalMediaManagement;
 using System.Text.RegularExpressions;
-using Cornerstone.Tools.Translate;
+using mvCornerstone.Tools.Translate;
 using System.Runtime.InteropServices;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
-using Cornerstone.Extensions;
+using mvCornerstone.Extensions;
 
 namespace mvCentral.Database {
     [DBTableAttribute("artist_info")]

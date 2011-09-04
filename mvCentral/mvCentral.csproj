@@ -52,9 +52,6 @@
     <Reference Include="Core">
       <HintPath>..\External\mediaportal\V1.1.8\Core.dll</HintPath>
     </Reference>
-    <Reference Include="Cornerstone">
-      <HintPath>..\External\mediaportal\V1.1.8\Cornerstone.dll</HintPath>
-    </Reference>
     <Reference Include="Cornerstone.MP">
       <HintPath>..\External\mediaportal\V1.1.8\Cornerstone.MP.dll</HintPath>
     </Reference>
@@ -69,6 +66,9 @@
     </Reference>
     <Reference Include="MediaPortal.Support">
       <HintPath>..\External\mediaportal\V1.1.8\MediaPortal.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="mvCornerstone">
+      <HintPath>..\External\mvCornerstone.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

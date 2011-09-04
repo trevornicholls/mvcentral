@@ -3,10 +3,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using Cornerstone.GUI.Dialogs;
-using Cornerstone.Tools;
+using mvCornerstone.Database;
+using mvCornerstone.Database.Tables;
+using mvCornerstone.GUI.Dialogs;
+using mvCornerstone.Tools;
 
 using NLog;
 using System.Collections.Generic;

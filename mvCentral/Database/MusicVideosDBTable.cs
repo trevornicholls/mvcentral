@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Cornerstone.Database.Tables;
+using mvCornerstone.Database.Tables;
 
 namespace mvCentral.Database {
     public abstract class mvCentralDBTable: DatabaseTable {

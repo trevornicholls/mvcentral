@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Cornerstone.Tools;
-using Cornerstone.Extensions;
-using Cornerstone.Extensions.IO;
+using mvCornerstone.Tools;
+using mvCornerstone.Extensions;
+using mvCornerstone.Extensions.IO;
 using MediaPortal.Util;
 using NLog;
 
