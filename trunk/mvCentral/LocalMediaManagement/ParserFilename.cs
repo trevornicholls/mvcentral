@@ -175,6 +175,14 @@ namespace mvCentral.LocalMediaManagement
       }
     }
 
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="replacements"></param>
+    /// <param name="runAgainst"></param>
+    /// <returns></returns>
     string RunReplacements(Dictionary<Regex, string> replacements, string runAgainst)
     {
       foreach (var replacement in replacements)
@@ -187,7 +195,10 @@ namespace mvCentral.LocalMediaManagement
       }
       return runAgainst;
     }
-
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="filename"></param>
     public FilenameParser(string filename)
     {
       try

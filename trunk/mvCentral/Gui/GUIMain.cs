@@ -457,8 +457,8 @@ namespace mvCentral.GUI
         GUIListItem item = new GUIListItem();
         item.Label = db1.Artist;
         item.ThumbnailImage = db1.ArtThumbFullPath;
-        item.TVTag = db1.bioContent;
-        item.AlbumInfoTag = db1.bioContent;
+        item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
+        item.AlbumInfoTag = mvCentralUtils.StripHTML(db1.bioContent);
         item.ItemId = (int)db1.ID;
         item.IsFolder = true;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
@@ -546,7 +546,7 @@ namespace mvCentral.GUI
         DateTime dt = new DateTime(tt.Ticks);
         item.Label3 = String.Format("{0:HH:mm:ss}", dt);
         item.ThumbnailImage = db1.ArtThumbFullPath;
-        item.TVTag = db1.bioContent;
+        item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
         selArtist = currArtist.Artist;
         item.Path = db1.LocalMedia[0].File.FullName;
         item.IsFolder = false;
@@ -581,7 +581,7 @@ namespace mvCentral.GUI
         else item.Label2 = "Track entry";
         item.Label3 = db1.PlayTime;
         item.ThumbnailImage = db1.ArtThumbFullPath;
-        item.TVTag = db1.bioContent;
+        item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
         selAlbum = currAlbum.Album;
         item.Path = db1.LocalMedia[0].File.FullName;
         item.IsFolder = false;

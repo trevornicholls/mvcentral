@@ -335,14 +335,14 @@ namespace mvCentral.DataProviders
                             if (childNode1 is XmlCDataSection)
                             {
                                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                               mv.bioSummary = cdataSection.Value;
+                               mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
                             }
                             n1 = root.SelectSingleNode(@"/lfm/artist/bio/content");
                             childNode1 = n1.ChildNodes[0];
                             if (childNode1 is XmlCDataSection)
                             {
                                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                                mv.bioContent = cdataSection.Value;
+                                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
                             }
                         }
 
@@ -404,7 +404,7 @@ namespace mvCentral.DataProviders
                         a1.Artist = value;
                         break;
                     case "profile":
-                        a1.bioContent = value;
+                        a1.bioContent = mvCentralUtils.StripHTML(value);
                         break;
                     case "images":
                         {
@@ -462,7 +462,7 @@ namespace mvCentral.DataProviders
                 Release r2 = new Release(mvNodes[0]);
                 mv.Track = r2.title;
                 mv.MdID = r2.id;
-                mv.bioContent = r2.summary;
+                mv.bioContent = mvCentralUtils.StripHTML(r2.summary);
             }
             else return null;
             return mv;

@@ -127,12 +127,10 @@ namespace mvCentral
       lvtimer.Interval = 200;
       lvtimer.Tick += new EventHandler(lvtimer_Tick);
 
-
-
-
       // if we are in designer, break to prevent errors with rendering, it cant access the DB...
       if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
         return;
+
       mainTab.SelectedIndex = 1;
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
@@ -390,6 +388,7 @@ namespace mvCentral
 
 
     #region Load / Save / Cancel
+
     private void initConfigForm()
     {
       lblProductVersion.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
@@ -415,7 +414,6 @@ namespace mvCentral
         mvCentralCore.Importer.MusicVideoStatusChanged += new MusicVideoImporter.MusicVideoStatusChangedHandler(mvStatusChangedListener);
 
         mvCentralCore.Importer.Start();
-        //            mvCentralCore.Importer.RestartScanner();
       }
       this.unapprovedGrid.AutoGenerateColumns = false;
       this.unapprovedGrid.DataSource = this.unapprovedMatchesBindingSource;
@@ -437,12 +435,6 @@ namespace mvCentral
       {
         // clears the components and stuff
         initConfigForm();
-
-        //                fillGeneralFromSettings();
-        //                fillSitesFromSettings();
-        //                fillTVSeriesFromSettings();
-        //                fillProtocolsFromSettings();
-        //                fillSiteTypesFromSettings();
       }
       finally
       {
@@ -638,7 +630,6 @@ namespace mvCentral
       scMain.Panel2Collapsed = !scMain.Panel2Collapsed;
       //            DBOption.SetOptions(DBOption.cConfig_LogCollapsed, splitMain_Log.Panel2Collapsed);
       log_window_changed();
-
     }
 
     #endregion
@@ -1736,8 +1727,6 @@ namespace mvCentral
     }
 
     #endregion
-
-
 
     #region Import tab
     // Commits new and existing itmes on addition or modification.
