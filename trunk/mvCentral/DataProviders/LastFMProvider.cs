@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
-using Cornerstone.Tools;
+using mvCornerstone.Tools;
 using mvCentral.Database;
 using mvCentral.SignatureBuilders;
 using mvCentral.LocalMediaManagement;

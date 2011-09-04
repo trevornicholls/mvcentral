@@ -6,14 +6,14 @@ using System.Text.RegularExpressions;
 using mvCentral.Database;
 using NLog;
 using System.Net;
-using Cornerstone.Database;
+using mvCornerstone.Database;
 using System.Web;
 using mvCentral.LocalMediaManagement;
 using mvCentral.SignatureBuilders;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
-using Cornerstone.Extensions;
+using mvCornerstone.Extensions;
 
 namespace mvCentral.DataProviders
 {

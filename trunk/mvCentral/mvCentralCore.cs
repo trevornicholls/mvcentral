@@ -6,10 +6,10 @@ using System.Reflection;
 using System.Windows.Forms;
 
 
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using Cornerstone.GUI.Dialogs;
-using Cornerstone.Tools;
+using mvCornerstone.Database;
+using mvCornerstone.Database.Tables;
+using mvCornerstone.GUI.Dialogs;
+using mvCornerstone.Tools;
 
 
 using NLog;
@@ -257,16 +257,12 @@ namespace mvCentral
 
       // set the logging rules for Music Videos logging
       LoggingRule mvRule = new LoggingRule("mvCentral.*", logLevel, mvLogTarget);
-      //LoggingRule cornerstoneRule = new LoggingRule("Cornerstone.*", logLevel, mvLogTarget);
-      //LogManager.Configuration.LoggingRules.Add(mvRule);
-      //LogManager.Configuration.LoggingRules.Add(cornerstoneRule);
+      LoggingRule mvCornerstoneRule = new LoggingRule("mvCornerstone.*", logLevel, mvLogTarget);
 
       MyLogManager.Instance.Configuration.LoggingRules.Add(mvRule);
-      //MyLogManager.Instance.Configuration.LoggingRules.Add(cornerstoneRule);
-
+      MyLogManager.Instance.Configuration.LoggingRules.Add(mvCornerstoneRule);
 
       // force NLog to reload the configuration data
-      //LogManager.Configuration = LogManager.Configuration;
       MyLogManager.Instance.Configuration = MyLogManager.Instance.Configuration;
       
     }

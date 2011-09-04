@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
-using Cornerstone.Extensions.IO;
+using mvCornerstone.Extensions.IO;
 using MediaPortal.GUI.Library;
 using MediaPortal.Player;
 using System.IO;

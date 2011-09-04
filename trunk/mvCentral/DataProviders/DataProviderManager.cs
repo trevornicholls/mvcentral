@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using mvCentral.Database;
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
+using mvCornerstone.Database;
+using mvCornerstone.Database.Tables;
 using mvCentral.Properties;
 using System.Reflection;
 using mvCentral.LocalMediaManagement;
@@ -11,7 +11,7 @@ using mvCentral.SignatureBuilders;
 using System.Collections.ObjectModel;
 using NLog;
 using System.IO;
-using Cornerstone.Tools.Translate;
+using mvCornerstone.Tools.Translate;
 using System.Globalization;
 using System.Threading;
 

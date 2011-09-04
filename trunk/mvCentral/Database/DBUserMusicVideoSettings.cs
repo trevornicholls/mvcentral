@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Cornerstone.Database;
-using Cornerstone.Database.CustomTypes;
-using Cornerstone.Database.Tables;
+using mvCornerstone.Database;
+using mvCornerstone.Database.CustomTypes;
+using mvCornerstone.Database.Tables;
 
 namespace mvCentral.Database {
     [DBTableAttribute("user_musicvideo_settings")]

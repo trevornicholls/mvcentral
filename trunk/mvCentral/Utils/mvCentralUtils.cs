@@ -18,7 +18,7 @@ using mvCentral.LocalMediaManagement;
 //using dlCentral.PluginHandlers;
 //using dlCentral.Settings;
 //using dlCentral.Settings.Data;
-using Cornerstone.Tools;
+using mvCornerstone.Tools;
 using MediaPortal.GUI.Library;
 using MediaPortal.Util;
 using MediaPortal.Ripper;

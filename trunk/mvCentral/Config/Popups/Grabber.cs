@@ -13,7 +13,7 @@ using NLog;
 
 using System.Runtime.InteropServices;
 
-using Cornerstone.Extensions;
+using mvCornerstone.Extensions;
 
 using DirectShowLib;
 using DirectShowLib.Dvd;
