@@ -502,14 +502,14 @@ namespace mvCentral.DataProviders
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = cdataSection.Value;
+                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
               }
               n1 = root.SelectSingleNode(@"/lfm/artist/bio/content");
               childNode1 = n1.ChildNodes[0];
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = cdataSection.Value;
+                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
               }
             }
 
@@ -581,14 +581,14 @@ namespace mvCentral.DataProviders
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = cdataSection.Value;
+                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
               }
               n1 = root.SelectSingleNode(@"/lfm/album/wiki/content");
               childNode1 = n1.ChildNodes[0];
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = cdataSection.Value;
+                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
               }
             }
 
@@ -647,14 +647,14 @@ namespace mvCentral.DataProviders
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = cdataSection.Value;
+                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
               }
               n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
               childNode1 = n1.ChildNodes[0];
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = cdataSection.Value;
+                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
               }
             }
 
@@ -741,14 +741,14 @@ namespace mvCentral.DataProviders
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = cdataSection.Value;
+                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
               }
               n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
               childNode1 = n1.ChildNodes[0];
               if (childNode1 is XmlCDataSection)
               {
                 XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = cdataSection.Value;
+                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
               }
             }
 
