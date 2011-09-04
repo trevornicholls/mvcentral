@@ -215,8 +215,8 @@ namespace mvCentral
       catch (Exception) { }
 
       // if no configuration exists go ahead and create one
-      //if (LogManager.Configuration == null) LogManager.Configuration = new LoggingConfiguration();
-      if (MyLogManager.Instance.Configuration == null) MyLogManager.Instance.Configuration = new LoggingConfiguration();
+      if (MyLogManager.Instance.Configuration == null) 
+        MyLogManager.Instance.Configuration = new LoggingConfiguration();
 
       // build the logging target for music videos logging
       FileTarget mvLogTarget = new FileTarget();
@@ -227,7 +227,6 @@ namespace mvCentral
                           "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
                           "${exception:format=tostring}";
 
-      //LogManager.Configuration.AddTarget("mvCentral", mvLogTarget);
       MyLogManager.Instance.Configuration.AddTarget("mvCentral", mvLogTarget);
 
       // Get current Log Level from MediaPortal 
@@ -254,6 +253,23 @@ namespace mvCentral
       logLevel = LogLevel.Debug;
 #endif
 
+
+      if (rtb != null)
+      {
+        // Step 2. Create targets for ritch text box and add them to the configuration 
+        RichTextBoxTarget logTarget = new RichTextBoxTarget();
+        logTarget.Name = "rtb-log";
+        logTarget.ControlName = rtb.Name;
+        logTarget.FormName = rtb.FindForm().Name;
+        logTarget.Layout = "${date:format=dd-MMM-yyyy HH\\:mm\\:ss} " +
+                            "${level:fixedLength=true:padding=5} " +
+                            "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
+                            "${exception:format=tostring}";
+        MyLogManager.Instance.Configuration.AddTarget("rtblog", logTarget);
+        // set the logging rules for music videos logging into rich text box
+        LoggingRule rtbLogRule = new LoggingRule("*", logLevel, logTarget);
+        MyLogManager.Instance.Configuration.LoggingRules.Add(rtbLogRule);
+      }
 
       // set the logging rules for Music Videos logging
       LoggingRule mvRule = new LoggingRule("mvCentral.*", logLevel, mvLogTarget);
