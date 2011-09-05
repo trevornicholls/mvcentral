@@ -122,7 +122,7 @@ namespace mvCentral.Database
           //            add(true, DBExpression.cType_Simple,@"<series>\Season <season>\Episode <episode> - <title>.<ext>");
           //add(true, DBExpression.cType_Simple, @"<artist> - <track>");
 
-          add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\$]*) - (?<track>[^\\$]*)\.(?<ext>[^.]*)"); 
+          add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\$]*)\s*-\s*(?<track>[^\\$]*)\.(?<ext>[^.]*)"); 
           add(true, DBExpression.cType_Simple, @"\<artist> - <track>.<ext>");
           add(true, DBExpression.cType_Simple, @"\<artist>\<track>.<ext>");
           add(true, DBExpression.cType_Simple, @"\<album>\<artist> - <track>.<ext>");
