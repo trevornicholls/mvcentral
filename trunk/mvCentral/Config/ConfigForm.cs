@@ -70,6 +70,8 @@ namespace mvCentral
     //        private int PrevSiteIndex = -1;
     //private bool loaded = false;
 
+    loadingDisplay load = null;
+
     // parser  
 
     Stack parsedStack = new Stack();
@@ -396,17 +398,25 @@ namespace mvCentral
 
     private void ConfigForm_Load(object sender, EventArgs e)
     {
+      load = new loadingDisplay();
 
+ 
       //needs to be here otherwise nlog won't use the richtextbox for logging.
       mvCentralCore.Initialize(this.rtbLog);
 
-      logger.Info("Load Paths, Replacements and Expressions");
+
+      logger.Info("Load Paths, Replacements and Expressions and the Library");
       LoadPaths();
       LoadReplacements();
       LoadExpressions();
+      //Load the library
       ReloadList();
       logger.Info("Compile Parsing and Replacement Expressions");
       FilenameParser.reLoadExpressions();
+
+      load.updateStats(DBArtistInfo.GetAll().Count, DBTrackInfo.GetAll().Count);
+      // Hang about for second
+      Thread.Sleep(1000);
 
       if (!DesignMode)
       {
@@ -1264,12 +1274,6 @@ namespace mvCentral
           trackItem.ToolTipText = "This musicvideo is currently offline.";
         }
       }
-
-      // add to list
-      //            lock (lockList)
-      //            {
-      //                listItems[movie] = newItem;
-      //            }
     }
 
 

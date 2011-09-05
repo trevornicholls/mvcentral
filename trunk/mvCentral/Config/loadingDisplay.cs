@@ -47,20 +47,18 @@ namespace mvCentral
 
         void ShowWaiting()
         {
-//            this.series.Text = "0 " + Translation.Series_Plural;
-//            this.season.Text = "0 " + Translation.Seasons;
-//            this.episodes.Text = "0 " + Translation.Episodes;
-//            this.version.Text = Settings.Version.ToString();
+            this.artists.Text = "0 " + Localizations.Localization.GetByName("Artists");
+            this.videos.Text = "0 " + Localizations.Localization.GetByName("Videos");
+            this.version.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             this.Show();
             this.Refresh();
         }
 
-        public void updateStats(int series, int seasons, int episodes)
+        public void updateStats(int artists, int videos)
         {
-//            this.series.Text = series.ToString() + " " + Translation.Series_Plural;
-//            this.season.Text = seasons.ToString() + " " + Translation.Seasons;
-//            this.episodes.Text = episodes.ToString() + " " + Translation.Episodes;
-            this.Refresh();
+          this.artists.Text = artists.ToString() + " " + Localizations.Localization.GetByName("Artists");
+          this.videos.Text = videos.ToString() + " " + Localizations.Localization.GetByName("Vidoes");
+          this.Refresh();
         }
 
     }
