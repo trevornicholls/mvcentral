@@ -146,12 +146,16 @@ namespace mvCentral.Database
       add(true, false, false, false, ".", @"<space>");
       add(true, false, false, false, "_", @"<space>");
       add(true, false, false, false, "-<space>", @"<empty>");
-      add(true, true, true, true, "\\s*\\(.*?\\)\\s*", @"<empty>");
-      add(true, true, true, true, "\\s*\\[.*?\\]\\s*", @"<empty>");
+
+      //add(true, true, true, true, @"\s*\(.*?\)\s*", @"<empty>");
+      //add(true, true, true, true, @"\s*\[.*?\]\s*", @"<empty>");
+      add(true, true, true, true, @"\s*[\(\[].*?[\]\)]\s*", @"<empty>");
+
       add(true, true, true, false, "&", "and");
       add(true, true, true, false, "1080i", @"<empty>");
       add(true, true, true, false, "1080p", @"<empty>");
       add(true, true, true, false, "HDTV", @"<empty>");
+      add(true, true, true, false, "HD", @"<empty>");
     }
 
 
