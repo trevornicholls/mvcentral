@@ -71,7 +71,7 @@ namespace mvCentral.LocalMediaManagement
     }
 
     /// <summary>
-    /// Loads and compile Parsing Expressions and also String Replacements
+    /// Loads and compile Parsing Expressions and String Replacements
     /// </summary>
     /// <returns></returns>
     public static bool reLoadExpressions()
