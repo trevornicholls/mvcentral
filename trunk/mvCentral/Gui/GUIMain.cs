@@ -52,7 +52,7 @@ namespace mvCentral.GUI
     Dictionary<string, bool> loggedProperties;
     private readonly object propertySync = new object();
 
-    private string lastTrack = "";
+    //private string lastTrack = "";
 
     GUImvPlayList Player = new GUImvPlayList();
       
@@ -208,7 +208,7 @@ namespace mvCentral.GUI
             facade.SelectedListItemIndex = message.Param2;
             return true;
           }
-          break;
+          //break;
       }
       return base.OnMessage(message);
     }

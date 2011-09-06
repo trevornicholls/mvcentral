@@ -989,7 +989,7 @@ namespace mvCentral.Playlist
                 // If the file is an image file, it should be mounted before playing
                 string filename = playlist[0].FileName;
                 if (mvCentralUtils.IsImageFile(filename)) {
-                    if (!GUIVideoFiles.MountImageFile(GUIWindowManager.ActiveWindow, filename)) {
+                    if (!GUIVideoFiles.MountImageFile(GUIWindowManager.ActiveWindow, filename)) {  
                         return;
                     }
                 }
