@@ -63,12 +63,6 @@ namespace mvCentral
     private readonly object lockList = new object();
     private delegate void InvokeDelegate();
 
-    //        DatabaseManager dm = mvCentralCore.DatabaseManager;
-    //        private SettingsSites RTSites = new SettingsSites();
-    //        private SettingsTVSeries RTTVSeries = new SettingsTVSeries();
-    //        private AddConfigForm asf = new AddConfigForm();
-    //        private int PrevSiteIndex = -1;
-    //private bool loaded = false;
 
     loadingDisplay load = null;
 
@@ -78,11 +72,6 @@ namespace mvCentral
     public string extensions;
     delegate void SetDGVCallback(string shortFilename, string Artist, string Title, string longFilename);
     delegate void ClearDGVCallback();
-
-    //mainpanel
-    //        SQLiteResultSet rs;
-
-
 
 
     //import tab
@@ -95,30 +84,31 @@ namespace mvCentral
     {
       get
       {
-        if (tvLibrary.Nodes.Count == 0 || tvLibrary.SelectedNode == null || tvLibrary.SelectedNode.Level != 0)
+        if (mvLibraryTreeView.Nodes.Count == 0 || mvLibraryTreeView.SelectedNode == null || mvLibraryTreeView.SelectedNode.Level != 0)
           return null;
 
-        return (DBArtistInfo)tvLibrary.SelectedNode.Tag;
+        return (DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag;
       }
     }
+
     public DBAlbumInfo CurrentAlbum
     {
       get
       {
-        if (tvLibrary.Nodes.Count == 0 || tvLibrary.SelectedNode == null || tvLibrary.SelectedNode.Level != 1)
+        if (mvLibraryTreeView.Nodes.Count == 0 || mvLibraryTreeView.SelectedNode == null || mvLibraryTreeView.SelectedNode.Level != 1)
           return null;
 
-        return (DBAlbumInfo)tvLibrary.SelectedNode.Tag;
+        return (DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag;
       }
     }
     public DBTrackInfo CurrentTrack
     {
       get
       {
-        if (tvLibrary.Nodes.Count == 0 || tvLibrary.SelectedNode == null || tvLibrary.SelectedNode.Level == 0)
+        if (mvLibraryTreeView.Nodes.Count == 0 || mvLibraryTreeView.SelectedNode == null || mvLibraryTreeView.SelectedNode.Level == 0)
           return null;
 
-        return (DBTrackInfo)tvLibrary.SelectedNode.Tag;
+        return (DBTrackInfo)mvLibraryTreeView.SelectedNode.Tag;
       }
     }
 
@@ -133,7 +123,7 @@ namespace mvCentral
       if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
         return;
 
-      mainTab.SelectedIndex = 1;
+      mainTab.SelectedIndex = 0;
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
@@ -423,7 +413,7 @@ namespace mvCentral
         mvCentralCore.Importer.Progress += new MusicVideoImporter.ImportProgressHandler(progressListener);
         mvCentralCore.Importer.MusicVideoStatusChanged += new MusicVideoImporter.MusicVideoStatusChangedHandler(mvStatusChangedListener);
 
-        mvCentralCore.Importer.Start();
+        //mvCentralCore.Importer.Start();
       }
       this.unapprovedGrid.AutoGenerateColumns = false;
       this.unapprovedGrid.DataSource = this.unapprovedMatchesBindingSource;
@@ -1166,8 +1156,8 @@ namespace mvCentral
     public void ReloadList()
     {
       // turn off redraws temporarily and clear the list
-      tvLibrary.BeginUpdate();
-      tvLibrary.Nodes.Clear();
+      mvLibraryTreeView.BeginUpdate();
+      mvLibraryTreeView.Nodes.Clear();
       splitContainer3.Panel2Collapsed = true;
 
       lock (lockList)
@@ -1175,14 +1165,14 @@ namespace mvCentral
         foreach (DBTrackInfo currmv in DBTrackInfo.GetAll())
           addMusicVideo(currmv);
       }
-      tvLibrary.EndUpdate();
+      mvLibraryTreeView.EndUpdate();
 
-      if (tvLibrary.Nodes.Count > 0)
+      if (mvLibraryTreeView.Nodes.Count > 0)
       {
         splitContainer3.Panel2Collapsed = false;
-        tvLibrary.SelectedNode = tvLibrary.TopNode;
+        mvLibraryTreeView.SelectedNode = mvLibraryTreeView.TopNode;
       }
-      tvLibrary.Sort();
+      mvLibraryTreeView.Sort();
     }
 
     // adds the given musicvideo and it's related files to the tree view
@@ -1192,7 +1182,7 @@ namespace mvCentral
       TreeNode albumItem = null;
       bool ArtistNodeExist = true;
       bool AlbumNodeExist = true;
-      foreach (TreeNode t1 in tvLibrary.Nodes)
+      foreach (TreeNode t1 in mvLibraryTreeView.Nodes)
       {
         if (t1.Level == 0)
         {
@@ -1217,7 +1207,7 @@ namespace mvCentral
 
       if (mv.AlbumInfo.Count > 0)
       {
-        foreach (TreeNode t1 in tvLibrary.Nodes)
+        foreach (TreeNode t1 in mvLibraryTreeView.Nodes)
           foreach (TreeNode t2 in t1.Nodes)
           {
             if (t2.Level == 1)
@@ -1262,7 +1252,7 @@ namespace mvCentral
 
       if (!AlbumNodeExist) artistItem.Nodes.Add(albumItem);
 
-      if (!ArtistNodeExist) tvLibrary.Nodes.Add(artistItem);
+      if (!ArtistNodeExist) mvLibraryTreeView.Nodes.Add(artistItem);
 
 
       // if the movie is offline color it red
@@ -1282,11 +1272,11 @@ namespace mvCentral
 
       // Get drag node and select it
       this.dragNode = (TreeNode)e.Item;
-      this.tvLibrary.SelectedNode = this.dragNode;
+      this.mvLibraryTreeView.SelectedNode = this.dragNode;
       //            if (this.dragNode.Tag.GetType() == typeof(DBArtistInfo)) return;
       // Reset image list used for drag image
       this.imageListDrag.Images.Clear();
-      int maximagesizeWidth = this.dragNode.Bounds.Size.Width + this.tvLibrary.Indent;
+      int maximagesizeWidth = this.dragNode.Bounds.Size.Width + this.mvLibraryTreeView.Indent;
       if (maximagesizeWidth > 256) maximagesizeWidth = 256;
       this.imageListDrag.ImageSize = new Size(maximagesizeWidth, this.dragNode.Bounds.Height);
 
@@ -1302,25 +1292,25 @@ namespace mvCentral
 
       // Draw node label into bitmap
       gfx.DrawString(this.dragNode.Text,
-          this.tvLibrary.Font,
-          new SolidBrush(this.tvLibrary.ForeColor),
-          (float)this.tvLibrary.Indent, 1.0f);
+          this.mvLibraryTreeView.Font,
+          new SolidBrush(this.mvLibraryTreeView.ForeColor),
+          (float)this.mvLibraryTreeView.Indent, 1.0f);
 
       // Add bitmap to imagelist
       this.imageListDrag.Images.Add(bmp);
 
       // Get mouse position in client coordinates
-      Point p = this.tvLibrary.PointToClient(Control.MousePosition);
+      Point p = this.mvLibraryTreeView.PointToClient(Control.MousePosition);
 
       // Compute delta between mouse position and node bounds
-      int dx = p.X + this.tvLibrary.Indent - this.dragNode.Bounds.Left;
+      int dx = p.X + this.mvLibraryTreeView.Indent - this.dragNode.Bounds.Left;
       int dy = p.Y - this.dragNode.Bounds.Top;
 
       // Begin dragging image
       if (DragHelper.ImageList_BeginDrag(this.imageListDrag.Handle, 0, dx, dy))
       {
         // Begin dragging
-        this.tvLibrary.DoDragDrop(bmp, DragDropEffects.Move);
+        this.mvLibraryTreeView.DoDragDrop(bmp, DragDropEffects.Move);
         // End dragging image
         DragHelper.ImageList_EndDrag();
       }
@@ -1332,10 +1322,10 @@ namespace mvCentral
 
       // Compute drag position and move image
       Point formP = this.PointToClient(new Point(e.X, e.Y));
-      DragHelper.ImageList_DragMove(formP.X - this.tvLibrary.Left, formP.Y - this.tvLibrary.Top);
+      DragHelper.ImageList_DragMove(formP.X - this.mvLibraryTreeView.Left, formP.Y - this.mvLibraryTreeView.Top);
 
       // Get actual drop node
-      TreeNode dropNode = this.tvLibrary.GetNodeAt(this.tvLibrary.PointToClient(new Point(e.X, e.Y)));
+      TreeNode dropNode = this.mvLibraryTreeView.GetNodeAt(this.mvLibraryTreeView.PointToClient(new Point(e.X, e.Y)));
       if (dropNode == null)
       {
         e.Effect = DragDropEffects.None;
@@ -1348,8 +1338,8 @@ namespace mvCentral
       if (this.tempDropNode != dropNode)
       {
         DragHelper.ImageList_DragShowNolock(false);
-        this.tvLibrary.SelectedNode = dropNode;
-        this.tvLibrary.Focus();
+        this.mvLibraryTreeView.SelectedNode = dropNode;
+        this.mvLibraryTreeView.Focus();
         DragHelper.ImageList_DragShowNolock(true);
         tempDropNode = dropNode;
       }
@@ -1390,9 +1380,9 @@ namespace mvCentral
     private void tvLibrary_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
     {
       // Unlock updates
-      DragHelper.ImageList_DragLeave(this.tvLibrary.Handle);
+      DragHelper.ImageList_DragLeave(this.mvLibraryTreeView.Handle);
       // Get drop node
-      TreeNode dropNode = this.tvLibrary.GetNodeAt(this.tvLibrary.PointToClient(new Point(e.X, e.Y)));
+      TreeNode dropNode = this.mvLibraryTreeView.GetNodeAt(this.mvLibraryTreeView.PointToClient(new Point(e.X, e.Y)));
 
       // If drop node isn't equal to drag node, add drag node as child of drop node
       if (this.dragNode != dropNode)
@@ -1400,7 +1390,7 @@ namespace mvCentral
         // Remove drag node from parent
         if (this.dragNode.Parent == null)
         {
-          this.tvLibrary.Nodes.Remove(this.dragNode);
+          this.mvLibraryTreeView.Nodes.Remove(this.dragNode);
         }
         else
         {
@@ -1415,19 +1405,19 @@ namespace mvCentral
         this.dragNode = null;
 
         // remove orphaned nodes
-        foreach (TreeNode t1 in tvLibrary.Nodes)
+        foreach (TreeNode t1 in mvLibraryTreeView.Nodes)
         {
           foreach (TreeNode t2 in t1.Nodes)
           {
             if (t2.Tag.GetType() == typeof(DBTrackInfo)) continue;
             if (t2.FirstNode == null)
             {
-              this.tvLibrary.Nodes.Remove(t2);
+              this.mvLibraryTreeView.Nodes.Remove(t2);
             }
           }
           if (t1.FirstNode == null)
           {
-            this.tvLibrary.Nodes.Remove(t1);
+            this.mvLibraryTreeView.Nodes.Remove(t1);
           }
 
         }
@@ -1446,7 +1436,7 @@ namespace mvCentral
         processNode(subnode);
         if (subnode.Tag.GetType() == typeof(DBAlbumInfo))
         {
-          if (subnode.Nodes.Count == 0) this.tvLibrary.Nodes.Remove(subnode);
+          if (subnode.Nodes.Count == 0) this.mvLibraryTreeView.Nodes.Remove(subnode);
         }
 
       }
@@ -1454,8 +1444,8 @@ namespace mvCentral
 
     private void tvLibrary_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
     {
-      DragHelper.ImageList_DragEnter(this.tvLibrary.Handle, e.X - this.tvLibrary.Left,
-          e.Y - this.tvLibrary.Top);
+      DragHelper.ImageList_DragEnter(this.mvLibraryTreeView.Handle, e.X - this.mvLibraryTreeView.Left,
+          e.Y - this.mvLibraryTreeView.Top);
 
       // Enable timer for scrolling dragged item
       _dragStarted = true;
@@ -1464,13 +1454,13 @@ namespace mvCentral
 
     private void tvLibrary_DragLeave(object sender, System.EventArgs e)
     {
-      DragHelper.ImageList_DragLeave(this.tvLibrary.Handle);
+      DragHelper.ImageList_DragLeave(this.mvLibraryTreeView.Handle);
       _dragStarted = false;
       // Disable timer for scrolling dragged item
       this.lvtimer.Enabled = false;
-      TreeNode tr = tvLibrary.SelectedNode;
-      tvLibrary.SelectedNode = null;
-      tvLibrary.SelectedNode = tr;
+      TreeNode tr = mvLibraryTreeView.SelectedNode;
+      mvLibraryTreeView.SelectedNode = null;
+      mvLibraryTreeView.SelectedNode = tr;
 
     }
 
@@ -1480,7 +1470,7 @@ namespace mvCentral
       {
         // Show pointer cursor while dragging
         e.UseDefaultCursors = false;
-        this.tvLibrary.Cursor = Cursors.Default;
+        this.mvLibraryTreeView.Cursor = Cursors.Default;
       }
       else e.UseDefaultCursors = true;
 
@@ -1489,8 +1479,8 @@ namespace mvCentral
     private void lvtimer_Tick(object sender, EventArgs e)
     {
       // get node at mouse position
-      Point pt = tvLibrary.PointToClient(Control.MousePosition);
-      TreeNode node = this.tvLibrary.GetNodeAt(pt);
+      Point pt = mvLibraryTreeView.PointToClient(Control.MousePosition);
+      TreeNode node = this.mvLibraryTreeView.GetNodeAt(pt);
 
       if (node == null) return;
 
@@ -1506,14 +1496,14 @@ namespace mvCentral
           DragHelper.ImageList_DragShowNolock(false);
           // scroll and refresh
           node.EnsureVisible();
-          this.tvLibrary.Refresh();
+          this.mvLibraryTreeView.Refresh();
           // show drag image
           DragHelper.ImageList_DragShowNolock(true);
 
         }
       }
       // if mouse is near to the bottom, scroll down
-      else if (pt.Y > this.tvLibrary.Size.Height - 30)
+      else if (pt.Y > this.mvLibraryTreeView.Size.Height - 30)
       {
         if (node.NextVisibleNode != null)
         {
@@ -1521,7 +1511,7 @@ namespace mvCentral
 
           DragHelper.ImageList_DragShowNolock(false);
           node.EnsureVisible();
-          this.tvLibrary.Refresh();
+          this.mvLibraryTreeView.Refresh();
           DragHelper.ImageList_DragShowNolock(true);
         }
       }
@@ -1609,7 +1599,7 @@ namespace mvCentral
       }
 
 
-      tvLibrary.SelectedNode.Text = (sender as DBBasicInfo).Basic;
+      mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
     }
 
     #endregion
@@ -2859,7 +2849,7 @@ namespace mvCentral
     private void tsmRemove_Click(object sender, EventArgs e)
     {
       CurrentTrack.DeleteAndIgnore();
-      tvLibrary.SelectedNode.Remove();
+      mvLibraryTreeView.SelectedNode.Remove();
     }
 
     private void tsmGetInfo_Click(object sender, EventArgs e)
@@ -2912,5 +2902,6 @@ namespace mvCentral
         thread.Start();
       }
     }
+
   }
 }

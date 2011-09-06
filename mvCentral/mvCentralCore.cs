@@ -481,7 +481,7 @@ namespace mvCentral
       initActions.Add(newAction);
 
       newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyMusicVideoInformation);
-      actionDescriptions.Add(newAction, "Updating Movie Information...");
+      actionDescriptions.Add(newAction, "Updating Music Video Information...");
       initActions.Add(newAction);
 
       //            newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyFilterMenu);

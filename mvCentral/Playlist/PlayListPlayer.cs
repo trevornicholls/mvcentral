@@ -43,7 +43,6 @@ using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using MediaPortal.Configuration;
-using MediaPortal.GUI.Library;
 
 using mvCentral.Database;
 using mvCentral.ROT;
