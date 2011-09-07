@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using mvCornerstone.Database.Tables;
-using mvCornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.Database;
 
 namespace mvCentral.Database
 {

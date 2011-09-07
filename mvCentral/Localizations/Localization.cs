@@ -16,7 +16,7 @@ using NLog;
  
 namespace mvCentral.Localizations {
     public static class Localization {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         #region Private variables
         private static Dictionary<string, string> _translations;

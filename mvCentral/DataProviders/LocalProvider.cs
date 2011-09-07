@@ -6,20 +6,20 @@ using System.Text.RegularExpressions;
 using mvCentral.Database;
 using NLog;
 using System.Net;
-using mvCornerstone.Database;
+using Cornerstone.Database;
 using System.Web;
 using mvCentral.LocalMediaManagement;
 using mvCentral.SignatureBuilders;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 
 namespace mvCentral.DataProviders
 {
     public class LocalProvider : IMusicVideoProvider
     {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private DBTrackInfo mv;
 

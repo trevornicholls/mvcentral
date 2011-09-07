@@ -3,10 +3,10 @@ using System.Windows.Forms;
 using System.IO;
 using System.Threading;
 
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
-using mvCornerstone.GUI.Dialogs;
-using mvCornerstone.Tools;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.GUI.Dialogs;
+using Cornerstone.Tools;
 
 using NLog;
 using System.Collections.Generic;
@@ -41,7 +41,7 @@ namespace mvCentral.GUI
 
     #region Declarations
 
-    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+    private static Logger logger = LogManager.GetCurrentClassLogger();
 
     private mvCentralCore core = mvCentralCore.Instance;
 

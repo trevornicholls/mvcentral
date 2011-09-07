@@ -25,10 +25,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using mvCornerstone.Extensions;
-//using mvCornerstone.Extensions.IO;
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Extensions;
+//using Cornerstone.Extensions.IO;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
 using MediaPortal.Database;
 
 namespace mvCentral.Database
@@ -121,7 +121,7 @@ namespace mvCentral.Database
           //            add(true, DBExpression.cType_Simple,@"<series> - <season>x<episode> - <title>.<ext>");
           //            add(true, DBExpression.cType_Simple,@"<series>\Season <season>\Episode <episode> - <title>.<ext>");
           //add(true, DBExpression.cType_Simple, @"<artist> - <track>");
-
+          add(true, DBExpression.cType_Regexp, @"^(?:.*\\)?(?:(?:[~([{]+.+?[}\])~]+\s*)?(?<artist>.*?)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?:[\s-:;]{2,}|\-)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?<track>(?:[.\s]Live[.\s])?.*?)[.\s]*(?:\d+[ip][.\s].+?)?(?:@.+?)?(?:\sHD.+)?(?:[~([{]+.+?[}\])~]+\s*)?)\.(?<ext>.{3,5})$");
           add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\$]*)\s*-\s*(?<track>[^\\$]*)\.(?<ext>[^.]*)"); 
           add(true, DBExpression.cType_Simple, @"\<artist> - <track>.<ext>");
           add(true, DBExpression.cType_Simple, @"\<artist>\<track>.<ext>");

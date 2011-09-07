@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using mvCornerstone.Database.Tables;
-using mvCornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.Database;
 using NLog;
 
 namespace mvCentral.Database {
     [DBTable("source_musicvideo_info")]
     public class DBSourceMusicVideoInfo: mvCentralDBTable{
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         [DBField]
         public DBSourceInfo Source {

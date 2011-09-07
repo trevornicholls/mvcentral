@@ -13,7 +13,7 @@ using NLog;
 
 using System.Runtime.InteropServices;
 
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 
 using DirectShowLib;
 using DirectShowLib.Dvd;
@@ -46,7 +46,7 @@ namespace mvCentral.ConfigScreen.Popups {
             Stopped
         }
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary> current state of playback (playing/paused/...) </summary>
         protected PlayState _state;

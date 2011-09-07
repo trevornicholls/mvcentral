@@ -27,10 +27,10 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite.NET;
 using MediaPortal.Database;
-using mvCornerstone.Extensions;
-//using mvCornerstone.Extensions.IO;
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Extensions;
+//using Cornerstone.Extensions.IO;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
 
 
 namespace mvCentral.Database

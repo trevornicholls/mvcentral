@@ -6,20 +6,20 @@ using System.Text.RegularExpressions;
 using mvCentral.Database;
 using NLog;
 using System.Net;
-using mvCornerstone.Database;
+using Cornerstone.Database;
 using System.Web;
 using mvCentral.LocalMediaManagement;
 using mvCentral.SignatureBuilders;
 using System.Reflection;
 using System.Threading;
 using System.Globalization;
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 
 namespace mvCentral.DataProviders
 {
     public class ManualProvider : IMusicVideoProvider
     {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         // we should be using the MusicVideo object but we have to assign it before locking which 
         // is not good if the thread gets interupted after the asssignment, but before it gets 

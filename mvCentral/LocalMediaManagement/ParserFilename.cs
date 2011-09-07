@@ -32,7 +32,7 @@ namespace mvCentral.LocalMediaManagement
 {
   public class FilenameParser
   {
-    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+    private static Logger logger = LogManager.GetCurrentClassLogger();
     private string m_Filename = string.Empty;
     private string m_FileNameAfterReplacement = string.Empty;
     private Dictionary<string, string> m_Matches = new Dictionary<string, string>();

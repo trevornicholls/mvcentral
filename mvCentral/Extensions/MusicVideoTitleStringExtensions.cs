@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 
 namespace mvCentral.Extensions {
 

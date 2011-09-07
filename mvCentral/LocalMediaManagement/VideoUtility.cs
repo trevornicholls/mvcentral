@@ -5,8 +5,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using DirectShowLib;
 using DirectShowLib.Dvd;
-using mvCornerstone.Extensions;
-using mvCornerstone.Extensions.IO;
+using Cornerstone.Extensions;
+using Cornerstone.Extensions.IO;
 using NLog;
 
 namespace mvCentral.LocalMediaManagement {
@@ -29,7 +29,7 @@ namespace mvCentral.LocalMediaManagement {
     /// </summary>
     public static class VideoFormatExtensions {
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Gets the path 'signature' of this video format.
@@ -253,7 +253,7 @@ namespace mvCentral.LocalMediaManagement {
     /// </summary>
     public static class VideoUtility {
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Returns the videoformat that matches the given path

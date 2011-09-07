@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using mvCornerstone.Tools;
+using Cornerstone.Tools;
 using mvCentral.Database;
 using mvCentral.Extensions;
 using mvCentral.LocalMediaManagement;
@@ -20,7 +20,7 @@ namespace mvCentral.SignatureBuilders
 
         #region Private Variables
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private string baseTitle = null;
 
         #endregion

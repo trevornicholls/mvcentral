@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using mvCentral.Database;
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
 using mvCentral.Properties;
 using System.Reflection;
 using mvCentral.LocalMediaManagement;
@@ -11,7 +11,7 @@ using mvCentral.SignatureBuilders;
 using System.Collections.ObjectModel;
 using NLog;
 using System.IO;
-using mvCornerstone.Tools.Translate;
+using Cornerstone.Tools.Translate;
 using System.Globalization;
 using System.Threading;
 
@@ -25,7 +25,7 @@ namespace mvCentral.DataProviders {
             FAILED_DATE       // published date conflict
         }     
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private static DataProviderManager instance = null;
         private static String lockObj = "";
 
@@ -369,26 +369,9 @@ namespace mvCentral.DataProviders {
 //            AddSource(typeof(ScriptableProvider), Resources.Script_IMDb);
 //            AddSource(typeof(TheMusicVideoDbProvider));
 //            AddSource(typeof(MusicVideoMeterProvider));
-//            AddSource(typeof(ScriptableProvider), Resources.Script_OFDb);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_MusicVideoMaze);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Allocine);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_MymvCentralItalian);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_FilmWeb);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Scope);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Kinopoisk);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Alpacine);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Sratim);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_FilmAffinity);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_CSFD);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_MymvCentralLocal);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_XBMC);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Filmtipset);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Ptgate);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_Daum);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_kvikmyndir);
-//            AddSource(typeof(ScriptableProvider), Resources.Script_EmberMediaManager);            
 //            AddSource(typeof(MyVideosProvider));
             AddSource(typeof(LastFMProvider));
+            AddSource(typeof(EchoNestProvider));
             AddSource(typeof(DGProvider));
             AddSource(typeof(ManualProvider));
             // remove the impawards script (requested by site owner)

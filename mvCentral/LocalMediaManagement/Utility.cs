@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using mvCornerstone.Tools;
-using mvCornerstone.Extensions;
-using mvCornerstone.Extensions.IO;
+using Cornerstone.Tools;
+using Cornerstone.Extensions;
+using Cornerstone.Extensions.IO;
 using MediaPortal.Util;
 using NLog;
 
@@ -26,7 +26,7 @@ namespace mvCentral.LocalMediaManagement {
 
         #region Ctor / Private variables
         
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private Utility() {
 
