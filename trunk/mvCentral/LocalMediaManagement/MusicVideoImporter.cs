@@ -6,11 +6,11 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Threading;
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
-using mvCornerstone.Tools;
-using mvCornerstone.Extensions;
-using mvCornerstone.Extensions.IO;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.Tools;
+using Cornerstone.Extensions;
+using Cornerstone.Extensions.IO;
 using mvCentral.Database;
 using mvCentral.DataProviders;
 using mvCentral.SignatureBuilders;
@@ -45,7 +45,7 @@ namespace mvCentral.LocalMediaManagement
 
         #region Private Variables
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private readonly object syncRoot = new object();
 
         // threads that do actual processing

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using mvCornerstone.Tools;
+using Cornerstone.Tools;
 using NLog;
 using mvCentral.Database;
 using System.IO;
@@ -12,7 +12,7 @@ using System.Threading;
 namespace mvCentral.BackgroundProcesses
 {
     internal class UpdateArtworkProcess: AbstractBackgroundProcess {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
 
         public override string Name {

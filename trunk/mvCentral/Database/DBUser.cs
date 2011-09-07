@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
 
 namespace mvCentral.Database {
     [DBTableAttribute("users")]

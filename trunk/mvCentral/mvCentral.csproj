@@ -53,8 +53,11 @@
     <Reference Include="Core">
       <HintPath>..\External\mediaportal\V1.1.8\Core.dll</HintPath>
     </Reference>
+    <Reference Include="Cornerstone">
+      <HintPath>..\External\Cornerstone.dll</HintPath>
+    </Reference>
     <Reference Include="Cornerstone.MP">
-      <HintPath>..\External\mediaportal\V1.1.8\Cornerstone.MP.dll</HintPath>
+      <HintPath>..\External\Cornerstone.MP.dll</HintPath>
     </Reference>
     <Reference Include="Databases">
       <HintPath>..\External\mediaportal\V1.1.8\Databases.dll</HintPath>
@@ -67,9 +70,6 @@
     </Reference>
     <Reference Include="MediaPortal.Support">
       <HintPath>..\External\mediaportal\V1.1.8\MediaPortal.Support.dll</HintPath>
-    </Reference>
-    <Reference Include="mvCornerstone">
-      <HintPath>..\External\mvCornerstone.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -177,6 +177,7 @@
     <Compile Include="Database\MusicVideosDBTable.cs" />
     <Compile Include="DataProviders\DataProviderManager.cs" />
     <Compile Include="DataProviders\DGProvider.cs" />
+    <Compile Include="DataProviders\EchoNestProvider.cs" />
     <Compile Include="DataProviders\IMusicVideoProvider.cs" />
     <Compile Include="DataProviders\InternalProvider.cs" />
     <Compile Include="DataProviders\LastFMProvider.cs" />
@@ -413,7 +414,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>copy "$(SolutionDir)External\ILMerge.exe" "$(TargetDir)" /Y 
+copy "$(ProjectDir)\ILMerge\merge.bat" "$(TargetDir)" /Y
+call "$(TargetDir)merge.bat"
+if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
     <PreBuildEvent>subwcrev "$(SolutionDir)." "$(ProjectDir)Properties\VersionInfo.cs.tmpl" "$(ProjectDir)Properties\VersionInfo.cs"</PreBuildEvent>
   </PropertyGroup>
 </Project>

@@ -47,7 +47,7 @@ namespace mvCentral.Playlist
     public class GUImvPlayList : GUIWindow
     {
         #region variables
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private DirectoryHistory m_history = new DirectoryHistory();
         private string currentFolder = string.Empty;
         private int currentSelectedItem = -1;

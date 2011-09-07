@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using mvCornerstone.Tools;
+using Cornerstone.Tools;
 using mvCentral.Database;
 using NLog;
 using System.Threading;
@@ -10,7 +10,7 @@ using System.Threading;
 namespace mvCentral.BackgroundProcesses
 {
     internal class MediaInfoUpdateProcess: AbstractBackgroundProcess {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public override string Name {
             get { return "MediaInfo Updater"; }

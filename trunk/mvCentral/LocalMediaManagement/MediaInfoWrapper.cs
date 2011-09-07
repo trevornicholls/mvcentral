@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Globalization;
-using mvCornerstone.Extensions.IO;
+using Cornerstone.Extensions.IO;
 using MediaPortal.GUI.Library;
 using MediaPortal.Player;
 using System.IO;
@@ -24,7 +24,7 @@ namespace mvCentral.LocalMediaManagement
   {
     #region private vars
 
-    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+    private static Logger logger = LogManager.GetCurrentClassLogger();
 
     private MediaInfo _mI = null;
 

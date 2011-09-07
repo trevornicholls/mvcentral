@@ -82,15 +82,15 @@
           this.tcMusicVideo = new System.Windows.Forms.TabControl();
           this.tpArtist = new System.Windows.Forms.TabPage();
           this.splitContainer6 = new System.Windows.Forms.SplitContainer();
-          this.artistDetailsList = new mvCornerstone.GUI.Controls.DBObjectEditor();
+          this.artistDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
           this.tpAlbum = new System.Windows.Forms.TabPage();
           this.splitContainer7 = new System.Windows.Forms.SplitContainer();
-          this.albumDetailsList = new mvCornerstone.GUI.Controls.DBObjectEditor();
+          this.albumDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
           this.tpTrack = new System.Windows.Forms.TabPage();
           this.scTrackDetails = new System.Windows.Forms.SplitContainer();
-          this.fileDetailsList = new mvCornerstone.GUI.Controls.DBObjectEditor();
+          this.fileDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
           this.btnShowFileDetails = new System.Windows.Forms.Button();
-          this.trackDetailsList = new mvCornerstone.GUI.Controls.DBObjectEditor();
+          this.trackDetailsList = new Cornerstone.GUI.Controls.DBObjectEditor();
           this.tpImport = new System.Windows.Forms.TabPage();
           this.tcImport = new System.Windows.Forms.TabControl();
           this.tpImportPathParser = new System.Windows.Forms.TabPage();
@@ -120,7 +120,7 @@
           this.helpButton = new System.Windows.Forms.ToolStripButton();
           this.label68 = new System.Windows.Forms.Label();
           this.btnTestReparse = new System.Windows.Forms.Button();
-          this.importDvdCheckBox = new mvCornerstone.GUI.Controls.SettingCheckBox();
+          this.importDvdCheckBox = new Cornerstone.GUI.Controls.SettingCheckBox();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
           this.label21 = new System.Windows.Forms.Label();
           this.pathsGridView = new System.Windows.Forms.DataGridView();
@@ -174,9 +174,9 @@
           this.splitContainer5 = new System.Windows.Forms.SplitContainer();
           this.groupBox5 = new System.Windows.Forms.GroupBox();
           this.label3 = new System.Windows.Forms.Label();
-          this.cbSplitDVD = new mvCornerstone.GUI.Controls.SettingCheckBox();
-          this.cbAutoApprove = new mvCornerstone.GUI.Controls.SettingCheckBox();
-          this.cbUseMDAlbum = new mvCornerstone.GUI.Controls.SettingCheckBox();
+          this.cbSplitDVD = new Cornerstone.GUI.Controls.SettingCheckBox();
+          this.cbAutoApprove = new Cornerstone.GUI.Controls.SettingCheckBox();
+          this.cbUseMDAlbum = new Cornerstone.GUI.Controls.SettingCheckBox();
           this.tpAbout = new System.Windows.Forms.TabPage();
           this.pictureBox3 = new System.Windows.Forms.PictureBox();
           this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -212,12 +212,12 @@
           this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
           this.label5 = new System.Windows.Forms.Label();
           this.label4 = new System.Windows.Forms.Label();
-          this.tbHomeScreen = new mvCornerstone.GUI.Controls.SettingsTextBox();
+          this.tbHomeScreen = new Cornerstone.GUI.Controls.SettingsTextBox();
           this.groupBox4 = new System.Windows.Forms.GroupBox();
           this.label6 = new System.Windows.Forms.Label();
           this.label2 = new System.Windows.Forms.Label();
           this.label1 = new System.Windows.Forms.Label();
-          this.tbLatestVideos = new mvCornerstone.GUI.Controls.SettingsTextBox();
+          this.tbLatestVideos = new Cornerstone.GUI.Controls.SettingsTextBox();
           this.groupBox6 = new System.Windows.Forms.GroupBox();
           ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
           this.scMain.Panel1.SuspendLayout();
@@ -2362,7 +2362,7 @@
         private System.Windows.Forms.TabPage tpImportPathParser;
         private System.Windows.Forms.TabPage tpStringReplacements;
         private System.Windows.Forms.GroupBox pathsGroupBox;
-        private mvCornerstone.GUI.Controls.SettingCheckBox importDvdCheckBox;
+        private Cornerstone.GUI.Controls.SettingCheckBox importDvdCheckBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -2411,8 +2411,8 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn unapprovedPossibleMatchesColumn;
         private System.Windows.Forms.TabPage tpSettings;
         private System.Windows.Forms.SplitContainer splitContainer5;
-        private mvCornerstone.GUI.Controls.SettingCheckBox cbAutoApprove;
-        private mvCornerstone.GUI.Controls.SettingCheckBox cbUseMDAlbum;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbAutoApprove;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbUseMDAlbum;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColParseFileName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colParseArtist;
         private System.Windows.Forms.DataGridViewTextBoxColumn colParseAlbum;
@@ -2432,11 +2432,11 @@
         private System.Windows.Forms.TabPage tpAlbum;
         private System.Windows.Forms.TabPage tpTrack;
         private System.Windows.Forms.SplitContainer splitContainer6;
-        private mvCornerstone.GUI.Controls.DBObjectEditor artistDetailsList;
+        private Cornerstone.GUI.Controls.DBObjectEditor artistDetailsList;
         private System.Windows.Forms.SplitContainer splitContainer7;
-        private mvCornerstone.GUI.Controls.DBObjectEditor albumDetailsList;
+        private Cornerstone.GUI.Controls.DBObjectEditor albumDetailsList;
         private System.Windows.Forms.SplitContainer scTrackDetails;
-        private mvCornerstone.GUI.Controls.DBObjectEditor trackDetailsList;
+        private Cornerstone.GUI.Controls.DBObjectEditor trackDetailsList;
 
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
 
@@ -2493,22 +2493,22 @@
         private System.Windows.Forms.ToolStripButton btnArtDelete;
         private System.Windows.Forms.ToolStripButton btnArtZoom;
         private System.Windows.Forms.Button btnShowFileDetails;
-        private mvCornerstone.GUI.Controls.DBObjectEditor fileDetailsList;
+        private Cornerstone.GUI.Controls.DBObjectEditor fileDetailsList;
         private System.Windows.Forms.ToolStripMenuItem tsmRemove;
         private System.Windows.Forms.ImageList imageListDrag;
         private System.Windows.Forms.ImageList imageListTreeView;
-        private mvCornerstone.GUI.Controls.SettingCheckBox cbSplitDVD;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbSplitDVD;
         private System.Windows.Forms.ToolStripMenuItem tsmGetInfo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private mvCornerstone.GUI.Controls.SettingsTextBox tbLatestVideos;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbLatestVideos;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label4;
-        private mvCornerstone.GUI.Controls.SettingsTextBox tbHomeScreen;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbHomeScreen;
         private System.Windows.Forms.Label label5;
     }
 }

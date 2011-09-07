@@ -2,7 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 using mvCentral.Extensions;
 using mvCentral.LocalMediaManagement;
 using NLog;
@@ -15,7 +15,7 @@ namespace mvCentral.SignatureBuilders
     /// </summary>
     class LocalBuilder : ISignatureBuilder {
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private static Dictionary<string, string> replacements;
 
         static LocalBuilder() {

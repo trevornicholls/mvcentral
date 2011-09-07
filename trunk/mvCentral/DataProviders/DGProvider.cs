@@ -6,7 +6,7 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
-using mvCornerstone.Tools;
+using Cornerstone.Tools;
 using mvCentral.Database;
 using mvCentral.SignatureBuilders;
 using mvCentral.LocalMediaManagement;
@@ -19,7 +19,7 @@ namespace mvCentral.DataProviders
 {
 
     class DGProvider: InternalProvider, IMusicVideoProvider {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static readonly object lockList = new object();
 

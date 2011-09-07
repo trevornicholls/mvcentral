@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Database.Tables;
 using mvCentral.DataProviders;
-using mvCornerstone.Database;
-using mvCornerstone.Database.CustomTypes;
+using Cornerstone.Database;
+using Cornerstone.Database.CustomTypes;
 using NLog;
 using System.Threading;
 
 namespace mvCentral.Database {
     [DBTableAttribute("source_info")]
     public class DBSourceInfo: mvCentralDBTable {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         #region Database Fields
         

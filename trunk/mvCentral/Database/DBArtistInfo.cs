@@ -10,20 +10,20 @@ using System.Web;
 using System.Net;
 using System.Threading;
 using System.Collections;
-using mvCornerstone.Database;
-using mvCornerstone.Database.CustomTypes;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Database;
+using Cornerstone.Database.CustomTypes;
+using Cornerstone.Database.Tables;
 using mvCentral.LocalMediaManagement;
 using System.Text.RegularExpressions;
-using mvCornerstone.Tools.Translate;
+using Cornerstone.Tools.Translate;
 using System.Runtime.InteropServices;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 
 namespace mvCentral.Database {
     [DBTableAttribute("artist_info")]
     public class DBArtistInfo: DBBasicInfo, IComparable, IAttributeOwner {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         
         public DBArtistInfo()
             : base() {

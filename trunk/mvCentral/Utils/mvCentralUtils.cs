@@ -18,14 +18,14 @@ using mvCentral.LocalMediaManagement;
 //using dlCentral.PluginHandlers;
 //using dlCentral.Settings;
 //using dlCentral.Settings.Data;
-using mvCornerstone.Tools;
+using Cornerstone.Tools;
 using MediaPortal.GUI.Library;
 using MediaPortal.Util;
 using MediaPortal.Ripper;
 
 namespace mvCentral.Utils {
     public static class mvCentralUtils {
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public static readonly string SettingsFileName = "mvCentral.xml";
         public static string LogFileName = "mvCentral.log";
         public static string OldLogFileName = "mvCentral.log.bak";

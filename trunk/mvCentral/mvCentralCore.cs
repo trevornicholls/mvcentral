@@ -6,10 +6,10 @@ using System.Reflection;
 using System.Windows.Forms;
 
 
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
-using mvCornerstone.GUI.Dialogs;
-using mvCornerstone.Tools;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.GUI.Dialogs;
+using Cornerstone.Tools;
 
 
 using NLog;
@@ -31,7 +31,7 @@ namespace mvCentral
 {
   class mvCentralCore
   {
-    private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+    private static Logger logger = LogManager.GetCurrentClassLogger();
 
     public static event ProgressDelegate InitializeProgress;
 
@@ -190,12 +190,6 @@ namespace mvCentral
       _databaseManager.Close();
     }
 
-    internal class MyLogManager
-    {
-      // A Logger dispenser for the current assembly 
-      public static readonly LogFactory Instance = new LogFactory(new LoggingConfiguration());
-    }
-
     // Initializes the logging system.
     private static void InitLogger(RichTextBox rtb)
     {
@@ -215,8 +209,8 @@ namespace mvCentral
       catch (Exception) { }
 
       // if no configuration exists go ahead and create one
-      if (MyLogManager.Instance.Configuration == null) 
-        MyLogManager.Instance.Configuration = new LoggingConfiguration();
+      if (LogManager.Configuration == null) 
+        LogManager.Configuration = new LoggingConfiguration();
 
       // build the logging target for music videos logging
       FileTarget mvLogTarget = new FileTarget();
@@ -227,7 +221,7 @@ namespace mvCentral
                           "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
                           "${exception:format=tostring}";
 
-      MyLogManager.Instance.Configuration.AddTarget("mvCentral", mvLogTarget);
+      LogManager.Configuration.AddTarget("mvCentral", mvLogTarget);
 
       // Get current Log Level from MediaPortal 
       LogLevel logLevel;
@@ -265,21 +259,21 @@ namespace mvCentral
                             "${level:fixedLength=true:padding=5} " +
                             "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
                             "${exception:format=tostring}";
-        MyLogManager.Instance.Configuration.AddTarget("rtblog", logTarget);
+        LogManager.Configuration.AddTarget("rtblog", logTarget);
         // set the logging rules for music videos logging into rich text box
         LoggingRule rtbLogRule = new LoggingRule("*", logLevel, logTarget);
-        MyLogManager.Instance.Configuration.LoggingRules.Add(rtbLogRule);
+        LogManager.Configuration.LoggingRules.Add(rtbLogRule);
       }
 
       // set the logging rules for Music Videos logging
       LoggingRule mvRule = new LoggingRule("mvCentral.*", logLevel, mvLogTarget);
-      LoggingRule mvCornerstoneRule = new LoggingRule("mvCornerstone.*", logLevel, mvLogTarget);
+      LoggingRule CornerstoneRule = new LoggingRule("Cornerstone.*", logLevel, mvLogTarget);
 
-      MyLogManager.Instance.Configuration.LoggingRules.Add(mvRule);
-      MyLogManager.Instance.Configuration.LoggingRules.Add(mvCornerstoneRule);
+      LogManager.Configuration.LoggingRules.Add(mvRule);
+      LogManager.Configuration.LoggingRules.Add(CornerstoneRule);
 
       // force NLog to reload the configuration data
-      MyLogManager.Instance.Configuration = MyLogManager.Instance.Configuration;
+      LogManager.Configuration = LogManager.Configuration;
       
     }
 
@@ -562,7 +556,7 @@ namespace mvCentral
 
       logger.Info("Plugin Closed");
 
-      MyLogManager.Instance.Configuration = null;
+      LogManager.Configuration = null;
 
     }
 

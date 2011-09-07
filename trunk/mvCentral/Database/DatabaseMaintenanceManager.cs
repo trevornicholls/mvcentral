@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using NLog;
-//using mvCornerstone.Extensions.IO;
-using mvCornerstone.GUI.Dialogs;
-using mvCornerstone.Database.Tables;
-using mvCornerstone.Database;
+//using Cornerstone.Extensions.IO;
+using Cornerstone.GUI.Dialogs;
+using Cornerstone.Database.Tables;
+using Cornerstone.Database;
 using System.Reflection;
 //using mvCentral.MainUI;
 using mvCentral.LocalMediaManagement;
@@ -15,7 +15,7 @@ namespace mvCentral.Database
 {
     public class DatabaseMaintenanceManager {
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         
         public static event ProgressDelegate MaintenanceProgress;
 

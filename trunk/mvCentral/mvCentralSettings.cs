@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using mvCornerstone.Database;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
 using mvCentral.Database;
-using mvCornerstone.Tools.Translate;
+using Cornerstone.Tools.Translate;
 
 namespace mvCentral.Settings {
     public class mvCentralSettings: SettingsManager {
@@ -17,7 +17,7 @@ namespace mvCentral.Settings {
 
         #region Tweaks
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Default FPS",
             Description = "The number of default FPS used by the DVD Extractor.",
             Groups = "|MusicVideo Importer|Tweaks|",
@@ -34,7 +34,7 @@ namespace mvCentral.Settings {
         }
         private int _defaultfps;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Thread Count",
             Description = "The number of threads retrieving move details for local media. A higher number uses more system resources, but can help with slow data providers. Do not set this value higher than 10 threads.",
             Groups = "|MusicVideo Importer|Tweaks|",
@@ -50,7 +50,7 @@ namespace mvCentral.Settings {
         private int _threadCount;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Regular Expression Noise Filter",
             Description = "A regular expression that removes common used keywords from the folder/filename.",
             Groups = "|MusicVideo Importer|Tweaks|",
@@ -65,7 +65,7 @@ namespace mvCentral.Settings {
         }
         private string _noiseFilter;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Default User Agent",
             Description = "Default user agent MusicVideo uses for its web requests.",
             Groups = "|MusicVideo Importer|Tweaks|",
@@ -80,7 +80,7 @@ namespace mvCentral.Settings {
         }
         private string _useragent;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable Importer While In GUI",
             Description = "Enables the importer while in the GUI",
             Groups = "|MusicVideo Importer|Tweaks|",
@@ -95,7 +95,7 @@ namespace mvCentral.Settings {
         }
         private bool _enableImporterWhileInGUI;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "JPG Compression Quality",
             Description = "Determines the quality that will be used for JPG compression of albums and backdrops. Value should be between 1 and 100.",
             Groups = "|MusicVideo Importer|Tweaks|",
@@ -115,7 +115,7 @@ namespace mvCentral.Settings {
 
         #region Playlist
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Repeat playlist",
             Description = "Repeat the playlist.",
             Groups = "|MusicVideo General|playlist|",
@@ -132,7 +132,7 @@ namespace mvCentral.Settings {
         }
         private bool _repeatplaylist;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Autoplay playlist",
             Description = "Play the playlist after load.",
             Groups = "|MusicVideo General|playlist|",
@@ -151,7 +151,7 @@ namespace mvCentral.Settings {
         private bool _playlistautoplay;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Autoshuffle playlist",
             Description = "Automatic shuffle of playlists.",
             Groups = "|MusicVideo General|playlist|",
@@ -174,7 +174,7 @@ namespace mvCentral.Settings {
 
         #region Matching and Importing
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Title Auto-Approve Threshold",
             Description = "This is the maximum value for the levenshtein distance that is used for triggering auto-approval on close matching titles.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -190,7 +190,7 @@ namespace mvCentral.Settings {
         }
         private int _autoApproveThreshold;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Year Auto-Approve Distance",
             Description = "This is the maximum of years the release date may be differ before triggering auto-approval on close matches.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -205,7 +205,7 @@ namespace mvCentral.Settings {
         }
         private int _autoApproveYearDifference;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Auto-approve on alternate titles",
             Description = "When enabled this option will auto-approve matches using alternate titles.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -221,7 +221,7 @@ namespace mvCentral.Settings {
         }
         private bool _autoApproveOnAlternateTitle;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Only Auto Approve from Primary Data Source",
             Description = "When enabled this option will auto-approve matches only from the primary data source. Other matches will be available, but not auto approved.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -237,7 +237,7 @@ namespace mvCentral.Settings {
         }
         private bool _autoApproveOnlyPrimarySource;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Always Group Files In The Same Folder",
             Description = "When enabled this option will ALWAYS group multiple files in one folder together (assuming a multi-part musicvideo).",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -254,7 +254,7 @@ namespace mvCentral.Settings {
         private bool _alwaysGroupByFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Prefer Folder Name for MusicVideo Matching",
             Description = "If a folder contains just one musicvideo file it will use the folder name for matching. If you are sure that the filenames are more accurate than the folder name disable this setting.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -270,7 +270,7 @@ namespace mvCentral.Settings {
         }
         private bool _preferFolderName;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Split DVDs in chapters",
             Description = "Store DVDs as chapters in the database. This can include CDs, DVDs, HD-DVDs, and Bluray disks.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -288,7 +288,7 @@ namespace mvCentral.Settings {
         }
         private bool _splitdvd;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Automatically Import Inserted DVDs",
             Description = "Enables importation of media from all available optical drives. This can include CDs, DVDs, HD-DVDs, and Bluray disks. This also applies to \"loose video files\" on a data CD/DVD.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -304,7 +304,7 @@ namespace mvCentral.Settings {
         }
         private bool _automaticallyImportInsertedDVDs;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Ignore Interactive Content on Video Disc",
             Description = "When this option is enabled the importer will ignore the so-called interactive folders on video disc which might contain video material to be played on your PC.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -319,7 +319,7 @@ namespace mvCentral.Settings {
         }
         private bool _ignoreInteractiveContentOnVideoDisc;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Minimum Possible Match Threshold",
             Description = "The minimum number of possible matches that must be found before Music Videos will stop searching via additional data providers. Enter 0 to retrieve search results from all active data providers.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -334,7 +334,7 @@ namespace mvCentral.Settings {
         }
         private int _minimumMatches;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Data Provider Request Limit",
             Description = "The maximum number of data providers to use when updating missing music video details. Enter 0 to use all active data providers.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -349,7 +349,7 @@ namespace mvCentral.Settings {
         }
         private int _dataProviderRequestLimit;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Automatically Aquire MediaInfo Details From MusicVideo",
             Description = "If set to true, Music Videos will automatically scan files for various statistics including video file resolution and audio settings. If this option is turned off, this information will not be available to the skin unless manually retrieved by the user. This can improve the speed of the import process.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -364,7 +364,7 @@ namespace mvCentral.Settings {
         }
         private bool _useMediaInfo;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "\"Date Added\" Population Method",
             Description = "Determines which date to use for the 'Date Added' field when importing and adding a MusicVideo to the database. To update values for existing mvCentral you must refresh your Date Added values from the MusicVideo Manager.    Options are: created, modified, or current.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
@@ -384,7 +384,7 @@ namespace mvCentral.Settings {
 
         #region Preprocessing
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable NFO Scanner",
             Description = "Scan for NFO file and if available parse out the IMDB id.",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -401,7 +401,7 @@ namespace mvCentral.Settings {
         private bool _nfoScannerEnabled;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "NFO Scanner File Extensions",
             Description = "The extensions that are used when scanning for nfo files. Seperate multiple extensions with , or ;",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -418,7 +418,7 @@ namespace mvCentral.Settings {
         private string _fileExtensions;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Auto-Approve on MD Match",
             Description = "If we found a match for the MD id always auto-approve this match even if the other criteria doesn't match closely enough. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -434,7 +434,7 @@ namespace mvCentral.Settings {
         }
         private bool _autoApproveOnmdMatch;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Auto-Approve on ArtistMD Match",
             Description = "If we found a match on ArtistMD id always auto-approve this match even if the other criteria doesn't match closely enough. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -452,7 +452,7 @@ namespace mvCentral.Settings {
         }
         private bool _autoApproveOnartistmdMatch;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Auto-Approve on Album Match",
             Description = "If we found a match on Album MD id always auto-approve this match even if the other criteria doesn't match closely enough. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -470,7 +470,7 @@ namespace mvCentral.Settings {
         }
         private bool _autoApproveOnalbummdMatch;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable DiscID Lookup for DVDs",
             Description = "Enables pre-search lookup for title by using the unique disc id of the DVD.",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -485,7 +485,7 @@ namespace mvCentral.Settings {
         }
         private bool _enableDiscIdLookup;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable IMDB Lookup",
             Description = "Enables pre-search lookup for title and year from imdb.com when an imdbid is available. This generally improves results from data providers that don't support imdb id searches.",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -501,7 +501,7 @@ namespace mvCentral.Settings {
         private bool _enableIMDBLookup;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable TheMusicVideoDb.org Hash Lookup",
             Description = "Enables pre-search lookup for title, year and imdbid by using the hash/musicvideo match.",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -516,7 +516,7 @@ namespace mvCentral.Settings {
         }
         private bool _enableHashLookup;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Use MD for Album",
             Description = "Use the scrapper found album instead of the parsed one. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -534,7 +534,7 @@ namespace mvCentral.Settings {
         }
         private bool _usemdalbum;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Autoapprove musicvideos",
             Description = "Autoapprove if match found on scrapper. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
@@ -553,7 +553,7 @@ namespace mvCentral.Settings {
         private bool _autoapprove;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
       Name = "Latest musicvideos",
       Description = "Consider new if added with these number of days. ",
       Groups = "|MusicVideo|Player|",
@@ -576,7 +576,7 @@ namespace mvCentral.Settings {
 
         #region SampleFilter
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Regular Expression Filter",
             Description = "a regular expression that matches keywords in the filename or it's parent folder indicating that the file is possible sample.",
             Groups = "|MusicVideo Importer|Sample Filter|",
@@ -591,7 +591,7 @@ namespace mvCentral.Settings {
         }
         private string _sampleRegExFilter;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Include Parent Foldername When Matching",
             Description = "Include the parent foldername when checking for sample keywords.",
             Groups = "|MusicVideo Importer|Sample Filter|",
@@ -606,7 +606,7 @@ namespace mvCentral.Settings {
         }
         private bool _sampleIncludeFolderName;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Filesize (MB)",
             Description = "If the filesize of the potential sample file is below this value it will be skipped.",
             Groups = "|MusicVideo Importer|Sample Filter|",
@@ -626,7 +626,7 @@ namespace mvCentral.Settings {
 
         #region Artist Art
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Artist Art Folder",
             Description = "The folder in which artist art should be saved to disk.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -644,7 +644,7 @@ namespace mvCentral.Settings {
         private string _artistArtFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Artist Art Thumbnails Folder",
             Description = "The folder in which artist art thumbnails should be saved to disk.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -662,7 +662,7 @@ namespace mvCentral.Settings {
         private string _artistArtworkThumbnailsFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Redownload Artist Artwork on Rescan",
             Description = "When a full rescan is performed this setting determines if artistart that has already been downloaded will be reretrieved and the local copy updated.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -680,7 +680,7 @@ namespace mvCentral.Settings {
         private bool _redownloadArtistArtworkonRescan;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Artist arts",
             Description = "When the MusicVideo importer automatically downloads artist art, it will not retrieve more than the given number of artist arts.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -699,7 +699,7 @@ namespace mvCentral.Settings {
         private int _maxArtistArts;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Artist arts per Session",
             Description = "When the musicvideo importer automatically downloads artist art it will not retrieve more than the given number of artists art in a single update / import session. Next time a full update is done, if there are additional artists to download, it will grab those as well.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -717,7 +717,7 @@ namespace mvCentral.Settings {
         private int _maxArtistArtsperSession;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Artist Artwork Filename Pattern",
             Description = "The importer will look in your artist art folder and try to find a file that matches this pattern. If one is found, it will be used as a artist. If none is found, an online data provider will be used to auto download artwork.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -735,7 +735,7 @@ namespace mvCentral.Settings {
         private string _artistArtworkFilenamePattern;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Search MusicVideo Folder for Artist Art",
             Description = "If set to true the local media data provider will use files matching a specified pattern for artist artwork. This setting should only be used if you have all musicvideos in their own folders.",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -754,7 +754,7 @@ namespace mvCentral.Settings {
         private bool _searchMusicVideoFolderforArtistArt;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "MusicVideo Folder Artist Artwork Filename Pattern",
             Description = "The importer will look in the folder the given musicvideo was found in, and try to find a file that matches this pattern. If one is found, it will be used as a artist. DB field names can be used, surrounded by % symbols. e.g. %imdb_id%.jpg",
             Groups = "|MusicVideo Importer|Artist Art|",
@@ -774,7 +774,7 @@ namespace mvCentral.Settings {
 
         #region Minimum Size
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Width",
             Description = "The minimum width in pixels for any given artist. If a artist from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Artist Art|Minimum Size",
@@ -792,7 +792,7 @@ namespace mvCentral.Settings {
         private int _minimumArtistWidth;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Height",
             Description = "The minimum height in pixels for any given artist. If a artist from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Artist Art|Minimum Size",
@@ -813,7 +813,7 @@ namespace mvCentral.Settings {
 
         #region Maximum Size
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Width",
             Description = "The maximum width in pixels for any given artist. If a artist from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Artist Art|Maximum Size",
@@ -831,7 +831,7 @@ namespace mvCentral.Settings {
         private int _maximumArtistWidth;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Height",
             Description = "The maximum height in pixels for any given artist. If a artist from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Artist Art|Maximum Size",
@@ -855,7 +855,7 @@ namespace mvCentral.Settings {
         
         #region Album Art
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Album Artwork Folder",
             Description = "The folder in which album art should be saved to disk.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -871,7 +871,7 @@ namespace mvCentral.Settings {
         private string _albumArtworkFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Album Artwork Thumbnails Folder",
             Description = "The folder in which album art thumbnails should be saved to disk.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -887,7 +887,7 @@ namespace mvCentral.Settings {
         private string _albumArtworkThumbnailsFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Redownload Album Artwork on Rescan",
             Description = "When a full rescan is performed this setting determines if albumart that has already been downloaded will be reretrieved and the local copy updated.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -903,7 +903,7 @@ namespace mvCentral.Settings {
         private bool _redownloadAlbumArtworkonRescan;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Album Arts per MusicVideo",
             Description = "When the MusicVideo importer automatically downloads album arts, it will not retrieve more than the given number of album arts for a MusicVideo.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -921,7 +921,7 @@ namespace mvCentral.Settings {
         private int _maxAlbumarts;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Album Arts per Session",
             Description = "When the musicvideo importer automatically downloads album arts it will not retrieve more than the given number of albums arts in a single update / import session. Next time a full update is done, if there are additional albums to download, it will grab those as well.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -937,7 +937,7 @@ namespace mvCentral.Settings {
         private int _maxAlbumartsperSession;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Album Artwork Filename Pattern",
             Description = "The importer will look in your album art folder and try to find a file that matches this pattern. If one is found, it will be used as a album. If none is found, an online data provider will be used to auto download artwork.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -953,7 +953,7 @@ namespace mvCentral.Settings {
         private string _albumArtworkFilenamePattern;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Search MusicVideo Folder for Album Art",
             Description = "If set to true the local media data provider will use files matching a specified pattern for album artwork. This setting should only be used if you have all musicvideos in their own folders.",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -970,7 +970,7 @@ namespace mvCentral.Settings {
         private bool _searchMusicVideoFolderforAlbumArt;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "MusicVideo Folder Album Artwork Filename Pattern",
             Description = "The importer will look in the folder the given musicvideo was found in, and try to find a file that matches this pattern. If one is found, it will be used as a album. DB field names can be used, surrounded by % symbols. e.g. %imdb_id%.jpg",
             Groups = "|MusicVideo Importer|Album Art|",
@@ -988,7 +988,7 @@ namespace mvCentral.Settings {
 
         #region Minimum Size
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Width",
             Description = "The minimum width in pixels for any given album. If a album from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Album Art|Minimum Size",
@@ -1004,7 +1004,7 @@ namespace mvCentral.Settings {
         private int _minimumAlbumWidth;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Height",
             Description = "The minimum height in pixels for any given album. If a album from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Album Art|Minimum Size",
@@ -1023,7 +1023,7 @@ namespace mvCentral.Settings {
 
         #region Maximum Size
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Width",
             Description = "The maximum width in pixels for any given album. If a album from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Album Art|Maximum Size",
@@ -1039,7 +1039,7 @@ namespace mvCentral.Settings {
         private int _maximumAlbumWidth;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Height",
             Description = "The maximum height in pixels for any given album. If a album from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Album Art|Maximum Size",
@@ -1060,7 +1060,7 @@ namespace mvCentral.Settings {
 
         #region Track Art
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Track Artwork Folder",
             Description = "The folder in which track art should be saved to disk.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1078,7 +1078,7 @@ namespace mvCentral.Settings {
         private string _trackArtworkFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Track Artwork Thumbnails Folder",
             Description = "The folder in which track art thumbnails should be saved to disk.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1096,7 +1096,7 @@ namespace mvCentral.Settings {
         private string _trackArtworkThumbnailsFolder;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Redownload Track Artwork on Rescan",
             Description = "When a full rescan is performed this setting determines if trackart that has already been downloaded will be reretrieved and the local copy updated.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1114,7 +1114,7 @@ namespace mvCentral.Settings {
         private bool _redownloadTrackArtworkonRescan;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Track Arts per MusicVideo",
             Description = "When the MusicVideo importer automatically downloads track arts, it will not retrieve more than the given number of track arts for a MusicVideo.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1133,7 +1133,7 @@ namespace mvCentral.Settings {
         private int _maxTrackarts;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Track arts per MusicVideo per Session",
             Description = "When the musicvideo importer automatically downloads track arts it will not retrieve more than the given number of track arts for a musicvideo in a single update / import session. Next time a full update is done, if there are additional tracks to download, it will grab those as well.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1151,7 +1151,7 @@ namespace mvCentral.Settings {
         private int _maxTrackartsperSession;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Track Artwork Filename Pattern",
             Description = "The importer will look in your track art folder and try to find a file that matches this pattern. If one is found, it will be used as a track. If none is found, an online data provider will be used to auto download artwork.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1169,7 +1169,7 @@ namespace mvCentral.Settings {
         private string _trackArtworkFilenamePattern;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Search MusicVideo Folder for Track Art",
             Description = "If set to true the local media data provider will use files matching a specified pattern for track artwork. This setting should only be used if you have all musicvideos in their own folders.",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1188,7 +1188,7 @@ namespace mvCentral.Settings {
         private bool _searchMusicVideoFolderforTrackArt;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "MusicVideo Folder Track Artwork Filename Pattern",
             Description = "The importer will look in the folder the given musicvideo was found in, and try to find a file that matches this pattern. If one is found, it will be used as a track. DB field names can be used, surrounded by % symbols. e.g. %imdb_id%.jpg",
             Groups = "|MusicVideo Importer|Track Art|",
@@ -1208,7 +1208,7 @@ namespace mvCentral.Settings {
 
         #region Minimum Size
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Width",
             Description = "The minimum width in pixels for any given track. If a track from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Track Art|Minimum Size",
@@ -1226,7 +1226,7 @@ namespace mvCentral.Settings {
         private int _minimumTrackWidth;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Height",
             Description = "The minimum height in pixels for any given track. If a track from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Track Art|Minimum Size",
@@ -1247,7 +1247,7 @@ namespace mvCentral.Settings {
 
         #region Maximum Size
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Width",
             Description = "The maximum width in pixels for any given track. If a track from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Track Art|Maximum Size",
@@ -1265,7 +1265,7 @@ namespace mvCentral.Settings {
         private int _maximumTrackWidth;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Height",
             Description = "The maximum height in pixels for any given track. If a track from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Track Art|Maximum Size",
@@ -1292,7 +1292,7 @@ namespace mvCentral.Settings {
         
         #region themusicvideodb.org
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Timeouts",
             Description = "The maximum number of timeouts received from the server before a thread returns an error condition.",
             Groups = "|MusicVideo Importer|Network Timeout Settings|",
@@ -1308,7 +1308,7 @@ namespace mvCentral.Settings {
         private int _maxTimeouts;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Timeout Length",
             Description = "The base length of time (in milliseconds) for a timeout when connecting to themusicvideodb.org data service.",
             Groups = "|MusicVideo Importer|Network Timeout Settings|",
@@ -1324,7 +1324,7 @@ namespace mvCentral.Settings {
         private int _timeoutLength;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Timeout Increment",
             Description = "The amount of time (in milliseconds) added to the timeout limit  after each timeout failure. A non-zero value will help when the server is experience a large amount of congestion.",
             Groups = "|MusicVideo Importer|Network Timeout Settings|",
@@ -1343,7 +1343,7 @@ namespace mvCentral.Settings {
 
         #region Importer Language Options
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Data Provider Management",
             Description = "Method used to manage data providers. Valid options are 'auto', and 'manual'.",
             Groups = "|MusicVideo Importer|Importer Language Options|",
@@ -1359,7 +1359,7 @@ namespace mvCentral.Settings {
         }
         private string _dataProviderManagementMethod;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Automatic Data Provider Language",
             Description = "The language that the automatic data provider management service will optimize for.",
             Groups = "|MusicVideo Importer|Importer Language Options|",
@@ -1375,7 +1375,7 @@ namespace mvCentral.Settings {
         }
         private string _dataProviderAutoLanguage;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Use Translator Service",
             Description = "Service that will translate scraped musicvideo information to a specified language. This service translates the following musicvideo detail fields: genres, tagline, summary.",
             Groups = "|MusicVideo Importer|Importer Language Options|",
@@ -1391,7 +1391,7 @@ namespace mvCentral.Settings {
         }
         private bool _useTranslator;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Translator Service Configured",
             Description = "Service that will translate scraped musicvideo information to a specified language. This service translates the following musicvideo detail fields: genres, tagline, summary.",
             Groups = "|MusicVideo Importer|Importer Language Options|",
@@ -1407,7 +1407,7 @@ namespace mvCentral.Settings {
         }
         private bool _translatorConfigured;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Translation Language",
             Description = "The language that the translator service will attempt to tranlate scraped musicvideo details into.",
             Groups = "|MusicVideo Importer|Importer Language Options|",
@@ -1456,7 +1456,7 @@ namespace mvCentral.Settings {
 
         #region Interface Options
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Default View",
             Description = "The default view used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"lastused\", \"list\", \"thumbs\", \"largethumbs\", and \"filmstrip\".",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1473,7 +1473,7 @@ namespace mvCentral.Settings {
         private string _defaultView;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Click Shows Details",
             Description = "Determines behavior when a musicvideo in the musicvideo browser is clicked. If true, the details view appears. If false the musicvideo starts playback.",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1490,7 +1490,7 @@ namespace mvCentral.Settings {
         private bool _clickShowsDetails;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Max Actors, Genres, etc. to Display",
             Description = "This determines the number of actors, genres, directors, etc to display on the GUI. This applies to all string based list fields.",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1506,7 +1506,7 @@ namespace mvCentral.Settings {
         private int _maxElementsToDisplay;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Name for Home Screen",
             Description = "The name that appears on the home screen for the plugin.",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1523,7 +1523,7 @@ namespace mvCentral.Settings {
         private string _homeScreenName;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Default Sort Field",
             Description = "The default sort field used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"title\", \"dateadded\", \"year\", \"certification\", \"language\", \"score\", \"userscore\", \"popularity\", \"runtime\", \"filepath\".",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1540,7 +1540,7 @@ namespace mvCentral.Settings {
         private string _defaultSortField;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Allow user to delete files from the GUI context menu",
             Description = "Enables a delete menu item, which allows you to delete musicvideos from your hard drive.",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1556,7 +1556,7 @@ namespace mvCentral.Settings {
         }
         private bool _allowDelete;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Auto-Prompt For User Rating",
             Description = "Music Videos will prompt you for your rating of a musicvideo after the musicvideo ends",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1571,7 +1571,7 @@ namespace mvCentral.Settings {
         }
         private bool _autoPromptForRating;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Allow Grouping",
             Description = "Show group headers when sorting the musicvideos",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1586,7 +1586,7 @@ namespace mvCentral.Settings {
         }
         private bool _allow_grouping;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Display the actual runtime of a musicvideo",
             Description = "If enabled this setting will display the actual runtime of the musicvideo instead of the runtime imported from the data provider. If there's no actual runtime information available it will default to the imported runtime.",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1601,7 +1601,7 @@ namespace mvCentral.Settings {
         }
         private bool _displayActualRuntime;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Reset the selected musicvideo when switching categories",
             Description = "If enabled this setting will reset the selected musicvideo when you switch between categories.",
             Groups = "|MediaPortal GUI|Interface Options|",
@@ -1620,7 +1620,7 @@ namespace mvCentral.Settings {
 
         #region Tweaks
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Artwork Loading Delay",
             Description = "The number of milliseconds that Music Videos waits before it loads new artwork (backdrops and albums) when traversing musicvideos in the GUI. Increasing this value can improve performance if you are experiencing slow down with rapid movements in the GUI.",
             Groups = "|MediaPortal GUI|Tweaks|",
@@ -1635,7 +1635,7 @@ namespace mvCentral.Settings {
         }
         private int _artworkLoadingDelay;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Details Loading Delay",
             Description = "The number of milliseconds that Music Videos waits before it show the details about the current selection when traversing musicvideos in the GUI. Increasing this value can improve performance if you are experiencing slow down with rapid movements in the GUI.",
             Groups = "|MediaPortal GUI|Tweaks|",
@@ -1650,7 +1650,7 @@ namespace mvCentral.Settings {
         }
         private int _detailsLoadingDelay;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Category Random Artwork Refresh Interval",
             Description = "The number of seconds that Music Videos waits before renewing the backdrop when a category (using random backdrop) is selected.",
             Groups = "|MediaPortal GUI|Tweaks|",
@@ -1665,7 +1665,7 @@ namespace mvCentral.Settings {
         }
         private int _categoryRandomArtworkRefreshInterval;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Use Remote Control Filtering",
             Description = "Enables the Remote Controle Filter, set to false if you want to use the default mediaportal remote control functionality.",
             Groups = "|MediaPortal GUI|Tweaks|",
@@ -1685,7 +1685,7 @@ namespace mvCentral.Settings {
 
         #region Playback Options
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "GUI Watch Percentage",
             Description = "The percentage of a musicvideo that must be watched before it will be flagged as watched. This also affects whether resume data is stored.",
             Groups = "|MediaPortal GUI|Playback Options|",
@@ -1702,7 +1702,7 @@ namespace mvCentral.Settings {
         private int _minimumWatchPercentage;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
              Name = "Disk Insertion Behavior",
              Description = "Action to take when a DVD, Bluray, or HDDVD disk is inserted. (\"DETAILS\": Goto the details page for the DVD. \"PLAY\": Start playback immediately. \"NOTHING\": Take no action).",
              Groups = "|MediaPortal GUI|Playback Options|",
@@ -1719,7 +1719,7 @@ namespace mvCentral.Settings {
         private string _diskInsertionBehavior;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Custom Intro Location",
             Description = "Location of a custom intro that will play before each musicvideo.  This should be the full path including the musicvideo. For example: c:\\custom_intro\\into.mpg",
             Groups = "|MediaPortal GUI|Playback Options|",
@@ -1738,7 +1738,7 @@ namespace mvCentral.Settings {
 
         #region Bluray/HD-DVD Playback
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Use External Player",
             Description = "Enable playback for Bluray/HD-DVD using an external player, When set to false the main video stream will be played in the internal player (no menu).",
             Groups = "|MediaPortal GUI|Bluray/HD-DVD Playback|",
@@ -1753,7 +1753,7 @@ namespace mvCentral.Settings {
         }
         private bool _useExternalPlayer;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable Dynamic Refresh Rate Changer Settings",
             Description = "Enable the Dynamic Refresh Rate Changer when using an external player, this setting will only take effect if you have setup the Dynamic Refresh Rate Changer settings in your MediaPortal configuration.",
             Groups = "|MediaPortal GUI|Bluray/HD-DVD Playback|",
@@ -1769,7 +1769,7 @@ namespace mvCentral.Settings {
         private bool _useDynamicRefreshRateChangerWithExternalPlayer;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "External Player Path",
             Description = "The path to the executable of the external player that you want to use for playing back BR/HD-DVD.",
             Groups = "|MediaPortal GUI|Bluray/HD-DVD Playback|",
@@ -1785,7 +1785,7 @@ namespace mvCentral.Settings {
         private string _externalPlayerExecutable;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "External Player Arguements",
             Description = "The command-line arguments that should be appended when calling the executable. (available variables: %filename% will be replaced with the path to the musicvideo, %fps% will be replaced with the framerate for the musicvideo)",
             Groups = "|MediaPortal GUI|Bluray/HD-DVD Playback|",
@@ -1804,7 +1804,7 @@ namespace mvCentral.Settings {
 
         #region Sorting
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Remove Title Articles",
             Description = "If enabled, articles such as \"the\", \"a\", and \"an\" will not be considered when sorting by title. This affects the Sort By field and for a change to take effect you must refresh your Sort By values from the MusicVideo Manager.",
             Groups = "|MediaPortal GUI|Sorting|",
@@ -1819,7 +1819,7 @@ namespace mvCentral.Settings {
         }
         private bool _removeTitleArticles;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Articles for Removal",
             Description = "The articles that will be removed from a title when found at the beginning of a title for sorting purposes. Seperate articles with a pipe \"|\". See the \"Remove Title Articles\" setting.",
             Groups = "|MediaPortal GUI|Sorting|",
@@ -1838,7 +1838,7 @@ namespace mvCentral.Settings {
 
         #region Parental Controls
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable Parental Controls",
             Description = "Enables the Paretal Controls feature in the GUI.",
             Groups = "|MediaPortal GUI|Parental Controls|",
@@ -1854,7 +1854,7 @@ namespace mvCentral.Settings {
         }
         private bool _parentalControlsEnabled;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Parental Controls Filter ID",
             Description = "The filter attached to the Parental Controls functionality.",
             Groups = "|MediaPortal GUI|Parental Controls|",
@@ -1890,7 +1890,7 @@ namespace mvCentral.Settings {
             }
         } private DBFilter<DBTrackInfo> _parentalControlsFilter = null;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Parental Controls Password",
             Description = "The password required to access musicvideos restricted by parental controls.",
             Groups = "|MediaPortal GUI|Parental Controls|",
@@ -1907,7 +1907,7 @@ namespace mvCentral.Settings {
         }
         private string _parentalContolsPassword;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Parental Controls Timeout",
             Description = "If set, this will reenable the parental filter after the system is idle for x minutes.  Use 0 to disable the timeout.",
             Groups = "|MediaPortal GUI|Parental Controls|",
@@ -1926,7 +1926,7 @@ namespace mvCentral.Settings {
 
         #region Filtering
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Filter Menu ID",
             Description = "The menu for the popup filtering menu.",
             Groups = "|MediaPortal GUI|Filtering|",
@@ -1962,7 +1962,7 @@ namespace mvCentral.Settings {
             }
         } private DBMenu<DBTrackInfo> _filterMenu = null;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Use Default Filter",
             Description = "If enabled the default filter will be used on initial launch.",
             Groups = "|MediaPortal GUI|Filtering|",
@@ -1978,7 +1978,7 @@ namespace mvCentral.Settings {
         }
         private bool _useDefaultFilter;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Default Filter ID",
             Description = "The database ID for the default filter on startup.",
             Groups = "|MediaPortal GUI|Filtering|",
@@ -2028,7 +2028,7 @@ namespace mvCentral.Settings {
             }
         } private DBNode<DBTrackInfo> _defaultFilter = null;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Category Menu ID",
             Description = "The menu for the categories functionality.",
             Groups = "|MediaPortal GUI|Filtering|",
@@ -2064,7 +2064,7 @@ namespace mvCentral.Settings {
             }
         } private DBMenu<DBTrackInfo> _categoriesMenu = null;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Enable Categories",
             Description = "Enables the Categories feature in the GUI.",
             Groups = "|MediaPortal GUI|Filtering|",
@@ -2080,7 +2080,7 @@ namespace mvCentral.Settings {
         }
         private bool _categoriesEnabled;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Dynamic Actor Category Limit",
             Description = "When an Actor based dynamic category is created, an actor must be in this number of musicvideos you own to be included in the list.",
             Groups = "|MediaPortal GUI|Filtering|",
@@ -2099,7 +2099,7 @@ namespace mvCentral.Settings {
 
         #region Debugging
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Skinners Debug Mode",
             Description = "Enabling this will log all changes to skin properties when logging is set to debug.",
             Groups = "|Internal|",
@@ -2121,7 +2121,7 @@ namespace mvCentral.Settings {
         #region Extras
         #region File Renamer
         
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "File Rename Pattern",
             Description = "When using the file renamer functionality, musicvideo files will be renamed based on this pattern. The multi-part pattern will replace ${musicvideopart} if the musicvideo is made up of multipe files.",
             Groups = "|Extras|File Renamer|",
@@ -2136,7 +2136,7 @@ namespace mvCentral.Settings {
         }
         private string _fileRenameString;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Directory Rename Pattern",
             Description = "When using the file renamer functionality, directories will be renamed based on this pattern.",
             Groups = "|Extras|File Renamer|",
@@ -2151,7 +2151,7 @@ namespace mvCentral.Settings {
         }
         private string _directoryRenameString;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Multi-Part Rename Pattern",
             Description = "When using the file renamer functionality, this filename pattern will be appended to the regular pattern for musicvideos made up of multiple files.",
             Groups = "|Extras|File Renamer|",
@@ -2166,7 +2166,7 @@ namespace mvCentral.Settings {
         }
         private string _file_multipart;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
              Name = "Additional Files Type to Rename",
              Description = "When using the file renamer functionality, files starting with the original filename and with one of these extension will be renamed too.",
              Groups = "|Extras|File Renamer|",
@@ -2183,7 +2183,7 @@ namespace mvCentral.Settings {
         }
         private string _file_rename_other_filetypes;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
              Name = "Include Folders When Renaming",
              Description = "If true, when renaming files for a musicvideo, the folder containing the files will be renamed as well.",
              Groups = "|Extras|File Renamer|",
@@ -2200,7 +2200,7 @@ namespace mvCentral.Settings {
         }
         private bool _file_rename_folder;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
           Name = "Include Files When Renaming",
           Description = "If true, when renaming, the musicvideo files will be renamed.",
           Groups = "|Extras|File Renamer|",
@@ -2217,7 +2217,7 @@ namespace mvCentral.Settings {
         }
         private bool _renameFiles;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Include Secondary Files When Renaming",
             Description = "If true, when renaming files for a musicvideo, thesecondary files will be renamed as well.",
             Groups = "|Extras|File Renamer|",
@@ -2237,7 +2237,7 @@ namespace mvCentral.Settings {
 
         #region Internal Settings
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Data Source Manager Enhanced Debug Mode",
             Description = "If set to true, additional logging will be written by the Scriptable Scraping Engine when the entire plug-in is in debug mode. Internal scripts stored in the DLL will also be reloaded on launch regardless of version number.",
             Groups = "|Internal|",
@@ -2254,7 +2254,7 @@ namespace mvCentral.Settings {
         private bool _dataSourceManagerEnhancedDebugMode;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Data Provider Manager Initialized",
             Description = "An internal flag to determine if an initial load of the Data Source Manager has been preformed.",
             Groups = "|Internal|",
@@ -2271,7 +2271,7 @@ namespace mvCentral.Settings {
         private bool _dataProviderManagerInitialized;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Show Advanced Settings Warning",
             Description = "If set to false, the Advanced Settings warning screen will no longer be displayed when first clicking on the Advanced Settings tab.",
             Groups = "|Internal|",
@@ -2287,7 +2287,7 @@ namespace mvCentral.Settings {
         private bool _showAdvancedSettingsWarning;
 
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Version Number",
             Description = "Version number of Music Videos. Used for database upgrade purposes, do not change.",
             Groups = "|Internal|",
@@ -2303,7 +2303,7 @@ namespace mvCentral.Settings {
         }
         private string _versionNumber;
 
-        [mvCornerstoneSetting(
+        [CornerstoneSetting(
             Name = "Allow Disk Monitor to Watch for Drive Changes",
             Description = "If disabled the disk monitor will not notify other aspects of the plug-in about disk events such as DVD insertions and newly connected network drives. Do not disable unless you are experiencing problems with the Disk Monitor.",
             Groups = "|Internal|",

@@ -6,7 +6,7 @@ using mvCentral.Database;
 using System.IO;
 using System.Threading;
 using System.Drawing;
-using mvCornerstone.Extensions;
+using Cornerstone.Extensions;
 
 namespace mvCentral.LocalMediaManagement.MusicVideoResources
 {

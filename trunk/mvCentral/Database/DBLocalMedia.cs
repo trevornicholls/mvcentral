@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using mvCornerstone.Extensions;
-using mvCornerstone.Extensions.IO;
-using mvCornerstone.Database;
-using mvCornerstone.Database.CustomTypes;
-using mvCornerstone.Database.Tables;
+using Cornerstone.Extensions;
+using Cornerstone.Extensions.IO;
+using Cornerstone.Database;
+using Cornerstone.Database.CustomTypes;
+using Cornerstone.Database.Tables;
 using mvCentral.LocalMediaManagement;
 using NLog;
 
@@ -13,7 +13,7 @@ namespace mvCentral.Database {
     [DBTableAttribute("local_media")]
     public class DBLocalMedia : mvCentralDBTable {
 
-        private static Logger logger = mvCentralCore.MyLogManager.Instance.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private bool deleting = false;
 
