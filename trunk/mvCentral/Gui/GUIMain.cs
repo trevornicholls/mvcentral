@@ -13,38 +13,40 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 
-using MediaPortal.GUI.Library;
-using MediaPortal.Dialogs;
-using MediaPortal.Player;
 using mvCentral.Database;
 using mvCentral;
 using mvCentral.LocalMediaManagement;
 using mvCentral.Playlist;
 using mvCentral.Utils;
 
+using MediaPortal.GUI.Library;
+using MediaPortal.Dialogs;
+using MediaPortal.Player;
+using Action = MediaPortal.GUI.Library.Action;
+using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
+using WindowPlugins;
+
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : GUIWindow
+  public partial class mvGUIMain : WindowPluginBase
   {
 
     #region enums
 
-    private enum View
+    public enum View
     {
-      None,
       Artist,
-      Album,
       Video
     }
 
     //public enum Layout
     //{
-    //  List = 0,
-    //  Icons = 1,
-    //  LargeIcons = 2,
-    //  FilmStrip = 3,
-    //  AlbumView = 4,
-    //  PlayList = 5
+    //  List,
+    //  Icons,
+    //  LargeIcons,
+    //  FilmStrip,
+    //  AlbumView,
+    //  PlayList 
     //}
 
     #endregion
@@ -66,12 +68,28 @@ namespace mvCentral.GUI
 
     GUImvPlayList Player = new GUImvPlayList();
       
+    
 
     private bool persisting = false;
-    private View currentView = View.None;
     public int lastItemArt = 0, lastItemVid = 0, artistID = 0, albumID = 0;
     private string selArtist = "";
     private string selAlbum = "";
+
+    private View currentView = View.Artist;
+
+    protected View CurrentView
+    {
+      get { return currentView; }
+      set { currentView = value; }
+    }
+
+    protected bool AllowView(View view)
+    {
+      //if (view == View.List)
+      //  return false;
+
+      return true;
+    }
 
     #endregion
 
@@ -79,9 +97,12 @@ namespace mvCentral.GUI
 
     private enum GUIControls
     {
-      PlayAllRandom = 2,
-      PlaySmart = 3,
-      PlayList = 4,
+      Layout = 2,
+      SortAs = 3,
+      ViewAs = 5,
+      PlayAllRandom = 6,
+      PlaySmart = 7,
+      PlayList = 8,
       Hierachy = 10,
       ArtistName = 11,
       ArtistBio = 12,
@@ -98,9 +119,15 @@ namespace mvCentral.GUI
       Facade = 50
     }
 
-    [SkinControlAttribute((int)GUIControls.PlayAllRandom)] protected GUIButtonControl playAllRandom = null;
-    [SkinControlAttribute((int)GUIControls.PlaySmart)] protected GUIButtonControl playSmartList = null;
-    [SkinControlAttribute((int)GUIControls.PlayList)] protected GUIButtonControl sowPlayList = null;
+    //[SkinControlAttribute((int)GUIControls.ViewAs)] protected GUIButtonControl btnViews = null;
+    //[SkinControlAttribute((int)GUIControls.Layout)] protected GUIButtonControl btnLayouts = null;
+    //[SkinControlAttribute((int)GUIControls.SortAs)] protected GUIButtonControl btnSortBy = null;
+    //[SkinControlAttribute((int)GUIControls.Facade)] protected GUIFacadeControl facadeLayout;
+
+    
+    [SkinControlAttribute((int)GUIControls.PlayAllRandom)] protected GUIButtonControl btnPlayAllRandom = null;
+    [SkinControlAttribute((int)GUIControls.PlaySmart)] protected GUIButtonControl btnSmartList = null;
+    [SkinControlAttribute((int)GUIControls.PlayList)] protected GUIButtonControl btnPlayList = null;
     
     [SkinControlAttribute((int)GUIControls.Hierachy)] protected GUILabelControl hierachy = null;
     [SkinControlAttribute((int)GUIControls.ArtistName)] protected GUILabelControl artistName = null;
@@ -117,7 +144,6 @@ namespace mvCentral.GUI
 
     [SkinControlAttribute((int)GUIControls.FavVidLabel)] protected GUIFadeLabel favVidLabel = null;
     [SkinControlAttribute((int)GUIControls.ArtistBio)] protected GUITextScrollUpControl artistBio = null;
-    [SkinControlAttribute((int)GUIControls.Facade)] protected GUIFacadeControl facade;
 
     #endregion
 
@@ -159,7 +185,7 @@ namespace mvCentral.GUI
 
       if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_QUEUE_ITEM)
       {
-        facade.SelectedListItemIndex = Player.playlistPlayer.CurrentItem;
+        facadeLayout.SelectedListItemIndex = Player.playlistPlayer.CurrentItem;
         return;
       }
 
@@ -176,9 +202,9 @@ namespace mvCentral.GUI
           case 0:
             //Add to playlist
             // If on a folder add all Videos for Artist
-            if (facade.ListLayout.SelectedListItem.IsFolder)
+            if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
             {
-              DBArtistInfo currArtist = DBArtistInfo.Get(facade.ListLayout.SelectedListItem.Label);
+              DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.ListLayout.SelectedListItem.Label);
               List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
 
               addToPlaylist(allTracksByArtist, false, false, false);
@@ -187,9 +213,9 @@ namespace mvCentral.GUI
             {
               // Add video to playlist
               PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
-              string filename = facade.ListLayout.SelectedListItem.Label;
-              string path = facade.ListLayout.SelectedListItem.Path;
-              DBTrackInfo video = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
+              string filename = facadeLayout.ListLayout.SelectedListItem.Label;
+              string path = facadeLayout.ListLayout.SelectedListItem.Path;
+              DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
               PlayListItem p1 = new PlayListItem(video);
               p1.Track = video;
               playlist.Add(p1);
@@ -201,7 +227,7 @@ namespace mvCentral.GUI
             addToPlaylist(allTracks, false, false, false);
             break;
           case 2:
-            addToPlaylistNext(facade.ListLayout.SelectedListItem);
+            addToPlaylistNext(facadeLayout.ListLayout.SelectedListItem);
             break;
           default:
             //Exit
@@ -218,7 +244,7 @@ namespace mvCentral.GUI
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED:
           {
-            facade.SelectedListItemIndex = message.Param2;
+            facadeLayout.SelectedListItemIndex = message.Param2;
             return true;
           }
           //break;
@@ -258,8 +284,42 @@ namespace mvCentral.GUI
       }
     }
 
+
+    protected override void LoadSettings()
+    {
+      base.LoadSettings();
+    }
+
+    protected override void SaveSettings()
+    {
+      base.SaveSettings();
+    }
+
+    protected override void OnShowViews()
+    {
+      //base.OnShowViews();
+    }
+
+    protected override void OnInfo(int iItem)
+    {
+      base.OnInfo(iItem);
+    }
+
+    protected override void OnQueueItem(int item)
+    {
+      base.OnQueueItem(item);
+    }
+
     protected override void OnClicked(int controlId, GUIControl control, MediaPortal.GUI.Library.Action.ActionType actionType)
     {
+
+      base.OnClicked(controlId, control, actionType);
+
+      if (control == btnLayouts)
+      {
+        mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
+      }
+
       switch (controlId)
       {
         case (int)GUIControls.PlayAllRandom:
@@ -273,20 +333,20 @@ namespace mvCentral.GUI
           break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
-          if (facade.ListLayout.SelectedListItem.IsFolder)
+          if (facadeLayout.ListLayout.SelectedListItem.IsFolder & actionType == Action.ActionType.ACTION_MUSIC_PLAY)
           {
             ArtistActions(actionType);
           }
           else
           {
-            GUIListItem selectedItem = facade.ListLayout.SelectedListItem;
+            GUIListItem selectedItem = facadeLayout.SelectedListItem;
             if (!selectedItem.IsFolder && selectedItem.MusicTag != null)
             { // we have a track selected so add any other tracks which
               // are on showing on the facade
               List<DBTrackInfo> list1 = new List<DBTrackInfo>();
-              for (int i = 0; i < facade.ListLayout.Count; i++)
+              for (int i = 0; i < facadeLayout.ListLayout.Count; i++)
               {
-                GUIListItem trackItem = facade.ListLayout[i];
+                GUIListItem trackItem = facadeLayout.ListLayout[i];
 
                 if (!trackItem.IsFolder && trackItem.MusicTag != null)
                 {
@@ -300,9 +360,15 @@ namespace mvCentral.GUI
               break;
             }
             //return to previous level
-            if (facade.ListLayout.SelectedListItem.Label == "..")
+            if (facadeLayout.SelectedListItem.Label == "..")
             {
               currentView = View.Artist;
+              loadCurrent();
+            }
+            else
+            {
+              currentView = View.Video;
+              artistID = facadeLayout.SelectedListItem.ItemId;
               loadCurrent();
             }
 
@@ -310,9 +376,14 @@ namespace mvCentral.GUI
           }
           break;
       }
-      //DebugMsg("Pressed: " + actionType.ToString());
-      base.OnClicked(controlId, control, actionType);
+      
     }
+
+    public int useLayout {
+      get {return int.Parse(mvCentralCore.Settings.DefaultView);}
+      set { ;}
+    }
+
 
     protected override void OnPageLoad()
     {
@@ -378,6 +449,10 @@ namespace mvCentral.GUI
         loadArtists();
       }
 
+      CurrentLayout = (Layout)useLayout;
+      SwitchLayout();
+      UpdateButtonStates();
+
       logger.Debug("Loading Page Completed");
 
 
@@ -395,7 +470,7 @@ namespace mvCentral.GUI
 
     public void SetFocusItem(int index)
     {
-      facade.SelectedListItemIndex = index;
+      facadeLayout.SelectedListItemIndex = index;
 
     }
 
@@ -426,11 +501,11 @@ namespace mvCentral.GUI
         logger.Info("HERE");
         dlgMenu.Reset();
         dlgMenu.SetHeading(mvCentralCore.Settings.HomeScreenName + " - Context Menu");
-        if (this.facade.Count > 0)
+        if (this.facadeLayout.Count > 0)
         {
           dlgMenu.Add("Add to playlist");
           dlgMenu.Add("Add all to playlist");
-          if (Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count > 0 && !(facade.ListLayout.SelectedListItem.IsFolder))
+          if (Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count > 0 && !(facadeLayout.ListLayout.SelectedListItem.IsFolder))
           {
             dlgMenu.Add("Add to Playlist as next item");
           }
@@ -455,15 +530,11 @@ namespace mvCentral.GUI
       {
         case View.Artist:
           loadArtists();
-          facade.SelectedListItemIndex = lastItemArt;
+          facadeLayout.SelectedListItemIndex = lastItemArt;
           break;
         case View.Video:
           LoadVideos(artistID);
-          facade.SelectedListItemIndex = lastItemVid;
-          break;
-        case View.Album:
-          LoadAlbums(albumID);
-          facade.SelectedListItemIndex = lastItemVid;
+          facadeLayout.SelectedListItemIndex = lastItemVid;
           break;
       }
 
@@ -483,7 +554,7 @@ namespace mvCentral.GUI
       list.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p1.Artist.CompareTo(p2.Artist); });
 
       ArrayList state = new ArrayList();
-      facade.Clear();
+      facadeLayout.Clear();
       foreach (DBArtistInfo db1 in list)
       {
         GUIListItem item = new GUIListItem();
@@ -494,13 +565,13 @@ namespace mvCentral.GUI
         item.ItemId = (int)db1.ID;
         item.IsFolder = true;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
-        facade.Add(item);
+        facadeLayout.Add(item);
       }
 
 
-      if (facade.Count > 0 && !persisting)
+      if (facadeLayout.Count > 0 && !persisting)
       {
-        onArtistSelected(facade.ListLayout.ListItems[0], facade);
+        onArtistSelected(facadeLayout.ListLayout.ListItems[0], facadeLayout);
       }
       persisting = true;
       dummyLabel.Visibility = System.Windows.Visibility.Hidden;
@@ -515,7 +586,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists | " + DBArtistInfo.Get(ArtistID));
       GUIPropertyManager.Changed = true;
 
-      if (facade.SelectedListItem == null)
+      if (facadeLayout.SelectedListItem == null)
       {
         if (albumID != 0)
         {
@@ -525,10 +596,10 @@ namespace mvCentral.GUI
 
       }
 
-      if (facade.SelectedListItem != null)
-        if (facade.SelectedListItem.MusicTag != null && facade.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
+      if (facadeLayout.SelectedListItem != null)
+        if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
         {
-          DBAlbumInfo db1 = (DBAlbumInfo)facade.SelectedListItem.MusicTag;
+          DBAlbumInfo db1 = (DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag;
           albumID = db1.ID.Value;
           LoadAlbums(db1.ID.Value);
           return;
@@ -540,7 +611,7 @@ namespace mvCentral.GUI
       List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
       list.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p1.Track.CompareTo(p2.Track); });
       this.artistID = ArtistID;
-      facade.Clear();
+      facadeLayout.Clear();
       //      facade.Add(new GUIListItem(".."));
 
       foreach (DBTrackInfo db1 in list)
@@ -548,9 +619,9 @@ namespace mvCentral.GUI
         if (db1.AlbumInfo.Count == 0) continue;
 
         bool IsPresent = false;
-        for (int i = 0; i <= facade.Count - 1; i++)
+        for (int i = 0; i <= facadeLayout.Count - 1; i++)
         {
-          if (facade[i].Label == db1.AlbumInfo[0].Album) IsPresent = true;
+          if (facadeLayout[i].Label == db1.AlbumInfo[0].Album) IsPresent = true;
         }
         if (IsPresent) continue;
 
@@ -563,7 +634,7 @@ namespace mvCentral.GUI
           item.IsFolder = true;
           item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
           item.MusicTag = db1.AlbumInfo[0];
-          facade.Add(item);
+          facadeLayout.Add(item);
 
         }
 
@@ -587,12 +658,12 @@ namespace mvCentral.GUI
         item.IsFolder = false;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         item.MusicTag = db1;
-        facade.Add(item);
+        facadeLayout.Add(item);
       }
 
-      if (facade.Count > 0 && !persisting)
+      if (facadeLayout.Count > 0 && !persisting)
       {
-        onVideoSelected(facade.ListLayout.ListItems[0], facade);
+        onVideoSelected(facadeLayout.ListLayout.ListItems[0], facadeLayout);
       }
       dummyLabel.Visibility = System.Windows.Visibility.Visible;
     }
@@ -608,7 +679,7 @@ namespace mvCentral.GUI
       DBAlbumInfo currAlbum = DBAlbumInfo.Get(AlbumID);
       List<DBTrackInfo> list = DBTrackInfo.GetEntriesByAlbum(currAlbum);
       this.albumID = AlbumID;
-      facade.Clear();
+      facadeLayout.Clear();
       //      facade.Add(new GUIListItem(".."));
       foreach (DBTrackInfo db1 in list)
       {
@@ -625,12 +696,12 @@ namespace mvCentral.GUI
         item.IsFolder = false;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         item.MusicTag = db1;
-        facade.Add(item);
+        facadeLayout.Add(item);
       }
 
-      if (facade.Count > 0 && !persisting)
+      if (facadeLayout.Count > 0 && !persisting)
       {
-        onVideoSelected(facade.ListLayout.ListItems[0], facade);
+        onVideoSelected(facadeLayout.ListLayout.ListItems[0], facadeLayout);
       }
       dummyLabel.Visibility = System.Windows.Visibility.Visible;
     }
@@ -649,7 +720,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
       GUIPropertyManager.Changed = true;
-      lastItemArt = facade.ListLayout.SelectedListItemIndex;
+      lastItemArt = facadeLayout.ListLayout.SelectedListItemIndex;
     }
 
     void onVideoSelected(GUIListItem item, GUIControl parent)
@@ -664,7 +735,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.Changed = true;
       if (item.Label != "..")
       {
-        lastItemVid = facade.ListLayout.SelectedListItemIndex;
+        lastItemVid = facadeLayout.ListLayout.SelectedListItemIndex;
       }
     }
 

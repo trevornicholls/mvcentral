@@ -17,22 +17,20 @@ using DirectShowLib;
 using DirectShowLib.Dvd;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-
+using WindowPlugins;
 
 
 namespace mvCentral.GUI
 {
-    public partial class mvGUIMain : GUIWindow
+    public partial class mvGUIMain : WindowPluginBase
     {
 
-
- 
         private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
         {
             if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_PLAY || actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
             {
                 //play this song, or return to previous level
-                if (facade.ListLayout.SelectedListItem.Label == "..")
+                if (facadeLayout.ListLayout.SelectedListItem.Label == "..")
                 {
                     currentView = View.Artist;
                     loadCurrent();
@@ -40,8 +38,8 @@ namespace mvCentral.GUI
                 else
                 {
                     //Play currently selected and activate video window
-                    string vidPath = facade.ListLayout.SelectedListItem.Path;
-                    DBTrackInfo db1 = (DBTrackInfo)facade.ListLayout.SelectedListItem.MusicTag;
+                    string vidPath = facadeLayout.ListLayout.SelectedListItem.Path;
+                    DBTrackInfo db1 = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
                     
                     g_Player.Play(db1.LocalMedia[0].File.FullName);
                     if (db1.LocalMedia[0].IsDVD)

@@ -8,33 +8,43 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
 
+using mvCentral.Database;
+
+using WindowPlugins;
+
 namespace mvCentral.GUI
 {
-    public partial class mvGUIMain : GUIWindow
+  public partial class mvGUIMain : WindowPluginBase
+  {
+    private void ArtistActions(Action.ActionType actionType)
     {
-        private void ArtistActions(Action.ActionType actionType)
-        {
-            if (actionType == Action.ActionType.ACTION_MUSIC_PLAY)
-            {
-//                addToPlaylist(dm.getAllVideos(facade.ListView.SelectedListItem.ItemId), true, true, false);
-            }
-            else if (actionType == Action.ActionType.REMOTE_0 ||
-                    actionType == Action.ActionType.REMOTE_1 ||
-                    actionType == Action.ActionType.REMOTE_2 ||
-                    actionType == Action.ActionType.REMOTE_3 ||
-                    actionType == Action.ActionType.REMOTE_4 ||
-                    actionType == Action.ActionType.REMOTE_5 ||
-                    actionType == Action.ActionType.REMOTE_6 ||
-                    actionType == Action.ActionType.REMOTE_7 ||
-                    actionType == Action.ActionType.REMOTE_8 ||
-                    actionType == Action.ActionType.REMOTE_9)
-                DoSpell(actionType);
-            else
-            {
-                currentView = View.Video;
-                artistID = facade.ListLayout.SelectedListItem.ItemId;
-                loadCurrent();
-            }
-        }
+      if (actionType == Action.ActionType.ACTION_MUSIC_PLAY)
+      {
+        
+        
+
+        DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
+        List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
+
+        addToPlaylist(allTracksByArtist, true, true, false);
+      }
+      else if (actionType == Action.ActionType.REMOTE_0 ||
+              actionType == Action.ActionType.REMOTE_1 ||
+              actionType == Action.ActionType.REMOTE_2 ||
+              actionType == Action.ActionType.REMOTE_3 ||
+              actionType == Action.ActionType.REMOTE_4 ||
+              actionType == Action.ActionType.REMOTE_5 ||
+              actionType == Action.ActionType.REMOTE_6 ||
+              actionType == Action.ActionType.REMOTE_7 ||
+              actionType == Action.ActionType.REMOTE_8 ||
+              actionType == Action.ActionType.REMOTE_9)
+        DoSpell(actionType);
+      else
+      {
+        currentView = View.Artist;
+        artistID = facadeLayout.ListLayout.SelectedListItem.ItemId;
+        loadCurrent();
+      }
     }
+  }
 }

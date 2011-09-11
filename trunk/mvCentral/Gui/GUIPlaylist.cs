@@ -12,10 +12,11 @@ using MediaPortal.Player;
 using mvCentral.Database;
 using mvCentral.Playlist;
 using mvCentral.Utils;
+using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-    public partial class mvGUIMain : GUIWindow
+    public partial class mvGUIMain : WindowPluginBase
     {
 
         private enum SmartMode
@@ -92,7 +93,7 @@ namespace mvCentral.GUI
             {
                 dlgMenu.Reset();
                 dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - Smart Playlist Options");
-                if (this.facade.Count > 0)
+                if (this.facadeLayout.Count > 0)
                 {
                     dlgMenu.Add("Favourite Videos");
                     dlgMenu.Add("Newest Videos");
