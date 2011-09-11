@@ -8,10 +8,11 @@ using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
+using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-    public partial class mvGUIMain : GUIWindow
+    public partial class mvGUIMain : WindowPluginBase
     {
         long lastPress = 0;
         string sortString = "";
@@ -54,12 +55,12 @@ namespace mvCentral.GUI
         private void doFacadeSort()
         {
             int x = sortString.Length;
-            for (int i = 0; i < facade.ListLayout.ListItems.Count; i++)
+            for (int i = 0; i < facadeLayout.ListLayout.ListItems.Count; i++)
             {
-                string tmp = facade.ListLayout.ListItems[i].Label.Substring(0, x).ToUpper();
+                string tmp = facadeLayout.ListLayout.ListItems[i].Label.Substring(0, x).ToUpper();
                 if (tmp == sortString)
                 {
-                    facade.SelectedListItemIndex = i;
+                    facadeLayout.SelectedListItemIndex = i;
                     break;
                 }
             }

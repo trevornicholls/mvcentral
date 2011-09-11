@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
-	<id>88889</id>
-	<defaultcontrol>50</defaultcontrol>
-	<allowoverlay>no</allowoverlay>
+  <id>88889</id>
+  <defaultcontrol>50</defaultcontrol>
+  <allowoverlay>no</allowoverlay>
   <define>#header.label:136</define>
   <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
@@ -79,7 +79,7 @@
       <textcolor>20ffffff</textcolor>
     </control>
     -->
-     <control>
+    <control>
       <description>Selected item Label</description>
       <type>fadelabel</type>
       <id>1</id>
@@ -91,7 +91,7 @@
       <animation effect="fade" time="300" delay="300">WindowOpen</animation>
       <animation effect="fade" time="230" delay="0">WindowClose</animation>
     </control>
-     <control>
+    <control>
       <description>Selected item Label</description>
       <type>fadelabel</type>
       <id>1</id>
@@ -103,8 +103,6 @@
       <animation effect="fade" time="300" delay="300">WindowOpen</animation>
       <animation effect="fade" time="230" delay="0">WindowClose</animation>
     </control>
-
-    
     <control>
       <id>0</id>
       <type>image</type>
@@ -289,10 +287,6 @@
         </control>
       </control>
     </control>
-
-
-
-
     <!-- PAGE COUNT -->
     <control>
       <description>Page Count Background</description>
@@ -455,7 +449,7 @@
           <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
         </control>
       </control>
-		</control>
+    </control>
     <!-- MEDIA COUNT -->
     <control>
       <description>Media Count Background</description>
@@ -494,5 +488,6 @@
     </control>
     <import>mvCentral.overlays2.xml</import>
     <import>common.time.xml</import>
-	</controls>
+  </controls>
 </window>
+<!--Checksum:a03673c552ac0c99bac6e4c1b390d6b6-->

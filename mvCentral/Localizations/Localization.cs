@@ -180,6 +180,8 @@ namespace mvCentral.Localizations {
             " sort the results using the menu item and of course, download the movie/serie. For more information, visit us" +
             " on our Google Code Download Central project page!"; // will be defined in XML file
 
+        public static string Artists = "Artists";
+
         // B
         public static string Back = "Back";
         public static string ButtonAutoPlay = "Auto Play";
@@ -262,6 +264,8 @@ namespace mvCentral.Localizations {
         // V
         public static string VirtualDriveHeader = "Virtual drive not ready";
         public static string VirtualDriveMessage = "The virtual drive wasn't ready in time.\nPlease try again or cancel playback.";
+        public static string Videos = "Videos";
+
 
         // W
         #endregion
