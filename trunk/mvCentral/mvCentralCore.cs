@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
 using Cornerstone.GUI.Dialogs;
+using Cornerstone.GUI;
 using Cornerstone.Tools;
 
 
@@ -248,22 +249,6 @@ namespace mvCentral
 #endif
 
 
-      if (rtb != null)
-      {
-        // Step 2. Create targets for ritch text box and add them to the configuration 
-        RichTextBoxTarget logTarget = new RichTextBoxTarget();
-        logTarget.Name = "rtb-log";
-        logTarget.ControlName = rtb.Name;
-        logTarget.FormName = rtb.FindForm().Name;
-        logTarget.Layout = "${date:format=dd-MMM-yyyy HH\\:mm\\:ss} " +
-                            "${level:fixedLength=true:padding=5} " +
-                            "[${logger:fixedLength=true:padding=20:shortName=true}]: ${message} " +
-                            "${exception:format=tostring}";
-        LogManager.Configuration.AddTarget("rtblog", logTarget);
-        // set the logging rules for music videos logging into rich text box
-        LoggingRule rtbLogRule = new LoggingRule("*", logLevel, logTarget);
-        LogManager.Configuration.LoggingRules.Add(rtbLogRule);
-      }
 
       // set the logging rules for Music Videos logging
       LoggingRule mvRule = new LoggingRule("mvCentral.*", logLevel, mvLogTarget);

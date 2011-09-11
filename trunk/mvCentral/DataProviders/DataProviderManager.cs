@@ -366,21 +366,10 @@ namespace mvCentral.DataProviders {
             logger.Info("Checking internal scripts for updates...");
 
             AddSource(typeof(LocalProvider));
-//            AddSource(typeof(ScriptableProvider), Resources.Script_IMDb);
-//            AddSource(typeof(TheMusicVideoDbProvider));
-//            AddSource(typeof(MusicVideoMeterProvider));
-//            AddSource(typeof(MyVideosProvider));
             AddSource(typeof(LastFMProvider));
-            AddSource(typeof(EchoNestProvider));
+            //AddSource(typeof(EchoNestProvider));
             AddSource(typeof(DGProvider));
             AddSource(typeof(ManualProvider));
-            // remove the impawards script (requested by site owner)
-//            DBSourceInfo impSource = DBSourceInfo.GetFromScriptID(874903);
-//            if (impSource != null) {
-//                logger.Warn("IMPAwards script has been disabled at the website operators request. Very sorry!");
-//                RemoveSource(impSource);
-//            }
-
             normalizePriorities();
         }
 
@@ -389,86 +378,6 @@ namespace mvCentral.DataProviders {
         }
         
         public AddSourceResult AddSource(Type providerType, string scriptContents, bool active) {
-/*            IScriptableMusicVideoProvider newProvider = (IScriptableMusicVideoProvider)Activator.CreateInstance(providerType);
-
-            DBScriptInfo newScript = new DBScriptInfo();
-            newScript.Contents = scriptContents;
-            
-            // if a provider can't be created based on this script we have a bad script file.
-            if (newScript.Provider == null)
-                return AddSourceResult.FAILED;
-            
-            // check if we already have this script in memory.
-            foreach (DBSourceInfo currSource in allSources)
-                // if some version of the script is already in the database
-                if (currSource.IsScriptable() && ((IScriptableMusicVideoProvider)currSource.Provider).ScriptID == newScript.Provider.ScriptID) {
-                    bool uniqueDate = newScript.Provider.Published != null;
-                    foreach (DBScriptInfo currScript in currSource.Scripts) {
-                        if (uniqueDate && 
-                            currScript.Provider.Published != null &&
-                            currScript.Provider.Published.Value.Equals(newScript.Provider.Published.Value))
-
-                            uniqueDate = false;
-                        
-                        // check if the same version is already loaded
-                        if (currScript.Equals(newScript)) {
-                            if (DebugMode) {
-                                logger.Warn("Script version number already loaded. Reloading because in Debug Mode.");
-                                currScript.Contents = scriptContents;
-                                currScript.Reload();
-                                updateListsWith(currSource);
-                                currScript.Commit();
-                                normalizePriorities();
-                                return AddSourceResult.SUCCESS_REPLACED;
-                            }
-                            else {
-                                logger.Debug("Script already loaded.");
-                                return AddSourceResult.FAILED_VERSION;
-                            }
-                        }
-                    }
-
-                    // if the date is unique, go ahead and add the new script
-                    if (uniqueDate || DebugMode) {
-                        currSource.Scripts.Add(newScript);
-                        currSource.SelectedScript = newScript;
-                        updateListsWith(currSource);
-                        newScript.Commit();
-                        currSource.Commit();
-                        normalizePriorities();
-
-                        if (uniqueDate)
-                            return AddSourceResult.SUCCESS;
-                        else
-                            return AddSourceResult.SUCCESS_REPLACED;
-                    }
-                    else {
-                        logger.Error("Script failed to load, publish date is not unique.");
-                        return AddSourceResult.FAILED_DATE;
-                    }
-                }
-
-            // if there was nothing to update, and we are not looking to add new data sources, quit
-            if (updateOnly)
-                return AddSourceResult.SUCCESS;
-
-            // build the new source information
-            DBSourceInfo newSource = new DBSourceInfo();
-            newSource.ProviderType = providerType;
-            newSource.Scripts.Add(newScript);
-            newSource.SelectedScript = newScript;
-            
-            // add and commit
-            updateListsWith(newSource);
-            newScript.Commit();
-            newSource.Commit();
-            normalizePriorities();
-
-            // if not set to active, disable the new source by default
-            if (!active) 
-                foreach (DataType currType in Enum.GetValues(typeof(DataType)))
-                    SetDisabled(newSource, currType, true);
-*/
             return AddSourceResult.SUCCESS;
         }
 

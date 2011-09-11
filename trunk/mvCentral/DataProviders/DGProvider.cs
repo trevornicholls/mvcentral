@@ -372,29 +372,12 @@ namespace mvCentral.DataProviders
 
             if (xml == null)
                 return null;
-            logger.Info("getMusicVideoTrack - About to do > XmlNode root = xml.Item(0).ParentNode");
-
             XmlNode root = xml.Item(0).ParentNode;
-
-            logger.Info("getMusicVideoTrack - Done > XmlNode root = xml.Item(0).ParentNode");
-
             if (root.Attributes != null && root.Attributes["stat"].Value != "ok") return null;
-
-            logger.Info("getMusicVideoTrack - About to do > XmlNodeList mvNodes = xml.Item(0).ChildNodes");
-
-
             XmlNodeList mvNodes = xml.Item(0).ChildNodes;
-
-            logger.Info("getMusicVideoTrack - Done > XmlNodeList mvNodes = xml.Item(0).ChildNodes");
-
             DBTrackInfo mv = new DBTrackInfo();
             DBArtistInfo a1 = new DBArtistInfo();
-
-            logger.Info("getMusicVideoTrack - Adding a1 > " + a1.ToString());
-
             mv.ArtistInfo.Add(a1);
-
-            logger.Info("getMusicVideoTrack - Added a1 > " + a1.ToString());
             foreach (XmlNode node in mvNodes)
             {
                 string value = node.InnerText;
@@ -441,13 +424,9 @@ namespace mvCentral.DataProviders
 
             if (mv.ArtistInfo.Count == 0) return null;
 
+          // get release info
 
-            // get release info
-
-            logger.Info("getMusicVideoTrack - Get Release Info");
-
-
-            if (track != null)
+          if (track != null)
                 xml = getXML(string.Format(apiSearch, artist + " " + track));
             else return null;
 

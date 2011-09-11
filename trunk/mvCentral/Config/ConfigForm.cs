@@ -17,8 +17,6 @@ using Cornerstone.GUI.Dialogs;
 using Cornerstone.Tools;
 using Cornerstone.Extensions;
 
-
-
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using NLog;
@@ -123,12 +121,16 @@ namespace mvCentral
       if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
         return;
 
-      mainTab.SelectedIndex = 0;
+      mainTab.SelectedIndex = 1;
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
+      tbMinArtWidth.Setting = mvCentralCore.Settings["min_artist_width"];
+      tbMinArtHeight.Setting = mvCentralCore.Settings["min_artist_height"];
+      tbTrackArtWidth.Setting = mvCentralCore.Settings["min_track_width"];
+      tbTrackArtHeight.Setting = mvCentralCore.Settings["min_track_height"];
 
       artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
@@ -390,7 +392,7 @@ namespace mvCentral
     {
       load = new loadingDisplay();
 
- 
+
       //needs to be here otherwise nlog won't use the richtextbox for logging.
       mvCentralCore.Initialize(this.rtbLog);
 
@@ -405,8 +407,9 @@ namespace mvCentral
       FilenameParser.reLoadExpressions();
 
       load.updateStats(DBArtistInfo.GetAll().Count, DBTrackInfo.GetAll().Count);
-      // Hang about for second
-      Thread.Sleep(1000);
+
+      load.Close();
+
 
       if (!DesignMode)
       {
@@ -613,16 +616,16 @@ namespace mvCentral
       this.scMain.SplitterDistance = this.Size.Height / 3 * 2;
       //            DBOption.SetOptions(DBOption.cConfig_LogCollapsed, splitMain_Log.Panel2Collapsed);
 
-      if (scMain.Panel2Collapsed)
-      {
-        btnShowLog.Image = mvCentral.Properties.Resources.arrow_up_small;
-        //                this.toolTip_Help.SetToolTip(this.button1, "Click to show log");
-      }
-      else
-      {
-        btnShowLog.Image = mvCentral.Properties.Resources.arrow_down_small;
-        //                this.toolTip_Help.SetToolTip(this.button1, "Click to hide log");
-      }
+      //if (scMain.Panel2Collapsed)
+      //{
+      //  btnShowLog.Image = mvCentral.Properties.Resources.arrow_up_small;
+      //  //                this.toolTip_Help.SetToolTip(this.button1, "Click to show log");
+      //}
+      //else
+      //{
+      //  btnShowLog.Image = mvCentral.Properties.Resources.arrow_down_small;
+      //  //                this.toolTip_Help.SetToolTip(this.button1, "Click to hide log");
+      //}
     }
 
     private void btnShowLog_Click(object sender, EventArgs e)
@@ -1359,8 +1362,8 @@ namespace mvCentral
         tmpNode = tmpNode.Parent;
       }
 
-              //if we are on a new object, reset our timer
-        //otherwise check to see if enough time has passed and expand the destination node
+      //if we are on a new object, reset our timer
+      //otherwise check to see if enough time has passed and expand the destination node
       if (dropNode != lastDragDestination)
       {
         lastDragDestination = dropNode;
@@ -2902,6 +2905,5 @@ namespace mvCentral
         thread.Start();
       }
     }
-
   }
 }
