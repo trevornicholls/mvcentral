@@ -231,14 +231,14 @@
     <Compile Include="LocalMediaManagement\VideoUtility.cs" />
     <Compile Include="mvCentralCore.cs" />
     <Compile Include="mvCentralSettings.cs" />
-    <Compile Include="Playlist\GUImvPlaylist.cs" />
-    <Compile Include="Playlist\IPlayListIO.cs" />
-    <Compile Include="Playlist\PlayList.cs" />
-    <Compile Include="Playlist\PlayListFactory.cs" />
-    <Compile Include="Playlist\PlayListIO.cs" />
-    <Compile Include="Playlist\PlayListItem.cs" />
-    <Compile Include="Playlist\PlayListPlayer.cs" />
-    <Compile Include="Playlist\PlayListType.cs" />
+    <Compile Include="Gui\Playlist\GUImvPlaylist.cs" />
+    <Compile Include="Gui\Playlist\IPlayListIO.cs" />
+    <Compile Include="Gui\Playlist\PlayList.cs" />
+    <Compile Include="Gui\Playlist\PlayListFactory.cs" />
+    <Compile Include="Gui\Playlist\PlayListIO.cs" />
+    <Compile Include="Gui\Playlist\PlayListItem.cs" />
+    <Compile Include="Gui\Playlist\PlayListPlayer.cs" />
+    <Compile Include="Gui\Playlist\PlayListType.cs" />
     <Compile Include="Utils\ROTClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -414,10 +414,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy "$(SolutionDir)External\ILMerge.exe" "$(TargetDir)" /Y 
-copy "$(ProjectDir)\ILMerge\merge.bat" "$(TargetDir)" /Y
-call "$(TargetDir)merge.bat"
-if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
+    <PostBuildEvent>if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
     <PreBuildEvent>subwcrev "$(SolutionDir)." "$(ProjectDir)Properties\VersionInfo.cs.tmpl" "$(ProjectDir)Properties\VersionInfo.cs"</PreBuildEvent>
   </PropertyGroup>
 </Project>

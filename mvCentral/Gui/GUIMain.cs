@@ -37,6 +37,16 @@ namespace mvCentral.GUI
       Video
     }
 
+    //public enum Layout
+    //{
+    //  List = 0,
+    //  Icons = 1,
+    //  LargeIcons = 2,
+    //  FilmStrip = 3,
+    //  AlbumView = 4,
+    //  PlayList = 5
+    //}
+
     #endregion
 
     #region Declarations
@@ -91,19 +101,22 @@ namespace mvCentral.GUI
     [SkinControlAttribute((int)GUIControls.PlayAllRandom)] protected GUIButtonControl playAllRandom = null;
     [SkinControlAttribute((int)GUIControls.PlaySmart)] protected GUIButtonControl playSmartList = null;
     [SkinControlAttribute((int)GUIControls.PlayList)] protected GUIButtonControl sowPlayList = null;
+    
     [SkinControlAttribute((int)GUIControls.Hierachy)] protected GUILabelControl hierachy = null;
     [SkinControlAttribute((int)GUIControls.ArtistName)] protected GUILabelControl artistName = null;
-    [SkinControlAttribute((int)GUIControls.ArtistBio)] protected GUITextScrollUpControl artistBio = null;
-    [SkinControlAttribute((int)GUIControls.ArtistImage)] protected GUIImage artistImage = null;
-    [SkinControlAttribute((int)GUIControls.VideoImage)] protected GUIImage videoImage = null;
-    [SkinControlAttribute((int)GUIControls.VideoCount)] protected GUILabelControl videoCount = null;
-    [SkinControlAttribute((int)GUIControls.ArtistCount)] protected GUILabelControl artistCount = null;
-    [SkinControlAttribute((int)GUIControls.FavVidLabel)] protected GUIFadeLabel favVidLabel = null;
-    [SkinControlAttribute((int)GUIControls.FavVidImage)] protected GUIImage favVidImage = null;
-    [SkinControlAttribute((int)GUIControls.FavArtLabel)] protected GUILabelControl favArtLabel = null;
-    [SkinControlAttribute((int)GUIControls.FavArtImage)] protected GUIImage favArtImage = null;
     [SkinControlAttribute((int)GUIControls.SortLabel)] protected GUILabelControl SortLabel = null;
     [SkinControlAttribute((int)GUIControls.DummyLabel)] protected GUILabelControl dummyLabel = null;
+    [SkinControlAttribute((int)GUIControls.VideoCount)] protected GUILabelControl videoCount = null;
+    [SkinControlAttribute((int)GUIControls.ArtistCount)] protected GUILabelControl artistCount = null;
+    [SkinControlAttribute((int)GUIControls.FavArtLabel)] protected GUILabelControl favArtLabel = null;
+    
+    [SkinControlAttribute((int)GUIControls.ArtistImage)] protected GUIImage artistImage = null;
+    [SkinControlAttribute((int)GUIControls.VideoImage)] protected GUIImage videoImage = null;
+    [SkinControlAttribute((int)GUIControls.FavVidImage)] protected GUIImage favVidImage = null;
+    [SkinControlAttribute((int)GUIControls.FavArtImage)] protected GUIImage favArtImage = null;
+
+    [SkinControlAttribute((int)GUIControls.FavVidLabel)] protected GUIFadeLabel favVidLabel = null;
+    [SkinControlAttribute((int)GUIControls.ArtistBio)] protected GUITextScrollUpControl artistBio = null;
     [SkinControlAttribute((int)GUIControls.Facade)] protected GUIFacadeControl facade;
 
     #endregion
@@ -303,17 +316,21 @@ namespace mvCentral.GUI
 
     protected override void OnPageLoad()
     {
+      logger.Debug("Start Loading Page...");
+
       int watchedCount = 0;
       DBArtistInfo mostPlayedArtist = null;
 
+      logger.Debug("Load Tracks and Artists");
       List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
       List<DBArtistInfo> artList = DBArtistInfo.GetAll();
 
       // Set Total Artists and Video Porperties
-      GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count.ToString() + " Videos");
-      GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count.ToString() + " Artists");
+      GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", DBTrackInfo.GetAll().Count + " Videos");
+      GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", DBArtistInfo.GetAll().Count + " Artists");
 
       // get the most played Track and Image
+      logger.Debug("Get Most Played Track");
       vidList.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.ActiveUserSettings.WatchedCount.CompareTo(p1.ActiveUserSettings.WatchedCount); });
       GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", vidList[0].Track);
       DBArtistInfo artInfo = DBArtistInfo.Get(vidList[0]);
@@ -321,6 +338,7 @@ namespace mvCentral.GUI
       //
       // Work out the most played artist
       //
+      logger.Debug("Get Most Played Artist");
       watchedCount = 0;
       foreach (DBArtistInfo currArtist in artList)
       {
@@ -351,12 +369,17 @@ namespace mvCentral.GUI
       GUIPropertyManager.Changed = true;
       if (persisting)
       {
+        logger.Debug("Load Current");
         loadCurrent();
       }
       else
       {
+        logger.Debug("Load Artists");
         loadArtists();
       }
+
+      logger.Debug("Loading Page Completed");
+
 
       base.OnPageLoad();
     }
@@ -391,6 +414,10 @@ namespace mvCentral.GUI
       dlg.DoModal(GUIWindowManager.ActiveWindow);
     }
 
+    /// <summary>
+    /// Show the Conext Menu
+    /// </summary>
+    /// <returns></returns>
     private int ShowContextMenu()
     {
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
@@ -418,7 +445,9 @@ namespace mvCentral.GUI
       }
       return -1;
     }
-
+    /// <summary>
+    /// Load the current ???
+    /// </summary>
     private void loadCurrent()
     {
       persisting = true;
@@ -440,6 +469,9 @@ namespace mvCentral.GUI
 
     }
 
+    /// <summary>
+    /// Load artists
+    /// </summary>
     private void loadArtists()
     {
       currentView = View.Artist;
@@ -457,8 +489,8 @@ namespace mvCentral.GUI
         GUIListItem item = new GUIListItem();
         item.Label = db1.Artist;
         item.ThumbnailImage = db1.ArtThumbFullPath;
-        item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
-        item.AlbumInfoTag = mvCentralUtils.StripHTML(db1.bioContent);
+        item.TVTag = db1.bioContent;
+        item.AlbumInfoTag = db1.bioContent;
         item.ItemId = (int)db1.ID;
         item.IsFolder = true;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
@@ -473,7 +505,10 @@ namespace mvCentral.GUI
       persisting = true;
       dummyLabel.Visibility = System.Windows.Visibility.Hidden;
     }
-
+    /// <summary>
+    /// Load Videos
+    /// </summary>
+    /// <param name="ArtistID"></param>
     private void LoadVideos(int ArtistID)
     {
       currentView = View.Video;
@@ -561,7 +596,10 @@ namespace mvCentral.GUI
       }
       dummyLabel.Visibility = System.Windows.Visibility.Visible;
     }
-
+    /// <summary>
+    /// Load Albums
+    /// </summary>
+    /// <param name="AlbumID"></param>
     private void LoadAlbums(int AlbumID)
     {
       currentView = View.Video;
@@ -596,7 +634,11 @@ namespace mvCentral.GUI
       }
       dummyLabel.Visibility = System.Windows.Visibility.Visible;
     }
-
+    /// <summary>
+    /// Actions to perform when artist selected
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="parent"></param>
     void onArtistSelected(GUIListItem item, GUIControl parent)
     {
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
@@ -795,6 +837,9 @@ namespace mvCentral.GUI
     }
 
     #endregion
+
+
+
 
   }
 }
