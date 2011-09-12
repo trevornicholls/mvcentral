@@ -333,7 +333,7 @@ namespace mvCentral.GUI
           break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
-          if (facadeLayout.ListLayout.SelectedListItem.IsFolder & actionType == Action.ActionType.ACTION_MUSIC_PLAY)
+          if (facadeLayout.ListLayout.SelectedListItem.IsFolder & ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE)))
           {
             ArtistActions(actionType);
           }
@@ -573,6 +573,11 @@ namespace mvCentral.GUI
       {
         onArtistSelected(facadeLayout.ListLayout.ListItems[0], facadeLayout);
       }
+      else
+      {
+        facadeLayout.SelectedListItemIndex = 0;
+        onArtistSelected(facadeLayout.SelectedListItem, facadeLayout);
+      }
       persisting = true;
       dummyLabel.Visibility = System.Windows.Visibility.Hidden;
     }
@@ -605,7 +610,6 @@ namespace mvCentral.GUI
           return;
 
         }
-
 
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
       List<DBTrackInfo> list = DBTrackInfo.GetEntriesByArtist(currArtist);
@@ -651,7 +655,12 @@ namespace mvCentral.GUI
         TimeSpan tt = TimeSpan.Parse(db1.PlayTime);
         DateTime dt = new DateTime(tt.Ticks);
         item.Label3 = String.Format("{0:HH:mm:ss}", dt);
-        item.ThumbnailImage = db1.ArtThumbFullPath;
+        
+        if (!string.IsNullOrEmpty(db1.ArtThumbFullPath))
+          item.ThumbnailImage = db1.ArtThumbFullPath;
+        else
+          item.ThumbnailImage = "missing_coverart2.png";
+
         item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
         selArtist = currArtist.Artist;
         item.Path = db1.LocalMedia[0].File.FullName;
@@ -715,12 +724,29 @@ namespace mvCentral.GUI
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", "No Artist Bio Avaiable");
       else
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", mvCentralUtils.StripHTML(item.TVTag.ToString()));
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
 
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
+      // How many videos do we have for this artist
+      DBArtistInfo currArtist = DBArtistInfo.Get(item.Label);
+      GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
+
+      // Clear the video properites
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", string.Empty);
+      // Audio
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Empty);
+
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
+      GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
+
+      
       GUIPropertyManager.Changed = true;
-      lastItemArt = facadeLayout.ListLayout.SelectedListItemIndex;
+      lastItemArt = facadeLayout.SelectedListItemIndex;
     }
 
     void onVideoSelected(GUIListItem item, GUIControl parent)
@@ -729,13 +755,30 @@ namespace mvCentral.GUI
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", "No Track Information Avaiable");
       else
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", mvCentralUtils.StripHTML(item.TVTag.ToString()));
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
 
+
+      // Grab and set the video properites
+      DBTrackInfo trackInfo = (DBTrackInfo)item.MusicTag;
+      DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+      // Video
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);     
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
+      logger.Debug(string.Format("Video Props for {0} - {1} {2} {3}", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
+      // Audio
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+      logger.Debug(string.Format("Audio Props for {0} - {1} {2}", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
 
       GUIPropertyManager.Changed = true;
       if (item.Label != "..")
       {
-        lastItemVid = facadeLayout.ListLayout.SelectedListItemIndex;
+        lastItemVid = facadeLayout.SelectedListItemIndex;
       }
     }
 

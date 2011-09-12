@@ -17,16 +17,15 @@ namespace mvCentral.GUI
   public partial class mvGUIMain : WindowPluginBase
   {
     private void ArtistActions(Action.ActionType actionType)
-    {
-      if (actionType == Action.ActionType.ACTION_MUSIC_PLAY)
+    {  
+      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
       {
-        
-        
-
-        DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
-        List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
-
-        addToPlaylist(allTracksByArtist, true, true, false);
+        if (actionType == Action.ActionType.ACTION_MUSIC_PLAY || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo ) )
+        {
+          DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
+          List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
+          addToPlaylist(allTracksByArtist, true, true, false);
+        }
       }
       else if (actionType == Action.ActionType.REMOTE_0 ||
               actionType == Action.ActionType.REMOTE_1 ||

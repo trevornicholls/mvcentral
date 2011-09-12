@@ -2295,6 +2295,8 @@ namespace mvCentral
         case "tpTrack":
           trackDetailsList.DatabaseObject = CurrentTrack;
           fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
+          trackDetailsList.DatabaseObject.CommitNeeded = true;
+          fileDetailsList.DatabaseObject.CommitNeeded = true;
           break;
       }
     }
@@ -2382,7 +2384,6 @@ namespace mvCentral
           btnArtZoom.Enabled = true;
           btnArtDelete.Enabled = true;
         }
-
       }
       catch (Exception)
       {
@@ -2773,6 +2774,19 @@ namespace mvCentral
       popup1.Owner = this.ParentForm;
       popup1.ShowDialog();
       CurrentTrack.AlternateArts.Add(filename1);
+    }
+
+    private void autoGrabFrame30SecsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      string artFolder = mvCentralCore.Settings.TrackArtFolder;
+      string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
+      string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
+
+      FrameGrabber fr = new FrameGrabber();
+      fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, filename1, 10);
+      CurrentTrack.AlternateArts.Add(filename1);
+      setArtImage();
+      updateDBPage();
     }
 
     private void btnPlay_Click(object sender, EventArgs e)
