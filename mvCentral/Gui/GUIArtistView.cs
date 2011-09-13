@@ -40,7 +40,7 @@ namespace mvCentral.GUI
         DoSpell(actionType);
       else
       {
-        currentView = View.Artist;
+        currentView = mvView.Artist;
         artistID = facadeLayout.ListLayout.SelectedListItem.ItemId;
         loadCurrent();
       }
