@@ -2275,9 +2275,9 @@ namespace mvCentral
 
 
     #region Artist/Album/Track tab
+
     private void updateDBPage()
     {
-
       if (InvokeRequired)
       {
         this.Invoke(new InvokeDelegate(updateDBPage));
@@ -2297,6 +2297,7 @@ namespace mvCentral
           fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
           trackDetailsList.DatabaseObject.CommitNeeded = true;
           fileDetailsList.DatabaseObject.CommitNeeded = true;
+
           break;
       }
     }
@@ -2778,15 +2779,49 @@ namespace mvCentral
 
     private void autoGrabFrame30SecsToolStripMenuItem_Click(object sender, EventArgs e)
     {
+      DBBasicInfo mv = null;
+      switch (tcMusicVideo.SelectedTab.Name)
+      {
+        case "tpArtist":
+          mv = CurrentArtist;
+          break;
+        case "tpAlbum":
+          mv = CurrentAlbum;
+          break;
+        case "tpTrack":
+          mv = CurrentTrack;
+          break;
+      }
+      if (mv == null) return;
+
       string artFolder = mvCentralCore.Settings.TrackArtFolder;
       string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
       string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
 
+      string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
+
       FrameGrabber fr = new FrameGrabber();
-      fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, filename1, 10);
-      CurrentTrack.AlternateArts.Add(filename1);
+      fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, 10);
+      ResizeImageWithAspect(tempFilename, filename1, 400);
+      mv.AlternateArts.Add(filename1);
+      mv.Commit();
       setArtImage();
       updateDBPage();
+    }
+
+    private void ResizeImageWithAspect(string fileName, string outputFileName,  int newWidth)
+    {
+      Image original = Image.FromFile(fileName);
+      float aspect = (float)original.Height / (float)original.Width;
+      int newHeight = (int)(newWidth * aspect);
+      Bitmap temp = new Bitmap(newWidth, newHeight, original.PixelFormat);
+      Graphics newImage = Graphics.FromImage(temp);
+      newImage.DrawImage(original, 0, 0, newWidth, newHeight);
+      temp.Save(outputFileName);
+      original.Dispose();
+      temp.Dispose();
+      newImage.Dispose();
+      File.Delete(fileName);
     }
 
     private void btnPlay_Click(object sender, EventArgs e)

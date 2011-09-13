@@ -34,7 +34,7 @@ namespace mvCentral.GUI
                 //play this song, or return to previous level
                 if (facadeLayout.ListLayout.SelectedListItem.Label == "..")
                 {
-                    currentView = View.Artist;
+                    currentView = mvView.Artist;
                     loadCurrent();
                 }
                 else

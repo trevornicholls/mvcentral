@@ -969,7 +969,7 @@
       this.toolStrip.Size = new System.Drawing.Size(33, 77);
       this.toolStrip.TabIndex = 155;
       this.toolStrip.Text = "toolStrip1";
-      this.toolStrip.Visible = false;
+      this.toolStrip.Visible = true;
       // 
       // addSourceButton
       // 
@@ -1158,7 +1158,7 @@
       this.toolStrip1.Size = new System.Drawing.Size(578, 26);
       this.toolStrip1.TabIndex = 6;
       this.toolStrip1.Text = "toolStrip1";
-      this.toolStrip1.Visible = false;
+      this.toolStrip1.Visible = true;
       // 
       // filterSplitButton
       // 

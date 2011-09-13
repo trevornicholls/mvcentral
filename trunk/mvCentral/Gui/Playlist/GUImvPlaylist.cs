@@ -32,6 +32,7 @@ using NLog;
 using mvCentral.Localizations;
 using mvCentral.Database;
 using mvCentral.Utils;
+// MediaPortal
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
 using MediaPortal.GUI.Video;
@@ -41,10 +42,13 @@ using MediaPortal.Util;
 using MediaPortal.Dialogs;
 using MediaPortal.Video.Database;
 using Action = MediaPortal.GUI.Library.Action;
+using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
+using WindowPlugins;
+
 
 namespace mvCentral.Playlist
 {
-  public class GUImvPlayList : GUIWindow
+  public class GUImvPlayList : WindowPluginBase
   {
     #region variables
     private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -68,7 +72,6 @@ namespace mvCentral.Playlist
 
     private enum GUIControls
     {
-      ViewAs = 2,
       LoadPlaylist = 9,
       ShufflePlaylist = 20,
       SavePlaylist = 21,
@@ -78,11 +81,8 @@ namespace mvCentral.Playlist
       PrevTrack = 24,
       RepeatPlaylist = 30,
       AutoPlayPlaylist = 40,
-      Facade = 50
     }
 
-    [SkinControl((int)GUIControls.ViewAs)]
-    protected GUIButtonControl btnViewAs = null;
     [SkinControl((int)GUIControls.LoadPlaylist)]
     protected GUIButtonControl btnLoad = null;
     [SkinControl((int)GUIControls.ShufflePlaylist)]
@@ -101,8 +101,6 @@ namespace mvCentral.Playlist
     protected GUIToggleButtonControl btnRepeat = null;
     [SkinControl((int)GUIControls.AutoPlayPlaylist)]
     protected GUIToggleButtonControl btnAutoPlay = null;
-    [SkinControl((int)GUIControls.Facade)]
-    protected GUIFacadeControl m_Facade = null;
 
     #endregion
 
@@ -222,9 +220,9 @@ namespace mvCentral.Playlist
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-      if (m_Facade != null)
+      if (facadeLayout != null)
       {
-        m_Facade.CurrentLayout = (GUIFacadeControl.Layout)CurrentView;
+        facadeLayout.CurrentLayout = (GUIFacadeControl.Layout)CurrentView;
       }
 
       MediaPortal.GUI.Library.GUIPropertyManager.SetProperty("#currentmodule", GUILocalizeStrings.Get(136));
@@ -237,21 +235,21 @@ namespace mvCentral.Playlist
       if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
       {
         int iCurrentItem = playlistPlayer.CurrentItem;
-        if (iCurrentItem >= 0 && iCurrentItem <= m_Facade.Count)
+        if (iCurrentItem >= 0 && iCurrentItem <= facadeLayout.Count)
         {
-          GUIControl.SelectItemControl(GetID, m_Facade.GetID, iCurrentItem);
+          GUIControl.SelectItemControl(GetID, facadeLayout.GetID, iCurrentItem);
         }
       }
 
       // Prompt to load a Playlist if there is no items in current playlist
-      if (m_Facade.Count <= 0 && btnLoad != null)
+      if (facadeLayout.Count <= 0 && btnLoad != null)
       {
         GUIControl.FocusControl(GetID, btnLoad.GetID);
       }
 
-      if (m_Facade.Count > 0)
+      if (facadeLayout.Count > 0)
       {
-        GUIControl.FocusControl(GetID, m_Facade.GetID);
+        GUIControl.FocusControl(GetID, facadeLayout.GetID);
         SelectCurrentItem();
       }
 
@@ -272,7 +270,7 @@ namespace mvCentral.Playlist
 
     protected override void OnPageDestroy(int newWindowId)
     {
-      currentSelectedItem = m_Facade.SelectedListItemIndex;
+      currentSelectedItem = facadeLayout.SelectedListItemIndex;
       mvCentralCore.Settings.playlistAutoPlay = playlistPlayer.PlaylistAutoPlay;
       mvCentralCore.Settings.repeatPlayList = playlistPlayer.RepeatPlaylist;
       prevSelectedmvTrack = null;
@@ -282,77 +280,12 @@ namespace mvCentral.Playlist
 
     protected override void OnClicked(int controlId, GUIControl control, Action.ActionType actionType)
     {
-      if (control == btnViewAs)
+
+      base.OnClicked(controlId, control, actionType);
+
+      if (control == btnLayouts)
       {
-        bool shouldContinue = false;
-        do
-        {
-          shouldContinue = false;
-          switch (CurrentView)
-          {
-            case View.List:
-              CurrentView = View.PlayList;
-              if (!AllowView(CurrentView) || m_Facade.PlayListLayout == null)
-              {
-                shouldContinue = true;
-              }
-              else
-              {
-                m_Facade.CurrentLayout = GUIFacadeControl.Layout.Playlist;
-              }
-              break;
-
-            case View.PlayList:
-              CurrentView = View.Icons;
-              if (!AllowView(CurrentView) || m_Facade.ThumbnailLayout == null)
-              {
-                shouldContinue = true;
-              }
-              else
-              {
-                m_Facade.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
-              }
-              break;
-
-            case View.Icons:
-              CurrentView = View.LargeIcons;
-              if (!AllowView(CurrentView) || m_Facade.ThumbnailLayout == null)
-              {
-                shouldContinue = true;
-              }
-              else
-              {
-                m_Facade.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
-              }
-              break;
-
-            case View.LargeIcons:
-              CurrentView = View.FilmStrip;
-              if (!AllowView(CurrentView) || m_Facade.FilmstripLayout == null)
-              {
-                shouldContinue = true;
-              }
-              else
-              {
-                m_Facade.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
-              }
-              break;
-
-            case View.FilmStrip:
-              CurrentView = View.List;
-              if (!AllowView(CurrentView) || m_Facade.ListLayout == null)
-              {
-                shouldContinue = true;
-              }
-              else
-              {
-                m_Facade.CurrentLayout = GUIFacadeControl.Layout.List;
-              }
-              break;
-          }
-        } while (shouldContinue);
-        SelectCurrentItem();
-        GUIControl.FocusControl(GetID, controlId);
+        mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
       }
       else if (control == btnShuffle)
       {
@@ -366,13 +299,13 @@ namespace mvCentral.Playlist
       {
         OnClearPlayList();
       }
-      else if (control == btnPlay || control == this.m_Facade)
+      else if (control == btnPlay || control == this.facadeLayout)
       {
-        if (control == this.m_Facade && actionType != Action.ActionType.ACTION_SELECT_ITEM) return; // some other events raised onClicked too for some reason?
+        if (control == this.facadeLayout && actionType != Action.ActionType.ACTION_SELECT_ITEM) return; // some other events raised onClicked too for some reason?
 
         playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
         playlistPlayer.Reset();
-        playlistPlayer.Play(m_Facade.SelectedListItemIndex);
+        playlistPlayer.Play(facadeLayout.SelectedListItemIndex);
         UpdateButtonStates();
       }
       else if (control == btnNext)
@@ -404,7 +337,6 @@ namespace mvCentral.Playlist
       {
         playlistPlayer.PlaylistAutoPlay = btnAutoPlay.Selected;
       }
-      base.OnClicked(controlId, control, actionType);
     }
 
     public override bool OnMessage(GUIMessage message)
@@ -413,9 +345,9 @@ namespace mvCentral.Playlist
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
           {
-            for (int i = 0; i < m_Facade.Count; ++i)
+            for (int i = 0; i < facadeLayout.Count; ++i)
             {
-              GUIListItem item = m_Facade[i];
+              GUIListItem item = facadeLayout[i];
               if (item != null && item.Selected)
               {
                 item.Selected = false;
@@ -431,9 +363,9 @@ namespace mvCentral.Playlist
             // global playlist changed outside playlist window
             LoadDirectory(string.Empty);
 
-            if (previousControlId == m_Facade.GetID && m_Facade.Count <= 0)
+            if (previousControlId == facadeLayout.GetID && facadeLayout.Count <= 0)
             {
-              previousControlId = btnViewAs.GetID;
+              previousControlId = facadeLayout.GetID;
               GUIControl.FocusControl(GetID, previousControlId);
             }
             SelectCurrentVideo();
@@ -453,42 +385,23 @@ namespace mvCentral.Playlist
       return true;
     }
 
-    protected void SelectCurrentItem()
+    protected override void SelectCurrentItem()
     {
-      int iItem = m_Facade.SelectedListItemIndex;
+      int iItem = facadeLayout.SelectedListItemIndex;
       if (iItem > -1)
       {
-        GUIControl.SelectItemControl(GetID, m_Facade.GetID, iItem);
+        GUIControl.SelectItemControl(GetID, facadeLayout.GetID, iItem);
       }
       UpdateButtonStates();
     }
 
-    protected void UpdateButtonStates()
+    protected override void UpdateButtonStates()
     {
-      string strLine = string.Empty;
-      View view = CurrentView;
-      switch (view)
-      {
-        case View.List:
-          strLine = GUILocalizeStrings.Get(101);
-          break;
-        case View.Icons:
-          strLine = GUILocalizeStrings.Get(100);
-          break;
-        case View.LargeIcons:
-          strLine = GUILocalizeStrings.Get(417);
-          break;
-        case View.FilmStrip:
-          strLine = GUILocalizeStrings.Get(733);
-          break;
-        case View.PlayList:
-          strLine = GUILocalizeStrings.Get(101);
-          break;
-      }
-      if (btnViewAs != null)
-        GUIControl.SetControlLabel(GetID, btnViewAs.GetID, strLine);
+      base.UpdateButtonStates();
 
-      if (m_Facade.Count > 0)
+      string strLine = string.Empty;
+
+      if (facadeLayout.Count > 0)
       {
         if (btnClear != null) btnClear.Disabled = false;
         if (btnPlay != null) btnPlay.Disabled = false;
@@ -519,13 +432,13 @@ namespace mvCentral.Playlist
 
     protected void LoadDirectory(string strNewDirectory)
     {
-      if (m_Facade == null)
+      if (facadeLayout == null)
         return;
 
       GUIWaitCursor.Show();
       try
       {
-        GUIListItem SelectedItem = m_Facade.SelectedListItem;
+        GUIListItem SelectedItem = facadeLayout.SelectedListItem;
         if (SelectedItem != null)
         {
           if (SelectedItem.IsFolder && SelectedItem.Label != "..")
@@ -534,7 +447,7 @@ namespace mvCentral.Playlist
           }
         }
         currentFolder = strNewDirectory;
-        m_Facade.Clear();
+        facadeLayout.Clear();
 
         string strObjects = string.Empty;
 
@@ -616,7 +529,7 @@ namespace mvCentral.Playlist
         int iItem = 0;
         foreach (GUIListItem item in itemlist)
         {
-          m_Facade.Add(item);
+          facadeLayout.Add(item);
           item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onFacadeItemSelected);
 
           //	synchronize playlist with current directory
@@ -625,12 +538,12 @@ namespace mvCentral.Playlist
             item.Selected = true;
           }
         }
-        for (int i = 0; i < m_Facade.Count; ++i)
+        for (int i = 0; i < facadeLayout.Count; ++i)
         {
-          GUIListItem item = m_Facade[i];
+          GUIListItem item = facadeLayout[i];
           if (item.Label == strSelectedItem)
           {
-            GUIControl.SelectItemControl(GetID, m_Facade.GetID, iItem);
+            GUIControl.SelectItemControl(GetID, facadeLayout.GetID, iItem);
             break;
           }
           iItem++;
@@ -643,7 +556,7 @@ namespace mvCentral.Playlist
 
         if (currentSelectedItem >= 0)
         {
-          GUIControl.SelectItemControl(GetID, m_Facade.GetID, currentSelectedItem);
+          GUIControl.SelectItemControl(GetID, facadeLayout.GetID, currentSelectedItem);
         }
         UpdateButtonStates();
         GUIWaitCursor.Hide();
@@ -657,7 +570,7 @@ namespace mvCentral.Playlist
 
     private void ClearFileItems()
     {
-      GUIControl.ClearControl(GetID, m_Facade.GetID);
+      GUIControl.ClearControl(GetID, facadeLayout.GetID);
     }
 
     private void OnClearPlayList()
@@ -678,8 +591,8 @@ namespace mvCentral.Playlist
 
     protected void OnClick(int itemIndex)
     {
-      currentSelectedItem = m_Facade.SelectedListItemIndex;
-      GUIListItem item = m_Facade.SelectedListItem;
+      currentSelectedItem = facadeLayout.SelectedListItemIndex;
+      GUIListItem item = facadeLayout.SelectedListItem;
       if (item == null)
       {
         return;
@@ -699,9 +612,9 @@ namespace mvCentral.Playlist
     private void onFacadeItemSelected(GUIListItem item, GUIControl parent)
     {
       // if this is not a message from the facade, exit
-      if (parent != m_Facade && parent != m_Facade.FilmstripLayout &&
-          parent != m_Facade.ThumbnailLayout && parent != m_Facade.ListLayout &&
-          parent != m_Facade.PlayListLayout)
+      if (parent != facadeLayout && parent != facadeLayout.FilmstripLayout &&
+          parent != facadeLayout.ThumbnailLayout && parent != facadeLayout.ListLayout &&
+          parent != facadeLayout.PlayListLayout)
         return;
 
       if (item == null || item.TVTag == null)
@@ -763,7 +676,7 @@ namespace mvCentral.Playlist
 
     private void RemovePlayListItem(int itemIndex)
     {
-      GUIListItem listItem = m_Facade[itemIndex];
+      GUIListItem listItem = facadeLayout[itemIndex];
       if (listItem == null)
       {
         return;
@@ -774,13 +687,13 @@ namespace mvCentral.Playlist
 
       LoadDirectory(currentFolder);
       UpdateButtonStates();
-      GUIControl.SelectItemControl(GetID, m_Facade.GetID, itemIndex);
+      GUIControl.SelectItemControl(GetID, facadeLayout.GetID, itemIndex);
       SelectCurrentVideo();
     }
 
     private void OnShufflePlayList()
     {
-      currentSelectedItem = m_Facade.SelectedListItemIndex;
+      currentSelectedItem = facadeLayout.SelectedListItemIndex;
       ClearFileItems();
       PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
 
@@ -820,26 +733,26 @@ namespace mvCentral.Playlist
 
     protected void SwitchView()
     {
-      if (m_Facade == null)
+      if (facadeLayout == null)
       {
         return;
       }
       switch (CurrentView)
       {
         case View.List:
-          m_Facade.CurrentLayout = GUIFacadeControl.Layout.List;
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.List;
           break;
         case View.Icons:
-          m_Facade.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
           break;
         case View.LargeIcons:
-          m_Facade.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
           break;
         case View.FilmStrip:
-          m_Facade.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
           break;
         case View.PlayList:
-          m_Facade.CurrentLayout = GUIFacadeControl.Layout.Playlist;
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Playlist;
           break;
       }
     }
@@ -872,7 +785,7 @@ namespace mvCentral.Playlist
 
     private void OnSavePlayList()
     {
-      currentSelectedItem = m_Facade.SelectedListItemIndex;
+      currentSelectedItem = facadeLayout.SelectedListItemIndex;
       string playlistFileName = string.Empty;
       if (GetKeyboard(ref playlistFileName))
       {
@@ -909,9 +822,9 @@ namespace mvCentral.Playlist
           fullPlayListPath = playListPath + @"\" + fullPlayListPath;
         }
         PlayList playlist = new PlayList();
-        for (int i = 0; i < m_Facade.Count; ++i)
+        for (int i = 0; i < facadeLayout.Count; ++i)
         {
-          GUIListItem listItem = m_Facade[i];
+          GUIListItem listItem = facadeLayout[i];
           PlayListItem playListItem = new PlayListItem();
           DBTrackInfo mv = (DBTrackInfo)listItem.TVTag;
           playListItem.Track = mv;
@@ -1073,9 +986,9 @@ namespace mvCentral.Playlist
       if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
       {
         int currentItemIndex = playlistPlayer.CurrentItem;
-        if (currentItemIndex >= 0 && currentItemIndex <= m_Facade.Count)
+        if (currentItemIndex >= 0 && currentItemIndex <= facadeLayout.Count)
         {
-          GUIControl.SelectItemControl(GetID, m_Facade.GetID, currentItemIndex);
+          GUIControl.SelectItemControl(GetID, facadeLayout.GetID, currentItemIndex);
         }
       }
     }
@@ -1088,26 +1001,26 @@ namespace mvCentral.Playlist
       }
 
       if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_MVCENTRAL
-          || m_Facade.CurrentLayout != GUIFacadeControl.Layout.Playlist
-          || m_Facade.PlayListLayout == null)
+          || facadeLayout.CurrentLayout != GUIFacadeControl.Layout.Playlist
+          || facadeLayout.PlayListLayout == null)
       {
         return;
       }
 
-      int iItem = m_Facade.SelectedListItemIndex;
+      int iItem = facadeLayout.SelectedListItemIndex;
 
       // Prevent moving backwards past the top item in the list
 
       PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
       playList.MovePlayListItemUp(iItem);
-      int selectedIndex = m_Facade.MoveItemUp(iItem, true);
+      int selectedIndex = facadeLayout.MoveItemUp(iItem, true);
 
       if (iItem == playlistPlayer.CurrentItem)
       {
         playlistPlayer.CurrentItem = selectedIndex;
       }
 
-      m_Facade.SelectedListItemIndex = selectedIndex;
+      facadeLayout.SelectedListItemIndex = selectedIndex;
       UpdateButtonStates();
     }
 
@@ -1119,13 +1032,13 @@ namespace mvCentral.Playlist
       }
 
       if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_MVCENTRAL
-          || m_Facade.CurrentLayout != GUIFacadeControl.Layout.Playlist
-          || m_Facade.PlayListLayout == null)
+          || facadeLayout.CurrentLayout != GUIFacadeControl.Layout.Playlist
+          || facadeLayout.PlayListLayout == null)
       {
         return;
       }
 
-      int iItem = m_Facade.SelectedListItemIndex;
+      int iItem = facadeLayout.SelectedListItemIndex;
       PlayList playList = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
 
       // Prevent moving fowards past the last item in the list
@@ -1133,14 +1046,14 @@ namespace mvCentral.Playlist
       // off of the list view...
 
       playList.MovePlayListItemDown(iItem);
-      int selectedIndex = m_Facade.MoveItemDown(iItem, true);
+      int selectedIndex = facadeLayout.MoveItemDown(iItem, true);
 
       if (iItem == playlistPlayer.CurrentItem)
       {
         playlistPlayer.CurrentItem = selectedIndex;
       }
 
-      m_Facade.SelectedListItemIndex = selectedIndex;
+      facadeLayout.SelectedListItemIndex = selectedIndex;
 
       UpdateButtonStates();
     }
@@ -1153,20 +1066,20 @@ namespace mvCentral.Playlist
       }
 
       if (playlistPlayer.CurrentPlaylistType != PlayListType.PLAYLIST_MVCENTRAL
-          || m_Facade.CurrentLayout != GUIFacadeControl.Layout.Playlist
-          || m_Facade.PlayListLayout == null)
+          || facadeLayout.CurrentLayout != GUIFacadeControl.Layout.Playlist
+          || facadeLayout.PlayListLayout == null)
       {
         return;
       }
 
-      int iItem = m_Facade.SelectedListItemIndex;
+      int iItem = facadeLayout.SelectedListItemIndex;
 
       string currentFile = g_Player.CurrentFile;
-      GUIListItem item = m_Facade[iItem];
+      GUIListItem item = facadeLayout[iItem];
 
       RemovePlayListItem(iItem);
 
-      if (m_Facade.Count == 0)
+      if (facadeLayout.Count == 0)
       {
         g_Player.Stop();
         ClearGUIProperties();
@@ -1175,7 +1088,7 @@ namespace mvCentral.Playlist
       }
       else
       {
-        m_Facade.PlayListLayout.SelectedListItemIndex = iItem;
+        facadeLayout.PlayListLayout.SelectedListItemIndex = iItem;
       }
 
       UpdateButtonStates();
