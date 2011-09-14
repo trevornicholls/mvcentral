@@ -664,6 +664,12 @@ namespace mvCentral.DataProviders
       return;
     }
 
+
+    /// <summary>
+    /// Get the track info
+    /// </summary>
+    /// <param name="track"></param>
+    /// <returns></returns>
     private DBTrackInfo getMusicVideoTrack(string track)
     {
       return getMusicVideoTrack(null, track);
