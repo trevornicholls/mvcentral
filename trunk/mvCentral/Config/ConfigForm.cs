@@ -38,46 +38,44 @@ namespace mvCentral
   [PluginIcons("mvCentral.Config.Images.mvCentral_Icon_Enabled.png", "mvCentral.Config.Images.mvCentral_Icon_Disabled.png")]
   public partial class ConfigForm : Form, ISetupForm
   {
-    private static Logger logger = LogManager.GetCurrentClassLogger();
+    #region Declarations
 
+    // Create logger
+    private static Logger logger = LogManager.GetCurrentClassLogger();
     // Auto Expand Node
     TreeNode lastDragDestination = null;
     DateTime lastDragDestinationTime;
-
     // Node being dragged
     private TreeNode dragNode = null;
     private bool _dragStarted = false;
-
     // Temporary drop node for selection
     private TreeNode tempDropNode = null;
-
     // Timer for scrolling
     private System.Windows.Forms.Timer lvtimer = new System.Windows.Forms.Timer();
-
-
     private bool splitMode;
     private int lastSplitJoinLocation;
     private bool clearSelection;
     private readonly object lockList = new object();
     private delegate void InvokeDelegate();
-
-
     loadingDisplay load = null;
-
     // parser  
-
     Stack parsedStack = new Stack();
     public string extensions;
     delegate void SetDGVCallback(string shortFilename, string Artist, string Title, string longFilename);
     delegate void ClearDGVCallback();
-
-
     //import tab
     private List<DBImportPath> paths = new List<DBImportPath>();
     private BindingSource pathBindingSource;
     private Color normalColor;
     private Bitmap blank = new Bitmap(1, 1);
 
+    #endregion
+
+    #region Public Methods
+
+    /// <summary>
+    /// Retrun Current Artist
+    /// </summary>
     public DBArtistInfo CurrentArtist
     {
       get
@@ -88,7 +86,9 @@ namespace mvCentral
         return (DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag;
       }
     }
-
+    /// <summary>
+    /// Return Current Album
+    /// </summary>
     public DBAlbumInfo CurrentAlbum
     {
       get
@@ -99,6 +99,9 @@ namespace mvCentral
         return (DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag;
       }
     }
+    /// <summary>
+    /// Return Current Track
+    /// </summary>
     public DBTrackInfo CurrentTrack
     {
       get
@@ -110,18 +113,20 @@ namespace mvCentral
       }
     }
 
-
+    /// <summary>
+    /// Construtor
+    /// </summary>
     public ConfigForm()
     {
       InitializeComponent();
       lvtimer.Interval = 200;
       lvtimer.Tick += new EventHandler(lvtimer_Tick);
-
       // if we are in designer, break to prevent errors with rendering, it cant access the DB...
       if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
         return;
-
+      // Start om Import tab
       mainTab.SelectedIndex = 1;
+      // Grab settings from DB
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
@@ -131,12 +136,14 @@ namespace mvCentral
       tbMinArtHeight.Setting = mvCentralCore.Settings["min_artist_height"];
       tbTrackArtWidth.Setting = mvCentralCore.Settings["min_track_width"];
       tbTrackArtHeight.Setting = mvCentralCore.Settings["min_track_height"];
-
+      // Set up display tables
       artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
     }
+
+#endregion
 
     #region ISetupForm Members
 
@@ -202,7 +209,6 @@ namespace mvCentral
     }
 
     #endregion
-
 
     #region listeners
 
@@ -378,8 +384,6 @@ namespace mvCentral
     }
 
     #endregion
-
-
 
     #region Load / Save / Cancel
 
@@ -609,38 +613,8 @@ namespace mvCentral
 
     #endregion
 
-    #region General
-
-    private void log_window_changed()
-    {
-      this.scMain.SplitterDistance = this.Size.Height / 3 * 2;
-      //            DBOption.SetOptions(DBOption.cConfig_LogCollapsed, splitMain_Log.Panel2Collapsed);
-
-      //if (scMain.Panel2Collapsed)
-      //{
-      //  btnShowLog.Image = mvCentral.Properties.Resources.arrow_up_small;
-      //  //                this.toolTip_Help.SetToolTip(this.button1, "Click to show log");
-      //}
-      //else
-      //{
-      //  btnShowLog.Image = mvCentral.Properties.Resources.arrow_down_small;
-      //  //                this.toolTip_Help.SetToolTip(this.button1, "Click to hide log");
-      //}
-    }
-
-    private void btnShowLog_Click(object sender, EventArgs e)
-    {
-      scMain.Panel2Collapsed = !scMain.Panel2Collapsed;
-      //            DBOption.SetOptions(DBOption.cConfig_LogCollapsed, splitMain_Log.Panel2Collapsed);
-      log_window_changed();
-    }
-
-    #endregion
-
-
     #region Settings  obsolete
     #endregion
-
 
     #region Expressions Handling
 
@@ -817,7 +791,6 @@ namespace mvCentral
     }
 
     #endregion
-
 
     #region Replacements Handling
 
@@ -1038,7 +1011,6 @@ namespace mvCentral
 
     #endregion
 
-
     #region Test Parsing Handling
     private void btnTestReparse_Click(object sender, EventArgs e)
     {
@@ -1152,10 +1124,11 @@ namespace mvCentral
 
     #endregion
 
-
     #region Library
-
-    // loads from scratch all musicvideos in the database into the side panel
+    
+    /// <summary>
+    /// Loads from scratch all musicvideos in the database into the side panel
+    /// </summary>
     public void ReloadList()
     {
       // turn off redraws temporarily and clear the list
@@ -1177,8 +1150,10 @@ namespace mvCentral
       }
       mvLibraryTreeView.Sort();
     }
-
-    // adds the given musicvideo and it's related files to the tree view
+    /// <summary>
+    /// Adds the given musicvideo and it's related files to the tree view
+    /// </summary>
+    /// <param name="mv"></param>
     private void addMusicVideo(DBTrackInfo mv)
     {
       TreeNode artistItem = null;
@@ -1607,8 +1582,7 @@ namespace mvCentral
 
     #endregion
 
-    #region mainpanel
-
+    #region Mainpanel
 
     public void reLoad()
     {
@@ -1652,9 +1626,14 @@ namespace mvCentral
 
       //            doScan();
     }
-
-
-    //Generate new image dimensions
+    /// <summary>
+    /// Generate new image dimensions
+    /// </summary>
+    /// <param name="currW"></param>
+    /// <param name="currH"></param>
+    /// <param name="destW"></param>
+    /// <param name="destH"></param>
+    /// <returns></returns>
     public Size GenerateImageDimensions(int currW, int currH, int destW, int destH)
     {
       double multiplier = 0;
@@ -1679,7 +1658,10 @@ namespace mvCentral
       }
       return new Size((int)(currW * multiplier), (int)(currH * multiplier));
     }
-
+    /// <summary>
+    /// Set the image in the picturebox
+    /// </summary>
+    /// <param name="pb"></param>
     private void SetImage(PictureBox pb)
     {
       try
@@ -1693,9 +1675,9 @@ namespace mvCentral
         pb.SizeMode = PictureBoxSizeMode.CenterImage;
         pb.Image = finalImg;
       }
-      catch (System.Exception)
+      catch (System.Exception e)
       {
-
+        logger.ErrorException("Error in setImage function", e);
       }
     }
 
@@ -1901,7 +1883,6 @@ namespace mvCentral
       row.Cells[0].ToolTipText = toolTipText;
     }
     #endregion
-
 
     #region matches tab
     private void unapprovedGrid_SelectionChanged(object sender, EventArgs e)
@@ -2263,6 +2244,8 @@ namespace mvCentral
 
     #endregion
 
+    #region Artist/Album/Track tab
+    
     private void tvLibrary_AfterSelect(object sender, TreeViewEventArgs e)
     {
       if (_dragStarted) return;
@@ -2273,8 +2256,6 @@ namespace mvCentral
       setArtImage();
     }
 
-
-    #region Artist/Album/Track tab
 
     private void updateDBPage()
     {
@@ -2301,8 +2282,6 @@ namespace mvCentral
           break;
       }
     }
-
-    #endregion
 
     private void btnArtPrevNext_Click(object sender, EventArgs e)
     {
@@ -2361,10 +2340,6 @@ namespace mvCentral
 
         MemoryStream ms = new MemoryStream(File.ReadAllBytes(mv.ArtFullPath));
         newArt = Image.FromStream(ms);
-
-
-
-        //                newArt = Image.FromFile(mv.ArtFullPath);
         ArtIndexNum = mv.AlternateArts.IndexOf(mv.ArtFullPath);
         ArtCount = mv.AlternateArts.Count;
         Image oldArt = artImage.Image;
@@ -2396,9 +2371,12 @@ namespace mvCentral
         lblArtResolution.Text = "";
         lblArtNum.Text = "";
       }
-
     }
-
+    /// <summary>
+    /// Zoom the art
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btnArtZoom_Click(object sender, EventArgs e)
     {
       DBBasicInfo mv = null;
@@ -2419,13 +2397,18 @@ namespace mvCentral
       popup.Owner = this.ParentForm;
       popup.ShowDialog();
     }
-
+    /// <summary>
+    /// Load Art from event handler
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void loadArtFromFileToolStripMenuItem_Click(object sender, EventArgs e)
     {
       loadArtFromFile();
     }
-
-
+    /// <summary>
+    /// Load Art from File
+    /// </summary>
     private void loadArtFromFile()
     {
       DBBasicInfo mv = null;
@@ -2441,7 +2424,6 @@ namespace mvCentral
           mv = CurrentTrack;
           break;
       }
-
       if (mv == null) return;
       // get the result of the dialog box and only update if the user clicked OK
       DialogResult answerArt = ArtFileDialog.ShowDialog(this);
@@ -2460,7 +2442,11 @@ namespace mvCentral
           MessageBox.Show("Failed loading art from specified location.");
       }
     }
-
+    /// <summary>
+    /// Load art form URL
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void loadArtFromURLToolStripMenuItem_Click(object sender, EventArgs e)
     {
       DBBasicInfo mv = null;
@@ -2476,7 +2462,6 @@ namespace mvCentral
           mv = CurrentTrack;
           break;
       }
-
       if (mv == null) return;
       ArtURLPopup popup = new ArtURLPopup();
       popup.ShowDialog(this);
@@ -2510,9 +2495,12 @@ namespace mvCentral
         thread.Name = "ArtUpdater";
         thread.Start();
       }
-
     }
-
+    /// <summary>
+    /// Delete Artwork
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btnArtDelete_Click(object sender, EventArgs e)
     {
       DBBasicInfo mv = null;
@@ -2542,7 +2530,11 @@ namespace mvCentral
         updateDBPage();
       }
     }
-
+    /// <summary>
+    /// Refresh 
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btnArtRefresh_Click(object sender, EventArgs e)
     {
       DBBasicInfo mv = null;
@@ -2567,13 +2559,13 @@ namespace mvCentral
         mvCentralCore.DataProviderManager.GetArt(mv);
         stopArtProgressBar();
       };
-
       Thread thread = new Thread(actions);
       thread.Name = "ArtUpdater";
       thread.Start();
-
     }
-
+    /// <summary>
+    /// Start  progress bar
+    /// </summary>
     private void startArtProgressBar()
     {
       if (InvokeRequired)
@@ -2581,10 +2573,11 @@ namespace mvCentral
         Invoke(new InvokeDelegate(startArtProgressBar));
         return;
       }
-
       artworkProgressBar.Visible = true;
     }
-
+    /// <summary>
+    /// Stop progress bar
+    /// </summary>
     private void stopArtProgressBar()
     {
       if (InvokeRequired)
@@ -2592,14 +2585,15 @@ namespace mvCentral
         Invoke(new InvokeDelegate(stopArtProgressBar));
         return;
       }
-
-
       setArtImage();
       updateDBPage();
-
       artworkProgressBar.Visible = false;
     }
-
+    /// <summary>
+    /// Resend the file to the importer
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void sentToImporterToolStripMenuItem_Click(object sender, EventArgs e)
     {
       switch (tcMusicVideo.SelectedTab.Name)
@@ -2702,22 +2696,16 @@ namespace mvCentral
             }
           }
           break;
-
       }
-
-
       tcImport.SelectedTab = tpMatch;
       tcMusicVideo.SelectedTab = tpImport;
       tcMusicVideo.Focus();
-
     }
 
     private bool checkTrackForRemoval(DBTrackInfo mv)
     {
       if (mv == null) return false;
-
-
-      // Check if all files belonging to the movie are available.
+      // Check if all files belonging to the music video are available.
       bool continueReassign = false;
       while (!continueReassign)
       {
@@ -2760,23 +2748,31 @@ namespace mvCentral
       }
       return true;
     }
-
-
-
+    /// <summary>
+    /// Allow grabbing of fram from actual video
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void loadArtFromMusicVideoToolStripMenuItem_Click(object sender, EventArgs e)
     {
       string artFolder = mvCentralCore.Settings.TrackArtFolder;
       string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
       string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
+      string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
 
       FrameGrabber fr = new FrameGrabber();
-      fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, filename1, 10);
+      fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, 10);
+      ResizeImageWithAspect(tempFilename, filename1, 400);
       ArtPopup popup1 = new ArtPopup(filename1);
       popup1.Owner = this.ParentForm;
       popup1.ShowDialog();
       CurrentTrack.AlternateArts.Add(filename1);
     }
-
+    /// <summary>
+    /// Grab a frame 30 seconds in from the video
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void autoGrabFrame30SecsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       DBBasicInfo mv = null;
@@ -2792,24 +2788,29 @@ namespace mvCentral
           mv = CurrentTrack;
           break;
       }
-      if (mv == null) return;
+      if (mv != null)
+      {
+        string artFolder = mvCentralCore.Settings.TrackArtFolder;
+        string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
+        string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
+        string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
 
-      string artFolder = mvCentralCore.Settings.TrackArtFolder;
-      string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
-      string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
-
-      string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
-
-      FrameGrabber fr = new FrameGrabber();
-      fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, 10);
-      ResizeImageWithAspect(tempFilename, filename1, 400);
-      mv.AlternateArts.Add(filename1);
-      mv.Commit();
-      setArtImage();
-      updateDBPage();
+        FrameGrabber fr = new FrameGrabber();
+        fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, 10);
+        ResizeImageWithAspect(tempFilename, filename1, 400);
+        mv.AlternateArts.Add(filename1);
+        mv.Commit();
+        setArtImage();
+        updateDBPage();
+      }
     }
-
-    private void ResizeImageWithAspect(string fileName, string outputFileName,  int newWidth)
+    /// <summary>
+    /// Resize the grabbed image, with is fixed and ascpect ratio mantained
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <param name="outputFileName"></param>
+    /// <param name="newWidth"></param>
+    private void ResizeImageWithAspect(string fileName, string outputFileName, int newWidth)
     {
       Image original = Image.FromFile(fileName);
       float aspect = (float)original.Height / (float)original.Width;
@@ -2954,5 +2955,8 @@ namespace mvCentral
         thread.Start();
       }
     }
+
+    #endregion
+
   }
 }
