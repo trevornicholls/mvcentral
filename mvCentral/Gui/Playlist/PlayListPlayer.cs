@@ -59,13 +59,10 @@ namespace mvCentral.Playlist
 
     public interface IPlayer
     {
-      //            PlayList currentPlayList;
-      //            int lastvid;
       bool msgblocked { get; set; }
       bool Playing { get; }
       void Release();
       bool Play(string strFile);
-      bool Play(PlayList p1, int index);
       void Stop();
       void SeekAsolutePercentage(int iPercentage);
       double Duration { get; }
@@ -94,11 +91,6 @@ namespace mvCentral.Playlist
       private System.Windows.Forms.Timer playTimer = new System.Windows.Forms.Timer();
       private TimeSpan CurrentTime;
       public bool msgblocked1;
-      //            bool msgblocked1 {
-      //                get { return IPlayer.msgblocked; }
-      //                set { IPlayer.msgblocked = value; }
-
-      //                }
       bool IPlayer.msgblocked { get { return msgblocked1; } set { msgblocked1 = value; } }
 
       public bool Playing
@@ -116,28 +108,29 @@ namespace mvCentral.Playlist
         return MediaPortal.Player.g_Player.Play(strFile);
       }
 
-      public bool Play(PlayList p1, int index)
-      {
-        bool result = false;
-        string fn = p1[index].Track.LocalMedia[0].File.FullName;
-        CurrentTrack = p1[index].Track;
-        lastvid = index;
-        // needed so everything goes in sequence otherwise stop gets handled after the play events
-        GUIWindowManager.Process();
-        if (CurrentTrack.LocalMedia[0].IsDVD)
-        {
-          msgblocked1 = true;
-          PlayDVD(CurrentTrack);
-          result = true;
-        }
-        else
-        {
-          result = MediaPortal.Player.g_Player.Play(fn);
-        }
-        SetInitTimerValues();
-        playTimer.Start();
-        return result;
-      }
+      //public bool Play(PlayList p1, int index)
+      //{
+      //  bool result = false;
+      //  string fn = p1[index].Track.LocalMedia[0].File.FullName;
+      //  CurrentTrack = p1[index].Track;
+      //  lastvid = index;
+      //  // needed so everything goes in sequence otherwise stop gets handled after the play events
+      //  GUIWindowManager.Process();
+      //  if (CurrentTrack.LocalMedia[0].IsDVD)
+      //  {
+      //    msgblocked1 = true;
+      //    PlayDVD(CurrentTrack);
+      //    result = true;
+      //  }
+      //  else
+      //  {
+      //    logger.Debug("result = MediaPortal.Player.g_Player.Play(fn);");
+      //    result = MediaPortal.Player.g_Player.Play(fn);
+      //  }
+      //  SetInitTimerValues();
+      //  playTimer.Start();
+      //  return result;
+      //}
 
 
       public void Stop()
@@ -176,15 +169,10 @@ namespace mvCentral.Playlist
       }
 
 
-      private void PurgeEntries()
-      {
-        if (l1 != null)
-          foreach (DSGrapheditROTEntry rote in l1)
-          {
-            rote.Dispose();
-          }
-      }
-
+      /// <summary>
+      /// DVD Code - Play DVD
+      /// </summary>
+      /// <param name="db1"></param>
       public void PlayDVD(DBTrackInfo db1)
       {
         DBLocalMedia mediaToPlay = db1.LocalMedia[0];
@@ -235,9 +223,9 @@ namespace mvCentral.Playlist
           DirectShowUtil.RenderOutputPins(_graphBuilder, _dvdbasefilter);
           _basicVideo = _graphBuilder as IBasicVideo2;
           _mediaCtrl = _graphBuilder as IMediaControl;
-          //                            hr = _mediaCtrl.Run();
-          //                            hr = _mediaCtrl.Pause();
-          //                            _offsetseek = (ulong)seekbar.Value;
+          //hr = _mediaCtrl.Run();
+          //hr = _mediaCtrl.Pause();
+          //_offsetseek = (ulong)seekbar.Value;
           TimeSpan t1 = TimeSpan.FromMilliseconds(0);
           TimeSpan t2 = TimeSpan.Parse(db1.OffsetTime);
           t1 = t1.Add(t2);
@@ -245,103 +233,90 @@ namespace mvCentral.Playlist
           t2 = t2.Add(TimeSpan.Parse(db1.PlayTime));
           DvdHMSFTimeCode t3 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t1);
           DvdHMSFTimeCode t4 = mvCentralUtils.ConvertToDvdHMSFTimeCode(t2);
-          //                if (state == FilterState.Stopped)
+          //if (state == FilterState.Stopped)
           int hr = _mediaCtrl.Run();
           hr = _dvdCtrl.PlayAtTimeInTitle(db1.TitleID, t3, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
           //                    hr = _dvdCtrl.PlayPeriodInTitleAutoStop(6, t3, t4, DvdCmdFlags.Flush | DvdCmdFlags.Block, out _cmdOption);
           DsError.ThrowExceptionForHR(hr);
-
-
-
-          //                            int hr = _dvdCtrl.PlayChaptersAutoStop(1, db1.ChapterID, 1, 0, out _cmdOption);
-          //                            DsError.ThrowExceptionForHR(hr);
+          //int hr = _dvdCtrl.PlayChaptersAutoStop(1, db1.ChapterID, 1, 0, out _cmdOption);
+          //DsError.ThrowExceptionForHR(hr);
         }
       }
 
-      private void SetInitTimerValues()
+      private void PurgeEntries()
       {
-        CurrentTime = TimeSpan.FromSeconds(0);
-        playTimer.Interval = 1000;
-        playTimer.Tick += new EventHandler(playEvent);
-      }
-
-      private void playEvent(object sender, EventArgs e)
-      {
-        CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
-        TimeSpan t1 = TimeSpan.FromSeconds(MediaPortal.Player.g_Player.CurrentPosition);
-        TimeSpan t2 = TimeSpan.Parse(CurrentTrack.PlayTime);
-        TimeSpan t3 = TimeSpan.Parse(CurrentTrack.PlayTime);
-        DateTime dt2 = new DateTime(t3.Ticks);
-        if (CurrentTrack.OffsetTime.Trim().Length > 0) t2 = t2.Add(TimeSpan.Parse(CurrentTrack.OffsetTime));
-        if (CurrentTrack.OffsetTime.Trim().Length > 0)
-          t3 = t1.Subtract(TimeSpan.Parse(CurrentTrack.OffsetTime));
-        else
-          t3 = t1;
-
-
-        DateTime dt = new DateTime();
-        if (t3.Ticks > 0)
-          dt = new DateTime(t3.Ticks);
-        GUIPropertyManager.SetProperty("#mvCentral.Duration", String.Format("{0:HH:mm:ss}", dt2));
-        GUIPropertyManager.SetProperty("#mvCentral.PlayTime", String.Format("{0:HH:mm:ss}", dt));
-        GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", CurrentTrack.ArtistInfo[0].Artist + " - " + CurrentTrack.Track);
-
-        if (playTimer.Enabled)
-          if (t1 > t2)
-          //            if (CurrentTime > TimeSpan.Parse(CurrentTrack.PlayTime))
+        if (l1 != null)
+          foreach (DSGrapheditROTEntry rote in l1)
           {
-            playTimer.Stop();
-            //                    Stop();
-            GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED, 0, 0, 0, -1, 0, null);
-            GUIGraphicsContext.SendMessage(msg);
+            rote.Dispose();
           }
-
-        if (!MediaPortal.Player.g_Player.Playing)
-        {
-          //                    playNext();
-        }
-
       }
-
-
-      private void playNext()
-      {
-        if (!MediaPortal.Player.g_Player.Playing)
-        {
-          playTimer.Stop();
-          int count = currentPlayList.Count;
-          lastvid = lastvid++;
-          if (lastvid <= count)
-          {
-            PlayListItem p1 = currentPlayList[lastvid - 1];
-            if (p1.Track != null)
-            {
-              DBTrackInfo mv = (DBTrackInfo)p1.Track;
-              if (mv != null)
-                Play(currentPlayList, lastvid);
-            }
-          }
-        }
-      }
-
     }
 
-    public IPlayer g_Player = new FakePlayer();
+    public IPlayer mvPlayer = new FakePlayer();
 
     #endregion
 
 
     private static Logger logger = LogManager.GetCurrentClassLogger();
+
     int _entriesNotFound = 0;
     int _currentItem = -1;
     PlayListType _currentPlayList = PlayListType.PLAYLIST_NONE;
-    PlayList _tvseriesPlayList = new PlayList();
+    PlayList _mvCentralPlayList = new PlayList();
     PlayList _emptyPlayList = new PlayList();
     bool _repeatPlayList = mvCentralCore.Settings.repeatPlayList;
     bool _playlistAutoPlay = mvCentralCore.Settings.playlistAutoPlay;
     bool _playlistAutoShuffle = mvCentralCore.Settings.playlistAutoShuffle;
     string _currentPlaylistName = string.Empty;
     private bool listenToExternalPlayerEvents = false;
+
+    private TimeSpan CurrentTime;
+    private System.Windows.Forms.Timer playTimer = new System.Windows.Forms.Timer();
+    DBTrackInfo CurrentTrack = null;
+
+
+
+    private void SetInitTimerValues()
+    {
+      CurrentTime = TimeSpan.FromSeconds(0);
+      playTimer.Interval = 950;
+      playTimer.Tick += new EventHandler(playEvent);
+    }
+
+    private void playEvent(object sender, EventArgs e)
+    {
+      CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
+      TimeSpan t1 = TimeSpan.FromSeconds(MediaPortal.Player.g_Player.CurrentPosition);
+      TimeSpan t2 = TimeSpan.Parse(CurrentTrack.PlayTime);
+      TimeSpan t3 = TimeSpan.Parse(CurrentTrack.PlayTime);
+      DateTime dt2 = new DateTime(t3.Ticks);
+      if (CurrentTrack.OffsetTime.Trim().Length > 0) t2 = t2.Add(TimeSpan.Parse(CurrentTrack.OffsetTime));
+      if (CurrentTrack.OffsetTime.Trim().Length > 0)
+        t3 = t1.Subtract(TimeSpan.Parse(CurrentTrack.OffsetTime));
+      else
+        t3 = t1;
+
+
+      DateTime dt = new DateTime();
+      if (t3.Ticks > 0)
+        dt = new DateTime(t3.Ticks);
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", String.Format("{0:HH:mm:ss}", dt2));
+      GUIPropertyManager.SetProperty("#mvCentral.PlayTime", String.Format("{0:HH:mm:ss}", dt));
+      GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", CurrentTrack.ArtistInfo[0].Artist + " - " + CurrentTrack.Track);
+
+      if (playTimer.Enabled)
+        if (t1 > t2)
+        //            if (CurrentTime > TimeSpan.Parse(CurrentTrack.PlayTime))
+        {
+          playTimer.Stop();
+          //                    Stop();
+          GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED, 0, 0, 0, -1, 0, null);
+          GUIGraphicsContext.SendMessage(msg);
+        }
+    }
+
+
 
     public PlayListPlayer()
     {
@@ -375,22 +350,14 @@ namespace mvCentral.Playlist
       switch (action.wID)
       {
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM:
-          PlayNext();
-          break;
-
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_CHAPTER:
           PlayNext();
           break;
 
-
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM:
-          PlayPrevious();
-          break;
-
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_CHAPTER:
           PlayPrevious();
           break;
-
       }
     }
 
@@ -417,12 +384,12 @@ namespace mvCentral.Playlist
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
           {
             SetAsWatched();
-            //                    if (!g_Player.msgblocked) 
             PlayNext();
-            g_Player.msgblocked = false;
-            if (!g_Player.Playing)
+
+            if (!mvPlayer.Playing)
             {
-              g_Player.Release();
+              logger.Debug("After GUI_MSG_PLAYBACK_ENDED g_Player.Playing is false");
+              mvPlayer.Release();
 
               // Clear focus when playback ended
               GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
@@ -433,43 +400,46 @@ namespace mvCentral.Playlist
 
         case GUIMessage.MessageType.GUI_MSG_PLAY_FILE:
           {
-            logger.Info(string.Format("Playlistplayer: Start file ({0})", message.Label));
-            g_Player.Play(message.Label);
-            if (!g_Player.Playing) g_Player.Stop();
+            logger.Debug(string.Format("Playlistplayer: Start file ({0})", message.Label));
+            // Play the file
+            mvPlayer.Play(message.Label);
+            // If already playing a file then stop
+            if (!mvPlayer.Playing) 
+              mvPlayer.Stop();
           }
           break;
 
         case GUIMessage.MessageType.GUI_MSG_STOP_FILE:
           {
-            logger.Info(string.Format("Playlistplayer: Stop file"));
-            g_Player.Stop();
+            logger.Debug(string.Format("Playlistplayer: Stop file"));
+            mvPlayer.Stop();
           }
           break;
 
         case GUIMessage.MessageType.GUI_MSG_SEEK_FILE_PERCENTAGE:
           {
             logger.Info(string.Format("Playlistplayer: SeekPercent ({0}%)", message.Param1));
-            g_Player.SeekAsolutePercentage(message.Param1);
+            mvPlayer.SeekAsolutePercentage(message.Param1);
             logger.Debug(string.Format("Playlistplayer: SeekPercent ({0}%) done", message.Param1));
           }
           break;
 
         case GUIMessage.MessageType.GUI_MSG_SEEK_FILE_END:
           {
-            double duration = g_Player.Duration;
-            double position = g_Player.CurrentPosition;
+            double duration = mvPlayer.Duration;
+            double position = mvPlayer.CurrentPosition;
             if (position < duration - 1d)
             {
               logger.Info(string.Format("Playlistplayer: SeekEnd ({0})", duration));
-              g_Player.SeekAbsolute(duration - 2d);
-              logger.Debug(string.Format("Playlistplayer: SeekEnd ({0}) done", g_Player.CurrentPosition));
+              mvPlayer.SeekAbsolute(duration - 2d);
+              logger.Debug(string.Format("Playlistplayer: SeekEnd ({0}) done", mvPlayer.CurrentPosition));
             }
           }
           break;
 
         case GUIMessage.MessageType.GUI_MSG_SEEK_POSITION:
           {
-            g_Player.SeekAbsolute(message.Param1);
+            mvPlayer.SeekAbsolute(message.Param1);
           }
           break;
       }
@@ -542,10 +512,14 @@ namespace mvCentral.Playlist
 
     public void PlayNext()
     {
-      if (_currentPlayList == PlayListType.PLAYLIST_NONE) return;
+      if (_currentPlayList == PlayListType.PLAYLIST_NONE) 
+        return;
 
       PlayList playlist = GetPlaylist(_currentPlayList);
-      if (playlist.Count <= 0) return;
+
+      if (playlist.Count <= 0) 
+        return;
+
       int iItem = _currentItem;
       iItem++;
 
@@ -561,7 +535,7 @@ namespace mvCentral.Playlist
 
       if (!Play(iItem))
       {
-        if (!g_Player.Playing)
+        if (!mvPlayer.Playing)
         {
           PlayNext();
         }
@@ -582,7 +556,7 @@ namespace mvCentral.Playlist
 
       if (!Play(iItem))
       {
-        if (!g_Player.Playing)
+        if (!mvPlayer.Playing)
         {
           PlayPrevious();
         }
@@ -641,15 +615,22 @@ namespace mvCentral.Playlist
         PlayListItem item = playlist[_currentItem];
 
         GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
-        msg.Label = item.FileName;
+        msg.Label = item.Track.LocalMedia[0].File.FullName;
+
         GUIGraphicsContext.SendMessage(msg);
 
         if (playlist.AllPlayed())
         {
-          //                    playlist.ResetStatus();
+          //playlist.ResetStatus();
         }
 
         bool playResult = false;
+
+        // If the file is an image file, it should be mounted before playing
+        string filename = item.Track.LocalMedia[0].File.FullName;
+        CurrentTrack = item.Track;
+
+
 
         DBLocalMedia mediaToPlay = item.Track.LocalMedia[0];
         MediaState mediaState = mediaToPlay.State;
@@ -712,30 +693,21 @@ namespace mvCentral.Playlist
           mediaState = mediaToPlay.State;
         }
 
-
         // Start Listening to any External Player Events
         listenToExternalPlayerEvents = true;
-        /*
-                        #region Publish Play properties for InfoService plugin
-                        string seriesName = item.SeriesName;
-                        string seasonID = item.SeasonIndex;
-                        string episodeID = item.EpisodeIndex;
-                        string episodeName = item.EpisodeName;
-                        GUIPropertyManager.SetProperty("#TVSeries.Extended.Title", string.Format("{0}/{1}/{2}/{3}", seriesName, seasonID, episodeID, episodeName));
-                        MPTVSeriesLog.Write(string.Format("#TVSeries.Extended.Title: {0}/{1}/{2}/{3}", seriesName, seasonID, episodeID, episodeName));
-                        #endregion
-                    */
-        // Play File
-        playResult = g_Player.Play(playlist, _currentItem);
 
+        // Play File
+        //playResult = g_Player.Play(playlist, _currentItem);
+
+        logger.Debug(string.Format("Start playing {0}",filename));
+        playResult = mvPlayer.Play(filename);
 
         // Stope Listening to any External Player Events
         listenToExternalPlayerEvents = false;
 
         if (!playResult)
         {
-          //	Count entries in current playlist
-          //	that couldn't be played
+          //	Count entries in current playlist that couldn't be played
           _entriesNotFound++;
           logger.Info(string.Format("PlaylistPlayer: *** unable to play - {0} - skipping file!", item.FileName));
 
@@ -754,33 +726,27 @@ namespace mvCentral.Playlist
           skipmissing = false;
           if (MediaPortal.Util.Utils.IsVideo(item.FileName))
           {
-            if (g_Player.HasVideo)
+            if (mvPlayer.HasVideo)
             {
               // needed so everything goes in sequence otherwise stop gets handled after the play events
-              g_Player.ShowFullScreenWindow();
-              //                            GUIGraphicsContext.IsFullScreenVideo = false;
+              logger.Debug("Setting Fullscreen");
 
-              //                            MediaPortal.Player.g_Player.FullScreen = false;
-              //                            GUIMessage msg1 = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED, mvCentralCore.PluginID, 0, 0, -1, CurrentItem, null);
-              //                            GUIGraphicsContext.SendMessage(msg1);
-              //                            GUIWindowManager.SendMessage(msg1);
-
-              //                            MediaPortal.GUI.Library.Action actionCloseDialog = new MediaPortal.GUI.Library.Action(MediaPortal.GUI.Library.Action.ActionType.ACTION_QUEUE_ITEM, 0, 0);
-              //                            GUIGraphicsContext.OnAction(actionCloseDialog);
-
-              //                            GUIWindow g1 = GUIWindowManager.GetWindow(mvCentralCore.PluginID);
-              //                            g1.OnAction(actionCloseDialog);
-              //                            GUIWindowManager.Process(); 
+              mvPlayer.ShowFullScreenWindow();
               System.Threading.Thread.Sleep(2000);
-              //                            g_Player.ShowFullScreenWindow();
-              //                           SetProperties(item, false);
+
             }
           }
         }
       }
       while (skipmissing);
-      return g_Player.Playing;
+      
+      SetInitTimerValues();
+      playTimer.Start();
+
+      return mvPlayer.Playing;
     }
+
+
 
     /// <summary>        
     /// Updates the movie metadata on the playback screen (for when the user clicks info). 
@@ -887,8 +853,6 @@ namespace mvCentral.Playlist
       DBUserMusicVideoSettings userSettings = item.Track.ActiveUserSettings;
       userSettings.WatchedCount++;
       userSettings.Commit();
-
-      //            item.Watched = true;
     }
 
     public int CurrentItem
@@ -935,7 +899,7 @@ namespace mvCentral.Playlist
     {
       switch (nPlayList)
       {
-        case PlayListType.PLAYLIST_MVCENTRAL: return _tvseriesPlayList;
+        case PlayListType.PLAYLIST_MVCENTRAL: return _mvCentralPlayList;
         default:
           _emptyPlayList.Clear();
           return _emptyPlayList;
@@ -992,9 +956,9 @@ namespace mvCentral.Playlist
       logger.Info("Playback Stopped in External Player");
       SetAsWatched();
       PlayNext();
-      if (!g_Player.Playing)
+      if (!mvPlayer.Playing)
       {
-        g_Player.Release();
+        mvPlayer.Release();
 
         // Clear focus when playback ended
         GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);

@@ -341,6 +341,8 @@ namespace mvCentral.GUI
               }
               addToPlaylist(list1, false, true, false);
               Player.playlistPlayer.Play(lastItemVid);
+              logger.Debug("(2)Force Fullscreen");
+              g_Player.ShowFullScreenWindow();
               break;
             }
             //return to previous level
