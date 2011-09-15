@@ -341,6 +341,8 @@ namespace mvCentral.Playlist
 
     public override bool OnMessage(GUIMessage message)
     {
+      logger.Debug("mvCentral (Message) : " + message.Message);
+
       switch (message.Message)
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
