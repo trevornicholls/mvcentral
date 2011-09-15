@@ -149,7 +149,8 @@ namespace mvCentral.GUI
           PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
           playlist.Clear();
           List<DBTrackInfo> videos = DBTrackInfo.GetAll();
-          videos.RemoveAll(video => video.DateAdded < DateTime.Now.Subtract(new TimeSpan(0, 1, 0, 0, 0)));
+
+          videos.RemoveAll(video => video.DateAdded < DateTime.Now.Subtract(new TimeSpan(mvCentralCore.Settings.OldAFterDays, 0, 0, 0, 0)));
 
           foreach (DBTrackInfo video in videos)
           {
