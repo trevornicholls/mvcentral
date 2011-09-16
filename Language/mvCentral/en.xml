@@ -53,6 +53,8 @@
  
         // N
         <string Field="NoPlaylistsFound">No Playlists found in:</string>
+        <string Field="NoArtistBio">No Biography Avaiable for Artist {0}</string>
+        <string Field="NoTrackInfo">No Track Description Avaiable</string>
 
         // O
         <string Field="OK">OK</string>
@@ -62,6 +64,7 @@
         <string Field="PlaybackFailedHeader">Playback Failed</string>
         <string Field="PlayAllRandom">Play All (Random)</string>
         <string Field="Playlist">Playlist</string>
+        <string Field="PlayByGenre">Play by Genre</string>
 
 
         // Q
@@ -74,6 +77,7 @@
         
         // S
         <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
+        <string Field="SmartPlaylistGenre">Select Genre for Playlist</string>
 
         // T
 
