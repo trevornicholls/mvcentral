@@ -27,7 +27,7 @@ namespace mvCentral.GUI
       HighestRated = 2,
       Random = 3,
       LeastPlayed = 4,
-      ByGenre = 5,
+      ByTag = 5,
       Cancel = 6,
     }
     #region playlist
@@ -94,7 +94,7 @@ namespace mvCentral.GUI
       if (dlgMenu != null)
       {
         dlgMenu.Reset();
-        dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - " + Localization.SmartPlaylistGenre);
+        dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - " + Localization.SmartPlaylistTag);
         if (this.facadeLayout.Count > 0)
         {
           dlgMenu.Add(Localization.FavouriteVideos);
@@ -102,7 +102,7 @@ namespace mvCentral.GUI
           dlgMenu.Add(Localization.HighestRated);
           dlgMenu.Add(Localization.Random);
           dlgMenu.Add(Localization.LeastPlayed);
-          dlgMenu.Add(Localization.PlayByGenre);
+          dlgMenu.Add(Localization.PlayByTag);
         }
         dlgMenu.DoModal(GetID);
 
@@ -133,24 +133,24 @@ namespace mvCentral.GUI
         case SmartMode.Random:
           playRandomAll();
           break;
-        case SmartMode.ByGenre:
-          playByGenre();
+        case SmartMode.ByTag:
+          playByTag();
           break;
         case SmartMode.Cancel:
           break;
       }
     }
 
-    private void playByGenre()
+    private void playByTag()
     {
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
       if (dlgMenu != null)
       {
         dlgMenu.Reset();
         dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - " + Localization.SmartPlaylistOptions);
-        foreach (string aGenre in artistGenres)
+        foreach (string artistTag in artistTags)
         {
-          dlgMenu.Add(aGenre);
+          dlgMenu.Add(artistTag);
         }
         dlgMenu.DoModal(GetID);
 

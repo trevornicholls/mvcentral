@@ -77,7 +77,7 @@
         
         // S
         <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
-        <string Field="SmartPlaylistGenre">Select Genre for Playlist</string>
+        <string Field="SmartPlaylistTag">Select Tag for Playlist</string>
 
         // T
 
