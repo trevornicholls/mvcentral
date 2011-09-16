@@ -61,7 +61,7 @@ namespace mvCentral.Playlist
     private VirtualDirectory m_directory = new VirtualDirectory();
     public PlayListPlayer playlistPlayer;
     private View currentView = View.PlayList;
-    const int windowID = 88889;
+    const int windowID = 112012;
     private String m_sFormatEpisodeTitle = String.Empty;
     private String m_sFormatEpisodeSubtitle = String.Empty;
     private String m_sFormatEpisodeMain = String.Empty;
