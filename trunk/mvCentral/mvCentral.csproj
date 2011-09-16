@@ -210,6 +210,7 @@
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
     <Compile Include="Gui\GUIAlbumView.cs" />
+    <Compile Include="Gui\GUIStatsAndInfo.cs" />
     <Compile Include="Gui\GUIVideoView.cs" />
     <Compile Include="Gui\GUIArtistView.cs" />
     <Compile Include="Gui\GUISort.cs" />

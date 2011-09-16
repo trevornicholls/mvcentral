@@ -85,12 +85,8 @@ namespace mvCentral.Playlist
       /// <summary> control interface. </summary>
       protected IMediaControl _mediaCtrl = null;
 
-      public int lastvid;
-      private DBTrackInfo CurrentTrack;
-      public PlayList currentPlayList;
       private System.Windows.Forms.Timer playTimer = new System.Windows.Forms.Timer();
-      private TimeSpan CurrentTime;
-      public bool msgblocked1;
+       public bool msgblocked1;
       bool IPlayer.msgblocked { get { return msgblocked1; } set { msgblocked1 = value; } }
 
       public bool Playing
@@ -105,33 +101,8 @@ namespace mvCentral.Playlist
 
       bool IPlayer.Play(string strFile)
       {
-        return MediaPortal.Player.g_Player.Play(strFile);
+        return MediaPortal.Player.g_Player.Play(strFile, g_Player.MediaType.Video);
       }
-
-      //public bool Play(PlayList p1, int index)
-      //{
-      //  bool result = false;
-      //  string fn = p1[index].Track.LocalMedia[0].File.FullName;
-      //  CurrentTrack = p1[index].Track;
-      //  lastvid = index;
-      //  // needed so everything goes in sequence otherwise stop gets handled after the play events
-      //  GUIWindowManager.Process();
-      //  if (CurrentTrack.LocalMedia[0].IsDVD)
-      //  {
-      //    msgblocked1 = true;
-      //    PlayDVD(CurrentTrack);
-      //    result = true;
-      //  }
-      //  else
-      //  {
-      //    logger.Debug("result = MediaPortal.Player.g_Player.Play(fn);");
-      //    result = MediaPortal.Player.g_Player.Play(fn);
-      //  }
-      //  SetInitTimerValues();
-      //  playTimer.Start();
-      //  return result;
-      //}
-
 
       public void Stop()
       {
@@ -694,6 +665,7 @@ namespace mvCentral.Playlist
 
         // Play File
         logger.Debug(string.Format("Start playing {0}",filename));
+
         playResult = mvPlayer.Play(filename);
 
         // Stop Listening to any External Player Events

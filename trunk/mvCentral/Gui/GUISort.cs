@@ -97,7 +97,6 @@ namespace mvCentral.GUI
             }
             reset = true;
             GUIPropertyManager.SetProperty("#MusicVids.Sort", sortString);
-            SortLabel.Label = sortString;
             GUIPropertyManager.Changed = true;
             timeOut.Interval = 500;
             timeOut.Start();
@@ -117,7 +116,6 @@ namespace mvCentral.GUI
             {
                 sortString = "";
                 GUIPropertyManager.SetProperty("#MusicVids.Sort", sortString.ToUpper());
-                SortLabel.Label = sortString;
                 GUIPropertyManager.Changed = true;
                 timeOut.Stop();
             }
