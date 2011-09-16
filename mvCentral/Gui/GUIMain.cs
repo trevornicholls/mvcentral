@@ -69,7 +69,7 @@ namespace mvCentral.GUI
     private mvSort artistSort = mvSort.ascending;
     private mvSort videoSort = mvSort.ascending;
 
-    private List<string> artistGenres = new List<string>();
+    private List<string> artistTags = new List<string>();
 
     public int lastItemArt = 0, lastItemVid = 0, artistID = 0, albumID = 0;
 
@@ -121,7 +121,7 @@ namespace mvCentral.GUI
 
       // set some skin properties
       SetProperty("#mvCentral.Settings.HomeScreenName", mvCentralCore.Settings.HomeScreenName);
-      artistGenres.Clear();
+      artistTags.Clear();
 
       // start initialization of the music videos core services in a seperate thread
       initThread = new Thread(new ThreadStart(mvCentralCore.Initialize));
@@ -552,13 +552,16 @@ namespace mvCentral.GUI
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
         facadeLayout.Add(facadeItem);
 
-        foreach (string aGenre in artistData.Tag)
+        foreach (string artistTag in artistData.Tag)
         {
-          if (!artistGenres.Contains(aGenre) && aGenre != artistData.Artist)
-            artistGenres.Add(aGenre);
+          if (!artistTags.Contains(artistTag))
+          {
+            if (artistTag != artistData.Artist)
+              artistTags.Add(artistTag);
+          }
         }
       }
-      artistGenres.Sort(delegate(string p1, string p2) { return p1.CompareTo(p2); });
+      artistTags.Sort(delegate(string p1, string p2) { return p1.CompareTo(p2); });
 
       // If first time though set properites to first item in facade
       if (facadeLayout.Count > 0 && !persisting)
@@ -733,12 +736,12 @@ namespace mvCentral.GUI
       DBArtistInfo currArtist = DBArtistInfo.Get(item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
       // Artist Genres
-      string artistGenres = string.Empty;
-      foreach (string genre in currArtist.Tag)
-        artistGenres += genre + " | ";
+      string artistTags = string.Empty;
+      foreach (string tag in currArtist.Tag)
+        artistTags += tag + " | ";
 
-      if (!string.IsNullOrEmpty(artistGenres))
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistGenre", artistGenres.Remove(artistGenres.Length - 2, 2));
+      if (!string.IsNullOrEmpty(artistTags))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistGenre", artistTags.Remove(artistTags.Length - 2, 2));
 
       // Clear the video properites
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);

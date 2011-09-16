@@ -233,7 +233,7 @@ namespace mvCentral.Localizations {
         public static string PlaybackFailedHeader = "Playback Failed";
         public static string PlayAllRandom = "Play All (Random)";
         public static string Playlist = "Playlist";
-        public static string PlayByGenre = "Play By Genre";
+        public static string PlayByTag = "Play By Tag";
 
 
         // Q
@@ -247,7 +247,7 @@ namespace mvCentral.Localizations {
         // S
         public static string SmartPlaylistOptions = "Smart Playlist Options";
         public static string StatsAndInfo = "Stats and Info";
-        public static string SmartPlaylistGenre = "Select Genre for Playlist";
+        public static string SmartPlaylistTag = "Select Tag for Playlist";
         // T
 
 
