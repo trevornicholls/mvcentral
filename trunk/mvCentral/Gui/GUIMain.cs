@@ -16,6 +16,7 @@ using mvCentral;
 using mvCentral.LocalMediaManagement;
 using mvCentral.Playlist;
 using mvCentral.Utils;
+using mvCentral.Localizations;
 // Mediaportal
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
@@ -487,18 +488,17 @@ namespace mvCentral.GUI
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
       if (dlgMenu != null)
       {
-        logger.Info("HERE");
         dlgMenu.Reset();
-        dlgMenu.SetHeading(mvCentralCore.Settings.HomeScreenName + " - Context Menu");
+        dlgMenu.SetHeading(mvCentralCore.Settings.HomeScreenName + " - " + Localization.ContextMenu);
         if (this.facadeLayout.Count > 0)
         {
-          dlgMenu.Add("Add to playlist");
-          dlgMenu.Add("Add all to playlist");
+          dlgMenu.Add(Localization.AddToPlaylist);
+          dlgMenu.Add(Localization.AddAllToPlaylist);
           if (Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Count > 0 && !(facadeLayout.ListLayout.SelectedListItem.IsFolder))
           {
-            dlgMenu.Add("Add to Playlist as next item");
+            dlgMenu.Add(Localization.AddToPlaylistNext);
           }
-          dlgMenu.Add("Cancel");
+          dlgMenu.Add(Localization.Cancel);
         }
         dlgMenu.DoModal(GetID);
 
@@ -535,7 +535,7 @@ namespace mvCentral.GUI
     {
       // set the view
       currentView = mvView.Artist;
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists");
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Artists);
       GUIPropertyManager.Changed = true;
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
       // Sort Artist decending
@@ -570,7 +570,7 @@ namespace mvCentral.GUI
     private void LoadVideos(int ArtistID)
     {
       currentView = mvView.Video;
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Artists | " + DBArtistInfo.Get(ArtistID));
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Videos + " | " + DBArtistInfo.Get(ArtistID));
       GUIPropertyManager.Changed = true;
       // Load the albums (Not used Currently)
       if (facadeLayout.SelectedListItem == null)
@@ -703,7 +703,7 @@ namespace mvCentral.GUI
     void onArtistSelected(GUIListItem item, GUIControl parent)
     {
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", "No Artist Bio Avaiable");
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", string.Format(Localization.NoArtistBio,item.Label));
       else
         GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
 
@@ -712,6 +712,13 @@ namespace mvCentral.GUI
       // How many videos do we have for this artist
       DBArtistInfo currArtist = DBArtistInfo.Get(item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
+      // Artist Genres
+      string artistGenres = string.Empty;
+      foreach (string genre in currArtist.Tag)
+        artistGenres += genre + " | ";
+
+      if (!string.IsNullOrEmpty(artistGenres))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistGenre", artistGenres.Remove(artistGenres.Length - 2, 2));
 
       // Clear the video properites
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);
@@ -734,9 +741,9 @@ namespace mvCentral.GUI
     {
       GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", "No Track Information Avaiable");
+        GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
       else
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
 
 
       // Grab and set the video properites

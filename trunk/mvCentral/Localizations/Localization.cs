@@ -145,10 +145,13 @@ namespace mvCentral.Localizations {
 
         public static void TranslateSkin() {
             logger.Info("Translation: Translating skin");
-            foreach (string name in Localization.Strings.Keys) {
-                if (name.StartsWith("SkinTranslation")) {
-                    GUIUtils.SetProperty("#mvCentral.Translation." + name.Replace("SkinTranslation", "") + ".Label", Localization.Strings[name], true);
-                }
+            foreach (string name in Localization.Strings.Keys) 
+            {
+              GUIUtils.SetProperty("#mvCentral.Translation." + name + ".Label", Localization.Strings[name], true);
+                //if (name.StartsWith("SkinTranslation")) 
+                //{
+                //    GUIUtils.SetProperty( "#mvCentral.Translation." + name.Replace("SkinTranslation", "") + ".Label", Localization.Strings[name], true);
+                //}
             }
         }
 
@@ -172,16 +175,11 @@ namespace mvCentral.Localizations {
 
         // A
         public static string About = "About";
-        public static string AboutText = "SubCentral is a download plug-in for the MediaPortal HTPC application." + 
-            "The purpose of the plug-in is to allow user to download movies/series for movies or TV shows managed" +
-            " by popular Moving Pictures and MP-TVSeries plug-ins. Best way to use the plug-in is by opening" +
-            " Moving Pictures or MP-TVSeries plug-in, browsing to movie/TV show and selecting 'Download' item in (Hidden) menu." +
-            " Please use the MediaPortal configuration to setup the plug-in more thoroughly. After the search is done, you can" +
-            " sort the results using the menu item and of course, download the movie/serie. For more information, visit us" +
-            " on our Google Code Download Central project page!"; // will be defined in XML file
-
+        public static string AboutText = "mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.";
         public static string Artists = "Artists";
-
+        public static string AddToPlaylist = "Add To Playlist";
+        public static string AddAllToPlaylist = "Add All To Playlist";
+        public static string AddToPlaylistNext = "Add To Playlist as Next Item";
         // B
         public static string Back = "Back";
         public static string ButtonAutoPlay = "Auto Play";
@@ -191,45 +189,41 @@ namespace mvCentral.Localizations {
         public static string CannotLoadSkin = "Could not load the skin\nfile for mvCentral!";
         public static string ContinueToNextPartBody = "Do you wish to continue with part {0}?";
         public static string ContinueToNextPartHeader = "Continue to next part?";
+        public static string ContextMenu = "Context Menu";
 
         // D
-        public static string DownloadS = "Download(s)";
         public static string Date = "Date";
-        public static string DownloadStatus = "Download status";
-        public static string DownloadQueued = "Download Queued!";
-        public static string DownloadSearch = "Download search";
 
         // E
         public static string Error = "Error";
-        public static string ErrorWhileRetrievingDownloads = "Error retrieving Downloads!";
-        public static string ErrorConnection = "Error connecting to : {0}";
-        public static string ErrorDownloadNotQueued = "Error download not Queued!";
 
         // F
         public static string FailedMountingImage = "Sorry, failed mounting DVD Image";
+        public static string FavouriteVideos = "Favourite Videos";
 
         // G
 
         // H
+        public static string HighestRated = "Highest Rated";
 
         // I
         public static string Initializing = "Initializing";
         public static string Info = "Info";
 
         // L
+        public static string LatestVideos = "Latest Videos";
+        public static string LeastPlayed = "Least Played";
 
         // M
- 
         public static string MediaIsMissing = "The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...";
         public static string MediaNotAvailableBody = "The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}";
         public static string MediaNotAvailableHeader = "Media Not Available";
         public static string MissingExternalPlayerExe = "The executable for HD playback is missing.\nPlease correct the path to the executable.";
  
         // N
-        public static string NoResultsFound = "No results found";
-        public static string Name = "Name";
-        public static string NoDownloadsActive = "No downloads active";
         public static string NoPlaylistsFound = "No Playlists found in:";
+        public static string NoArtistBio = "No Biography Avaiable for Artist {0}";
+        public static string NoTrackInfo = "No Track Description Avaiable";
 
         // O
         public static string OK = "OK";
@@ -237,27 +231,23 @@ namespace mvCentral.Localizations {
         // P
         public static string PlaybackFailed = "Playback is not possible because the '{0}'\nextension is not listed in your mediaportal configuration.\nPlease add this extension or setup an external player\nand try again.";
         public static string PlaybackFailedHeader = "Playback Failed";
+        public static string PlayAllRandom = "Play All (Random)";
+        public static string Playlist = "Playlist";
+
 
         // Q
 
         // R
+        public static string Random = "Random";
         public static string Retry = "Retry";
         public static string ResumeFrom = "Resume from:";
         public static string ResumeFromLast = "Resume muicvideo from last time?";
         
         // S
-        public static string Sites = "Site(s)";
-        public static string SearchingSite = "Searching Site...";
-        public static string Sorting = "Sorting";
-        public static string Sort = "Sort";
-        public static string SortBy = "Sort by: {0}";
-        public static string SortByName = "Sort by Name";
-        public static string SortByDate = "Sort by Date";
-        public static string Status = "Status";
+        public static string SmartPlaylistOptions = "Smart Playlist Options";
 
         // T
 
-        public static string TorrentSearch = "Torrent Search";
 
         // U
 
@@ -265,7 +255,6 @@ namespace mvCentral.Localizations {
         public static string VirtualDriveHeader = "Virtual drive not ready";
         public static string VirtualDriveMessage = "The virtual drive wasn't ready in time.\nPlease try again or cancel playback.";
         public static string Videos = "Videos";
-
 
         // W
         #endregion

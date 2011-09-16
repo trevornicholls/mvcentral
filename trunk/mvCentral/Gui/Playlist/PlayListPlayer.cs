@@ -345,8 +345,6 @@ namespace mvCentral.Playlist
 
     void OnNewAction(MediaPortal.GUI.Library.Action action)
     {
-      //logger.Debug("(OnNewAction) received : " + action.wID.ToString());
-
       switch (action.wID)
       {
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM:
@@ -363,8 +361,6 @@ namespace mvCentral.Playlist
 
     public void OnMessage(GUIMessage message)
     {
-      //logger.Debug("(OnMessage) received : " + message.Message.ToString());
-
       switch (message.Message)
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
@@ -697,12 +693,10 @@ namespace mvCentral.Playlist
         listenToExternalPlayerEvents = true;
 
         // Play File
-        //playResult = g_Player.Play(playlist, _currentItem);
-
         logger.Debug(string.Format("Start playing {0}",filename));
         playResult = mvPlayer.Play(filename);
 
-        // Stope Listening to any External Player Events
+        // Stop Listening to any External Player Events
         listenToExternalPlayerEvents = false;
 
         if (!playResult)

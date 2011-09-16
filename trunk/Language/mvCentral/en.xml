@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- mvCentral translation file -->
+<!-- English (US) -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+        // A
+        <string Field="About">About</string>
+        <string Field="AboutText">mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.</string>
+        <string Field="Artists">Artists</string>
+        <string Field="AddToPlaylist">Add To Playlist</string>
+        <string Field="AddAllToPlaylist">Add All To Playlist</string>
+        <string Field="AddToPlaylistNext">Add To Playlist as Next Item</string>
+
+        // B
+        <string Field="Back">Back</string>
+        <string Field="ButtonAutoPlay">Auto Play</string>
+
+        // C
+        <string Field="Cancel">Cancel</string>
+        <string Field="CannotLoadSkin">Could not load the skin\nfile for mvCentral!</string>
+        <string Field="ContinueToNextPartBody">Do you wish to continue with part {0}?</string>
+        <string Field="ContinueToNextPartHeader">Continue to next part?</string>
+        <string Field="Conextmenu">Context Menu</string>
+
+        // D
+        <string Field="Date">Date</string>
+
+        // E
+        <string Field="Error">Error</string>
+        
+        // F
+        <string Field="FailedMountingImage">Sorry, failed mounting DVD Image</string>
+        <string Field="FavouriteVideos">Favourite Videos</string>
+
+        // G
+
+        // H
+        <string Field="HighestRated">Highest Rated</string>
+
+        // I
+        <string Field="Initializing">Initializing</string>
+        <string Field="Info">Info</string>
+
+        // L
+        <string Field="LatestVideos">Latest Videos</string>
+        <string Field="LeastPlayed">Least Played</string>
+
+        // M
+        <string Field="MediaIsMissing">The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...</string>
+        <string Field="MediaNotAvailableBody">The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}</string>
+        <string Field="MediaNotAvailableHeader">Media Not Available</string>
+        <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
+ 
+        // N
+        <string Field="NoPlaylistsFound">No Playlists found in:</string>
+
+        // O
+        <string Field="OK">OK</string>
+
+        // P
+        <string Field="PlaybackFailed">Playback is not possible because the '{0}'\nextension is not listed in your mediaportal configuration.\nPlease add this extension or setup an external player\nand try again.</string>
+        <string Field="PlaybackFailedHeader">Playback Failed</string>
+        <string Field="PlayAllRandom">Play All (Random)</string>
+        <string Field="Playlist">Playlist</string>
+
+
+        // Q
+
+        // R
+        <string Field="Random">Random</string>
+        <string Field="Retry">Retry</string>
+        <string Field="ResumeFrom">Resume from:</string>
+        <string Field="ResumeFromLast">Resume muicvideo from last time?</string>
+        
+        // S
+        <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
+
+        // T
+
+
+        // U
+
+        // V
+        <string Field="VirtualDriveHeader">Virtual drive not ready</string>
+        <string Field="VirtualDriveMessage">The virtual drive wasn't ready in time.\nPlease try again or cancel playback.</string>
+        <string Field="Videos">Videos</string>
+
+        // W
+</strings>
