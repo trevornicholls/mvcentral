@@ -58,7 +58,9 @@
         <string Field="MediaNotAvailableBody">The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}</string>
         <string Field="MediaNotAvailableHeader">Media Not Available</string>
         <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
- 
+        <string Field="MostPlayedArtist">Most Played Artist</string>
+        <string Field="MostPlayedVideo">Most Played Video</string>
+
         // N
         <string Field="NoPlaylistsFound">No Playlists found in:</string>
         <string Field="NoArtistBio">No Biography Avaiable for Artist {0}</string>
@@ -89,6 +91,8 @@
         <string Field="StatsAndInfo">Stats and Info</string>
 
         // T
+        <string Field="Total Runtime">Total Runtime</string>
+        <string Field="TopTenVideos">Top Ten Videos</string>
 
 
         // U
