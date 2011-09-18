@@ -4,7 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Reflection;
 using System.Windows.Forms;
-
+using System.Text.RegularExpressions;
 
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
@@ -27,6 +27,7 @@ using mvCentral.Localizations;
 //using mvCentral.Utils;
 using MediaPortal.Configuration;
 using MediaPortal.Services;
+using MediaPortal.GUI.Library;
 
 namespace mvCentral
 {
@@ -393,7 +394,10 @@ namespace mvCentral
       logger.Info("Initializing localization");
       Localization.Init();
       Localization.TranslateSkin();
+
+
     }
+
 
 
     #region Public Methods
@@ -409,6 +413,20 @@ namespace mvCentral
 
         return _instance;
       }
+    }
+
+    internal static void SetProperty(string property, string value)
+    {
+      if (property == null)
+        return;
+
+      //// If the value is empty always add a space
+      //// otherwise the property will keep 
+      //// displaying it's previous value
+      if (String.IsNullOrEmpty(value))
+        value = " ";
+
+      GUIPropertyManager.SetProperty(property, value);
     }
 
     public static void Initialize()

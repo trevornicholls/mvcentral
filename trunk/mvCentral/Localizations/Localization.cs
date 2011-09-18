@@ -19,12 +19,17 @@ namespace mvCentral.Localizations {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         #region Private variables
+
         private static Dictionary<string, string> _translations;
         private static readonly string _path = string.Empty;
         private static readonly DateTimeFormatInfo _info;
+
+        private static Regex _isNumber = new Regex(@"^\d+$");
+
         #endregion
          
         #region Constructor
+
         static Localization() { 
             try {
                 Lang = GUILocalizeStrings.GetCultureName(GUILocalizeStrings.CurrentLanguage());
@@ -49,6 +54,7 @@ namespace mvCentral.Localizations {
         #region Public Properties
         // Gets the language actually used (after checking for localization file and fallback).
         public static string Lang { get; private set; }
+        public static Dictionary<string, string> FixedTranslations = new Dictionary<string, string>();
 
         /// <summary>
         /// Gets the translated strings collection in the active language
@@ -93,7 +99,13 @@ namespace mvCentral.Localizations {
             }
             foreach (XmlNode stringEntry in doc.DocumentElement.ChildNodes) {
                 if (stringEntry.NodeType == XmlNodeType.Element)
-                    try {
+                    try 
+                    {
+                      if (stringEntry.Attributes.GetNamedItem("Field").Value.StartsWith("#"))
+                      {
+                        FixedTranslations.Add(stringEntry.Attributes.GetNamedItem("Field").Value, stringEntry.InnerText);
+                      }
+                      else
                         TranslatedStrings.Add(stringEntry.Attributes.GetNamedItem("Field").Value, stringEntry.InnerText);
                     }
                     catch (Exception e) {
@@ -104,7 +116,11 @@ namespace mvCentral.Localizations {
 
             Type TransType = typeof(Localization);
             FieldInfo[] fieldInfos = TransType.GetFields(BindingFlags.Public | BindingFlags.Static);
-            foreach (FieldInfo fi in fieldInfos) {
+            foreach (FieldInfo fi in fieldInfos) 
+            {
+              if (fi.Name == "FixedTranslations") // Skip this as invalid, picked as it is a public static string
+                continue;
+
                 if (TranslatedStrings != null && TranslatedStrings.ContainsKey(fi.Name))
                     TransType.InvokeMember(fi.Name, BindingFlags.SetField, null, TransType, new object[] { TranslatedStrings[fi.Name] });
                 else
@@ -143,17 +159,45 @@ namespace mvCentral.Localizations {
             return input;
         }
 
-        public static void TranslateSkin() {
+        public static void TranslateSkin() 
+        {
             logger.Info("Translation: Translating skin");
             foreach (string name in Localization.Strings.Keys) 
             {
-              GUIUtils.SetProperty("#mvCentral.Translation." + name + ".Label", Localization.Strings[name], true);
-                //if (name.StartsWith("SkinTranslation")) 
-                //{
-                //    GUIUtils.SetProperty( "#mvCentral.Translation." + name.Replace("SkinTranslation", "") + ".Label", Localization.Strings[name], true);
-                //}
+              if (name != "FixedTranslations")
+                GUIUtils.SetProperty("#mvCentral.Translation." + name + ".Label", Localization.Strings[name], true);
+            }
+
+            logger.Info("Translation: Translating Mediaportal Localised IDs");
+            foreach (string propName in Localization.FixedTranslations.Keys)
+            {
+              if (!string.IsNullOrEmpty(propName))
+              {
+                string propValue;
+                Localization.FixedTranslations.TryGetValue(propName, out propValue);
+                if (IsInteger(propValue))
+                {
+                  GUIUtils.SetProperty(propName + ".Label", GUILocalizeStrings.Get(int.Parse(propValue)), true);
+                }
+                else
+                {
+                  logger.Info(propName + ": " + propValue);
+                  GUIUtils.SetProperty(propName, propValue,true);
+                }
+              }
             }
         }
+        /// <summary>
+        /// Return true if Interger
+        /// </summary>
+        /// <param name="theValue"></param>
+        /// <returns></returns>
+        static bool IsInteger(string theValue)
+        {
+          if (string.IsNullOrEmpty(theValue)) return false;
+          Match m = _isNumber.Match(theValue);
+          return m.Success;
+        }  
 
         public static string GetDayName(DayOfWeek dayOfWeek) {
             return _info.GetDayName(dayOfWeek);
@@ -176,6 +220,7 @@ namespace mvCentral.Localizations {
         // A
         public static string About = "About";
         public static string AboutText = "mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.";
+        public static string Artist = "Artist";
         public static string Artists = "Artists";
         public static string AddToPlaylist = "Add To Playlist";
         public static string AddAllToPlaylist = "Add All To Playlist";

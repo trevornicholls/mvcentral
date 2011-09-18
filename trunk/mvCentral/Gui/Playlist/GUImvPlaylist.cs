@@ -66,6 +66,8 @@ namespace mvCentral.Playlist
     private String m_sFormatEpisodeSubtitle = String.Empty;
     private String m_sFormatEpisodeMain = String.Empty;
 
+    DBTrackInfo prevSelectedmvTrack = null;
+    
     #endregion
 
     #region skin variables
@@ -83,26 +85,19 @@ namespace mvCentral.Playlist
       AutoPlayPlaylist = 40,
     }
 
-    [SkinControl((int)GUIControls.LoadPlaylist)]
-    protected GUIButtonControl btnLoad = null;
-    [SkinControl((int)GUIControls.ShufflePlaylist)]
-    protected GUIButtonControl btnShuffle = null;
-    [SkinControl((int)GUIControls.SavePlaylist)]
-    protected GUIButtonControl btnSave = null;
-    [SkinControl((int)GUIControls.ClearPlaylist)]
-    protected GUIButtonControl btnClear = null;
-    [SkinControl((int)GUIControls.PlayPlaylist)]
-    protected GUIButtonControl btnPlay = null;
-    [SkinControl((int)GUIControls.NextTrack)]
-    protected GUIButtonControl btnNext = null;
-    [SkinControl((int)GUIControls.PrevTrack)]
-    protected GUIButtonControl btnPrevious = null;
-    [SkinControl((int)GUIControls.RepeatPlaylist)]
-    protected GUIToggleButtonControl btnRepeat = null;
-    [SkinControl((int)GUIControls.AutoPlayPlaylist)]
-    protected GUIToggleButtonControl btnAutoPlay = null;
+    [SkinControl((int)GUIControls.LoadPlaylist)] protected GUIButtonControl btnLoad = null;
+    [SkinControl((int)GUIControls.ShufflePlaylist)] protected GUIButtonControl btnShuffle = null;
+    [SkinControl((int)GUIControls.SavePlaylist)] protected GUIButtonControl btnSave = null;
+    [SkinControl((int)GUIControls.ClearPlaylist)] protected GUIButtonControl btnClear = null;
+    [SkinControl((int)GUIControls.PlayPlaylist)] protected GUIButtonControl btnPlay = null;
+    [SkinControl((int)GUIControls.NextTrack)] protected GUIButtonControl btnNext = null;
+    [SkinControl((int)GUIControls.PrevTrack)] protected GUIButtonControl btnPrevious = null;
+    [SkinControl((int)GUIControls.RepeatPlaylist)] protected GUIToggleButtonControl btnRepeat = null;
+    [SkinControl((int)GUIControls.AutoPlayPlaylist)] protected GUIToggleButtonControl btnAutoPlay = null;
 
     #endregion
+
+    #region Enums
 
     public enum View
     {
@@ -125,6 +120,10 @@ namespace mvCentral.Playlist
       Logos,
     }
 
+    #endregion
+
+    #region Constructor
+
     public GUImvPlayList()
     {
       GetID = (int)Window.WINDOW_VIDEO_PLAYLIST;
@@ -133,6 +132,8 @@ namespace mvCentral.Playlist
       m_directory.SetExtensions(MediaPortal.Util.Utils.VideoExtensions);
       m_directory.AddExtension(".mvplaylist");
     }
+
+    #endregion
 
     public static int GetWindowID
     {
@@ -156,14 +157,6 @@ namespace mvCentral.Playlist
     }
 
     #region BaseWindow Members
-
-    /// <summary>
-    /// MediaPortal will set #currentmodule with GetModuleName()
-    /// </summary>
-    /// <returns>Localized Window Name</returns>
-    //public override string GetModuleName() {
-    //	return GUILocalizeStrings.Get(136);
-    //}
 
     public override bool Init()
     {
@@ -220,10 +213,11 @@ namespace mvCentral.Playlist
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-      if (facadeLayout != null)
-      {
-        facadeLayout.CurrentLayout = (GUIFacadeControl.Layout)CurrentView;
-      }
+
+      CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultPlaylistView);
+      SwitchLayout();
+      UpdateButtonStates();
+      logger.Debug("GUIPlaylist Load - Current layout : " + CurrentLayout.ToString()); 
 
       MediaPortal.GUI.Library.GUIPropertyManager.SetProperty("#currentmodule", GUILocalizeStrings.Get(136));
       mvCentralUtils.disableNativeAutoplay();
@@ -285,7 +279,7 @@ namespace mvCentral.Playlist
 
       if (control == btnLayouts)
       {
-        mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
+        mvCentralCore.Settings.DefaultPlaylistView = ((int)CurrentLayout).ToString();
       }
       else if (control == btnShuffle)
       {
@@ -341,9 +335,7 @@ namespace mvCentral.Playlist
 
     public override bool OnMessage(GUIMessage message)
     {
-      logger.Debug("mvCentral (Message) : " + message.Message);
-
-      switch (message.Message)
+       switch (message.Message)
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
           {
@@ -432,10 +424,12 @@ namespace mvCentral.Playlist
       }
     }
 
-    protected void LoadDirectory(string strNewDirectory)
+    protected override void LoadDirectory(string strNewDirectory)
     {
       if (facadeLayout == null)
         return;
+
+      CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultPlaylistView);
 
       GUIWaitCursor.Show();
       try
@@ -489,23 +483,7 @@ namespace mvCentral.Playlist
             pItem.IconImage = GUIGraphicsContext.Skin + @"\Media\tvseries_UnWatched.png";
           }
 
-          //if (item.Duration > 0)
-          //{
-          //    double nDuration = item.Duration;
-          //    if (nDuration > 0)
-          //    {
-          //        string str = Helper.MSToMMSS(nDuration);
-          //        pItem.Label2 = str;
-          //    }
-          //    else
-          //    {
-          //        pItem.Label2 = string.Empty;
-          //    }
-          //}
-
-
           itemlist.Add(pItem);
-          //MediaPortal.Util.Utils.SetDefaultIcons(pItem);
         }
 
         iCurrentItem = 0;
@@ -554,8 +532,9 @@ namespace mvCentral.Playlist
         //set object count label
         int iTotalItems = itemlist.Count;
         //                GUIPropertyManager.SetProperty("#itemcount", Translation.Episodes + ": " + iTotalItems.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Playlist");
         GUIPropertyManager.SetProperty("#mvCentral.Playlist.Count", iTotalItems.ToString());
-
+        GUIPropertyManager.SetProperty("#mvCentral.Playlist.Runtime", playListRunningTime(itemlist));
         if (currentSelectedItem >= 0)
         {
           GUIControl.SelectItemControl(GetID, facadeLayout.GetID, currentSelectedItem);
@@ -568,6 +547,27 @@ namespace mvCentral.Playlist
         GUIWaitCursor.Hide();
         logger.Info(string.Format("GUITVSeriesPlaylist: An error occured while loading the directory - {0}", ex.Message));
       }
+    }
+
+    /// <summary>
+    /// Give total running time for supplied tracklist
+    /// </summary>
+    /// <param name="property"></param>
+    /// <param name="value"></param>
+    private string playListRunningTime(ArrayList playList)
+    {
+      TimeSpan tt = TimeSpan.Parse("00:00:00");
+      foreach (GUIListItem track in playList)
+      {
+        DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
+        tt += TimeSpan.Parse(theTrack.PlayTime);
+      }
+      DateTime dt = new DateTime(tt.Ticks);
+      string cTime = String.Format("{0:HH:mm:ss}", dt);
+      if (cTime.StartsWith("00:"))
+        return cTime.Substring(3);
+      else
+        return cTime;
     }
 
     private void ClearFileItems()
@@ -591,7 +591,7 @@ namespace mvCentral.Playlist
         GUIControl.FocusControl(GetID, btnLoad.GetID);
     }
 
-    protected void OnClick(int itemIndex)
+    protected override void OnClick(int itemIndex)
     {
       currentSelectedItem = facadeLayout.SelectedListItemIndex;
       GUIListItem item = facadeLayout.SelectedListItem;
@@ -609,10 +609,12 @@ namespace mvCentral.Playlist
       playlistPlayer.Play(itemIndex);
     }
 
-    // triggered when a selection change was made on the facade
-    DBTrackInfo prevSelectedmvTrack = null;
+
     private void onFacadeItemSelected(GUIListItem item, GUIControl parent)
     {
+      //// triggered when a selection change was made on the facade
+
+
       // if this is not a message from the facade, exit
       if (parent != facadeLayout && parent != facadeLayout.FilmstripLayout &&
           parent != facadeLayout.ThumbnailLayout && parent != facadeLayout.ListLayout &&
@@ -632,31 +634,11 @@ namespace mvCentral.Playlist
       DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
 
       GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
-
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
       GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
-      GUIPropertyManager.SetProperty("#mvCentral.Description", mvCentralUtils.StripHTML(mvTrack.bioContent));
-
-
-      //TVSeriesPlugin.setGUIProperty(guiProperty.Title.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeTitle, episode));
-      //TVSeriesPlugin.setGUIProperty(guiProperty.Subtitle.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeSubtitle, episode));            
-      //TVSeriesPlugin.setGUIProperty(guiProperty.Description.ToString(), FieldGetter.resolveDynString(m_sFormatEpisodeMain, episode));
-      //TVSeriesPlugin.setGUIProperty(guiProperty.Logos.ToString(), localLogos.getLogos(ref episode, TVSeriesPlugin.logosHeight, TVSeriesPlugin.logosWidth));
-      //if (episode[DBOnlineEpisode.cWatched] || item.IsPlayed || !DBOption.GetOptions(DBOption.cView_Episode_HideUnwatchedThumbnail))
-      //{
-      //    GUIPropertyManager.SetProperty("#selectedthumb", ImageAllocator.GetEpisodeImage(episode));
-      //    TVSeriesPlugin.setGUIProperty(guiProperty.EpisodeImage.ToString(), ImageAllocator.GetEpisodeImage(episode));
-      //}
-      //else
-      //{
-      //    GUIPropertyManager.SetProperty("#selectedthumb", " ");
-      //    TVSeriesPlugin.clearGUIProperty(guiProperty.EpisodeImage.ToString());
-      //}
-
-      //TVSeriesPlugin.pushFieldsToSkin(episode, "Episode");
-
-      // Some strange issues with logos when using mouse and hovering over current item
-      // Dont push properties next time if the same episode is selected
+      GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
+      logger.Debug("Set the skin props - selectedartist, mvCentral.ArtistName, selectedthumb etc");
       prevSelectedmvTrack = mvTrack;
 
     }
@@ -759,7 +741,15 @@ namespace mvCentral.Playlist
       }
     }
 
-    protected bool GetKeyboard(ref string strLine)
+    protected override bool AllowLayout(Layout layout)
+    {
+      if (layout == Layout.AlbumView || layout == Layout.List)
+        return false;
+
+      return base.AllowLayout(layout);
+    }
+
+    protected override bool GetKeyboard(ref string strLine)
     {
       try
       {

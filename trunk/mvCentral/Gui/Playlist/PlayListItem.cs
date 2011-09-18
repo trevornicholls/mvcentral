@@ -56,19 +56,7 @@ namespace mvCentral.Playlist
                     return;
 
                 _track = value;
-
-/*                FileName = DBTrackInfo.;
-                EpisodeName = value[DBEpisode.cEpisodeName];
-                Duration = value["localPlaytime"];
-                EpisodeID = value[DBOnlineEpisode.cID];
-                EpisodeIndex = value[DBOnlineEpisode.cEpisodeIndex];
-                SeasonIndex = value[DBOnlineEpisode.cSeasonIndex];
-                SeriesName = Helper.getCorrespondingSeries(value[DBOnlineEpisode.cSeriesID]).ToString();
-                Summary = value[DBOnlineEpisode.cEpisodeSummary];
-                FirstAired = value[DBOnlineEpisode.cFirstAired];
-                EpisodeThumb = ImageAllocator.GetEpisodeImage(value);
-                IsWatched = value[DBOnlineEpisode.cWatched];
-*/            }
+            }
         }
 
 

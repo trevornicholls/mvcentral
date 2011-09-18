@@ -336,6 +336,7 @@ namespace mvCentral.Playlist
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
           {
+            playTimer.Stop();
             PlayListItem item = GetCurrentItem();
             if (item != null)
             {
@@ -350,6 +351,7 @@ namespace mvCentral.Playlist
 
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
           {
+            playTimer.Stop();
             SetAsWatched();
             PlayNext();
 
@@ -371,14 +373,18 @@ namespace mvCentral.Playlist
             // Play the file
             mvPlayer.Play(message.Label);
             // If already playing a file then stop
-            if (!mvPlayer.Playing) 
+            if (!mvPlayer.Playing)
+            {
+              playTimer.Stop();
               mvPlayer.Stop();
+            }
           }
           break;
 
         case GUIMessage.MessageType.GUI_MSG_STOP_FILE:
           {
             logger.Debug(string.Format("Playlistplayer: Stop file"));
+            playTimer.Stop();
             mvPlayer.Stop();
           }
           break;

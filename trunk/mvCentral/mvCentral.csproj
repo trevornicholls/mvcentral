@@ -334,16 +334,10 @@
     <None Include="Resources\Languages.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\MusicVideosLogo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\OK.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PageWhiteText.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\MusicVideosIcon.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow_down_small.png" />
@@ -405,6 +399,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Config\Images\mvCentral_Icon_Disabled.png" />
     <EmbeddedResource Include="Config\Images\mvCentral_Icon_Enabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\mvCentralLogo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
