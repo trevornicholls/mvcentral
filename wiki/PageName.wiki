@@ -1,0 +1,84 @@
+#summary Skin Properties used by mvCentral
+
+= Introduction =
+
+The following lists all the skin properties set within mvCentral and available to skinners. 
+
+Currently this is just a list, will clean up and create a full skinners guide over the next few days.
+
+
+= Main GUI Propities =
+
+mvCentral.Settings.HomeScreenName
+#mvCentral.TotalArtists
+#mvCentral.TotalVideos
+#mvCentral.Hierachy
+#itemcount
+#mvCentral.Itemcount.Text
+#mvCentral.ArtistView
+#mvCentral.TrackView
+#mvCentral.Hierachy
+#itemcount
+#mvCentral.ArtistView
+#mvCentral.TrackView
+#mvCentral.Hierachy
+#mvCentral.ArtistView
+#mvCentral.TrackView
+#mvCentral.ArtistBio
+#mvCentral.ArtistBio
+#mvCentral.ArtistName
+#mvCentral.ArtistImg
+#mvCentral.VideosByArtist
+#mvCentral.ArtistTracksRuntime
+#mvCentral.ArtistGenre
+#mvCentral.LocalMedia.videoresolution
+#mvCentral.LocalMedia.videoaspectratio
+#mvCentral.LocalMedia.videocodec
+#mvCentral.LocalMedia.audiocodec
+#mvCentral.LocalMedia.audiochannels
+#mvCentral.LocalMedia.audio
+#mvCentral.ArtistView
+#mvCentral.TrackView
+#mvCentral.VideoImg
+#mvCentral.TrackInfo
+#mvCentral.TrackInfo
+#mvCentral.LocalMedia.videoresolution
+#mvCentral.LocalMedia.videoaspectratio
+#mvCentral.LocalMedia.videocodec
+#mvCentral.LocalMedia.audiocodec
+#mvCentral.LocalMedia.audiochannels
+#mvCentral.LocalMedia.audio
+#mvCentral.Duration
+#mvCentral.ArtistName
+#mvCentral.ArtistView
+#mvCentral.TrackView
+#mvCentral.Backdrop
+mvCentral.Coverart
+#MusicVids.Sort
+#MusicVids.Sort
+
+= Stats and Info Properities =
+
+#currentmodule
+#mvCentral.Hierachy
+#mvCentral.TotalArtists
+#mvCentral.TotalVideos
+#mvCentral.MostPlayed
+#mvCentral.FavArtist
+#selecteditem
+#mvCentral.FavArtist
+
+= Stats and Info Properities =
+
+#currentmodule
+#mvCentral.Hierachy
+#mvCentral.Playlist.Count
+#mvCentral.Playlist.Runtime
+#selectedartist
+#mvCentral.ArtistName
+#selectedthumb
+#mvCentral.VideoImage
+#mvCentral.Description
+#mvCentral.Duration
+#mvCentral.PlayTime
+#mvCentral.TrackTitle
