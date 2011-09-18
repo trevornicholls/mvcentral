@@ -1474,6 +1474,27 @@ namespace mvCentral.Settings {
 
 
         [CornerstoneSetting(
+            Name = "Default Playlist View",
+            Description = "The default view used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"lastused\", \"list\", \"thumbs\", \"largethumbs\", and \"filmstrip\".",
+            Groups = "|MediaPortal GUI|Interface Options|",
+            Identifier = "default_playlist_view",
+            Default = "lastused",
+            Hidden = true)]
+        public string DefaultPlaylistView
+        {
+          get { return _defaultPlaylistView; }
+          set
+          {
+            _defaultPlaylistView = value;
+            OnSettingChanged("default_playlist_view");
+          }
+        }
+        private string _defaultPlaylistView;
+
+
+
+
+        [CornerstoneSetting(
             Name = "Click Shows Details",
             Description = "Determines behavior when a musicvideo in the musicvideo browser is clicked. If true, the details view appears. If false the musicvideo starts playback.",
             Groups = "|MediaPortal GUI|Interface Options|",

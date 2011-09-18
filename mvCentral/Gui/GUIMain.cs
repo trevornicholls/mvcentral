@@ -243,6 +243,18 @@ namespace mvCentral.GUI
       }
     }
     /// <summary>
+    /// Retrun false for unsupported layouts - Windowsplugin Class override
+    /// </summary>
+    /// <param name="layout"></param>
+    /// <returns></returns>
+    protected override bool AllowLayout(Layout layout)
+    {
+      if (layout == Layout.AlbumView)
+        return false;
+
+      return base.AllowLayout(layout);
+    }
+    /// <summary>
     /// Load any settings - Windowsplugin Class override
     /// </summary>
     protected override void LoadSettings()
@@ -432,29 +444,7 @@ namespace mvCentral.GUI
     {
       facadeLayout.SelectedListItemIndex = index;
     }
-
-    /// <summary>
-    /// Convert the track running time
-    /// </summary>
-    /// <param name="playTime"></param>
-    /// <returns></returns>
-    public string trackDuration(string playTime)
-    {
-      try
-      {
-        TimeSpan tt = TimeSpan.Parse(playTime);
-        DateTime dt = new DateTime(tt.Ticks);
-        string cTime = String.Format("{0:HH:mm:ss}", dt);
-        if (cTime.StartsWith("00:"))
-          return cTime.Substring(3);
-        else
-          return cTime;
-      }
-      catch
-      {
-        return "00:00:00";
-      }
-    }
+  
 
     #endregion
 
@@ -529,9 +519,12 @@ namespace mvCentral.GUI
       artistSort = sortDirection;
       // set the view
       currentView = mvView.Artist;
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Artists);
-      GUIPropertyManager.Changed = true;
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Artists);
+      GUIPropertyManager.SetProperty("#itemcount", artistList.Count.ToString());
+      GUIPropertyManager.SetProperty("#mvCentral.Itemcount.Text", Localization.Artist + " of " + Localization.Artists);
+      GUIPropertyManager.Changed = true;
+
       // Sort Artists
       if (sortDirection == mvSort.ascending)
         artistList.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p1.Artist.CompareTo(p2.Artist); });
@@ -649,13 +642,6 @@ namespace mvCentral.GUI
         if (trackData.AlbumInfo.Count > 0) continue;
         GUIListItem facadeItem = new GUIListItem();
         facadeItem.Label = trackData.Track;
-        
-        if (trackData.LocalMedia[0].IsDVD)
-          facadeItem.Label2 = "DVD entry";
-        else 
-          facadeItem.Label2 = "Track entry";
-
-        facadeItem.Label3 = trackDuration(trackData.PlayTime);
         facadeItem.TVTag = trackData.bioContent;
         selArtist = currArtist.Artist;
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;
@@ -675,8 +661,10 @@ namespace mvCentral.GUI
         facadeLayout.SelectedListItemIndex = 0;
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
+      GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
+      GUIPropertyManager.Changed = true;
 
     }
     /// <summary>
@@ -697,10 +685,6 @@ namespace mvCentral.GUI
       {
         GUIListItem item = new GUIListItem();
         item.Label = db1.Track;
-        if (db1.LocalMedia[0].IsDVD)
-          item.Label2 = "DVD entry";
-        else item.Label2 = "Track entry";
-        item.Label3 = db1.PlayTime;
         item.ThumbnailImage = db1.ArtThumbFullPath;
         item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
         selAlbum = currAlbum.Album;
@@ -735,6 +719,7 @@ namespace mvCentral.GUI
       // How many videos do we have for this artist
       DBArtistInfo currArtist = DBArtistInfo.Get(item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
       // Artist Genres
       string artistTags = string.Empty;
       foreach (string tag in currArtist.Tag)
@@ -777,12 +762,12 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);     
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
-      logger.Debug(string.Format("Video Props for {0} - {1} {2} {3}", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
+      logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
       // Audio
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
-      logger.Debug(string.Format("Audio Props for {0} - {1} {2}", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+      logger.Debug(string.Format("Audio Props for {0} - (Codec: {1}) (Channels: {2})", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
       // Misc Proprities
       GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
@@ -797,7 +782,47 @@ namespace mvCentral.GUI
       }
     }
 
-
+    /// <summary>
+    /// Convert the track running time
+    /// </summary>
+    /// <param name="playTime"></param>
+    /// <returns></returns>
+    private string trackDuration(string playTime)
+    {
+      try
+      {
+        TimeSpan tt = TimeSpan.Parse(playTime);
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
+      }
+      catch
+      {
+        return "00:00:00";
+      }
+    }
+    /// <summary>
+    /// Give total running time for supplied tracklist
+    /// </summary>
+    /// <param name="property"></param>
+    /// <param name="value"></param>
+    private string runningTime(List<DBTrackInfo> trackList)
+    {
+      TimeSpan tt = TimeSpan.Parse("00:00:00");
+      foreach (DBTrackInfo track in trackList)
+      {
+        tt += TimeSpan.Parse(track.PlayTime);
+      }
+      DateTime dt = new DateTime(tt.Ticks);
+      string cTime = String.Format("{0:HH:mm:ss}", dt);
+      if (cTime.StartsWith("00:"))
+        return cTime.Substring(3);
+      else
+        return cTime;
+    }
 
     #endregion
 

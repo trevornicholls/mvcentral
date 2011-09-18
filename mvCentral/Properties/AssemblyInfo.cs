@@ -36,4 +36,4 @@ using MediaPortal.Common.Utils;
 //[assembly: AssemblyVersion("0.4.0")]
 //[assembly: AssemblyFileVersion("0.4.0")]
 
-[assembly: CompatibleVersion("1.1.7.0", "1.1.6.0")]
+[assembly: CompatibleVersion("1.1.6.27644")]

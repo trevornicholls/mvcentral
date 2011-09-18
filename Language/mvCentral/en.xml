@@ -3,9 +3,17 @@
 <!-- English (US) -->
 <!-- Note: English is the fallback for any strings not found in other languages -->
 <strings>
+        <!-- MediaPortal Localised IDs -> Skin Properties -->
+        <string Field="#mvCentral.Translation.Track">435</string>
+        <string Field="#mvCentral.Translation.Year">436</string>
+        <string Field="#mvCentral.Translation.Next">790</string>
+        <string Field="#mvCentral.Translation.Runtime">299</string>
+        <string Field="#mvCentral.Translation.Minutes">3004</string>	
+	
         // A
         <string Field="About">About</string>
         <string Field="AboutText">mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.</string>
+        <string Field="Artist">Artist</string>
         <string Field="Artists">Artists</string>
         <string Field="AddToPlaylist">Add To Playlist</string>
         <string Field="AddAllToPlaylist">Add All To Playlist</string>
@@ -20,7 +28,7 @@
         <string Field="CannotLoadSkin">Could not load the skin\nfile for mvCentral!</string>
         <string Field="ContinueToNextPartBody">Do you wish to continue with part {0}?</string>
         <string Field="ContinueToNextPartHeader">Continue to next part?</string>
-        <string Field="Conextmenu">Context Menu</string>
+        <string Field="ContextMenu">Context Menu</string>
 
         // D
         <string Field="Date">Date</string>
@@ -64,7 +72,7 @@
         <string Field="PlaybackFailedHeader">Playback Failed</string>
         <string Field="PlayAllRandom">Play All (Random)</string>
         <string Field="Playlist">Playlist</string>
-        <string Field="PlayByGenre">Play by Genre</string>
+        <string Field="PlayByTag">Play by Tag</string>
 
 
         // Q
@@ -78,6 +86,7 @@
         // S
         <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
         <string Field="SmartPlaylistTag">Select Tag for Playlist</string>
+        <string Field="StatsAndInfo">Stats and Info</string>
 
         // T
 
