@@ -7,24 +7,16 @@ The following lists all the skin properties set within mvCentral and available t
 Currently this is just a list, will clean up and create a full skinners guide over the next few days.
 
 
-= Main GUI Properties =
+= Main GUI Propities =
 
+|| #itemcount || TBC ||
 || #mvCentral.Settings.HomeScreenName || TBC ||
 || #mvCentral.TotalArtists || TBC ||
 || #mvCentral.TotalVideos || TBC ||
 || #mvCentral.Hierachy || TBC ||
-|| #itemcount || TBC ||
 || #mvCentral.Itemcount.Text || TBC ||
 || #mvCentral.ArtistView || TBC ||
 || #mvCentral.TrackView || TBC ||
-|| #mvCentral.Hierachy || TBC ||
-|| #itemcount || TBC ||
-|| #mvCentral.ArtistView || TBC ||
-|| #mvCentral.TrackView || TBC ||
-|| #mvCentral.Hierachy || TBC ||
-|| #mvCentral.ArtistView || TBC ||
-|| #mvCentral.TrackView || TBC ||
-|| #mvCentral.ArtistBio || TBC ||
 || #mvCentral.ArtistBio || TBC ||
 || #mvCentral.ArtistName || TBC ||
 || #mvCentral.ArtistImg || TBC ||
@@ -37,46 +29,33 @@ Currently this is just a list, will clean up and create a full skinners guide ov
 || #mvCentral.LocalMedia.audiocodec || TBC ||
 || #mvCentral.LocalMedia.audiochannels || TBC ||
 || #mvCentral.LocalMedia.audio || TBC ||
-|| #mvCentral.ArtistView || TBC ||
-|| #mvCentral.TrackView || TBC ||
 || #mvCentral.VideoImg || TBC ||
 || #mvCentral.TrackInfo || TBC ||
-|| #mvCentral.TrackInfo || TBC ||
-|| #mvCentral.LocalMedia.videoresolution || TBC ||
-|| #mvCentral.LocalMedia.videoaspectratio || TBC ||
-|| #mvCentral.LocalMedia.videocodec || TBC ||
-|| #mvCentral.LocalMedia.audiocodec || TBC ||
-|| #mvCentral.LocalMedia.audiochannels || TBC ||
-|| #mvCentral.LocalMedia.audio || TBC ||
 || #mvCentral.Duration || TBC ||
-|| #mvCentral.ArtistName || TBC ||
-|| #mvCentral.ArtistView || TBC ||
-|| #mvCentral.TrackView || TBC ||
 || #mvCentral.Backdrop || TBC ||
 || mvCentral.Coverart || TBC ||
-|| #MusicVids.Sort || TBC ||
 || #MusicVids.Sort || TBC ||
 
 = Stats and Info Properities =
 
 || #currentmodule || TBC ||
+|| #selecteditem || TBC ||
 || #mvCentral.Hierachy || TBC ||
 || #mvCentral.TotalArtists || TBC ||
 || #mvCentral.TotalVideos || TBC ||
 || #mvCentral.MostPlayed || TBC ||
 || #mvCentral.FavArtist || TBC ||
-|| #selecteditem || TBC ||
 || #mvCentral.FavArtist || TBC ||
 
 = Playlist Properites =
 
 || #currentmodule || TBC ||
+|| #selectedthumb || TBC ||
+|| #selectedartist || TBC ||
 || #mvCentral.Hierachy || TBC ||
 || #mvCentral.Playlist.Count || TBC ||
 || #mvCentral.Playlist.Runtime || TBC ||
-|| #selectedartist || TBC ||
 || #mvCentral.ArtistName || TBC ||
-|| #selectedthumb || TBC ||
 || #mvCentral.VideoImage || TBC ||
 || #mvCentral.Description || TBC ||
 || #mvCentral.Duration || TBC ||
