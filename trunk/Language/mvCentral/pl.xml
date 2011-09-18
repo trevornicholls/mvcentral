@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-2"?>
+<!-- mvCentral translation file -->
+<!-- Polish (PL) -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+        <!-- MediaPortal Localised IDs -> Skin Properties -->
+        <string Field="#mvCentral.Translation.Track">435</string>
+        <string Field="#mvCentral.Translation.Year">436</string>
+        <string Field="#mvCentral.Translation.Next">790</string>
+        <string Field="#mvCentral.Translation.Runtime">299</string>
+        <string Field="#mvCentral.Translation.Minutes">3004</string>	
+	
+        // A
+        <string Field="About">Informacje</string>
+        <string Field="AboutText">mvCentral to wtyczka do wideoklipów dla MediaPortal, aplikacji HTPC.</string>
+        <string Field="Artist">Artysta</string>
+        <string Field="Artists">Artyści</string>
+        <string Field="AddToPlaylist">Dodaj do listy odtwarzania</string>
+        <string Field="AddAllToPlaylist">Dodaj wszystko do listy odtwarzania</string>
+        <string Field="AddToPlaylistNext">Dodaj do listy odtwrzania jako następny element</string>
+
+        // B
+        <string Field="Back">Wstecz</string>
+        <string Field="ButtonAutoPlay">Autoodtwarzanie</string>
+
+        // C
+        <string Field="Cancel">Anuluj</string>
+        <string Field="CannotLoadSkin">Nie można załadować pliku\nskórki dla mvCentral!</string>
+        <string Field="ContinueToNextPartBody">Czy chcesz kontynuować z częścią {0}?</string>
+        <string Field="ContinueToNextPartHeader">Kontynuować do następnej części?</string>
+        <string Field="ContextMenu">Menu podręczne</string>
+
+        // D
+        <string Field="Date">Data</string>
+
+        // E
+        <string Field="Error">Błąd</string>
+        
+        // F
+        <string Field="FailedMountingImage">Nie udało się zamontować obrazu DVD</string>
+        <string Field="FavouriteVideos">Ulubione wideo</string>
+
+        // G
+
+        // H
+        <string Field="HighestRated">Najwyżej oceniane</string>
+
+        // I
+        <string Field="Initializing">Inicjalizacja</string>
+        <string Field="Info">Info</string>
+
+        // L
+        <string Field="LatestVideos">Najnowsze wideo</string>
+        <string Field="LeastPlayed">Ostatnio odtwarzane</string>
+
+        // M
+        <string Field="MediaIsMissing">Brak wybranego nośnika!\nCoś poszło nie tak...</string>
+        <string Field="MediaNotAvailableBody">Wybrany nośnik jest aktualnie Niedostępny.\nProszę włożyć lub podłączyć nośnik oznaczony jako: {0}</string>
+		<string Field="MediaNotAvailableHeader">Nośnik niedostępny</string>
+        <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
+
+        // N
+        <string Field="NoPlaylistsFound">Nie odnaleziono listy odtwarzania w:</string>
+        <string Field="NoArtistBio">Brak biografii dla artysty {0}</string>
+        <string Field="NoTrackInfo">Brak opisu utworu</string>
+
+        // O
+        <string Field="OK">OK</string>
+
+        // P
+        <string Field="PlaybackFailed">Odtwarzanie nie jest możliwe ponieważ\n rozszerzenie '{0}' nie znajduje się na liście odtwarzanych w\nkonfiguracji MediaPortal. Proszę dodać rozszerzenie lub\nustawić zewnętrzny odtwrzacz i spróbować ponownie.</string>
+		<string Field="PlaybackFailedHeader">Odtwarzanie nie powiodło się</string>
+        <string Field="PlayAllRandom">Odtwórz wszystko (Losowo)</string>
+        <string Field="Playlist">Lista odtwarzania</string>
+        <string Field="PlayByTag">Odtwarzaj po Tagu</string>
+
+
+        // Q
+
+        // R
+        <string Field="Random">Losowo</string>
+        <string Field="Retry">Powtórz</string>
+        <string Field="ResumeFrom">Wznów od:</string>
+        <string Field="ResumeFromLast">Wznowić wideoklip od ostatniego momentu?</string>
+        
+        // S
+        <string Field="SmartPlaylistOptions">Opcje inteligentnej listy odtwarzania</string>
+        <string Field="SmartPlaylistTag">Wybierz Tag dla listy odtwarzania</string>
+        <string Field="StatsAndInfo">Statystyki i informacje</string>
+
+        // T
+
+
+        // U
+
+        // V
+        <string Field="VirtualDriveHeader">Wirtualny dysk nie jest gotowy</string>
+        <string Field="VirtualDriveMessage">Wirtualny dysk nie był gotowy na czas.\nProszę spróbuj ponownie lub anuluj odtwarzanie</string>
+        <string Field="Videos">Wideo</string>
+
+        // W
+</strings>

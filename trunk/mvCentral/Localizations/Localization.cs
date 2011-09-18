@@ -264,6 +264,8 @@ namespace mvCentral.Localizations {
         public static string MediaNotAvailableBody = "The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}";
         public static string MediaNotAvailableHeader = "Media Not Available";
         public static string MissingExternalPlayerExe = "The executable for HD playback is missing.\nPlease correct the path to the executable.";
+        public static string MostPlayedArtist = "Most Played Artist";
+        public static string MostPlayedVideo = "Most Played Video";
  
         // N
         public static string NoPlaylistsFound = "No Playlists found in:";
@@ -280,7 +282,6 @@ namespace mvCentral.Localizations {
         public static string Playlist = "Playlist";
         public static string PlayByTag = "Play By Tag";
 
-
         // Q
 
         // R
@@ -293,8 +294,10 @@ namespace mvCentral.Localizations {
         public static string SmartPlaylistOptions = "Smart Playlist Options";
         public static string StatsAndInfo = "Stats and Info";
         public static string SmartPlaylistTag = "Select Tag for Playlist";
-        // T
 
+        // T
+        public static string TotalRuntime = "Total Runtime";
+        public static string TopTenVideos = "Top Ten Videos";
 
         // U
 

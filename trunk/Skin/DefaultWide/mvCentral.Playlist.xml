@@ -19,12 +19,13 @@
       <type>fadelabel</type>
       <description>mvCentral Title</description>
       <id>0</id>
-      <posX>30</posX>
-      <posY>13</posY>
+      <posX>60</posX>
+      <posY>27</posY>
       <width>800</width>
-      <font>font14</font>
+      <font>font16</font>
       <align>left</align>
       <visible>yes</visible>
+      <textcolor>white</textcolor>
       <label>mvCentral  -  #mvCentral.Hierachy</label>
     </control>
     <control>
@@ -32,7 +33,7 @@
       <type>label</type>
       <id>1</id>
       <posX>1244</posX>
-      <posY>60</posY>
+      <posY>62</posY>
       <label>#selectedindex/#mvCentral.Playlist.Count #mvCentral.Translation.Videos.Label</label>
       <align>right</align>
       <textcolor>White</textcolor>
@@ -58,7 +59,7 @@
 			<posY>145</posY>
 			<width>280</width>
 			<height>280</height>
-			<texture flipY="true" diffuse="Thumb_Mask.png" >defaultVideoBig.png</texture>
+			<texture>defaultVideoBig.png</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
 			<keepaspectratio>no</keepaspectratio>
 		</control>
@@ -96,7 +97,7 @@
 			<seperator>-----------------------------------------------------------------------------------</seperator>
 			<font>font10</font>
 			<scrollStartDelaySec>10</scrollStartDelaySec>
-			<visible>[facadeview.playlist | facadeview.smallicons | facadeview.largeicons]</visible>
+			<visible>[facadeview.playlist | facadeview.smallicons | facadeview.largeicons]+!string.starts(#mvCentral.Description,#)</visible>
 		</control>
 		<control>
 			<id>0</id>

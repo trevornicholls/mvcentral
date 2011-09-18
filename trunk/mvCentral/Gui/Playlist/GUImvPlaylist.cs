@@ -269,6 +269,7 @@ namespace mvCentral.Playlist
       mvCentralCore.Settings.repeatPlayList = playlistPlayer.RepeatPlaylist;
       prevSelectedmvTrack = null;
       mvCentralUtils.enableNativeAutoplay();
+      ClearGUIProperties();
       base.OnPageDestroy(newWindowId);
     }
 
@@ -634,8 +635,9 @@ namespace mvCentral.Playlist
       DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
 
       GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
+
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
       GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
       logger.Debug("Set the skin props - selectedartist, mvCentral.ArtistName, selectedthumb etc");
@@ -645,19 +647,28 @@ namespace mvCentral.Playlist
 
     private void ClearGUIProperties()
     {
-      //            TVSeriesPlugin.clearGUIProperty(guiProperty.Title.ToString());
-      //            TVSeriesPlugin.clearGUIProperty(guiProperty.Subtitle.ToString());
-      //            TVSeriesPlugin.clearGUIProperty(guiProperty.Description.ToString());
-      //            TVSeriesPlugin.clearGUIProperty(guiProperty.Logos.ToString());
-      //            TVSeriesPlugin.clearGUIProperty(guiProperty.EpisodeImage.ToString());
-      //            TVSeriesPlugin.clearFieldsForskin("Episode");
+      GUIPropertyManager.SetProperty("#currentmodule", string.Empty);
+      GUIPropertyManager.SetProperty("#selectedthumb", string.Empty);
+      GUIPropertyManager.SetProperty("#selectedartist", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Playlist.Count", "0");
+      GUIPropertyManager.SetProperty("#mvCentral.Playlist.Runtime", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.VideoImage", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Description", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.PlayTime", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", string.Empty);
     }
 
-    protected void OnQueueItem(int itemIndex)
+    protected override void OnQueueItem(int itemIndex)
     {
       RemovePlayListItem(itemIndex);
     }
-
+    /// <summary>
+    /// Delete the playlist
+    /// </summary>
+    /// <param name="itemIndex"></param>
     private void RemovePlayListItem(int itemIndex)
     {
       GUIListItem listItem = facadeLayout[itemIndex];
@@ -674,7 +685,9 @@ namespace mvCentral.Playlist
       GUIControl.SelectItemControl(GetID, facadeLayout.GetID, itemIndex);
       SelectCurrentVideo();
     }
-
+    /// <summary>
+    /// Shuffle the playlist
+    /// </summary>
     private void OnShufflePlayList()
     {
       currentSelectedItem = facadeLayout.SelectedListItemIndex;
@@ -714,7 +727,9 @@ namespace mvCentral.Playlist
 
       LoadDirectory(currentFolder);
     }
-
+    /// <summary>
+    /// Switch to the view selected
+    /// </summary>
     protected void SwitchView()
     {
       if (facadeLayout == null)
@@ -740,7 +755,11 @@ namespace mvCentral.Playlist
           break;
       }
     }
-
+    /// <summary>
+    /// Disallow layouts not support or just dont fit
+    /// </summary>
+    /// <param name="layout"></param>
+    /// <returns></returns>
     protected override bool AllowLayout(Layout layout)
     {
       if (layout == Layout.AlbumView || layout == Layout.List)
@@ -748,7 +767,11 @@ namespace mvCentral.Playlist
 
       return base.AllowLayout(layout);
     }
-
+    /// <summary>
+    /// Display the keyboard
+    /// </summary>
+    /// <param name="strLine"></param>
+    /// <returns></returns>
     protected override bool GetKeyboard(ref string strLine)
     {
       try
