@@ -7,7 +7,7 @@ The following lists all the skin properties set within mvCentral and available t
 Currently this is just a list, will clean up and create a full skinners guide over the next few days.
 
 
-= Main GUI Propities =
+= Main GUI Properties =
 
 || #mvCentral.Settings.HomeScreenName || TBC ||
 || #mvCentral.TotalArtists || TBC ||
