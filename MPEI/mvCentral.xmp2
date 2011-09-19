@@ -387,7 +387,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <OnlineLocation />
     <ReleaseDate>2011-09-16T22:26:37.3606992+01:00</ReleaseDate>
     <Tags />
-    <Location>G:\Development\mvcentral\MPEI\mvCentral-[Version].mpe1</Location>
+    <Location>E:\Development\mvcentral\MPEI\mvCentral-0.5.0.7.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -566,14 +566,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{1e27e9a9-62e9-44da-914a-7b1ac36c5b47}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{eac8f26f-dbc2-4f87-9e67-ece1168c10f2}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{71b49e02-f1c2-479e-aef6-4857a4d683d8}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{300745c5-361a-469f-af17-36eb9680bc46}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
