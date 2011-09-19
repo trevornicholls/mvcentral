@@ -213,8 +213,13 @@ namespace mvCentral.Playlist
     protected override void OnPageLoad()
     {
       base.OnPageLoad();
-
+      if (mvCentralCore.Settings.DefaultPlaylistView == "lastused")
+      {
+        CurrentLayout = Layout.List;
+        mvCentralCore.Settings.DefaultPlaylistView = ((int)CurrentLayout).ToString();
+      }
       CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultPlaylistView);
+
       SwitchLayout();
       UpdateButtonStates();
       logger.Debug("GUIPlaylist Load - Current layout : " + CurrentLayout.ToString()); 
