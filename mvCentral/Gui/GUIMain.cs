@@ -17,7 +17,6 @@ using mvCentral.LocalMediaManagement;
 using mvCentral.Playlist;
 using mvCentral.Utils;
 using mvCentral.Localizations;
-using mvCentral.Stats;
 // Mediaportal
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
@@ -55,7 +54,7 @@ namespace mvCentral.GUI
     private static Logger logger = LogManager.GetCurrentClassLogger();
     private mvCentralCore core = mvCentralCore.Instance;
     GUImvPlayList Player = new GUImvPlayList();
-    GUImvStatsAndInfo Stats = new GUImvStatsAndInfo();
+    //GUImvStatsAndInfo Stats = new GUImvStatsAndInfo();
 
     private bool initComplete = false;
     private Thread initThread;
@@ -355,7 +354,7 @@ namespace mvCentral.GUI
           GUIWindowManager.ActivateWindow(Player.GetWindowId());
           break;
         case (int)GUIControls.StatsAndInfo:
-          GUIWindowManager.ActivateWindow(Stats.GetWindowId());
+          GUIWindowManager.ActivateWindow(GUImvStatsAndInfo.GetWindowId());
           break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
@@ -423,8 +422,15 @@ namespace mvCentral.GUI
       // Set Total Artists and Video Porperties
       GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count + " Artists");
       GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count + " Videos");
-      // Read last used layout from and set
+      // Read last used layout from and set, default to list if not yet stored
+      if (mvCentralCore.Settings.DefaultView == "lastused")
+      {
+        CurrentLayout = Layout.List;
+        mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
+      }
+
       CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultView);
+
       SwitchLayout();
       UpdateButtonStates();
       if (persisting)
