@@ -32,6 +32,7 @@
 
         // D
         <string Field="Date">Date</string>
+        <string Field="DBInfo">Watched History Statistics and Database Info</string>
 
         // E
         <string Field="Error">Error</string>
@@ -41,9 +42,11 @@
         <string Field="FavouriteVideos">Favourite Videos</string>
 
         // G
+        <string Field="G-test">Test for G</string>
 
         // H
         <string Field="HighestRated">Highest Rated</string>
+        <string Field="History">History</string>
 
         // I
         <string Field="Initializing">Initializing</string>

@@ -215,7 +215,7 @@
     <Compile Include="Gui\GUIArtistView.cs" />
     <Compile Include="Gui\GUISort.cs" />
     <Compile Include="Gui\GUIMain.cs" />
-    <Compile Include="Gui\GUIPlaylist.cs" />
+    <Compile Include="Gui\Playlist\GUIPlaylist.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoResources\BasicArt.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\ISignatureBuilder.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\LocalBuilder.cs" />

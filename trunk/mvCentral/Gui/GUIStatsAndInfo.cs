@@ -99,11 +99,12 @@ namespace mvCentral.GUI
       GUILabelControl.SetControlLabel(GetID, (int)GUIControls.versionLabel, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
       List<DBTrackInfo> videoList = DBTrackInfo.GetAll();
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
-
+      // Set Hierachy
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.History);
       // Get the most viewed video
       videoList.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.ActiveUserSettings.WatchedCount.CompareTo(p1.ActiveUserSettings.WatchedCount); });
       GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", videoList[0].Track);
-      favVideoImage.ImagePath = videoList[0].ArtFullPath;
+      favVideoImage.FileName = videoList[0].ArtFullPath;
 
 
       // Set the Top ten list - sure there is a neater way of doing this....
@@ -157,7 +158,7 @@ namespace mvCentral.GUI
         }
       }
       GUIPropertyManager.SetProperty("#mvCentral.FavArtist", mostWatchedArtist.Artist);
-      favArtistImage.ImagePath = mostWatchedArtist.ArtThumbFullPath;
+      favArtistImage.FileName = mostWatchedArtist.ArtThumbFullPath;
     }
 
 
@@ -175,7 +176,6 @@ namespace mvCentral.GUI
     }
 
     #endregion
-
 
   }
 }
