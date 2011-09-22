@@ -747,7 +747,7 @@ namespace mvCentral.GUI
         artistTags += tag + " | ";
 
       if (!string.IsNullOrEmpty(artistTags))
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistGenre", artistTags.Remove(artistTags.Length - 2, 2));
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", artistTags.Remove(artistTags.Length - 2, 2));
 
       // Clear the video properites
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);

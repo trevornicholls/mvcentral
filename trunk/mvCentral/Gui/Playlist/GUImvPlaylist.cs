@@ -644,7 +644,12 @@ namespace mvCentral.Playlist
 
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
-      GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
+
+      if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
+        GUIPropertyManager.SetProperty("#mvCentral.Description", artistInfo.bioContent);
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
+
       logger.Debug("Set the skin props - selectedartist, mvCentral.ArtistName, selectedthumb etc");
       prevSelectedmvTrack = mvTrack;
 

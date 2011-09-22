@@ -54,18 +54,6 @@
       <font>font10</font>
     </control>
     <control>
-      <description>Total Duration for tracks by artist</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>1244</posX>
-      <posY>90</posY>
-      <label>#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime</label>
-      <align>right</align>
-      <textcolor>White</textcolor>
-      <font>font10</font>
-      <visible>string.equals(#mvCentral.ArtistView,true)</visible>
-    </control>
-    <control>
       <description>Duration of Select Track</description>
       <type>label</type>
       <id>1</id>
@@ -281,7 +269,7 @@
 			<posY>183</posY>
 			<width>925</width>
 			<font>font12</font>
-			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist</label>
+			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
 		</control>		
 <!-- :: Music Info - 1st List View Description :: --> 		
 		<control>
@@ -323,7 +311,7 @@
 			<width>925</width>
 			<font>font10</font>
       <textcolor>ffa9d0f7</textcolor>
-			<label>#mvCentral.ArtistGenre</label>
+			<label>#mvCentral.ArtistTags</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
 		</control>
@@ -439,7 +427,7 @@
 			<posY>140</posY>
 			<width>935</width>
 			<font>font11</font>
-			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist</label>
+			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
 		</control>			
 		<control>
 			<id>0</id>
@@ -480,7 +468,7 @@
 			<font>font12</font>
       <textcolor>ffa9d0f7</textcolor>
 			<align>left</align>
-			<label>#mvCentral.ArtistGenre</label>
+			<label>#mvCentral.ArtistTags</label>
 		</control>
     <control>
       <description>SD/HD Fullscreen/Widescreen</description>
@@ -604,7 +592,7 @@
 			<shadowDistance>4</shadowDistance> 
 			<shadowColor>#shadow.dark</shadowColor>
 			<align>LEFT</align>
-			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist</label>
+			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
 		</control>		
 <!-- :: Music Info - 1st List View Description :: --> 		
 		<control>
@@ -646,7 +634,8 @@
 			<width>925</width>
 			<font>font10</font>
 			<align>LEFT</align>
-			<label>#mvCentral.ArtistGenre</label>
+      <textcolor>ffa9d0f7</textcolor>
+			<label>#mvCentral.ArtistTags</label>
 		</control>
 		
     <!-- Video Codecs - List View -->
@@ -929,7 +918,7 @@
           			<font>font10</font>
                 <textcolor>ffa9d0f7</textcolor>
           			<align>left</align>
-          			<label>#mvCentral.ArtistGenre</label>
+          			<label>#mvCentral.ArtistTags</label>
           			<visible>string.equals(#mvCentral.ArtistView, true)</visible>
           		</control>          		        			              
           		<control>
