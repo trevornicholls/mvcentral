@@ -1145,11 +1145,10 @@ namespace mvCentral
       mvLibraryTreeView.EndUpdate();
 
       if (mvLibraryTreeView.Nodes.Count > 0)
-      {
         splitContainer3.Panel2Collapsed = false;
-        mvLibraryTreeView.SelectedNode = mvLibraryTreeView.TopNode;
-      }
+
       mvLibraryTreeView.Sort();
+      mvLibraryTreeView.SelectedNode = mvLibraryTreeView.TopNode;
     }
     /// <summary>
     /// Adds the given musicvideo and it's related files to the tree view
@@ -2326,6 +2325,7 @@ namespace mvCentral
           mv = CurrentTrack;
           break;
       }
+
       if (mv == null) return;
 
       if (InvokeRequired)
@@ -2900,6 +2900,11 @@ namespace mvCentral
       scTrackDetails.Panel2Collapsed = !scTrackDetails.Panel2Collapsed;
     }
 
+    private void btnShowArtistDetails_Click_1(object sender, EventArgs e)
+    {
+      scArtistList.Panel2Collapsed = !scArtistList.Panel2Collapsed;
+    }
+
     private void tsmRemove_Click(object sender, EventArgs e)
     {
       CurrentTrack.DeleteAndIgnore();
@@ -2958,6 +2963,8 @@ namespace mvCentral
     }
 
     #endregion
+
+
 
   }
 }

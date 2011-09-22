@@ -238,6 +238,7 @@ namespace mvCentral.Localizations {
 
         // D
         public static string Date = "Date";
+        public static string DBInfo = "Watched History Statistics & Database Info";
 
         // E
         public static string Error = "Error";
@@ -250,6 +251,7 @@ namespace mvCentral.Localizations {
 
         // H
         public static string HighestRated = "Highest Rated";
+        public static string History = "History";
 
         // I
         public static string Initializing = "Initializing";
