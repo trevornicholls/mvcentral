@@ -82,13 +82,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\DefaultWide\mvCentral.overlays2.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{2e13415b-5a80-414f-9dd8-5ceb1ac9789e}-mvCentral.overlays2.xml</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\mvCentral.overlays2.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{c0ff7466-18ab-40c5-8e7b-a4857e994c0d}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\mvCentral.Playlist.xml</DestinationFilename>
@@ -183,6 +176,27 @@
               <LocalFileName>..\Skin\StreamedMP\media\Logos\Audio\MP2A Stereo.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{f0e13bf0-4a02-4401-b12c-3467124ee057}-MP2A Stereo.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Logos\Audio\MP2A Stereo.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\Default\mvCentral.Playlist.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{cd9286e9-c3fd-4ee1-9cfe-7aea0adc4972}-mvCentral.Playlist.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Default\mvCentral.Playlist.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\Default\mvCentral.StatsAndInfo.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b3e79058-2dfa-4d99-9f4d-c3363779d580}-mvCentral.StatsAndInfo.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Default\mvCentral.StatsAndInfo.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\Default\mvCentral.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b094a94b-da9f-4bb3-b9ec-21123e4cda87}-mvCentral.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Default\mvCentral.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -379,7 +393,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>7</Revision>
+      <Revision>88</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription />
@@ -387,7 +401,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <OnlineLocation />
     <ReleaseDate>2011-09-16T22:26:37.3606992+01:00</ReleaseDate>
     <Tags />
-    <Location>E:\Development\mvcentral\MPEI\mvCentral-0.5.0.7.mpe1</Location>
+    <Location>G:\Development\mvcentral\MPEI\mvCentral-0.5.0.7.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -456,13 +470,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\Language\mvCentral\pl.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{59733208-dac3-49fb-afea-dec2dbe5f36c}-pl.xml</ZipFileName>
         <DestinationFilename>%Language%\Language\mvCentral\pl.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\DefaultWide\mvCentral.overlays2.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2e13415b-5a80-414f-9dd8-5ceb1ac9789e}-mvCentral.overlays2.xml</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\mvCentral.overlays2.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -562,18 +569,39 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{f0e13bf0-4a02-4401-b12c-3467124ee057}-MP2A Stereo.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Audio\MP2A Stereo.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\Default\mvCentral.Playlist.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{cd9286e9-c3fd-4ee1-9cfe-7aea0adc4972}-mvCentral.Playlist.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Default\mvCentral.Playlist.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\Default\mvCentral.StatsAndInfo.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b3e79058-2dfa-4d99-9f4d-c3363779d580}-mvCentral.StatsAndInfo.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Default\mvCentral.StatsAndInfo.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\Default\mvCentral.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b094a94b-da9f-4bb3-b9ec-21123e4cda87}-mvCentral.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Default\mvCentral.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{eac8f26f-dbc2-4f87-9e67-ece1168c10f2}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{323b9b17-ba33-44f3-9e79-5b6af7cc6427}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{300745c5-361a-469f-af17-36eb9680bc46}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{f384f466-ec1b-4c80-800c-dc0e2d875a61}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

@@ -18,10 +18,10 @@
     <control>
       <type>image</type>
       <id>0</id>
-      <posX>40</posX>
+      <posX>20</posX>
       <posY>60</posY>
-      <width>1200</width>
-      <height>600</height>
+      <width>700</width>
+      <height>500</height>
       <colordiffuse>F0ffffff</colordiffuse>
       <texture>context_background.png</texture>
     </control>
@@ -29,29 +29,31 @@
      <control>
       <type>image</type>
       <id>0</id>
-      <posX>500</posX>
-      <posY>150</posY>
-      <width>700</width>
-      <height>460</height>
+      <posX>200</posX>
+      <posY>130</posY>
+      <width>500</width>
+      <height>380</height>
       <colordiffuse>60ffffff</colordiffuse>
       <texture>osd_dialog_big.png</texture>
     </control>
+    
      <control>
       <type>image</type>
       <id>0</id>
-      <posX>570</posX>
-      <posY>202</posY>
-      <width>570</width>
-      <height>40</height>
+      <posX>235</posX>
+      <posY>172</posY>
+      <width>425</width>
+      <height>30</height>
       <colordiffuse>60ffffff</colordiffuse>
       <texture>tvguide_button_middle.png</texture>
     </control>
+    
       <control>
         <description>Main header</description>
         <type>label</type>
         <id>0</id>
-        <posX>650</posX>
-        <posY>115</posY>
+        <posX>370</posX>
+        <posY>110</posY>
         <align>center</align>
         <font>font16</font>
 			  <shadowAngle>45</shadowAngle> 
@@ -103,8 +105,8 @@
         <label>#mvCentral.Translation.MostPlayedVideo.Label</label>
         <font>font11</font>
         <id>0</id>
-        <posX>160</posX>
-        <posY>160</posY>
+        <posX>50</posX>
+        <posY>150</posY>
         <width>400</width>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
@@ -115,8 +117,8 @@
         <label>#mvCentral.MostPlayed</label>
         <font>font11</font>
         <id>0</id>
-        <posX>160</posX>
-        <posY>185</posY>
+        <posX>50</posX>
+        <posY>170</posY>
         <width>400</width>
         <textcolor>ffa9d0f7</textcolor>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -125,11 +127,24 @@
       <control>
         <description>Favorite Vid Image</description>
         <type>image</type>
-        <width>200</width>
-        <height>160</height>
+        <posX>50</posX>
+        <posY>200</posY>
+        <width>150</width>
+        <height>120</height>
+        <id>0</id>
+        <texture>context_background.png</texture>
+        <keepaspectratio>yes</keepaspectratio>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+      <control>
+        <description>Favorite Vid Image</description>
+        <type>image</type>
         <id>18</id>
-        <posX>160</posX>
-        <posY>215</posY>
+        <posX>60</posX>
+        <posY>190</posY>
+        <width>150</width>
+        <height>120</height>
         <texture>-</texture>
         <keepaspectratio>yes</keepaspectratio>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -142,8 +157,8 @@
         <label>#mvCentral.Translation.MostPlayedArtist.Label</label>
         <font>font11</font>
         <id>1</id>
-        <posX>160</posX>
-        <posY>400</posY>
+        <posX>50</posX>
+        <posY>330</posY>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>      
@@ -153,19 +168,19 @@
         <label>#mvCentral.FavArtist</label>
         <font>font11</font>
         <id>1</id>
-        <posX>160</posX>
-        <posY>425</posY>
+        <posX>50</posX>
+        <posY>350</posY>
         <textcolor>ffa9d0f7</textcolor>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>      
       <control>
-        <description>Favorite Artist</description>
+        <description>Favorite Artist Image</description>
         <type>image</type>
-        <width>200</width>
-        <height>160</height>
-        <posX>160</posX>
-        <posY>460</posY>
+        <posX>50</posX>
+        <posY>380</posY>
+        <width>150</width>
+        <height>120</height>
         <id>20</id>
         <texture>-</texture>
         <keepaspectratio>yes</keepaspectratio>
@@ -180,8 +195,8 @@
         <description>Top 10 Videos</description>
         <type>label</type>
         <id>0</id>
-        <posX>850</posX>
-        <posY>220</posY>
+        <posX>447</posX>
+        <posY>185</posY>
         <align>center</align>
         <font>font14</font>
 			  <shadowAngle>45</shadowAngle> 
@@ -196,8 +211,8 @@
         <description>Top 10 Video - 1</description>
         <type>fadelabel</type>
         <id>30</id>
-        <posX>570</posX>
-        <posY>250</posY>
+        <posX>240</posX>
+        <posY>210</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -208,8 +223,8 @@
         <description>Top 10 Video - 2</description>
         <type>fadelabel</type>
         <id>31</id>
-        <posX>570</posX>
-        <posY>280</posY>
+        <posX>240</posX>
+        <posY>235</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -220,8 +235,8 @@
         <description>Top 10 Video - 3</description>
         <type>fadelabel</type>
         <id>32</id>
-        <posX>570</posX>
-        <posY>310</posY>
+        <posX>240</posX>
+        <posY>260</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -232,8 +247,8 @@
         <description>Top 10 Video - 4</description>
         <type>fadelabel</type>
         <id>33</id>
-        <posX>570</posX>
-        <posY>340</posY>
+        <posX>240</posX>
+        <posY>285</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -244,8 +259,8 @@
         <description>Top 10 Video - 5</description>
         <type>fadelabel</type>
         <id>34</id>
-        <posX>570</posX>
-        <posY>370</posY>
+        <posX>240</posX>
+        <posY>310</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -256,8 +271,8 @@
         <description>Top 10 Video - 6</description>
         <type>fadelabel</type>
         <id>35</id>
-        <posX>570</posX>
-        <posY>400</posY>
+        <posX>240</posX>
+        <posY>335</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -268,8 +283,8 @@
         <description>Top 10 Video - 7</description>
         <type>fadelabel</type>
         <id>36</id>
-        <posX>570</posX>
-        <posY>430</posY>
+        <posX>240</posX>
+        <posY>360</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -280,8 +295,8 @@
         <description>Top 10 Video - 8</description>
         <type>fadelabel</type>
         <id>37</id>
-        <posX>570</posX>
-        <posY>460</posY>
+        <posX>240</posX>
+        <posY>385</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -292,8 +307,8 @@
         <description>Top 10 Video - 9</description>
         <type>fadelabel</type>
         <id>38</id>
-        <posX>570</posX>
-        <posY>490</posY>
+        <posX>240</posX>
+        <posY>410</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>
@@ -304,8 +319,8 @@
         <description>Top 10 Video - 10</description>
         <type>fadelabel</type>
         <id>39</id>
-        <posX>570</posX>
-        <posY>520</posY>
+        <posX>240</posX>
+        <posY>435</posY>
         <width>600</width>
         <font>font11</font>
         <label>-</label>

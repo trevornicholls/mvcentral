@@ -210,12 +210,12 @@
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
     <Compile Include="Gui\GUIAlbumView.cs" />
+    <Compile Include="Gui\GUIPlaylist.cs" />
     <Compile Include="Gui\GUIStatsAndInfo.cs" />
     <Compile Include="Gui\GUIVideoView.cs" />
     <Compile Include="Gui\GUIArtistView.cs" />
     <Compile Include="Gui\GUISort.cs" />
     <Compile Include="Gui\GUIMain.cs" />
-    <Compile Include="Gui\Playlist\GUIPlaylist.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoResources\BasicArt.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\ISignatureBuilder.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\LocalBuilder.cs" />
