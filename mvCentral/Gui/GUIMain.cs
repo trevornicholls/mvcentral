@@ -669,10 +669,11 @@ namespace mvCentral.GUI
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         facadeItem.MusicTag = trackData;
         // If no thumbnail set a default
-        if (!string.IsNullOrEmpty(trackData.ArtThumbFullPath))
+        if (!string.IsNullOrEmpty(trackData.ArtThumbFullPath.Trim()))
           facadeItem.ThumbnailImage = trackData.ArtThumbFullPath;
         else
           facadeItem.ThumbnailImage = "defaultVideoBig.png";
+
         facadeLayout.Add(facadeItem);
       }
       // Set properities to first item in list
