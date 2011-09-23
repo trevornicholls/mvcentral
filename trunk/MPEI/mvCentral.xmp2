@@ -393,7 +393,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>90</Revision>
+      <Revision>93</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription />
@@ -401,7 +401,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <OnlineLocation />
     <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>
     <Tags />
-    <Location>G:\Development\mvcentral\MPEI\mvCentral-0.5.0.7.mpe1</Location>
+    <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -594,14 +594,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{323b9b17-ba33-44f3-9e79-5b6af7cc6427}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{45a85c58-5ca9-487d-b09a-22aeb1522409}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f384f466-ec1b-4c80-800c-dc0e2d875a61}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{14ba5964-0f1f-4ba6-be32-0c3eebcbad74}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
