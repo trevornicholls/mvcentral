@@ -143,7 +143,7 @@ namespace mvCentral
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
     }
 
-#endregion
+    #endregion
 
     #region ISetupForm Members
 
@@ -1126,7 +1126,7 @@ namespace mvCentral
     #endregion
 
     #region Library
-    
+
     /// <summary>
     /// Loads from scratch all musicvideos in the database into the side panel
     /// </summary>
@@ -1304,7 +1304,7 @@ namespace mvCentral
 
       // Get actual drop node
       TreeNode dropNode = this.mvLibraryTreeView.GetNodeAt(this.mvLibraryTreeView.PointToClient(new Point(e.X, e.Y)));
-      if (dropNode == null)
+      if (dropNode == null || this.dragNode == null)
       {
         e.Effect = DragDropEffects.None;
         return;
@@ -2245,7 +2245,7 @@ namespace mvCentral
     #endregion
 
     #region Artist/Album/Track tab
-    
+
     private void tvLibrary_AfterSelect(object sender, TreeViewEventArgs e)
     {
       if (_dragStarted) return;
@@ -2963,8 +2963,6 @@ namespace mvCentral
     }
 
     #endregion
-
-
 
   }
 }
