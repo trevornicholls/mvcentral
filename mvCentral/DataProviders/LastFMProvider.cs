@@ -143,7 +143,12 @@ namespace mvCentral.DataProviders
           string mbid = d1.label8.Text;
           if (title.Trim().Length == 0) title = null;
           if (mbid.Trim().Length == 0) mbid = null;
-          setMusicVideoArtist(ref mv1, "", mbid);
+
+          if (string.IsNullOrEmpty(mbid))
+            setMusicVideoArtist(ref mv1, title, string.Empty);
+          else
+            setMusicVideoArtist(ref mv1, string.Empty, mbid);
+
           GetArtistArt((DBArtistInfo)mv);
         };
       }
@@ -205,6 +210,7 @@ namespace mvCentral.DataProviders
 
         if (xml == null)
           return false;
+
         XmlNode root = xml.Item(0).ParentNode;
         if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
         XmlNode n1 = root.SelectSingleNode(@"/lfm/toptracks");
@@ -213,27 +219,32 @@ namespace mvCentral.DataProviders
         int perPage = Convert.ToInt16(n1.Attributes["perPage"].Value);
         int totalPages = Convert.ToInt16(n1.Attributes["totalPages"].Value);
         int total = Convert.ToInt16(n1.Attributes["total"].Value);
+        // Process the page we already have
+        List<Release> artistTopTracks = new List<Release>(); 
 
-
-
-
-        List<Release> r1 = new List<Release>();
-        while (page < totalPages - 1)
+        foreach (XmlNode x1 in n1.ChildNodes)
         {
-          xml = getXML(string.Format(apiArtistTopTracks, artist) + "page=" + page);
-          n1 = root.SelectSingleNode(@"/lfm/toptracks");
-
-          foreach (XmlNode x1 in n1.ChildNodes)
-          {
-            Release r2 = new Release(x1);
-            r1.Add(r2);
-          }
-          page++;
+          Release r2 = new Release(x1);
+          artistTopTracks.Add(r2);
         }
 
-        r1.Sort(Release.TitleComparison);
+        for (int requestPage = 2; requestPage < totalPages; requestPage++)
+        {
+          // Now get the next Page
+          xml = getXML(string.Format(apiArtistTopTracks, artist) + "&page=" + requestPage.ToString());
+          root = xml.Item(0).ParentNode;
+          XmlNode topTrackPage = root.SelectSingleNode(@"/lfm/toptracks");
+          // Process the page we already have
+          foreach (XmlNode track in topTrackPage.ChildNodes)
+          {
+            Release topTrack = new Release(track);
+            artistTopTracks.Add(topTrack);
+          }
+        }
 
-        DetailsPopup d1 = new DetailsPopup(r1);
+        artistTopTracks.Sort(Release.TitleComparison);
+
+        DetailsPopup d1 = new DetailsPopup(artistTopTracks);
 
         if (d1.ShowDialog() == DialogResult.OK)
         {
@@ -247,14 +258,8 @@ namespace mvCentral.DataProviders
           setMusicVideoTrack(ref mv1, artist, title, mbid);
           GetTrackArt((DBTrackInfo)mv);
         };
-
-
-
       }
-
       return true;
-
-
     }
 
 
@@ -605,12 +610,23 @@ namespace mvCentral.DataProviders
 
       XmlNodeList xml = null;
 
-      if (artist == null && mbid == null) xml = getXML(string.Format(apiTrackGetInfo, track));
-      if (track == null && artist == null) xml = getXML(string.Format(apiTrackmbidGetInfo, mbid));
-      if (mbid == null) xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track));
+      // If we only have a valid track name
+      if (artist == null && mbid == null && track != null)
+        xml = getXML(string.Format(apiTrackGetInfo, track));
 
+      // if we only have a valid MBID
+      if (track == null && artist == null && mbid != null)
+        xml = getXML(string.Format(apiTrackmbidGetInfo, mbid));
+
+      // If now MBID but we do have Artist & Track
+      if (mbid == null && artist != null && track != null)
+        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track));
+
+      // We had nothing so lets get out of here
       if (xml == null)
         return;
+
+
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
 
@@ -638,6 +654,20 @@ namespace mvCentral.DataProviders
 
           case "image":
             mv.ArtUrls.Add(value);
+            break;
+          case "artist":
+            break;
+          case "album":
+            break;
+          case "toptags":
+            foreach (XmlNode tag in node.ChildNodes)
+            {
+              XmlNode tagName = tag.SelectSingleNode("name");
+              if (tagName != null)
+              {
+                mv.Tag.Add(tagName.InnerText);
+              }
+            }
             break;
           case "wiki":
             XmlNode n1 = root.SelectSingleNode(@"/lfm/track/wiki/summary");
@@ -1032,6 +1062,8 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXML(string url)
     {
+      logger.Debug("Sending the request: " + url);
+
       WebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
       grabber.Timeout = 5000;
