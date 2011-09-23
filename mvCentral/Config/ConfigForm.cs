@@ -411,7 +411,6 @@ namespace mvCentral
       FilenameParser.reLoadExpressions();
 
       load.updateStats(DBArtistInfo.GetAll().Count, DBTrackInfo.GetAll().Count);
-
       load.Close();
 
 
@@ -1575,8 +1574,6 @@ namespace mvCentral
         Invoke(new DBBasicInfo.ChangedEventHandler(basicInfoChanged), new object[] { sender, e });
         return;
       }
-
-
       mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
     }
 
@@ -2963,6 +2960,5 @@ namespace mvCentral
     }
 
     #endregion
-
   }
 }
