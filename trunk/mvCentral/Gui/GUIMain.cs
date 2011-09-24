@@ -556,8 +556,13 @@ namespace mvCentral.GUI
       foreach (DBArtistInfo artistData in artistList)
       {
         GUIListItem facadeItem = new GUIListItem();
+
         facadeItem.Label = artistData.Artist;
+        if (string.IsNullOrEmpty(artistData.ArtThumbFullPath.Trim()))
+          facadeItem.ThumbnailImage = "defaultArtistBig.png";
+        else
         facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
+
         facadeItem.TVTag = artistData.bioContent;
         facadeItem.AlbumInfoTag = artistData.bioContent;
         facadeItem.ItemId = (int)artistData.ID;
@@ -647,7 +652,11 @@ namespace mvCentral.GUI
         {
           GUIListItem item = new GUIListItem();
           item.Label = trackData.AlbumInfo[0].Album;
+          if (string.IsNullOrEmpty(trackData.AlbumInfo[0].ArtThumbFullPath.Trim()))
+            item.ThumbnailImage = "defaultVideoBig.png";
+          else
           item.ThumbnailImage = trackData.AlbumInfo[0].ArtThumbFullPath;
+
           item.TVTag = trackData.AlbumInfo[0].bioContent;
           selArtist = currArtist.Artist;
           item.IsFolder = true;
@@ -687,7 +696,6 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
       GUIPropertyManager.Changed = true;
-
     }
     /// <summary>
     /// Load Albums
@@ -707,7 +715,11 @@ namespace mvCentral.GUI
       {
         GUIListItem item = new GUIListItem();
         item.Label = db1.Track;
-        item.ThumbnailImage = db1.ArtThumbFullPath;
+        if (string.IsNullOrEmpty(db1.ArtThumbFullPath.Trim()))
+          item.ThumbnailImage = "defaultVideoBig.png";
+        else
+          item.ThumbnailImage = db1.ArtThumbFullPath;
+
         item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
         selAlbum = currAlbum.Album;
         item.Path = db1.LocalMedia[0].File.FullName;
