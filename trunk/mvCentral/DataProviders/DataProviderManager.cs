@@ -560,7 +560,11 @@ namespace mvCentral.DataProviders {
                         continue;
 
                     bool success = currSource.Provider.GetArtistArt((DBArtistInfo)mv);
-                    if (success) return true;
+                    if (success)
+                    {
+                      mv.Commit();
+                      return true;
+                    }
                 }
             }
 

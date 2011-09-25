@@ -42,6 +42,19 @@ namespace mvCentral.Database {
             }
         } private string _artist;
 
+
+      [DBField(AllowDynamicFiltering = false)]
+        public string ArtistAltname
+        {
+          get { return _artistAltName; }
+          set
+          {
+            _artistAltName = value;
+            Basic = value;
+            commitNeeded = true;
+          }
+        } private string _artistAltName;
+
         #endregion
 
         #region General Management Methods

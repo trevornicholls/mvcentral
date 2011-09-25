@@ -779,7 +779,7 @@ namespace mvCentral.Settings {
             Description = "The minimum width in pixels for any given artist. If a artist from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Artist Art|Minimum Size",
             Identifier = "min_artist_width",
-            Default = 775)]
+            Default = 500)]
         public int MinimumArtistWidth
         {
             get { return _minimumArtistWidth; }
@@ -797,7 +797,7 @@ namespace mvCentral.Settings {
             Description = "The minimum height in pixels for any given artist. If a artist from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Artist Art|Minimum Size",
             Identifier = "min_artist_height",
-            Default = 660)]
+            Default = 500)]
         public int MinimumArtistHeight
         {
             get { return _minimumArtistHeight; }

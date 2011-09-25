@@ -603,10 +603,7 @@ namespace mvCentral.GUI
       foreach (DBTrackInfo artistTrack in artistTracks)
       {
         if (!string.IsNullOrEmpty(artistTrack.ArtFullPath.Trim()))
-        {
-          logger.Debug(string.Format("No Artist Image for {0} using trackart instead {1}", artist.Artist, artistTrack.ArtFullPath));
           return artistTrack.ArtFullPath;
-        }
       }
       return "defaultArtistBig.png";
     }
