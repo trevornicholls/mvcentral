@@ -87,6 +87,7 @@
         <string Field="Retry">Retry</string>
         <string Field="ResumeFrom">Resume from:</string>
         <string Field="ResumeFromLast">Resume muicvideo from last time?</string>
+        <string Field="RefreshArtwork">Refresh Artwork from Online Sources</string>
         
         // S
         <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
