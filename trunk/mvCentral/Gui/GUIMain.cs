@@ -158,6 +158,7 @@ namespace mvCentral.GUI
       else if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU)
       {
         int contextChoice = ShowContextMenu();
+        DBArtistInfo currArtist = null;
         switch (contextChoice)
         {
           case 0:
@@ -165,7 +166,7 @@ namespace mvCentral.GUI
             // If on a folder add all Videos for Artist
             if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
             {
-              DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.ListLayout.SelectedListItem.Label);
+              currArtist = DBArtistInfo.Get(facadeLayout.ListLayout.SelectedListItem.Label);
               List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
               addToPlaylist(allTracksByArtist, false, false, false);
             }
@@ -187,7 +188,31 @@ namespace mvCentral.GUI
             addToPlaylist(allTracks, false, false, false);
             break;
           case 2:
-            addToPlaylistNext(facadeLayout.ListLayout.SelectedListItem);
+            addToPlaylistNext(facadeLayout.SelectedListItem);
+            break;
+          case 3:
+            if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
+            {
+              currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
+              GUIWaitCursor.Show();
+              mvCentralCore.DataProviderManager.GetArt(currArtist);
+              GUIWaitCursor.Hide();
+              facadeLayout.SelectedListItem.ThumbnailImage = currArtist.ArtThumbFullPath;
+              facadeLayout.SelectedListItem.RefreshCoverArt();
+              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
+              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
+            }
+            else
+            {
+              DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
+              GUIWaitCursor.Show();
+              mvCentralCore.DataProviderManager.GetArt(video);
+              GUIWaitCursor.Hide();
+              facadeLayout.SelectedListItem.ThumbnailImage = video.ArtFullPath;
+              facadeLayout.SelectedListItem.RefreshCoverArt();
+              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
+              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
+            }
             break;
           default:
             //Exit
@@ -503,6 +528,8 @@ namespace mvCentral.GUI
             dlgMenu.Add(Localization.AddToPlaylistNext);
           }
           dlgMenu.Add(Localization.Cancel);
+
+          dlgMenu.Add(Localization.RefreshArtwork);
         }
         dlgMenu.DoModal(GetID);
 

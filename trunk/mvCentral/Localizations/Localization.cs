@@ -313,6 +313,7 @@ namespace mvCentral.Localizations
     public static string Retry = "Retry";
     public static string ResumeFrom = "Resume from:";
     public static string ResumeFromLast = "Resume muicvideo from last time?";
+    public static string RefreshArtwork = "Refresh Artwork from Online Sources";
 
     // S
     public static string SmartPlaylistOptions = "Smart Playlists";
