@@ -79,7 +79,7 @@
       <font>mediastream10c</font>
       <textcolor>ff006698</textcolor>
       <align>right</align>
-      <label>#mvCentral.TotalVideos</label>
+      <label>#itemcount</label>
       <visible>control.isvisible(50)</visible>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
@@ -157,19 +157,6 @@
 <!-- :: Artwork - Backgrounds:: List View-->        
 <!-- ******************************************************************** -->
 <!-- :: Artwork - 2nd and 3rd List View :: -->  
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<posX>30</posX>
-			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
-			<texture flipY="true" diffuse="Thumb_Mask.png" >missing_coverart2.png</texture>
-			<animation effect="fade" time="250" delay="0">WindowClose</animation>
-			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<keepaspectratio>no</keepaspectratio>
-			<visible>[facadeview.list]</visible>
-		</control>
 		<control>
 			<id>0</id>
 			<type>image</type>
@@ -329,19 +316,6 @@
 <!-- ******************************* -->	
  <!-- :: Artwork - Filmstrip View :: -->      
 <!-- ******************************* -->	
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<posX>30</posX>
-			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
-			<texture>missing_coverart2.png</texture>
-			<animation effect="fade" time="250" delay="0">WindowClose</animation>
-			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<keepaspectratio>no</keepaspectratio>
-			<visible>facadeview.filmstrip</visible>
-		</control>		
  		<control>
 			<id>0</id>
 			<type>image</type>
@@ -481,19 +455,6 @@
 <!-- ******************************************************************** -->
 <!-- :: Artwork - Backgrounds:: Small/Large Icons-->        
 <!-- ******************************************************************** -->	
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<posX>30</posX>
-			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
-			<texture flipY="true" diffuse="Thumb_Mask.png" >missing_coverart2.png</texture>
-			<animation effect="fade" time="250" delay="0">WindowClose</animation>
-			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<keepaspectratio>no</keepaspectratio>
-			<visible>[facadeview.smallicons|facadeview.largeicons]</visible>
-		</control>
 		<control>
 			<id>0</id>
 			<type>image</type>
