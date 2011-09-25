@@ -420,8 +420,8 @@ namespace mvCentral.GUI
       List<DBArtistInfo> artList = DBArtistInfo.GetAll();
       List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
       // Set Total Artists and Video Porperties
-      GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count + " Artists");
-      GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count + " Videos");
+      GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count + " " + Localization.Artists);
+      GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count + " " + Localization.Videos);
       // Read last used layout from and set, default to list if not yet stored
       if (mvCentralCore.Settings.DefaultView == "lastused")
       {
@@ -542,7 +542,7 @@ namespace mvCentral.GUI
       currentView = mvView.Artist;
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Artists);
-      GUIPropertyManager.SetProperty("#itemcount", artistList.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemcount", artistList.Count.ToString() + " " + Localization.Artists);
       GUIPropertyManager.Changed = true;
 
       // Sort Artists
@@ -559,9 +559,9 @@ namespace mvCentral.GUI
 
         facadeItem.Label = artistData.Artist;
         if (string.IsNullOrEmpty(artistData.ArtThumbFullPath.Trim()))
-          facadeItem.ThumbnailImage = "defaultArtistBig.png";
+          facadeItem.ThumbnailImage = artistTrackArt(artistData);
         else
-        facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
+          facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
 
         facadeItem.TVTag = artistData.bioContent;
         facadeItem.AlbumInfoTag = artistData.bioContent;
@@ -591,6 +591,24 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
 
+    }
+    /// <summary>
+    /// Return artwork for the first track to have it, used in event of Artist having no art.
+    /// </summary>
+    /// <param name="artist"></param>
+    /// <returns></returns>
+    string artistTrackArt(DBArtistInfo artist)
+    {
+      List<DBTrackInfo> artistTracks = DBTrackInfo.GetEntriesByArtist(artist);
+      foreach (DBTrackInfo artistTrack in artistTracks)
+      {
+        if (!string.IsNullOrEmpty(artistTrack.ArtFullPath.Trim()))
+        {
+          logger.Debug(string.Format("No Artist Image for {0} using trackart instead {1}", artist.Artist, artistTrack.ArtFullPath));
+          return artistTrack.ArtFullPath;
+        }
+      }
+      return "defaultArtistBig.png";
     }
     /// <summary>
     /// Load Videos
@@ -692,7 +710,7 @@ namespace mvCentral.GUI
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
       persisting = true;
-      GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString() + " " + Localization.Videos);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
       GUIPropertyManager.Changed = true;
@@ -781,12 +799,12 @@ namespace mvCentral.GUI
 
     void onVideoSelected(GUIListItem item, GUIControl parent)
     {
+
       GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
       else
         GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
-
 
       // Grab and set the video properites
       DBTrackInfo trackInfo = (DBTrackInfo)item.MusicTag;

@@ -208,18 +208,6 @@
 			<posY>245</posY>
 			<width>280</width>
 			<height>280</height>
-			<texture flipY="true" diffuse="Thumb_Mask.png" >defaultVideoBig.png</texture>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>no</keepaspectratio>
-		</control>
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<visible>[facadeview.list|facadeview.album]</visible>
-			<posX>30</posX>
-			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
 			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
 			<keepaspectratio>no</keepaspectratio>
@@ -359,18 +347,6 @@
 <!-- ******************************************************************** -->
 <!-- :: Artwork - Backgrounds:: Filmstrip Layout-->        
 <!-- ******************************************************************** -->
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<visible>facadeview.filmstrip</visible>
-			<posX>30</posX>
-			<posY>180</posY>
-			<width>280</width>
-			<height>280</height>
-			<texture>defaultVideoBig.png</texture>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>no</keepaspectratio>
-		</control>
  		<control>
 			<id>0</id>
 			<type>image</type>
@@ -508,18 +484,6 @@
 <!-- ******************************************************************** -->
 <!-- :: Artwork - Backgrounds:: Icons and Big Icons Layout -->        
 <!-- ******************************************************************** -->
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<visible>[facadeview.smallicons|facadeview.largeicons]</visible>
-			<posX>30</posX>
-			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
-			<texture flipY="true" diffuse="Thumb_Mask.png" >defaultVideoBig.png</texture>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>no</keepaspectratio>
-		</control>
 		<control>
 			<id>0</id>
 			<type>image</type>
