@@ -98,6 +98,7 @@
           <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
           <posX>71</posX>
           <posY>121</posY>
+          <visible>!Control.HasFocus(50)</visible>
           <control>
             <description>View-As</description>
             <type>button</type>

@@ -138,6 +138,9 @@
         <height>591</height>
         <texture>Backslide.png</texture>
         <colorDiffuse>fffffffff</colorDiffuse>
+        <visible>!Control.HasFocus(50)</visible>
+        <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
+        <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
       </control>
         <control>
           <description>group element</description>
