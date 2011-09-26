@@ -64,6 +64,16 @@ namespace mvCentral.DataProviders
       get { return "en"; }
     }
 
+    public List<string> LanguageCodeList
+    {
+      get
+      {
+        List<string> supportLanguages = new List<string>();
+        return supportLanguages;
+      }
+    }
+      
+
     public bool ProvidesDetails
     {
       get { return true; }

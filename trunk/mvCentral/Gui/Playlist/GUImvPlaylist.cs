@@ -215,7 +215,7 @@ namespace mvCentral.Playlist
       base.OnPageLoad();
       if (mvCentralCore.Settings.DefaultPlaylistView == "lastused")
       {
-        CurrentLayout = Layout.List;
+        CurrentLayout = Layout.Playlist;
         mvCentralCore.Settings.DefaultPlaylistView = ((int)CurrentLayout).ToString();
       }
       CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultPlaylistView);

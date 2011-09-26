@@ -14,6 +14,7 @@ namespace mvCentral.DataProviders
     string Description { get; }
     string Language { get; }
     string LanguageCode { get; }
+    List<string> LanguageCodeList { get; }
 
     bool ProvidesDetails { get; }
     bool ProvidesAlbumArt { get; }

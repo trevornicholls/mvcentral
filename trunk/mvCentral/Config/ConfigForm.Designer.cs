@@ -192,6 +192,11 @@
           this.tpAbout = new System.Windows.Forms.TabPage();
           this.pictureBox3 = new System.Windows.Forms.PictureBox();
           this.groupBox1 = new System.Windows.Forms.GroupBox();
+          this.label24 = new System.Windows.Forms.Label();
+          this.label23 = new System.Windows.Forms.Label();
+          this.label17 = new System.Windows.Forms.Label();
+          this.label22 = new System.Windows.Forms.Label();
+          this.label7 = new System.Windows.Forms.Label();
           this.label18 = new System.Windows.Forms.Label();
           this.label19 = new System.Windows.Forms.Label();
           this.label20 = new System.Windows.Forms.Label();
@@ -227,12 +232,9 @@
           this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
           this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
           this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+          this.autoDataSourcesPanel1 = new mvCentral.AutoDataSourcesPanel();
           this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-          this.label7 = new System.Windows.Forms.Label();
-          this.label22 = new System.Windows.Forms.Label();
-          this.label17 = new System.Windows.Forms.Label();
-          this.label23 = new System.Windows.Forms.Label();
-          this.label24 = new System.Windows.Forms.Label();
+          this.label26 = new System.Windows.Forms.Label();
           ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
           this.scMain.Panel1.SuspendLayout();
           this.scMain.Panel2.SuspendLayout();
@@ -518,21 +520,21 @@
           // fromFileToolStripMenuItem
           // 
           this.fromFileToolStripMenuItem.Name = "fromFileToolStripMenuItem";
-          this.fromFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+          this.fromFileToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
           this.fromFileToolStripMenuItem.Text = "From File";
           this.fromFileToolStripMenuItem.Click += new System.EventHandler(this.loadArtFromFileToolStripMenuItem_Click);
           // 
           // fromURLToolStripMenuItem
           // 
           this.fromURLToolStripMenuItem.Name = "fromURLToolStripMenuItem";
-          this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+          this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
           this.fromURLToolStripMenuItem.Text = "From URL";
           this.fromURLToolStripMenuItem.Click += new System.EventHandler(this.loadArtFromURLToolStripMenuItem_Click);
           // 
           // fromOnlinjeToolStripMenuItem
           // 
           this.fromOnlinjeToolStripMenuItem.Name = "fromOnlinjeToolStripMenuItem";
-          this.fromOnlinjeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+          this.fromOnlinjeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
           this.fromOnlinjeToolStripMenuItem.Text = "From Online";
           this.fromOnlinjeToolStripMenuItem.Click += new System.EventHandler(this.btnArtRefresh_Click);
           // 
@@ -1720,6 +1722,8 @@
           // 
           // tpSettings
           // 
+          this.tpSettings.Controls.Add(this.label26);
+          this.tpSettings.Controls.Add(this.autoDataSourcesPanel1);
           this.tpSettings.Controls.Add(this.label2);
           this.tpSettings.Controls.Add(this.groupBox7);
           this.tpSettings.Controls.Add(this.label1);
@@ -2039,6 +2043,53 @@
           this.groupBox1.TabStop = false;
           this.groupBox1.Text = "About  ";
           // 
+          // label24
+          // 
+          this.label24.AutoSize = true;
+          this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+          this.label24.Location = new System.Drawing.Point(180, 177);
+          this.label24.Name = "label24";
+          this.label24.Size = new System.Drawing.Size(50, 13);
+          this.label24.TabIndex = 33;
+          this.label24.Text = "RoChess";
+          // 
+          // label23
+          // 
+          this.label23.AutoSize = true;
+          this.label23.Location = new System.Drawing.Point(43, 177);
+          this.label23.Name = "label23";
+          this.label23.Size = new System.Drawing.Size(123, 13);
+          this.label23.TabIndex = 32;
+          this.label23.Text = "Parsing expressions:";
+          // 
+          // label17
+          // 
+          this.label17.AutoSize = true;
+          this.label17.Location = new System.Drawing.Point(12, 151);
+          this.label17.Name = "label17";
+          this.label17.Size = new System.Drawing.Size(162, 13);
+          this.label17.TabIndex = 31;
+          this.label17.Text = "Testing and encourgement:";
+          // 
+          // label22
+          // 
+          this.label22.AutoSize = true;
+          this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+          this.label22.Location = new System.Drawing.Point(180, 151);
+          this.label22.Name = "label22";
+          this.label22.Size = new System.Drawing.Size(65, 13);
+          this.label22.TabIndex = 30;
+          this.label22.Text = "Lyfesaver74";
+          // 
+          // label7
+          // 
+          this.label7.AutoSize = true;
+          this.label7.Location = new System.Drawing.Point(12, 123);
+          this.label7.Name = "label7";
+          this.label7.Size = new System.Drawing.Size(351, 13);
+          this.label7.TabIndex = 29;
+          this.label7.Text = "Thanks also go to the follwoing for help during development.";
+          // 
           // label18
           // 
           this.label18.AutoSize = true;
@@ -2331,57 +2382,28 @@
           // 
           this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
           // 
+          // autoDataSourcesPanel1
+          // 
+          this.autoDataSourcesPanel1.AutoCommit = true;
+          this.autoDataSourcesPanel1.Location = new System.Drawing.Point(164, 304);
+          this.autoDataSourcesPanel1.Name = "autoDataSourcesPanel1";
+          this.autoDataSourcesPanel1.Size = new System.Drawing.Size(433, 44);
+          this.autoDataSourcesPanel1.TabIndex = 64;
+          // 
           // unapprovedMatchesBindingSource
           // 
           this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
           this.unapprovedMatchesBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.unapprovedMatchesBindingSource_ListChanged);
           // 
-          // label7
+          // label26
           // 
-          this.label7.AutoSize = true;
-          this.label7.Location = new System.Drawing.Point(12, 123);
-          this.label7.Name = "label7";
-          this.label7.Size = new System.Drawing.Size(351, 13);
-          this.label7.TabIndex = 29;
-          this.label7.Text = "Thanks also go to the follwoing for help during development.";
-          // 
-          // label22
-          // 
-          this.label22.AutoSize = true;
-          this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-          this.label22.Location = new System.Drawing.Point(180, 151);
-          this.label22.Name = "label22";
-          this.label22.Size = new System.Drawing.Size(65, 13);
-          this.label22.TabIndex = 30;
-          this.label22.Text = "Lyfesaver74";
-          // 
-          // label17
-          // 
-          this.label17.AutoSize = true;
-          this.label17.Location = new System.Drawing.Point(12, 151);
-          this.label17.Name = "label17";
-          this.label17.Size = new System.Drawing.Size(162, 13);
-          this.label17.TabIndex = 31;
-          this.label17.Text = "Testing and encourgement:";
-          // 
-          // label23
-          // 
-          this.label23.AutoSize = true;
-          this.label23.Location = new System.Drawing.Point(43, 177);
-          this.label23.Name = "label23";
-          this.label23.Size = new System.Drawing.Size(123, 13);
-          this.label23.TabIndex = 32;
-          this.label23.Text = "Parsing expressions:";
-          // 
-          // label24
-          // 
-          this.label24.AutoSize = true;
-          this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-          this.label24.Location = new System.Drawing.Point(180, 177);
-          this.label24.Name = "label24";
-          this.label24.Size = new System.Drawing.Size(50, 13);
-          this.label24.TabIndex = 33;
-          this.label24.Text = "RoChess";
+          this.label26.AutoSize = true;
+          this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+          this.label26.Location = new System.Drawing.Point(71, 306);
+          this.label26.Name = "label26";
+          this.label26.Size = new System.Drawing.Size(88, 13);
+          this.label26.TabIndex = 65;
+          this.label26.Text = "Data Sources:";
           // 
           // ConfigForm
           // 
@@ -2666,5 +2688,7 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label7;
+        private AutoDataSourcesPanel autoDataSourcesPanel1;
+        private System.Windows.Forms.Label label26;
     }
 }

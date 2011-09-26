@@ -41,47 +41,33 @@
         <Description>Translations for the mvCentral plugin.</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{26e2f780-747e-4024-bcce-a52eb7403540}-en-US.xml</ZipFileName>
-              <DestinationFilename>%Language%\mvCentral\</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Language\mvCentral\en.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{ed76ed30-2106-4386-a8c2-cb23a13930da}-en.xml</ZipFileName>
-              <DestinationFilename>%Language%\mvCentral\</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{41e156b6-7bb7-451d-92f6-16e01b258511}-en-US.xml</ZipFileName>
-              <DestinationFilename>%Language%\Language\mvCentral\en-US.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Language\mvCentral\en.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{afb99765-19c3-4c38-a4cd-b56c9cb9d99e}-en.xml</ZipFileName>
-              <DestinationFilename>%Language%\Language\mvCentral\en.xml</DestinationFilename>
-            </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Language\mvCentral\de.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{0be49b3d-2a0d-474a-b9bb-4b16ae52b223}-de.xml</ZipFileName>
-              <DestinationFilename>%Language%\Language\mvCentral\de.xml</DestinationFilename>
+              <ZipFileName>Installer{CopyFile}\{f2cc0e3b-5c5d-45ab-bf9a-5a9973e4dc9a}-de.xml</ZipFileName>
+              <DestinationFilename>%Language%\mvCentral\de.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{c18595aa-6b21-4863-963a-006a3e64dceb}-en-US.xml</ZipFileName>
+              <DestinationFilename>%Language%\mvCentral\en-US.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Language\mvCentral\en.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{6e031b1f-a28a-4b56-8a7f-fff99115b89d}-en.xml</ZipFileName>
+              <DestinationFilename>%Language%\mvCentral\en.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Language\mvCentral\pl.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{59733208-dac3-49fb-afea-dec2dbe5f36c}-pl.xml</ZipFileName>
-              <DestinationFilename>%Language%\Language\mvCentral\pl.xml</DestinationFilename>
+              <ZipFileName>Installer{CopyFile}\{eb9cc28f-2442-4e64-88b3-42fcf2bfbb6b}-pl.xml</ZipFileName>
+              <DestinationFilename>%Language%\mvCentral\pl.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -449,7 +435,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>100</Revision>
+      <Revision>102</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription />
@@ -513,33 +499,33 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{51961eb3-8501-48db-88ae-e179d860d14a}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Plugins%\Windows\defaultArtistBig.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{26e2f780-747e-4024-bcce-a52eb7403540}-en-US.xml</ZipFileName>
-        <DestinationFilename>%Language%\mvCentral\</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Language\mvCentral\en.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{ed76ed30-2106-4386-a8c2-cb23a13930da}-en.xml</ZipFileName>
-        <DestinationFilename>%Language%\mvCentral\</DestinationFilename>
-      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Language\mvCentral\de.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{0be49b3d-2a0d-474a-b9bb-4b16ae52b223}-de.xml</ZipFileName>
-        <DestinationFilename>%Language%\Language\mvCentral\de.xml</DestinationFilename>
+        <ZipFileName>Installer{CopyFile}\{f2cc0e3b-5c5d-45ab-bf9a-5a9973e4dc9a}-de.xml</ZipFileName>
+        <DestinationFilename>%Language%\mvCentral\de.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{c18595aa-6b21-4863-963a-006a3e64dceb}-en-US.xml</ZipFileName>
+        <DestinationFilename>%Language%\mvCentral\en-US.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Language\mvCentral\en.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{6e031b1f-a28a-4b56-8a7f-fff99115b89d}-en.xml</ZipFileName>
+        <DestinationFilename>%Language%\mvCentral\en.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Language\mvCentral\pl.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{59733208-dac3-49fb-afea-dec2dbe5f36c}-pl.xml</ZipFileName>
-        <DestinationFilename>%Language%\Language\mvCentral\pl.xml</DestinationFilename>
+        <ZipFileName>Installer{CopyFile}\{eb9cc28f-2442-4e64-88b3-42fcf2bfbb6b}-pl.xml</ZipFileName>
+        <DestinationFilename>%Language%\mvCentral\pl.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -710,16 +696,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName />
-        <ZipFileName>Installer{CopyFile}\{0f9a231f-0839-4919-804e-aa030296b7e5}-</ZipFileName>
-        <DestinationFilename>%Language%\Language</DestinationFilename>
-        <Folder>..\Language</Folder>
-        <Group>Languages</Group>
-        <Recursive>true</Recursive>
-      </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName />
         <ZipFileName>Installer{CopyFile}\{096d0ad9-1aa6-40b5-932b-f64fec870c25}-</ZipFileName>
         <DestinationFilename>%Skin%\Default</DestinationFilename>
         <Folder>..\Skin\Default</Folder>
@@ -744,6 +720,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <DestinationFilename>%Skin%\StreamedMP</DestinationFilename>
         <Folder>..\Skin\StreamedMP</Folder>
         <Group>Skins</Group>
+        <Recursive>true</Recursive>
+      </FolderGroup>
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName />
+        <ZipFileName>Installer{CopyFile}\{51b3a7cf-ded6-4557-a928-9669e03efbea}-</ZipFileName>
+        <DestinationFilename>%Language%\mvCentral</DestinationFilename>
+        <Folder>..\Language\mvCentral</Folder>
+        <Group>Languages</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
     </FolderGroups>

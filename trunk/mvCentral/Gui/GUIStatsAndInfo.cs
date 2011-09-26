@@ -103,40 +103,47 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.History);
       // Get the most viewed video
       videoList.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.ActiveUserSettings.WatchedCount.CompareTo(p1.ActiveUserSettings.WatchedCount); });
-      GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", videoList[0].Track);
+      if (videoList[0].ActiveUserSettings.WatchedCount == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", " ");
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.MostPlayed", videoList[0].Track);
+
       favVideoImage.FileName = videoList[0].ArtFullPath;
 
+      try
+      {
+        // Set the Top ten list - sure there is a neater way of doing this....
+        if (videoList[0].ActiveUserSettings.WatchedCount > 0)
+          topTen1.Label = string.Format(" 1 - {0} - {1}", videoList[0].ArtistInfo[0].Artist.ToString(), videoList[0].Track.ToString());
 
-      // Set the Top ten list - sure there is a neater way of doing this....
-      if (videoList[0].ActiveUserSettings.WatchedCount > 0)
-        topTen1.Label = string.Format(" 1 - {0} - {1}", videoList[0].ArtistInfo[0].Artist.ToString(), videoList[0].Track.ToString());
+        if (videoList[1].ActiveUserSettings.WatchedCount > 0)
+          topTen2.Label = string.Format(" 2 - {0} - {1}", videoList[1].ArtistInfo[0].Artist, videoList[1].Track);
 
-      if (videoList[1].ActiveUserSettings.WatchedCount > 0)
-        topTen2.Label = string.Format(" 2 - {0} - {1}", videoList[1].ArtistInfo[0].Artist, videoList[1].Track);
+        if (videoList[2].ActiveUserSettings.WatchedCount > 0)
+          topTen3.Label = string.Format(" 3 - {0} - {1}", videoList[2].ArtistInfo[0].Artist, videoList[2].Track);
 
-      if (videoList[2].ActiveUserSettings.WatchedCount > 0)
-        topTen3.Label = string.Format(" 3 - {0} - {1}", videoList[2].ArtistInfo[0].Artist, videoList[2].Track);
+        if (videoList[3].ActiveUserSettings.WatchedCount > 0)
+          topTen4.Label = string.Format(" 4 - {0} - {1}", videoList[3].ArtistInfo[0].Artist, videoList[3].Track);
 
-      if (videoList[3].ActiveUserSettings.WatchedCount > 0)
-        topTen4.Label = string.Format(" 4 - {0} - {1}", videoList[3].ArtistInfo[0].Artist, videoList[3].Track);
+        if (videoList[4].ActiveUserSettings.WatchedCount > 0)
+          topTen5.Label = string.Format(" 5 - {0} - {1}", videoList[4].ArtistInfo[0].Artist, videoList[4].Track);
 
-      if (videoList[4].ActiveUserSettings.WatchedCount > 0)
-        topTen5.Label = string.Format(" 5 - {0} - {1}", videoList[4].ArtistInfo[0].Artist, videoList[4].Track);
+        if (videoList[5].ActiveUserSettings.WatchedCount > 0)
+          topTen6.Label = string.Format(" 6 - {0} - {1}", videoList[5].ArtistInfo[0].Artist, videoList[5].Track);
 
-      if (videoList[5].ActiveUserSettings.WatchedCount > 0)
-        topTen6.Label = string.Format(" 6 - {0} - {1}", videoList[5].ArtistInfo[0].Artist, videoList[5].Track);
+        if (videoList[6].ActiveUserSettings.WatchedCount > 0)
+          topTen7.Label = string.Format(" 7 - {0} - {1}", videoList[6].ArtistInfo[0].Artist, videoList[6].Track);
 
-      if (videoList[6].ActiveUserSettings.WatchedCount > 0)
-        topTen7.Label = string.Format(" 7 - {0} - {1}", videoList[6].ArtistInfo[0].Artist, videoList[6].Track);
+        if (videoList[7].ActiveUserSettings.WatchedCount > 0)
+          topTen8.Label = string.Format(" 8 - {0} - {1}", videoList[7].ArtistInfo[0].Artist, videoList[7].Track);
 
-      if (videoList[7].ActiveUserSettings.WatchedCount > 0)
-        topTen8.Label = string.Format(" 8 - {0} - {1}", videoList[7].ArtistInfo[0].Artist, videoList[7].Track);
+        if (videoList[8].ActiveUserSettings.WatchedCount > 0)
+          topTen9.Label = string.Format(" 9 - {0} - {1}", videoList[8].ArtistInfo[0].Artist, videoList[8].Track);
 
-      if (videoList[8].ActiveUserSettings.WatchedCount > 0)
-        topTen9.Label = string.Format(" 9 - {0} - {1}", videoList[8].ArtistInfo[0].Artist, videoList[8].Track);
-
-      if (videoList[9].ActiveUserSettings.WatchedCount > 0)
-        topTen10.Label = string.Format("10 - {0} - {1}", videoList[9].ArtistInfo[0].Artist, videoList[9].Track);
+        if (videoList[9].ActiveUserSettings.WatchedCount > 0)
+          topTen10.Label = string.Format("10 - {0} - {1}", videoList[9].ArtistInfo[0].Artist, videoList[9].Track);
+      }
+      catch { }
 
       // Get the most viewed artist
       int watchedCount = 0;
@@ -157,8 +164,13 @@ namespace mvCentral.GUI
           mostWatchedArtist = artist;
         }
       }
-      GUIPropertyManager.SetProperty("#mvCentral.FavArtist", mostWatchedArtist.Artist);
-      favArtistImage.FileName = mostWatchedArtist.ArtThumbFullPath;
+      if (mostWatchedArtist != null)
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.FavArtist", mostWatchedArtist.Artist);
+        favArtistImage.FileName = mostWatchedArtist.ArtThumbFullPath;
+      }
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.FavArtist", " ");
     }
 
 
