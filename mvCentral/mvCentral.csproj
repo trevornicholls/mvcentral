@@ -104,6 +104,12 @@
     <Compile Include="BackgroundProcesses\FileSyncProcess.cs" />
     <Compile Include="BackgroundProcesses\MediaInfoUpdateProcess.cs" />
     <Compile Include="BackgroundProcesses\UpdateArtworkProcess.cs" />
+    <Compile Include="Config\AutoDataSourcesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Config\AutoDataSourcesPanel.Designer.cs">
+      <DependentUpon>AutoDataSourcesPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config\DragHelper.cs" />
     <Compile Include="Config\loadingDisplay.cs">
       <SubType>Form</SubType>
@@ -158,6 +164,12 @@
     </Compile>
     <Compile Include="Config\Popups\SourcePopup.Designer.cs">
       <DependentUpon>SourcePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\TranslationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\TranslationPopup.designer.cs">
+      <DependentUpon>TranslationPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\DatabaseMaintenanceManager.cs" />
     <Compile Include="Database\DBAlbumInfo.cs" />
@@ -253,6 +265,9 @@
     <Compile Include="Utils\mvCentralUtils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Config\AutoDataSourcesPanel.resx">
+      <DependentUpon>AutoDataSourcesPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Config\ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -284,6 +299,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\SourcePopup.resx">
       <DependentUpon>SourcePopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\TranslationPopup.resx">
+      <DependentUpon>TranslationPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

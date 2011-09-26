@@ -86,6 +86,16 @@ namespace mvCentral.DataProviders
       get { return "en"; }
     }
 
+    public List<string> LanguageCodeList
+    {
+      get
+      {
+        List<string> supportLanguages = new List<string>() { "en", "fr", "de", "pl", "ru", "es" };
+        return supportLanguages;
+      }
+    }
+
+
     public bool ProvidesDetails
     {
       get { return true; }
@@ -825,6 +835,10 @@ namespace mvCentral.DataProviders
 
     private string GetArtistMbid(string artist)
     {
+      logger.Debug("In method : GetArtistMbid(string artist)");
+
+      string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
+
       XmlNodeList xml = getXML(string.Format(apiArtistGetInfo, artist));
       if (xml == null) return null;
       XmlNode root = xml.Item(0).ParentNode;

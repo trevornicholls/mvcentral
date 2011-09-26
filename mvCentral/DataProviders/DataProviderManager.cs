@@ -143,8 +143,16 @@ namespace mvCentral.DataProviders {
 
             foreach (DBSourceInfo currSource in detailSources) {
                 try {
+                  if (currSource.Provider.LanguageCodeList.Count == 0)
+                  {
                     if (currSource.Provider.LanguageCode != "")
-                        results.Add(new CultureInfo(currSource.Provider.LanguageCode));
+                      results.Add(new CultureInfo(currSource.Provider.LanguageCode));
+                  }
+                  else
+                  {
+                    foreach (string languageCode in currSource.Provider.LanguageCodeList)
+                      results.Add(new CultureInfo(languageCode));
+                  }
                 }
                 catch (Exception e) {
                     if (e is ThreadAbortException)
