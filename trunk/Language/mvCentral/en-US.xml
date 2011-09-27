@@ -3,12 +3,21 @@
 <!-- English (US) -->
 <!-- Note: English is the fallback for any strings not found in other languages -->
 <strings>
+        <!-- MediaPortal Localised IDs -> Skin Properties -->
+        <string Field="#mvCentral.Translation.Track">435</string>
+        <string Field="#mvCentral.Translation.Year">436</string>
+        <string Field="#mvCentral.Translation.Next">790</string>
+        <string Field="#mvCentral.Translation.Runtime">299</string>
+        <string Field="#mvCentral.Translation.Minutes">3004</string>	
+	
         // A
         <string Field="About">About</string>
-        <string Field="AboutText">mvCentral is a Music Videos plug-in for the MediaPortal HTPC application."
-
-
+        <string Field="AboutText">mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.</string>
+        <string Field="Artist">Artist</string>
         <string Field="Artists">Artists</string>
+        <string Field="AddToPlaylist">Add To Playlist</string>
+        <string Field="AddAllToPlaylist">Add All To Playlist</string>
+        <string Field="AddToPlaylistNext">Add To Playlist as Next Item</string>
 
         // B
         <string Field="Back">Back</string>
@@ -19,9 +28,11 @@
         <string Field="CannotLoadSkin">Could not load the skin\nfile for mvCentral!</string>
         <string Field="ContinueToNextPartBody">Do you wish to continue with part {0}?</string>
         <string Field="ContinueToNextPartHeader">Continue to next part?</string>
+        <string Field="ContextMenu">Context Menu</string>
 
         // D
         <string Field="Date">Date</string>
+        <string Field="DBInfo">Watched History Statistics and Database Info</string>
 
         // E
         <string Field="Error">Error</string>
@@ -31,9 +42,11 @@
         <string Field="FavouriteVideos">Favourite Videos</string>
 
         // G
+        <string Field="G-test">Test for G</string>
 
         // H
         <string Field="HighestRated">Highest Rated</string>
+        <string Field="History">History</string>
 
         // I
         <string Field="Initializing">Initializing</string>
@@ -48,9 +61,13 @@
         <string Field="MediaNotAvailableBody">The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}</string>
         <string Field="MediaNotAvailableHeader">Media Not Available</string>
         <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
- 
+        <string Field="MostPlayedArtist">Most Played Artist</string>
+        <string Field="MostPlayedVideo">Most Played Video</string>
+
         // N
         <string Field="NoPlaylistsFound">No Playlists found in:</string>
+        <string Field="NoArtistBio">No Biography Avaiable for Artist {0}</string>
+        <string Field="NoTrackInfo">No Track Description Avaiable</string>
 
         // O
         <string Field="OK">OK</string>
@@ -60,6 +77,7 @@
         <string Field="PlaybackFailedHeader">Playback Failed</string>
         <string Field="PlayAllRandom">Play All (Random)</string>
         <string Field="Playlist">Playlist</string>
+        <string Field="PlayByTag">Play by Tag</string>
 
 
         // Q
@@ -69,10 +87,16 @@
         <string Field="Retry">Retry</string>
         <string Field="ResumeFrom">Resume from:</string>
         <string Field="ResumeFromLast">Resume muicvideo from last time?</string>
+        <string Field="RefreshArtwork">Refresh Artwork from Online Sources</string>
         
         // S
+        <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
+        <string Field="SmartPlaylistTag">Select Tag for Playlist</string>
+        <string Field="StatsAndInfo">Stats and Info</string>
 
         // T
+        <string Field="Total Runtime">Total Runtime</string>
+        <string Field="TopTenVideos">Top Ten Videos</string>
 
 
         // U

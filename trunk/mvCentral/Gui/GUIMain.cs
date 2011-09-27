@@ -579,7 +579,7 @@ namespace mvCentral.GUI
         artistList.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p2.Artist.CompareTo(p1.Artist); });
 
       // Clear the facade and load the artists
-      facadeLayout.Clear();
+      GUIControl.ClearControl(GetID, facadeLayout.GetID);
       foreach (DBArtistInfo artistData in artistList)
       {
         GUIListItem facadeItem = new GUIListItem();
@@ -647,25 +647,25 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Videos + " | " + DBArtistInfo.Get(ArtistID));
       GUIPropertyManager.Changed = true;
       // Load the albums (Not used Currently)
-      if (facadeLayout.SelectedListItem == null)
-      {
-        if (albumID != 0)
-        {
-          LoadAlbums(albumID);
-          return;
-        }
+      //if (facadeLayout.SelectedListItem == null)
+      //{
+      //  if (albumID != 0)
+      //  {
+      //    LoadAlbums(albumID);
+      //    return;
+      //  }
 
-      }
-      // If we are on an artist - load the album (Not Used Currently) - *** Possible Error ***
-      if (facadeLayout.SelectedListItem != null)
-        if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
-        {
-          DBAlbumInfo db1 = (DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag;
-          albumID = db1.ID.Value;
-          LoadAlbums(db1.ID.Value);
-          return;
+      //}
+      //// If we are on an artist - load the album (Not Used Currently) - *** Possible Error ***
+      //if (facadeLayout.SelectedListItem != null)
+      //  if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
+      //  {
+      //    DBAlbumInfo db1 = (DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag;
+      //    albumID = db1.ID.Value;
+      //    LoadAlbums(db1.ID.Value);
+      //    return;
 
-        }
+      //  }
       // Grab the info for the currently selected artist
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
       // Load all videos for selected artist
@@ -679,7 +679,7 @@ namespace mvCentral.GUI
 
       this.artistID = ArtistID;
       // Clear facade and load tracks if we dont already have them loaded
-      facadeLayout.Clear();
+      GUIControl.ClearControl(GetID, facadeLayout.GetID);
       foreach (DBTrackInfo trackData in artistTrackList)
       {
         if (trackData.AlbumInfo.Count == 0) continue;
@@ -705,6 +705,7 @@ namespace mvCentral.GUI
           item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
           item.MusicTag = trackData.AlbumInfo[0];
           facadeLayout.Add(item);
+
         }
       }
       // Load tracks we don't have loaded
