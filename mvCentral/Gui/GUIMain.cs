@@ -656,7 +656,7 @@ namespace mvCentral.GUI
         }
 
       }
-      // If we are on an artist - load the album (Not Used Currently)
+      // If we are on an artist - load the album (Not Used Currently) - *** Possible Error ***
       if (facadeLayout.SelectedListItem != null)
         if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
         {
