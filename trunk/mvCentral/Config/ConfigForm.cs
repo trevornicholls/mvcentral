@@ -2774,18 +2774,7 @@ namespace mvCentral
     private void autoGrabFrame30SecsToolStripMenuItem_Click(object sender, EventArgs e)
     {
       DBBasicInfo mv = null;
-      switch (tcMusicVideo.SelectedTab.Name)
-      {
-        case "tpArtist":
-          mv = CurrentArtist;
-          break;
-        case "tpAlbum":
-          mv = CurrentAlbum;
-          break;
-        case "tpTrack":
-          mv = CurrentTrack;
-          break;
-      }
+      mv = CurrentTrack;
       if (mv != null)
       {
         string artFolder = mvCentralCore.Settings.TrackArtFolder;
@@ -2835,7 +2824,8 @@ namespace mvCentral
     {
       tsmGrabFrame.Enabled = false;
       tsmRemove.Enabled = false;
-      //            tsmGetInfo.Enabled = false;
+      autoGrabFrame30SecsToolStripMenuItem.Enabled = false;
+
       switch (tcMusicVideo.SelectedTab.Name)
       {
         case "tpArtist":
@@ -2846,10 +2836,9 @@ namespace mvCentral
         case "tpTrack":
           if (CurrentTrack != null)
           {
-            //        if (!CurrentTrack.LocalMedia[0].IsDVD)
             tsmGrabFrame.Enabled = true;
             tsmRemove.Enabled = true;
-            //                        tsmGetInfo.Enabled = true;
+            autoGrabFrame30SecsToolStripMenuItem.Enabled = true;
           }
           break;
       }
