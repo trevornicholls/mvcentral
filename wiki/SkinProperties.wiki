@@ -45,7 +45,6 @@ Currently this is just a list, will clean up and create a full skinners guide ov
 || #mvCentral.TotalVideos || TBC ||
 || #mvCentral.MostPlayed || TBC ||
 || #mvCentral.FavArtist || TBC ||
-|| #mvCentral.FavArtist || TBC ||
 
 = Playlist Properites =
 
