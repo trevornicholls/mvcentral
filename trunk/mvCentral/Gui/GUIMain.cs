@@ -304,6 +304,15 @@ namespace mvCentral.GUI
       //base.OnShowViews();
     }
 
+    protected override void OnShowLayouts()
+    {
+      base.OnShowLayouts();
+      if (currentView == mvView.Artist)
+        facadeLayout.SelectedListItemIndex = lastItemArt;
+      else
+        facadeLayout.SelectedListItemIndex = lastItemVid;
+    }
+
     protected override void OnShowSort()
     {
       base.OnShowSort();

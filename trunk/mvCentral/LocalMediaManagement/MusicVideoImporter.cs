@@ -1605,9 +1605,9 @@ namespace mvCentral.LocalMediaManagement
                 mv.UserSettings.Add(userSettings);
                 userSettings.CommitNeeded = false;
             }
-
+// TDN - Not sure of this lock....
             mv.PopulateDateAdded();
-//            lock (mv)
+            lock (mv)
             {
                 mv.Commit();
             }
