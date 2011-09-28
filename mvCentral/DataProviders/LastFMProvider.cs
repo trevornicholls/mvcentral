@@ -32,31 +32,33 @@ namespace mvCentral.DataProviders
 
     #region API variables
 
-
+    
 
     private const string apiMusicVideoUrl = "http://ws.audioscrobbler.com/2.0/?method={0}&api_key={1}";
     private const string apikey = "3b40fddfaeaf4bf786fad7e4a42ac81c";
 
     //        http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=cher&track=believe
     //        http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=Cher&album=Believe
-
-    private static string apiArtistGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}", apikey);
-    private static string apiArtistmbidGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&mbid={0}", apikey);
-    private static string apiArtistNameGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}", apikey);
-
+    
+    // Artist Info
+    private static string apiArtistGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}&lang={1}", apikey);
+    private static string apiArtistmbidGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&mbid={0}&lang={1}", apikey);
+    private static string apiArtistNameGetInfo = string.Format(apiMusicVideoUrl, "artist.getinfo&artist={0}&lang={1}", apikey);
+    //Images
     private static string apiArtistmbidGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&mbid={0}", apikey);
     private static string apiArtistNameGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&artist={0}", apikey);
-
     private static string apiArtistGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&artist={0}", apikey);
-
+    // Albums
     private static string apiAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&album={0}", apikey);
     private static string apiAlbummbidGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&mbid={0}", apikey);
     private static string apiArtistAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&artist={0}&album={1}", apikey);
     private static string apiArtistTopAlbums = string.Format(apiMusicVideoUrl, "artist.gettopalbums&artist={0}", apikey);
+    // Tracks
     private static string apiArtistTopTracks = string.Format(apiMusicVideoUrl, "artist.gettoptracks&artist={0}", apikey);
-    private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&track={0}", apikey);
-    private static string apiTrackmbidGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&mbid={0}", apikey);
-    private static string apiArtistTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&artist={0}&track={1}", apikey);
+    private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&track={0}&lang={1}", apikey);
+    private static string apiTrackmbidGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&mbid={0}&lang={1}", apikey);
+    private static string apiArtistTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&artist={0}&track={1}&lang={2}", apikey);
+    // Search
     private static string apiTrackSearch = string.Format(apiMusicVideoUrl, "track.search&track={0}", apikey);
     private static string apiArtistSearch = string.Format(apiMusicVideoUrl, "artist.search&artist={0}", apikey);
     private static string apiArtistTrackSearch = string.Format(apiMusicVideoUrl, "track.search&artist={0}&track={1}", apikey);
@@ -83,7 +85,7 @@ namespace mvCentral.DataProviders
 
     public string LanguageCode
     {
-      get { return "en"; }
+      get { return "various"; }
     }
 
     public List<string> LanguageCodeList
@@ -118,6 +120,9 @@ namespace mvCentral.DataProviders
 
     public bool GetDetails(DBBasicInfo mv)
     {
+      logger.Debug("In Method : GetDetails(DBBasicInfo mv)");
+
+      string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
 
       if (mv.GetType() == typeof(DBArtistInfo))
       {
@@ -476,11 +481,12 @@ namespace mvCentral.DataProviders
 
     private void setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)
     {
-      XmlNodeList xml;
+      XmlNodeList xml = null;
+
       if (!string.IsNullOrEmpty(artistmbid))
-        xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid));
+        xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid, mvCentralCore.Settings.DataProviderAutoLanguage));
       else
-        xml = getXML(string.Format(apiArtistNameGetInfo, artistName));
+        xml = getXML(string.Format(apiArtistNameGetInfo, artistName, mvCentralCore.Settings.DataProviderAutoLanguage));
 
       if (xml == null)
         return;
@@ -622,15 +628,15 @@ namespace mvCentral.DataProviders
 
       // If we only have a valid track name
       if (artist == null && mbid == null && track != null)
-        xml = getXML(string.Format(apiTrackGetInfo, track));
+        xml = getXML(string.Format(apiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage));
 
       // if we only have a valid MBID
       if (track == null && artist == null && mbid != null)
-        xml = getXML(string.Format(apiTrackmbidGetInfo, mbid));
+        xml = getXML(string.Format(apiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
 
       // If now MBID but we do have Artist & Track
       if (mbid == null && artist != null && track != null)
-        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track));
+        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage));
 
       // We had nothing so lets get out of here
       if (xml == null)
@@ -723,9 +729,9 @@ namespace mvCentral.DataProviders
       XmlNodeList xml = null;
 
       if (artist == null)
-        xml = getXML(string.Format(apiTrackGetInfo, track));
+        xml = getXML(string.Format(apiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage));
       else
-        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track));
+        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage));
 
       if (xml == null)
         return null;
@@ -820,7 +826,7 @@ namespace mvCentral.DataProviders
         foreach (string s1 in str)
         {
           XmlNodeList xml = null;
-          xml = getXML(string.Format(apiArtistTrackGetInfo, artist, s1));
+          xml = getXML(string.Format(apiArtistTrackGetInfo, artist, s1, mvCentralCore.Settings.DataProviderAutoLanguage));
           if (xml == null) continue;
           XmlNode root = xml.Item(0).ParentNode;
           if (root.Attributes != null && root.Attributes["status"].Value != "ok") continue;
@@ -837,9 +843,10 @@ namespace mvCentral.DataProviders
     {
       logger.Debug("In method : GetArtistMbid(string artist)");
 
-      string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
+      XmlNodeList xml = null;
 
-      XmlNodeList xml = getXML(string.Format(apiArtistGetInfo, artist));
+      xml = getXML(string.Format(apiArtistGetInfo, artist, mvCentralCore.Settings.DataProviderAutoLanguage));
+
       if (xml == null) return null;
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
@@ -937,7 +944,7 @@ namespace mvCentral.DataProviders
       int minWidth = mvCentralCore.Settings.MinimumTrackWidth;
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
-      xml = getXML(string.Format(apiTrackmbidGetInfo, mbid));
+      xml = getXML(string.Format(apiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
       if (xml == null) return null;
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
@@ -972,7 +979,7 @@ namespace mvCentral.DataProviders
       //int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
       XmlNodeList xml = null;
-      xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track));
+      xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage));
       if (xml == null) return null;
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
@@ -1076,7 +1083,8 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXML(string url)
     {
-      logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
+      //logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
+      logger.Debug("Sending the request: " + url);
 
       WebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
