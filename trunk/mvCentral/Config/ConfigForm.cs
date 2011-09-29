@@ -19,6 +19,9 @@ using Cornerstone.Extensions;
 
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
+using MediaPortal.Threading;
+using MediaPortal.Util;
+using MediaPortal.Utils;
 using NLog;
 //using SQLite.NET;
 
@@ -2792,6 +2795,33 @@ namespace mvCentral
       }
     }
     /// <summary>
+    /// Grab as x4 image thumbnail
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void asVideoThumnailToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      DBBasicInfo mv = null;
+      mv = CurrentTrack;
+      if (mv != null)
+      {
+        string artFolder = mvCentralCore.Settings.TrackArtFolder;
+        string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
+        string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
+        string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
+
+        if (VideoThumbCreator.CreateVideoThumb(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, true,false))
+        {
+          ResizeImageWithAspect(tempFilename, filename1, 400);
+          mv.AlternateArts.Add(filename1);
+          mv.Commit();
+          setArtImage();
+          updateDBPage();
+        }
+      }
+    }
+
+    /// <summary>
     /// Resize the grabbed image, with is fixed and ascpect ratio mantained
     /// </summary>
     /// <param name="fileName"></param>
@@ -2949,5 +2979,6 @@ namespace mvCentral
     }
 
     #endregion
+
   }
 }

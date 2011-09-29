@@ -235,6 +235,7 @@
           this.ArtFileDialog = new System.Windows.Forms.OpenFileDialog();
           this.imageListDrag = new System.Windows.Forms.ImageList(this.components);
           this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+          this.asVideoThumnailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
           this.scMain.Panel1.SuspendLayout();
           this.scMain.Panel2.SuspendLayout();
@@ -512,7 +513,8 @@
           this.getArtToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fromFileToolStripMenuItem,
             this.fromURLToolStripMenuItem,
-            this.fromOnlinjeToolStripMenuItem});
+            this.fromOnlinjeToolStripMenuItem,
+            this.asVideoThumnailToolStripMenuItem});
           this.getArtToolStripMenuItem.Name = "getArtToolStripMenuItem";
           this.getArtToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
           this.getArtToolStripMenuItem.Text = "Get Art";
@@ -520,21 +522,21 @@
           // fromFileToolStripMenuItem
           // 
           this.fromFileToolStripMenuItem.Name = "fromFileToolStripMenuItem";
-          this.fromFileToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+          this.fromFileToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
           this.fromFileToolStripMenuItem.Text = "From File";
           this.fromFileToolStripMenuItem.Click += new System.EventHandler(this.loadArtFromFileToolStripMenuItem_Click);
           // 
           // fromURLToolStripMenuItem
           // 
           this.fromURLToolStripMenuItem.Name = "fromURLToolStripMenuItem";
-          this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+          this.fromURLToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
           this.fromURLToolStripMenuItem.Text = "From URL";
           this.fromURLToolStripMenuItem.Click += new System.EventHandler(this.loadArtFromURLToolStripMenuItem_Click);
           // 
           // fromOnlinjeToolStripMenuItem
           // 
           this.fromOnlinjeToolStripMenuItem.Name = "fromOnlinjeToolStripMenuItem";
-          this.fromOnlinjeToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+          this.fromOnlinjeToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
           this.fromOnlinjeToolStripMenuItem.Text = "From Online";
           this.fromOnlinjeToolStripMenuItem.Click += new System.EventHandler(this.btnArtRefresh_Click);
           // 
@@ -2405,6 +2407,13 @@
           this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
           this.unapprovedMatchesBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.unapprovedMatchesBindingSource_ListChanged);
           // 
+          // asVideoThumnailToolStripMenuItem
+          // 
+          this.asVideoThumnailToolStripMenuItem.Name = "asVideoThumnailToolStripMenuItem";
+          this.asVideoThumnailToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+          this.asVideoThumnailToolStripMenuItem.Text = "As Video Thumnail";
+          this.asVideoThumnailToolStripMenuItem.Click += new System.EventHandler(this.asVideoThumnailToolStripMenuItem_Click);
+          // 
           // ConfigForm
           // 
           this.AllowDrop = true;
@@ -2690,5 +2699,6 @@
         private System.Windows.Forms.Label label7;
         private AutoDataSourcesPanel autoDataSourcesPanel1;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ToolStripMenuItem asVideoThumnailToolStripMenuItem;
     }
 }
