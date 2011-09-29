@@ -9,14 +9,14 @@ Currently this is just a list, will clean up and create a full skinners guide ov
 
 = Main GUI Propities =
 
-|| #itemcount || TBC ||
-|| #mvCentral.Settings.HomeScreenName || TBC ||
-|| #mvCentral.TotalArtists || TBC ||
-|| #mvCentral.TotalVideos || TBC ||
-|| #mvCentral.Hierachy || TBC ||
+|| #itemcount || number items on facade||
+|| #mvCentral.Settings.HomeScreenName || Plugin Name||
+|| #mvCentral.TotalArtists || Total number of Artits in DB||
+|| #mvCentral.TotalVideos || Total Number of Videos in DB||
+|| #mvCentral.Hierachy || Set to the current view, Atrists, Videos, Playlist etc||
 || #mvCentral.Itemcount.Text || TBC ||
-|| #mvCentral.ArtistView || TBC ||
-|| #mvCentral.TrackView || TBC ||
+|| #mvCentral.ArtistView || Set to 'true' if on Artist view||
+|| #mvCentral.TrackView || Set to 'true' if on Videos view ||
 || #mvCentral.ArtistBio || TBC ||
 || #mvCentral.ArtistName || TBC ||
 || #mvCentral.ArtistImg || TBC ||
