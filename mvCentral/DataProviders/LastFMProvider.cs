@@ -6,7 +6,13 @@ using System.Text;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
+
 using Cornerstone.Tools;
+using Cornerstone.Extensions;
+
+using MediaPortal.Util;
+using MediaPortal.Utils;
+
 using mvCentral.Database;
 using mvCentral.SignatureBuilders;
 using mvCentral.LocalMediaManagement;
@@ -336,17 +342,19 @@ namespace mvCentral.DataProviders
         return true;
 
       List<string> at = null;
+      int trackartAdded = 0;
+
+
       if (mvCentralUtils.IsGuid(mv.MdID))
         at = GetTrackImages(mv.MdID);
       else
         at = GetTrackImages(mv.ArtistInfo[0].Artist, mv.Track);
 
-      if (at != null)
+      if (at != null || at.Count > 0)
       {
         // grab covers loading settings
         int maxTrackArt = mvCentralCore.Settings.MaxTrackArts;
 
-        int trackartAdded = 0;
         int count = 0;
         logger.Info("Lock at");
         lock (at)
@@ -361,17 +369,30 @@ namespace mvCentral.DataProviders
             count++;
           }
         }
-        if (trackartAdded > 0)
+      }
+      if (trackartAdded > 0)
+      {
+        mv.ArtFullPath = mv.AlternateArts[0];
+        return true;
+      }
+      else
+      {
+
+        string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
+        string tempFilenameL = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(tempFilename) + "L.jpg");
+
+        if (VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, tempFilename, true, false))
         {
-          mv.ArtFullPath = mv.AlternateArts[0];
-          // Update source info
-          //                        mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = mv.MdID;
+          mv.AddArtFromFile(tempFilenameL);
+          File.Delete(tempFilename);
+          File.Delete(tempFilenameL);
           return true;
         }
+
+        // if we get here we didn't manage to find a proper backdrop
+        // so return false
+        return false;
       }
-      // if we get here we didn't manage to find a proper backdrop
-      // so return false
-      return false;
     }
 
     public bool GetAlbumArt(DBAlbumInfo mv)
