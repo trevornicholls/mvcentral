@@ -486,7 +486,7 @@
       <textcolor>ff006698</textcolor>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
-    <import>mvCentral.overlays2.xml</import>
+    <import>common.overlays2.xml</import>
     <import>common.time.xml</import>
   </controls>
 </window>

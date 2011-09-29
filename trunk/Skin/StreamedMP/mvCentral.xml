@@ -1101,7 +1101,7 @@
       </control>       
     </control>
     
-    <import>mvCentral.overlays2.xml</import>
+    <import>common.overlays2.xml</import>
     <import>common.time.xml</import>
   </controls>
 </window>
