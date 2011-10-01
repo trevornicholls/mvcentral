@@ -145,13 +145,6 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\StreamedMP\mvCentral.overlays2.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{2fb833bf-feaa-4813-97e2-b9e39aab7049}-mvCentral.overlays2.xml</ZipFileName>
-              <DestinationFilename>%Skin%\StreamedMP\mvCentral.overlays2.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{bbf7f375-93c2-4449-bb34-b77a9bcca31c}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvCentral.Playlist.xml</DestinationFilename>
@@ -428,7 +421,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>108</Revision>
+      <Revision>111</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription />
@@ -582,13 +575,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\Skin\DefaultWide\media\defaultArtistBig.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{f5af9fdf-352e-48ea-b2e5-2220bf922a65}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\defaultArtistBig.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\StreamedMP\mvCentral.overlays2.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2fb833bf-feaa-4813-97e2-b9e39aab7049}-mvCentral.overlays2.xml</ZipFileName>
-        <DestinationFilename>%Skin%\StreamedMP\mvCentral.overlays2.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />

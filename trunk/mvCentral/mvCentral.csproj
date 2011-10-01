@@ -263,6 +263,7 @@
     <Compile Include="Utils\framegrabber.cs" />
     <Compile Include="Utils\GUIUtils.cs" />
     <Compile Include="Utils\mvCentralUtils.cs" />
+    <Compile Include="Utils\VideoThumbCreator.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\AutoDataSourcesPanel.resx">

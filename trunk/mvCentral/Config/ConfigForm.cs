@@ -139,6 +139,11 @@ namespace mvCentral
       tbMinArtHeight.Setting = mvCentralCore.Settings["min_artist_height"];
       tbTrackArtWidth.Setting = mvCentralCore.Settings["min_track_width"];
       tbTrackArtHeight.Setting = mvCentralCore.Settings["min_track_height"];
+      tbVideoPreviewCols.Setting = mvCentralCore.Settings["videoThumbNail_cols"];
+      tbVideoPreviewRows.Setting = mvCentralCore.Settings["videoThumbNail_rows"];
+      cbPreferThumbnail.Setting = mvCentralCore.Settings["prefer_thumbnail"];
+
+
       // Set up display tables
       artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
@@ -162,7 +167,7 @@ namespace mvCentral
 
     public string Author()
     {
-      return "Gup/Trevor";
+      return "Trevor/Gup";
     }
 
     public void ShowPlugin()
@@ -2763,7 +2768,7 @@ namespace mvCentral
 
       FrameGrabber fr = new FrameGrabber();
       fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, 10);
-      ResizeImageWithAspect(tempFilename, filename1, 400);
+      mvCentralUtils.ResizeImageWithAspect(tempFilename, filename1, 600);
       ArtPopup popup1 = new ArtPopup(filename1);
       popup1.Owner = this.ParentForm;
       popup1.ShowDialog();
@@ -2787,7 +2792,7 @@ namespace mvCentral
 
         FrameGrabber fr = new FrameGrabber();
         fr.GrabFrame(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, 10);
-        ResizeImageWithAspect(tempFilename, filename1, 400);
+        mvCentralUtils.ResizeImageWithAspect(tempFilename, filename1, 600);
         mv.AlternateArts.Add(filename1);
         mv.Commit();
         setArtImage();
@@ -2805,42 +2810,21 @@ namespace mvCentral
       mv = CurrentTrack;
       if (mv != null)
       {
-        string artFolder = mvCentralCore.Settings.TrackArtFolder;
-        string safeName = CurrentTrack.Track.Replace(' ', '.').ToValidFilename();
-        string filename1 = artFolder + "\\{" + safeName + "} [" + safeName.GetHashCode() + "].jpg";
-        string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
+        string outputResizedFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImageResized.jpg");
+        string outputFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage.jpg");
 
-        if (VideoThumbCreator.CreateVideoThumb(CurrentTrack.LocalMedia[0].File.FullName, tempFilename, true,false))
+        if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(CurrentTrack.LocalMedia[0].File.FullName, outputFilename))
         {
-          ResizeImageWithAspect(tempFilename, filename1, 400);
-          mv.AlternateArts.Add(filename1);
+          mvCentralUtils.ResizeImageWithAspect(outputFilename, outputResizedFilename, 600);
+          mv.AddArtFromFile(outputResizedFilename);
           mv.Commit();
           setArtImage();
           updateDBPage();
+          File.Delete(outputResizedFilename);
         }
       }
     }
 
-    /// <summary>
-    /// Resize the grabbed image, with is fixed and ascpect ratio mantained
-    /// </summary>
-    /// <param name="fileName"></param>
-    /// <param name="outputFileName"></param>
-    /// <param name="newWidth"></param>
-    private void ResizeImageWithAspect(string fileName, string outputFileName, int newWidth)
-    {
-      Image original = Image.FromFile(fileName);
-      float aspect = (float)original.Height / (float)original.Width;
-      int newHeight = (int)(newWidth * aspect);
-      Bitmap temp = new Bitmap(newWidth, newHeight, original.PixelFormat);
-      Graphics newImage = Graphics.FromImage(temp);
-      newImage.DrawImage(original, 0, 0, newWidth, newHeight);
-      temp.Save(outputFileName);
-      original.Dispose();
-      temp.Dispose();
-      newImage.Dispose();
-      File.Delete(fileName);
-    }
 
     private void btnPlay_Click(object sender, EventArgs e)
     {

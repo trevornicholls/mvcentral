@@ -341,6 +341,12 @@ namespace mvCentral.DataProviders
       if (mv.ArtFullPath.Trim().Length > 0)
         return true;
 
+      if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
+      {
+        return generateVideoThumbnail(mv);
+      }
+
+
       List<string> at = null;
       int trackartAdded = 0;
 
@@ -377,24 +383,43 @@ namespace mvCentral.DataProviders
       }
       else
       {
+        logger.Debug("No Track art found - Genterate Video Thumbnail");
 
-        string tempFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
-        string tempFilenameL = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(tempFilename) + "L.jpg");
-
-        if (VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, tempFilename, true, false))
-        {
-          mv.AddArtFromFile(tempFilenameL);
-          File.Delete(tempFilename);
-          File.Delete(tempFilenameL);
+        if (generateVideoThumbnail(mv))
           return true;
-        }
-
-        // if we get here we didn't manage to find a proper backdrop
-        // so return false
-        return false;
+        else
+          return false;
       }
     }
+    /// <summary>
+    /// Generate Thumbnail
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    bool generateVideoThumbnail(DBTrackInfo mv)
+    {
+      string outputFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
+      string outputResizedFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImageResized" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
 
+      if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
+      {
+        //mvCentralUtils.ResizeImageWithAspect(outputFilename, outputResizedFilename, 600);
+        //mvCentralUtils.ResizeImage(outputFilename, outputResizedFilename, 600, 400, false);
+        //mv.AddArtFromFile(outputResizedFilename);
+        mv.AddArtFromFile(outputFilename);
+        File.Delete(outputFilename);
+        return true;
+      }
+      else
+        return false;
+
+    }
+
+    /// <summary>
+    /// Get album art work
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo mv)
     {
       logger.Info("In Method : GetAlbumArt(DBAlbumInfo mv)");

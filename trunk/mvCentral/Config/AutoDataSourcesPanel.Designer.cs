@@ -80,6 +80,7 @@
           // manualRadioButton
           // 
           this.manualRadioButton.AutoSize = true;
+          this.manualRadioButton.Enabled = false;
           this.manualRadioButton.Location = new System.Drawing.Point(3, 25);
           this.manualRadioButton.Name = "manualRadioButton";
           this.manualRadioButton.Size = new System.Drawing.Size(235, 17);
