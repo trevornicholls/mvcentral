@@ -1327,7 +1327,7 @@ namespace mvCentral.Settings {
             Description = "The maximum height in pixels for any given track. If a track from any data provider is larger than this value it will be resized.",
             Groups = "|MusicVideo Importer|Track Art|Maximum Size",
             Identifier = "max_track_height",
-            Default = 960)]
+            Default = 300)]
         public int MaximumTrackHeight
         {
             get { return _maximumTrackHeight; }
@@ -1514,7 +1514,7 @@ namespace mvCentral.Settings {
             Description = "The default view used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"lastused\", \"list\", \"thumbs\", \"largethumbs\", and \"filmstrip\".",
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_view",
-            Default = "list",
+            Default = "lastused",
             Hidden = true)]
         public string DefaultView {
             get { return _defaultView; }
@@ -1531,7 +1531,7 @@ namespace mvCentral.Settings {
             Description = "The default view used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"lastused\", \"list\", \"thumbs\", \"largethumbs\", and \"filmstrip\".",
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_playlist_view",
-            Default = "list",
+            Default = "lastused",
             Hidden = true)]
         public string DefaultPlaylistView
         {

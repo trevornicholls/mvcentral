@@ -427,7 +427,7 @@ namespace mvCentral
         mvCentralCore.Importer.Progress += new MusicVideoImporter.ImportProgressHandler(progressListener);
         mvCentralCore.Importer.MusicVideoStatusChanged += new MusicVideoImporter.MusicVideoStatusChangedHandler(mvStatusChangedListener);
 
-        //mvCentralCore.Importer.Start();
+        mvCentralCore.Importer.Start();
       }
       this.unapprovedGrid.AutoGenerateColumns = false;
       this.unapprovedGrid.DataSource = this.unapprovedMatchesBindingSource;

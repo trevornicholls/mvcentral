@@ -44,15 +44,7 @@ namespace mvCentral.Utils
     private static int PreviewColumns = 2;
     private static int PreviewRows = 2;
 
-    #region Serialisation
-
-
-
-
-    #endregion
-
     #region Public methods
-
 
     public static bool CreateVideoThumb(string aVideoPath, string aThumbPath)
     {
