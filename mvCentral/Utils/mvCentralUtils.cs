@@ -9,6 +9,8 @@ using System.Xml.Schema;
 using System.IO;
 using System.Net;
 using System.Web;
+using System.Drawing;
+
 
 
 
@@ -343,6 +345,65 @@ namespace mvCentral.Utils {
           {
             return source;
           }
+        }
+
+        /// <summary>
+        /// Resize the grabbed image, with is fixed and ascpect ratio mantained
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="outputFileName"></param>
+        /// <param name="newWidth"></param>
+        public static void ResizeImageWithAspect(string fileName, string outputFileName, int newWidth)
+        {
+          Image original = Image.FromFile(fileName);
+          float aspect = (float)original.Height / (float)original.Width;
+          int newHeight = (int)(newWidth * aspect);
+          Bitmap temp = new Bitmap(newWidth, newHeight, original.PixelFormat);
+          Graphics newImage = Graphics.FromImage(temp);
+          newImage.DrawImage(original, 0, 0, newWidth, newHeight);
+          temp.Save(outputFileName);
+          original.Dispose();
+          temp.Dispose();
+          newImage.Dispose();
+          File.Delete(fileName);
+        }
+
+
+        public static void ResizeImage(string OriginalFile, string NewFile, int NewWidth, int MaxHeight, bool OnlyResizeIfWider)
+        {
+          
+          System.Drawing.Image FullsizeImage = System.Drawing.Image.FromFile(OriginalFile);
+
+          // Prevent using images internal thumbnail
+          FullsizeImage.RotateFlip(System.Drawing.RotateFlipType.Rotate180FlipNone);
+          FullsizeImage.RotateFlip(System.Drawing.RotateFlipType.Rotate180FlipNone);
+
+          if (OnlyResizeIfWider)
+          {
+            if (FullsizeImage.Width <= NewWidth)
+            {
+              NewWidth = FullsizeImage.Width;
+            }
+          }
+
+          int NewHeight = FullsizeImage.Height * NewWidth / FullsizeImage.Width;
+          if (NewHeight > MaxHeight)
+          {
+            // Resize with height instead
+            NewWidth = FullsizeImage.Width * MaxHeight / FullsizeImage.Height;
+            NewHeight = MaxHeight;
+          }
+
+          System.Drawing.Image NewImage = FullsizeImage.GetThumbnailImage(NewWidth, NewHeight, null, IntPtr.Zero);
+
+          // Clear handle to original file so that we can overwrite it if necessary
+          FullsizeImage.Dispose();
+
+          // Save resized picture
+          NewImage.Save(NewFile);
+          NewImage.Dispose();
+          NewImage = null;
+          FullsizeImage = null; ;
         }
 
 

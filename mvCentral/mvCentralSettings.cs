@@ -539,7 +539,7 @@ namespace mvCentral.Settings {
             Description = "Autoapprove if match found on scrapper. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "auto_approve",
-            Default = false,
+            Default = true,
             Hidden = true)]
         public bool AutoApprove
         {
@@ -554,12 +554,12 @@ namespace mvCentral.Settings {
 
 
         [CornerstoneSetting(
-      Name = "Latest musicvideos",
-      Description = "Consider new if added with these number of days. ",
-      Groups = "|MusicVideo|Player|",
-      Identifier = "oldAfter_days",
-      Default = 7,
-      Hidden = true)]
+           Name = "Latest musicvideos",
+           Description = "Consider new if added with these number of days. ",
+           Groups = "|MusicVideo|Player|",
+           Identifier = "oldAfter_days",
+           Default = 7,
+           Hidden = true)]
         public int OldAFterDays
         {
           get { return _oldafterdays; }
@@ -570,6 +570,63 @@ namespace mvCentral.Settings {
           }
         }
         private int _oldafterdays;
+
+
+        [CornerstoneSetting(
+           Name = "Video Thumbnail Columns",
+           Description = "Number of Columns for Video Thumnail Preview ",
+           Groups = "|MusicVideo|GUI|",
+           Identifier = "videoThumbNail_cols",
+           Default = 2,
+           Hidden = true)]
+        public int VideoThumbnailColumns
+        {
+          get { return _videoThumbailColumns; }
+          set
+          {
+            _videoThumbailColumns = value;
+            OnSettingChanged("videoThumbNail_cols");
+          }
+        }
+        private int _videoThumbailColumns;
+
+
+        [CornerstoneSetting(
+           Name = "Video Thumbnail Rows",
+           Description = "Number of Rows for Video Thumnail Preview ",
+           Groups = "|MusicVideo|GUI|",
+           Identifier = "videoThumbNail_rows",
+           Default = 2,
+           Hidden = true)]
+        public int VideoThumbnailRows
+        {
+          get { return _videoThumbailRows; }
+          set
+          {
+            _videoThumbailRows = value;
+            OnSettingChanged("videoThumbNail_rows");
+          }
+        }
+        private int _videoThumbailRows;
+
+        [CornerstoneSetting(
+            Name = "Prefer Video Thumbnail",
+            Description = "Prefer video thumbnail over scraper image for videos. ",
+            Groups = "|MusicVideo Importer|Preprocessing|",
+            Identifier = "prefer_thumbnail",
+            Default = true,
+            Hidden = true)]
+        public bool PreferThumbnail
+        {
+          get { return _preferthumbnail; }
+          set
+          {
+            _preferthumbnail = value;
+            OnSettingChanged("prefer_thumbnail");
+          }
+        }
+        private bool _preferthumbnail;
+
 
 
         #endregion
@@ -1457,7 +1514,7 @@ namespace mvCentral.Settings {
             Description = "The default view used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"lastused\", \"list\", \"thumbs\", \"largethumbs\", and \"filmstrip\".",
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_view",
-            Default = "lastused",
+            Default = "list",
             Hidden = true)]
         public string DefaultView {
             get { return _defaultView; }
@@ -1474,7 +1531,7 @@ namespace mvCentral.Settings {
             Description = "The default view used in the MediaPortal GUI when the plug-in is first opened. Valid options are \"lastused\", \"list\", \"thumbs\", \"largethumbs\", and \"filmstrip\".",
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_playlist_view",
-            Default = "lastused",
+            Default = "list",
             Hidden = true)]
         public string DefaultPlaylistView
         {

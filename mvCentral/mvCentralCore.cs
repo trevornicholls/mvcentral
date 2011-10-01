@@ -186,6 +186,8 @@ namespace mvCentral
 
     private static void closeDB()
     {
+      logger.Debug("In Method : closeDB()");
+
       if (_databaseManager == null)
         return;
 
@@ -537,9 +539,12 @@ namespace mvCentral
       int baseProgress = (int)(loadingProgress * 100 / loadingTotal);
       if (InitializeProgress != null) InitializeProgress(loadingProgressDescription, baseProgress + (int)((float)percentDone / loadingTotal));
     }
-
+    /// <summary>
+    /// Plugin shutdown
+    /// </summary>
     public static void Shutdown()
     {
+      logger.Debug("In method : Shutdown()");
 
       // Unregister Win32 PowerMode Event Handler
       Microsoft.Win32.SystemEvents.PowerModeChanged -= new Microsoft.Win32.PowerModeChangedEventHandler(onSystemPowerModeChanged);
@@ -550,17 +555,17 @@ namespace mvCentral
       if (_importer != null)
         _importer.Stop();
 
+      // Stop all background tasks
       stopBackgroundTasks();
-
       _importer = null;
       _settings = null;
-      _databaseManager.Close();
-      _databaseManager = null;
-
+      
+      // Close the DB
+      closeDB();
       logger.Info("Plugin Closed");
-
+      
+      // Kill the logger
       LogManager.Configuration = null;
-
     }
 
     #endregion
