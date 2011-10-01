@@ -343,7 +343,10 @@ namespace mvCentral.DataProviders
 
       if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
       {
-        return generateVideoThumbnail(mv);
+        lock (this)
+        {
+          return generateVideoThumbnail(mv);
+        }
       }
 
 
@@ -385,10 +388,14 @@ namespace mvCentral.DataProviders
       {
         logger.Debug("No Track art found - Genterate Video Thumbnail");
 
-        if (generateVideoThumbnail(mv))
-          return true;
-        else
-          return false;
+        lock (this)
+        {
+
+          if (generateVideoThumbnail(mv))
+            return true;
+          else
+            return false;
+        }
       }
     }
     /// <summary>
@@ -403,16 +410,17 @@ namespace mvCentral.DataProviders
 
       if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
       {
-        //mvCentralUtils.ResizeImageWithAspect(outputFilename, outputResizedFilename, 600);
-        //mvCentralUtils.ResizeImage(outputFilename, outputResizedFilename, 600, 400, false);
-        //mv.AddArtFromFile(outputResizedFilename);
-        mv.AddArtFromFile(outputFilename);
-        File.Delete(outputFilename);
-        return true;
+        if (File.Exists(outputFilename))
+        {
+          mv.AddArtFromFile(outputFilename);
+          File.Delete(outputFilename);
+          return true;
+        }
+        else
+          return false;
       }
       else
         return false;
-
     }
 
     /// <summary>

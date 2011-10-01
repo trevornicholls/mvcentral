@@ -76,7 +76,7 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesDetails
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool ProvidesArtistArt
@@ -143,13 +143,22 @@ namespace mvCentral.DataProviders
       if (mv.ArtFullPath.Trim().Length > 0)
         return true;
 
+      if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
+      {
+        lock (this)
+        {
+          return generateVideoThumbnail(mv);
+        }
+      }
+
       List<string> at = mv.ArtUrls;
+      int trackartAdded = 0;
+
       if (at != null)
       {
         // grab covers loading settings
         int maxTrackArt = mvCentralCore.Settings.MaxTrackArts;
 
-        int trackartAdded = 0;
         int count = 0;
         foreach (string a2 in at)
         {
@@ -159,19 +168,51 @@ namespace mvCentral.DataProviders
 
           count++;
         }
-        if (trackartAdded > 0)
+      }
+      if (trackartAdded > 0)
+      {
+        mv.ArtFullPath = mv.AlternateArts[0];
+        return true;
+      }
+      else
+      {
+        logger.Debug("No Track art found - Genterate Video Thumbnail");
+
+        lock (this)
         {
-          mv.ArtFullPath = mv.AlternateArts[0];
-          // Update source info
-          //                        mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = mv.MdID;
-          return true;
+
+          if (generateVideoThumbnail(mv))
+            return true;
+          else
+            return false;
         }
       }
-      // if we get here we didn't manage to find a proper backdrop
-      // so return false
-      return false;
     }
+    /// <summary>
+    /// Generate Thumbnail
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    bool generateVideoThumbnail(DBTrackInfo mv)
+    {
+      string outputFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
+      string outputResizedFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImageResized" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
 
+      if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
+      {
+        if (File.Exists(outputFilename))
+        {
+        mv.AddArtFromFile(outputFilename);
+        File.Delete(outputFilename);
+        return true;
+        }
+        else
+          return false;
+      }
+      else
+        return false;
+
+    }
     public bool GetAlbumArt(DBAlbumInfo mv)
     {
       if (mv == null)

@@ -1755,11 +1755,13 @@ namespace mvCentral.LocalMediaManagement
 
             // if we have multiple sources, make sure we display info about where each possible
             // match is coming from
+            multipleSources = true;
             if (multipleSources)
                 foreach (PossibleMatch currMatch in rankedMusicVideoList) 
                     currMatch.DisplaySourceInfo = true;
 
             mediaMatch.PossibleMatches = rankedMusicVideoList;
+
         }
 
         #endregion
@@ -1937,11 +1939,6 @@ namespace mvCentral.LocalMediaManagement
                 if (this.Result.AlternateTitleUsed())
                     displayTitle += " (as \"" + this.Result.AlternateTitle + "\")";
 
-//                if (this.mv.Year > 0) {
-                    // if we have a year value for the possible match include it in the display member
-//                    displayTitle += " (" + this.mv.Year.ToString() + ")";
-//                }
-
                 if (DisplaySourceInfo && mv.PrimarySource != null && this.mv.PrimarySource.Provider != null)
                     displayTitle += " [" + this.mv.PrimarySource.Provider.Name + "]";
 
@@ -2081,26 +2078,20 @@ namespace mvCentral.LocalMediaManagement
         #region IComparer Members
 
         // see previous comment
-        public String DisplayMember
+      public String DisplayMember
+      {
+        get
         {
-            get
-            {
-                string displayTitle = ToString();
-//                                if (this.Result.AlternateTitleUsed())
-//                                    displayTitle += " (as \"" + this.Result.AlternateTitle + "\")";
+          string displayTitle = ToString();
+          //if (this.Result.AlternateTitleUsed())
+          //  displayTitle += " (as \"" + this.Result.AlternateTitle + "\")";
 
-//                if (this.mv.Year > 0)
-                {
-                    // if we have a year value for the possible match include it in the display member
-//                    displayTitle += " (" + this.mv.Year.ToString() + ")";
-                }
+          //if (DisplaySourceInfo && mv.PrimarySource != null && this.mv.PrimarySource.Provider != null)
+          //  displayTitle += " [" + this.mv.PrimarySource.Provider.Name + "]";
 
-//                                if (DisplaySourceInfo && mv.PrimarySource != null && this.mv.PrimarySource.Provider != null)
-//                                    displayTitle += " [" + this.mv.PrimarySource.Provider.Name + "]";
-
-                return displayTitle;
-            }
+          return displayTitle;
         }
+      }
 
         public int Compare(object x, object y)
         {
