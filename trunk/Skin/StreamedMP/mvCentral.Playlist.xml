@@ -106,16 +106,65 @@
     <control>
       <id>0</id>
       <type>image</type>
-      <posX>28</posX>
+      <posX>15</posX>
       <posY>270</posY>
-      <height>200</height>
-      <width>354</width>
+      <width>300</width>      
+      <height>222</height>
       <keepaspectratio>yes</keepaspectratio>
       <zoom>no</zoom>
       <texture flipY="true" diffuse="diffusemirrorwide.png">#mvCentral.VideoImage</texture>
       <visible>facadeview.playlist | facadeview.filmstrip</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
+		<control>
+			<id>0</id>
+			<description>Track Description (List)</description>
+			<type>textboxscrollup</type>
+			<posX>320</posX>
+			<posY>270</posY>
+			<width>410</width>
+			<height>335</height>
+			<label>#mvCentral.Description</label>
+			<seperator>-----------------------------------------------------------------------------------</seperator>
+			<font>mediastream11</font>
+			<scrollStartDelaySec>10</scrollStartDelaySec>
+			<animation effect="fade" time="250" delay="0">WindowClose</animation>
+			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
+			<visible>[facadeview.playlist]</visible>
+		</control>
+		<control>
+			<id>0</id>
+			<description>Artist Bio (Filmstrip)</description>
+			<type>textboxscrollup</type>
+			<posX>330</posX>
+			<posY>270</posY>
+			<width>930</width>
+			<height>200</height>
+			<label>#mvCentral.Description</label>
+			<seperator>-----------------------------------------------------------------------------------</seperator>
+			<font>mediastream11</font>
+			<animation effect="fade" time="250" delay="0">WindowClose</animation>
+			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
+			<scrollStartDelaySec>4</scrollStartDelaySec>
+			<visible>facadeview.filmstrip</visible>
+		</control>		    
+		<control>
+			<id>0</id>
+			<description>Track Description (Thumbnails)</description>
+			<type>textboxscrollup</type>
+			<posX>30</posX>
+			<posY>240</posY>
+			<width>480</width>
+			<height>335</height>
+			<label>#mvCentral.Description</label>
+			<seperator>-----------------------------------------------------------------------------------</seperator>
+			<font>mediastream11</font>
+			<scrollStartDelaySec>10</scrollStartDelaySec>
+			<animation effect="fade" time="250" delay="0">WindowClose</animation>
+			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
+			<visible>[facadeview.smallicons|facadeview.largeicons]</visible>
+		</control>
+    
     <control>
       <type>actiongroup</type>
       <description>action menu</description>
@@ -425,7 +474,7 @@
           <onleft>2</onleft>
           <onright>2</onright>
           <posX>700</posX>
-          <posY>310</posY>
+          <posY>270</posY>
           <textXOff>-40</textXOff>
           <textXOff2>485</textXOff2>
           <upBtnXOffset>499</upBtnXOffset>
@@ -477,7 +526,7 @@
     <control>
       <description>Media Count Label</description>
       <type>label</type>
-      <label>#mvCentral.TotalVideos</label>
+      <label>#mvCentral.Playlist.Count</label>
       <id>0</id>
       <posX>1246</posX>
       <posY>12</posY>

@@ -204,7 +204,7 @@
 		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>[facadeview.list|facadeview.album]</visible>
+			<visible>[facadeview.list|facadeview.album]+string.equals(#mvCentral.ArtistView,true)</visible>
 			<posX>30</posX>
 			<posY>245</posY>
 			<width>280</width>
@@ -212,18 +212,18 @@
 			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
 			<keepaspectratio>no</keepaspectratio>
-		</control>		
+		</control>
 		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>[facadeview.list|facadeview.album]</visible>
-			<posX>30</posX>
+			<visible>[facadeview.list|facadeview.album]+string.equals(#mvCentral.TrackView,true)</visible>
+			<posX>15</posX>
 			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
+			<width>300</width>
+			<height>222</height>
 			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>no</keepaspectratio>
+			<keepaspectratio>yes</keepaspectratio>
 		</control>
 
 <!-- :: Music Info - 2nd and 3rd List View Description and Genre:: --> 
@@ -351,7 +351,7 @@
  		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>facadeview.filmstrip</visible>
+			<visible>facadeview.filmstrip+string.equals(#mvCentral.ArtistView,true)</visible>
 			<posX>30</posX>
 			<posY>180</posY>
 			<width>280</width>
@@ -360,18 +360,19 @@
       <animation effect="fade" time="70" reversible="false">visible</animation>
       <keepaspectratio>no</keepaspectratio>
 		</control>		
- 		<control>
+		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>facadeview.filmstrip</visible>
-			<posX>30</posX>
-			<posY>180</posY>
-			<width>280</width>
-			<height>280</height>
-			<texture>#selectedthumb</texture>
+			<visible>facadeview.filmstrip+string.equals(#mvCentral.TrackView,true)</visible>
+			<posX>15</posX>
+			<posY>245</posY>
+			<width>300</width>
+			<height>222</height>
+			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>no</keepaspectratio>
-		</control>	
+			<keepaspectratio>yes</keepaspectratio>
+		</control>
+
     <!-- :: Music Info - Filmstrip View Description:: --> 
 		<control>
 			<id>0</id>
@@ -488,7 +489,6 @@
 		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>[facadeview.smallicons|facadeview.largeicons]</visible>
 			<posX>30</posX>
 			<posY>245</posY>
 			<width>280</width>
@@ -496,19 +496,20 @@
 			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
 			<keepaspectratio>no</keepaspectratio>
+			<visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView,true)</visible>
 		</control>		
 		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>[facadeview.smallicons|facadeview.largeicons]</visible>
 			<posX>30</posX>
 			<posY>245</posY>
-			<width>280</width>
-			<height>280</height>
+			<width>300</width>
+			<height>222</height>
 			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>no</keepaspectratio>
-		</control>
+			<keepaspectratio>yes</keepaspectratio>
+			<visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
+		</control>		
 
 <!-- :: Music Info - 2nd and 3rd List View Description and Genre:: --> 
 		<control>

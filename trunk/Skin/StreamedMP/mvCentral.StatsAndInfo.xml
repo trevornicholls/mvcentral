@@ -44,20 +44,33 @@
 			  <shadowDistance>4</shadowDistance> 
 			  <shadowColor>#shadow.dark</shadowColor>
         <textcolor>ff006698</textcolor>
-			  <label>mvCentral - Database Statistics and Video Information</label>
+			  <label>mvCentral - #mvCentral.Translation.DBInfo.Label</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control> 
       
        <control>
+        <description>Version</description>
+        <type>label</type>
+        <id>15</id>
+        <posX>1120</posX>
+        <posY>620</posY>
+        <font>mediastream10</font>
+        <align>right</align>
+        <label>-</label>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
+
+       <control>
         <description>Video Count</description>
         <type>label</type>
-        <id>0</id>
+        <id>16</id>
         <posX>640</posX>
         <posY>605</posY>
         <font>mediastream12</font>
         <align>center</align>
-        <label>Database has #mvCentral.TotalVideos accross #mvCentral.TotalArtists</label>
+        <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>
@@ -222,7 +235,7 @@
         <font>mediastream11</font>
         <id>1</id>
         <posX>160</posX>
-        <posY>520</posY>
+        <posY>530</posY>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>
@@ -355,11 +368,7 @@
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>      
-      
-      
-      
-      
-      
+
         <control>
           <description>Empty button</description>
           <type>button</type>
@@ -367,10 +376,7 @@
           <label>-</label>
           <visible>false</visible>
         </control>     
-    
-    
-    
-    <!-- <import>mvCentral.overlays2.xml</import> -->
+
     <import>common.time.xml</import>
   </controls>
 </window>

@@ -330,6 +330,7 @@ namespace mvCentral.Localizations
     public static string VirtualDriveHeader = "Virtual drive not ready";
     public static string VirtualDriveMessage = "The virtual drive wasn't ready in time.\nPlease try again or cancel playback.";
     public static string Videos = "Videos";
+    public static string VideoCount = "Database has {0} Videos accross {1} Artists";
 
     // W
     #endregion

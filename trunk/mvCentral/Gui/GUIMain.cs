@@ -374,7 +374,7 @@ namespace mvCentral.GUI
       if (control == btnLayouts)
       {
         mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
-      }
+      }    
 
       switch (controlId)
       {
@@ -392,9 +392,49 @@ namespace mvCentral.GUI
           break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
-          //logger.Debug("Hit Key : " + actionType.ToString());
+          logger.Debug("Hit Key : " + actionType.ToString());
           switch (actionType)
           {
+            //case Action.ActionType.REMOTE_1:
+            //  if (currentView == mvView.Video)
+            //  {
+            //    GUIListItem selectedItem = facadeLayout.SelectedListItem;
+            //    DBTrackInfo ti = (DBTrackInfo)selectedItem.MusicTag;
+            //    ti.ActiveUserSettings.UserRating = 1;
+            //  }
+            //  break;
+            //case Action.ActionType.REMOTE_2:
+            //  if (currentView == mvView.Video)
+            //  {
+            //    GUIListItem selectedItem = facadeLayout.SelectedListItem;
+            //    DBTrackInfo ti = (DBTrackInfo)selectedItem.MusicTag;
+            //    ti.ActiveUserSettings.UserRating = 2;
+            //  }
+            //  break;
+            //case Action.ActionType.REMOTE_3:
+            //  if (currentView == mvView.Video)
+            //  {
+            //    GUIListItem selectedItem = facadeLayout.SelectedListItem;
+            //    DBTrackInfo ti = (DBTrackInfo)selectedItem.MusicTag;
+            //    ti.ActiveUserSettings.UserRating = 3;
+            //  }
+            //  break;
+            //case Action.ActionType.REMOTE_4:
+            //  if (currentView == mvView.Video)
+            //  {
+            //    GUIListItem selectedItem = facadeLayout.SelectedListItem;
+            //    DBTrackInfo ti = (DBTrackInfo)selectedItem.MusicTag;
+            //    ti.ActiveUserSettings.UserRating = 4;
+            //  }
+            //  break;
+            //case Action.ActionType.REMOTE_5:
+            //  if (currentView == mvView.Video)
+            //  {
+            //    GUIListItem selectedItem = facadeLayout.SelectedListItem;
+            //    DBTrackInfo ti = (DBTrackInfo)selectedItem.MusicTag;
+            //    ti.ActiveUserSettings.UserRating = 5;
+            //  }
+            //  break;
             case Action.ActionType.ACTION_PLAY:
             case Action.ActionType.ACTION_PAUSE:
             case Action.ActionType.ACTION_QUEUE_ITEM:
@@ -550,7 +590,7 @@ namespace mvCentral.GUI
       return -1;
     }
     /// <summary>
-    /// Load the current ???
+    /// Load the current view and set the idex to the last used.
     /// </summary>
     private void loadCurrent()
     {

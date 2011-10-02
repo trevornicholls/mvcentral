@@ -404,7 +404,6 @@ namespace mvCentral
     {
       load = new loadingDisplay();
 
-
       //needs to be here otherwise nlog won't use the richtextbox for logging.
       mvCentralCore.Initialize(this.rtbLog);
 
