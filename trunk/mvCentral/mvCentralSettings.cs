@@ -293,7 +293,7 @@ namespace mvCentral.Settings {
             Description = "Enables importation of media from all available optical drives. This can include CDs, DVDs, HD-DVDs, and Bluray disks. This also applies to \"loose video files\" on a data CD/DVD.",
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_disc_enabled",
-            Default = true,
+            Default = false,
             Hidden = true)]
         public bool AutomaticallyImportDVDs {
             get { return _automaticallyImportInsertedDVDs; }
