@@ -54,25 +54,13 @@
       <id>0</id>
       <type>image</type>
       <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
-      <posX>40</posX>
+      <posX>15</posX>
       <posY>145</posY>
-      <width>160</width>
-      <height>160</height>
-      <texture>defaultVideoBig.png</texture>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
-      <keepaspectratio>no</keepaspectratio>
-    </control>
-    <control>
-      <id>0</id>
-      <type>image</type>
-      <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
-      <posX>40</posX>
-      <posY>145</posY>
-      <width>160</width>
-      <height>160</height>
+      <width>200</width>
+      <height>148</height>
       <texture flipY="true" diffuse="Thumb_Mask.png">#mvCentral.VideoImage</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-      <keepaspectratio>no</keepaspectratio>
+      <keepaspectratio>yes</keepaspectratio>
     </control>
     <control>
       <id>0</id>

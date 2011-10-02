@@ -37,6 +37,7 @@ namespace mvCentral.GUI
     {
       exitScreen = 14,
       versionLabel = 15,
+      videoCountLabel = 16,
       favVideoImage = 18,
       favArtistImage = 20,
       topTen1 = 30,
@@ -53,7 +54,8 @@ namespace mvCentral.GUI
     }
 
     [SkinControl((int)GUIControls.exitScreen)] protected GUIButtonControl skinInfo_exit = null;
-    //[SkinControl((int)GUIControls.versionLabel)] protected GUILabelControl version_label = null;
+    [SkinControl((int)GUIControls.versionLabel)] protected GUILabelControl version_label = null;
+    [SkinControl((int)GUIControls.videoCountLabel)] protected GUILabelControl videoCount_label = null;
 
     [SkinControl((int)GUIControls.favArtistImage)] protected GUIImage favArtistImage = null;
     [SkinControl((int)GUIControls.favVideoImage)] protected GUIImage favVideoImage = null;
@@ -99,6 +101,8 @@ namespace mvCentral.GUI
       GUILabelControl.SetControlLabel(GetID, (int)GUIControls.versionLabel, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
       List<DBTrackInfo> videoList = DBTrackInfo.GetAll();
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
+      // Set stats
+      GUILabelControl.SetControlLabel(GetID, (int)GUIControls.videoCountLabel, string.Format(Localization.VideoCount, videoList.Count, artistList.Count));
       // Set Hierachy
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.History);
       // Get the most viewed video

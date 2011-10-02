@@ -18,7 +18,7 @@
     <control>
       <type>image</type>
       <id>0</id>
-      <posX>20</posX>
+      <posX>10</posX>
       <posY>60</posY>
       <width>700</width>
       <height>500</height>
@@ -64,16 +64,28 @@
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control> 
+      <control>
+        <description>Version</description>
+        <type>label</type>
+        <id>15</id>
+        <posX>60</posX>
+        <posY>50</posY>
+        <font>font10</font>
+        <align>left</align>
+        <label>-</label>
+        <animation effect="slide" time="100" start="300,0">visible</animation>
+        <animation effect="slide" time="0" end="300,0">hidden</animation>
+      </control>
       
-       <control>
+      <control>
         <description>Video Count</description>
         <type>label</type>
-        <id>0</id>
-        <posX>850</posX>
-        <posY>615</posY>
+        <id>16</id>
+        <posX>360</posX>
+        <posY>520</posY>
         <font>font12</font>
         <align>center</align>
-        <label>Database has #mvCentral.TotalVideos accross #mvCentral.TotalArtists</label>
+        <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>
@@ -127,24 +139,11 @@
       <control>
         <description>Favorite Vid Image</description>
         <type>image</type>
-        <posX>50</posX>
-        <posY>200</posY>
-        <width>150</width>
-        <height>120</height>
-        <id>0</id>
-        <texture>context_background.png</texture>
-        <keepaspectratio>yes</keepaspectratio>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
-        <description>Favorite Vid Image</description>
-        <type>image</type>
         <id>18</id>
-        <posX>60</posX>
+        <posX>50</posX>
         <posY>190</posY>
         <width>150</width>
-        <height>120</height>
+        <height>111</height>
         <texture>-</texture>
         <keepaspectratio>yes</keepaspectratio>
         <animation effect="slide" time="100" start="300,0">visible</animation>

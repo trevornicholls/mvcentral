@@ -65,6 +65,7 @@ namespace mvCentral.Playlist
     private String m_sFormatEpisodeTitle = String.Empty;
     private String m_sFormatEpisodeSubtitle = String.Empty;
     private String m_sFormatEpisodeMain = String.Empty;
+    private bool preventDialogOnLoad = false;
 
     DBTrackInfo prevSelectedmvTrack = null;
     
@@ -161,10 +162,7 @@ namespace mvCentral.Playlist
     public override bool Init()
     {
       currentFolder = Directory.GetCurrentDirectory();
-
       string xmlSkin = GUIGraphicsContext.Skin + @"\mvCentral.Playlist.xml";
-      logger.Info("Loading main skin window: " + xmlSkin);
-
       return Load(xmlSkin);
     }
 
@@ -474,9 +472,9 @@ namespace mvCentral.Playlist
           pItem.IsFolder = false;
           pItem.TVTag = item.Track;
           DBArtistInfo artistInfo = DBArtistInfo.Get(item.Track);
-          pItem.ThumbnailImage = artistInfo.ArtThumbFullPath;
-          pItem.IconImageBig = artistInfo.ArtThumbFullPath;
-          pItem.IconImage = artistInfo.ArtThumbFullPath;
+          pItem.ThumbnailImage = item.Track.ArtFullPath;  //artistInfo.ArtThumbFullPath;
+          pItem.IconImageBig = item.Track.ArtFullPath;    //artistInfo.ArtThumbFullPath;
+          pItem.IconImage = item.Track.ArtFullPath;       //artistInfo.ArtThumbFullPath;
           // update images
           if (item.Track.ActiveUserSettings.WatchedCount > 0)
           {
@@ -634,8 +632,6 @@ namespace mvCentral.Playlist
       if (mvTrack == null || prevSelectedmvTrack == mvTrack)
         return;
 
-      //if (item.IsPlayed) episode[DBOnlineEpisode.cWatched] = true;
-
       // Push properties to skin    
       DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
 
@@ -643,7 +639,10 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
 
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
-      GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
+      if (string.IsNullOrEmpty(mvTrack.ArtThumbFullPath.Trim()))
+        GUIPropertyManager.SetProperty("#mvCentral.VideoImage", "defaultVideoBig.png");
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
 
       if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.Description", artistInfo.bioContent);

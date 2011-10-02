@@ -25,15 +25,6 @@ namespace mvCentral.Database {
             }
         } private DBUser user;
 
-        //[DBFieldAttribute]
-        //public DBTrackInfo Movie {
-        //    get { return movie; }
-        //    set {
-        //        movie = value;
-        //        commitNeeded = true;
-        //    }
-        //} private DBTrackInfo movie;
-
         // Value between 0 and 10
         [DBFieldAttribute(FieldName = "user_rating", Default = null, AllowDynamicFiltering=false)]
         public int? UserRating {
