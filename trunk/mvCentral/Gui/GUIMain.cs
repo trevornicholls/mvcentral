@@ -36,6 +36,7 @@ namespace mvCentral.GUI
     public enum mvView
     {
       Artist,
+      Album,
       Video
     }
 
@@ -696,25 +697,25 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Videos + " | " + DBArtistInfo.Get(ArtistID));
       GUIPropertyManager.Changed = true;
       // Load the albums (Not used Currently)
-      //if (facadeLayout.SelectedListItem == null)
-      //{
-      //  if (albumID != 0)
-      //  {
-      //    LoadAlbums(albumID);
-      //    return;
-      //  }
+      if (facadeLayout.SelectedListItem == null)
+      {
+        if (albumID != 0)
+        {
+          LoadAlbums(albumID);
+          return;
+        }
 
-      //}
-      //// If we are on an artist - load the album (Not Used Currently) - *** Possible Error ***
-      //if (facadeLayout.SelectedListItem != null)
-      //  if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
-      //  {
-      //    DBAlbumInfo db1 = (DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag;
-      //    albumID = db1.ID.Value;
-      //    LoadAlbums(db1.ID.Value);
-      //    return;
+      }
+      // If we are on an artist - load the album (Not Used Currently) - *** Possible Error ***
+      if (facadeLayout.SelectedListItem != null)
+        if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
+        {
+          DBAlbumInfo db1 = (DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag;
+          albumID = db1.ID.Value;
+          LoadAlbums(db1.ID.Value);
+          return;
 
-      //  }
+        }
       // Grab the info for the currently selected artist
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
       // Load all videos for selected artist
@@ -880,23 +881,33 @@ namespace mvCentral.GUI
       else
         GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
 
+      DBAlbumInfo albumInfo = null;
+      DBTrackInfo trackInfo = null;
+
       // Grab and set the video properites
-      DBTrackInfo trackInfo = (DBTrackInfo)item.MusicTag;
-      DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
-      DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
-      // Video
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
-      logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
-      // Audio
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
-      logger.Debug(string.Format("Audio Props for {0} - (Codec: {1}) (Channels: {2})", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
-      // Misc Proprities
-      GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
+      if (item.MusicTag.GetType() == typeof(DBAlbumInfo))
+        albumInfo = (DBAlbumInfo)item.MusicTag;
+      else
+        trackInfo = (DBTrackInfo)item.MusicTag;
+
+      if (trackInfo != null)
+      {
+        DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+        DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
+        // Video
+        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
+        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
+        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
+        logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
+        // Audio
+        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
+        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
+        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+        logger.Debug(string.Format("Audio Props for {0} - (Codec: {1}) (Channels: {2})", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+        // Misc Proprities
+        GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
+      }
 
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
