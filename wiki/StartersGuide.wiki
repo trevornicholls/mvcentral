@@ -39,7 +39,7 @@ You will see various options and we will go over most of them here:
 *Track Art Minimum Size* ??? Width ??? Height <-- Set the minimum size of image to be parsed for track/song images
 
 
-Once you have the plugin configured to how to look and act, let's select the "Import" tab to begin our initial import of songs.
+Once you have the plugin configured to the way you want it to look and act, let's select the "Import" tab to begin our initial import of songs.
 
 http://www.mp-pr.com/images/wiki/2.png
 
