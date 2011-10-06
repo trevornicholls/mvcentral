@@ -15,7 +15,7 @@ http://www.mp-pr.com/images/wiki/1.png
 
 You will see various options and we will go over most of them here:
 
-*Auto Approve Settings (settings matching/approving while importing)*
+*Auto Approve Settings* (settings for matching/approving while importing)
  * Auto approve if match found on scraper <-- Check this if you wish to approve matches automatically
  * Use the scrapper found for album instead of the parsed one <-- Check this if you have local info for album/track info and do not wish to use parsed information
  * Split DVD in chapter <-- Check this if you want to have any videos stored on disc imported to be split into chapters before importing
