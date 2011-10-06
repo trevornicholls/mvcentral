@@ -1,4 +1,4 @@
-#Guide to Beginners for mvCentral
+#summary Guide to Beginners for mvCentral
 
 = Introduction =
 Welcome to the starter's guide to mvCentral! Here we will go over a few of the basics to help you get started with mvCentral.
