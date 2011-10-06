@@ -1,0 +1,82 @@
+#Guide to Beginners for mvCentral
+
+= Introduction =
+Welcome to the starter's guide to mvCentral! Here we will go over a few of the basics to help you get started with mvCentral.
+
+= Details =
+
+After installing the plugin, go to mvCentral's configuration in the plugins section of MediaPortal Configuration.
+
+{http://www.mp-pr.com/images/wiki/0.png}
+
+Once there, the first thing you should do is look over the settings tab (shown below).
+
+{http://www.mp-pr.com/images/wiki/1.png}
+
+You will see various options and we will go over most of them here:
+
+*Auto Approve Settings (settings matching/approving while importing)*
+ * Auto approve if match found on scraper <-- Check this if you wish to approve matches automatically
+ * Use the scrapper found for album instead of the parsed one <-- Check this if you have local info for album/track info and do not wish to use parsed information
+ * Split DVD in chapter <-- Check this if you want to have any videos stored on disc imported to be split into chapters before importing
+
+*Data Sources*
+ * Automatically retrieve information in the _________ language <-- Set you language here
+ * (Manually manage Music Video data sources) inaccessible
+
+*Plugin Settings*
+ * Plug-in name in home screen: <-- Chose a new name for the plugin or leave it at default
+
+*GUI Settings*
+ * Video is considered new if added in the last __ days <-- Set the amount of days a video will be labeled as "New" and will be accessible in the menu as such.
+
+*Video Thumbnails*
+ *Prefer Video Thumbnail over parsed images for video thumbnail <-- Check this to use a "still" of the actual video rather than the parsed image for thumbnails of videos
+ * Preview Appearance Rows ???  Columns ???  <-- Set the size of thumbnails
+
+*Artist Art Minimum Size* ??? Width ??? Height <-- Set the minimum size of image to be parsed for artist images
+
+*Track Art Minimum Size* ??? Width ??? Height <-- Set the minimum size of image to be parsed for track/song images
+
+
+Once you have the plugin configured to how to look and act, let's select the "Import" tab to begin our initial import of songs.
+
+{http://www.mp-pr.com/images/wiki/2.png}
+
+As you can see the import tab has different sections each accessible on the left identifiable by the icons of: Folder w/Data - Check Mark - Pencil w/Plus Sign - Sheet w/Cog in that order from top to bottom. Let’s take a look at each one for a moment:
+The first one is the Sources section (Folder w/Data icon)
+In the top part of this section is where you set the location of your music videos. Click the green icon w/plus sign in the top right and browse to where your videos are stored to set it.
+
+You can also choose to import DVDs as well.
+
+The bottom part is used as a pre parse checker to make sure you don’t have any incompatible naming issues with your files.
+
+Next, let's select the Check Mark icon to move to the next section.
+
+{http://www.mp-pr.com/images/wiki/3.png}
+
+Here we have our importer results. In this image you can see that 3 songs were imported successfully. If any matches need to be approved they will be green minus the white check mark and you can use the drop down on the right to set the correct match. At the top you have icons to add a video as blank editable video, rescan selected videos or delete selected videos as well as advanced options such as restarting the importer and unignoring files.
+
+Next let's look at the section with the pencil w/plus sign icon.
+
+{http://www.mp-pr.com/images/wiki/4.png}
+
+Here you can use string replacements to adhere to any particular naming issues that may confuse the parsing process.
+
+The next section, sheet w/cog, holds settings for parsing expressions.
+
+{http://www.mp-pr.com/images/wiki/5.png}
+
+Here u can add simple or regex expressions to conform to any special parsing you might need the engine to handle.
+
+Now that is all done let's take a look at the library you have started by clicking on the "Library" tab.
+
+{http://www.mp-pr.com/images/wiki/6.png}
+
+Here you can go over you video selection and make any changes like:
+ * Image selection for artists and tracks
+ * Edit summary, title, tags and language info
+ * Regroup video ordering
+ * And more...
+
+Okay I think you are ready to enjoy mvCentral and your music video collection. Good luck!!!!
