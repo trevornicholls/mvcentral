@@ -718,6 +718,7 @@ namespace mvCentral.GUI
         }
       // Grab the info for the currently selected artist
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
+      
       // Load all videos for selected artist
       List<DBTrackInfo> artistTrackList = DBTrackInfo.GetEntriesByArtist(currArtist);
 

@@ -680,7 +680,6 @@ namespace mvCentral.Settings {
 
         #endregion
 
-
         #region Artist Art
 
         [CornerstoneSetting(
@@ -836,7 +835,7 @@ namespace mvCentral.Settings {
             Description = "The minimum width in pixels for any given artist. If a artist from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Artist Art|Minimum Size",
             Identifier = "min_artist_width",
-            Default = 500)]
+            Default = 400)]
         public int MinimumArtistWidth
         {
             get { return _minimumArtistWidth; }
@@ -854,7 +853,7 @@ namespace mvCentral.Settings {
             Description = "The minimum height in pixels for any given artist. If a artist from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Artist Art|Minimum Size",
             Identifier = "min_artist_height",
-            Default = 500)]
+            Default = 400)]
         public int MinimumArtistHeight
         {
             get { return _minimumArtistHeight; }
@@ -908,7 +907,6 @@ namespace mvCentral.Settings {
         #endregion
 
         #endregion
-
         
         #region Album Art
 
@@ -1270,7 +1268,7 @@ namespace mvCentral.Settings {
             Description = "The minimum width in pixels for any given track. If a track from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Track Art|Minimum Size",
             Identifier = "min_track_width",
-            Default = 175)]
+            Default = 300)]
         public int MinimumTrackWidth
         {
             get { return _minimumTrackWidth; }
@@ -1288,7 +1286,7 @@ namespace mvCentral.Settings {
             Description = "The minimum height in pixels for any given track. If a track from any data provider is smaller than this value it will not be downloaded and saved.",
             Groups = "|MusicVideo Importer|Track Art|Minimum Size",
             Identifier = "min_track_height",
-            Default = 260)]
+            Default = 300)]
         public int MinimumTrackHeight
         {
             get { return _minimumTrackHeight; }
