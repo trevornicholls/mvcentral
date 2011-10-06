@@ -31,6 +31,14 @@ namespace mvCentral.DataProviders
 
     private static readonly object lockList = new object();
 
+    public string threadId
+    {
+      get
+      {
+        return Thread.CurrentThread.ManagedThreadId.ToString();
+      }
+    }
+
     // NOTE: To other developers creating other applications, using this code as a base
     //       or as a reference. PLEASE get your own API key. Do not reuse the one listed here
     //       it is intended for Music Videos use ONLY. API keys are free and easy to apply
@@ -61,7 +69,7 @@ namespace mvCentral.DataProviders
     private static string apiArtistTopAlbums = string.Format(apiMusicVideoUrl, "artist.gettopalbums&artist={0}", apikey);
     // Tracks
     private static string apiArtistTopTracks = string.Format(apiMusicVideoUrl, "artist.gettoptracks&artist={0}", apikey);
-    private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&track={0}&lang={1}", apikey);
+    private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "set&track={0}&lang={1}", apikey);
     private static string apiTrackmbidGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&mbid={0}&lang={1}", apikey);
     private static string apiArtistTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&artist={0}&track={1}&lang={2}", apikey);
     // Search
@@ -126,7 +134,7 @@ namespace mvCentral.DataProviders
 
     public bool GetDetails(DBBasicInfo mv)
     {
-      logger.Debug("In Method : GetDetails(DBBasicInfo mv)");
+      //logger.Debug("In Method : GetDetails(DBBasicInfo mv)");
 
       string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
 
@@ -170,8 +178,8 @@ namespace mvCentral.DataProviders
           else
             setMusicVideoArtist(ref mv1, string.Empty, mbid);
 
-          GetArtistArt((DBArtistInfo)mv);
-        };
+            GetArtistArt((DBArtistInfo)mv);
+        }
       }
 
 
@@ -286,7 +294,6 @@ namespace mvCentral.DataProviders
 
     public bool GetArtistArt(DBArtistInfo mv)
     {
-      logger.Info("In Method : GetArtistArt(DBArtistInfo mv)");
       if (mv == null)
         return false;
 
@@ -303,26 +310,22 @@ namespace mvCentral.DataProviders
           int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
 
           int artistartAdded = 0;
-          int count = 0;
-          logger.Info("Lock mv.ArtUrls");
-          lock (mv.ArtUrls)
+          lock (mv)
           {
-            foreach (string a2 in mv.ArtUrls)
+            try
             {
-              if (mv.AlternateArts.Count >= maxArtistArts)
-                break;
-              if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
-                artistartAdded++;
-
-              count++;
+              foreach (string a2 in mv.ArtUrls)
+              {
+                if (mv.AlternateArts.Count >= maxArtistArts)
+                  break;
+                if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+                  artistartAdded++;
+              }
             }
+            catch { }
           }
           if (artistartAdded > 0)
-          {
-            // Update source info
-            // mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = mv.MdID;
             return true;
-          }
         }
       }
 
@@ -333,7 +336,7 @@ namespace mvCentral.DataProviders
 
     public bool GetTrackArt(DBTrackInfo mv)
     {
-      logger.Info("In Method : GetTrackArt(DBTrackInfo mv)");
+      //logger.Info("In Method : GetTrackArt(DBTrackInfo mv)");
       if (mv == null)
         return false;
 
@@ -341,12 +344,11 @@ namespace mvCentral.DataProviders
       if (mv.ArtFullPath.Trim().Length > 0)
         return true;
 
+
+      // If video thumbnails prefered
       if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
       {
-        lock (this)
-        {
-          return generateVideoThumbnail(mv);
-        }
+        return generateVideoThumbnail(mv);
       }
 
 
@@ -365,19 +367,17 @@ namespace mvCentral.DataProviders
         int maxTrackArt = mvCentralCore.Settings.MaxTrackArts;
 
         int count = 0;
-        logger.Info("Lock at");
-        lock (at)
-        {
-          foreach (string a2 in at)
-          {
-            if (mv.AlternateArts.Count >= maxTrackArt)
-              break;
-            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
-              trackartAdded++;
 
-            count++;
-          }
+        foreach (string a2 in at)
+        {
+          if (mv.AlternateArts.Count >= maxTrackArt)
+            break;
+          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+            trackartAdded++;
+
+          count++;
         }
+
       }
       if (trackartAdded > 0)
       {
@@ -386,16 +386,10 @@ namespace mvCentral.DataProviders
       }
       else
       {
-        logger.Debug("No Track art found - Genterate Video Thumbnail");
-
-        lock (this)
-        {
-
-          if (generateVideoThumbnail(mv))
-            return true;
-          else
-            return false;
-        }
+        if (generateVideoThumbnail(mv))
+          return true;
+        else
+          return false;
       }
     }
     /// <summary>
@@ -405,8 +399,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     bool generateVideoThumbnail(DBTrackInfo mv)
     {
-      string outputFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
-      string outputResizedFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImageResized" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
+      string outputFilename = Path.Combine(Path.GetTempPath(), mv.Track + ".jpg");
 
       if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
       {
@@ -441,19 +434,16 @@ namespace mvCentral.DataProviders
 
         int albumartAdded = 0;
         int count = 0;
-        logger.Info("Lock at");
-        lock (at)
+        foreach (string a2 in at)
         {
-          foreach (string a2 in at)
-          {
-            if (mv.AlternateArts.Count >= maxAlbumArt)
-              break;
-            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
-              albumartAdded++;
+          if (mv.AlternateArts.Count >= maxAlbumArt)
+            break;
+          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+            albumartAdded++;
 
-            count++;
-          }
+          count++;
         }
+
         if (albumartAdded > 0)
         {
           // Update source info
@@ -486,13 +476,15 @@ namespace mvCentral.DataProviders
             mv.ArtistInfo.Add(d4);
           }
 
-          if (mvSignature.Album != null)
+          if (mvSignature.Album != null && mvSignature.Artist != null)
           {
             if (!mvCentralCore.Settings.UseMDAlbum)
             {
               DBAlbumInfo d5 = new DBAlbumInfo();
               d5.Album = mvSignature.Album;
-              setMusicVideoAlbum(ref d5, mvSignature.Album, null);
+              //setMusicVideoAlbum(ref d5, mvSignature.Album, null);
+              setMusicVideoAlbum(ref d5, mvSignature.Artist, mvSignature.Album, null);
+
               mv.AlbumInfo.Clear();
               mv.AlbumInfo.Add(d5);
             }
@@ -606,15 +598,21 @@ namespace mvCentral.DataProviders
 
     private void setMusicVideoAlbum(ref DBAlbumInfo mv, string artist, string album, string mbid)
     {
+
+      logger.Debug(string.Format("In method setMusicVideoAlbum : Atrist ({0})   |    Album ({1})    |    MBID ({2})", artist, album, mbid));
+
       if (album == null && mbid == null)
         return;
 
       XmlNodeList xml = null;
 
-      if (artist == null && mbid == null) xml = getXML(string.Format(apiAlbumGetInfo, album));
-      if (album == null && artist == null) xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
-      if (mbid == null) xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album));
-      if (mbid != null) xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
+
+      // API Call takes MbId or Artist & Album
+      if (!string.IsNullOrEmpty(mbid))
+        xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
+      else if (!string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(album))
+             xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album));
+      
 
       if (xml == null)
         return;

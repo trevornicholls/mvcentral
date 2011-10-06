@@ -24,6 +24,7 @@ using System.IO;
 using System.Threading;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Diagnostics;
 using MediaPortal.Configuration;
 using MediaPortal.ServiceImplementations;
 using MediaPortal.Profile;
@@ -35,6 +36,8 @@ using NLog;
 
 namespace mvCentral.Utils
 {
+  
+
   public class VideoThumbCreator
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -43,6 +46,14 @@ namespace mvCentral.Utils
     private static string ExtractorPath = Config.GetFile(Config.Dir.Base, "MovieThumbnailer", ExtractApp);
     private static int PreviewColumns = 2;
     private static int PreviewRows = 2;
+
+    public string threadId
+    {
+      get
+      {
+        return Thread.CurrentThread.ManagedThreadId.ToString();
+      }
+    }
 
     #region Public methods
 
@@ -91,20 +102,13 @@ namespace mvCentral.Utils
       //   -P           : dont pause before exiting; override -p
       //   -O directory : save output files in the specified directory
 
-      const double flblank = 0.6;
-      string blank = flblank.ToString("F", CultureInfo.CurrentCulture);
       // Use this for the working dir to be on the safe side
       string TempPath = Path.GetTempPath();
 
       PreviewColumns = (int)mvCentralCore.Settings["videoThumbNail_cols"].Value;
       PreviewRows = (int)mvCentralCore.Settings["videoThumbNail_rows"].Value;
 
-      int preGapSec = 5;
-      int postGapSec = 5;
-
-      bool Success = false;
-      string ExtractorArgs = string.Format(" -D 12 -B {0} -E {1} -c {2} -r {3} -b {4} -t -i -w {5} -n -O \"{6}\" -P \"{7}\"", preGapSec, postGapSec, PreviewColumns, PreviewRows, blank, 0, TempPath, aVideoPath);
-      string ExtractorFallbackArgs = string.Format(" -D 12 -B {0} -E {1} -c {2} -r {3} -b {4} -t -i -w {5} -n -O \"{6}\" -P \"{7}\"", 0, 0, PreviewColumns, PreviewRows, blank, 0, TempPath, aVideoPath);
+      string ExtractorArgs =         string.Format(" -D 0 -c {0} -r {1} -t -i -w {2} -n -O \"{3}\" -P \"{4}\"", PreviewColumns, PreviewRows, 0, TempPath, aVideoPath);
       // Honour we are using a unix app
       ExtractorArgs = ExtractorArgs.Replace('\\', '/');
       try
@@ -113,24 +117,14 @@ namespace mvCentral.Utils
         string OutputThumb = string.Format("{0}_s{1}", Path.ChangeExtension(outputFilename, null), ".jpg");
         string ShareThumb = OutputThumb.Replace("_s.jpg", ".jpg");
 
-        //Log.Debug("VideoThumbCreator: No thumb in share {0} - trying to create one with arguments: {1}", ShareThumb, ExtractorArgs);
+        Process  processStatus = MediaPortal.Util.Utils.StartProcess(ExtractorPath, ExtractorArgs, true, true);
 
-        logger.Debug(ExtractorPath + " " + ExtractorArgs);
-
-        Success = MediaPortal.Util.Utils.StartProcess(ExtractorPath, ExtractorArgs, TempPath, 15000, true, GetMtnConditions());
-        if (!Success)
-        {
-          // Maybe the pre-gap was too large or not enough sharp & light scenes could be caught
-          Thread.Sleep(100);
-          Success = MediaPortal.Util.Utils.StartProcess(ExtractorPath, ExtractorFallbackArgs, TempPath, 30000, true, GetMtnConditions());
-          if (!Success)
-            Log.Info("VideoThumbCreator: {0} has not been executed successfully with arguments: {1}", ExtractApp,
-                     ExtractorFallbackArgs);
-        }
         // give the system a few IO cycles
-        Thread.Sleep(100);
-        // make sure there's no process hanging
-        MediaPortal.Util.Utils.KillProcess(Path.ChangeExtension(ExtractApp, null));
+        Thread.Sleep(500);
+
+        if (!File.Exists(OutputThumb))
+          logger.Debug("*** ERROR *** - After MTN the file {0} from Video {1} does not exist", Path.GetFileName(OutputThumb), Path.GetFileName(aVideoPath));
+
         try
         {
           // remove the _s which mdn appends to its files
@@ -193,24 +187,5 @@ namespace mvCentral.Utils
 
     #endregion
 
-    #region Private methods
-
-    private static MediaPortal.Util.Utils.ProcessFailedConditions GetMtnConditions()
-    {
-      MediaPortal.Util.Utils.ProcessFailedConditions mtnStat = new MediaPortal.Util.Utils.ProcessFailedConditions();
-      // The input file is shorter than pre- and post-recording time
-      mtnStat.AddCriticalOutString("net duration after -B & -E is negative");
-      mtnStat.AddCriticalOutString("all rows're skipped?");
-      mtnStat.AddCriticalOutString("step is zero; movie is too short?");
-      mtnStat.AddCriticalOutString("failed: -");
-      // unsupported video format by mtn.exe - maybe there's an update?
-      mtnStat.AddCriticalOutString("couldn't find a decoder for codec_id");
-
-      mtnStat.SuccessExitCode = 0;
-
-      return mtnStat;
-    }
-
-    #endregion
   }
 }

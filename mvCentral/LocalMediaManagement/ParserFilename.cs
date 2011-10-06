@@ -211,7 +211,7 @@ namespace mvCentral.LocalMediaManagement
 
         // run Before replacements
         m_FileNameAfterReplacement = RunReplacements(replacementRegexBefore, m_Filename);
-        logger.Info(String.Format("Replacements -> Filename before {0}   Filename after : {1}",m_Filename, m_FileNameAfterReplacement));
+        //logger.Info(String.Format("Replacements -> Filename before {0}   Filename after : {1}",m_Filename, m_FileNameAfterReplacement));
 
         foreach (Regex regularExpression in regularExpressions)
         {

@@ -91,7 +91,7 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesTrackArt
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool GetArtistArt(DBArtistInfo mv)
@@ -145,10 +145,8 @@ namespace mvCentral.DataProviders
 
       if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
       {
-        lock (this)
-        {
+        logger.Debug("Call generateVideoThumbnail");
           return generateVideoThumbnail(mv);
-        }
       }
 
       List<string> at = mv.ArtUrls;
@@ -177,15 +175,10 @@ namespace mvCentral.DataProviders
       else
       {
         logger.Debug("No Track art found - Genterate Video Thumbnail");
-
-        lock (this)
-        {
-
           if (generateVideoThumbnail(mv))
             return true;
           else
             return false;
-        }
       }
     }
     /// <summary>
@@ -195,24 +188,30 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     bool generateVideoThumbnail(DBTrackInfo mv)
     {
-      string outputFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImage" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
-      string outputResizedFilename = Path.Combine(Path.GetTempPath(), "mvCentralGrabImageResized" + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
-
-      if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
+      lock (this)
       {
-        if (File.Exists(outputFilename))
+        string outputFilename = Path.Combine(Path.GetTempPath(), mv.Track + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
+
+        if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
         {
-        mv.AddArtFromFile(outputFilename);
-        File.Delete(outputFilename);
-        return true;
+          if (File.Exists(outputFilename))
+          {
+            mv.AddArtFromFile(outputFilename);
+            File.Delete(outputFilename);
+            return true;
+          }
+          else
+            return false;
         }
         else
           return false;
       }
-      else
-        return false;
-
     }
+    /// <summary>
+    /// Get the Album Art
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo mv)
     {
       if (mv == null)
@@ -659,6 +658,8 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXML(string url)
     {
+      logger.Debug("Sending the request: " + url);
+
       WebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
       grabber.Timeout = 5000;

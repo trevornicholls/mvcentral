@@ -203,54 +203,54 @@ namespace mvCentral.LocalMediaManagement
             _hasSubtitles = false;
         }
 
-        logger.Debug("MediaInfoWrapper: inspecting media : {0}", strFile);
-        logger.Debug("MediaInfoWrapper: FrameRate : {0}", _framerate);
-        logger.Debug("MediaInfoWrapper: VideoCodec : {0}", _videoCodec);
-        if (_isDIVX)
-          logger.Debug("MediaInfoWrapper: IsDIVX: {0}", _isDIVX);
-        if (_isXVID)
-          logger.Debug("MediaInfoWrapper: IsXVID: {0}", _isXVID);
-        if (_isH264)
-          logger.Debug("MediaInfoWrapper: IsH264: {0}", _isH264);
-        if (_isMP1V)
-          logger.Debug("MediaInfoWrapper: IsMP1V: {0}", _isMP1V);
-        if (_isMP2V)
-          logger.Debug("MediaInfoWrapper: IsMP2V: {0}", _isMP2V);
-        if (_isMP4V)
-          logger.Debug("MediaInfoWrapper: IsMP4V: {0}", _isMP4V);
-        if (_isWMV)
-          logger.Debug("MediaInfoWrapper: IsWMV: {0}", _isWMV);
+        //logger.Debug("MediaInfoWrapper: inspecting media : {0}", strFile);
+        //logger.Debug("MediaInfoWrapper: FrameRate : {0}", _framerate);
+        //logger.Debug("MediaInfoWrapper: VideoCodec : {0}", _videoCodec);
+        //if (_isDIVX)
+        //  logger.Debug("MediaInfoWrapper: IsDIVX: {0}", _isDIVX);
+        //if (_isXVID)
+        //  logger.Debug("MediaInfoWrapper: IsXVID: {0}", _isXVID);
+        //if (_isH264)
+        //  logger.Debug("MediaInfoWrapper: IsH264: {0}", _isH264);
+        //if (_isMP1V)
+        //  logger.Debug("MediaInfoWrapper: IsMP1V: {0}", _isMP1V);
+        //if (_isMP2V)
+        //  logger.Debug("MediaInfoWrapper: IsMP2V: {0}", _isMP2V);
+        //if (_isMP4V)
+        //  logger.Debug("MediaInfoWrapper: IsMP4V: {0}", _isMP4V);
+        //if (_isWMV)
+        //  logger.Debug("MediaInfoWrapper: IsWMV: {0}", _isWMV);
 
-        logger.Debug("MediaInfoWrapper: HasSubtitles : {0}", _hasSubtitles);
-        logger.Debug("MediaInfoWrapper: NumSubtitles : {0}", _numSubtitles);
-        logger.Debug("MediaInfoWrapper: Scan type : {0}", _scanType);
-        logger.Debug("MediaInfoWrapper: IsInterlaced: {0}", _isInterlaced);
-        logger.Debug("MediaInfoWrapper: Width : {0}", _width);
-        logger.Debug("MediaInfoWrapper: Height : {0}", _height);
-        logger.Debug("MediaInfoWrapper: Audiochannels : {0}", _audioChannels);
-        logger.Debug("MediaInfoWrapper: Audiorate : {0}", _audioRate);
-        logger.Debug("MediaInfoWrapper: AspectRatio : {0}", _aspectRatio);
-        logger.Debug("MediaInfoWrapper: AudioCodec : {0}", _audioCodec);
-        if (_isAC3)
-          logger.Debug("MediaInfoWrapper: IsAC3 : {0}", _isAC3);
-        if (_isMP3)
-          logger.Debug("MediaInfoWrapper: IsMP3 : {0}", _isMP3);
-        if (_isMP2A)
-          logger.Debug("MediaInfoWrapper: IsMP2A: {0}", _isMP2A);
-        if (_isDTS)
-          logger.Debug("MediaInfoWrapper: IsDTS : {0}", _isDTS);
-        if (_isTrueHD)
-            logger.Debug("MediaInfoWrapper: IsTrueHD : {0}", _isTrueHD);
-        if (_isDTSHD)
-            logger.Debug("MediaInfoWrapper: IsDTSHD : {0}", _isDTSHD);
-        if (_isOGG)
-          logger.Debug("MediaInfoWrapper: IsOGG : {0}", _isOGG);
-        if (_isAAC)
-          logger.Debug("MediaInfoWrapper: IsAAC : {0}", _isAAC);
-        if (_isWMA)
-          logger.Debug("MediaInfoWrapper: IsWMA: {0}", _isWMA);
-        if (_isPCM)
-          logger.Debug("MediaInfoWrapper: IsPCM: {0}", _isPCM);
+        //logger.Debug("MediaInfoWrapper: HasSubtitles : {0}", _hasSubtitles);
+        //logger.Debug("MediaInfoWrapper: NumSubtitles : {0}", _numSubtitles);
+        //logger.Debug("MediaInfoWrapper: Scan type : {0}", _scanType);
+        //logger.Debug("MediaInfoWrapper: IsInterlaced: {0}", _isInterlaced);
+        //logger.Debug("MediaInfoWrapper: Width : {0}", _width);
+        //logger.Debug("MediaInfoWrapper: Height : {0}", _height);
+        //logger.Debug("MediaInfoWrapper: Audiochannels : {0}", _audioChannels);
+        //logger.Debug("MediaInfoWrapper: Audiorate : {0}", _audioRate);
+        //logger.Debug("MediaInfoWrapper: AspectRatio : {0}", _aspectRatio);
+        //logger.Debug("MediaInfoWrapper: AudioCodec : {0}", _audioCodec);
+        //if (_isAC3)
+        //  logger.Debug("MediaInfoWrapper: IsAC3 : {0}", _isAC3);
+        //if (_isMP3)
+        //  logger.Debug("MediaInfoWrapper: IsMP3 : {0}", _isMP3);
+        //if (_isMP2A)
+        //  logger.Debug("MediaInfoWrapper: IsMP2A: {0}", _isMP2A);
+        //if (_isDTS)
+        //  logger.Debug("MediaInfoWrapper: IsDTS : {0}", _isDTS);
+        //if (_isTrueHD)
+        //    logger.Debug("MediaInfoWrapper: IsTrueHD : {0}", _isTrueHD);
+        //if (_isDTSHD)
+        //    logger.Debug("MediaInfoWrapper: IsDTSHD : {0}", _isDTSHD);
+        //if (_isOGG)
+        //  logger.Debug("MediaInfoWrapper: IsOGG : {0}", _isOGG);
+        //if (_isAAC)
+        //  logger.Debug("MediaInfoWrapper: IsAAC : {0}", _isAAC);
+        //if (_isWMA)
+        //  logger.Debug("MediaInfoWrapper: IsWMA: {0}", _isWMA);
+        //if (_isPCM)
+        //  logger.Debug("MediaInfoWrapper: IsPCM: {0}", _isPCM);
       }
       catch (Exception ex)
       {

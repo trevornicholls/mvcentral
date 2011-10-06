@@ -543,7 +543,7 @@ namespace mvCentral.DataProviders
 
         // add results to our total result list and log what we found
         results.AddRange(newResults);
-        logger.Debug("SEARCH: Title='{0}', Provider='{1}', Version={2}, Number of Results={3}", mvSignature.Title, currSource.Provider.Name, currSource.Provider.Version, newResults.Count);
+        //logger.Debug("SEARCH: Title='{0}', Provider='{1}', Version={2}, Number of Results={3}", mvSignature.Title, currSource.Provider.Name, currSource.Provider.Version, newResults.Count);
       }
 
       return results;
@@ -562,7 +562,7 @@ namespace mvCentral.DataProviders
       if (mv.PrimarySource != null && mv.PrimarySource.Provider != null)
       {
         UpdateResults success = mv.PrimarySource.Provider.Update(mv);
-        logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, mv.PrimarySource.Provider.Name, mv.PrimarySource.Provider.Version, success.ToString());
+        //logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, mv.PrimarySource.Provider.Name, mv.PrimarySource.Provider.Version, success.ToString());
         providerCount++;
       }
 
@@ -579,7 +579,7 @@ namespace mvCentral.DataProviders
         if (providerCount <= mvCentralCore.Settings.DataProviderRequestLimit || mvCentralCore.Settings.DataProviderRequestLimit == 0)
         {
           UpdateResults success = currSource.Provider.Update(mv);
-          logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, currSource.Provider.Name, currSource.Provider.Version, success.ToString());
+          //logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, currSource.Provider.Name, currSource.Provider.Version, success.ToString());
         }
         else
         {

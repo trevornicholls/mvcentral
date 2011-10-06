@@ -90,12 +90,13 @@ namespace mvCentral.Database {
         /// </summary>
         /// <param name="mbid"></param>
         /// <returns></returns>
-        public static List<DBArtistInfo> GetEntriesByArtist(string artistmbid)
+        public static List<DBArtistInfo> GetEntriesByArtistMbID(string artistmbid)
         {
             DBField artistmbidField = DBField.GetField(typeof(DBArtistInfo), "MdID");
             ICriteria criteria = new BaseCriteria(artistmbidField, "=", artistmbid);
             return mvCentralCore.DatabaseManager.Get<DBArtistInfo>(criteria);
         }
+
 
         /// <summary>
         /// Returns a list of DBTrackInfo objects that match the Album

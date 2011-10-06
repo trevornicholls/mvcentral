@@ -49,7 +49,7 @@
           this.autoRadioButton.Size = new System.Drawing.Size(211, 17);
           this.autoRadioButton.TabIndex = 4;
           this.autoRadioButton.TabStop = true;
-          this.autoRadioButton.Text = "Automatically retrieve Biography in the";
+          this.autoRadioButton.Text = "Automatically retrieve biography in the";
           this.autoRadioButton.UseVisualStyleBackColor = true;
           this.autoRadioButton.CheckedChanged += new System.EventHandler(this.autoRadioButton_CheckedChanged);
           // 
