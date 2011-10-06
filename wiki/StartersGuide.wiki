@@ -31,7 +31,7 @@ You will see various options and we will go over most of them here:
  * Video is considered new if added in the last __ days <-- Set the amount of days a video will be labeled as "New" and will be accessible in the menu as such.
 
 *Video Thumbnails*
- *Prefer Video Thumbnail over parsed images for video thumbnail <-- Check this to use a "still" of the actual video rather than the parsed image for thumbnails of videos
+ * Prefer Video Thumbnail over parsed images for video thumbnail <-- Check this to use a "still" of the actual video rather than the parsed image for thumbnails of videos
  * Preview Appearance Rows ???  Columns ???  <-- Set the size of thumbnails
 
 *Artist Art Minimum Size* ??? Width ??? Height <-- Set the minimum size of image to be parsed for artist images
