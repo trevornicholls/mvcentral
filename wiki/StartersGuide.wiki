@@ -7,7 +7,7 @@ Welcome to the starter's guide to mvCentral! Here we will go over a few of the b
 
 After installing the plugin, go to mvCentral's configuration in the plugins section of MediaPortal Configuration.
 
-{http://www.mp-pr.com/images/wiki/0.png}
+http://www.mp-pr.com/images/wiki/0.png
 
 Once there, the first thing you should do is look over the settings tab (shown below).
 
