@@ -400,7 +400,7 @@ namespace mvCentral.SignatureBuilders
         if (!parser.Matches.ContainsKey(MusicVideoImporter.cAlbum))
         {
           CurrentParseResult.failedAlbum = true;
-          CurrentParseResult.success = false;
+          CurrentParseResult.success = true;
           CurrentParseResult.exception = "Album is not valid";
         }
 

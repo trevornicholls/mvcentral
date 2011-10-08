@@ -244,6 +244,8 @@ namespace mvCentral.Localizations
     public static string AboutText = "mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.";
     public static string Artist = "Artist";
     public static string Artists = "Artists";
+    public static string Album = "Album";
+    public static string Albums = "Albums";
     public static string AddToPlaylist = "Add To Playlist";
     public static string AddAllToPlaylist = "Add All To Playlist";
     public static string AddToPlaylistNext = "Add To Playlist as Next Item";
@@ -319,6 +321,7 @@ namespace mvCentral.Localizations
     public static string SmartPlaylistOptions = "Smart Playlists";
     public static string StatsAndInfo = "Stats and Info";
     public static string SmartPlaylistTag = "Select Tag for Playlist";
+    public static string Tracks = "Tracks";
 
     // T
     public static string TotalRuntime = "Total Runtime";
