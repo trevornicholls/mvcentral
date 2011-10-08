@@ -535,7 +535,6 @@ namespace mvCentral.Playlist
 
         //set object count label
         int iTotalItems = itemlist.Count;
-        //                GUIPropertyManager.SetProperty("#itemcount", Translation.Episodes + ": " + iTotalItems.ToString());
         GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Playlist");
         GUIPropertyManager.SetProperty("#mvCentral.Playlist.Count", iTotalItems.ToString());
         GUIPropertyManager.SetProperty("#mvCentral.Playlist.Runtime", playListRunningTime(itemlist));
