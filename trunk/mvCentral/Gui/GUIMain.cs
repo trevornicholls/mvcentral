@@ -504,9 +504,9 @@ namespace mvCentral.GUI
               if (facadeLayout.SelectedListItem.IsFolder && ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE)))
               {
                 // Are we on an Artist or Album, if Artist add all tracks by artist to playlist else if album add all tracks on album to playlist
-                if ((facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo)))
+                if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
                   AlbumActions(actionType);
-                else if ((facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBArtistInfo)))
+                else if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBArtistInfo))
                   ArtistActions(actionType);
               }
               else
@@ -720,6 +720,7 @@ namespace mvCentral.GUI
         facadeItem.AlbumInfoTag = artistData.bioContent;
         facadeItem.ItemId = (int)artistData.ID;
         facadeItem.IsFolder = true;
+        facadeItem.MusicTag = artistData;
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
         facadeLayout.Add(facadeItem);
 
