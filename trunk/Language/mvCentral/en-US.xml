@@ -15,8 +15,8 @@
         <string Field="AboutText">mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.</string>
         <string Field="Artist">Artist</string>
         <string Field="Artists">Artists</string>
-        <string Field="Artist">Album</string>
-        <string Field="Artists">Albums</string>
+        <string Field="Album">Album</string>
+        <string Field="Albums">Albums</string>
         <string Field="AddToPlaylist">Add To Playlist</string>
         <string Field="AddAllToPlaylist">Add All To Playlist</string>
         <string Field="AddToPlaylistNext">Add To Playlist as Next Item</string>
@@ -97,15 +97,16 @@
         <string Field="StatsAndInfo">Stats and Info</string>
 
         // T
-        <string Field="Total Runtime">Total Runtime</string>
+        <string Field="TotalRuntime">Total Runtime</string>
         <string Field="TopTenVideos">Top Ten Videos</string>
-
+        <string Field="Tracks">Tracks</string>
 
         // U
 
         // V
         <string Field="VirtualDriveHeader">Virtual drive not ready</string>
         <string Field="VirtualDriveMessage">The virtual drive wasn't ready in time.\nPlease try again or cancel playback.</string>
+        <string Field="Video">Video</string>
         <string Field="Videos">Videos</string>
         <string Field="VideoCount">Database has {0} Videos accross {1} Artists</string>
 
