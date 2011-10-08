@@ -41,7 +41,7 @@ namespace mvCentral.GUI
       else
       {
         currentView = mvView.Artist;
-        artistID = facadeLayout.ListLayout.SelectedListItem.ItemId;
+        artistID = facadeLayout.SelectedListItem.ItemId;
         loadCurrent();
       }
     }

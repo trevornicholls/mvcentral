@@ -466,7 +466,7 @@ namespace mvCentral.DataProviders
         return results;
       lock (lockList)
       {
-        DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
+        DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track.Replace(mvSignature.Artist,string.Empty).Trim());
         if (mv != null)
         {
           if (mv.ArtistInfo.Count == 0)
