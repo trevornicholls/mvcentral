@@ -1147,6 +1147,8 @@ namespace mvCentral.GUI
       }
       else
       {
+        // Clear the audio/video props
+        clearVideoAudioProps();
         // This is a Album
         albumInfo = (DBAlbumInfo)item.MusicTag;
         GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Album + " | " + DBAlbumInfo.Get(albumInfo.Album));
