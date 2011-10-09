@@ -116,7 +116,7 @@ namespace mvCentral.Database
           // Parse fill path in format  \<atist>\<album>\<track>.<ext>
           add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
           // Parse Filename in format <artist> - <track>.<ext>
-          add(true, DBExpression.cType_Regexp, @"^(?:.*\\)?(?:(?:[~([{]+.+?[}\])~]+\s*)?(?<artist>.*?)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?<track>(?:[.\s]Live[.\s])?.*?)[.\s]*(?:\d+[ip][.\s].+?)?(?:@.+?)?(?:\sHD.+)?(?:[~([{]+.+?[}\])~]+\s*)?)\.(?<ext>.{3,5})$");
+          add(true, DBExpression.cType_Regexp, @"^(?:.*\\)?(?:(?:[~([{]+.+?[}\])~]+\s*)?(?<artist>.*?)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?<track>(?:[.\s]Live[.\s])?.*?)[.\s]*(?:\d+[ip][.\s].+?)?(?:@.+?)?(?:\sHD.+)?(?:[~([{]+.+?[}\])~]+\s*)?)\.(?<ext>.{2,5})$");
           //add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\$]*)\s*-\s*(?<track>[^\\$]*)\.(?<ext>[^.]*)"); 
           add(true, DBExpression.cType_Simple, @"\<artist> - <track>.<ext>");
           add(true, DBExpression.cType_Simple, @"\<artist>\<track>.<ext>");
