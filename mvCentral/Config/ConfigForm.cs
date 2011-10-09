@@ -142,6 +142,7 @@ namespace mvCentral
       tbVideoPreviewCols.Setting = mvCentralCore.Settings["videoThumbNail_cols"];
       tbVideoPreviewRows.Setting = mvCentralCore.Settings["videoThumbNail_rows"];
       cbPreferThumbnail.Setting = mvCentralCore.Settings["prefer_thumbnail"];
+      cbAlbumFromTrackData.Setting = mvCentralCore.Settings["album_from_trackdata"];
 
 
       // Set up display tables
@@ -149,6 +150,7 @@ namespace mvCentral
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
+
     }
 
     #endregion
@@ -1384,7 +1386,7 @@ namespace mvCentral
         // Add drag node to drop node
         dropNode.Nodes.Add(this.dragNode);
         dropNode.ExpandAll();
-        UpdateDB(this.dragNode);
+        UpdateDB(this.dragNode,dropNode);
         // Set drag node to null
         this.dragNode = null;
 
@@ -1501,44 +1503,47 @@ namespace mvCentral
       }
     }
 
-    private void UpdateDB(TreeNode t)
+    private void UpdateDB(TreeNode sourceDataNode, TreeNode destination)
     {
-      if (t.Tag.GetType() == typeof(DBTrackInfo))
+      if (sourceDataNode.Tag.GetType() == typeof(DBTrackInfo))
       {
-        DBTrackInfo d1 = (DBTrackInfo)t.Tag;
-        DBArtistInfo a1 = null;
-        DBAlbumInfo a2 = null;
-        if (t.Parent.Parent != null)
-          if ((DBArtistInfo)t.Parent.Parent.Tag != null)
+        DBArtistInfo artistObject = null;
+        DBAlbumInfo albumObject = null;
+
+        DBTrackInfo sourceTrack = (DBTrackInfo)sourceDataNode.Tag;
+      
+
+        // As this is a track the parent is either the artist or album, so pull the relevent object from the tag
+        if (sourceDataNode.Parent.Parent != null)
+          if ((DBArtistInfo)sourceDataNode.Parent.Parent.Tag != null)
           {
-            a1 = (DBArtistInfo)t.Parent.Parent.Tag;
+            artistObject = (DBArtistInfo)sourceDataNode.Parent.Parent.Tag;
           }
           else
           {
-            a2 = (DBAlbumInfo)t.Parent.Tag;
-
+            albumObject = (DBAlbumInfo)sourceDataNode.Parent.Tag;
           }
 
-        if (a1 == null)
+        if (albumObject == null && sourceDataNode.Parent.Tag.GetType() == typeof(DBAlbumInfo))
         {
-          a1 = (DBArtistInfo)t.Parent.Tag;
+          albumObject = (DBAlbumInfo)sourceDataNode.Parent.Tag;
         }
 
 
-        d1.ArtistInfo.Clear();
-        d1.AlbumInfo.Clear();
-        d1.ArtistInfo.Add(a1);
-        if (a2 != null) d1.AlbumInfo.Add(a2);
-        d1.Commit();
+        sourceTrack.ArtistInfo.Clear();
+        sourceTrack.AlbumInfo.Clear();
+        sourceTrack.ArtistInfo.Add(artistObject);
+        if (albumObject != null) sourceTrack.AlbumInfo.Add(albumObject);
+        sourceTrack.Commit();
       }
 
 
 
-      if (t.Tag.GetType() == typeof(DBAlbumInfo))
+      if (sourceDataNode.Tag.GetType() == typeof(DBAlbumInfo))
       {
-        DBAlbumInfo a3 = (DBAlbumInfo)t.Tag;
-        DBArtistInfo a1 = (DBArtistInfo)t.Parent.Tag;
-        foreach (TreeNode t1 in t.Nodes)
+        DBAlbumInfo a3 = (DBAlbumInfo)sourceDataNode.Tag;
+        DBArtistInfo a1 = (DBArtistInfo)sourceDataNode.Parent.Tag;
+        foreach (TreeNode t1 in sourceDataNode.Nodes)
         {
           ((DBTrackInfo)t1.Tag).ArtistInfo.Clear();
           ((DBTrackInfo)t1.Tag).ArtistInfo.Add(a1);

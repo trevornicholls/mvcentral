@@ -112,7 +112,6 @@ namespace mvCentral.Settings {
 
         #endregion
 
-
         #region Playlist
 
         [CornerstoneSetting(
@@ -170,7 +169,6 @@ namespace mvCentral.Settings {
         private bool _playlistautoshuffle;
 
         #endregion
-
 
         #region Matching and Importing
 
@@ -521,7 +519,7 @@ namespace mvCentral.Settings {
             Description = "Use the scrapper found album instead of the parsed one. ",
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "use_md_album",
-            Default = false,
+            Default = true,
             Hidden = true)]
         public bool UseMDAlbum
         {
@@ -533,6 +531,25 @@ namespace mvCentral.Settings {
             }
         }
         private bool _usemdalbum;
+
+        [CornerstoneSetting(
+            Name = "Enable album scraping from track data",
+            Description = "Enable the scraping of the Album from the track data, this can get it very wrong ",
+            Groups = "|MusicVideo Importer|Preprocessing|",
+            Identifier = "album_from_trackdata",
+            Default = true,
+            Hidden = true)]
+        public bool SetAlbumFromTrackData
+        {
+          get { return _setalbumfromtrackdata; }
+          set
+          {
+            _setalbumfromtrackdata = value;
+            OnSettingChanged("album_from_trackdata");
+          }
+        }
+        private bool _setalbumfromtrackdata;
+
 
         [CornerstoneSetting(
             Name = "Autoapprove musicvideos",

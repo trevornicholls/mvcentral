@@ -467,6 +467,7 @@ namespace mvCentral.DataProviders
       lock (lockList)
       {
         DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track.Replace(mvSignature.Artist,string.Empty).Trim());
+
         if (mv != null)
         {
           if (mv.ArtistInfo.Count == 0)
@@ -482,19 +483,27 @@ namespace mvCentral.DataProviders
             {
               DBAlbumInfo d5 = new DBAlbumInfo();
               d5.Album = mvSignature.Album;
-              //setMusicVideoAlbum(ref d5, mvSignature.Album, null);
               setMusicVideoAlbum(ref d5, mvSignature.Artist, mvSignature.Album, null);
-
               mv.AlbumInfo.Clear();
               mv.AlbumInfo.Add(d5);
             }
           }
-          else mv.AlbumInfo.Clear();
+          else if (mv.AlbumInfo.Count > 0 && mvCentralCore.Settings.SetAlbumFromTrackData)
+          {
+            logger.Debug("There are {0} Albums forun for Artist: {1} / {2}", mv.AlbumInfo.Count.ToString(), mvSignature.Artist, mvSignature.Title);
+            DBAlbumInfo d5 = new DBAlbumInfo();
+            d5.Album = mv.AlbumInfo[0].Album;
+            setMusicVideoAlbum(ref d5, mvSignature.Artist, mv.AlbumInfo[0].Album, null);
+            mv.AlbumInfo.Clear();
+            mv.AlbumInfo.Add(d5);
+
+          }
+          else
+            mv.AlbumInfo.Clear();
 
           results.Add(mv);
         }
       }
-
       return results;
     }
 
