@@ -421,10 +421,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>131</Revision>
+      <Revision>133</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription />
+    <VersionDescription>Quantum leap in artwork quality</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
     <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>
