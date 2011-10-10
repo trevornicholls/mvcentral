@@ -797,8 +797,8 @@ namespace mvCentral.GUI
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         facadeItem.MusicTag = trackData;
         // If no thumbnail set a default
-        if (!string.IsNullOrEmpty(trackData.ArtThumbFullPath.Trim()))
-          facadeItem.ThumbnailImage = trackData.ArtThumbFullPath;
+        if (!string.IsNullOrEmpty(trackData.ArtFullPath.Trim()))
+          facadeItem.ThumbnailImage = trackData.ArtFullPath;
         else
           facadeItem.ThumbnailImage = "defaultVideoBig.png";
 
@@ -921,10 +921,10 @@ namespace mvCentral.GUI
           GUIListItem item = new GUIListItem();
           item.Label = trackData.AlbumInfo[0].Album;
 
-          if (string.IsNullOrEmpty(trackData.AlbumInfo[0].ArtThumbFullPath.Trim()))
+          if (string.IsNullOrEmpty(trackData.AlbumInfo[0].ArtFullPath.Trim()))
             item.ThumbnailImage = "defaultVideoBig.png";
           else
-            item.ThumbnailImage = trackData.AlbumInfo[0].ArtThumbFullPath;
+            item.ThumbnailImage = trackData.AlbumInfo[0].ArtFullPath;
 
           item.TVTag = trackData.AlbumInfo[0].bioContent;
           selArtist = currArtist.Artist;
@@ -950,8 +950,8 @@ namespace mvCentral.GUI
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         facadeItem.MusicTag = trackData;
         // If no thumbnail set a default
-        if (!string.IsNullOrEmpty(trackData.ArtThumbFullPath.Trim()))
-          facadeItem.ThumbnailImage = trackData.ArtThumbFullPath;
+        if (!string.IsNullOrEmpty(trackData.ArtFullPath.Trim()))
+          facadeItem.ThumbnailImage = trackData.ArtFullPath;
         else
           facadeItem.ThumbnailImage = "defaultVideoBig.png";
 
@@ -993,10 +993,10 @@ namespace mvCentral.GUI
         GUIListItem item = new GUIListItem();
         item.Label = theAlbum.Album;
 
-        if (string.IsNullOrEmpty(theAlbum.ArtThumbFullPath))
+        if (string.IsNullOrEmpty(theAlbum.ArtFullPath))
           item.ThumbnailImage = "defaultAlbum.png";
         else
-          item.ThumbnailImage = theAlbum.ArtThumbFullPath;
+          item.ThumbnailImage = theAlbum.ArtFullPath;
 
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         item.TVTag = theAlbum.bioContent;
@@ -1039,10 +1039,10 @@ namespace mvCentral.GUI
       {
         GUIListItem item = new GUIListItem();
         item.Label = db1.Track;
-        if (string.IsNullOrEmpty(db1.ArtThumbFullPath.Trim()))
+        if (string.IsNullOrEmpty(db1.ArtFullPath.Trim()))
           item.ThumbnailImage = "defaultAlbum.png";
         else
-          item.ThumbnailImage = db1.ArtThumbFullPath;
+          item.ThumbnailImage = db1.ArtFullPath;
 
         item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
         selAlbum = currAlbum.Album;
