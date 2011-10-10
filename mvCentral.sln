@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvCentral", "mvCentral\mvCentral.csproj", "{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77C78161-3206-45FD-A419-60218F3354C0} = {77C78161-3206-45FD-A419-60218F3354C0}
+		{14201B8D-31C3-4FB5-9356-9485676C147B} = {14201B8D-31C3-4FB5-9356-9485676C147B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cornerstone", "..\moving-pictures\Cornerstone\Cornerstone.csproj", "{14201B8D-31C3-4FB5-9356-9485676C147B}"
 EndProject

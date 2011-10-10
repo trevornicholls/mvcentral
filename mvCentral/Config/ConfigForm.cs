@@ -135,15 +135,21 @@ namespace mvCentral
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
+      // Artwork Settings
       tbMinArtWidth.Setting = mvCentralCore.Settings["min_artist_width"];
       tbMinArtHeight.Setting = mvCentralCore.Settings["min_artist_height"];
+      tbMinAlbumWidth.Setting = mvCentralCore.Settings["min_album_width"];
+      tbMinAlbumMinHeight.Setting = mvCentralCore.Settings["min_album_height"];
       tbTrackArtWidth.Setting = mvCentralCore.Settings["min_track_width"];
       tbTrackArtHeight.Setting = mvCentralCore.Settings["min_track_height"];
+      tbMaxArtistArtwork.Setting = mvCentralCore.Settings["max_artist_arts"];
+      tbMaxAlbumArtwork.Setting = mvCentralCore.Settings["max_album_arts"];
+      tbMaxVideoArtwork.Setting = mvCentralCore.Settings["max_track_arts"];
+      // Auto Thumbnail Settings
       tbVideoPreviewCols.Setting = mvCentralCore.Settings["videoThumbNail_cols"];
       tbVideoPreviewRows.Setting = mvCentralCore.Settings["videoThumbNail_rows"];
       cbPreferThumbnail.Setting = mvCentralCore.Settings["prefer_thumbnail"];
       cbAlbumFromTrackData.Setting = mvCentralCore.Settings["album_from_trackdata"];
-
 
       // Set up display tables
       artistDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBArtistInfo);
@@ -1694,6 +1700,14 @@ namespace mvCentral
     #endregion
 
     #region About
+
+    private void advancedSettingsButton_Click(object sender, EventArgs e)
+    {
+      AdvancedSettingsPopup popup = new AdvancedSettingsPopup();
+      popup.Owner = ParentForm;
+      popup.ShowDialog();
+    }
+
     private void LabelFFMpeg_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
       Process.Start(@"http://www.ffmpeg.org/");

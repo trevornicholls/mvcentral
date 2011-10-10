@@ -104,6 +104,12 @@
     <Compile Include="BackgroundProcesses\FileSyncProcess.cs" />
     <Compile Include="BackgroundProcesses\MediaInfoUpdateProcess.cs" />
     <Compile Include="BackgroundProcesses\UpdateArtworkProcess.cs" />
+    <Compile Include="Config\AdvancedSettingsWarningPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Config\AdvancedSettingsWarningPane.designer.cs">
+      <DependentUpon>AdvancedSettingsWarningPane.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config\AutoDataSourcesPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,6 +128,12 @@
     </Compile>
     <Compile Include="Config\Popups\AddImportPathPopup.designer.cs">
       <DependentUpon>AddImportPathPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\AdvancedSettingsPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\AdvancedSettingsPopup.designer.cs">
+      <DependentUpon>AdvancedSettingsPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="Config\Popups\ArtPopup.cs">
       <SubType>Form</SubType>
@@ -266,6 +278,9 @@
     <Compile Include="Utils\VideoThumbCreator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Config\AdvancedSettingsWarningPane.resx">
+      <DependentUpon>AdvancedSettingsWarningPane.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Config\AutoDataSourcesPanel.resx">
       <DependentUpon>AutoDataSourcesPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -278,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\AddImportPathPopup.resx">
       <DependentUpon>AddImportPathPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\AdvancedSettingsPopup.resx">
+      <DependentUpon>AdvancedSettingsPopup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\ArtPopup.resx">
       <DependentUpon>ArtPopup.cs</DependentUpon>
@@ -421,6 +439,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\mvCentralLogo.jpg" />
+    <None Include="Resources\wrench.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
