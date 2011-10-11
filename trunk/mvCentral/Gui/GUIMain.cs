@@ -75,7 +75,8 @@ namespace mvCentral.GUI
     private bool persisting = false;
     private bool layoutChanging = false;
     private string selArtist = "";
-    private int currentArtistID = -1;
+    public static int currentArtistID = -1;
+    public static DBArtistInfo currentArtistInfo = null;
     private string selAlbum = "";
     private mvView currentView = mvView.Artist;
     private mvView previousView = mvView.None;
@@ -347,9 +348,9 @@ namespace mvCentral.GUI
       }
       dlg.Reset();
       dlg.SetHeading(499); // Views menu
-      dlg.Add(Localization.Artists);
-      dlg.Add(Localization.Albums);
-      dlg.Add(Localization.Tracks);
+      dlg.Add(Localization.ViewAs + " " + Localization.Artists);
+      dlg.Add(Localization.ViewAs + " " + Localization.Albums);
+      dlg.Add(Localization.ViewAs + " " + Localization.Tracks);
 
       // show dialog and wait for result
       dlg.DoModal(GetID);
@@ -823,6 +824,7 @@ namespace mvCentral.GUI
       if (facadeLayout.Count > 0)
       {
         facadeLayout.SelectedListItemIndex = 0;
+        logger.Debug("(loadAllVideos) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
     }
@@ -884,6 +886,8 @@ namespace mvCentral.GUI
       currentView = mvView.Video;
       // Grab the info for the currently selected artist
       DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
+
+
       //  and store it
       currentArtistID = ArtistID;
       // Load all videos for selected artist
@@ -961,6 +965,7 @@ namespace mvCentral.GUI
       if (facadeLayout.Count > 0 && !persisting)
       {
         facadeLayout.SelectedListItemIndex = 0;
+        logger.Debug("(loadVideos) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
       persisting = true;
@@ -1016,6 +1021,7 @@ namespace mvCentral.GUI
       if (facadeLayout.Count > 0 && !persisting)
       {
         facadeLayout.SelectedListItemIndex = 0;
+        logger.Debug("(loadAllAlbums) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
       persisting = true;
@@ -1052,14 +1058,13 @@ namespace mvCentral.GUI
         item.MusicTag = db1;
         facadeLayout.Add(item);
       }
-
-      if (facadeLayout.Count > 0 && !persisting)
+      // Always set index for first track
+      if (facadeLayout.Count > 0 )
       {
         facadeLayout.SelectedListItemIndex = 0;
+        logger.Debug("(LoadTracksOnAlbum) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
-      persisting = true;
-
       GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
       // Set the view
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");

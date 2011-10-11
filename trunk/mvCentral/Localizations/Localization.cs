@@ -249,6 +249,9 @@ namespace mvCentral.Localizations
     public static string AddToPlaylist = "Add To Playlist";
     public static string AddAllToPlaylist = "Add All To Playlist";
     public static string AddToPlaylistNext = "Add To Playlist as Next Item";
+    public static string ArtVidView = "Artist/Videos";
+    public static string ArtAlbView = "Artist/Albums";
+
     // B
     public static string Back = "Back";
     public static string ButtonAutoPlay = "Auto Play";
@@ -335,6 +338,8 @@ namespace mvCentral.Localizations
     public static string Video = "Video";
     public static string Videos = "Videos";
     public static string VideoCount = "Database has {0} Videos accross {1} Artists";
+    public static string ViewAs = "View as ";
+
 
     // W
     #endregion
