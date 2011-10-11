@@ -373,6 +373,7 @@ namespace mvCentral.Playlist
             // Play the file
             mvPlayer.Play(message.Label);
             // If already playing a file then stop
+
             if (!mvPlayer.Playing)
             {
               playTimer.Stop();
@@ -670,8 +671,9 @@ namespace mvCentral.Playlist
         listenToExternalPlayerEvents = true;
 
         // Play File
-        logger.Debug(string.Format("Start playing {0}",filename));
-
+        mvGUIMain.currentArtistID = (int)CurrentTrack.ArtistInfo[0].ID;
+        logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", CurrentTrack.ArtistInfo[0].Artist, mvGUIMain.currentArtistID, filename));
+        
         playResult = mvPlayer.Play(filename);
 
         // Stop Listening to any External Player Events
