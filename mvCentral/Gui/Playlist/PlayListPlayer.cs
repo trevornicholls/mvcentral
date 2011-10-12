@@ -672,7 +672,8 @@ namespace mvCentral.Playlist
 
         // Play File
         mvGUIMain.currentArtistID = (int)CurrentTrack.ArtistInfo[0].ID;
-        logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", CurrentTrack.ArtistInfo[0].Artist, mvGUIMain.currentArtistID, filename));
+        mvGUIMain.currentArtistInfo = CurrentTrack.ArtistInfo[0];
+        logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", mvGUIMain.currentArtistInfo.Artist, mvGUIMain.currentArtistID, filename));
         
         playResult = mvPlayer.Play(filename);
 

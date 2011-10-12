@@ -31,6 +31,7 @@ namespace mvCentral.GUI
         {
           currentView = mvView.Artist;
           artistID = facadeLayout.SelectedListItem.ItemId;
+          logger.Debug("Calling loadCurrent from AlbumActions");
           loadCurrent();
         }
       }
