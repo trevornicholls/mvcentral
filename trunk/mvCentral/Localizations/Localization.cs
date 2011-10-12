@@ -246,7 +246,7 @@ namespace mvCentral.Localizations
     public static string Artists = "Artists";
     public static string Album = "Album";
     public static string Albums = "Albums";
-    public static string AllVideos = "All Vidoes";
+    public static string AllVideos = "All Videos";
     public static string AddToPlaylist = "Add To Playlist";
     public static string AddAllToPlaylist = "Add All To Playlist";
     public static string AddToPlaylistNext = "Add To Playlist as Next Item";
