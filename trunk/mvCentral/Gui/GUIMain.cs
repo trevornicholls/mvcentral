@@ -167,6 +167,7 @@ namespace mvCentral.GUI
       // If on Track screen go back to artists screen
       if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU)
       {
+        logger.Debug("Calling loadCurrent from OnAction");
         artistID = currentArtistID;
         switch (currentView)
         {
@@ -327,6 +328,7 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void LoadSettings()
     {
+      logger.Debug("LoadSettings");
       base.LoadSettings();
     }
     /// <summary>
@@ -459,6 +461,7 @@ namespace mvCentral.GUI
     {
       base.SwitchLayout();
       layoutChanging = true;
+      logger.Debug("Calling loadCurrent from SwitchLayout");
       loadCurrent();
       layoutChanging = false;
     }
@@ -536,6 +539,7 @@ namespace mvCentral.GUI
                 if (facadeLayout.SelectedListItem.Label == "..")
                 {
                   currentView = mvView.Artist;
+                  logger.Debug("Calling loadCurrent from OnClicked(1)");
                   loadCurrent();
                 }
                 else
@@ -543,6 +547,8 @@ namespace mvCentral.GUI
                   artistID = facadeLayout.SelectedListItem.ItemId;
                   previousView = currentView;
                   currentView = mvView.Video;
+                  logger.Debug("Calling loadCurrent from OnClicked(2)");
+
                   loadCurrent();
                 }
               }
@@ -568,19 +574,11 @@ namespace mvCentral.GUI
         CurrentLayout = Layout.List;
         mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
       }
-
-      CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultView);
-
-      SwitchLayout();
-      UpdateButtonStates();
-      if (persisting)
-      {
-        loadCurrent();
-      }
       else
-      {
-        loadArtists(artistSort);
-      }
+        CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultView);
+
+        SwitchLayout();
+        UpdateButtonStates();
 
       GUIPropertyManager.Changed = true;
 
@@ -660,6 +658,12 @@ namespace mvCentral.GUI
     /// </summary>
     private void loadCurrent()
     {
+      string thisArtist = "NULL";
+      if (currentArtistInfo != null)
+         thisArtist = currentArtistInfo.Artist;
+
+
+      logger.Debug("In loadCurrent, View: {0},  Current Artist:{1}, and ID: {2}", currentView.ToString(), thisArtist, currentArtistID.ToString());
       persisting = true;     
       switch (currentView)
       {
@@ -772,7 +776,7 @@ namespace mvCentral.GUI
     /// <param name="sortOrder"></param>
     private void loadAllVideos(mvSort sortOrder)
     {
-      currentView = mvView.Video;
+      currentView = mvView.AllVideos;
       videoSort = sortOrder;
 
       // Get list of all videos
@@ -813,7 +817,7 @@ namespace mvCentral.GUI
       }
       persisting = true;
       GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Videos);
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.AllVideos);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
@@ -823,9 +827,18 @@ namespace mvCentral.GUI
       // Set properities to first item in list
       if (facadeLayout.Count > 0)
       {
-        facadeLayout.SelectedListItemIndex = 0;
-        logger.Debug("(loadAllVideos) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
-        onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
+        if (lastItemVid > 0 && lastItemVid < facadeLayout.Count)
+        {
+          facadeLayout.SelectedListItemIndex = lastItemVid;
+          logger.Debug("(loadAllVideos) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
+          onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
+        }
+        else
+        {
+          facadeLayout.SelectedListItemIndex = 0;
+          logger.Debug("(loadAllVideos) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
+          onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
+        }
       }
     }
 
@@ -1108,6 +1121,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.Changed = true;
       // Store postions in facade
       lastItemArt = facadeLayout.SelectedListItemIndex;
+      currentArtistInfo = currArtist;
     }
     /// <summary>
     /// Video/Album item selected - set a load of properities
@@ -1136,12 +1150,12 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
-        logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
+        //logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
         // Audio
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
-        logger.Debug(string.Format("Audio Props for {0} - (Codec: {1}) (Channels: {2})", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+        //logger.Debug(string.Format("Audio Props for {0} - (Codec: {1}) (Channels: {2})", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
         // Misc Proprities
         GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
         GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
