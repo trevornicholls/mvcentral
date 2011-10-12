@@ -17,6 +17,7 @@
         <string Field="Artists">Artists</string>
         <string Field="Album">Album</string>
         <string Field="Albums">Albums</string>
+        <string Field="AllVideos">All Videos</string>
         <string Field="AddToPlaylist">Add To Playlist</string>
         <string Field="AddAllToPlaylist">Add All To Playlist</string>
         <string Field="AddToPlaylistNext">Add To Playlist as Next Item</string>
