@@ -21,7 +21,9 @@ namespace mvCentral.DataProviders
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private DBTrackInfo mv;
+        private DBTrackInfo mvTrackObject;
+        private DBArtistInfo mvArtistObject;
+        private DBAlbumInfo mvAlbumObject;
 
         // we should be using the MusicVideo object but we have to assign it before locking which 
         // is not good if the thread gets interupted after the asssignment, but before it gets 
@@ -102,7 +104,7 @@ namespace mvCentral.DataProviders
 
             bool found = false;
             
-//            found &= getArtistArtFromArtistArtFolder(mv);
+            found &= getArtistArtFromArtistArtFolder(mv);
             found &= getOldArtistArt(mv);
 
             return found;
@@ -129,7 +131,7 @@ namespace mvCentral.DataProviders
         {
             if (mv == null)
                 return false;
-            if (this.mv == null) this.mv = mv;
+            if (this.mvTrackObject == null) this.mvTrackObject = mv;
 
             // if we already have a trackimage move on for now
             if (mv.ArtFullPath.Trim().Length > 0)
@@ -150,7 +152,7 @@ namespace mvCentral.DataProviders
 
             // grab a list of possible filenames for the artist based on the user pattern
             string pattern = mvCentralCore.Settings.ArtistArtworkFilenamePattern;
-            List<string> filenames = getPossibleNamesFromPattern(pattern, this.mv);
+            List<string> filenames = getPossibleNamesFromPattern(pattern, this.mvTrackObject);
 
             // check the ArtistArt folder for the user patterned ArtistArt
             string artistArtFolderPath = mvCentralCore.Settings.ArtistArtFolder;
@@ -195,7 +197,7 @@ namespace mvCentral.DataProviders
 
             // grab a list of possible filenames for the albumart based on the user pattern
             string pattern = mvCentralCore.Settings.AlbumArtworkFilenamePattern;
-            List<string> filenames = getPossibleNamesFromPattern(pattern, this.mv);
+            List<string> filenames = getPossibleNamesFromPattern(pattern, this.mvTrackObject);
 
             // check the albumart folder for the user patterned albumart
             string albumArtFolderPath = mvCentralCore.Settings.AlbumArtFolder;
@@ -283,7 +285,7 @@ namespace mvCentral.DataProviders
         {
             try {
                 bool found = false;
-                if (this.mv == null) this.mv = mv;
+                if (this.mvTrackObject == null) this.mvTrackObject = mv;
                 found &= getArtistArtFromArtistArtFolder(mv.ArtistInfo[0]);
                 found &= getOldArtistArt(mv.ArtistInfo[0]);
 
@@ -306,32 +308,54 @@ namespace mvCentral.DataProviders
 
         // parses and replaces variables from a filename based on the pattern supplied
         // returning a list of possible file matches
-        private List<string> getPossibleNamesFromPattern(string pattern, DBTrackInfo mv)
+        private List<string> getPossibleNamesFromPattern(string pattern, object mv)
         {
+
+          if (mv.GetType() == typeof(DBArtistInfo))   // Artist Artwork matching
+          {
+            this.mvArtistObject = (DBArtistInfo)mv;
+            Regex parser = new Regex("%(.*?)%", RegexOptions.IgnoreCase);
+            List<string> filenames = new List<string>();
+            return filenames;
+          }
+          else if (mv.GetType() == typeof(DBAlbumInfo))
+          {
+            this.mvAlbumObject = (DBAlbumInfo)mv;
+            Regex parser = new Regex("%(.*?)%", RegexOptions.IgnoreCase);
+            List<string> filenames = new List<string>();
+            return filenames;
+          }
+          else if (mv.GetType() == typeof(DBTrackInfo))
+          {
             // try to create our filename(s)
-            this.mv = mv;
-            lock (lockObj){
-                Regex parser = new Regex("%(.*?)%", RegexOptions.IgnoreCase);
-                List<string> filenames = new List<string>();
-                foreach (string currPattern in pattern.Split('|')) {
-                    // replace db field patterns
+            this.mvTrackObject = (DBTrackInfo)mv;
+            lock (lockObj)
+            {
+              Regex parser = new Regex("%(.*?)%", RegexOptions.IgnoreCase);
+              List<string> filenames = new List<string>();
+              foreach (string currPattern in pattern.Split('|'))
+              {
+                // replace db field patterns
 
-                    string filename = parser.Replace(currPattern, new MatchEvaluator(dbNameParser)).Trim().ToLower();
+                string filename = parser.Replace(currPattern, new MatchEvaluator(dbTrackNameParser)).Trim().ToLower();
 
-                    // replace %filename% pattern
-                    if (mv.LocalMedia.Count > 0)
-                    {
-                        string videoFileName = Path.GetFileNameWithoutExtension(mv.LocalMedia[0].File.Name);
-                        filename = filename.Replace("%filename%", videoFileName);
-                    }
-
-                    filenames.Add(filename);
+                // replace %filename% pattern
+                if (mvTrackObject.LocalMedia.Count > 0)
+                {
+                  string videoFileName = Path.GetFileNameWithoutExtension(mvTrackObject.LocalMedia[0].File.Name);
+                  filename = filename.Replace("%filename%", videoFileName);
                 }
-                return filenames;
+
+                filenames.Add(filename);
+              }
+              return filenames;
             }
+          }
+          else
+            return null;
         }
 
-        private string dbNameParser(Match match) {
+        private string dbTrackNameParser(Match match) {
             // try to grab the field object
             string fieldName = match.Value.Substring(1, match.Length - 2);
             DBField  field = DBField.GetFieldByDBName(typeof(DBTrackInfo), fieldName);
@@ -342,8 +366,9 @@ namespace mvCentral.DataProviders
                 return match.Value;
             }
 
-            return field.GetValue(mv).ToString();
+            return field.GetValue(mvTrackObject).ToString();
         }
+
 
         // based on the filename list, returns the first file in the folder, otherwise null
         private FileInfo getFirstFileFromFolder(string folder, List<string> filenames) {
