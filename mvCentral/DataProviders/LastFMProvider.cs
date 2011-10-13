@@ -64,9 +64,9 @@ namespace mvCentral.DataProviders
     private static string apiArtistNameGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&artist={0}", apikey);
     private static string apiArtistGetImagesInfo = string.Format(apiMusicVideoUrl, "artist.getimages&artist={0}", apikey);
     // Albums
-    private static string apiAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&album={0}", apikey);
-    private static string apiAlbummbidGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&mbid={0}", apikey);
-    private static string apiArtistAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&artist={0}&album={1}", apikey);
+    private static string apiAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&album={0}&lang={1}", apikey);
+    private static string apiAlbummbidGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&mbid={0}&lang={1}", apikey);
+    private static string apiArtistAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&artist={0}&album={1}&lang={2}", apikey);
     private static string apiArtistTopAlbums = string.Format(apiMusicVideoUrl, "artist.gettopalbums&artist={0}", apikey);
     // Tracks
     private static string apiArtistTopTracks = string.Format(apiMusicVideoUrl, "artist.gettoptracks&artist={0}", apikey);
@@ -627,9 +627,9 @@ namespace mvCentral.DataProviders
 
       // API Call takes MbId or Artist & Album
       if (!string.IsNullOrEmpty(mbid))
-        xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
+        xml = getXML(string.Format(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
       else if (!string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(album))
-             xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album));
+        xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album, mvCentralCore.Settings.DataProviderAutoLanguage));
       
 
       if (xml == null)
@@ -979,7 +979,7 @@ namespace mvCentral.DataProviders
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
 
-      xml = getXML(string.Format(apiAlbummbidGetInfo, mbid));
+      xml = getXML(string.Format(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
       if (xml == null) return null;
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
