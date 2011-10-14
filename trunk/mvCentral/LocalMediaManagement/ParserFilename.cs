@@ -88,7 +88,10 @@ namespace mvCentral.LocalMediaManagement
         List<DBExpression> expressions = DBExpression.GetAll();
         foreach (DBExpression expression in expressions)
         {
-          if (expression.Enabled)
+          if (expression.Expression == @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?<track>[^\\]+)\.(?<ext>[^\r]+)$" && mvCentralCore.Settings.IgnoreFoldersWhenParsing)
+            continue;
+
+          if (expression.Enabled )
           {
             String sExpression = String.Empty;
             switch (expression.Type)
@@ -214,7 +217,7 @@ namespace mvCentral.LocalMediaManagement
         //logger.Info(String.Format("Replacements -> Filename before {0}   Filename after : {1}",m_Filename, m_FileNameAfterReplacement));
 
         foreach (Regex regularExpression in regularExpressions)
-        {
+        {       
           Match matchResults = null;
           try
           {

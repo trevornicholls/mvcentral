@@ -172,6 +172,8 @@
       this.btnExpDown = new System.Windows.Forms.Button();
       this.label70 = new System.Windows.Forms.Label();
       this.tbSettings = new System.Windows.Forms.TabPage();
+      this.label41 = new System.Windows.Forms.Label();
+      this.cbIgnoreFolderStructure = new Cornerstone.GUI.Controls.SettingCheckBox();
       this.groupBox4 = new System.Windows.Forms.GroupBox();
       this.label4 = new System.Windows.Forms.Label();
       this.tbHomeScreen = new Cornerstone.GUI.Controls.SettingsTextBox();
@@ -1812,6 +1814,8 @@
       // 
       // tbSettings
       // 
+      this.tbSettings.Controls.Add(this.label41);
+      this.tbSettings.Controls.Add(this.cbIgnoreFolderStructure);
       this.tbSettings.Controls.Add(this.groupBox4);
       this.tbSettings.Controls.Add(this.label4);
       this.tbSettings.Controls.Add(this.tbHomeScreen);
@@ -1870,6 +1874,29 @@
       this.tbSettings.Text = "Settings";
       this.tbSettings.UseVisualStyleBackColor = true;
       // 
+      // label41
+      // 
+      this.label41.AutoSize = true;
+      this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label41.Location = new System.Drawing.Point(106, 152);
+      this.label41.Name = "label41";
+      this.label41.Size = new System.Drawing.Size(53, 13);
+      this.label41.TabIndex = 96;
+      this.label41.Text = "Parsing:";
+      // 
+      // cbIgnoreFolderStructure
+      // 
+      this.cbIgnoreFolderStructure.AutoSize = true;
+      this.cbIgnoreFolderStructure.IgnoreSettingName = true;
+      this.cbIgnoreFolderStructure.Location = new System.Drawing.Point(175, 152);
+      this.cbIgnoreFolderStructure.Name = "cbIgnoreFolderStructure";
+      this.cbIgnoreFolderStructure.Setting = null;
+      this.cbIgnoreFolderStructure.Size = new System.Drawing.Size(195, 17);
+      this.cbIgnoreFolderStructure.TabIndex = 95;
+      this.cbIgnoreFolderStructure.Text = "Ignore folder structure when parsing";
+      this.cbIgnoreFolderStructure.UseVisualStyleBackColor = true;
+      this.cbIgnoreFolderStructure.CheckedChanged += new System.EventHandler(this.cbIgnoreFolderStructure_CheckedChanged);
+      // 
       // groupBox4
       // 
       this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -1910,7 +1937,7 @@
       // 
       // tbMaxVideoArtwork
       // 
-      this.tbMaxVideoArtwork.Location = new System.Drawing.Point(542, 331);
+      this.tbMaxVideoArtwork.Location = new System.Drawing.Point(542, 366);
       this.tbMaxVideoArtwork.Name = "tbMaxVideoArtwork";
       this.tbMaxVideoArtwork.Setting = null;
       this.tbMaxVideoArtwork.Size = new System.Drawing.Size(26, 20);
@@ -1919,7 +1946,7 @@
       // label40
       // 
       this.label40.AutoSize = true;
-      this.label40.Location = new System.Drawing.Point(502, 335);
+      this.label40.Location = new System.Drawing.Point(502, 370);
       this.label40.Name = "label40";
       this.label40.Size = new System.Drawing.Size(42, 13);
       this.label40.TabIndex = 89;
@@ -1927,7 +1954,7 @@
       // 
       // tbMaxAlbumArtwork
       // 
-      this.tbMaxAlbumArtwork.Location = new System.Drawing.Point(457, 331);
+      this.tbMaxAlbumArtwork.Location = new System.Drawing.Point(457, 366);
       this.tbMaxAlbumArtwork.Name = "tbMaxAlbumArtwork";
       this.tbMaxAlbumArtwork.Setting = null;
       this.tbMaxAlbumArtwork.Size = new System.Drawing.Size(26, 20);
@@ -1936,7 +1963,7 @@
       // label39
       // 
       this.label39.AutoSize = true;
-      this.label39.Location = new System.Drawing.Point(413, 335);
+      this.label39.Location = new System.Drawing.Point(413, 370);
       this.label39.Name = "label39";
       this.label39.Size = new System.Drawing.Size(44, 13);
       this.label39.TabIndex = 87;
@@ -1944,7 +1971,7 @@
       // 
       // tbMaxArtistArtwork
       // 
-      this.tbMaxArtistArtwork.Location = new System.Drawing.Point(375, 331);
+      this.tbMaxArtistArtwork.Location = new System.Drawing.Point(375, 366);
       this.tbMaxArtistArtwork.Name = "tbMaxArtistArtwork";
       this.tbMaxArtistArtwork.Setting = null;
       this.tbMaxArtistArtwork.Size = new System.Drawing.Size(26, 20);
@@ -1953,7 +1980,7 @@
       // label38
       // 
       this.label38.AutoSize = true;
-      this.label38.Location = new System.Drawing.Point(169, 335);
+      this.label38.Location = new System.Drawing.Point(169, 370);
       this.label38.Name = "label38";
       this.label38.Size = new System.Drawing.Size(205, 13);
       this.label38.TabIndex = 85;
@@ -1963,7 +1990,7 @@
       // 
       this.label37.AutoSize = true;
       this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label37.Location = new System.Drawing.Point(105, 335);
+      this.label37.Location = new System.Drawing.Point(105, 370);
       this.label37.Name = "label37";
       this.label37.Size = new System.Drawing.Size(54, 13);
       this.label37.TabIndex = 84;
@@ -1974,7 +2001,7 @@
       this.groupBox11.Controls.Add(this.groupBox12);
       this.groupBox11.Controls.Add(this.groupBox14);
       this.groupBox11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox11.Location = new System.Drawing.Point(233, 361);
+      this.groupBox11.Location = new System.Drawing.Point(233, 396);
       this.groupBox11.Name = "groupBox11";
       this.groupBox11.Size = new System.Drawing.Size(364, 2);
       this.groupBox11.TabIndex = 83;
@@ -2012,7 +2039,7 @@
       // 
       this.label33.AutoSize = true;
       this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label33.Location = new System.Drawing.Point(243, 402);
+      this.label33.Location = new System.Drawing.Point(243, 437);
       this.label33.Name = "label33";
       this.label33.Size = new System.Drawing.Size(122, 13);
       this.label33.TabIndex = 82;
@@ -2021,7 +2048,7 @@
       // label34
       // 
       this.label34.AutoSize = true;
-      this.label34.Location = new System.Drawing.Point(516, 402);
+      this.label34.Location = new System.Drawing.Point(516, 437);
       this.label34.Name = "label34";
       this.label34.Size = new System.Drawing.Size(38, 13);
       this.label34.TabIndex = 81;
@@ -2030,7 +2057,7 @@
       // label35
       // 
       this.label35.AutoSize = true;
-      this.label35.Location = new System.Drawing.Point(426, 402);
+      this.label35.Location = new System.Drawing.Point(426, 437);
       this.label35.Name = "label35";
       this.label35.Size = new System.Drawing.Size(35, 13);
       this.label35.TabIndex = 80;
@@ -2038,7 +2065,7 @@
       // 
       // tbMinAlbumWidth
       // 
-      this.tbMinAlbumWidth.Location = new System.Drawing.Point(381, 399);
+      this.tbMinAlbumWidth.Location = new System.Drawing.Point(381, 434);
       this.tbMinAlbumWidth.Name = "tbMinAlbumWidth";
       this.tbMinAlbumWidth.Setting = null;
       this.tbMinAlbumWidth.Size = new System.Drawing.Size(41, 20);
@@ -2046,7 +2073,7 @@
       // 
       // tbMinAlbumMinHeight
       // 
-      this.tbMinAlbumMinHeight.Location = new System.Drawing.Point(467, 399);
+      this.tbMinAlbumMinHeight.Location = new System.Drawing.Point(467, 434);
       this.tbMinAlbumMinHeight.Name = "tbMinAlbumMinHeight";
       this.tbMinAlbumMinHeight.Setting = null;
       this.tbMinAlbumMinHeight.Size = new System.Drawing.Size(41, 20);
@@ -2087,7 +2114,7 @@
       // label30
       // 
       this.label30.AutoSize = true;
-      this.label30.Location = new System.Drawing.Point(176, 278);
+      this.label30.Location = new System.Drawing.Point(176, 313);
       this.label30.Name = "label30";
       this.label30.Size = new System.Drawing.Size(99, 13);
       this.label30.TabIndex = 74;
@@ -2097,7 +2124,7 @@
       // 
       this.cbPreferThumbnail.AutoSize = true;
       this.cbPreferThumbnail.IgnoreSettingName = true;
-      this.cbPreferThumbnail.Location = new System.Drawing.Point(175, 249);
+      this.cbPreferThumbnail.Location = new System.Drawing.Point(175, 284);
       this.cbPreferThumbnail.Name = "cbPreferThumbnail";
       this.cbPreferThumbnail.Setting = null;
       this.cbPreferThumbnail.Size = new System.Drawing.Size(287, 17);
@@ -2107,7 +2134,7 @@
       // 
       // tbVideoPreviewCols
       // 
-      this.tbVideoPreviewCols.Location = new System.Drawing.Point(416, 275);
+      this.tbVideoPreviewCols.Location = new System.Drawing.Point(416, 310);
       this.tbVideoPreviewCols.Name = "tbVideoPreviewCols";
       this.tbVideoPreviewCols.Setting = null;
       this.tbVideoPreviewCols.Size = new System.Drawing.Size(25, 20);
@@ -2115,7 +2142,7 @@
       // 
       // tbVideoPreviewRows
       // 
-      this.tbVideoPreviewRows.Location = new System.Drawing.Point(325, 275);
+      this.tbVideoPreviewRows.Location = new System.Drawing.Point(325, 310);
       this.tbVideoPreviewRows.Name = "tbVideoPreviewRows";
       this.tbVideoPreviewRows.Setting = null;
       this.tbVideoPreviewRows.Size = new System.Drawing.Size(25, 20);
@@ -2124,7 +2151,7 @@
       // label29
       // 
       this.label29.AutoSize = true;
-      this.label29.Location = new System.Drawing.Point(285, 278);
+      this.label29.Location = new System.Drawing.Point(285, 313);
       this.label29.Name = "label29";
       this.label29.Size = new System.Drawing.Size(34, 13);
       this.label29.TabIndex = 70;
@@ -2133,7 +2160,7 @@
       // label28
       // 
       this.label28.AutoSize = true;
-      this.label28.Location = new System.Drawing.Point(362, 278);
+      this.label28.Location = new System.Drawing.Point(362, 313);
       this.label28.Name = "label28";
       this.label28.Size = new System.Drawing.Size(47, 13);
       this.label28.TabIndex = 68;
@@ -2143,7 +2170,7 @@
       // 
       this.label27.AutoSize = true;
       this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label27.Location = new System.Drawing.Point(54, 246);
+      this.label27.Location = new System.Drawing.Point(54, 281);
       this.label27.Name = "label27";
       this.label27.Size = new System.Drawing.Size(105, 13);
       this.label27.TabIndex = 67;
@@ -2153,7 +2180,7 @@
       // 
       this.label26.AutoSize = true;
       this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label26.Location = new System.Drawing.Point(71, 152);
+      this.label26.Location = new System.Drawing.Point(71, 187);
       this.label26.Name = "label26";
       this.label26.Size = new System.Drawing.Size(88, 13);
       this.label26.TabIndex = 65;
@@ -2162,7 +2189,7 @@
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(427, 217);
+      this.label2.Location = new System.Drawing.Point(427, 252);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(37, 13);
       this.label2.TabIndex = 56;
@@ -2171,7 +2198,7 @@
       // groupBox7
       // 
       this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox7.Location = new System.Drawing.Point(12, 460);
+      this.groupBox7.Location = new System.Drawing.Point(12, 495);
       this.groupBox7.Name = "groupBox7";
       this.groupBox7.Size = new System.Drawing.Size(585, 2);
       this.groupBox7.TabIndex = 50;
@@ -2180,7 +2207,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(172, 217);
+      this.label1.Location = new System.Drawing.Point(172, 252);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(214, 13);
       this.label1.TabIndex = 55;
@@ -2190,7 +2217,7 @@
       // 
       this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbLatestVideos.Location = new System.Drawing.Point(396, 214);
+      this.tbLatestVideos.Location = new System.Drawing.Point(396, 249);
       this.tbLatestVideos.MaxLength = 2;
       this.tbLatestVideos.Name = "tbLatestVideos";
       this.tbLatestVideos.Setting = null;
@@ -2202,7 +2229,7 @@
       // 
       this.label14.AutoSize = true;
       this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label14.Location = new System.Drawing.Point(243, 430);
+      this.label14.Location = new System.Drawing.Point(243, 465);
       this.label14.Name = "label14";
       this.label14.Size = new System.Drawing.Size(121, 13);
       this.label14.TabIndex = 63;
@@ -2212,7 +2239,7 @@
       // 
       this.label6.AutoSize = true;
       this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label6.Location = new System.Drawing.Point(76, 217);
+      this.label6.Location = new System.Drawing.Point(76, 252);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(83, 13);
       this.label6.TabIndex = 53;
@@ -2220,7 +2247,7 @@
       // 
       // tbMinArtWidth
       // 
-      this.tbMinArtWidth.Location = new System.Drawing.Point(381, 371);
+      this.tbMinArtWidth.Location = new System.Drawing.Point(381, 406);
       this.tbMinArtWidth.Name = "tbMinArtWidth";
       this.tbMinArtWidth.Setting = null;
       this.tbMinArtWidth.Size = new System.Drawing.Size(41, 20);
@@ -2231,7 +2258,7 @@
       this.groupBox6.Controls.Add(this.groupBox9);
       this.groupBox6.Controls.Add(this.groupBox8);
       this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox6.Location = new System.Drawing.Point(12, 318);
+      this.groupBox6.Location = new System.Drawing.Point(12, 353);
       this.groupBox6.Name = "groupBox6";
       this.groupBox6.Size = new System.Drawing.Size(585, 2);
       this.groupBox6.TabIndex = 49;
@@ -2267,7 +2294,7 @@
       // 
       // tbMinArtHeight
       // 
-      this.tbMinArtHeight.Location = new System.Drawing.Point(467, 371);
+      this.tbMinArtHeight.Location = new System.Drawing.Point(467, 406);
       this.tbMinArtHeight.Name = "tbMinArtHeight";
       this.tbMinArtHeight.Setting = null;
       this.tbMinArtHeight.Size = new System.Drawing.Size(41, 20);
@@ -2276,7 +2303,7 @@
       // label15
       // 
       this.label15.AutoSize = true;
-      this.label15.Location = new System.Drawing.Point(516, 430);
+      this.label15.Location = new System.Drawing.Point(516, 465);
       this.label15.Name = "label15";
       this.label15.Size = new System.Drawing.Size(38, 13);
       this.label15.TabIndex = 62;
@@ -2285,7 +2312,7 @@
       // groupBox5
       // 
       this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox5.Location = new System.Drawing.Point(12, 201);
+      this.groupBox5.Location = new System.Drawing.Point(12, 236);
       this.groupBox5.Name = "groupBox5";
       this.groupBox5.Size = new System.Drawing.Size(585, 2);
       this.groupBox5.TabIndex = 47;
@@ -2294,7 +2321,7 @@
       // label8
       // 
       this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(426, 374);
+      this.label8.Location = new System.Drawing.Point(426, 409);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(35, 13);
       this.label8.TabIndex = 3;
@@ -2325,7 +2352,7 @@
       // label16
       // 
       this.label16.AutoSize = true;
-      this.label16.Location = new System.Drawing.Point(426, 430);
+      this.label16.Location = new System.Drawing.Point(426, 465);
       this.label16.Name = "label16";
       this.label16.Size = new System.Drawing.Size(35, 13);
       this.label16.TabIndex = 61;
@@ -2346,7 +2373,7 @@
       // label12
       // 
       this.label12.AutoSize = true;
-      this.label12.Location = new System.Drawing.Point(516, 374);
+      this.label12.Location = new System.Drawing.Point(516, 409);
       this.label12.Name = "label12";
       this.label12.Size = new System.Drawing.Size(38, 13);
       this.label12.TabIndex = 4;
@@ -2368,7 +2395,7 @@
       // 
       this.label13.AutoSize = true;
       this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label13.Location = new System.Drawing.Point(250, 374);
+      this.label13.Location = new System.Drawing.Point(250, 409);
       this.label13.Name = "label13";
       this.label13.Size = new System.Drawing.Size(114, 13);
       this.label13.TabIndex = 57;
@@ -2376,7 +2403,7 @@
       // 
       // tbTrackArtWidth
       // 
-      this.tbTrackArtWidth.Location = new System.Drawing.Point(381, 427);
+      this.tbTrackArtWidth.Location = new System.Drawing.Point(381, 462);
       this.tbTrackArtWidth.Name = "tbTrackArtWidth";
       this.tbTrackArtWidth.Setting = null;
       this.tbTrackArtWidth.Size = new System.Drawing.Size(41, 20);
@@ -2384,7 +2411,7 @@
       // 
       // tbTrackArtHeight
       // 
-      this.tbTrackArtHeight.Location = new System.Drawing.Point(467, 427);
+      this.tbTrackArtHeight.Location = new System.Drawing.Point(467, 462);
       this.tbTrackArtHeight.Name = "tbTrackArtHeight";
       this.tbTrackArtHeight.Setting = null;
       this.tbTrackArtHeight.Size = new System.Drawing.Size(41, 20);
@@ -2393,7 +2420,7 @@
       // autoDataSourcesPanel1
       // 
       this.autoDataSourcesPanel1.AutoCommit = true;
-      this.autoDataSourcesPanel1.Location = new System.Drawing.Point(172, 148);
+      this.autoDataSourcesPanel1.Location = new System.Drawing.Point(172, 183);
       this.autoDataSourcesPanel1.Name = "autoDataSourcesPanel1";
       this.autoDataSourcesPanel1.Size = new System.Drawing.Size(433, 44);
       this.autoDataSourcesPanel1.TabIndex = 64;
@@ -3100,5 +3127,7 @@
         private Cornerstone.GUI.Controls.SettingsTextBox tbHomeScreen;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button advancedSettingsButton;
+        private System.Windows.Forms.Label label41;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbIgnoreFolderStructure;
     }
 }
