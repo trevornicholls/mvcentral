@@ -135,6 +135,7 @@ namespace mvCentral
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
+      cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
       // Artwork Settings
       tbMinArtWidth.Setting = mvCentralCore.Settings["min_artist_width"];
       tbMinArtHeight.Setting = mvCentralCore.Settings["min_artist_height"];
@@ -2981,6 +2982,11 @@ namespace mvCentral
     }
 
     #endregion
+
+    private void cbIgnoreFolderStructure_CheckedChanged(object sender, EventArgs e)
+    {
+      bool reLoad = FilenameParser.reLoadExpressions();
+    }
 
   }
 }

@@ -492,6 +492,24 @@ namespace mvCentral.Settings {
         }
         private bool _setalbumfromtrackdata;
 
+        [CornerstoneSetting(
+            Name = "Ignore the folder structure when parsing",
+            Description = "Ignore folder structure when parsing, tick this if folders are nor in format artist\album\track.ext  ",
+            Groups = "|MusicVideo Importer|Preprocessing|",
+            Identifier = "ignore_folders_when_Parsing",
+            Default = false,
+            Hidden = true)]
+        public bool IgnoreFoldersWhenParsing
+        {
+          get { return _ignorefolderswhenparsing; }
+          set
+          {
+            _ignorefolderswhenparsing = value;
+            OnSettingChanged("ignore_folders_when_Parsing");
+          }
+        }
+        private bool _ignorefolderswhenparsing;
+
 
         [CornerstoneSetting(
             Name = "Autoapprove musicvideos",
@@ -737,7 +755,7 @@ namespace mvCentral.Settings {
             Description = "The importer will look in your artist art folder and try to find a file that matches this pattern. If one is found, it will be used as a artist. If none is found, an online data provider will be used to auto download artwork.",
             Groups = "|MusicVideo Importer|Artist Art|",
             Identifier = "local_artistart_pattern",
-            Default = "%md_id%.jpg|%md_id%.png|%md_id%.bmp")]
+            Default = "%artist%.jpg|%artist%.png|%artist%.bmp")]
         public string ArtistArtworkFilenamePattern
         {
             get { return _artistArtworkFilenamePattern; }
@@ -956,7 +974,7 @@ namespace mvCentral.Settings {
             Description = "The importer will look in your album art folder and try to find a file that matches this pattern. If one is found, it will be used as a album. If none is found, an online data provider will be used to auto download artwork.",
             Groups = "|MusicVideo Importer|Album Art|",
             Identifier = "local_albumart_pattern",
-            Default = "%md_id%.jpg|%md_id%.png|%md_id%.bmp")]
+            Default = "%album%.jpg|%album%.png|%album%.bmp")]
         public string AlbumArtworkFilenamePattern {
             get { return _albumArtworkFilenamePattern; }
             set {
@@ -1170,7 +1188,7 @@ namespace mvCentral.Settings {
             Description = "The importer will look in your track art folder and try to find a file that matches this pattern. If one is found, it will be used as a track. If none is found, an online data provider will be used to auto download artwork.",
             Groups = "|MusicVideo Importer|Track Art|",
             Identifier = "local_trackart_pattern",
-            Default = "%md_id%.jpg|%md_id%.png|%md_id%.bmp")]
+            Default = "%track%.jpg|%track%.png|%track%.bmp")]
         public string TrackArtworkFilenamePattern
         {
             get { return _trackArtworkFilenamePattern; }
