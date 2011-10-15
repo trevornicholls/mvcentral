@@ -267,7 +267,7 @@ namespace mvCentral
 
 
     //for production, replace all references in this method from "SettingsManagerNew" to "SettingsManager"
-    private static void initAdditionalSettings()
+    public static void initAdditionalSettings()
     {
 
       if (Settings.AlbumArtFolder.Trim() == "")

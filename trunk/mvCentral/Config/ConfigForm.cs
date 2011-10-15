@@ -1625,23 +1625,56 @@ namespace mvCentral
       }
     }
 
-    private void btnClearRescan_Click(object sender, EventArgs e)
+    /// <summary>
+    /// Remove all artwork and entries from the DB
+    /// Replace paths and rescan
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void deleteDataAndRescanToolStripMenuItem_Click(object sender, EventArgs ea)
     {
-      try
+      DialogResult result = MessageBox.Show("This will remove all Import Paths and Remove all Videos and Artwork, are you sure?", "Warning!", MessageBoxButtons.YesNo);
+      if (result == DialogResult.Yes)
       {
-        System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "Music Vids\\Thumbs\\"), true);
-        System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "Music Vids\\Artists\\"), true);
+        try
+        {
+          System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "mvCentral\\Artists\\"), true);
+          System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "mvCentral\\Albums\\"), true);
+          System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "mvCentral\\Tracks\\"), true);
+        }
+        catch (Exception e)
+        {
+          logger.DebugException("Error in DeleteDB", e);
+        }
+
+        // stop the importer
+        mvCentralCore.Importer.Stop();
+
+        // Delete all Import Paths
+        pathBindingSource.MoveFirst();
+        do
+        {
+          ((DBImportPath)pathBindingSource.Current).Delete();
+          pathBindingSource.RemoveCurrent();
+        } 
+        while (pathBindingSource.Count > 0);
+
+        // clean the database of the old music videos using our progress bar popup
+        ProgressPopup progressPopup = new ProgressPopup(new WorkerDelegate(DatabaseMaintenanceManager.RemoveInvalidFiles));
+        DatabaseMaintenanceManager.MaintenanceProgress += new ProgressDelegate(progressPopup.Progress);
+        progressPopup.Owner = ParentForm;
+        progressPopup.Text = "Removing related music videos...";
+        progressPopup.ShowDialog();
+        // Clear the Treeview
+        mvLibraryTreeView.Nodes.Clear();
+        // Put back the artwork folder structure
+        mvCentralCore.initAdditionalSettings();
+
+        // restart the importer
+        mvCentralCore.Importer.RestartScanner();
       }
-      catch { }
-      //            dm.Execute("DELETE FROM Artists");
-      //            dm.Execute("DELETE FROM Videos");
-
-      //            Rescan rs = new Rescan();
-      //            if (rs.ShowDialog() == DialogResult.OK)
-      //                reLoad();
-
-      //            doScan();
     }
+
     /// <summary>
     /// Generate new image dimensions
     /// </summary>
@@ -2330,7 +2363,7 @@ namespace mvCentral
 
     private void setArtImage()
     {
-      DBBasicInfo mv = null;
+      DBBasicInfo mvBasicInfo = null;
       btnNextArt.Enabled = false;
       btnPrevArt.Enabled = false;
       btnArtZoom.Enabled = false;
@@ -2340,17 +2373,17 @@ namespace mvCentral
       switch (tcMusicVideo.SelectedTab.Name)
       {
         case "tpArtist":
-          mv = CurrentArtist;
+          mvBasicInfo = CurrentArtist;
           break;
         case "tpAlbum":
-          mv = CurrentAlbum;
+          mvBasicInfo = CurrentAlbum;
           break;
         case "tpTrack":
-          mv = CurrentTrack;
+          mvBasicInfo = CurrentTrack;
           break;
       }
 
-      if (mv == null) return;
+      if (mvBasicInfo == null) return;
 
       if (InvokeRequired)
       {
@@ -2363,10 +2396,10 @@ namespace mvCentral
         int ArtIndexNum = 0;
         int ArtCount = 0;
 
-        MemoryStream ms = new MemoryStream(File.ReadAllBytes(mv.ArtFullPath));
+        MemoryStream ms = new MemoryStream(File.ReadAllBytes(mvBasicInfo.ArtFullPath));
         newArt = Image.FromStream(ms);
-        ArtIndexNum = mv.AlternateArts.IndexOf(mv.ArtFullPath);
-        ArtCount = mv.AlternateArts.Count;
+        ArtIndexNum = mvBasicInfo.AlternateArts.IndexOf(mvBasicInfo.ArtFullPath);
+        ArtCount = mvBasicInfo.AlternateArts.Count;
         Image oldArt = artImage.Image;
         artImage.Image = newArt;
         if (oldArt != null) oldArt.Dispose();
@@ -2987,6 +3020,5 @@ namespace mvCentral
     {
       bool reLoad = FilenameParser.reLoadExpressions();
     }
-
   }
 }
