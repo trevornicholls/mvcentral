@@ -97,15 +97,14 @@ namespace mvCentral.DataProviders
       get { return true; }
     }
 
-    public bool GetDetails(DBBasicInfo mv)
-    {
-      throw new NotImplementedException();
-      return false;
-    }
-
-
+    /// <summary>
+    /// Get Artist Artwork already on disk
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetArtistArt(DBArtistInfo mv)
     {
+      logger.Debug("In Method GetArtistArt(DBArtistInfo mv)");
       if (mv == null)
         return false;
 
@@ -120,9 +119,15 @@ namespace mvCentral.DataProviders
 
       return found;
     }
-
+    /// <summary>
+    /// Get Album Artwork already on disk
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo mv)
     {
+      logger.Debug("In Method GetAlbumArt(DBAlbumInfo mv)");
+
       if (mv == null)
         return false;
 
@@ -137,9 +142,14 @@ namespace mvCentral.DataProviders
 
       return found;
     }
-
+    /// <summary>
+    /// Get Track/Video Artwork already on disk
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetTrackArt(DBTrackInfo mv)
     {
+      logger.Debug("In Method GetTrackArt(DBTrackInfo mv)");
       if (mv == null)
         return false;
       if (this.mvTrackObject == null) this.mvTrackObject = mv;
@@ -155,9 +165,14 @@ namespace mvCentral.DataProviders
 
       return found;
     }
-
+    /// <summary>
+    /// Get Artist Artwork from the Artist Artwork folder.
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private bool getArtistArtFromArtistArtFolder(DBArtistInfo mv)
     {
+      logger.Debug("In Method getArtistArtFromArtistArtFolder(DBArtistInfo mv)");
       if (mv == null)
         return false;
 
@@ -177,11 +192,14 @@ namespace mvCentral.DataProviders
 
       return false;
     }
-
-
-    // check for artistart in the artistart folder loaded from previous installs
+    /// <summary>
+    /// Get the Artist Artwork using the old Method
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private bool getOldArtistArt(DBArtistInfo mv)
     {
+      logger.Debug("In Method getOldArtistArt(DBArtistInfo mv)");
       bool found = false;
 
       string artistartFolderPath = mvCentralCore.Settings.ArtistArtFolder;
@@ -200,9 +218,14 @@ namespace mvCentral.DataProviders
 
       return found;
     }
-
+    /// <summary>
+    /// get the Album Artwork from Album Artwork folder 
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private bool getAlbumArtFromAlbumArtFolder(DBAlbumInfo mv)
     {
+      logger.Debug("In Method getAlbumArtFromAlbumArtFolder(DBAlbumInfo mv)");
       if (mv == null)
         return false;
 
@@ -223,9 +246,14 @@ namespace mvCentral.DataProviders
       return false;
     }
 
-    // check for albumimages in the album folder loaded from previous installs
+    /// <summary>
+    /// Get the Album Artwork using the old method
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private bool getOldAlbumArt(DBAlbumInfo mv)
     {
+      logger.Debug("In Method getOldAlbumArt(DBAlbumInfo mv)");
       bool found = false;
 
       string AlbumArtFolderPath = mvCentralCore.Settings.AlbumArtFolder;
@@ -244,10 +272,14 @@ namespace mvCentral.DataProviders
 
       return found;
     }
-
-
+    /// <summary>
+    /// Get Track Artwork from Track Artwork folder
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private bool getTrackArtFromTrackArtFolder(DBTrackInfo mv)
     {
+      logger.Debug("In Method getTrackArtFromTrackArtFolder(DBTrackInfo mv)");
       if (mv == null)
         return false;
 
@@ -267,10 +299,14 @@ namespace mvCentral.DataProviders
 
       return false;
     }
-
-    // check for trackimages in the track folder loaded from previous installs
+    /// <summary>
+    /// Get the Track Artwork using the old Method
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private bool getOldTrackArt(DBTrackInfo mv)
     {
+      logger.Debug("In Method getOldTrackArt(DBTrackInfo mv)");
       bool found = false;
 
       string trackartFolderPath = mvCentralCore.Settings.TrackArtFolder;
@@ -289,11 +325,14 @@ namespace mvCentral.DataProviders
 
       return found;
     }
-
-
-
+    /// <summary>
+    /// Get the Artwork fort Artist/Album and Track
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetArtwork(DBTrackInfo mv)
     {
+      logger.Debug("In Method GetArtwork(DBTrackInfo mv)");
       try
       {
         bool found = false;
@@ -318,16 +357,23 @@ namespace mvCentral.DataProviders
 
       return false;
     }
+    
 
-    // parses and replaces variables from a filename based on the pattern supplied
-    // returning a list of possible file matches
+    /// <summary>
+    /// parses and replaces variables from a filename based on the pattern supplied
+    /// returning a list of possible file matches
+    /// </summary>
+    /// <param name="pattern"></param>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     private List<string> getPossibleNamesFromPattern(string pattern, object mv)
     {
+      logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv)");
       Regex parser = new Regex("%(.*?)%", RegexOptions.IgnoreCase);
-
       // Artist Artwork
       if (mv.GetType() == typeof(DBArtistInfo))
       {
+        logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv) Object:Artist");
         mvArtistObject = (DBArtistInfo)mv;
         lock (lockObj)
         {
@@ -342,10 +388,10 @@ namespace mvCentral.DataProviders
           return filenames;
         }
       }
-
       // Album Artwork
       if (mv.GetType() == typeof(DBAlbumInfo))
       {
+        logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv)  Object:Album");
         mvAlbumObject = (DBAlbumInfo)mv;
         lock (lockObj)
         {
@@ -360,11 +406,10 @@ namespace mvCentral.DataProviders
           return filenames;
         }
       }
-
-
       // This is track data
       if (mv.GetType() == typeof(DBTrackInfo))
       {
+        logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv)  Object:Track");
         // try to create our filename(s)
         this.mvTrackObject = (DBTrackInfo)mv;
         lock (lockObj)
@@ -393,9 +438,6 @@ namespace mvCentral.DataProviders
       return null;
 
     }
-
-
-
     /// <summary>
     /// Get Artist field
     /// </summary>
@@ -416,8 +458,6 @@ namespace mvCentral.DataProviders
 
       return field.GetValue(mvArtistObject).ToString();
     }
-
-
     /// <summary>
     /// Get Track field
     /// </summary>
@@ -438,8 +478,6 @@ namespace mvCentral.DataProviders
 
       return field.GetValue(mvTrackObject).ToString();
     }
-
-
     /// <summary>
     /// Get Album Field
     /// </summary>
@@ -460,11 +498,15 @@ namespace mvCentral.DataProviders
 
       return field.GetValue(mvAlbumObject).ToString();
     }
-
-
-    // based on the filename list, returns the first file in the folder, otherwise null
+    /// <summary>
+    /// based on the filename list, returns the first file in the folder, otherwise null
+    /// </summary>
+    /// <param name="folder"></param>
+    /// <param name="filenames"></param>
+    /// <returns></returns>
     private FileInfo getFirstFileFromFolder(string folder, List<string> filenames)
     {
+      logger.Debug("In Method getFirstFileFromFolder(string folder, List<string> filenames)");
       foreach (string currFilename in filenames)
       {
         // make sure what we have is a valie filename
@@ -478,6 +520,11 @@ namespace mvCentral.DataProviders
       }
 
       return null;
+    }
+
+    public bool GetDetails(DBBasicInfo mv)
+    {
+      throw new NotImplementedException();
     }
 
     public bool GetDetails(DBTrackInfo mv)

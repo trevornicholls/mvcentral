@@ -120,7 +120,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_autoapprove",
             Default = 1,
-            Hidden = true)]
+            Hidden = false)]
         public int AutoApproveThreshold {
             get { return _autoApproveThreshold; }
             set {
@@ -151,7 +151,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_autoapprove_alternate_titles",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool AutoApproveOnAlternateTitle {
             get { return _autoApproveOnAlternateTitle; }
             set {
@@ -183,7 +183,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_groupfolder",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool AlwaysGroupByFolder {
             get { return _alwaysGroupByFolder; }
             set {
@@ -200,7 +200,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_prefer_foldername",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool PreferFolderName {
             get { return _preferFolderName; }
             set {
@@ -216,7 +216,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_split_dvd",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool SplitDVD
         {
             get { return _splitdvd; }
@@ -234,7 +234,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Matching and Importing|",
             Identifier = "importer_disc_enabled",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool AutomaticallyImportDVDs {
             get { return _automaticallyImportInsertedDVDs; }
             set {
@@ -330,7 +330,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "importer_nfoscan",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool NfoScannerEnabled {
             get { return _nfoScannerEnabled; }
             set {
@@ -347,7 +347,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "importer_nfoext",
             Default = "nfo;txt",
-            Hidden = true)]
+            Hidden = false)]
         public string NfoScannerFileExtensions {
             get { return _fileExtensions; }
             set {
@@ -364,7 +364,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "importer_automd",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool AutoApproveOnMDMatch {
             get { return _autoApproveOnmdMatch; }
             set {
@@ -380,7 +380,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "importer_autoartistmd",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool AutoApproveOnArtistMDMatch
         {
             get { return _autoApproveOnartistmdMatch; }
@@ -398,7 +398,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "importer_autoalbummd",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool AutoApproveOnAlbumMDMatch
         {
             get { return _autoApproveOnalbummdMatch; }
@@ -462,7 +462,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "use_md_album",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool UseMDAlbum
         {
             get { return _usemdalbum; }
@@ -480,7 +480,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "album_from_trackdata",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool SetAlbumFromTrackData
         {
           get { return _setalbumfromtrackdata; }
@@ -498,7 +498,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "ignore_folders_when_Parsing",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool IgnoreFoldersWhenParsing
         {
           get { return _ignorefolderswhenparsing; }
@@ -517,7 +517,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "auto_approve",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool AutoApprove
         {
             get { return _autoapprove; }
@@ -536,7 +536,7 @@ namespace mvCentral.Settings {
            Groups = "|MusicVideo|Player|",
            Identifier = "oldAfter_days",
            Default = 7,
-           Hidden = true)]
+           Hidden = false)]
         public int OldAFterDays
         {
           get { return _oldafterdays; }
@@ -555,7 +555,7 @@ namespace mvCentral.Settings {
            Groups = "|MusicVideo|GUI|",
            Identifier = "videoThumbNail_cols",
            Default = 2,
-           Hidden = true)]
+           Hidden = false)]
         public int VideoThumbnailColumns
         {
           get { return _videoThumbailColumns; }
@@ -574,7 +574,7 @@ namespace mvCentral.Settings {
            Groups = "|MusicVideo|GUI|",
            Identifier = "videoThumbNail_rows",
            Default = 2,
-           Hidden = true)]
+           Hidden = false)]
         public int VideoThumbnailRows
         {
           get { return _videoThumbailRows; }
@@ -592,7 +592,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Preprocessing|",
             Identifier = "prefer_thumbnail",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool PreferThumbnail
         {
           get { return _preferthumbnail; }
@@ -719,7 +719,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Artist Art|",
             Identifier = "max_artist_arts",
             Default = 9,
-            Hidden = true)]
+            Hidden = false)]
         public int MaxArtistArts
         {
             get { return _maxArtistArts; }
@@ -774,7 +774,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Artist Art|",
             Identifier = "local_artist_from_musicvideo_folder",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool SearchMusicVideoFolderForArtistArt
         {
             get { return _searchMusicVideoFolderforArtistArt; }
@@ -793,7 +793,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Artist Art|",
             Identifier = "local_musicvideofolder_artistart_pattern",
             Default = "folder.jpg|folder.png|folder.bmp",
-            Hidden = true)]
+            Hidden = false)]
         public string MusicVideoFolderArtistArtworkFilenamePattern
         {
             get { return _musicvideoFolderArtistArtworkFilenamePattern; }
@@ -941,7 +941,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Album Art|",
             Identifier = "max_album_arts",
             Default = 9,
-            Hidden = true)]
+            Hidden = false)]
         public int MaxAlbumArts
         {
             get { return _maxAlbumarts; }
@@ -991,7 +991,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Album Art|",
             Identifier = "local_album_from_musicvideo_folder",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool SearchMusicVideoFolderForAlbumArt {
             get { return _searchMusicVideoFolderforAlbumArt; }
             set {
@@ -1008,7 +1008,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Album Art|",
             Identifier = "local_musicvideofolder_albumart_pattern",
             Default = "folder.jpg|folder.png|folder.bmp",
-            Hidden = true)]
+            Hidden = false)]
         public string MusicVideoFolderAlbumArtworkFilenamePattern {
             get { return _musicvideoFolderAlbumArtworkFilenamePattern; }
             set {
@@ -1152,7 +1152,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Track Art|",
             Identifier = "max_track_arts",
             Default = 9,
-            Hidden = true)]
+            Hidden = false)]
         public int MaxTrackArts
         {
             get { return _maxTrackarts; }
@@ -1207,7 +1207,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Track Art|",
             Identifier = "local_track_from_musicvideo_folder",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool SearchMusicVideoFolderForTrackArt
         {
             get { return _searchMusicVideoFolderforTrackArt; }
@@ -1226,7 +1226,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Track Art|",
             Identifier = "local_musicvideofolder_trackart_pattern",
             Default = "folder.jpg|folder.png|folder.bmp",
-            Hidden = true)]
+            Hidden = false)]
         public string MusicVideoFolderTrackArtworkFilenamePattern
         {
             get { return _musicvideoFolderTrackArtworkFilenamePattern; }
@@ -1377,7 +1377,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Importer Language Options|",
             Identifier = "dataprovider_management",
             Default = "undefined",
-            Hidden = true)]
+            Hidden = false)]
         public string DataProviderManagementMethod {
             get { return _dataProviderManagementMethod; }
             set {
@@ -1393,7 +1393,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Importer Language Options|",
             Identifier = "dataprovider_auto_language",
             Default = "en",
-            Hidden = true)]
+            Hidden = false)]
         public string DataProviderAutoLanguage {
             get { return _dataProviderAutoLanguage; }
             set {
@@ -1409,7 +1409,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Importer Language Options|",
             Identifier = "use_translator",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool UseTranslator {
             get { return _useTranslator; }
             set {
@@ -1425,7 +1425,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Importer Language Options|",
             Identifier = "translator_configured",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool TranslatorConfigured {
             get { return _translatorConfigured; }
             set {
@@ -1441,7 +1441,7 @@ namespace mvCentral.Settings {
             Groups = "|MusicVideo Importer|Importer Language Options|",
             Identifier = "translate_to",
             Default = "English",
-            Hidden = true)]
+            Hidden = false)]
         public string TranslationLanguageStr
         {
             get { return _translateTo; }
@@ -1490,7 +1490,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_view",
             Default = "lastused",
-            Hidden = true)]
+            Hidden = false)]
         public string DefaultView {
             get { return _defaultView; }
             set {
@@ -1507,7 +1507,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_playlist_view",
             Default = "lastused",
-            Hidden = true)]
+            Hidden = false)]
         public string DefaultPlaylistView
         {
           get { return _defaultPlaylistView; }
@@ -1528,7 +1528,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "click_to_details",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool ClickShowsDetails {
             get { return _clickShowsDetails; }
             set {
@@ -1561,7 +1561,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "home_name",
             Default = "mvCentral",
-            Hidden = true)]
+            Hidden = false)]
         public string HomeScreenName {
             get { return _homeScreenName; }
             set {
@@ -1578,7 +1578,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_sort_field",
             Default = "Title",
-            Hidden = true)]
+            Hidden = false)]
         public string DefaultSortField {
             get { return _defaultSortField; }
             set {
@@ -1595,7 +1595,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "enable_delete_musicvideo",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool AllowDelete {
             get { return _allowDelete; }
             set {
@@ -1720,7 +1720,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Tweaks|",
             Identifier = "enable_rc_filter",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool UseRemoteControlFiltering {
             get { return _useRemoteControlFiltering; }
             set {
@@ -1740,7 +1740,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Playback Options|",
             Identifier = "gui_watch_percentage",
             Default = 90,
-            Hidden = true)]
+            Hidden = false)]
         public int MinimumWatchPercentage {
             get { return _minimumWatchPercentage; }
             set {
@@ -1757,7 +1757,7 @@ namespace mvCentral.Settings {
              Groups = "|MediaPortal GUI|Playback Options|",
              Identifier = "on_disc_loaded",
              Default = "DETAILS",
-             Hidden = true)]
+             Hidden = false)]
         public string DiskInsertionBehavior {
             get { return _diskInsertionBehavior; }
             set {
@@ -1793,7 +1793,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Playlist|",
             Identifier = "general_repeatplaylist",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool repeatPlayList
         {
           get { return _repeatplaylist; }
@@ -1811,7 +1811,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Playlist|",
             Identifier = "general_playlistautoplay",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool playlistAutoPlay
         {
           get { return _playlistautoplay; }
@@ -1830,7 +1830,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Playlist|",
             Identifier = "general_playlistautoshuffle",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool playlistAutoShuffle
         {
           get { return _playlistautoshuffle; }
@@ -1952,7 +1952,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Parental Controls|",
             Identifier = "enable_parental_controls",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool ParentalControlsEnabled {
             get { return _parentalControlsEnabled; }
             set {
@@ -1968,7 +1968,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Parental Controls|",
             Identifier = "parental_controls_filter_id",
             Default = "null",
-            Hidden = true)]
+            Hidden = false)]
         public string ParentalContolsFilterID {
             get { return _parentalContolsFilterID; }
             set {
@@ -2040,7 +2040,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Filtering|",
             Identifier = "filter_menu_id",
             Default = "null",
-            Hidden = true)]
+            Hidden = false)]
         public string FilterMenuID {
             get { return _filterMenuID; }
             set {
@@ -2076,7 +2076,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Filtering|",
             Identifier = "use_default_filter",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool DefaultFilterEnabled {
             get { return _useDefaultFilter; }
             set {
@@ -2092,7 +2092,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Filtering|",
             Identifier = "default_filter_id",
             Default = "null",
-            Hidden = true)]
+            Hidden = false)]
         public string DefaultFilterID {
             get { return _defaultFilterID; }
             set {
@@ -2142,7 +2142,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Filtering|",
             Identifier = "categories_menu_id",
             Default = "null",
-            Hidden = true)]
+            Hidden = false)]
         public string CategoriesMenuID {
             get { return _categoriesMenuID; }
             set {
@@ -2178,7 +2178,7 @@ namespace mvCentral.Settings {
             Groups = "|MediaPortal GUI|Filtering|",
             Identifier = "enable_categories",
             Default = true,
-            Hidden = true)]
+            Hidden = false)]
         public bool CategoriesEnabled {
             get { return _categoriesEnabled; }
             set {
@@ -2351,7 +2351,7 @@ namespace mvCentral.Settings {
             Groups = "|Internal|",
             Identifier = "source_manager_debug",
             Default = false,
-            Hidden = true)]
+            Hidden = false)]
         public bool DataSourceDebugActive {
             get { return _dataSourceManagerEnhancedDebugMode; }
             set {
@@ -2368,7 +2368,7 @@ namespace mvCentral.Settings {
             Groups = "|Internal|",
             Identifier = "source_manager_init_done",
             Default = "True",
-            Hidden = true)]
+            Hidden = false)]
         public bool DataProvidersInitialized {
             get { return _dataProviderManagerInitialized; }
             set {
@@ -2401,7 +2401,7 @@ namespace mvCentral.Settings {
             Groups = "|Internal|",
             Identifier = "version",
             Default = "0.0.0.0",
-            Hidden = true)]
+            Hidden = false)]
         public string Version {
             get { return _versionNumber; }
             set {
