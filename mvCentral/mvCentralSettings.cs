@@ -1519,9 +1519,6 @@ namespace mvCentral.Settings {
         }
         private string _defaultPlaylistView;
 
-
-
-
         [CornerstoneSetting(
             Name = "Click Shows Details",
             Description = "Determines behavior when a musicvideo in the musicvideo browser is clicked. If true, the details view appears. If false the musicvideo starts playback.",
@@ -1665,6 +1662,8 @@ namespace mvCentral.Settings {
         }
         private bool _resetSelectedMusicVideoWhenSwitchingCategories;
 
+
+
         #endregion
 
         #region Tweaks
@@ -1782,6 +1781,25 @@ namespace mvCentral.Settings {
             }
         }
         private string _customIntroLocation;
+
+        [CornerstoneSetting(
+            Name = "Auto fullscreen on video start",
+            Description = "Switch to fullscreen when video starts to play.",
+            Groups = "|MediaPortal GUI|Playback Options|",
+            Identifier = "auto_fullscreen",
+            Default = true)]
+        public bool AutoFullscreen
+        {
+          get { return _autoFullscreen; }
+          set
+          {
+            _autoFullscreen = value;
+            OnSettingChanged("auto_fullscreen");
+          }
+        }
+        private bool _autoFullscreen;
+
+
 
         #endregion
 

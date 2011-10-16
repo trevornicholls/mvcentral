@@ -60,7 +60,8 @@ namespace mvCentral.GUI
       if (playNow)
       {
         Player.playlistPlayer.Play(0);
-        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+        if (mvCentralCore.Settings.AutoFullscreen)
+          GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
       }
     }
 
@@ -85,7 +86,8 @@ namespace mvCentral.GUI
       Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
       playlist.Shuffle();
       Player.playlistPlayer.Play(0);
-      GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+      if (mvCentralCore.Settings.AutoFullscreen)
+        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
 
     private SmartMode ChooseSmartPlay()
@@ -175,7 +177,8 @@ namespace mvCentral.GUI
         Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
         playlist.Shuffle();
         Player.playlistPlayer.Play(0);
-        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+        if (mvCentralCore.Settings.AutoFullscreen)
+          GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
       }
     }
 
@@ -203,7 +206,8 @@ namespace mvCentral.GUI
       Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
       playlist.Shuffle();
       Player.playlistPlayer.Play(0);
-      GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+      if (mvCentralCore.Settings.AutoFullscreen)
+        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
 
     private void playHighestRated()

@@ -946,7 +946,8 @@ namespace mvCentral.Playlist
         {
           if (MediaPortal.Util.Utils.IsVideo(filename))
           {
-            g_Player.ShowFullScreenWindow();
+            if (mvCentralCore.Settings.AutoFullscreen)
+              g_Player.ShowFullScreenWindow();
           }
         }
         return;

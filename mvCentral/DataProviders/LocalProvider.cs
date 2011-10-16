@@ -326,40 +326,6 @@ namespace mvCentral.DataProviders
       return found;
     }
     /// <summary>
-    /// Get the Artwork fort Artist/Album and Track
-    /// </summary>
-    /// <param name="mv"></param>
-    /// <returns></returns>
-    public bool GetArtwork(DBTrackInfo mv)
-    {
-      logger.Debug("In Method GetArtwork(DBTrackInfo mv)");
-      try
-      {
-        bool found = false;
-        if (this.mvTrackObject == null) this.mvTrackObject = mv;
-        found &= getArtistArtFromArtistArtFolder(mv.ArtistInfo[0]);
-        found &= getOldArtistArt(mv.ArtistInfo[0]);
-
-        found &= getAlbumArtFromAlbumArtFolder(mv.AlbumInfo[0]);
-        found &= getOldAlbumArt(mv.AlbumInfo[0]);
-
-        found &= getTrackArtFromTrackArtFolder(mv);
-        found &= getOldTrackArt(mv);
-
-        return found;
-      }
-      catch (Exception e)
-      {
-        if (e.GetType() == typeof(ThreadAbortException))
-          throw e;
-        logger.Warn("Unexpected problem loading artwork via LocalProvider.");
-      }
-
-      return false;
-    }
-    
-
-    /// <summary>
     /// parses and replaces variables from a filename based on the pattern supplied
     /// returning a list of possible file matches
     /// </summary>
