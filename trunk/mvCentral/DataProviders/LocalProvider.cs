@@ -279,7 +279,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private bool getTrackArtFromTrackArtFolder(DBTrackInfo mv)
     {
+      bool found = false;
       logger.Debug("In Method getTrackArtFromTrackArtFolder(DBTrackInfo mv)");
+
       if (mv == null)
         return false;
 
@@ -292,12 +294,10 @@ namespace mvCentral.DataProviders
       FileInfo newTrackArt = getFirstFileFromFolder(trackartFolderPath, filenames);
       if (newTrackArt != null && newTrackArt.Exists)
       {
-        mv.ArtFullPath = newTrackArt.FullName;
+        found &= mv.AddArtFromFile(newTrackArt.FullName);
         logger.Info("Loaded trackimage from " + newTrackArt.FullName);
-        return true;
       }
-
-      return false;
+      return found;
     }
     /// <summary>
     /// Get the Track Artwork using the old Method
