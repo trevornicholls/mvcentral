@@ -532,7 +532,8 @@ namespace mvCentral.GUI
                   }
                   addToPlaylist(list1, false, true, false);
                   Player.playlistPlayer.Play(lastItemVid);
-                  g_Player.ShowFullScreenWindow();
+                  if (mvCentralCore.Settings.AutoFullscreen)
+                    g_Player.ShowFullScreenWindow();
                   break;
                 }
                 //return to previous level
@@ -1241,7 +1242,8 @@ namespace mvCentral.GUI
       TimeSpan tt = TimeSpan.Parse("00:00:00");
       foreach (DBTrackInfo track in trackList)
       {
-        tt += TimeSpan.Parse(track.PlayTime);
+        if (!string.IsNullOrEmpty(track.PlayTime))
+          tt += TimeSpan.Parse(track.PlayTime);
       }
       DateTime dt = new DateTime(tt.Ticks);
       string cTime = String.Format("{0:HH:mm:ss}", dt);

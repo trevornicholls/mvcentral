@@ -135,6 +135,7 @@ namespace mvCentral
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
+      cbAutoFullscreen.Setting = mvCentralCore.Settings["auto_fullscreen"];
       cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
       // Artwork Settings
       tbMinArtWidth.Setting = mvCentralCore.Settings["min_artist_width"];

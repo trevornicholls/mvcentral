@@ -599,12 +599,9 @@ namespace mvCentral.Playlist
         }
 
         bool playResult = false;
-
         // If the file is an image file, it should be mounted before playing
         string filename = item.Track.LocalMedia[0].File.FullName;
         CurrentTrack = item.Track;
-
-
 
         DBLocalMedia mediaToPlay = item.Track.LocalMedia[0];
         MediaState mediaState = mediaToPlay.State;
@@ -644,21 +641,17 @@ namespace mvCentral.Playlist
                 }
                 else
                 {
-                  // Exit the player
-                  //                                   resetPlayer();
+                  // Exit Player
                   return false;
                 }
               }
-
               // If the mounting failed (can not be solved within the loop) show error and return
               if (result == MountResult.Failed)
               {
                 GUIUtils.ShowOKDialog(Localization.Error, Localization.FailedMountingImage);
                 // Exit the player
-                //                              resetPlayer();
                 return false;
               }
-
               // Mounting was succesfull, break the mount loop
               break;
           }
@@ -674,8 +667,8 @@ namespace mvCentral.Playlist
         mvGUIMain.currentArtistID = (int)CurrentTrack.ArtistInfo[0].ID;
         mvGUIMain.currentArtistInfo = CurrentTrack.ArtistInfo[0];
         logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", mvGUIMain.currentArtistInfo.Artist, mvGUIMain.currentArtistID, filename));
-        
-        playResult = mvPlayer.Play(filename);
+
+        playResult = mvPlayer.Play(filename);      
 
         // Stop Listening to any External Player Events
         listenToExternalPlayerEvents = false;
@@ -696,18 +689,19 @@ namespace mvCentral.Playlist
         }
         else
         {
-          //                    item.Played = true;
-          //                    item.IsWatched = true; // for facade watched icons
           skipmissing = false;
           if (MediaPortal.Util.Utils.IsVideo(item.FileName))
           {
             if (mvPlayer.HasVideo)
             {
               // needed so everything goes in sequence otherwise stop gets handled after the play events
-              logger.Debug("Setting Fullscreen");
 
-              mvPlayer.ShowFullScreenWindow();
-              System.Threading.Thread.Sleep(2000);
+              if (mvCentralCore.Settings.AutoFullscreen)
+              {
+                logger.Debug("Setting Fullscreen");
+                mvPlayer.ShowFullScreenWindow();
+              }
+              System.Threading.Thread.Sleep(1000);
 
             }
           }
