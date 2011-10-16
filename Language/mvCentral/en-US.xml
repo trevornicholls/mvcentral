@@ -109,6 +109,7 @@
         <string Field="VirtualDriveMessage">The virtual drive wasn't ready in time.\nPlease try again or cancel playback.</string>
         <string Field="Video">Video</string>
         <string Field="Videos">Videos</string>
+        <string Field="ViewAs">View As</string>
         <string Field="VideoCount">Database has {0} Videos accross {1} Artists</string>
 
         // W
