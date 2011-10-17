@@ -83,6 +83,9 @@ namespace mvCentral.GUI
     private mvSort artistSort = mvSort.ascending;
     private mvSort videoSort = mvSort.ascending;
 
+    // Test 
+    private int failCount = 0;
+
     private List<string> artistTags = new List<string>();
 
     public int lastItemArt = 0, lastItemVid = 0, lastItemAlb = 0, artistID = 0, albumID = 0;
@@ -1239,18 +1242,24 @@ namespace mvCentral.GUI
     /// <param name="value"></param>
     private string runningTime(List<DBTrackInfo> trackList)
     {
-      TimeSpan tt = TimeSpan.Parse("00:00:00");
-      foreach (DBTrackInfo track in trackList)
+      try
       {
-        if (!string.IsNullOrEmpty(track.PlayTime))
+        TimeSpan tt = TimeSpan.Parse("00:00:00");
+        foreach (DBTrackInfo track in trackList)
+        {
           tt += TimeSpan.Parse(track.PlayTime);
+        }
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
       }
-      DateTime dt = new DateTime(tt.Ticks);
-      string cTime = String.Format("{0:HH:mm:ss}", dt);
-      if (cTime.StartsWith("00:"))
-        return cTime.Substring(3);
-      else
-        return cTime;
+      catch
+      {
+        return "00:00:00";
+      }
     }
 
     #endregion
