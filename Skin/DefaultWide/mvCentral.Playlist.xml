@@ -442,7 +442,6 @@
           			<font>font9</font>
                 <lineSpacing>2</lineSpacing>
           			<scrollStartDelaySec>10</scrollStartDelaySec>
-          			<visible>[facadeview.playlist]</visible>
          		  </control>
                <control>
                 <description>SD/HD Fullscreen/Widescreen</description>
@@ -452,7 +451,6 @@
                 <width>65</width>
                 <height>44</height>
                 <texture>Logos\#mvCentral.LocalMedia.videoresolution.png</texture>
-           			<visible>string.equals(#mvCentral.TrackView, true)</visible>
               </control>
               <!-- Video Codecs -->
               <control>
@@ -463,7 +461,6 @@
                 <width>65</width>
                 <height>44</height>
                 <texture>Logos\#mvCentral.LocalMedia.videocodec.png</texture>
-           			<visible>string.equals(#mvCentral.TrackView, true)</visible>
               </control>
               <!-- Audio Channels / Codecs-->
               <control>
@@ -474,7 +471,6 @@
                 <width>65</width>
                 <height>44</height>
                 <texture>Logos\#mvCentral.LocalMedia.audiochannels.png</texture>
-           			<visible>string.equals(#mvCentral.TrackView, true)</visible>
               </control>
             </controls>]]></subitem>
       </subitems>

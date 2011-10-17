@@ -705,6 +705,7 @@ namespace mvCentral.GUI
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Artists);
       GUIPropertyManager.SetProperty("#itemcount", artistList.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Artists);
       GUIPropertyManager.Changed = true;
 
       // Sort Artists
@@ -821,6 +822,7 @@ namespace mvCentral.GUI
       }
       persisting = true;
       GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Videos);
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.AllVideos);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
@@ -988,6 +990,7 @@ namespace mvCentral.GUI
       persisting = true;
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Albums);
       GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Albums);
       // Set the view
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
@@ -1028,6 +1031,8 @@ namespace mvCentral.GUI
       }
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Videos);
       GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Albums);
+      //
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "true");
@@ -1083,6 +1088,7 @@ namespace mvCentral.GUI
         onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
       GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Videos);
       // Set the view
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
@@ -1150,6 +1156,13 @@ namespace mvCentral.GUI
 
         DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
         DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
+        albumInfo = DBAlbumInfo.Get(trackInfo);
+
+        if (albumInfo == null)
+          GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist);
+        else
+          GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist + " | " + albumInfo.Album);
+
         // Video
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
@@ -1174,11 +1187,12 @@ namespace mvCentral.GUI
         clearVideoAudioProps();
         // This is a Album
         albumInfo = (DBAlbumInfo)item.MusicTag;
-        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Album + " | " + DBAlbumInfo.Get(albumInfo.Album));
         GUIPropertyManager.SetProperty("#mvCentral.Album", albumInfo.Album);
         // get list of tracks in this album
         List<DBTrackInfo> tracksInAlbum = DBTrackInfo.GetEntriesByAlbum(albumInfo);
-        // Set image
+        DBArtistInfo thisArtist = DBArtistInfo.Get(tracksInAlbum[0]);
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", thisArtist.Artist);
+         // Set image
         GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
         if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");

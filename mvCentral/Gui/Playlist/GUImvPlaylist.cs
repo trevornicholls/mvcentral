@@ -611,17 +611,19 @@ namespace mvCentral.Playlist
       playlistPlayer.Reset();
       playlistPlayer.Play(itemIndex);
     }
-
-
+    /// <summary>
+    /// Set the skin props for select facade item
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="parent"></param>
     private void onFacadeItemSelected(GUIListItem item, GUIControl parent)
     {
       //// triggered when a selection change was made on the facade
 
-
       // if this is not a message from the facade, exit
       if (parent != facadeLayout && parent != facadeLayout.FilmstripLayout &&
           parent != facadeLayout.ThumbnailLayout && parent != facadeLayout.ListLayout &&
-          parent != facadeLayout.PlayListLayout)
+          parent != facadeLayout.PlayListLayout && parent != facadeLayout.CoverFlowLayout)
         return;
 
       if (item == null || item.TVTag == null)
@@ -648,6 +650,19 @@ namespace mvCentral.Playlist
       else
         GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
 
+      DBLocalMedia mediaInfo = (DBLocalMedia)mvTrack.LocalMedia[0];
+
+      // Video
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
+      //logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
+      // Audio
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+
+
       logger.Debug("Set the skin props - selectedartist, mvCentral.ArtistName, selectedthumb etc");
       prevSelectedmvTrack = mvTrack;
 
@@ -667,6 +682,14 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.PlayTime", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", string.Empty);
+      // Clear the video properites
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", string.Empty);
+      // Audio
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Empty);
     }
 
     protected override void OnQueueItem(int itemIndex)

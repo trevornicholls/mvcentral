@@ -289,7 +289,7 @@ namespace mvCentral.Localizations
 
     // M
     public static string MediaIsMissing = "The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...";
-    public static string MediaNotAvailableBody = "The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}";
+    public static string MediaNotAvailableBody = "The media for the Music video you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}";
     public static string MediaNotAvailableHeader = "Media Not Available";
     public static string MissingExternalPlayerExe = "The executable for HD playback is missing.\nPlease correct the path to the executable.";
     public static string MostPlayedArtist = "Most Played Artist";
@@ -297,8 +297,8 @@ namespace mvCentral.Localizations
 
     // N
     public static string NoPlaylistsFound = "No Playlists found in:";
-    public static string NoArtistBio = "No Biography Avaiable for Artist {0}";
-    public static string NoTrackInfo = "No Track Description Avaiable";
+    public static string NoArtistBio = "No Biography Available for Artist {0}";
+    public static string NoTrackInfo = "No Track Description Available";
 
     // O
     public static string OK = "OK";
@@ -316,7 +316,7 @@ namespace mvCentral.Localizations
     public static string Random = "Random";
     public static string Retry = "Retry";
     public static string ResumeFrom = "Resume from:";
-    public static string ResumeFromLast = "Resume muicvideo from last time?";
+    public static string ResumeFromLast = "Resume Music Video from last time?";
     public static string RefreshArtwork = "Refresh Artwork from Online Sources";
 
     // S
@@ -336,7 +336,7 @@ namespace mvCentral.Localizations
     public static string VirtualDriveMessage = "The virtual drive wasn't ready in time.\nPlease try again or cancel playback.";
     public static string Video = "Video";
     public static string Videos = "Videos";
-    public static string VideoCount = "Database has {0} Videos accross {1} Artists";
+    public static string VideoCount = "Database has {0} Videos across {1} Artists";
     public static string ViewAs = "View as ";
 
 
