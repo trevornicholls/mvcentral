@@ -61,7 +61,7 @@
 
         // M
         <string Field="MediaIsMissing">The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...</string>
-        <string Field="MediaNotAvailableBody">The media for the Music videoe you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}</string>
+        <string Field="MediaNotAvailableBody">The media for the Music video you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}</string>
         <string Field="MediaNotAvailableHeader">Media Not Available</string>
         <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
         <string Field="MostPlayedArtist">Most Played Artist</string>
@@ -69,8 +69,8 @@
 
         // N
         <string Field="NoPlaylistsFound">No Playlists found in:</string>
-        <string Field="NoArtistBio">No Biography Avaiable for Artist {0}</string>
-        <string Field="NoTrackInfo">No Track Description Avaiable</string>
+        <string Field="NoArtistBio">No Biography Available for Artist {0}</string>
+        <string Field="NoTrackInfo">No Track Description Available</string>
 
         // O
         <string Field="OK">OK</string>
@@ -89,7 +89,7 @@
         <string Field="Random">Random</string>
         <string Field="Retry">Retry</string>
         <string Field="ResumeFrom">Resume from:</string>
-        <string Field="ResumeFromLast">Resume muicvideo from last time?</string>
+        <string Field="ResumeFromLast">Resume Music Video from last time?</string>
         <string Field="RefreshArtwork">Refresh Artwork from Online Sources</string>
         
         // S
@@ -110,7 +110,7 @@
         <string Field="Video">Video</string>
         <string Field="Videos">Videos</string>
         <string Field="ViewAs">View As</string>
-        <string Field="VideoCount">Database has {0} Videos accross {1} Artists</string>
+        <string Field="VideoCount">Database has {0} Videos across {1} Artists</string>
 
         // W
 </strings>

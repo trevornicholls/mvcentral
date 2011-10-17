@@ -509,87 +509,66 @@
           			<description>Tracks by Artist</description>
           			<type>fadelabel</type>
           			<posX>20</posX>
-          			<posY>32</posY>
+          			<posY>28</posY>
           			<width>320</width>
-          			<font>font10</font>
+          			<font>font11</font>
           			<textcolor>gainsboro</textcolor>
           			<label>#mvCentral.Translation.Videos.Label: #mvCentral.VideosByArtist (#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime)</label>
-          			<visible>string.equals(#mvCentral.ArtistView, true)</visible>
           		</control>
           	  <control>
           			<description>Album Genre</description>
           			<type>fadelabel</type>
           			<posX>20</posX>
-          			<posY>64</posY>
+          			<posY>90</posY>
           			<width>320</width>
           			<font>font10</font>
                 <textcolor>ffa9d0f7</textcolor>
           			<align>left</align>
           			<label>#mvCentral.ArtistTags</label>
-          			<visible>string.equals(#mvCentral.ArtistView, true)</visible>
           		</control>          		        			              
           		<control>
           			<description>Artist Bio</description>
           			<type>textboxscrollup</type>
           			<posX>20</posX>
-          			<posY>94</posY>
+          			<posY>110</posY>
           			<width>320</width>
-          			<height>120</height>
+          			<height>110</height>
                 <align>left</align>
                 <font>font9</font>
                 <lineSpacing>2</lineSpacing>
                 <textcolor>gainsboro</textcolor>
-           			<label>#mvCentral.ArtistBio</label>
+           			<label>#mvCentral.Description</label>
           			<seperator>-----------------------------------------------------------------------------------</seperator>
           			<scrollStartDelaySec>10</scrollStartDelaySec>
-          			<visible>string.equals(#mvCentral.ArtistView, true)</visible>
-          		</control>
-          		<control>
-          			<id>0</id>
-          			<description>Track Description</description>
-          			<type>textboxscrollup</type>
-          			<posX>20</posX>
-          			<posY>94</posY>
-          			<width>320</width>
-          			<height>120</height>
-          			<label>#mvCentral.TrackInfo</label>
-          			<seperator>-----------------------------------------------------------------------------------</seperator>
-          			<font>font9</font>
-                <lineSpacing>2</lineSpacing>
-          			<scrollStartDelaySec>10</scrollStartDelaySec>
-          			<visible>string.equals(#mvCentral.TrackView, true)</visible>
           		</control>
                <control>
                 <description>SD/HD Fullscreen/Widescreen</description>
                 <type>image</type>
                 <posX>20</posX>
-                <posY>40</posY>
-                <width>65</width>
-                <height>44</height>
+                <posY>50</posY>
+                <width>50</width>
+                <height>34</height>
                 <texture>Logos\#mvCentral.LocalMedia.videoresolution.png</texture>
-           			<visible>string.equals(#mvCentral.TrackView, true)</visible>
               </control>
               <!-- Video Codecs -->
               <control>
                 <description>Video Codecs</description>
                 <type>image</type>
-                <posX>140</posX>
-                <posY>40</posY>
-                <width>65</width>
-                <height>44</height>
+                <posX>110</posX>
+                <posY>50</posY>
+                <width>50</width>
+                <height>34</height>
                 <texture>Logos\#mvCentral.LocalMedia.videocodec.png</texture>
-           			<visible>string.equals(#mvCentral.TrackView, true)</visible>
               </control>
               <!-- Audio Channels / Codecs-->
               <control>
                 <description>Audio Codecs / Channels</description>
                 <type>image</type>
-                <posX>250</posX>
-                <posY>40</posY>
-                <width>65</width>
-                <height>44</height>
+                <posX>160</posX>
+                <posY>50</posY>
+                <width>50</width>
+                <height>34</height>
                 <texture>Logos\#mvCentral.LocalMedia.audiochannels.png</texture>
-           			<visible>string.equals(#mvCentral.TrackView, true)</visible>
               </control>
             </controls>]]></subitem>
           </subitems>

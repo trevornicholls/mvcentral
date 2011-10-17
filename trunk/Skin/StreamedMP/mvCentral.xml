@@ -4,12 +4,10 @@
   <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:-</define>
-  <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
   <controls>
-    <import>mymusic.autofanart.xml</import>
-    <import>mymusic.selected.fanart.xml</import>
-		<control>
+    <import>mymusic.selected.fanart.xml</import>   
+ 		<control>
 			<id>0</id>
 			<description>music overlay image</description>
 			<type>image</type>
@@ -46,9 +44,9 @@
       <description>Top Title Extension Background</description>
       <type>image</type>
       <id>0</id>
-      <posX>381</posX>
+      <posX>331</posX>
       <posY>11</posY>
-      <width>486</width>
+      <width>536</width>
       <height>36</height>
       <texture>tvtitlebg.png</texture>
       <animation effect="fade" time="300" delay="300">WindowOpen</animation>
@@ -123,7 +121,7 @@
       <id>0</id>
       <posX>77</posX>
       <posY>11</posY>
-      <width>437</width>
+      <width>337</width>
       <height>35</height>
       <texture>tvtitlebg.png</texture>
     </control>
@@ -131,7 +129,7 @@
       <type>fadelabel</type>
       <description>mvCentral Title</description>
       <id>0</id>
-      <posX>493</posX>
+      <posX>393</posX>
       <posY>13</posY>
       <width>350</width>
       <font>mediastream12c</font>
@@ -145,7 +143,7 @@
       <id>0</id>
       <posX>839</posX>
       <posY>13</posY>
-      <width>600</width>
+      <width>420</width>
       <font>mediastream12c</font>
       <align>right</align>
       <visible>yes</visible>

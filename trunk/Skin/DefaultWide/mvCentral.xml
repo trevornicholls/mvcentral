@@ -25,7 +25,19 @@
       <font>font16</font>
       <align>left</align>
       <visible>yes</visible>
-      <label>mvCentral  -  #mvCentral.Hierachy</label>
+      <label>mvCentral - </label>
+    </control>
+    <control>
+      <type>fadelabel</type>
+      <description>mvCentral Title</description>
+      <id>0</id>
+      <posX>270</posX>
+      <posY>27</posY>
+      <width>600</width>
+      <font>font16</font>
+      <align>left</align>
+      <visible>yes</visible>
+      <label>#mvCentral.Hierachy</label>
     </control>
     <control>
       <type>label</type>
