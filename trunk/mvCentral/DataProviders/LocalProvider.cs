@@ -167,24 +167,24 @@ namespace mvCentral.DataProviders
     /// <summary>
     /// Get Artist Artwork from the Artist Artwork folder.
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="mvArtistObject"></param>
     /// <returns></returns>
-    private bool getArtistArtFromArtistArtFolder(DBArtistInfo mv)
+    private bool getArtistArtFromArtistArtFolder(DBArtistInfo mvArtistObject)
     {
       logger.Debug("In Method getArtistArtFromArtistArtFolder(DBArtistInfo mv)");
-      if (mv == null)
+      if (mvArtistObject == null)
         return false;
 
       // grab a list of possible filenames for the artist based on the user pattern
       string pattern = mvCentralCore.Settings.ArtistArtworkFilenamePattern;
-      List<string> filenames = getPossibleNamesFromPattern(pattern, mv);
+      List<string> filenames = getPossibleNamesFromPattern(pattern, mvArtistObject);
 
       // check the ArtistArt folder for the user patterned ArtistArt
       string artistArtFolderPath = mvCentralCore.Settings.ArtistArtFolder;
       FileInfo newArtistArt = getFirstFileFromFolder(artistArtFolderPath, filenames);
       if (newArtistArt != null && newArtistArt.Exists)
       {
-        mv.ArtFullPath = newArtistArt.FullName;
+        mvArtistObject.ArtFullPath = newArtistArt.FullName;
         logger.Info("Loaded artistart from " + newArtistArt.FullName);
         return true;
       }
@@ -194,9 +194,9 @@ namespace mvCentral.DataProviders
     /// <summary>
     /// Get the Artist Artwork using the old Method
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="mvArtistObject"></param>
     /// <returns></returns>
-    private bool getOldArtistArt(DBArtistInfo mv)
+    private bool getOldArtistArt(DBArtistInfo mvArtistObject)
     {
       logger.Debug("In Method getOldArtistArt(DBArtistInfo mv)");
       bool found = false;
@@ -204,53 +204,50 @@ namespace mvCentral.DataProviders
       string artistartFolderPath = mvCentralCore.Settings.ArtistArtFolder;
       DirectoryInfo artistartFolder = new DirectoryInfo(artistartFolderPath);
 
-      string safeName = mv.Artist.Replace(' ', '.').ToValidFilename();
+      string safeName = mvArtistObject.Artist.Replace(' ', '.').ToValidFilename();
       Regex oldArtistArtRegex = new Regex("^{?" + Regex.Escape(safeName) + "}? \\[-?\\d+\\]\\.(jpg|png)");
 
       foreach (FileInfo currFile in artistartFolder.GetFiles())
       {
         if (oldArtistArtRegex.IsMatch(currFile.Name))
         {
-          found &= mv.AddArtFromFile(currFile.FullName);
+          found &= mvArtistObject.AddArtFromFile(currFile.FullName);
         }
       }
-
       return found;
     }
     /// <summary>
     /// get the Album Artwork from Album Artwork folder 
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="mvAlbumObject"></param>
     /// <returns></returns>
-    private bool getAlbumArtFromAlbumArtFolder(DBAlbumInfo mv)
+    private bool getAlbumArtFromAlbumArtFolder(DBAlbumInfo mvAlbumObject)
     {
       logger.Debug("In Method getAlbumArtFromAlbumArtFolder(DBAlbumInfo mv)");
-      if (mv == null)
+      if (mvAlbumObject == null)
         return false;
 
       // grab a list of possible filenames for the albumart based on the user pattern
       string pattern = mvCentralCore.Settings.AlbumArtworkFilenamePattern;
-      List<string> filenames = getPossibleNamesFromPattern(pattern, mv);
+      List<string> filenames = getPossibleNamesFromPattern(pattern, mvAlbumObject);
 
       // check the albumart folder for the user patterned albumart
       string albumArtFolderPath = mvCentralCore.Settings.AlbumArtFolder;
       FileInfo newAlbumArt = getFirstFileFromFolder(albumArtFolderPath, filenames);
       if (newAlbumArt != null && newAlbumArt.Exists)
       {
-        mv.ArtFullPath = newAlbumArt.FullName;
+        mvAlbumObject.ArtFullPath = newAlbumArt.FullName;
         logger.Info("Loaded Albumimage from " + newAlbumArt.FullName);
         return true;
       }
-
       return false;
     }
-
     /// <summary>
     /// Get the Album Artwork using the old method
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="mvAlbumObject"></param>
     /// <returns></returns>
-    private bool getOldAlbumArt(DBAlbumInfo mv)
+    private bool getOldAlbumArt(DBAlbumInfo mvAlbumObject)
     {
       logger.Debug("In Method getOldAlbumArt(DBAlbumInfo mv)");
       bool found = false;
@@ -258,43 +255,43 @@ namespace mvCentral.DataProviders
       string AlbumArtFolderPath = mvCentralCore.Settings.AlbumArtFolder;
       DirectoryInfo albumartFolder = new DirectoryInfo(AlbumArtFolderPath);
 
-      string safeName = mv.Album.Replace(' ', '.').ToValidFilename();
+      string safeName = mvAlbumObject.Album.Replace(' ', '.').ToValidFilename();
       Regex oldtrackRegex = new Regex("^{?" + Regex.Escape(safeName) + "}? \\[-?\\d+\\]\\.(jpg|png)");
 
       foreach (FileInfo currFile in albumartFolder.GetFiles())
       {
         if (oldtrackRegex.IsMatch(currFile.Name))
         {
-          found &= mv.AddArtFromFile(currFile.FullName);
+          found &= mvAlbumObject.AddArtFromFile(currFile.FullName);
         }
       }
-
       return found;
     }
     /// <summary>
     /// Get Track Artwork from Track Artwork folder
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="mvTrackObject"></param>
     /// <returns></returns>
-    private bool getTrackArtFromTrackArtFolder(DBTrackInfo mv)
+    private bool getTrackArtFromTrackArtFolder(DBTrackInfo mvTrackObject)
     {
       bool found = false;
       logger.Debug("In Method getTrackArtFromTrackArtFolder(DBTrackInfo mv)");
 
-      if (mv == null)
+      if (mvTrackObject == null)
         return false;
 
       // grab a list of possible filenames for the artistart based on the user pattern
       string pattern = mvCentralCore.Settings.TrackArtworkFilenamePattern;
-      List<string> filenames = getPossibleNamesFromPattern(pattern, mv);
+      List<string> filenames = getPossibleNamesFromPattern(pattern, mvTrackObject);
 
       // check the artistart folder for the user patterned artistarts
       string trackartFolderPath = mvCentralCore.Settings.TrackArtFolder;
       FileInfo newTrackArt = getFirstFileFromFolder(trackartFolderPath, filenames);
       if (newTrackArt != null && newTrackArt.Exists)
       {
-        found &= mv.AddArtFromFile(newTrackArt.FullName);
+        mvTrackObject.ArtFullPath = newTrackArt.FullName;
         logger.Info("Loaded trackimage from " + newTrackArt.FullName);
+        return true;
       }
       return found;
     }

@@ -51,17 +51,7 @@ namespace mvCentral.Database
         public DBExpression()
             : base()
         {
-//            InitColumns();
-//            InitValues(-1,"");
         }
-
-//        public DBExpression(long ID)
-//            : base(cTableName)
-//        {
-//            InitColumns();
-//            if (!ReadPrimary(ID.ToString()))
-//                InitValues(-1,"");
-//        }
 
         #region Database Fields
 
@@ -115,9 +105,9 @@ namespace mvCentral.Database
           ClearAll();
           // Parse fill path in format  \<atist>\<album>\<track>.<ext>
           if (mvCentralCore.Settings.IgnoreFoldersWhenParsing)
-            add(false, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s*)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
+            add(false, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
           else
-            add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s*)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
+            add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
 
           // Parse Filename in format <artist> - <track>.<ext>
           add(true, DBExpression.cType_Regexp, @"^(?:.*\\)?(?:(?:[~([{]+.+?[}\])~]+\s*)?(?<artist>.*?)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?<track>(?:[.\s]Live[.\s])?.*?)[.\s]*(?:\d+[ip][.\s].+?)?(?:@.+?)?(?:\sHD.+)?(?:[~([{]+.+?[}\])~]+\s*)?)\.(?<ext>.{2,5})$");

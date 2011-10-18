@@ -86,6 +86,8 @@ namespace mvCentral.BackgroundProcesses
       //OnProgress(1.0);
     }
 
+    #region Missing Artwork
+
     private void LookForMissingArtwork()
     {
       // Check for missing Artist Artwork
@@ -179,5 +181,7 @@ namespace mvCentral.BackgroundProcesses
         }
       }
     }
+
+    #endregion
   }
 }
