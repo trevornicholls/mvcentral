@@ -597,6 +597,8 @@ namespace mvCentral.DataProviders
     public bool GetArt(DBBasicInfo mv)
     {
 
+      logger.Debug("In Method GetArt - object is : " + mv.GetType().ToString());
+
       if (mv.GetType() == typeof(DBArtistInfo))
       {
         // if we have already hit our limit for the number of artist arts to load, quit
@@ -608,6 +610,7 @@ namespace mvCentral.DataProviders
 
         foreach (DBSourceInfo currSource in sources)
         {
+          logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
           if (currSource.IsDisabled(DataType.ARTIST))
             continue;
 
@@ -631,6 +634,7 @@ namespace mvCentral.DataProviders
 
         foreach (DBSourceInfo currSource in sources)
         {
+          logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
           if (currSource.IsDisabled(DataType.ALBUM))
             continue;
 
@@ -650,6 +654,7 @@ namespace mvCentral.DataProviders
 
         foreach (DBSourceInfo currSource in sources)
         {
+          logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
           if (currSource.IsDisabled(DataType.TRACK))
             continue;
 
