@@ -1191,13 +1191,21 @@ namespace mvCentral.GUI
         // get list of tracks in this album
         List<DBTrackInfo> tracksInAlbum = DBTrackInfo.GetEntriesByAlbum(albumInfo);
         DBArtistInfo thisArtist = DBArtistInfo.Get(tracksInAlbum[0]);
+        // Set the Hierachy
         GUIPropertyManager.SetProperty("#mvCentral.Hierachy", thisArtist.Artist);
          // Set image
         GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
-        if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
-          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
+        // Set the descrioption
+        if (string.IsNullOrEmpty(albumInfo.bioContent.Trim()))
+        {
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Album Information Avaiable");
+          GUIPropertyManager.SetProperty("#mvCentral.AlbumInfo", "No Album Information Avaiable");
+        }
         else
-          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
+        {
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", albumInfo.bioContent);
+          GUIPropertyManager.SetProperty("#mvCentral.AlbumInfo", albumInfo.bioContent);
+        }
         // Set tracks and Runtime for Album contents
         GUIPropertyManager.SetProperty("#mvCentral.AlbumTracksRuntime", runningTime(tracksInAlbum));
         GUIPropertyManager.SetProperty("#mvCentral.TracksForAlbum", tracksInAlbum.Count.ToString());
