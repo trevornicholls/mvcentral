@@ -291,35 +291,40 @@ namespace mvCentral.DataProviders
       }
       return true;
     }
-
-
-    public bool GetArtistArt(DBArtistInfo mv)
+    /// <summary>
+    /// Request artist artwork from last.fm
+    /// </summary>
+    /// <param name="mvArtistObject"></param>
+    /// <returns></returns>
+    public bool GetArtistArt(DBArtistInfo mvArtistObject)
     {
-      if (mv == null)
+      if (mvArtistObject == null)
         return false;
 
       // if we already have a backdrop move on for now
-      if (mv.ArtFullPath.Trim().Length > 0)
+      if (mvArtistObject.ArtFullPath.Trim().Length > 0)
         return true;
 
-      if (mv.ArtFullPath.Trim().Length == 0)
+      if (mvArtistObject.ArtFullPath.Trim().Length == 0)
       {
-        GetArtistImages(mv);
-        if (mv.ArtUrls != null)
+        // Request artist images
+        GetArtistImages(mvArtistObject);
+        // if we have some - process
+        if (mvArtistObject.ArtUrls != null)
         {
           // grab artistart loading settings
           int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
 
           int artistartAdded = 0;
-          lock (mv)
+          lock (mvArtistObject)
           {
             try
             {
-              foreach (string a2 in mv.ArtUrls)
+              foreach (string artistImage in mvArtistObject.ArtUrls)
               {
-                if (mv.AlternateArts.Count >= maxArtistArts)
+                if (mvArtistObject.AlternateArts.Count >= maxArtistArts)
                   break;
-                if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+                if (mvArtistObject.AddArtFromURL(artistImage) == ImageLoadResults.SUCCESS)
                   artistartAdded++;
               }
             }
@@ -329,69 +334,87 @@ namespace mvCentral.DataProviders
             return true;
         }
       }
-
-      // if we get here we didn't manage to find a proper backdrop
+      // if we get here we didn't manage to find a proper image for the artist
       // so return false
       return false;
     }
-
-    public bool GetTrackArt(DBTrackInfo mv)
+    /// <summary>
+    /// Lets see if last.fm has some artwork for us
+    /// </summary>
+    /// <param name="mvTrackObject"></param>
+    /// <returns></returns>
+    public bool GetTrackArt(DBTrackInfo mvTrackObject)
     {
-      //logger.Info("In Method : GetTrackArt(DBTrackInfo mv)");
-      if (mv == null)
+      List<string> trackImageList = null;
+      int trackartAdded = 0;
+      bool success = false;
+
+      if (mvTrackObject == null)
         return false;
 
       // if we already have a backdrop move on for now
-      if (mv.ArtFullPath.Trim().Length > 0)
+      if (mvTrackObject.ArtFullPath.Trim().Length > 0)
         return true;
 
-
-      // If video thumbnails prefered
-      if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
+      // If video thumbnails prefered grab it and return, this assumes success which is not good
+      if (mvCentralCore.Settings.PreferThumbnail)
       {
-        return generateVideoThumbnail(mv);
+        success = generateVideoThumbnail(mvTrackObject);
       }
 
-
-      List<string> at = null;
-      int trackartAdded = 0;
-
-
-      if (mvCentralUtils.IsGuid(mv.MdID))
-        at = GetTrackImages(mv.MdID);
+      if (success)
+        return success;
       else
-        at = GetTrackImages(mv.ArtistInfo[0].Artist, mv.Track);
-
-      if (at != null || at.Count > 0)
+      {
+        // lets see what available from last.fm
+        if (mvCentralUtils.IsGuid(mvTrackObject.MdID))
+          trackImageList = GetTrackImages(mvTrackObject.MdID);
+        else
+          trackImageList = GetTrackImages(mvTrackObject.ArtistInfo[0].Artist, mvTrackObject.Track);
+        // If we got nothing back from last.fm and we have not already tried to grab a fram from the video..try and grab a frame
+        if (trackImageList == null && !mvCentralCore.Settings.PreferThumbnail)
+        {
+          if (generateVideoThumbnail(mvTrackObject))
+            return true;
+          else
+            return false;
+        }
+      }
+      // So we have some imeages from last.fm...let grab them
+      if (trackImageList.Count > 0)
       {
         // grab covers loading settings
         int maxTrackArt = mvCentralCore.Settings.MaxTrackArts;
-
         int count = 0;
 
-        foreach (string a2 in at)
+        foreach (string trackImage in trackImageList)
         {
-          if (mv.AlternateArts.Count >= maxTrackArt)
+          if (mvTrackObject.AlternateArts.Count >= maxTrackArt)
             break;
-          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+
+          if (mvTrackObject.AddArtFromURL(trackImage) == ImageLoadResults.SUCCESS)
             trackartAdded++;
 
           count++;
         }
-
       }
+      // If we have some artwork then set the primay image to the first in the list
       if (trackartAdded > 0)
       {
-        mv.ArtFullPath = mv.AlternateArts[0];
+        mvTrackObject.ArtFullPath = mvTrackObject.AlternateArts[0];
         return true;
       }
-      else
+      else if (!mvCentralCore.Settings.PreferThumbnail)
       {
-        if (generateVideoThumbnail(mv))
+        // Right we have tried to get images from last.fm and they have been rejected.
+        // provided we have not already tired, grab an image from the video.
+        if (generateVideoThumbnail(mvTrackObject))
           return true;
         else
           return false;
       }
+      else
+        return false; // Well all that was a water of CPU cycles...bugger all found
     }
     /// <summary>
     /// Generate Thumbnail
@@ -420,41 +443,40 @@ namespace mvCentral.DataProviders
     /// <summary>
     /// Get album art work
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="mvAlbumObject"></param>
     /// <returns></returns>
-    public bool GetAlbumArt(DBAlbumInfo mv)
+    public bool GetAlbumArt(DBAlbumInfo mvAlbumObject)
     {
       logger.Info("In Method : GetAlbumArt(DBAlbumInfo mv)");
-      if (mv == null)
+
+      if (mvAlbumObject == null)
         return false;
-      List<string> at = mv.ArtUrls;
-      if (at != null)
+
+      List<string> albumImageList = mvAlbumObject.ArtUrls;
+      if (albumImageList != null)
       {
         // grab album art loading settings
         int maxAlbumArt = mvCentralCore.Settings.MaxAlbumArts;
 
         int albumartAdded = 0;
         int count = 0;
-        foreach (string a2 in at)
+        foreach (string albumImage in albumImageList)
         {
-          if (mv.AlternateArts.Count >= maxAlbumArt)
+          if (mvAlbumObject.AlternateArts.Count >= maxAlbumArt)
             break;
-          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+          if (mvAlbumObject.AddArtFromURL(albumImage) == ImageLoadResults.SUCCESS)
             albumartAdded++;
 
           count++;
         }
-
-        if (albumartAdded > 0)
-        {
-          // Update source info
-          //                        mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = mv.MdID;
-          return true;
-        }
       }
       return true;
     }
-
+    /// <summary>
+    /// GetDetails - not used but will keep for now
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetDetails(DBTrackInfo mv)
     {
       throw new NotImplementedException();
