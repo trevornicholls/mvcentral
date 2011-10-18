@@ -7,6 +7,7 @@ using Cornerstone.Extensions.IO;
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
 using mvCentral.LocalMediaManagement;
+using mvCentral.Extensions;
 using NLog;
 
 namespace mvCentral.Database {

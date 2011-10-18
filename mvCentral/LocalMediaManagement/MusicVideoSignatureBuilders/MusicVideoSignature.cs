@@ -43,6 +43,8 @@ namespace mvCentral.SignatureBuilders
         {
           keywords = title.ToKeywords();
           baseTitle = title.Equalize();
+          logger.Debug("Normalize BaseTitle: " + baseTitle);
+
         }
         else
         {
@@ -318,6 +320,7 @@ namespace mvCentral.SignatureBuilders
 
     private int matchTitle(string title)
     {
+      logger.Debug("Normalize : " + title);
       string otherTitle = title.Equalize();
       int score = AdvancedStringComparer.Levenshtein(baseTitle, otherTitle);
       return score;
