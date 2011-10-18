@@ -439,7 +439,6 @@ namespace mvCentral.DataProviders
       else
         return false;
     }
-
     /// <summary>
     /// Get album art work
     /// </summary>
@@ -489,50 +488,50 @@ namespace mvCentral.DataProviders
         return results;
       lock (lockList)
       {
-        DBTrackInfo mv = null;
+        DBTrackInfo mvTrackData = null;
         // Artist/Album handling, if the track and artist dont match and the track contains the artist name this would indicate the that track is in the format /<artist>/<album>/<atrist - track>.<ext>
         // This will throw out the parseing so remove the artist name from the track.
         // This is not the best fix, need to add code so I know whch expression produced the result or better still have a ignore folder structure when pasring option.
         if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().Contains(mvSignature.Artist.ToLower().Trim()))
-          mv = getMusicVideoTrack(mvSignature.Artist, Regex.Replace(mvSignature.Track, mvSignature.Artist, string.Empty, RegexOptions.IgnoreCase));
+          mvTrackData = getMusicVideoTrack(mvSignature.Artist, Regex.Replace(mvSignature.Track, mvSignature.Artist, string.Empty, RegexOptions.IgnoreCase));
         else
-          mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
+          mvTrackData = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
 
  
-        if (mv != null)
+        if (mvTrackData != null)
         {
-          if (mv.ArtistInfo.Count == 0)
+          if (mvTrackData.ArtistInfo.Count == 0)
           {
-            DBArtistInfo d4 = new DBArtistInfo();
-            d4.Artist = mvSignature.Artist;
-            mv.ArtistInfo.Add(d4);
+            DBArtistInfo artistInfo = new DBArtistInfo();
+            artistInfo.Artist = mvSignature.Artist;
+            mvTrackData.ArtistInfo.Add(artistInfo);
           }
 
           if (mvSignature.Album != null && mvSignature.Artist != null)
           {
             if (!mvCentralCore.Settings.UseMDAlbum)
             {
-              DBAlbumInfo d5 = new DBAlbumInfo();
-              d5.Album = mvSignature.Album;
-              setMusicVideoAlbum(ref d5, mvSignature.Artist, mvSignature.Album, null);
-              mv.AlbumInfo.Clear();
-              mv.AlbumInfo.Add(d5);
+              DBAlbumInfo albumInfo = new DBAlbumInfo();
+              albumInfo.Album = mvSignature.Album;
+              setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvSignature.Album, null);
+              mvTrackData.AlbumInfo.Clear();
+              mvTrackData.AlbumInfo.Add(albumInfo);
             }
           }
-          else if (mv.AlbumInfo.Count > 0 && mvCentralCore.Settings.SetAlbumFromTrackData)
+          else if (mvTrackData.AlbumInfo.Count > 0 && mvCentralCore.Settings.SetAlbumFromTrackData)
           {
-            logger.Debug("There are {0} Albums forun for Artist: {1} / {2}", mv.AlbumInfo.Count.ToString(), mvSignature.Artist, mvSignature.Title);
-            DBAlbumInfo d5 = new DBAlbumInfo();
-            d5.Album = mv.AlbumInfo[0].Album;
-            setMusicVideoAlbum(ref d5, mvSignature.Artist, mv.AlbumInfo[0].Album, null);
-            mv.AlbumInfo.Clear();
-            mv.AlbumInfo.Add(d5);
+            logger.Debug("There are {0} Albums forun for Artist: {1} / {2}", mvTrackData.AlbumInfo.Count.ToString(), mvSignature.Artist, mvSignature.Title);
+            DBAlbumInfo albumInfo = new DBAlbumInfo();
+            albumInfo.Album = mvTrackData.AlbumInfo[0].Album;
+            setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvTrackData.AlbumInfo[0].Album, null);
+            mvTrackData.AlbumInfo.Clear();
+            mvTrackData.AlbumInfo.Add(albumInfo);
 
           }
           else
-            mv.AlbumInfo.Clear();
+            mvTrackData.AlbumInfo.Clear();
 
-          results.Add(mv);
+          results.Add(mvTrackData);
         }
       }
       return results;
