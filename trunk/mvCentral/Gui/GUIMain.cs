@@ -255,6 +255,9 @@ namespace mvCentral.GUI
               facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
             }
             break;
+          case 4:
+            SetFavoriteTags();
+            break;
           default:
             //Exit
             break;
@@ -625,6 +628,54 @@ namespace mvCentral.GUI
       dlg.SetLine(3, "");
       dlg.DoModal(GUIWindowManager.ActiveWindow);
     }
+    /// <summary>
+    /// Show all found tags and allow to marked as favorite
+    /// </summary>
+    /// <returns></returns>
+    private int SetFavoriteTags()
+    {
+      artistTags.Clear();
+      foreach (DBArtistInfo artistData in DBArtistInfo.GetAll())
+      {
+        foreach (string artistTag in artistData.Tag)
+        {
+          if (!artistTags.Contains(artistTag))
+          {
+            if (artistTag != artistData.Artist)
+              artistTags.Add(artistTag);
+          }
+        }
+      }
+
+
+      GUIDialogMultiSelect dlgMenu = (GUIDialogMultiSelect)GUIWindowManager.GetWindow(112014);
+      if (dlgMenu != null)
+      {
+        dlgMenu.Reset();
+        dlgMenu.SetHeading(mvCentralCore.Settings.HomeScreenName + " - " + "Set Favorite Tags");
+
+        foreach (string artistTag in artistTags)
+        {
+          GUIListItem pItem = new GUIListItem(artistTag);
+          pItem.Selected = false;
+          dlgMenu.Add(pItem);
+        }
+      }
+      dlgMenu.DoModal(GetID);
+      DBGenres.ClearAll();
+      for (int i = 0; i < dlgMenu.ListItems.Count; i++)
+      {
+        if (dlgMenu.ListItems[i].Selected)
+          DBGenres.add(true, dlgMenu.ListItems[i].Label);
+        else
+          DBGenres.add(false, dlgMenu.ListItems[i].Label);
+      }
+
+      if (dlgMenu.SelectedLabel == -1) // Nothing was selected
+        return -1;
+
+      return dlgMenu.SelectedLabel;
+    }
 
     /// <summary>
     /// Show the Conext Menu
@@ -648,6 +699,9 @@ namespace mvCentral.GUI
           dlgMenu.Add(Localization.Cancel);
 
           dlgMenu.Add(Localization.RefreshArtwork);
+
+          dlgMenu.Add("Set Favorite Tags");
+
         }
         dlgMenu.DoModal(GetID);
 

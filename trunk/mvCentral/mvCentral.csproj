@@ -188,6 +188,7 @@
     <Compile Include="Database\DBArtistInfo.cs" />
     <Compile Include="Database\DBBasicInfo.cs" />
     <Compile Include="Database\DBExpressions.cs" />
+    <Compile Include="Database\DBGenres.cs" />
     <Compile Include="Database\DBImportPath.cs" />
     <Compile Include="Database\DBLocalMedia.cs" />
     <Compile Include="Database\DBMusicVideoNodeSettings.cs" />
@@ -234,6 +235,7 @@
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
     <Compile Include="Gui\GUIAlbumView.cs" />
+    <Compile Include="Gui\GUIMultiSelectDialog.cs" />
     <Compile Include="Gui\GUIPlaylist.cs" />
     <Compile Include="Gui\GUIStatsAndInfo.cs" />
     <Compile Include="Gui\GUIVideoView.cs" />
