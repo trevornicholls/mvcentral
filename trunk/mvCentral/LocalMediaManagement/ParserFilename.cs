@@ -242,7 +242,10 @@ namespace mvCentral.LocalMediaManagement
                 GroupValue = RunReplacements(replacementRegexAfter, GroupValue);
 
                 GroupValue = GroupValue.Trim();
-                m_Matches.Add(GroupName, GroupValue);
+                if (string.IsNullOrEmpty(GroupName.Trim()) || string.IsNullOrEmpty(GroupValue.Trim()))
+                  logger.Debug("Attempt to add empty value to dictionary");
+                else
+                  m_Matches.Add(GroupName, GroupValue);
               }
             }
             // stop on the first successful match

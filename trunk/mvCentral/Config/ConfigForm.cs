@@ -137,6 +137,7 @@ namespace mvCentral
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
       cbAutoFullscreen.Setting = mvCentralCore.Settings["auto_fullscreen"];
       cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
+      cbDisplayRawTrackText.Setting = mvCentralCore.Settings["gui_raw_track_text"];
       // Artwork Settings
       tbMinArtWidth.Setting = mvCentralCore.Settings["min_artist_width"];
       tbMinArtHeight.Setting = mvCentralCore.Settings["min_artist_height"];
