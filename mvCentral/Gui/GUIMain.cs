@@ -5,6 +5,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
+using System.Text.RegularExpressions;
 // Cornerstone
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
@@ -800,7 +801,17 @@ namespace mvCentral.GUI
       foreach (DBTrackInfo trackData in artistTrackList)
       {
         GUIListItem facadeItem = new GUIListItem();
-        facadeItem.Label = trackData.Track;
+
+        if (mvCentralCore.Settings.DisplayRawTrackText)
+        {
+          if (Path.GetFileName(trackData.LocalMedia[0].File.FullName).Contains("-"))
+            facadeItem.Label = Regex.Match(Path.GetFileName(trackData.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
+          else
+            facadeItem.Label = (Path.GetFileNameWithoutExtension(trackData.LocalMedia[0].File.FullName));
+        }
+        else
+          facadeItem.Label = trackData.Track;
+
         facadeItem.TVTag = trackData.bioContent;
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;
         facadeItem.IsFolder = false;
@@ -965,7 +976,17 @@ namespace mvCentral.GUI
           continue;
         
         GUIListItem facadeItem = new GUIListItem();
-        facadeItem.Label = trackData.Track;
+
+        if (mvCentralCore.Settings.DisplayRawTrackText)
+        {
+          if (Path.GetFileName(trackData.LocalMedia[0].File.FullName).Contains("-"))
+            facadeItem.Label = Regex.Match(Path.GetFileName(trackData.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
+          else
+            facadeItem.Label = (Path.GetFileNameWithoutExtension(trackData.LocalMedia[0].File.FullName));
+        }
+        else
+          facadeItem.Label = trackData.Track;
+
         facadeItem.TVTag = trackData.bioContent;
         selArtist = currArtist.Artist;
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;
@@ -1066,7 +1087,17 @@ namespace mvCentral.GUI
       foreach (DBTrackInfo db1 in list)
       {
         GUIListItem item = new GUIListItem();
-        item.Label = db1.Track;
+
+        if (mvCentralCore.Settings.DisplayRawTrackText)
+        {
+          if (Path.GetFileName(db1.LocalMedia[0].File.FullName).Contains("-"))
+            item.Label = Regex.Match(Path.GetFileName(db1.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
+          else
+            item.Label = (Path.GetFileNameWithoutExtension(db1.LocalMedia[0].File.FullName));
+        }
+        else
+          item.Label = db1.Track;
+
         if (string.IsNullOrEmpty(db1.ArtFullPath.Trim()))
           item.ThumbnailImage = "defaultAlbum.png";
         else
@@ -1149,6 +1180,7 @@ namespace mvCentral.GUI
         // This is an Video
         trackInfo = (DBTrackInfo)item.MusicTag;
         GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
+
         if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
         else

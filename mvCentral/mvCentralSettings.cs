@@ -1662,6 +1662,23 @@ namespace mvCentral.Settings {
         }
         private bool _resetSelectedMusicVideoWhenSwitchingCategories;
 
+        [CornerstoneSetting(
+            Name = "Display the filename track text",
+            Description = "If enabled this setting will display the raw track name instead of the cleaned version.",
+            Groups = "|MediaPortal GUI|Interface Options|",
+            Identifier = "gui_raw_track_text",
+            Default = false)]
+        public bool DisplayRawTrackText
+        {
+          get { return _displayrawtracktext; }
+          set
+          {
+            _displayrawtracktext = value;
+            OnSettingChanged("gui_raw_track_text");
+          }
+        }
+        private bool _displayrawtracktext;
+
 
 
         #endregion
