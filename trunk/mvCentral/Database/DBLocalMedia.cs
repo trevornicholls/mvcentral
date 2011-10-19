@@ -365,7 +365,7 @@ namespace mvCentral.Database {
             {
                 if (importPath.FullPath != "")
                 {
-                    _trimmedfullpath = FullPath.Substring(importPath.FullPath.Length+1, FullPath.Length - ImportPath.FullPath.Length - 1);
+                  _trimmedfullpath = Path.GetFileName(FullPath);
                 }
                 else _trimmedfullpath = "";
 
