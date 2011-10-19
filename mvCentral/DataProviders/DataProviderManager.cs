@@ -639,7 +639,11 @@ namespace mvCentral.DataProviders
             continue;
 
           bool success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mv);
-          if (success) return true;
+          if (success)
+          {
+            mv.Commit();
+            return true;
+          }
         }
       }
 
@@ -659,7 +663,11 @@ namespace mvCentral.DataProviders
             continue;
 
           bool success = currSource.Provider.GetTrackArt((DBTrackInfo)mv);
-          if (success) return true;
+          if (success)
+          {
+            mv.Commit();
+            return true;
+          }
         }
       }
       return false;
