@@ -1,4 +1,4 @@
-#region Copyright (C) 2005-2007 Team MediaPortal
+﻿#region Copyright (C) 2005-2007 Team MediaPortal
 
 /* 
  *	Copyright (C) 2005-2007 Team MediaPortal
@@ -118,7 +118,7 @@ namespace MediaPortal.Dialogs
       ListItems.Clear();
       base.Reset();
     }
-    
+
     public new void Add(string strLabel)
     {
       int iItemIndex = ListItems.Count + 1;
@@ -139,7 +139,7 @@ namespace MediaPortal.Dialogs
       ListItems.Add(pItem);
       base.Add(pItem);
     }
-    
+
     #endregion
 
     #region Virtual methods
@@ -161,7 +161,6 @@ namespace MediaPortal.Dialogs
     #endregion
   }
 }
-  
-  
-  
-  
+
+
+

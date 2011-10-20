@@ -50,7 +50,6 @@ namespace mvCentral.GUI
         else
         {
           currentView = mvView.Genres;
-          addToStack(currentView, false);
           artistID = facadeLayout.SelectedListItem.ItemId;
           logger.Debug("Calling loadCurrent from GenreActions");
           loadCurrent();

@@ -95,6 +95,11 @@ namespace mvCentral.Database
 
     #region Database Management Methods
 
+    /// <summary>
+    /// Add tag to Genre DB
+    /// </summary>
+    /// <param name="enabled"></param>
+    /// <param name="genre"></param>
     public static void add(bool enabled, string genre)
     {
       DBGenres r1 = new DBGenres();
@@ -102,7 +107,9 @@ namespace mvCentral.Database
       r1.Genre = genre;
       r1.Commit();
     }
-
+    /// <summary>
+    /// Remove all entries
+    /// </summary>
     public static void ClearAll()
     {
       List<DBGenres> rp = GetAll();
@@ -112,7 +119,10 @@ namespace mvCentral.Database
         r1.Commit();
       }
     }
-
+    /// <summary>
+    /// Get enabled entries only
+    /// </summary>
+    /// <returns></returns>
     public static List<DBGenres> GetSelected()
     {
       List<DBGenres> selectList = new List<DBGenres>();
@@ -127,8 +137,11 @@ namespace mvCentral.Database
       else
         return selectList;
     }
-
-
+    /// <summary>
+    /// Get Specific entry
+    /// </summary>
+    /// <param name="Genre"></param>
+    /// <returns></returns>
     public static DBGenres Get(string Genre)
     {
       if (Genre.Trim().Length == 0) return null;
@@ -138,17 +151,27 @@ namespace mvCentral.Database
       }
       return null;
     }
-
+    /// <summary>
+    /// Get by Index
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     public static DBGenres Get(int index)
     {
       return mvCentralCore.DatabaseManager.Get<DBGenres>(index);
     }
-
+    /// <summary>
+    /// Get all
+    /// </summary>
+    /// <returns></returns>
     public static List<DBGenres> GetAll()
     {
       return mvCentralCore.DatabaseManager.Get<DBGenres>(null);
     }
-
+    /// <summary>
+    /// alwats return Genre value
+    /// </summary>
+    /// <returns></returns>
     public override string ToString()
     {
       return Genre;
