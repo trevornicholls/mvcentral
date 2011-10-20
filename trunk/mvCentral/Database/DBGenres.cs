@@ -24,11 +24,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Cornerstone.Extensions;
-//using Cornerstone.Extensions.IO;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using NLog;
+using System.Web;
+using System.Net;
+using System.Threading;
+using System.Collections;
 using Cornerstone.Database;
+using Cornerstone.Database.CustomTypes;
 using Cornerstone.Database.Tables;
-using MediaPortal.Database;
+using mvCentral.LocalMediaManagement;
+using System.Text.RegularExpressions;
+using Cornerstone.Tools.Translate;
+using System.Runtime.InteropServices;
+using mvCentral.LocalMediaManagement.MusicVideoResources;
+using Cornerstone.Extensions;
 
 namespace mvCentral.Database
 {
@@ -80,6 +93,7 @@ namespace mvCentral.Database
 
     #endregion
 
+    #region Database Management Methods
 
     public static void add(bool enabled, string genre)
     {
@@ -99,6 +113,32 @@ namespace mvCentral.Database
       }
     }
 
+    public static List<DBGenres> GetSelected()
+    {
+      List<DBGenres> selectList = new List<DBGenres>();
+      foreach (DBGenres db1 in GetAll())
+      {
+        if (db1._enabled)
+          selectList.Add(db1);
+
+      }
+      if (selectList.Count == 0)
+        return null;
+      else
+        return selectList;
+    }
+
+
+    public static DBGenres Get(string Genre)
+    {
+      if (Genre.Trim().Length == 0) return null;
+      foreach (DBGenres db1 in GetAll())
+      {
+        if (String.Equals(Genre, db1.Genre)) return db1;
+      }
+      return null;
+    }
+
     public static DBGenres Get(int index)
     {
       return mvCentralCore.DatabaseManager.Get<DBGenres>(index);
@@ -108,6 +148,13 @@ namespace mvCentral.Database
     {
       return mvCentralCore.DatabaseManager.Get<DBGenres>(null);
     }
+
+    public override string ToString()
+    {
+      return Genre;
+    }
+
+    #endregion
 
   }
 }

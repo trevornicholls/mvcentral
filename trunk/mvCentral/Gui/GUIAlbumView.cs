@@ -30,6 +30,7 @@ namespace mvCentral.GUI
         else
         {
           currentView = mvView.Artist;
+          addToStack(currentView,false);
           artistID = facadeLayout.SelectedListItem.ItemId;
           logger.Debug("Calling loadCurrent from AlbumActions");
           loadCurrent();
