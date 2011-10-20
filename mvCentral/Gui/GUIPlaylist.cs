@@ -28,7 +28,8 @@ namespace mvCentral.GUI
       Random = 3,
       LeastPlayed = 4,
       ByTag = 5,
-      Cancel = 6,
+      ByGenre = 6,
+      Cancel = 7
     }
     #region playlist
 
@@ -105,6 +106,7 @@ namespace mvCentral.GUI
           dlgMenu.Add(Localization.Random);
           dlgMenu.Add(Localization.LeastPlayed);
           dlgMenu.Add(Localization.PlayByTag);
+          dlgMenu.Add(Localization.PlayByGenre);
         }
         dlgMenu.DoModal(GetID);
 
@@ -138,10 +140,55 @@ namespace mvCentral.GUI
         case SmartMode.ByTag:
           playByTag();
           break;
+        case SmartMode.ByGenre:
+          playByGenre();
+          break;
         case SmartMode.Cancel:
           break;
       }
     }
+
+    private void playByGenre()
+    {
+      GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      if (dlgMenu != null)
+      {
+        dlgMenu.Reset();
+        dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - " + Localization.SmartPlaylistOptions);
+        foreach (DBGenres genre in DBGenres.GetAll())
+        {
+          if (genre.Enabled)
+            dlgMenu.Add(genre.Genre);
+        }
+        dlgMenu.DoModal(GetID);
+
+        if (dlgMenu.SelectedLabel == -1) // Nothing was selected
+          return;
+
+        //dlgMenu.SelectedLabelText
+        PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+        playlist.Clear();
+        List<DBArtistInfo> allArtists = DBArtistInfo.GetAll();
+        foreach (DBArtistInfo artist in allArtists)
+        {
+          if (artist.Tag.Contains(dlgMenu.SelectedLabelText))
+          {
+            List<DBTrackInfo> theTracks = DBTrackInfo.GetEntriesByArtist(artist);
+            foreach (DBTrackInfo artistTrack in theTracks)
+            {
+              playlist.Add(new PlayListItem(artistTrack));
+            }
+          }
+        }
+        Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+        playlist.Shuffle();
+        Player.playlistPlayer.Play(0);
+        if (mvCentralCore.Settings.AutoFullscreen)
+          GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+      }
+    }
+
+
 
     private void playByTag()
     {

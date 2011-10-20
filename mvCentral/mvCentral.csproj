@@ -235,6 +235,7 @@
     <Compile Include="Extractors\TextExtractor.cs" />
     <Compile Include="Extractors\XplExtractor.cs" />
     <Compile Include="Gui\GUIAlbumView.cs" />
+    <Compile Include="Gui\GUIGenreView.cs" />
     <Compile Include="Gui\GUIMultiSelectDialog.cs" />
     <Compile Include="Gui\GUIPlaylist.cs" />
     <Compile Include="Gui\GUIStatsAndInfo.cs" />

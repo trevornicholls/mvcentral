@@ -274,6 +274,7 @@ namespace mvCentral.Localizations
     public static string FavouriteVideos = "Favourite Videos";
 
     // G
+    public static string Genre = "Genre";
 
     // H
     public static string HighestRated = "Highest Rated";
@@ -309,6 +310,7 @@ namespace mvCentral.Localizations
     public static string PlayAllRandom = "Play All (Random)";
     public static string Playlist = "Playlist";
     public static string PlayByTag = "Play By Tag";
+    public static string PlayByGenre = "Play By Genre";
 
     // Q
 
@@ -323,11 +325,12 @@ namespace mvCentral.Localizations
     public static string SmartPlaylistOptions = "Smart Playlists";
     public static string StatsAndInfo = "Stats and Info";
     public static string SmartPlaylistTag = "Select Tag for Playlist";
-    public static string Tracks = "Tracks";
-
+    public static string TagsToGenre = "Select Tags to use as Genre";
+ 
     // T
     public static string TotalRuntime = "Total Runtime";
     public static string TopTenVideos = "Top Ten Videos";
+    public static string Tracks = "Tracks";
 
     // U
 

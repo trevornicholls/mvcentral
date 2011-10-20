@@ -33,6 +33,7 @@ namespace mvCentral.GUI
         if (facadeLayout.ListLayout.SelectedListItem.Label == "..")
         {
           currentView = mvView.Artist;
+          addToStack(currentView, false);
           logger.Debug("Calling loadCurrent from VideoActions");
           loadCurrent();
         }
