@@ -299,7 +299,9 @@ namespace mvCentral.Playlist
       }
       else if (control == btnPlay || control == this.facadeLayout)
       {
-        if (control == this.facadeLayout && actionType != Action.ActionType.ACTION_SELECT_ITEM) return; // some other events raised onClicked too for some reason?
+        if ((control == this.facadeLayout && actionType != Action.ActionType.ACTION_SELECT_ITEM) || (facadeLayout.SelectedListItemIndex == -1)) 
+          return; // some other events raised onClicked too for some reason?
+
 
         playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
         playlistPlayer.Reset();
