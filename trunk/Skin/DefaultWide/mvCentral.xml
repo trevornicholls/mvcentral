@@ -227,10 +227,21 @@
             <posX>71</posX>
             <posY>464</posY>
             <onup>8</onup>
-            <ondown>2</ondown>           
+            <ondown>10</ondown>           
             <onleft>50</onleft>
             <label>#mvCentral.Translation.StatsAndInfo.Label</label>
-          </control>        
+          </control>  
+          <control>
+            <description>Configure Genres from tags</description>
+            <type>button</type>
+            <id>10</id>
+            <posX>71</posX>
+            <posY>507</posY>
+            <onup>9</onup>
+            <ondown>2</ondown>           
+            <onleft>50</onleft>
+            <label>#mvCentral.Translation.ConfigGenre.Label</label>
+          </control>                  
         </control>       
       </control>
 

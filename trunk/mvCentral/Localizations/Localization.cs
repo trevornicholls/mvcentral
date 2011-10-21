@@ -261,6 +261,7 @@ namespace mvCentral.Localizations
     public static string ContinueToNextPartBody = "Do you wish to continue with part {0}?";
     public static string ContinueToNextPartHeader = "Continue to next part?";
     public static string ContextMenu = "Context Menu";
+    public static string ConfigGenre = "Configure Genres";
 
     // D
     public static string Date = "Date";
