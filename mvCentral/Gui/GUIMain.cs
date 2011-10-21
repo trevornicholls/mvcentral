@@ -73,6 +73,7 @@ namespace mvCentral.GUI
     //GUImvStatsAndInfo Stats = new GUImvStatsAndInfo();
 
     List<mvView> screenStack = new List<mvView>();
+    private DBArtistInfo currArtist = null; 
 
     private bool initComplete = false;
     private Thread initThread;
@@ -119,6 +120,7 @@ namespace mvCentral.GUI
       PlaySmart = 7,
       PlayList = 8,
       StatsAndInfo = 9,
+      GenreConfig = 10,
       Facade = 50
     }
 
@@ -130,6 +132,8 @@ namespace mvCentral.GUI
     protected GUIButtonControl btnPlayList = null;
     [SkinControlAttribute((int)GUIControls.StatsAndInfo)]
     protected GUIButtonControl btnStatsAndInfo = null;
+    [SkinControlAttribute((int)GUIControls.GenreConfig)]
+    protected GUIButtonControl btnGenreConfig = null;
 
     #endregion
 
@@ -178,7 +182,9 @@ namespace mvCentral.GUI
       // If on Track screen go back to artists screen
       if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU)
       {
-        logger.Debug("Calling loadCurrent from OnAction");
+        logger.Debug("Calling loadCurrent from OnAction : CurrArtist {0}, currentArtistID {1}", currArtist.Artist, currentArtistID);
+
+
         artistID = currentArtistID;
         // Go Back to last view
         currentView = getPreviousView();
@@ -187,7 +193,6 @@ namespace mvCentral.GUI
       else if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU)
       {
         int contextChoice = ShowContextMenu();
-        DBArtistInfo currArtist = null;
         switch (contextChoice)
         {
           case 0:
@@ -242,9 +247,6 @@ namespace mvCentral.GUI
               facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
               facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
             }
-            break;
-          case 4:
-            SetFavoriteTags();
             break;
           default:
             //Exit
@@ -360,6 +362,7 @@ namespace mvCentral.GUI
       switch (dlg.SelectedId)
       {
         case 1:
+          currentView = mvView.Artist;
           loadArtists(artistSort);
           addToStack(currentView, true);
           break;
@@ -496,6 +499,9 @@ namespace mvCentral.GUI
           break;
         case (int)GUIControls.StatsAndInfo:
           GUIWindowManager.ActivateWindow(GUImvStatsAndInfo.GetWindowId());
+          break;
+        case (int)GUIControls.GenreConfig:
+          SetFavoriteTags();
           break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
@@ -748,11 +754,7 @@ namespace mvCentral.GUI
             dlgMenu.Add(Localization.AddToPlaylistNext);
           }
           dlgMenu.Add(Localization.Cancel);
-
           dlgMenu.Add(Localization.RefreshArtwork);
-
-          dlgMenu.Add(Localization.TagsToGenre);
-
         }
         dlgMenu.DoModal(GetID);
 
@@ -795,17 +797,17 @@ namespace mvCentral.GUI
           facadeLayout.SelectedListItemIndex = lastItemVid;
           break;
         case mvView.VideosOnAlbum:
-          artistID = currentArtistID;
+          //artistID = currentArtistID;
           loadVideos(artistID, videoSort);
           facadeLayout.SelectedListItemIndex = lastItemVid;
           break;
         case mvView.Genres:
-          artistID = currentArtistID;
+          //artistID = currentArtistID;
           loadGenres();
           facadeLayout.SelectedListItemIndex = lastItemVid;
           break;
         case mvView.ArtistViaGenre:
-          artistID = currentArtistID;
+          //artistID = currentArtistID;
           DisplayByGenre(lastViewedGenre);
           facadeLayout.SelectedListItemIndex = lastGenreItem;
           break;
@@ -1022,11 +1024,11 @@ namespace mvCentral.GUI
         }
       }
 
-      // Grab the info for the currently selected artist
-      DBArtistInfo currArtist = DBArtistInfo.Get(ArtistID);
+      //// Grab the info for the currently selected artist
+      //currArtist = DBArtistInfo.Get(ArtistID);
 
-      //  and store it
-      currentArtistID = ArtistID;
+      ////  and store it
+      //currentArtistID = ArtistID;
       // Load all videos for selected artist
       List<DBTrackInfo> artistTrackList = DBTrackInfo.GetEntriesByArtist(currArtist);
       // And sort
@@ -1311,11 +1313,11 @@ namespace mvCentral.GUI
     private void DisplayByGenre(string genre)
     {
       lastViewedGenre = genre;
+      currentView = mvView.Artist;
+      addToStack(currentView, false);
 
       List<DBArtistInfo> artistList = new List<DBArtistInfo>();
-
       List<DBArtistInfo> artistFullList = DBArtistInfo.GetAll();
-
 
       logger.Debug("Checking for matches for Genre : " + genre);
       foreach (DBArtistInfo artistInfo in artistFullList)
@@ -1421,7 +1423,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
       // How many videos do we have for this artist
-      DBArtistInfo currArtist = DBArtistInfo.Get(item.Label);
+      currArtist = DBArtistInfo.Get(item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
       // Artist Genres
@@ -1441,6 +1443,8 @@ namespace mvCentral.GUI
       // Store postions in facade
       lastItemArt = facadeLayout.SelectedListItemIndex;
       currentArtistInfo = currArtist;
+      currentArtistID = item.ItemId;
+
     }
     /// <summary>
     /// Video/Album item selected - set a load of properities
@@ -1472,6 +1476,9 @@ namespace mvCentral.GUI
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist);
         else
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist + " | " + albumInfo.Album);
+
+        currArtist = artistInfo;
+        currentArtistID = item.ItemId;
 
         // Video
         GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
@@ -1511,6 +1518,10 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.Hierachy", thisArtist.Artist);
          // Set image
         GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
+
+        currArtist = thisArtist;
+        currentArtistID = item.ItemId;
+
         // Set the descrioption
         if (string.IsNullOrEmpty(albumInfo.bioContent.Trim()))
         {
@@ -1625,9 +1636,9 @@ namespace mvCentral.GUI
           }
         }
         genreTracks = 0;
-        foreach (DBArtistInfo currArtist in artistList)
+        foreach (DBArtistInfo artist in artistList)
         {
-          List<DBTrackInfo> artistTracks = DBTrackInfo.GetEntriesByArtist(currArtist);
+          List<DBTrackInfo> artistTracks = DBTrackInfo.GetEntriesByArtist(artist);
           foreach (DBTrackInfo track in artistTracks)
           {
             genreTracks++;
