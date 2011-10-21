@@ -137,7 +137,7 @@
       <font>mediastream12c</font>
       <align>right</align>
       <visible>yes</visible>
-      <label>mvCentral</label>
+      <label>mvCentral | #mvCentral.ViewAs</label>
     </control>
     <control>
       <type>fadelabel</type>
@@ -831,7 +831,7 @@
 					<posY>280</posY>
 					<width>490</width>
 					<height>410</height>
-					<scrollOffset>5</scrollOffset>
+					<scrollOffset>1</scrollOffset>
           <IconYOff>12</IconYOff>
           <IconXOff>390</IconXOff>
           <itemHeight>32</itemHeight>
