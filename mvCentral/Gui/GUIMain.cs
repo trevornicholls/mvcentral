@@ -184,11 +184,14 @@ namespace mvCentral.GUI
       {
         logger.Debug("Calling loadCurrent from OnAction : CurrArtist {0}, currentArtistID {1}", currArtist.Artist, currentArtistID);
 
-
         artistID = currentArtistID;
         // Go Back to last view
         currentView = getPreviousView();
-        loadCurrent();
+        // Have we backed out to the last screen, if so exit otherwise load the previous screen
+        if (currentView == mvView.None)
+          base.OnAction(action);
+        else
+          loadCurrent();
       }
       else if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU)
       {
@@ -484,7 +487,7 @@ namespace mvCentral.GUI
       if (control == btnLayouts)
       {
         mvCentralCore.Settings.DefaultView = ((int)CurrentLayout).ToString();
-      }    
+      }
 
       switch (controlId)
       {
@@ -557,8 +560,6 @@ namespace mvCentral.GUI
                 //return to previous level
                 if (facadeLayout.SelectedListItem.Label == "..")
                 {
-                  currentView = getPreviousView();
-                  logger.Debug("Calling loadCurrent from OnClicked(1)");
                   loadCurrent();
                 }
                 else
@@ -566,7 +567,6 @@ namespace mvCentral.GUI
                   artistID = facadeLayout.SelectedListItem.ItemId;
                   currentView = mvView.Video;
                   addToStack(currentView, false);
-                  logger.Debug("Calling loadCurrent from OnClicked(2)");
                   loadCurrent();
                 }
               }
@@ -637,6 +637,13 @@ namespace mvCentral.GUI
       if (resetStack)
         screenStack.Clear();
 
+      if (TopWindow == mvView.AllAlbums && activeView == mvView.Video)
+        activeView = mvView.VideosOnAlbum;
+
+      if (TopWindow == mvView.Genres && activeView == mvView.Artist)
+        activeView = mvView.ArtistViaGenre;
+
+
       if (screenStack.Count == 0)
       {
         screenStack.Add(activeView);
@@ -651,12 +658,15 @@ namespace mvCentral.GUI
     {
       if (screenStack.Count == 1)
       {
-        return screenStack[0];
+        return mvView.None;
       }
 
       int index = screenStack.Count - 1;
       mvView lastView = screenStack[index - 1];
       screenStack.RemoveAt(index);
+      logger.Debug("(getPreviousScreen)");
+      foreach (mvView mvv in screenStack)
+        logger.Debug("Read Stack > {0}",mvv.ToString());
       return lastView;
     }
 
@@ -664,7 +674,10 @@ namespace mvCentral.GUI
     {
       get
       {
-        return screenStack[0];
+        if (screenStack.Count > 0)
+          return screenStack[0];
+        else
+          return mvView.None;
       }
     }
 
@@ -785,8 +798,16 @@ namespace mvCentral.GUI
           break;
         case mvView.Album:
         case mvView.Video:
-          loadVideos(artistID, videoSort);
-          facadeLayout.SelectedListItemIndex = lastItemVid;
+          if (TopWindow == mvView.AllAlbums && screenStack.Count == 1)
+          {
+            loadAllAlbums();
+            facadeLayout.SelectedListItemIndex = lastItemAlb;
+          }
+          else
+          {
+            loadVideos(artistID, videoSort);
+            facadeLayout.SelectedListItemIndex = lastItemVid;
+          }
           break;
         case mvView.AllAlbums:
           loadAllAlbums();
@@ -1047,6 +1068,8 @@ namespace mvCentral.GUI
         // If no Album is associated then skip to next track
         if (trackData.AlbumInfo.Count == 0)
           continue;
+        //We have an album
+        DBAlbumInfo theAlbum = DBAlbumInfo.Get(trackData);
 
         // Check if we already have this album as a facade item
         bool IsPresent = false;
@@ -1059,20 +1082,21 @@ namespace mvCentral.GUI
         if (IsPresent)
           continue;
 
+
         // Add Album to facade
         GUIListItem item = new GUIListItem();
-        item.Label = trackData.AlbumInfo[0].Album;
+        item.Label = theAlbum.Album;
 
-        if (string.IsNullOrEmpty(trackData.AlbumInfo[0].ArtFullPath.Trim()))
+        if (string.IsNullOrEmpty(theAlbum.ArtFullPath.Trim()))
           item.ThumbnailImage = "defaultVideoBig.png";
         else
-          item.ThumbnailImage = trackData.AlbumInfo[0].ArtFullPath;
+          item.ThumbnailImage = theAlbum.ArtFullPath;
 
-        item.TVTag = trackData.AlbumInfo[0].bioContent;
+        item.TVTag = theAlbum.bioContent;
         selArtist = currArtist.Artist;
         item.IsFolder = true;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
-        item.MusicTag = trackData.AlbumInfo[0];
+        item.MusicTag = theAlbum;
         facadeLayout.Add(item);
 
       }
@@ -1147,6 +1171,7 @@ namespace mvCentral.GUI
       {
         GUIListItem item = new GUIListItem();
         item.Label = theAlbum.Album;
+        item.ItemId = (int)theAlbum.ID;
 
         if (string.IsNullOrEmpty(theAlbum.ArtFullPath))
           item.ThumbnailImage = "defaultAlbum.png";
@@ -1224,6 +1249,7 @@ namespace mvCentral.GUI
         item.IsFolder = false;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         item.MusicTag = db1;
+        item.ItemId = (int)currAlbum.ID;
         facadeLayout.Add(item);
       }
       // Always set index for first track
@@ -1329,7 +1355,7 @@ namespace mvCentral.GUI
         }
       }
       
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Genre);
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Genre + " | " + genre);
       GUIPropertyManager.SetProperty("#itemcount", artistList.Count.ToString());
       GUIPropertyManager.SetProperty("#itemtype", Localization.Artists);
       GUIPropertyManager.Changed = true;
@@ -1499,7 +1525,7 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
         if (item.Label != "..")
         {
-          logger.Debug("Setting lastItemVid (1) to {0}", facadeLayout.SelectedListItemIndex);
+          //logger.Debug("Setting lastItemVid (1) to {0}", facadeLayout.SelectedListItemIndex);
           lastItemVid = facadeLayout.SelectedListItemIndex;
         }
 
@@ -1542,7 +1568,7 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
         if (item.Label != "..")
         {
-          logger.Debug("Setting lastItemAlb (1) to {0}", facadeLayout.SelectedListItemIndex);
+          //logger.Debug("Setting lastItemAlb (1) to {0}", facadeLayout.SelectedListItemIndex);
           lastItemAlb = facadeLayout.SelectedListItemIndex;
         }
 
