@@ -156,6 +156,7 @@ namespace mvCentral.Database
       add(true, true, true, false, "1080p", @"<empty>");
       add(true, true, true, false, "HDTV", @"<empty>");
       add(true, true, true, false, "HD", @"<empty>");
+      add(true, true, true, false, "–", "-");
     }
 
 
