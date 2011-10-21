@@ -1520,6 +1520,26 @@ namespace mvCentral.Settings {
         private string _defaultPlaylistView;
 
         [CornerstoneSetting(
+            Name = "Default View As",
+            Description = "The default view as when the plugin is first opened.",
+            Groups = "|MediaPortal GUI|Interface Options|",
+            Identifier = "default_view_as",
+            Default = "Artist",
+            Hidden = false)]
+        public string DefaultViewAs
+        {
+          get { return _defaultviewas; }
+          set
+          {
+            _defaultviewas = value;
+            OnSettingChanged("default_view_as");
+          }
+        }
+        private string _defaultviewas;
+
+
+
+        [CornerstoneSetting(
             Name = "Click Shows Details",
             Description = "Determines behavior when a musicvideo in the musicvideo browser is clicked. If true, the details view appears. If false the musicvideo starts playback.",
             Groups = "|MediaPortal GUI|Interface Options|",

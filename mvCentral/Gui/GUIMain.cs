@@ -92,9 +92,6 @@ namespace mvCentral.GUI
     private int genreTracks = 0;
     private string lastViewedGenre = string.Empty;
 
-    // Test 
-    private int failCount = 0;
-
     private List<string> artistTags = new List<string>();
 
     public int lastItemArt = 0, lastItemVid = 0, lastItemAlb = 0, lastGenreItem = 0,artistID = 0, albumID = 0;
@@ -385,8 +382,10 @@ namespace mvCentral.GUI
           loadGenres();
           break;
       }
-      previousView = currentView;
+      logger.Debug("SwitchLayout: Storing View {0}", currentView);
+      mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
       GUIControl.FocusControl(GetID, facadeLayout.GetID);
+      setViewAsProperty(currentView);
     }
     /// <summary>
     /// Show the layout selection menu
@@ -470,7 +469,6 @@ namespace mvCentral.GUI
     {
       base.SwitchLayout();
       layoutChanging = true;
-      logger.Debug("Calling loadCurrent from SwitchLayout");
       loadCurrent();
       layoutChanging = false;
     }
@@ -588,8 +586,11 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count + " " + Localization.Videos);
 
       // set initial view to artists (need to store this at some point)
-      currentView = mvView.Artist;
+      currentView = (mvView)int.Parse(mvCentralCore.Settings.DefaultViewAs);
       addToStack(currentView, true);
+      setViewAsProperty(currentView);
+
+      logger.Info("GUI - Loaded ViewAs : {0}", currentView.ToString());
 
       // Read last used layout from and set, default to list if not yet stored
       if (mvCentralCore.Settings.DefaultView == "lastused")
@@ -599,6 +600,8 @@ namespace mvCentral.GUI
       }
       else
         CurrentLayout = (Layout)int.Parse(mvCentralCore.Settings.DefaultView);
+
+      logger.Info("GUI - Loaded Layout : {0}", CurrentLayout.ToString());
 
         SwitchLayout();
         UpdateButtonStates();
@@ -631,6 +634,27 @@ namespace mvCentral.GUI
     #endregion
 
     #region Private Methods
+
+    private void setViewAsProperty(mvView viewAs)
+    {
+      switch (viewAs)
+      {
+        case mvView.Artist:
+          GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Artists);
+          break;
+        case mvView.AllAlbums:
+          GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Albums);
+          break;
+        case mvView.AllVideos:
+          GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Videos);
+          break;
+        case mvView.Genres:
+          GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Genre);
+          break;
+      }
+      GUIPropertyManager.Changed = true;
+    }
+
 
     private void addToStack(mvView activeView, bool resetStack)
     {
