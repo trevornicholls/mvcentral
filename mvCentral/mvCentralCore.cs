@@ -319,7 +319,6 @@ namespace mvCentral
       logger.Info("Starting Background Processes...");
       ProcessManager.StartProcess(new MediaInfoUpdateProcess());
       ProcessManager.StartProcess(new UpdateArtworkProcess());
-
     }
 
     private static void stopBackgroundTasks()
