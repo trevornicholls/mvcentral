@@ -61,14 +61,14 @@ namespace mvCentral.Database
                 }
 
                 // Remove Orphan artist
-                List<DBArtistInfo> ars = DBArtistInfo.GetAll();
-                foreach (DBArtistInfo ar1 in ars)
+                List<DBArtistInfo> allArtistList = DBArtistInfo.GetAll();
+                foreach (DBArtistInfo artist in allArtistList)
                 {
-                    List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByArtist(ar1);
+                    List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByArtist(artist);
                     if (mvs.Count == 0)
                     {
-                        logger.Info("Removing: {0} (artistinfo orphan)", ar1.Artist);
-                        ar1.Delete();
+                        logger.Info("Removing: {0} (artistinfo orphan)", artist.Artist);
+                        artist.Delete();
                         cleaned++;
                     }
 
