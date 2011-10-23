@@ -811,7 +811,6 @@ namespace mvCentral.GUI
       if (currentArtistInfo != null)
          thisArtist = currentArtistInfo.Artist;
 
-
       logger.Debug("In loadCurrent, View: {0},  Current Artist:{1}, and ID: {2}", currentView.ToString(), thisArtist, currentArtistID.ToString());
       persisting = true;     
       switch (currentView)
@@ -920,6 +919,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
       clearVideoAudioProps();
       GUIPropertyManager.Changed = true;
 
@@ -1001,6 +1001,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
       clearVideoAudioProps();
       GUIPropertyManager.Changed = true;
 
@@ -1064,6 +1065,7 @@ namespace mvCentral.GUI
           GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
           GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
           GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "true");
+          GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
           GUIPropertyManager.Changed = true;
           return;
         }
@@ -1176,6 +1178,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
       clearVideoAudioProps();
       GUIPropertyManager.Changed = true;
     }
@@ -1215,6 +1218,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "true");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
       clearVideoAudioProps();
       GUIPropertyManager.Changed = true;
 
@@ -1292,8 +1296,9 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#itemtype", Localization.Videos);
       // Set the view
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
-      GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
       // Tell property manager we have changed something
       GUIPropertyManager.Changed = true;
     }
@@ -1324,7 +1329,7 @@ namespace mvCentral.GUI
 
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Genre);
       GUIPropertyManager.SetProperty("#itemcount", genreList.Count.ToString());
-      GUIPropertyManager.SetProperty("#itemtype", Localization.Genre);
+      GUIPropertyManager.SetProperty("#itemtype", GUILocalizeStrings.Get(135));
       GUIPropertyManager.Changed = true;
 
       // Clear the facade and load the artists
@@ -1350,9 +1355,10 @@ namespace mvCentral.GUI
         onGenreSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
       persisting = true;
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "true");
       clearVideoAudioProps();
       GUIPropertyManager.Changed = true;
     }
@@ -1432,6 +1438,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
       GUIPropertyManager.Changed = true;
     }
     /// <summary>
@@ -1451,7 +1458,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", genreRunningTime(selectGenre));
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", genreTracks.ToString());
 
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Genre + " | " + selectGenre.Genre);
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", GUILocalizeStrings.Get(135) + " | " + selectGenre.Genre);
       GUIPropertyManager.Changed = true;
 
       lastGenreItem = facadeLayout.SelectedListItemIndex;

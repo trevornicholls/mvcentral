@@ -585,13 +585,19 @@ namespace mvCentral.Playlist
           }
         }
 
+        GUIMessage GUIMessageToSend = null;
         _currentItem = iItem;
         PlayListItem item = playlist[_currentItem];
+        GUIMessageToSend = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
+        GUIMessageToSend.Label = item.Track.LocalMedia[0].File.FullName;
+        logger.Debug("Sending GUI_MSG_ITEM_FOCUS message from PlayListPlayer");
+        GUIGraphicsContext.SendMessage(GUIMessageToSend);
 
-        GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, _currentItem, 0, null);
-        msg.Label = item.Track.LocalMedia[0].File.FullName;
+        GUIMessageToSend = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED, 0, 0, 0, _currentItem, 0, null);
+        GUIMessageToSend.Label = item.Track.LocalMedia[0].File.FullName;
+        logger.Debug("Sending GUI_MSG_PLAYLIST_CHANGED message from PlayListPlayer");
+        GUIGraphicsContext.SendMessage(GUIMessageToSend);
 
-        GUIGraphicsContext.SendMessage(msg);
 
         if (playlist.AllPlayed())
         {
@@ -708,7 +714,8 @@ namespace mvCentral.Playlist
         }
       }
       while (skipmissing);
-      
+
+     
       SetInitTimerValues();
       playTimer.Start();
 

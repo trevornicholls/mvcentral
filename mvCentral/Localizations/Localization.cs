@@ -341,8 +341,7 @@ namespace mvCentral.Localizations
     public static string Video = "Video";
     public static string Videos = "Videos";
     public static string VideoCount = "Database has {0} Videos across {1} Artists";
-    public static string ViewAs = "View as ";
-
+    public static string ViewAs = "View by ";
 
     // W
     #endregion
