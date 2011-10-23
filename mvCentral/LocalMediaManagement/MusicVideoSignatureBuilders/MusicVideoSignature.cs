@@ -411,9 +411,16 @@ namespace mvCentral.SignatureBuilders
         CurrentParseResult.match_filename = LocalMedia[0].TrimmedFullPath;
         CurrentParseResult.full_filename = LocalMedia[0].File.Name;
         CurrentParseResult.parser = parser;
-        artist = CurrentParseResult.Artist;
-        album = CurrentParseResult.Album;
-        track = CurrentParseResult.Track;
+
+        if (!CurrentParseResult.failedArtist)
+          artist = CurrentParseResult.Artist;
+
+        if (!CurrentParseResult.failedAlbum)
+          album = CurrentParseResult.Album;
+
+        if (!CurrentParseResult.failedTrack)
+          track = CurrentParseResult.Track;
+
         logger.Debug(string.Format("Result of Parsing : Artist: {0}    Album: {1}    Track: {2}", artist, album, track));
       }
     }

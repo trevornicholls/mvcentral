@@ -55,6 +55,18 @@
       <visible>string.equals(#mvCentral.ArtistView,true)</visible>
     </control>
     <control>
+      <description>Number of Files Label (Artist)</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>699</posX>
+      <posY>55</posY>
+      <label>#selectedindex/#itemcount #(L(135))</label>
+      <align>right</align>
+      <textcolor>White</textcolor>
+      <font>font12</font>
+      <visible>string.equals(#mvCentral.GenreView,true)</visible>
+    </control>
+    <control>
       <description>Number of Files Label (Album)</description>
       <type>label</type>
       <id>1</id>
@@ -122,13 +134,13 @@
           <animation effect="slide" time="150" start="-300,0" reversible="false">visible</animation>
           <animation effect="slide" time="150" end="-300,0" reversible="false">hidden</animation>
           <posX>39</posX>
-          <posY>96</posY>
+          <posY>86</posY>
           <control>
             <description>View-As</description>
             <type>button</type>
             <id>2</id>
             <posX>39</posX>
-            <posY>121</posY>
+            <posY>111</posY>
             <label>100</label>
             <onright>50</onright>
             <onup>17</onup>
@@ -139,7 +151,7 @@
             <type>button</type>
             <id>5</id>
             <posX>39</posX>
-            <posY>163</posY>
+            <posY>153</posY>
             <label>457</label>
             <onright>50</onright>
             <onup>2</onup>
@@ -150,27 +162,18 @@
             <type>sortbutton</type>
             <id>3</id>
             <posX>39</posX>
-            <posY>206</posY>
+            <posY>196</posY>
             <label>103</label>
             <onright>50</onright>
             <onup>5</onup>
             <ondown>6</ondown>
-          </control>
-          <control>
-            <description>Empty button</description>
-            <type>button</type>
-            <id>0</id>
-            <posX>39</posX>
-            <posY>249</posY>
-            <label>-</label>
-            <visible>false</visible>
-          </control>        
+          </control>    
           <control>
             <description>Play All Random</description>
             <type>button</type>
             <id>6</id>
             <posX>39</posX>
-            <posY>292</posY>
+            <posY>263</posY>
            <onup>5</onup>
             <ondown>7</ondown>           
             <onleft>50</onleft>
@@ -181,7 +184,7 @@
             <type>button</type>
             <id>7</id>
             <posX>39</posX>
-            <posY>335</posY>
+            <posY>313</posY>
             <onup>6</onup>
             <ondown>8</ondown>           
             <onleft>50</onleft>
@@ -192,27 +195,18 @@
             <type>button</type>
             <id>8</id>
             <posX>39</posX>
-            <posY>378</posY>
+            <posY>363</posY>
             <onup>7</onup>
             <ondown>9</ondown>           
             <onleft>50</onleft>
             <label>#mvCentral.Translation.Playlist.Label</label>
           </control>        
           <control>
-            <description>Empty button</description>
-            <type>button</type>
-            <id>0</id>
-            <posX>39</posX>
-            <posY>421</posY>
-            <label>-</label>
-            <visible>false</visible>
-          </control> 
-          <control>
             <description>Viewing and DB Stats</description>
             <type>button</type>
             <id>9</id>
             <posX>39</posX>
-            <posY>464</posY>
+            <posY>433</posY>
             <onup>8</onup>
             <ondown>10</ondown>           
             <onleft>50</onleft>
@@ -222,8 +216,8 @@
             <description>Configure Genres from tags</description>
             <type>button</type>
             <id>10</id>
-            <posX>71</posX>
-            <posY>507</posY>
+            <posX>39</posX>
+            <posY>483</posY>
             <onup>9</onup>
             <ondown>2</ondown>           
             <onleft>50</onleft>
@@ -247,7 +241,7 @@
 			<texture flipY="true" diffuse="Thumb_Mask.png" >#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
 			<keepaspectratio>no</keepaspectratio>
-			<visible>facadeview.list+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>facadeview.list+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>		
 		<control>
 			<id>0</id>
@@ -284,7 +278,7 @@
 			<width>925</width>
 			<font>font16</font>
 			<label>#selecteditem</label>
-			<visible>facadeview.list+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>facadeview.list+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>
 		<control>
 			<id>0</id>
@@ -339,7 +333,7 @@
 			<id>0</id>
 			<description>Tracks by Artist</description>
 			<type>fadelabel</type>
-			<visible>[facadeview.list|facadeview.album]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list|facadeview.album]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 			<posX>27</posX>
 			<posY>153</posY>
 			<width>925</width>

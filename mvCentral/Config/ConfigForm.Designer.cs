@@ -173,6 +173,7 @@
       this.btnExpDown = new System.Windows.Forms.Button();
       this.label70 = new System.Windows.Forms.Label();
       this.tbSettings = new System.Windows.Forms.TabPage();
+      this.cbDisplayRawTrackText = new Cornerstone.GUI.Controls.SettingCheckBox();
       this.cbAutoFullscreen = new Cornerstone.GUI.Controls.SettingCheckBox();
       this.label41 = new System.Windows.Forms.Label();
       this.cbIgnoreFolderStructure = new Cornerstone.GUI.Controls.SettingCheckBox();
@@ -273,7 +274,6 @@
       this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.cbDisplayRawTrackText = new Cornerstone.GUI.Controls.SettingCheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
       this.scMain.Panel1.SuspendLayout();
       this.scMain.Panel2.SuspendLayout();
@@ -1888,6 +1888,18 @@
       this.tbSettings.Text = "Settings";
       this.tbSettings.UseVisualStyleBackColor = true;
       // 
+      // cbDisplayRawTrackText
+      // 
+      this.cbDisplayRawTrackText.AutoSize = true;
+      this.cbDisplayRawTrackText.IgnoreSettingName = true;
+      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(175, 333);
+      this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
+      this.cbDisplayRawTrackText.Setting = null;
+      this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
+      this.cbDisplayRawTrackText.TabIndex = 98;
+      this.cbDisplayRawTrackText.Text = "Display non-cleaned version track name\r\n";
+      this.cbDisplayRawTrackText.UseVisualStyleBackColor = true;
+      // 
       // cbAutoFullscreen
       // 
       this.cbAutoFullscreen.AutoSize = true;
@@ -2842,18 +2854,6 @@
       // 
       this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
       this.unapprovedMatchesBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.unapprovedMatchesBindingSource_ListChanged);
-      // 
-      // cbDisplayRawTrackText
-      // 
-      this.cbDisplayRawTrackText.AutoSize = true;
-      this.cbDisplayRawTrackText.IgnoreSettingName = true;
-      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(175, 333);
-      this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
-      this.cbDisplayRawTrackText.Setting = null;
-      this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
-      this.cbDisplayRawTrackText.TabIndex = 98;
-      this.cbDisplayRawTrackText.Text = "Display non-cleaned version track name\r\n";
-      this.cbDisplayRawTrackText.UseVisualStyleBackColor = true;
       // 
       // ConfigForm
       // 

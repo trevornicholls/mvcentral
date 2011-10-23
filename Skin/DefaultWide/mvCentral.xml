@@ -67,6 +67,18 @@
       <visible>string.equals(#mvCentral.ArtistView,true)</visible>
     </control>
     <control>
+      <description>Number of Files Label (Genres)</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>1244</posX>
+      <posY>60</posY>
+      <label>#selectedindex/#itemcount #(L(135))</label>
+      <align>right</align>
+      <textcolor>White</textcolor>
+      <font>font10</font>
+      <visible>string.equals(#mvCentral.GenreView,true)</visible>
+    </control>
+    <control>
       <description>Number of Files Label</description>
       <type>label</type>
       <id>1</id>
@@ -252,7 +264,7 @@
 		<control>
 			<id>0</id>
 			<type>image</type>
-			<visible>[facadeview.list|facadeview.album]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list|facadeview.album]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 			<posX>30</posX>
 			<posY>245</posY>
 			<width>280</width>
@@ -291,7 +303,7 @@
 			<id>0</id>
 			<description>Album/Track Description</description>
 			<type>fadelabel</type>
-			<visible>[facadeview.list|facadeview.album]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list|facadeview.album]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 			<posX>30</posX>
 			<posY>140</posY>
 			<width>925</width>
@@ -349,7 +361,7 @@
 			<id>0</id>
 			<description>Tracks by Artist</description>
 			<type>fadelabel</type>
-			<visible>[facadeview.list|facadeview.album]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list|facadeview.album]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 			<posX>30</posX>
 			<posY>183</posY>
 			<width>925</width>

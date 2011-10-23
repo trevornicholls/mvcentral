@@ -1843,6 +1843,24 @@ namespace mvCentral.Settings {
         #region Playlist
 
         [CornerstoneSetting(
+            Name = "Playlist Location",
+            Description = "Location of mvCentral Playlist files.",
+            Groups = "|MediaPortal GUI|Playlist|",
+            Identifier = "playlist_folder",
+            Default = "",
+            Hidden = false)]
+        public string PlayListFolder
+        {
+          get { return _playlistfolder; }
+          set
+          {
+            _playlistfolder = value;
+            OnSettingChanged("playlist_folder");
+          }
+        }
+        private string _playlistfolder;
+
+        [CornerstoneSetting(
             Name = "Repeat Playlist",
             Description = "Repeat the playlist.",
             Groups = "|MediaPortal GUI|Playlist|",

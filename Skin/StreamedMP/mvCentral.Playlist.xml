@@ -266,6 +266,13 @@
         <control>
           <description>Shuffle button</description>
           <type>button</type>
+          <id>9</id>
+          <label>607</label>
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>Shuffle button</description>
+          <type>button</type>
           <id>20</id>
           <label>191</label>
           <onleft>50</onleft>

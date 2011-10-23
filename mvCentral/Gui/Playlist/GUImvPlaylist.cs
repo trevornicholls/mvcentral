@@ -81,29 +81,20 @@ namespace mvCentral.Playlist
       ClearPlaylist = 22,
       PlayPlaylist = 23,
       NextTrack = 24,
-      PrevTrack = 24,
+      PrevTrack = 25,
       RepeatPlaylist = 30,
       AutoPlayPlaylist = 40,
     }
 
-    [SkinControl((int)GUIControls.LoadPlaylist)]
-    protected GUIButtonControl btnLoad = null;
-    [SkinControl((int)GUIControls.ShufflePlaylist)]
-    protected GUIButtonControl btnShuffle = null;
-    [SkinControl((int)GUIControls.SavePlaylist)]
-    protected GUIButtonControl btnSave = null;
-    [SkinControl((int)GUIControls.ClearPlaylist)]
-    protected GUIButtonControl btnClear = null;
-    [SkinControl((int)GUIControls.PlayPlaylist)]
-    protected GUIButtonControl btnPlay = null;
-    [SkinControl((int)GUIControls.NextTrack)]
-    protected GUIButtonControl btnNext = null;
-    [SkinControl((int)GUIControls.PrevTrack)]
-    protected GUIButtonControl btnPrevious = null;
-    [SkinControl((int)GUIControls.RepeatPlaylist)]
-    protected GUIToggleButtonControl btnRepeat = null;
-    [SkinControl((int)GUIControls.AutoPlayPlaylist)]
-    protected GUIToggleButtonControl btnAutoPlay = null;
+    [SkinControl((int)GUIControls.LoadPlaylist)] protected GUIButtonControl btnLoad = null;
+    [SkinControl((int)GUIControls.ShufflePlaylist)] protected GUIButtonControl btnShuffle = null;
+    [SkinControl((int)GUIControls.SavePlaylist)] protected GUIButtonControl btnSave = null;
+    [SkinControl((int)GUIControls.ClearPlaylist)] protected GUIButtonControl btnClear = null;
+    [SkinControl((int)GUIControls.PlayPlaylist)] protected GUIButtonControl btnPlay = null;
+    [SkinControl((int)GUIControls.NextTrack)] protected GUIButtonControl btnNext = null;
+    [SkinControl((int)GUIControls.PrevTrack)] protected GUIButtonControl btnPrevious = null;
+    [SkinControl((int)GUIControls.RepeatPlaylist)] protected GUIToggleButtonControl btnRepeat = null;
+    [SkinControl((int)GUIControls.AutoPlayPlaylist)] protected GUIToggleButtonControl btnAutoPlay = null;
 
     #endregion
 
@@ -343,10 +334,16 @@ namespace mvCentral.Playlist
       else if (control == btnLoad)
       {
         string playListPath;
-        using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+        if (!string.IsNullOrEmpty(mvCentralCore.Settings.PlayListFolder.Trim()))
+          playListPath = mvCentralCore.Settings.PlayListFolder;
+        else
         {
-          playListPath = xmlreader.GetValueAsString("movies", "playlists", string.Empty);
-          playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
+
+          using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+          {
+            playListPath = xmlreader.GetValueAsString("movies", "playlists", string.Empty);
+            playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
+          }
         }
 
         OnShowSavedPlaylists(playListPath);
@@ -363,7 +360,6 @@ namespace mvCentral.Playlist
     /// <returns></returns>
     public override bool OnMessage(GUIMessage message)
     {
-      logger.Debug("RX GUIMessage : {0}", message.Message.ToString());
       switch (message.Message)
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
@@ -917,10 +913,16 @@ namespace mvCentral.Playlist
 
       List<GUIListItem> itemlist = _virtualDirectory.GetDirectoryExt(_directory);
       string playListPath = string.Empty;
-      using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+
+      if (!string.IsNullOrEmpty(mvCentralCore.Settings.PlayListFolder.Trim()))
+        playListPath = mvCentralCore.Settings.PlayListFolder;
+      else
       {
-        playListPath = xmlreader.GetValueAsString("movies", "playlists", string.Empty);
-        playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
+        using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+        {
+          playListPath = xmlreader.GetValueAsString("movies", "playlists", string.Empty);
+          playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
+        }
       }
 
       if (_directory == playListPath)
@@ -1056,11 +1058,11 @@ namespace mvCentral.Playlist
         dlgOK.DoModal(GetID);
       }
     }
-
+    /// <summary>
+    /// Highlight the currebt video
+    /// </summary>
     private void SelectCurrentVideo()
     {
-      logger.Debug("In Playlist SelectCurrentVideo()");
-
       if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
       {
         // delete prev. selected item
