@@ -489,11 +489,16 @@ namespace mvCentral.DataProviders
       lock (lockList)
       {
         DBTrackInfo mvTrackData = null;
-        // Artist/Album handling, if the track and artist dont match and the track contains the artist name this would indicate the that track is in the format /<artist>/<album>/<atrist - track>.<ext>
-        // This will throw out the parseing so remove the artist name from the track.
-        // This is not the best fix, need to add code so I know whch expression produced the result or better still have a ignore folder structure when pasring option.
-        if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().Contains(mvSignature.Artist.ToLower().Trim()))
-          mvTrackData = getMusicVideoTrack(mvSignature.Artist, Regex.Replace(mvSignature.Track, mvSignature.Artist, string.Empty, RegexOptions.IgnoreCase));
+          // Artist/Album handling, if the track and artist dont match and the track contains the artist name this would indicate the that track is in the format /<artist>/<album>/<atrist - track>.<ext>
+          // This will throw out the parseing so remove the artist name from the track.
+          // This is not the best fix, need to add code so I know whch expression produced the result or better still have a ignore folder structure when pasring option.
+        if (mvSignature.Track != null && mvSignature.Artist != null)
+        {
+          if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().Contains(mvSignature.Artist.ToLower().Trim()))
+            mvTrackData = getMusicVideoTrack(mvSignature.Artist, Regex.Replace(mvSignature.Track, mvSignature.Artist, string.Empty, RegexOptions.IgnoreCase));
+          else
+            mvTrackData = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
+        }
         else
           mvTrackData = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
 

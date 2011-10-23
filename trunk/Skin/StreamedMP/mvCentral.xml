@@ -86,6 +86,21 @@
     </control>
     <control>
       <type>label</type>
+      <description>Number of Files Label (Genres)</description>
+      <id>0</id>
+      <posX>1246</posX>
+      <posY>14</posY>
+      <width>350</width>
+      <font>mediastream10c</font>
+      <textcolor>ff006698</textcolor>
+      <align>right</align>
+      <label>#(L(135)) #itemcount </label>
+      <visible>control.isvisible(50)+string.equals(#mvCentral.GenreView,true)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <type>label</type>
       <description>Number of Files Label (Album)</description>
       <id>0</id>
       <posX>1246</posX>
@@ -198,7 +213,7 @@
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
 			<keepaspectratio>no</keepaspectratio>
-			<visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)]</visible>
+			<visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>		
 		<control>
 			<id>0</id>
@@ -231,7 +246,7 @@
 			<label>#selecteditem</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.list]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>
 		<control>
 			<id>0</id>
@@ -249,7 +264,7 @@
 			<label>#selecteditem    [#mvCentral.Duration]</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.list]+string.equals(#mvCentral.TrackView,true)</visible>
+			<visible>[facadeview.list]+string.equals(#mvCentral.ArtistView,true)</visible>
 		</control>
 		<control>
 			<id>0</id>
@@ -303,7 +318,7 @@
 			<label>Music Videos: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.list]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>		
 <!-- :: Music Info - 1st List View Description :: --> 		
 		<control>
@@ -406,7 +421,7 @@
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
 			<keepaspectratio>no</keepaspectratio>
-			<visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)]</visible>
+			<visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>		
 		<control>
 			<id>0</id>
@@ -439,7 +454,7 @@
 			<label>#selecteditem</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>facadeview.filmstrip+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>
 		<control>
 			<id>0</id>
@@ -493,9 +508,9 @@
 			<label>[#mvCentral.Translation.Tracks.Label #mvCentral.TracksForAlbum | #mvCentral.Translation.TotalRuntime.Label #mvCentral.AlbumTracksRuntime]</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
+			<visible>[facadeview.filmstrip]+[string.equals(#mvCentral.ArtistView,true)]</visible>
 		</control>
-		<control>
+		<control>Acoustic
 			<id>0</id>
 			<description>Tracks by Artist</description>
 			<type>fadelabel</type>
@@ -511,7 +526,7 @@
 			<label>Music Videos: #mvCentral.VideosByArtist     [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>facadeview.filmstrip+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>			
 		<control>
 			<id>0</id>
@@ -613,7 +628,7 @@
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
 			<keepaspectratio>no</keepaspectratio>
-			<visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)]</visible>
+			<visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>		
 		<control>
 			<id>0</id>
@@ -646,7 +661,7 @@
 			<label>#selecteditem</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>
 		<control>
 			<id>0</id>
@@ -718,7 +733,7 @@
 			<label>Music Videos: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
 		</control>		
 <!-- :: Music Info - 1st List View Description :: --> 		
 		<control>

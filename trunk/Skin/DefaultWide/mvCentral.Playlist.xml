@@ -148,13 +148,6 @@
             <ondown>20</ondown>
           </control>
         <control>
-          <description>Empty button</description>
-          <type>button</type>
-          <id>0</id>
-          <label>-</label>
-          <visible>false</visible>
-        </control>
-        <control>
           <description>Shuffle button</description>
           <type>button</type>
           <id>20</id>
@@ -173,6 +166,13 @@
           <type>togglebutton</type>
           <id>40</id>
           <label>Auto Play</label>
+          <onleft>50</onleft>
+        </control>
+        <control>
+          <description>Load button</description>
+          <type>button</type>
+          <id>9</id>
+          <label>607</label>
           <onleft>50</onleft>
         </control>
         <control>
@@ -197,13 +197,6 @@
           <onleft>50</onleft>
         </control>
         <control>
-          <description>Empty button</description>
-          <type>button</type>
-          <id>0</id>
-          <label>-</label>
-          <visible>false</visible>
-        </control>
-        <control>
           <description>Next button</description>
           <type>button</type>
           <id>24</id>
@@ -216,14 +209,6 @@
           <id>25</id>
           <label>210</label>
           <onleft>50</onleft>
-        </control>
-        <control>
-          <description>My Playlists</description>
-          <type>button</type>
-          <id>9</id>
-          <label>983</label>
-          <onleft>50</onleft>
-          <ondown>2</ondown>
         </control>
       </control>
     </control>

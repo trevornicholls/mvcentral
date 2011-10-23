@@ -1652,21 +1652,25 @@ namespace mvCentral
         // stop the importer
         mvCentralCore.Importer.Stop();
 
-        // Delete all Import Paths
-        pathBindingSource.MoveFirst();
-        do
+        // Have we a path to clear?
+        if (pathBindingSource.Count > 0)
         {
-          ((DBImportPath)pathBindingSource.Current).Delete();
-          pathBindingSource.RemoveCurrent();
-        } 
-        while (pathBindingSource.Count > 0);
+          // Delete all Import Paths
+          pathBindingSource.MoveFirst();
+          do
+          {
+            ((DBImportPath)pathBindingSource.Current).Delete();
+            pathBindingSource.RemoveCurrent();
+          }
+          while (pathBindingSource.Count > 0);
 
-        // clean the database of the old music videos using our progress bar popup
-        ProgressPopup progressPopup = new ProgressPopup(new WorkerDelegate(DatabaseMaintenanceManager.RemoveInvalidFiles));
-        DatabaseMaintenanceManager.MaintenanceProgress += new ProgressDelegate(progressPopup.Progress);
-        progressPopup.Owner = ParentForm;
-        progressPopup.Text = "Removing related music videos...";
-        progressPopup.ShowDialog();
+          // clean the database of the old music videos using our progress bar popup
+          ProgressPopup progressPopup = new ProgressPopup(new WorkerDelegate(DatabaseMaintenanceManager.RemoveInvalidFiles));
+          DatabaseMaintenanceManager.MaintenanceProgress += new ProgressDelegate(progressPopup.Progress);
+          progressPopup.Owner = ParentForm;
+          progressPopup.Text = "Removing related music videos...";
+          progressPopup.ShowDialog();
+        }
         // Clear the Treeview
         mvLibraryTreeView.Nodes.Clear();
         // Put back the artwork folder structure

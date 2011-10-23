@@ -179,8 +179,6 @@ namespace mvCentral.GUI
       // If on Track screen go back to artists screen
       if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_PREVIOUS_MENU)
       {
-        logger.Debug("Calling loadCurrent from OnAction : CurrArtist {0}, currentArtistID {1}", currArtist.Artist, currentArtistID);
-
         artistID = currentArtistID;
         // Go Back to last view
         currentView = getPreviousView();
@@ -1699,21 +1697,24 @@ namespace mvCentral.GUI
           foreach (DBTrackInfo track in artistTracks)
           {
             genreTracks++;
-            tt += TimeSpan.Parse(track.PlayTime);
+            try
+            {
+              tt += TimeSpan.Parse(track.PlayTime);
+            }
+            catch { }
           }
-          DateTime dt = new DateTime(tt.Ticks);
-          string cTime = String.Format("{0:HH:mm:ss}", dt);
-          if (cTime.StartsWith("00:"))
-            return cTime.Substring(3);
-          else
-            return cTime;
         }
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
       }
       catch
       {
         return "00:00:00";
       }
-      return "00:00:00";
     }
 
 
