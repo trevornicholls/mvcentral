@@ -193,6 +193,7 @@
     <Compile Include="Database\DBLocalMedia.cs" />
     <Compile Include="Database\DBMusicVideoNodeSettings.cs" />
     <Compile Include="Database\DBReplacements.cs" />
+    <Compile Include="Database\DBSortPreferences.cs" />
     <Compile Include="Database\DBSourceInfo.cs" />
     <Compile Include="Database\DBSourceMusicVideoInfo.cs" />
     <Compile Include="Database\DBTrackInfo.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Gui\GUIArtistView.cs" />
     <Compile Include="Gui\GUISort.cs" />
     <Compile Include="Gui\GUIMain.cs" />
+    <Compile Include="Gui\Sort.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoResources\BasicArt.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\ISignatureBuilder.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\LocalBuilder.cs" />

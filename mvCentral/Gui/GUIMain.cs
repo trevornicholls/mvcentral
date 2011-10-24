@@ -86,7 +86,6 @@ namespace mvCentral.GUI
     public static DBArtistInfo currentArtistInfo = null;
     private string selAlbum = "";
     private mvView currentView = mvView.Artist;
-    private mvView previousView = mvView.None;
     private mvSort artistSort = mvSort.ascending;
     private mvSort videoSort = mvSort.ascending;
     private int genreTracks = 0;
@@ -1162,6 +1161,11 @@ namespace mvCentral.GUI
 
         facadeLayout.Add(facadeItem);
       }
+
+      //facadeLayout.Sort(new GUIListItemVideoComparer(SortingFields.Artist, SortingDirections.Ascending));
+
+      
+      
       // Set properities to first item in list
       if (facadeLayout.Count > 0)
       {
