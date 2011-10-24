@@ -151,6 +151,11 @@ namespace mvCentral.Playlist
       return windowID;
     }
 
+    public override string GetModuleName()
+    {
+      return mvCentralCore.Settings.HomeScreenName;
+    }
+
     protected View CurrentView
     {
       get { return currentView; }

@@ -24,11 +24,33 @@
 #endregion
 
 using System;
+using System.Windows.Forms;
+using System.IO;
+using System.Threading;
 using System.Collections.Generic;
 using System.Collections;
-using System.Text;
+using System.Linq;
+using System.Text.RegularExpressions;
+// Cornerstone
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.GUI.Dialogs;
+using Cornerstone.Tools;
+// Internal
+using mvCentral.Database;
+using mvCentral;
+using mvCentral.LocalMediaManagement;
+using mvCentral.Playlist;
+using mvCentral.Utils;
+using mvCentral.Localizations;
+// Mediaportal
 using MediaPortal.GUI.Library;
+using MediaPortal.Dialogs;
+using MediaPortal.Player;
 using Action = MediaPortal.GUI.Library.Action;
+using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
+using WindowPlugins;
+using NLog;
 
 /*
  * void InitializeSearch		-> Initialize e.g. SQL data connections
@@ -67,6 +89,12 @@ namespace MediaPortal.Dialogs
     #endregion
 
     #region Overrides
+
+    public override string GetModuleName()
+    {
+      return mvCentralCore.Settings.HomeScreenName;
+    }
+
     public override bool Init()
     {
       return Load(GUIGraphicsContext.Skin + @"\DialogMvMultiSelect.xml");

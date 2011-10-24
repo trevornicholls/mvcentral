@@ -89,6 +89,11 @@ namespace mvCentral.GUI
       get { return windowID; }
     }
 
+    public override string GetModuleName()
+    {
+      return mvCentralCore.Settings.HomeScreenName;
+    }
+
     public override bool Init()
     {
       string xmlSkin = GUIGraphicsContext.Skin + @"\mvCentral.StatsAndInfo.xml";
