@@ -265,6 +265,7 @@ namespace mvCentral.Localizations
 
     // D
     public static string Date = "Date";
+    public static string DateAdded = "Date Added";
     public static string DBInfo = "Watched History Statistics & Database Info";
 
     // E
@@ -288,12 +289,16 @@ namespace mvCentral.Localizations
     // L
     public static string LatestVideos = "Latest Videos";
     public static string LeastPlayed = "Least Played";
+    public static string LeastPlayedArtists = "Least Played Artists";
+    public static string LeastPlayedVideos = "Least Played Videos";
 
     // M
     public static string MediaIsMissing = "The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...";
     public static string MediaNotAvailableBody = "The media for the Music video you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}";
     public static string MediaNotAvailableHeader = "Media Not Available";
     public static string MissingExternalPlayerExe = "The executable for HD playback is missing.\nPlease correct the path to the executable.";
+    public static string MostPlayedArtists = "Most Played Artists";
+    public static string MostPlayedVideos = "Most Played Videos";
     public static string MostPlayedArtist = "Most Played Artist";
     public static string MostPlayedVideo = "Most Played Video";
 
@@ -340,6 +345,7 @@ namespace mvCentral.Localizations
     public static string VirtualDriveMessage = "The virtual drive wasn't ready in time.\nPlease try again or cancel playback.";
     public static string Video = "Video";
     public static string Videos = "Videos";
+    public static string VideoTitle = "Video Title";
     public static string VideoCount = "Database has {0} Videos across {1} Artists";
     public static string ViewAs = "View by ";
 

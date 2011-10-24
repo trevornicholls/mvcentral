@@ -448,11 +448,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>164</Revision>
+      <Revision>166</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>Local artwork matching,
-Ignore folder structure on parsing option added</VersionDescription>
+    <VersionDescription>Fix highlighting current song in playlist (Issue 20)
+Add new skin property #mvCentral.GenreView (true/false depending if in Genre view)
+Fix skins for new Genre setting
+Fix DialogMvMultiSelect for Default and DefaultWide skins
+Fix Genre runtime totalling
+Fix parsing problem that would cause an exception during import under certain conditions.
+Added DB setting for Playlist location - advanced settings only for now.</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
     <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>
@@ -720,14 +725,14 @@ Ignore folder structure on parsing option added</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{096cc85b-3043-4d2b-84d5-d94ac40e11be}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{e0dedc9f-1678-49b0-9a22-79312e744f69}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{0b796717-8ea3-494a-9c1c-7ea0429f7cab}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{ac9f04ff-3d08-4d94-bb9d-008c77d80021}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
