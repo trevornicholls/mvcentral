@@ -136,6 +136,11 @@ namespace mvCentral.GUI
 
     #region Overrides
 
+    public override string GetModuleName()
+    {
+      return mvCentralCore.Settings.HomeScreenName;
+    }
+
     public override bool Init()
     {
       base.Init();
