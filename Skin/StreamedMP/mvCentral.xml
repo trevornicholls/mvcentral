@@ -264,7 +264,7 @@
 			<label>#selecteditem    [#mvCentral.Duration]</label>
 			<animation effect="fade" time="250" delay="0">WindowClose</animation>
 			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.list]+string.equals(#mvCentral.ArtistView,true)</visible>
+			<visible>[facadeview.list]+string.equals(#mvCentral.TrackView,true)</visible>
 		</control>
 		<control>
 			<id>0</id>
