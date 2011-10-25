@@ -242,52 +242,7 @@ namespace mvCentral.Playlist
     string _currentPlaylistName = string.Empty;
     private bool listenToExternalPlayerEvents = false;
 
-    private TimeSpan CurrentTime;
-    private System.Windows.Forms.Timer playTimer = new System.Windows.Forms.Timer();
     DBTrackInfo CurrentTrack = null;
-
-
-
-    private void SetInitTimerValues()
-    {
-      CurrentTime = TimeSpan.FromSeconds(0);
-      playTimer.Interval = 950;
-      playTimer.Tick += new EventHandler(playEvent);
-    }
-
-    private void playEvent(object sender, EventArgs e)
-    {
-      CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
-      TimeSpan t1 = TimeSpan.FromSeconds(MediaPortal.Player.g_Player.CurrentPosition);
-      TimeSpan t2 = TimeSpan.Parse(CurrentTrack.PlayTime);
-      TimeSpan t3 = TimeSpan.Parse(CurrentTrack.PlayTime);
-      DateTime dt2 = new DateTime(t3.Ticks);
-      if (CurrentTrack.OffsetTime.Trim().Length > 0) t2 = t2.Add(TimeSpan.Parse(CurrentTrack.OffsetTime));
-      if (CurrentTrack.OffsetTime.Trim().Length > 0)
-        t3 = t1.Subtract(TimeSpan.Parse(CurrentTrack.OffsetTime));
-      else
-        t3 = t1;
-
-
-      DateTime dt = new DateTime();
-      if (t3.Ticks > 0)
-        dt = new DateTime(t3.Ticks);
-      GUIPropertyManager.SetProperty("#mvCentral.Duration", String.Format("{0:HH:mm:ss}", dt2));
-      GUIPropertyManager.SetProperty("#mvCentral.PlayTime", String.Format("{0:HH:mm:ss}", dt));
-      GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", CurrentTrack.ArtistInfo[0].Artist + " - " + CurrentTrack.Track);
-
-      if (playTimer.Enabled)
-        if (t1 > t2)
-        //            if (CurrentTime > TimeSpan.Parse(CurrentTrack.PlayTime))
-        {
-          playTimer.Stop();
-          //                    Stop();
-          GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED, 0, 0, 0, -1, 0, null);
-          GUIGraphicsContext.SendMessage(msg);
-        }
-    }
-
-
 
     public PlayListPlayer()
     {
@@ -336,12 +291,12 @@ namespace mvCentral.Playlist
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_STOPPED:
           {
-            playTimer.Stop();
             PlayListItem item = GetCurrentItem();
             if (item != null)
             {
               Reset();
               _currentPlayList = PlayListType.PLAYLIST_NONE;
+              SetProperties(item, true);
             }
             GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
             GUIGraphicsContext.SendMessage(msg);
@@ -351,7 +306,7 @@ namespace mvCentral.Playlist
 
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
           {
-            playTimer.Stop();
+            //playTimer.Stop();
             SetAsWatched();
             PlayNext();
 
@@ -376,7 +331,7 @@ namespace mvCentral.Playlist
 
             if (!mvPlayer.Playing)
             {
-              playTimer.Stop();
+              //playTimer.Stop();
               mvPlayer.Stop();
             }
           }
@@ -385,7 +340,7 @@ namespace mvCentral.Playlist
         case GUIMessage.MessageType.GUI_MSG_STOP_FILE:
           {
             logger.Debug(string.Format("Playlistplayer: Stop file"));
-            playTimer.Stop();
+            //playTimer.Stop();
             mvPlayer.Stop();
           }
           break;
@@ -706,6 +661,7 @@ namespace mvCentral.Playlist
               {
                 logger.Debug("Setting Fullscreen");
                 mvPlayer.ShowFullScreenWindow();
+                SetProperties(item, false);
               }
               System.Threading.Thread.Sleep(1000);
 
@@ -714,14 +670,55 @@ namespace mvCentral.Playlist
         }
       }
       while (skipmissing);
-
      
-      SetInitTimerValues();
-      playTimer.Start();
+      //SetInitTimerValues();
+      //playTimer.Start();
 
       return mvPlayer.Playing;
     }
 
+    /// <summary>        
+    /// Updates the movie metadata on the playback screen (for when the user clicks info). 
+    /// The delay is neccesary because Player tries to use metadata from the MyVideos database.
+    /// We want to update this after that happens so the correct info is there.       
+    /// </summary>
+    /// <param name="item">Playlist item</param>
+    /// <param name="clear">Clears the properties instead of filling them if True</param>
+    private void SetProperties(PlayListItem item, bool clear)
+    {
+      if (item == null) return;
+
+      string title = string.Empty;
+      string osdImage = string.Empty;
+
+      DBArtistInfo artistInfo = null;
+      DBAlbumInfo albumInfo = null;
+      DBTrackInfo trackInfo = null;
+
+      if (!clear)
+      {
+        // Only sleep if setting the props
+        Thread.Sleep(2000);
+
+        trackInfo = item.Track;
+        artistInfo = DBArtistInfo.Get(trackInfo);
+        albumInfo = trackInfo.AlbumInfo[0];
+        title = artistInfo.Artist + " - " + trackInfo.Track;
+
+        if (System.IO.File.Exists(artistInfo.ArtFullPath))
+          osdImage = artistInfo.ArtFullPath;
+      }
+      // Std Play Properities
+      GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Current.Thumb", clear ? string.Empty : osdImage);
+      GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : trackInfo.bioContent);
+      // mvCentral Play Properities
+      GUIPropertyManager.SetProperty("#Play.Current.mvArtist", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Current.mvAlbum", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Current.mvVideo", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Current.mvTrack.Description", clear ? string.Empty : trackInfo.bioContent);
+      GUIPropertyManager.SetProperty("#mvCentral.isPlaying", clear ? "false" : "true");
+    }
 
 
     private string replaceDynamicFields(string value, mvCentralDBTable item)
