@@ -155,7 +155,11 @@ namespace mvCentral.GUI
       {
         dlgMenu.Reset();
         dlgMenu.SetHeading(mvCentralUtils.PluginName() + " - " + Localization.SmartPlaylistOptions);
-        foreach (DBGenres genre in DBGenres.GetAll())
+
+        List<DBGenres> genreList = DBGenres.GetAll();
+        genreList.Sort(delegate(DBGenres p1, DBGenres p2) { return p1.Genre.CompareTo(p2.Genre); });
+
+        foreach (DBGenres genre in genreList)
         {
           if (genre.Enabled)
             dlgMenu.Add(genre.Genre);
@@ -169,10 +173,12 @@ namespace mvCentral.GUI
         PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
         playlist.Clear();
         List<DBArtistInfo> allArtists = DBArtistInfo.GetAll();
+
         foreach (DBArtistInfo artist in allArtists)
         {
-          if (artist.Tag.Contains(dlgMenu.SelectedLabelText))
+          if (tagMatched(dlgMenu.SelectedLabelText, artist))
           {
+            logger.Debug("Matched Artist {0} with Tag {1}", artist.Artist, dlgMenu.SelectedLabelText);
             List<DBTrackInfo> theTracks = DBTrackInfo.GetEntriesByArtist(artist);
             foreach (DBTrackInfo artistTrack in theTracks)
             {
