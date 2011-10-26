@@ -103,14 +103,6 @@
       this.colParseExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.colParsePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.colParseVolumeLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.pathsGroupBox = new System.Windows.Forms.GroupBox();
       this.toolStrip = new System.Windows.Forms.ToolStrip();
       this.addSourceButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -172,9 +164,7 @@
       this.btnExpUp = new System.Windows.Forms.Button();
       this.btnExpDown = new System.Windows.Forms.Button();
       this.label70 = new System.Windows.Forms.Label();
-      this.tbSettings = new System.Windows.Forms.TabPage();
-      this.cbDisplayRawTrackText = new Cornerstone.GUI.Controls.SettingCheckBox();
-      this.cbAutoFullscreen = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.tbSettingsImporter = new System.Windows.Forms.TabPage();
       this.label41 = new System.Windows.Forms.Label();
       this.cbIgnoreFolderStructure = new Cornerstone.GUI.Controls.SettingCheckBox();
       this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -208,12 +198,8 @@
       this.label28 = new System.Windows.Forms.Label();
       this.label27 = new System.Windows.Forms.Label();
       this.label26 = new System.Windows.Forms.Label();
-      this.label2 = new System.Windows.Forms.Label();
       this.groupBox7 = new System.Windows.Forms.GroupBox();
-      this.label1 = new System.Windows.Forms.Label();
-      this.tbLatestVideos = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.label14 = new System.Windows.Forms.Label();
-      this.label6 = new System.Windows.Forms.Label();
       this.tbMinArtWidth = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.groupBox6 = new System.Windows.Forms.GroupBox();
       this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -221,7 +207,6 @@
       this.groupBox8 = new System.Windows.Forms.GroupBox();
       this.tbMinArtHeight = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.label15 = new System.Windows.Forms.Label();
-      this.groupBox5 = new System.Windows.Forms.GroupBox();
       this.label8 = new System.Windows.Forms.Label();
       this.label3 = new System.Windows.Forms.Label();
       this.cbSplitDVD = new Cornerstone.GUI.Controls.SettingCheckBox();
@@ -232,7 +217,6 @@
       this.label13 = new System.Windows.Forms.Label();
       this.tbTrackArtWidth = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.tbTrackArtHeight = new Cornerstone.GUI.Controls.SettingsTextBox();
-      this.autoDataSourcesPanel1 = new mvCentral.AutoDataSourcesPanel();
       this.tpAbout = new System.Windows.Forms.TabPage();
       this.pictureBox3 = new System.Windows.Forms.PictureBox();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -273,7 +257,30 @@
       this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.tbSettingsGUI = new System.Windows.Forms.TabPage();
+      this.cbDisplayRawTrackText = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.cbAutoFullscreen = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.label2 = new System.Windows.Forms.Label();
+      this.label1 = new System.Windows.Forms.Label();
+      this.tbLatestVideos = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.label6 = new System.Windows.Forms.Label();
+      this.groupBox5 = new System.Windows.Forms.GroupBox();
+      this.groupBox15 = new System.Windows.Forms.GroupBox();
+      this.groupBox16 = new System.Windows.Forms.GroupBox();
+      this.groupBox17 = new System.Windows.Forms.GroupBox();
+      this.label42 = new System.Windows.Forms.Label();
+      this.cbAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.autoDataSourcesPanel1 = new mvCentral.AutoDataSourcesPanel();
       this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.cbGeneratedAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
       this.scMain.Panel1.SuspendLayout();
       this.scMain.Panel2.SuspendLayout();
@@ -301,7 +308,6 @@
       this.tcImport.SuspendLayout();
       this.tpImportPathParser.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       this.pathsGroupBox.SuspendLayout();
       this.toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pathsGridView)).BeginInit();
@@ -321,7 +327,7 @@
       this.splitContainer1.Panel2.SuspendLayout();
       this.splitContainer1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvExpressions)).BeginInit();
-      this.tbSettings.SuspendLayout();
+      this.tbSettingsImporter.SuspendLayout();
       this.groupBox11.SuspendLayout();
       this.groupBox12.SuspendLayout();
       this.groupBox6.SuspendLayout();
@@ -330,6 +336,10 @@
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.gbProgress.SuspendLayout();
+      this.tbSettingsGUI.SuspendLayout();
+      this.groupBox5.SuspendLayout();
+      this.groupBox16.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).BeginInit();
       this.SuspendLayout();
       // 
@@ -457,7 +467,8 @@
       // 
       this.mainTab.Controls.Add(this.tpLibrary);
       this.mainTab.Controls.Add(this.tpImport);
-      this.mainTab.Controls.Add(this.tbSettings);
+      this.mainTab.Controls.Add(this.tbSettingsImporter);
+      this.mainTab.Controls.Add(this.tbSettingsGUI);
       this.mainTab.Controls.Add(this.tpAbout);
       this.mainTab.Dock = System.Windows.Forms.DockStyle.Fill;
       this.mainTab.ImageList = this.imageList;
@@ -990,59 +1001,6 @@
       this.colParseVolumeLabel.HeaderText = "VolumeLabel";
       this.colParseVolumeLabel.Name = "colParseVolumeLabel";
       this.colParseVolumeLabel.ReadOnly = true;
-      // 
-      // fileNameDataGridViewTextBoxColumn
-      // 
-      this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
-      this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
-      this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
-      this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // artistDataGridViewTextBoxColumn
-      // 
-      this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
-      this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
-      this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
-      this.artistDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // albumDataGridViewTextBoxColumn
-      // 
-      this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
-      this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
-      this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
-      this.albumDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // trackDataGridViewTextBoxColumn
-      // 
-      this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
-      this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
-      this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
-      this.trackDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // extDataGridViewTextBoxColumn
-      // 
-      this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
-      this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
-      this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
-      this.extDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // volumeLabelDataGridViewTextBoxColumn
-      // 
-      this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
-      this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
-      this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
-      this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // pathDataGridViewTextBoxColumn
-      // 
-      this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
-      this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
-      this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
-      this.pathDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // ParserBindingSource
-      // 
-      this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
       // 
       // pathsGroupBox
       // 
@@ -1824,93 +1782,62 @@
       this.label70.TabIndex = 14;
       this.label70.Text = resources.GetString("label70.Text");
       // 
-      // tbSettings
+      // tbSettingsImporter
       // 
-      this.tbSettings.Controls.Add(this.cbDisplayRawTrackText);
-      this.tbSettings.Controls.Add(this.cbAutoFullscreen);
-      this.tbSettings.Controls.Add(this.label41);
-      this.tbSettings.Controls.Add(this.cbIgnoreFolderStructure);
-      this.tbSettings.Controls.Add(this.groupBox4);
-      this.tbSettings.Controls.Add(this.label4);
-      this.tbSettings.Controls.Add(this.tbHomeScreen);
-      this.tbSettings.Controls.Add(this.label5);
-      this.tbSettings.Controls.Add(this.tbMaxVideoArtwork);
-      this.tbSettings.Controls.Add(this.label40);
-      this.tbSettings.Controls.Add(this.tbMaxAlbumArtwork);
-      this.tbSettings.Controls.Add(this.label39);
-      this.tbSettings.Controls.Add(this.tbMaxArtistArtwork);
-      this.tbSettings.Controls.Add(this.label38);
-      this.tbSettings.Controls.Add(this.label37);
-      this.tbSettings.Controls.Add(this.groupBox11);
-      this.tbSettings.Controls.Add(this.label33);
-      this.tbSettings.Controls.Add(this.label34);
-      this.tbSettings.Controls.Add(this.label35);
-      this.tbSettings.Controls.Add(this.tbMinAlbumWidth);
-      this.tbSettings.Controls.Add(this.tbMinAlbumMinHeight);
-      this.tbSettings.Controls.Add(this.label32);
-      this.tbSettings.Controls.Add(this.label31);
-      this.tbSettings.Controls.Add(this.cbAlbumFromTrackData);
-      this.tbSettings.Controls.Add(this.label30);
-      this.tbSettings.Controls.Add(this.cbPreferThumbnail);
-      this.tbSettings.Controls.Add(this.tbVideoPreviewCols);
-      this.tbSettings.Controls.Add(this.tbVideoPreviewRows);
-      this.tbSettings.Controls.Add(this.label29);
-      this.tbSettings.Controls.Add(this.label28);
-      this.tbSettings.Controls.Add(this.label27);
-      this.tbSettings.Controls.Add(this.label26);
-      this.tbSettings.Controls.Add(this.label2);
-      this.tbSettings.Controls.Add(this.groupBox7);
-      this.tbSettings.Controls.Add(this.label1);
-      this.tbSettings.Controls.Add(this.tbLatestVideos);
-      this.tbSettings.Controls.Add(this.label14);
-      this.tbSettings.Controls.Add(this.label6);
-      this.tbSettings.Controls.Add(this.tbMinArtWidth);
-      this.tbSettings.Controls.Add(this.groupBox6);
-      this.tbSettings.Controls.Add(this.tbMinArtHeight);
-      this.tbSettings.Controls.Add(this.label15);
-      this.tbSettings.Controls.Add(this.groupBox5);
-      this.tbSettings.Controls.Add(this.label8);
-      this.tbSettings.Controls.Add(this.label3);
-      this.tbSettings.Controls.Add(this.cbSplitDVD);
-      this.tbSettings.Controls.Add(this.label16);
-      this.tbSettings.Controls.Add(this.cbAutoApprove);
-      this.tbSettings.Controls.Add(this.label12);
-      this.tbSettings.Controls.Add(this.cbUseMDAlbum);
-      this.tbSettings.Controls.Add(this.label13);
-      this.tbSettings.Controls.Add(this.tbTrackArtWidth);
-      this.tbSettings.Controls.Add(this.tbTrackArtHeight);
-      this.tbSettings.Controls.Add(this.autoDataSourcesPanel1);
-      this.tbSettings.Location = new System.Drawing.Point(4, 23);
-      this.tbSettings.Name = "tbSettings";
-      this.tbSettings.Padding = new System.Windows.Forms.Padding(3);
-      this.tbSettings.Size = new System.Drawing.Size(611, 528);
-      this.tbSettings.TabIndex = 7;
-      this.tbSettings.Text = "Settings";
-      this.tbSettings.UseVisualStyleBackColor = true;
-      // 
-      // cbDisplayRawTrackText
-      // 
-      this.cbDisplayRawTrackText.AutoSize = true;
-      this.cbDisplayRawTrackText.IgnoreSettingName = true;
-      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(175, 333);
-      this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
-      this.cbDisplayRawTrackText.Setting = null;
-      this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
-      this.cbDisplayRawTrackText.TabIndex = 98;
-      this.cbDisplayRawTrackText.Text = "Display non-cleaned version track name\r\n";
-      this.cbDisplayRawTrackText.UseVisualStyleBackColor = true;
-      // 
-      // cbAutoFullscreen
-      // 
-      this.cbAutoFullscreen.AutoSize = true;
-      this.cbAutoFullscreen.IgnoreSettingName = true;
-      this.cbAutoFullscreen.Location = new System.Drawing.Point(175, 310);
-      this.cbAutoFullscreen.Name = "cbAutoFullscreen";
-      this.cbAutoFullscreen.Setting = null;
-      this.cbAutoFullscreen.Size = new System.Drawing.Size(207, 17);
-      this.cbAutoFullscreen.TabIndex = 97;
-      this.cbAutoFullscreen.Text = "Switch to fullscreen when video starts.";
-      this.cbAutoFullscreen.UseVisualStyleBackColor = true;
+      this.tbSettingsImporter.Controls.Add(this.label41);
+      this.tbSettingsImporter.Controls.Add(this.cbIgnoreFolderStructure);
+      this.tbSettingsImporter.Controls.Add(this.groupBox4);
+      this.tbSettingsImporter.Controls.Add(this.label4);
+      this.tbSettingsImporter.Controls.Add(this.tbHomeScreen);
+      this.tbSettingsImporter.Controls.Add(this.label5);
+      this.tbSettingsImporter.Controls.Add(this.tbMaxVideoArtwork);
+      this.tbSettingsImporter.Controls.Add(this.label40);
+      this.tbSettingsImporter.Controls.Add(this.tbMaxAlbumArtwork);
+      this.tbSettingsImporter.Controls.Add(this.label39);
+      this.tbSettingsImporter.Controls.Add(this.tbMaxArtistArtwork);
+      this.tbSettingsImporter.Controls.Add(this.label38);
+      this.tbSettingsImporter.Controls.Add(this.label37);
+      this.tbSettingsImporter.Controls.Add(this.groupBox11);
+      this.tbSettingsImporter.Controls.Add(this.label33);
+      this.tbSettingsImporter.Controls.Add(this.label34);
+      this.tbSettingsImporter.Controls.Add(this.label35);
+      this.tbSettingsImporter.Controls.Add(this.tbMinAlbumWidth);
+      this.tbSettingsImporter.Controls.Add(this.tbMinAlbumMinHeight);
+      this.tbSettingsImporter.Controls.Add(this.label32);
+      this.tbSettingsImporter.Controls.Add(this.label31);
+      this.tbSettingsImporter.Controls.Add(this.cbAlbumFromTrackData);
+      this.tbSettingsImporter.Controls.Add(this.label30);
+      this.tbSettingsImporter.Controls.Add(this.cbPreferThumbnail);
+      this.tbSettingsImporter.Controls.Add(this.tbVideoPreviewCols);
+      this.tbSettingsImporter.Controls.Add(this.tbVideoPreviewRows);
+      this.tbSettingsImporter.Controls.Add(this.label29);
+      this.tbSettingsImporter.Controls.Add(this.label28);
+      this.tbSettingsImporter.Controls.Add(this.label27);
+      this.tbSettingsImporter.Controls.Add(this.label26);
+      this.tbSettingsImporter.Controls.Add(this.groupBox7);
+      this.tbSettingsImporter.Controls.Add(this.label14);
+      this.tbSettingsImporter.Controls.Add(this.tbMinArtWidth);
+      this.tbSettingsImporter.Controls.Add(this.groupBox6);
+      this.tbSettingsImporter.Controls.Add(this.tbMinArtHeight);
+      this.tbSettingsImporter.Controls.Add(this.label15);
+      this.tbSettingsImporter.Controls.Add(this.label8);
+      this.tbSettingsImporter.Controls.Add(this.label3);
+      this.tbSettingsImporter.Controls.Add(this.cbSplitDVD);
+      this.tbSettingsImporter.Controls.Add(this.label16);
+      this.tbSettingsImporter.Controls.Add(this.cbAutoApprove);
+      this.tbSettingsImporter.Controls.Add(this.label12);
+      this.tbSettingsImporter.Controls.Add(this.cbUseMDAlbum);
+      this.tbSettingsImporter.Controls.Add(this.label13);
+      this.tbSettingsImporter.Controls.Add(this.tbTrackArtWidth);
+      this.tbSettingsImporter.Controls.Add(this.tbTrackArtHeight);
+      this.tbSettingsImporter.Controls.Add(this.autoDataSourcesPanel1);
+      this.tbSettingsImporter.Location = new System.Drawing.Point(4, 23);
+      this.tbSettingsImporter.Name = "tbSettingsImporter";
+      this.tbSettingsImporter.Padding = new System.Windows.Forms.Padding(3);
+      this.tbSettingsImporter.Size = new System.Drawing.Size(611, 528);
+      this.tbSettingsImporter.TabIndex = 7;
+      this.tbSettingsImporter.Text = "Importer Settings";
+      this.tbSettingsImporter.UseVisualStyleBackColor = true;
       // 
       // label41
       // 
@@ -1975,7 +1902,7 @@
       // 
       // tbMaxVideoArtwork
       // 
-      this.tbMaxVideoArtwork.Location = new System.Drawing.Point(550, 371);
+      this.tbMaxVideoArtwork.Location = new System.Drawing.Point(550, 294);
       this.tbMaxVideoArtwork.Name = "tbMaxVideoArtwork";
       this.tbMaxVideoArtwork.Setting = null;
       this.tbMaxVideoArtwork.Size = new System.Drawing.Size(26, 20);
@@ -1984,7 +1911,7 @@
       // label40
       // 
       this.label40.AutoSize = true;
-      this.label40.Location = new System.Drawing.Point(505, 375);
+      this.label40.Location = new System.Drawing.Point(505, 298);
       this.label40.Name = "label40";
       this.label40.Size = new System.Drawing.Size(42, 13);
       this.label40.TabIndex = 89;
@@ -1992,7 +1919,7 @@
       // 
       // tbMaxAlbumArtwork
       // 
-      this.tbMaxAlbumArtwork.Location = new System.Drawing.Point(465, 371);
+      this.tbMaxAlbumArtwork.Location = new System.Drawing.Point(465, 294);
       this.tbMaxAlbumArtwork.Name = "tbMaxAlbumArtwork";
       this.tbMaxAlbumArtwork.Setting = null;
       this.tbMaxAlbumArtwork.Size = new System.Drawing.Size(26, 20);
@@ -2001,7 +1928,7 @@
       // label39
       // 
       this.label39.AutoSize = true;
-      this.label39.Location = new System.Drawing.Point(418, 375);
+      this.label39.Location = new System.Drawing.Point(418, 298);
       this.label39.Name = "label39";
       this.label39.Size = new System.Drawing.Size(44, 13);
       this.label39.TabIndex = 87;
@@ -2009,7 +1936,7 @@
       // 
       // tbMaxArtistArtwork
       // 
-      this.tbMaxArtistArtwork.Location = new System.Drawing.Point(383, 371);
+      this.tbMaxArtistArtwork.Location = new System.Drawing.Point(383, 294);
       this.tbMaxArtistArtwork.Name = "tbMaxArtistArtwork";
       this.tbMaxArtistArtwork.Setting = null;
       this.tbMaxArtistArtwork.Size = new System.Drawing.Size(26, 20);
@@ -2018,7 +1945,7 @@
       // label38
       // 
       this.label38.AutoSize = true;
-      this.label38.Location = new System.Drawing.Point(169, 375);
+      this.label38.Location = new System.Drawing.Point(169, 298);
       this.label38.Name = "label38";
       this.label38.Size = new System.Drawing.Size(205, 13);
       this.label38.TabIndex = 85;
@@ -2028,7 +1955,7 @@
       // 
       this.label37.AutoSize = true;
       this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label37.Location = new System.Drawing.Point(105, 375);
+      this.label37.Location = new System.Drawing.Point(105, 298);
       this.label37.Name = "label37";
       this.label37.Size = new System.Drawing.Size(54, 13);
       this.label37.TabIndex = 84;
@@ -2039,7 +1966,7 @@
       this.groupBox11.Controls.Add(this.groupBox12);
       this.groupBox11.Controls.Add(this.groupBox14);
       this.groupBox11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox11.Location = new System.Drawing.Point(233, 401);
+      this.groupBox11.Location = new System.Drawing.Point(233, 324);
       this.groupBox11.Name = "groupBox11";
       this.groupBox11.Size = new System.Drawing.Size(364, 2);
       this.groupBox11.TabIndex = 83;
@@ -2077,7 +2004,7 @@
       // 
       this.label33.AutoSize = true;
       this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label33.Location = new System.Drawing.Point(243, 442);
+      this.label33.Location = new System.Drawing.Point(243, 365);
       this.label33.Name = "label33";
       this.label33.Size = new System.Drawing.Size(122, 13);
       this.label33.TabIndex = 82;
@@ -2086,7 +2013,7 @@
       // label34
       // 
       this.label34.AutoSize = true;
-      this.label34.Location = new System.Drawing.Point(516, 442);
+      this.label34.Location = new System.Drawing.Point(516, 365);
       this.label34.Name = "label34";
       this.label34.Size = new System.Drawing.Size(38, 13);
       this.label34.TabIndex = 81;
@@ -2095,7 +2022,7 @@
       // label35
       // 
       this.label35.AutoSize = true;
-      this.label35.Location = new System.Drawing.Point(426, 442);
+      this.label35.Location = new System.Drawing.Point(426, 365);
       this.label35.Name = "label35";
       this.label35.Size = new System.Drawing.Size(35, 13);
       this.label35.TabIndex = 80;
@@ -2103,7 +2030,7 @@
       // 
       // tbMinAlbumWidth
       // 
-      this.tbMinAlbumWidth.Location = new System.Drawing.Point(381, 439);
+      this.tbMinAlbumWidth.Location = new System.Drawing.Point(381, 362);
       this.tbMinAlbumWidth.Name = "tbMinAlbumWidth";
       this.tbMinAlbumWidth.Setting = null;
       this.tbMinAlbumWidth.Size = new System.Drawing.Size(41, 20);
@@ -2111,7 +2038,7 @@
       // 
       // tbMinAlbumMinHeight
       // 
-      this.tbMinAlbumMinHeight.Location = new System.Drawing.Point(467, 439);
+      this.tbMinAlbumMinHeight.Location = new System.Drawing.Point(467, 362);
       this.tbMinAlbumMinHeight.Name = "tbMinAlbumMinHeight";
       this.tbMinAlbumMinHeight.Setting = null;
       this.tbMinAlbumMinHeight.Size = new System.Drawing.Size(41, 20);
@@ -2121,7 +2048,7 @@
       // 
       this.label32.AutoSize = true;
       this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label32.Location = new System.Drawing.Point(72, 506);
+      this.label32.Location = new System.Drawing.Point(72, 429);
       this.label32.Name = "label32";
       this.label32.Size = new System.Drawing.Size(91, 13);
       this.label32.TabIndex = 77;
@@ -2224,68 +2151,28 @@
       this.label26.TabIndex = 65;
       this.label26.Text = "Data Sources:";
       // 
-      // label2
-      // 
-      this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(427, 289);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(37, 13);
-      this.label2.TabIndex = 56;
-      this.label2.Text = "Day(s)";
-      // 
       // groupBox7
       // 
       this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox7.Location = new System.Drawing.Point(12, 490);
+      this.groupBox7.Location = new System.Drawing.Point(12, 413);
       this.groupBox7.Name = "groupBox7";
       this.groupBox7.Size = new System.Drawing.Size(585, 2);
       this.groupBox7.TabIndex = 50;
       this.groupBox7.TabStop = false;
       // 
-      // label1
-      // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(172, 289);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(214, 13);
-      this.label1.TabIndex = 55;
-      this.label1.Text = "Video is considered new if added in the  last";
-      // 
-      // tbLatestVideos
-      // 
-      this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbLatestVideos.Location = new System.Drawing.Point(396, 286);
-      this.tbLatestVideos.MaxLength = 2;
-      this.tbLatestVideos.Name = "tbLatestVideos";
-      this.tbLatestVideos.Setting = null;
-      this.tbLatestVideos.Size = new System.Drawing.Size(25, 20);
-      this.tbLatestVideos.TabIndex = 54;
-      this.tbLatestVideos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-      // 
       // label14
       // 
       this.label14.AutoSize = true;
       this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label14.Location = new System.Drawing.Point(243, 470);
+      this.label14.Location = new System.Drawing.Point(243, 393);
       this.label14.Name = "label14";
       this.label14.Size = new System.Drawing.Size(121, 13);
       this.label14.TabIndex = 63;
       this.label14.Text = "Track Art Minimum Size:";
       // 
-      // label6
-      // 
-      this.label6.AutoSize = true;
-      this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label6.Location = new System.Drawing.Point(76, 289);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(83, 13);
-      this.label6.TabIndex = 53;
-      this.label6.Text = "GUI Settings:";
-      // 
       // tbMinArtWidth
       // 
-      this.tbMinArtWidth.Location = new System.Drawing.Point(381, 411);
+      this.tbMinArtWidth.Location = new System.Drawing.Point(381, 334);
       this.tbMinArtWidth.Name = "tbMinArtWidth";
       this.tbMinArtWidth.Setting = null;
       this.tbMinArtWidth.Size = new System.Drawing.Size(41, 20);
@@ -2296,7 +2183,7 @@
       this.groupBox6.Controls.Add(this.groupBox9);
       this.groupBox6.Controls.Add(this.groupBox8);
       this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox6.Location = new System.Drawing.Point(12, 356);
+      this.groupBox6.Location = new System.Drawing.Point(12, 279);
       this.groupBox6.Name = "groupBox6";
       this.groupBox6.Size = new System.Drawing.Size(585, 2);
       this.groupBox6.TabIndex = 49;
@@ -2332,7 +2219,7 @@
       // 
       // tbMinArtHeight
       // 
-      this.tbMinArtHeight.Location = new System.Drawing.Point(467, 411);
+      this.tbMinArtHeight.Location = new System.Drawing.Point(467, 334);
       this.tbMinArtHeight.Name = "tbMinArtHeight";
       this.tbMinArtHeight.Setting = null;
       this.tbMinArtHeight.Size = new System.Drawing.Size(41, 20);
@@ -2341,25 +2228,16 @@
       // label15
       // 
       this.label15.AutoSize = true;
-      this.label15.Location = new System.Drawing.Point(516, 470);
+      this.label15.Location = new System.Drawing.Point(516, 393);
       this.label15.Name = "label15";
       this.label15.Size = new System.Drawing.Size(38, 13);
       this.label15.TabIndex = 62;
       this.label15.Text = "Height";
       // 
-      // groupBox5
-      // 
-      this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox5.Location = new System.Drawing.Point(12, 277);
-      this.groupBox5.Name = "groupBox5";
-      this.groupBox5.Size = new System.Drawing.Size(585, 2);
-      this.groupBox5.TabIndex = 47;
-      this.groupBox5.TabStop = false;
-      // 
       // label8
       // 
       this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(426, 414);
+      this.label8.Location = new System.Drawing.Point(426, 337);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(35, 13);
       this.label8.TabIndex = 3;
@@ -2379,7 +2257,7 @@
       // 
       this.cbSplitDVD.AutoSize = true;
       this.cbSplitDVD.IgnoreSettingName = true;
-      this.cbSplitDVD.Location = new System.Drawing.Point(179, 505);
+      this.cbSplitDVD.Location = new System.Drawing.Point(179, 428);
       this.cbSplitDVD.Name = "cbSplitDVD";
       this.cbSplitDVD.Setting = null;
       this.cbSplitDVD.Size = new System.Drawing.Size(127, 17);
@@ -2390,7 +2268,7 @@
       // label16
       // 
       this.label16.AutoSize = true;
-      this.label16.Location = new System.Drawing.Point(426, 470);
+      this.label16.Location = new System.Drawing.Point(426, 393);
       this.label16.Name = "label16";
       this.label16.Size = new System.Drawing.Size(35, 13);
       this.label16.TabIndex = 61;
@@ -2411,7 +2289,7 @@
       // label12
       // 
       this.label12.AutoSize = true;
-      this.label12.Location = new System.Drawing.Point(516, 414);
+      this.label12.Location = new System.Drawing.Point(516, 337);
       this.label12.Name = "label12";
       this.label12.Size = new System.Drawing.Size(38, 13);
       this.label12.TabIndex = 4;
@@ -2433,7 +2311,7 @@
       // 
       this.label13.AutoSize = true;
       this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label13.Location = new System.Drawing.Point(250, 414);
+      this.label13.Location = new System.Drawing.Point(250, 337);
       this.label13.Name = "label13";
       this.label13.Size = new System.Drawing.Size(114, 13);
       this.label13.TabIndex = 57;
@@ -2441,7 +2319,7 @@
       // 
       // tbTrackArtWidth
       // 
-      this.tbTrackArtWidth.Location = new System.Drawing.Point(381, 467);
+      this.tbTrackArtWidth.Location = new System.Drawing.Point(381, 390);
       this.tbTrackArtWidth.Name = "tbTrackArtWidth";
       this.tbTrackArtWidth.Setting = null;
       this.tbTrackArtWidth.Size = new System.Drawing.Size(41, 20);
@@ -2449,19 +2327,11 @@
       // 
       // tbTrackArtHeight
       // 
-      this.tbTrackArtHeight.Location = new System.Drawing.Point(467, 467);
+      this.tbTrackArtHeight.Location = new System.Drawing.Point(467, 390);
       this.tbTrackArtHeight.Name = "tbTrackArtHeight";
       this.tbTrackArtHeight.Setting = null;
       this.tbTrackArtHeight.Size = new System.Drawing.Size(41, 20);
       this.tbTrackArtHeight.TabIndex = 59;
-      // 
-      // autoDataSourcesPanel1
-      // 
-      this.autoDataSourcesPanel1.AutoCommit = true;
-      this.autoDataSourcesPanel1.Location = new System.Drawing.Point(172, 169);
-      this.autoDataSourcesPanel1.Name = "autoDataSourcesPanel1";
-      this.autoDataSourcesPanel1.Size = new System.Drawing.Size(433, 44);
-      this.autoDataSourcesPanel1.TabIndex = 64;
       // 
       // tpAbout
       // 
@@ -2850,10 +2720,228 @@
       this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
       this.dataGridViewTextBoxColumn3.ReadOnly = true;
       // 
+      // tbSettingsGUI
+      // 
+      this.tbSettingsGUI.Controls.Add(this.cbGeneratedAutoShufflePlaylist);
+      this.tbSettingsGUI.Controls.Add(this.cbAutoShufflePlaylist);
+      this.tbSettingsGUI.Controls.Add(this.label42);
+      this.tbSettingsGUI.Controls.Add(this.groupBox16);
+      this.tbSettingsGUI.Controls.Add(this.cbDisplayRawTrackText);
+      this.tbSettingsGUI.Controls.Add(this.cbAutoFullscreen);
+      this.tbSettingsGUI.Controls.Add(this.label2);
+      this.tbSettingsGUI.Controls.Add(this.label1);
+      this.tbSettingsGUI.Controls.Add(this.tbLatestVideos);
+      this.tbSettingsGUI.Controls.Add(this.label6);
+      this.tbSettingsGUI.Controls.Add(this.groupBox5);
+      this.tbSettingsGUI.Location = new System.Drawing.Point(4, 23);
+      this.tbSettingsGUI.Name = "tbSettingsGUI";
+      this.tbSettingsGUI.Padding = new System.Windows.Forms.Padding(3);
+      this.tbSettingsGUI.Size = new System.Drawing.Size(611, 528);
+      this.tbSettingsGUI.TabIndex = 8;
+      this.tbSettingsGUI.Text = "GUI Settings";
+      this.tbSettingsGUI.UseVisualStyleBackColor = true;
+      // 
+      // cbDisplayRawTrackText
+      // 
+      this.cbDisplayRawTrackText.AutoSize = true;
+      this.cbDisplayRawTrackText.IgnoreSettingName = true;
+      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(171, 76);
+      this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
+      this.cbDisplayRawTrackText.Setting = null;
+      this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
+      this.cbDisplayRawTrackText.TabIndex = 105;
+      this.cbDisplayRawTrackText.Text = "Display non-cleaned version track name\r\n";
+      this.cbDisplayRawTrackText.UseVisualStyleBackColor = true;
+      // 
+      // cbAutoFullscreen
+      // 
+      this.cbAutoFullscreen.AutoSize = true;
+      this.cbAutoFullscreen.IgnoreSettingName = true;
+      this.cbAutoFullscreen.Location = new System.Drawing.Point(171, 53);
+      this.cbAutoFullscreen.Name = "cbAutoFullscreen";
+      this.cbAutoFullscreen.Setting = null;
+      this.cbAutoFullscreen.Size = new System.Drawing.Size(207, 17);
+      this.cbAutoFullscreen.TabIndex = 104;
+      this.cbAutoFullscreen.Text = "Switch to fullscreen when video starts.";
+      this.cbAutoFullscreen.UseVisualStyleBackColor = true;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(423, 32);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(37, 13);
+      this.label2.TabIndex = 103;
+      this.label2.Text = "Day(s)";
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(168, 32);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(214, 13);
+      this.label1.TabIndex = 102;
+      this.label1.Text = "Video is considered new if added in the  last";
+      // 
+      // tbLatestVideos
+      // 
+      this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbLatestVideos.Location = new System.Drawing.Point(392, 29);
+      this.tbLatestVideos.MaxLength = 2;
+      this.tbLatestVideos.Name = "tbLatestVideos";
+      this.tbLatestVideos.Setting = null;
+      this.tbLatestVideos.Size = new System.Drawing.Size(25, 20);
+      this.tbLatestVideos.TabIndex = 101;
+      this.tbLatestVideos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label6.Location = new System.Drawing.Point(72, 32);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(83, 13);
+      this.label6.TabIndex = 100;
+      this.label6.Text = "GUI Settings:";
+      // 
+      // groupBox5
+      // 
+      this.groupBox5.Controls.Add(this.groupBox15);
+      this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox5.Location = new System.Drawing.Point(8, 20);
+      this.groupBox5.Name = "groupBox5";
+      this.groupBox5.Size = new System.Drawing.Size(585, 2);
+      this.groupBox5.TabIndex = 99;
+      this.groupBox5.TabStop = false;
+      // 
+      // groupBox15
+      // 
+      this.groupBox15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox15.Location = new System.Drawing.Point(0, 36);
+      this.groupBox15.Name = "groupBox15";
+      this.groupBox15.Size = new System.Drawing.Size(585, 2);
+      this.groupBox15.TabIndex = 100;
+      this.groupBox15.TabStop = false;
+      // 
+      // groupBox16
+      // 
+      this.groupBox16.Controls.Add(this.groupBox17);
+      this.groupBox16.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox16.Location = new System.Drawing.Point(13, 113);
+      this.groupBox16.Name = "groupBox16";
+      this.groupBox16.Size = new System.Drawing.Size(585, 2);
+      this.groupBox16.TabIndex = 106;
+      this.groupBox16.TabStop = false;
+      // 
+      // groupBox17
+      // 
+      this.groupBox17.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox17.Location = new System.Drawing.Point(0, 36);
+      this.groupBox17.Name = "groupBox17";
+      this.groupBox17.Size = new System.Drawing.Size(585, 2);
+      this.groupBox17.TabIndex = 100;
+      this.groupBox17.TabStop = false;
+      // 
+      // label42
+      // 
+      this.label42.AutoSize = true;
+      this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label42.Location = new System.Drawing.Point(54, 129);
+      this.label42.Name = "label42";
+      this.label42.Size = new System.Drawing.Size(101, 13);
+      this.label42.TabIndex = 107;
+      this.label42.Text = "Playlist Settings:";
+      // 
+      // cbAutoShufflePlaylist
+      // 
+      this.cbAutoShufflePlaylist.AutoSize = true;
+      this.cbAutoShufflePlaylist.IgnoreSettingName = true;
+      this.cbAutoShufflePlaylist.Location = new System.Drawing.Point(171, 128);
+      this.cbAutoShufflePlaylist.Name = "cbAutoShufflePlaylist";
+      this.cbAutoShufflePlaylist.Setting = null;
+      this.cbAutoShufflePlaylist.Size = new System.Drawing.Size(136, 17);
+      this.cbAutoShufflePlaylist.TabIndex = 108;
+      this.cbAutoShufflePlaylist.Text = "Shuffle playlists on load";
+      this.cbAutoShufflePlaylist.UseVisualStyleBackColor = true;
+      // 
+      // fileNameDataGridViewTextBoxColumn
+      // 
+      this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
+      this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
+      this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
+      this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // artistDataGridViewTextBoxColumn
+      // 
+      this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
+      this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
+      this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
+      this.artistDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // albumDataGridViewTextBoxColumn
+      // 
+      this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
+      this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
+      this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
+      this.albumDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // trackDataGridViewTextBoxColumn
+      // 
+      this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
+      this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
+      this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
+      this.trackDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // extDataGridViewTextBoxColumn
+      // 
+      this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
+      this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
+      this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
+      this.extDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // volumeLabelDataGridViewTextBoxColumn
+      // 
+      this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
+      this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
+      this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
+      this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // pathDataGridViewTextBoxColumn
+      // 
+      this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
+      this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
+      this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
+      this.pathDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // ParserBindingSource
+      // 
+      this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
+      // 
+      // autoDataSourcesPanel1
+      // 
+      this.autoDataSourcesPanel1.AutoCommit = true;
+      this.autoDataSourcesPanel1.Location = new System.Drawing.Point(172, 169);
+      this.autoDataSourcesPanel1.Name = "autoDataSourcesPanel1";
+      this.autoDataSourcesPanel1.Size = new System.Drawing.Size(433, 44);
+      this.autoDataSourcesPanel1.TabIndex = 64;
+      // 
       // unapprovedMatchesBindingSource
       // 
       this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
       this.unapprovedMatchesBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.unapprovedMatchesBindingSource_ListChanged);
+      // 
+      // cbGeneratedAutoShufflePlaylist
+      // 
+      this.cbGeneratedAutoShufflePlaylist.AutoSize = true;
+      this.cbGeneratedAutoShufflePlaylist.IgnoreSettingName = true;
+      this.cbGeneratedAutoShufflePlaylist.Location = new System.Drawing.Point(171, 157);
+      this.cbGeneratedAutoShufflePlaylist.Name = "cbGeneratedAutoShufflePlaylist";
+      this.cbGeneratedAutoShufflePlaylist.Setting = null;
+      this.cbGeneratedAutoShufflePlaylist.Size = new System.Drawing.Size(186, 17);
+      this.cbGeneratedAutoShufflePlaylist.TabIndex = 109;
+      this.cbGeneratedAutoShufflePlaylist.Text = "Shuffle internal generated playlists";
+      this.cbGeneratedAutoShufflePlaylist.UseVisualStyleBackColor = true;
       // 
       // ConfigForm
       // 
@@ -2901,7 +2989,6 @@
       this.tcImport.ResumeLayout(false);
       this.tpImportPathParser.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       this.pathsGroupBox.ResumeLayout(false);
       this.pathsGroupBox.PerformLayout();
       this.toolStrip.ResumeLayout(false);
@@ -2927,8 +3014,8 @@
       this.splitContainer1.Panel2.PerformLayout();
       this.splitContainer1.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.dgvExpressions)).EndInit();
-      this.tbSettings.ResumeLayout(false);
-      this.tbSettings.PerformLayout();
+      this.tbSettingsImporter.ResumeLayout(false);
+      this.tbSettingsImporter.PerformLayout();
       this.groupBox11.ResumeLayout(false);
       this.groupBox12.ResumeLayout(false);
       this.groupBox6.ResumeLayout(false);
@@ -2939,6 +3026,11 @@
       this.groupBox1.PerformLayout();
       this.gbProgress.ResumeLayout(false);
       this.gbProgress.PerformLayout();
+      this.tbSettingsGUI.ResumeLayout(false);
+      this.tbSettingsGUI.PerformLayout();
+      this.groupBox5.ResumeLayout(false);
+      this.groupBox16.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).EndInit();
       this.ResumeLayout(false);
 
@@ -3025,7 +3117,7 @@
         private System.Windows.Forms.DataGridViewImageColumn statusColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn unapprovedLocalMediaColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn unapprovedPossibleMatchesColumn;
-        private System.Windows.Forms.TabPage tbSettings;
+        private System.Windows.Forms.TabPage tbSettingsImporter;
         private Cornerstone.GUI.Controls.SettingCheckBox cbAutoApprove;
         private Cornerstone.GUI.Controls.SettingCheckBox cbUseMDAlbum;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColParseFileName;
@@ -3115,12 +3207,7 @@
         private Cornerstone.GUI.Controls.SettingCheckBox cbSplitDVD;
         private System.Windows.Forms.ToolStripMenuItem tsmGetInfo;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private Cornerstone.GUI.Controls.SettingsTextBox tbLatestVideos;
-        private System.Windows.Forms.Label label6;
         private Cornerstone.GUI.Controls.SettingsTextBox tbMinArtHeight;
         private Cornerstone.GUI.Controls.SettingsTextBox tbMinArtWidth;
         private System.Windows.Forms.Label label12;
@@ -3181,7 +3268,19 @@
         private Cornerstone.GUI.Controls.SettingCheckBox cbIgnoreFolderStructure;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ToolStripMenuItem deleteDataAndRescanToolStripMenuItem;
-        private Cornerstone.GUI.Controls.SettingCheckBox cbAutoFullscreen;
+        private System.Windows.Forms.TabPage tbSettingsGUI;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbAutoShufflePlaylist;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.GroupBox groupBox16;
+        private System.Windows.Forms.GroupBox groupBox17;
         private Cornerstone.GUI.Controls.SettingCheckBox cbDisplayRawTrackText;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbAutoFullscreen;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbLatestVideos;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox15;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbGeneratedAutoShufflePlaylist;
     }
 }

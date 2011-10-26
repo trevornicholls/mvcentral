@@ -41,7 +41,7 @@ namespace mvCentral.GUI
           foreach (DBArtistInfo currArtist in artistList)
           {
             List<DBTrackInfo> artistTracks = DBTrackInfo.GetEntriesByArtist(currArtist);
-            addToPlaylist(artistTracks, false, false, false);
+            addToPlaylist(artistTracks, false, false, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
           }
           Player.playlistPlayer.Play(0);
           if (mvCentralCore.Settings.AutoFullscreen)
