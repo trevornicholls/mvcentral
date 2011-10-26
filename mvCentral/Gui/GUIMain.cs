@@ -589,6 +589,14 @@ namespace mvCentral.GUI
 
       // set initial view to artists (need to store this at some point)
       currentView = (mvView)int.Parse(mvCentralCore.Settings.DefaultViewAs);
+      
+      // Belts & Braces 
+      if (DBGenres.GetSelected().Count == 0 && currentView == mvView.Genres)
+      {
+        currentView = mvView.Artist;
+        mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
+      }
+
       addToStack(currentView, true);
       setViewAsProperty(currentView);
 
