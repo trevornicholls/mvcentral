@@ -306,7 +306,6 @@ namespace mvCentral.Playlist
 
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
           {
-            //playTimer.Stop();
             SetAsWatched();
             PlayNext();
 
@@ -325,13 +324,8 @@ namespace mvCentral.Playlist
         case GUIMessage.MessageType.GUI_MSG_PLAY_FILE:
           {
             logger.Debug(string.Format("Playlistplayer: Start file ({0})", message.Label));
-            // If already playing a file then stop
-            if (!mvPlayer.Playing)
-              mvPlayer.Stop();
-
             // Play the file
             mvPlayer.Play(message.Label);
-
           }
           break;
 
@@ -626,8 +620,8 @@ namespace mvCentral.Playlist
         mvGUIMain.currentArtistInfo = CurrentTrack.ArtistInfo[0];
         logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", mvGUIMain.currentArtistInfo.Artist, mvGUIMain.currentArtistID, filename));
         
-        if (mvPlayer.Playing)
-          mvPlayer.Stop();
+        //if (mvPlayer.Playing)
+        //  mvPlayer.Stop();
 
         playResult = mvPlayer.Play(filename);      
 
@@ -690,9 +684,9 @@ namespace mvCentral.Playlist
 
       string title = string.Empty;
       string osdImage = string.Empty;
+      string album = string.Empty;
 
       DBArtistInfo artistInfo = null;
-      DBAlbumInfo albumInfo = null;
       DBTrackInfo trackInfo = null;
 
       if (!clear)
@@ -702,7 +696,10 @@ namespace mvCentral.Playlist
 
         trackInfo = item.Track;
         artistInfo = DBArtistInfo.Get(trackInfo);
-        albumInfo = trackInfo.AlbumInfo[0];
+        // may not have an album
+        if (trackInfo.AlbumInfo.Count > 0)
+          album = trackInfo.AlbumInfo[0].Album;
+
         title = artistInfo.Artist + " - " + trackInfo.Track;
 
         if (System.IO.File.Exists(artistInfo.ArtFullPath))
@@ -713,8 +710,8 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Current.Thumb", clear ? string.Empty : osdImage);
       GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : trackInfo.bioContent);
       // mvCentral Play Properities
-      GUIPropertyManager.SetProperty("#Play.Current.mvArtist", clear ? string.Empty : title);
-      GUIPropertyManager.SetProperty("#Play.Current.mvAlbum", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Current.mvArtist", clear ? string.Empty : artistInfo.Artist);
+      GUIPropertyManager.SetProperty("#Play.Current.mvAlbum", clear ? string.Empty : album);
       GUIPropertyManager.SetProperty("#Play.Current.mvVideo", clear ? string.Empty : title);
       GUIPropertyManager.SetProperty("#Play.Current.mvTrack.Description", clear ? string.Empty : trackInfo.bioContent);
       GUIPropertyManager.SetProperty("#mvCentral.isPlaying", clear ? "false" : "true");
