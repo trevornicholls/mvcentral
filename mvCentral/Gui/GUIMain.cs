@@ -379,9 +379,16 @@ namespace mvCentral.GUI
           loadAllVideos(videoSort);
           break;
         case 4:
-          currentView = mvView.Genres;
-          addToStack(currentView, true);
-          loadGenres();
+          if (DBGenres.GetSelected().Count == 0)
+          {
+            UserMessage(Localization.NoGenreHeader, Localization.NoGenreLine1, Localization.NoGenreLine2, Localization.NoGenreLine3);
+          }
+          else
+          {
+            currentView = mvView.Genres;
+            addToStack(currentView, true);
+            loadGenres();
+          }
           break;
       }
       logger.Debug("SwitchLayout: Storing View {0}", currentView);
@@ -551,7 +558,7 @@ namespace mvCentral.GUI
                       list1.Add((DBTrackInfo)trackItem.MusicTag);
                     }
                   }
-                  addToPlaylist(list1, false, true, false);
+                  addToPlaylist(list1, false, true, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
                   Player.playlistPlayer.Play(lastItemVid);
                   if (mvCentralCore.Settings.AutoFullscreen)
                     g_Player.ShowFullScreenWindow();
@@ -724,6 +731,20 @@ namespace mvCentral.GUI
       dlg.SetLine(2, "");
       dlg.SetLine(3, "");
       dlg.DoModal(GUIWindowManager.ActiveWindow);
+    }
+    /// <summary>
+    /// Display user message
+    /// </summary>
+    /// <param name="Message"></param>
+    private void UserMessage(string Heading,string Message1, string Message2, string Message3)
+    {
+      GUIDialogOK dlg = (GUIDialogOK)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_OK);
+      dlg.SetHeading(Heading);
+      dlg.SetLine(1, Message1);
+      dlg.SetLine(2, Message2);
+      dlg.SetLine(3, Message3);
+      dlg.DoModal(GUIWindowManager.ActiveWindow);
+
     }
     /// <summary>
     /// Show all found tags and allow to marked as favorite

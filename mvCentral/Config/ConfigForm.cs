@@ -134,9 +134,13 @@ namespace mvCentral
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
+      cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
+      cbDisplayRawTrackText.Setting = mvCentralCore.Settings["gui_raw_track_text"];
+      // GUI Settings
+      cbAutoShufflePlaylist.Setting = mvCentralCore.Settings["general_playlistautoshuffle"];
+      cbGeneratedAutoShufflePlaylist.Setting = mvCentralCore.Settings["generated_playlistautoshuffle"];
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
       cbAutoFullscreen.Setting = mvCentralCore.Settings["auto_fullscreen"];
-      cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
       cbDisplayRawTrackText.Setting = mvCentralCore.Settings["gui_raw_track_text"];
       // Artwork Settings
       tbMinArtWidth.Setting = mvCentralCore.Settings["min_artist_width"];

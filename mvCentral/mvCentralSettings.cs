@@ -1915,6 +1915,24 @@ namespace mvCentral.Settings {
         }
         private bool _playlistautoshuffle;
 
+        [CornerstoneSetting(
+            Name = "Autoshuffle generated playlist",
+            Description = "Automatic shuffle of generated playlists.",
+            Groups = "|MediaPortal GUI|Playlist|",
+            Identifier = "generated_playlistautoshuffle",
+            Default = true,
+            Hidden = false)]
+        public bool GeneratedPlaylistAutoShuffle
+        {
+          get { return _generatedplaylistautoshuffle; }
+          set
+          {
+            _generatedplaylistautoshuffle = value;
+            OnSettingChanged("generated_playlistautoshuffle");
+          }
+        }
+        private bool _generatedplaylistautoshuffle;
+
         #endregion
 
         #region Bluray/HD-DVD Playback
