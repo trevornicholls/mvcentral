@@ -132,10 +132,7 @@ namespace mvCentral.Database
           selectList.Add(db1);
 
       }
-      if (selectList.Count == 0)
-        return null;
-      else
-        return selectList;
+      return selectList;
     }
     /// <summary>
     /// Get Specific entry
