@@ -325,22 +325,19 @@ namespace mvCentral.Playlist
         case GUIMessage.MessageType.GUI_MSG_PLAY_FILE:
           {
             logger.Debug(string.Format("Playlistplayer: Start file ({0})", message.Label));
+            // If already playing a file then stop
+            if (!mvPlayer.Playing)
+              mvPlayer.Stop();
+
             // Play the file
             mvPlayer.Play(message.Label);
-            // If already playing a file then stop
 
-            if (!mvPlayer.Playing)
-            {
-              //playTimer.Stop();
-              mvPlayer.Stop();
-            }
           }
           break;
 
         case GUIMessage.MessageType.GUI_MSG_STOP_FILE:
           {
             logger.Debug(string.Format("Playlistplayer: Stop file"));
-            //playTimer.Stop();
             mvPlayer.Stop();
           }
           break;
@@ -628,6 +625,9 @@ namespace mvCentral.Playlist
         mvGUIMain.currentArtistID = (int)CurrentTrack.ArtistInfo[0].ID;
         mvGUIMain.currentArtistInfo = CurrentTrack.ArtistInfo[0];
         logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", mvGUIMain.currentArtistInfo.Artist, mvGUIMain.currentArtistID, filename));
+        
+        if (mvPlayer.Playing)
+          mvPlayer.Stop();
 
         playResult = mvPlayer.Play(filename);      
 

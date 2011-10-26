@@ -187,7 +187,10 @@ namespace mvCentral.GUI
           }
         }
         Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
-        playlist.Shuffle();
+        
+        if (mvCentralCore.Settings.GeneratedPlaylistAutoShuffle)
+          playlist.Shuffle();
+
         Player.playlistPlayer.Play(0);
         if (mvCentralCore.Settings.AutoFullscreen)
           GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
