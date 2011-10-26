@@ -33,6 +33,7 @@ namespace mvCentral.GUI
           {
             if (tagMatched(facadeLayout.SelectedListItem.Label, artistInfo))
             {
+              logger.Debug("Matched Artist {0} with Tag {1}", artistInfo.Artist, facadeLayout.SelectedListItem.Label);
               if (!artistList.Contains(artistInfo))
                 artistList.Add(artistInfo);
             }
