@@ -38,6 +38,9 @@ namespace mvCentral.GUI
                 artistList.Add(artistInfo);
             }
           }
+          
+          if (mvCentralCore.Settings.ClearPlaylistOnAdd)
+            clearPlaylist();
 
           foreach (DBArtistInfo currArtist in artistList)
           {

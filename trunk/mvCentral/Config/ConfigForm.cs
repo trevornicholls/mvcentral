@@ -136,6 +136,7 @@ namespace mvCentral
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
       cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
       cbDisplayRawTrackText.Setting = mvCentralCore.Settings["gui_raw_track_text"];
+      cbClearPlaylistOnAdd.Setting = mvCentralCore.Settings["clear_playist_on_add"];
       // GUI Settings
       cbAutoShufflePlaylist.Setting = mvCentralCore.Settings["general_playlistautoshuffle"];
       cbGeneratedAutoShufflePlaylist.Setting = mvCentralCore.Settings["generated_playlistautoshuffle"];

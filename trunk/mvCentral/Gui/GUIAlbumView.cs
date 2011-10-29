@@ -25,7 +25,7 @@ namespace mvCentral.GUI
         {
           DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
           List<DBTrackInfo> allTracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag);
-          addToPlaylist(allTracksOnAlbum, true, true, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+          addToPlaylist(allTracksOnAlbum, true, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
         }
         else
         {

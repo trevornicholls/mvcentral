@@ -32,7 +32,14 @@ namespace mvCentral.GUI
       Cancel = 7
     }
     #region playlist
-
+    /// <summary>
+    /// clear the current playlist
+    /// </summary>
+    private void clearPlaylist()
+    {
+      PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+      playlist.Clear();
+    }
     /// <summary>
     /// Adds a list of Music Videos to a playlist, or a list of artists Music Videos
     /// </summary>

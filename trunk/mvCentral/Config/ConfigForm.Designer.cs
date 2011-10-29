@@ -217,6 +217,21 @@
       this.label13 = new System.Windows.Forms.Label();
       this.tbTrackArtWidth = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.tbTrackArtHeight = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.tbSettingsGUI = new System.Windows.Forms.TabPage();
+      this.cbClearPlaylistOnAdd = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.cbGeneratedAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.cbAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.label42 = new System.Windows.Forms.Label();
+      this.groupBox16 = new System.Windows.Forms.GroupBox();
+      this.groupBox17 = new System.Windows.Forms.GroupBox();
+      this.cbDisplayRawTrackText = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.cbAutoFullscreen = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.label2 = new System.Windows.Forms.Label();
+      this.label1 = new System.Windows.Forms.Label();
+      this.tbLatestVideos = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.label6 = new System.Windows.Forms.Label();
+      this.groupBox5 = new System.Windows.Forms.GroupBox();
+      this.groupBox15 = new System.Windows.Forms.GroupBox();
       this.tpAbout = new System.Windows.Forms.TabPage();
       this.pictureBox3 = new System.Windows.Forms.PictureBox();
       this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -257,19 +272,7 @@
       this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.tbSettingsGUI = new System.Windows.Forms.TabPage();
-      this.cbDisplayRawTrackText = new Cornerstone.GUI.Controls.SettingCheckBox();
-      this.cbAutoFullscreen = new Cornerstone.GUI.Controls.SettingCheckBox();
-      this.label2 = new System.Windows.Forms.Label();
-      this.label1 = new System.Windows.Forms.Label();
-      this.tbLatestVideos = new Cornerstone.GUI.Controls.SettingsTextBox();
-      this.label6 = new System.Windows.Forms.Label();
-      this.groupBox5 = new System.Windows.Forms.GroupBox();
-      this.groupBox15 = new System.Windows.Forms.GroupBox();
-      this.groupBox16 = new System.Windows.Forms.GroupBox();
-      this.groupBox17 = new System.Windows.Forms.GroupBox();
-      this.label42 = new System.Windows.Forms.Label();
-      this.cbAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -280,7 +283,6 @@
       this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.autoDataSourcesPanel1 = new mvCentral.AutoDataSourcesPanel();
       this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-      this.cbGeneratedAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
       this.scMain.Panel1.SuspendLayout();
       this.scMain.Panel2.SuspendLayout();
@@ -332,13 +334,13 @@
       this.groupBox12.SuspendLayout();
       this.groupBox6.SuspendLayout();
       this.groupBox9.SuspendLayout();
+      this.tbSettingsGUI.SuspendLayout();
+      this.groupBox16.SuspendLayout();
+      this.groupBox5.SuspendLayout();
       this.tpAbout.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.gbProgress.SuspendLayout();
-      this.tbSettingsGUI.SuspendLayout();
-      this.groupBox5.SuspendLayout();
-      this.groupBox16.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).BeginInit();
       this.SuspendLayout();
@@ -1036,6 +1038,7 @@
       this.toolStrip.Size = new System.Drawing.Size(33, 77);
       this.toolStrip.TabIndex = 155;
       this.toolStrip.Text = "toolStrip1";
+      this.toolStrip.Visible = false;
       // 
       // addSourceButton
       // 
@@ -2333,6 +2336,182 @@
       this.tbTrackArtHeight.Size = new System.Drawing.Size(41, 20);
       this.tbTrackArtHeight.TabIndex = 59;
       // 
+      // tbSettingsGUI
+      // 
+      this.tbSettingsGUI.Controls.Add(this.cbClearPlaylistOnAdd);
+      this.tbSettingsGUI.Controls.Add(this.cbGeneratedAutoShufflePlaylist);
+      this.tbSettingsGUI.Controls.Add(this.cbAutoShufflePlaylist);
+      this.tbSettingsGUI.Controls.Add(this.label42);
+      this.tbSettingsGUI.Controls.Add(this.groupBox16);
+      this.tbSettingsGUI.Controls.Add(this.cbDisplayRawTrackText);
+      this.tbSettingsGUI.Controls.Add(this.cbAutoFullscreen);
+      this.tbSettingsGUI.Controls.Add(this.label2);
+      this.tbSettingsGUI.Controls.Add(this.label1);
+      this.tbSettingsGUI.Controls.Add(this.tbLatestVideos);
+      this.tbSettingsGUI.Controls.Add(this.label6);
+      this.tbSettingsGUI.Controls.Add(this.groupBox5);
+      this.tbSettingsGUI.Location = new System.Drawing.Point(4, 23);
+      this.tbSettingsGUI.Name = "tbSettingsGUI";
+      this.tbSettingsGUI.Padding = new System.Windows.Forms.Padding(3);
+      this.tbSettingsGUI.Size = new System.Drawing.Size(611, 528);
+      this.tbSettingsGUI.TabIndex = 8;
+      this.tbSettingsGUI.Text = "GUI Settings";
+      this.tbSettingsGUI.UseVisualStyleBackColor = true;
+      // 
+      // cbClearPlaylistOnAdd
+      // 
+      this.cbClearPlaylistOnAdd.AutoSize = true;
+      this.cbClearPlaylistOnAdd.IgnoreSettingName = true;
+      this.cbClearPlaylistOnAdd.Location = new System.Drawing.Point(171, 174);
+      this.cbClearPlaylistOnAdd.Name = "cbClearPlaylistOnAdd";
+      this.cbClearPlaylistOnAdd.Setting = null;
+      this.cbClearPlaylistOnAdd.Size = new System.Drawing.Size(259, 17);
+      this.cbClearPlaylistOnAdd.TabIndex = 110;
+      this.cbClearPlaylistOnAdd.Text = "Clear playlist when loading/queueing new playlist.";
+      this.toolTip1.SetToolTip(this.cbClearPlaylistOnAdd, resources.GetString("cbClearPlaylistOnAdd.ToolTip"));
+      this.cbClearPlaylistOnAdd.UseVisualStyleBackColor = true;
+      // 
+      // cbGeneratedAutoShufflePlaylist
+      // 
+      this.cbGeneratedAutoShufflePlaylist.AutoSize = true;
+      this.cbGeneratedAutoShufflePlaylist.IgnoreSettingName = true;
+      this.cbGeneratedAutoShufflePlaylist.Location = new System.Drawing.Point(171, 151);
+      this.cbGeneratedAutoShufflePlaylist.Name = "cbGeneratedAutoShufflePlaylist";
+      this.cbGeneratedAutoShufflePlaylist.Setting = null;
+      this.cbGeneratedAutoShufflePlaylist.Size = new System.Drawing.Size(186, 17);
+      this.cbGeneratedAutoShufflePlaylist.TabIndex = 109;
+      this.cbGeneratedAutoShufflePlaylist.Text = "Shuffle internal generated playlists";
+      this.toolTip1.SetToolTip(this.cbGeneratedAutoShufflePlaylist, resources.GetString("cbGeneratedAutoShufflePlaylist.ToolTip"));
+      this.cbGeneratedAutoShufflePlaylist.UseVisualStyleBackColor = true;
+      // 
+      // cbAutoShufflePlaylist
+      // 
+      this.cbAutoShufflePlaylist.AutoSize = true;
+      this.cbAutoShufflePlaylist.IgnoreSettingName = true;
+      this.cbAutoShufflePlaylist.Location = new System.Drawing.Point(171, 128);
+      this.cbAutoShufflePlaylist.Name = "cbAutoShufflePlaylist";
+      this.cbAutoShufflePlaylist.Setting = null;
+      this.cbAutoShufflePlaylist.Size = new System.Drawing.Size(136, 17);
+      this.cbAutoShufflePlaylist.TabIndex = 108;
+      this.cbAutoShufflePlaylist.Text = "Shuffle playlists on load";
+      this.toolTip1.SetToolTip(this.cbAutoShufflePlaylist, "Auto Shuffle playlist when loaded.\r\n\r\nDefault Setting: Enabled");
+      this.cbAutoShufflePlaylist.UseVisualStyleBackColor = true;
+      // 
+      // label42
+      // 
+      this.label42.AutoSize = true;
+      this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label42.Location = new System.Drawing.Point(54, 129);
+      this.label42.Name = "label42";
+      this.label42.Size = new System.Drawing.Size(101, 13);
+      this.label42.TabIndex = 107;
+      this.label42.Text = "Playlist Settings:";
+      // 
+      // groupBox16
+      // 
+      this.groupBox16.Controls.Add(this.groupBox17);
+      this.groupBox16.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox16.Location = new System.Drawing.Point(13, 113);
+      this.groupBox16.Name = "groupBox16";
+      this.groupBox16.Size = new System.Drawing.Size(585, 2);
+      this.groupBox16.TabIndex = 106;
+      this.groupBox16.TabStop = false;
+      // 
+      // groupBox17
+      // 
+      this.groupBox17.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox17.Location = new System.Drawing.Point(0, 36);
+      this.groupBox17.Name = "groupBox17";
+      this.groupBox17.Size = new System.Drawing.Size(585, 2);
+      this.groupBox17.TabIndex = 100;
+      this.groupBox17.TabStop = false;
+      // 
+      // cbDisplayRawTrackText
+      // 
+      this.cbDisplayRawTrackText.AutoSize = true;
+      this.cbDisplayRawTrackText.IgnoreSettingName = true;
+      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(171, 76);
+      this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
+      this.cbDisplayRawTrackText.Setting = null;
+      this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
+      this.cbDisplayRawTrackText.TabIndex = 105;
+      this.cbDisplayRawTrackText.Text = "Display non-cleaned version track name\r\n";
+      this.toolTip1.SetToolTip(this.cbDisplayRawTrackText, resources.GetString("cbDisplayRawTrackText.ToolTip"));
+      this.cbDisplayRawTrackText.UseVisualStyleBackColor = true;
+      // 
+      // cbAutoFullscreen
+      // 
+      this.cbAutoFullscreen.AutoSize = true;
+      this.cbAutoFullscreen.IgnoreSettingName = true;
+      this.cbAutoFullscreen.Location = new System.Drawing.Point(171, 53);
+      this.cbAutoFullscreen.Name = "cbAutoFullscreen";
+      this.cbAutoFullscreen.Setting = null;
+      this.cbAutoFullscreen.Size = new System.Drawing.Size(207, 17);
+      this.cbAutoFullscreen.TabIndex = 104;
+      this.cbAutoFullscreen.Text = "Switch to fullscreen when video starts.";
+      this.cbAutoFullscreen.UseVisualStyleBackColor = true;
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(423, 32);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(37, 13);
+      this.label2.TabIndex = 103;
+      this.label2.Text = "Day(s)";
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(168, 32);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(214, 13);
+      this.label1.TabIndex = 102;
+      this.label1.Text = "Video is considered new if added in the  last";
+      this.toolTip1.SetToolTip(this.label1, "This option determins the number of days since the Music Video\r\nwas added that th" +
+        "e Smart Playlist - Latest Videos considers new.\r\n\r\nDefault Setting: 7");
+      // 
+      // tbLatestVideos
+      // 
+      this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbLatestVideos.Location = new System.Drawing.Point(392, 29);
+      this.tbLatestVideos.MaxLength = 2;
+      this.tbLatestVideos.Name = "tbLatestVideos";
+      this.tbLatestVideos.Setting = null;
+      this.tbLatestVideos.Size = new System.Drawing.Size(25, 20);
+      this.tbLatestVideos.TabIndex = 101;
+      this.tbLatestVideos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      // 
+      // label6
+      // 
+      this.label6.AutoSize = true;
+      this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label6.Location = new System.Drawing.Point(72, 32);
+      this.label6.Name = "label6";
+      this.label6.Size = new System.Drawing.Size(83, 13);
+      this.label6.TabIndex = 100;
+      this.label6.Text = "GUI Settings:";
+      // 
+      // groupBox5
+      // 
+      this.groupBox5.Controls.Add(this.groupBox15);
+      this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox5.Location = new System.Drawing.Point(8, 20);
+      this.groupBox5.Name = "groupBox5";
+      this.groupBox5.Size = new System.Drawing.Size(585, 2);
+      this.groupBox5.TabIndex = 99;
+      this.groupBox5.TabStop = false;
+      // 
+      // groupBox15
+      // 
+      this.groupBox15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox15.Location = new System.Drawing.Point(0, 36);
+      this.groupBox15.Name = "groupBox15";
+      this.groupBox15.Size = new System.Drawing.Size(585, 2);
+      this.groupBox15.TabIndex = 100;
+      this.groupBox15.TabStop = false;
+      // 
       // tpAbout
       // 
       this.tpAbout.Controls.Add(this.pictureBox3);
@@ -2720,150 +2899,11 @@
       this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
       this.dataGridViewTextBoxColumn3.ReadOnly = true;
       // 
-      // tbSettingsGUI
+      // toolTip1
       // 
-      this.tbSettingsGUI.Controls.Add(this.cbGeneratedAutoShufflePlaylist);
-      this.tbSettingsGUI.Controls.Add(this.cbAutoShufflePlaylist);
-      this.tbSettingsGUI.Controls.Add(this.label42);
-      this.tbSettingsGUI.Controls.Add(this.groupBox16);
-      this.tbSettingsGUI.Controls.Add(this.cbDisplayRawTrackText);
-      this.tbSettingsGUI.Controls.Add(this.cbAutoFullscreen);
-      this.tbSettingsGUI.Controls.Add(this.label2);
-      this.tbSettingsGUI.Controls.Add(this.label1);
-      this.tbSettingsGUI.Controls.Add(this.tbLatestVideos);
-      this.tbSettingsGUI.Controls.Add(this.label6);
-      this.tbSettingsGUI.Controls.Add(this.groupBox5);
-      this.tbSettingsGUI.Location = new System.Drawing.Point(4, 23);
-      this.tbSettingsGUI.Name = "tbSettingsGUI";
-      this.tbSettingsGUI.Padding = new System.Windows.Forms.Padding(3);
-      this.tbSettingsGUI.Size = new System.Drawing.Size(611, 528);
-      this.tbSettingsGUI.TabIndex = 8;
-      this.tbSettingsGUI.Text = "GUI Settings";
-      this.tbSettingsGUI.UseVisualStyleBackColor = true;
-      // 
-      // cbDisplayRawTrackText
-      // 
-      this.cbDisplayRawTrackText.AutoSize = true;
-      this.cbDisplayRawTrackText.IgnoreSettingName = true;
-      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(171, 76);
-      this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
-      this.cbDisplayRawTrackText.Setting = null;
-      this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
-      this.cbDisplayRawTrackText.TabIndex = 105;
-      this.cbDisplayRawTrackText.Text = "Display non-cleaned version track name\r\n";
-      this.cbDisplayRawTrackText.UseVisualStyleBackColor = true;
-      // 
-      // cbAutoFullscreen
-      // 
-      this.cbAutoFullscreen.AutoSize = true;
-      this.cbAutoFullscreen.IgnoreSettingName = true;
-      this.cbAutoFullscreen.Location = new System.Drawing.Point(171, 53);
-      this.cbAutoFullscreen.Name = "cbAutoFullscreen";
-      this.cbAutoFullscreen.Setting = null;
-      this.cbAutoFullscreen.Size = new System.Drawing.Size(207, 17);
-      this.cbAutoFullscreen.TabIndex = 104;
-      this.cbAutoFullscreen.Text = "Switch to fullscreen when video starts.";
-      this.cbAutoFullscreen.UseVisualStyleBackColor = true;
-      // 
-      // label2
-      // 
-      this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(423, 32);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(37, 13);
-      this.label2.TabIndex = 103;
-      this.label2.Text = "Day(s)";
-      // 
-      // label1
-      // 
-      this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(168, 32);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(214, 13);
-      this.label1.TabIndex = 102;
-      this.label1.Text = "Video is considered new if added in the  last";
-      // 
-      // tbLatestVideos
-      // 
-      this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbLatestVideos.Location = new System.Drawing.Point(392, 29);
-      this.tbLatestVideos.MaxLength = 2;
-      this.tbLatestVideos.Name = "tbLatestVideos";
-      this.tbLatestVideos.Setting = null;
-      this.tbLatestVideos.Size = new System.Drawing.Size(25, 20);
-      this.tbLatestVideos.TabIndex = 101;
-      this.tbLatestVideos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-      // 
-      // label6
-      // 
-      this.label6.AutoSize = true;
-      this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label6.Location = new System.Drawing.Point(72, 32);
-      this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(83, 13);
-      this.label6.TabIndex = 100;
-      this.label6.Text = "GUI Settings:";
-      // 
-      // groupBox5
-      // 
-      this.groupBox5.Controls.Add(this.groupBox15);
-      this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox5.Location = new System.Drawing.Point(8, 20);
-      this.groupBox5.Name = "groupBox5";
-      this.groupBox5.Size = new System.Drawing.Size(585, 2);
-      this.groupBox5.TabIndex = 99;
-      this.groupBox5.TabStop = false;
-      // 
-      // groupBox15
-      // 
-      this.groupBox15.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox15.Location = new System.Drawing.Point(0, 36);
-      this.groupBox15.Name = "groupBox15";
-      this.groupBox15.Size = new System.Drawing.Size(585, 2);
-      this.groupBox15.TabIndex = 100;
-      this.groupBox15.TabStop = false;
-      // 
-      // groupBox16
-      // 
-      this.groupBox16.Controls.Add(this.groupBox17);
-      this.groupBox16.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox16.Location = new System.Drawing.Point(13, 113);
-      this.groupBox16.Name = "groupBox16";
-      this.groupBox16.Size = new System.Drawing.Size(585, 2);
-      this.groupBox16.TabIndex = 106;
-      this.groupBox16.TabStop = false;
-      // 
-      // groupBox17
-      // 
-      this.groupBox17.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox17.Location = new System.Drawing.Point(0, 36);
-      this.groupBox17.Name = "groupBox17";
-      this.groupBox17.Size = new System.Drawing.Size(585, 2);
-      this.groupBox17.TabIndex = 100;
-      this.groupBox17.TabStop = false;
-      // 
-      // label42
-      // 
-      this.label42.AutoSize = true;
-      this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label42.Location = new System.Drawing.Point(54, 129);
-      this.label42.Name = "label42";
-      this.label42.Size = new System.Drawing.Size(101, 13);
-      this.label42.TabIndex = 107;
-      this.label42.Text = "Playlist Settings:";
-      // 
-      // cbAutoShufflePlaylist
-      // 
-      this.cbAutoShufflePlaylist.AutoSize = true;
-      this.cbAutoShufflePlaylist.IgnoreSettingName = true;
-      this.cbAutoShufflePlaylist.Location = new System.Drawing.Point(171, 128);
-      this.cbAutoShufflePlaylist.Name = "cbAutoShufflePlaylist";
-      this.cbAutoShufflePlaylist.Setting = null;
-      this.cbAutoShufflePlaylist.Size = new System.Drawing.Size(136, 17);
-      this.cbAutoShufflePlaylist.TabIndex = 108;
-      this.cbAutoShufflePlaylist.Text = "Shuffle playlists on load";
-      this.cbAutoShufflePlaylist.UseVisualStyleBackColor = true;
+      this.toolTip1.IsBalloon = true;
+      this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+      this.toolTip1.ToolTipTitle = "mvCentral Help";
       // 
       // fileNameDataGridViewTextBoxColumn
       // 
@@ -2930,18 +2970,6 @@
       // 
       this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
       this.unapprovedMatchesBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.unapprovedMatchesBindingSource_ListChanged);
-      // 
-      // cbGeneratedAutoShufflePlaylist
-      // 
-      this.cbGeneratedAutoShufflePlaylist.AutoSize = true;
-      this.cbGeneratedAutoShufflePlaylist.IgnoreSettingName = true;
-      this.cbGeneratedAutoShufflePlaylist.Location = new System.Drawing.Point(171, 157);
-      this.cbGeneratedAutoShufflePlaylist.Name = "cbGeneratedAutoShufflePlaylist";
-      this.cbGeneratedAutoShufflePlaylist.Setting = null;
-      this.cbGeneratedAutoShufflePlaylist.Size = new System.Drawing.Size(186, 17);
-      this.cbGeneratedAutoShufflePlaylist.TabIndex = 109;
-      this.cbGeneratedAutoShufflePlaylist.Text = "Shuffle internal generated playlists";
-      this.cbGeneratedAutoShufflePlaylist.UseVisualStyleBackColor = true;
       // 
       // ConfigForm
       // 
@@ -3020,16 +3048,16 @@
       this.groupBox12.ResumeLayout(false);
       this.groupBox6.ResumeLayout(false);
       this.groupBox9.ResumeLayout(false);
+      this.tbSettingsGUI.ResumeLayout(false);
+      this.tbSettingsGUI.PerformLayout();
+      this.groupBox16.ResumeLayout(false);
+      this.groupBox5.ResumeLayout(false);
       this.tpAbout.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
       this.groupBox1.ResumeLayout(false);
       this.groupBox1.PerformLayout();
       this.gbProgress.ResumeLayout(false);
       this.gbProgress.PerformLayout();
-      this.tbSettingsGUI.ResumeLayout(false);
-      this.tbSettingsGUI.PerformLayout();
-      this.groupBox5.ResumeLayout(false);
-      this.groupBox16.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).EndInit();
       this.ResumeLayout(false);
@@ -3282,5 +3310,7 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox15;
         private Cornerstone.GUI.Controls.SettingCheckBox cbGeneratedAutoShufflePlaylist;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbClearPlaylistOnAdd;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
