@@ -2449,6 +2449,7 @@
       this.cbAutoFullscreen.Size = new System.Drawing.Size(207, 17);
       this.cbAutoFullscreen.TabIndex = 104;
       this.cbAutoFullscreen.Text = "Switch to fullscreen when video starts.";
+      this.toolTip1.SetToolTip(this.cbAutoFullscreen, resources.GetString("cbAutoFullscreen.ToolTip"));
       this.cbAutoFullscreen.UseVisualStyleBackColor = true;
       // 
       // label2

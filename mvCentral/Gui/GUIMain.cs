@@ -590,6 +590,17 @@ namespace mvCentral.GUI
       // Get all Artists and Tracks
       List<DBArtistInfo> artList = DBArtistInfo.GetAll();
       List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
+
+      if (artList.Count == 0 && vidList.Count == 0)
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Artists);
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Empty DB"); 
+        UserMessage("mvCentral - No Content", "There is no content to view", "", "Please setup plugin and scan in configuration");
+        currentView = mvView.None;
+        addToStack(currentView, true);
+        return;
+      }
+
       // Set Total Artists and Video Porperties
       GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count + " " + Localization.Artists);
       GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count + " " + Localization.Videos);
