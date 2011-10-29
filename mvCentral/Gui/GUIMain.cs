@@ -204,7 +204,7 @@ namespace mvCentral.GUI
             {
               currArtist = DBArtistInfo.Get(facadeLayout.ListLayout.SelectedListItem.Label);
               List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
-              addToPlaylist(allTracksByArtist, false, false, false);
+              addToPlaylist(allTracksByArtist, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
             }
             else
             {
@@ -221,7 +221,7 @@ namespace mvCentral.GUI
           case 1:
             // Add all videos to the playlist
             List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
-            addToPlaylist(allTracks, false, false, false);
+            addToPlaylist(allTracks, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
             break;
           case 2:
             addToPlaylistNext(facadeLayout.SelectedListItem);
@@ -558,7 +558,7 @@ namespace mvCentral.GUI
                       list1.Add((DBTrackInfo)trackItem.MusicTag);
                     }
                   }
-                  addToPlaylist(list1, false, true, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+                  addToPlaylist(list1, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
                   Player.playlistPlayer.Play(lastItemVid);
                   if (mvCentralCore.Settings.AutoFullscreen)
                     g_Player.ShowFullScreenWindow();

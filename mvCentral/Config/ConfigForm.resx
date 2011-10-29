@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
-        HAAAAk1TRnQBSQFMAgEBEQEAAdgBEgHYARIBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        HAAAAk1TRnQBSQFMAgEBEQEAARABEwEQARMBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAVADAAEBAQABCAYAARQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -254,17 +254,17 @@
     <value>397, 17</value>
   </metadata>
   <metadata name="cmLibrary.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>140, 52</value>
+    <value>968, 17</value>
   </metadata>
   <metadata name="imageListTreeView.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>707, 56</value>
+    <value>17, 56</value>
   </metadata>
   <data name="imageListTreeView.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABw
-        EAAAAk1TRnQBSQFMAgEBBAEAAVQBBgFUAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        EAAAAk1TRnQBSQFMAgEBBAEAAYwBBgGMAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABIAMAAQEBAAEgBgABIP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AYgDA/woAAZwB/wIA
         AZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIA
         AZwB/wIAAZwB/wQAEP8D4AH/A6QB/wMAAf8DAAH/AwAB/wMAAf8DpAH/A+Ah/wPgAf8DpAH/AwAB/wMA
@@ -338,7 +338,7 @@
 </value>
   </data>
   <metadata name="coverToolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>244, 56</value>
+    <value>1073, 17</value>
   </metadata>
   <metadata name="ColParseFileName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -365,7 +365,7 @@
     <value>585, 17</value>
   </metadata>
   <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>374, 56</value>
+    <value>1203, 17</value>
   </metadata>
   <data name="label68.Text" xml:space="preserve">
     <value>Check the table below if the plugin was able to parse all music videos located in your Import Paths  defined above. Music Videos not parsed correctly will be highlighted. If renaming your files does not help, you can modify the plugins parser behaviour from the left hand side.</value>
@@ -390,7 +390,7 @@
     <value>True</value>
   </metadata>
   <metadata name="toolStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>472, 56</value>
+    <value>1301, 17</value>
   </metadata>
   <metadata name="statusColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -458,11 +458,40 @@ Be sure to enable 'run before matching' for this to work before it reaches the p
 If an expression can not evaluate these items, the next expression in the list is used.
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>749, 17</value>
+  </metadata>
+  <data name="cbClearPlaylistOnAdd.ToolTip" xml:space="preserve">
+    <value>When queing a new playlist either via loading, smartplaylist or pressing play on
+an Artist, Album of Genre disabling this option will not clear the current playlist, if one exists. 
+
+This all allow the building of playlist from mulitple Artsts, Albums or Genres.
+
+Default Setting : Enabled</value>
+  </data>
+  <data name="cbGeneratedAutoShufflePlaylist.ToolTip" xml:space="preserve">
+    <value>Enabling this option will Shuffle all playlists generted by the pligin.
+
+Internal playlist are those generated via Smart Playlists or by pressing play on
+Artists, Albums or Genres.
+
+Default Setting: Enabled</value>
+  </data>
+  <data name="cbDisplayRawTrackText.ToolTip" xml:space="preserve">
+    <value>Selecting this option will display the raw track name against the cleaned version.
+
+i.e.  for Track: ACDC - Highway to Hell (with Bon Scott).mpg
+
+Raw Track Name:        Highway to Hell (with Bon Scott)
+Cleaned Track Name: Highway to Hell
+
+Default Setting: Disabled</value>
+  </data>
   <metadata name="ArtFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
+    <value>846, 17</value>
   </metadata>
   <metadata name="imageListDrag.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>577, 56</value>
+    <value>1406, 17</value>
   </metadata>
   <metadata name="unapprovedMatchesBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>

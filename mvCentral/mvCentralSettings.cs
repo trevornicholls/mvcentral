@@ -1933,6 +1933,26 @@ namespace mvCentral.Settings {
         }
         private bool _generatedplaylistautoshuffle;
 
+
+        [CornerstoneSetting(
+            Name = "Clear playlist on add",
+            Description = "Clear the current playlist when adding new",
+            Groups = "|MediaPortal GUI|Playlist|",
+            Identifier = "clear_playist_on_add",
+            Default = true,
+            Hidden = false)]
+        public bool ClearPlaylistOnAdd
+        {
+          get { return _clearplaylistonadd; }
+          set
+          {
+            _clearplaylistonadd = value;
+            OnSettingChanged("clear_playist_on_add");
+          }
+        }
+        private bool _clearplaylistonadd;
+
+
         #endregion
 
         #region Bluray/HD-DVD Playback
