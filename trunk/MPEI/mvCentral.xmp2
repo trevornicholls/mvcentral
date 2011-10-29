@@ -448,7 +448,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>174</Revision>
+      <Revision>175</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
@@ -470,7 +470,9 @@ use same routine to check for artists matching genre
 now alpha sort genre in in smartplaylist genre dialog
 ensure one playlist is stopped before queuing a new one
 Fix issue with property settings not being set correctly
-Remove the part of last commit as caused playlist type to be cleared after first song.</VersionDescription>
+Remove the part of last commit as caused playlist type to be cleared after first song.
+Added new option - Clear existing Playlist when queueing/adding new playlist.
+Started the tooltips</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
     <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>
@@ -738,14 +740,14 @@ Remove the part of last commit as caused playlist type to be cleared after first
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e0dedc9f-1678-49b0-9a22-79312e744f69}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{9adda2f3-46db-43af-803d-dc59713a502d}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{ac9f04ff-3d08-4d94-bb9d-008c77d80021}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{6b682b68-da3d-4f1b-abd4-31f899fa1e29}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
