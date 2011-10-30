@@ -1038,7 +1038,7 @@
       this.toolStrip.Size = new System.Drawing.Size(33, 77);
       this.toolStrip.TabIndex = 155;
       this.toolStrip.Text = "toolStrip1";
-      this.toolStrip.Visible = false;
+      this.toolStrip.Visible = true;
       // 
       // addSourceButton
       // 

@@ -558,7 +558,7 @@ namespace mvCentral.GUI
                       list1.Add((DBTrackInfo)trackItem.MusicTag);
                     }
                   }
-                  addToPlaylist(list1, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+                  addToPlaylist(list1, false, true, false);
                   Player.playlistPlayer.Play(lastItemVid);
                   if (mvCentralCore.Settings.AutoFullscreen)
                     g_Player.ShowFullScreenWindow();

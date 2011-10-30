@@ -482,17 +482,6 @@ namespace mvCentral
       actionDescriptions.Add(newAction, "Updating Music Video Information...");
       initActions.Add(newAction);
 
-      //            newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyFilterMenu);
-      //            actionDescriptions.Add(newAction, "Updating Filtering Menu...");
-      //            initActions.Add(newAction);
-
-      // only perform this task when categories are enabled
-      //            if (Settings.CategoriesEnabled) {
-      //                newAction = new WorkerDelegate(DatabaseMaintenanceManager.VerifyCategoryMenu);
-      //                actionDescriptions.Add(newAction, "Updating Categories Menu...");
-      //                initActions.Add(newAction);
-      //            }
-
       newAction = new WorkerDelegate(DeviceManager.StartMonitor);
       actionDescriptions.Add(newAction, "Starting Device Monitor...");
       initActions.Add(newAction);
