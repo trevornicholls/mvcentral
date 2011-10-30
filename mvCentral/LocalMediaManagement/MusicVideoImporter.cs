@@ -639,6 +639,7 @@ namespace mvCentral.LocalMediaManagement
             // Launch the FileSyncProcess after the initial scan has completed
             if (initialScan)
             {
+              logger.Debug("***** Starting the Filesync Process *****");
               mvCentralCore.ProcessManager.StartProcess(new FileSyncProcess());
               initialScan = false;
             }

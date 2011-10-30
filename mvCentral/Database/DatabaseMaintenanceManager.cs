@@ -20,7 +20,8 @@ namespace mvCentral.Database
         public static event ProgressDelegate MaintenanceProgress;
 
         // Loops through all local files in the system and removes anything that's invalid.
-        public static void RemoveInvalidFiles() {
+        public static void RemoveInvalidFiles() 
+        {
            
             logger.Info("Checking for invalid file entries in the database.");
 
@@ -30,7 +31,8 @@ namespace mvCentral.Database
             
             int cleaned = 0;
             
-            foreach (DBLocalMedia currFile in files) {
+            foreach (DBLocalMedia currFile in files) 
+            {
                 if (MaintenanceProgress != null) MaintenanceProgress("", (int)(count * 100 / total));
                 count++;
 
@@ -38,44 +40,18 @@ namespace mvCentral.Database
                 if (currFile.ID == null)
                     continue;
 
+                // Remove Orphan Files
+                if (currFile.AttachedmvCentral.Count == 0 && !currFile.Ignored)
+                {
+                  logger.Info("Removing: {0} (orphan)", currFile.FullPath);
+                  currFile.Delete();
+                  cleaned++;
+                  continue;
+                }
+
                 // remove files without an import path
                 if (currFile.ImportPath == null || currFile.ImportPath.ID == null) {
                     logger.Info("Removing: {0} (no import path)", currFile.FullPath);
-                    currFile.Delete();
-                    cleaned++;
-                    continue;
-                }
-
-                // Remove Orphan albums
-                List<DBAlbumInfo> dbs = DBAlbumInfo.GetAll();
-                foreach (DBAlbumInfo db1 in dbs)
-                {
-                    List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByAlbum(db1);
-                    if (mvs.Count == 0)
-                    {
-                        logger.Info("Removing: {0} (albuminfo orphan)", db1.Album);
-                        db1.Delete();
-                        cleaned++;
-                    }
-
-                }
-
-                // Remove Orphan artist
-                List<DBArtistInfo> allArtistList = DBArtistInfo.GetAll();
-                foreach (DBArtistInfo artist in allArtistList)
-                {
-                    List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByArtist(artist);
-                    if (mvs.Count == 0)
-                    {
-                        logger.Info("Removing: {0} (artistinfo orphan)", artist.Artist);
-                        artist.Delete();
-                        cleaned++;
-                    }
-
-                }
-                // Remove Orphan Files
-                if (currFile.AttachedmvCentral.Count == 0 && !currFile.Ignored) {
-                    logger.Info("Removing: {0} (orphan)", currFile.FullPath);
                     currFile.Delete();
                     cleaned++;
                     continue;
@@ -92,6 +68,40 @@ namespace mvCentral.Database
             
             logger.Info("Removed {0} file entries.", cleaned.ToString());
             if (MaintenanceProgress != null) MaintenanceProgress("", 100);
+
+            // Remove Orphan albums
+            cleaned = 0;
+            List<DBAlbumInfo> dbs = DBAlbumInfo.GetAll();
+            foreach (DBAlbumInfo db1 in dbs)
+            {
+              List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByAlbum(db1);
+              if (mvs.Count == 0)
+              {
+                logger.Info("Removing: {0} (albuminfo orphan)", db1.Album);
+                db1.Delete();
+                cleaned++;
+              }
+            }
+            logger.Info("Removed {0} Album orphan entries.", cleaned.ToString());
+            if (MaintenanceProgress != null) MaintenanceProgress("", 100);
+
+            // Remove Orphan artist
+            cleaned = 0;
+            List<DBArtistInfo> allArtistList = DBArtistInfo.GetAll();
+            foreach (DBArtistInfo artist in allArtistList)
+            {
+              List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByArtist(artist);
+              if (mvs.Count == 0)
+              {
+                logger.Info("Removing: {0} (artistinfo orphan)", artist.Artist);
+                artist.Delete();
+                cleaned++;
+              }
+            }
+            logger.Info("Removed {0} Artist orphan entries.", cleaned.ToString());
+            if (MaintenanceProgress != null) MaintenanceProgress("", 100);
+
+
         }
         
         // Loops through all mvCentral in the system to verify them
@@ -335,22 +345,6 @@ namespace mvCentral.Database
                 genreNode.SortPosition = position++;
                 menu.RootNodes.Add(genreNode);
 
-//                DBNode<DBTrackInfo> yearNode = new DBNode<DBTrackInfo>();
-//                yearNode.DynamicNode = true;
-//                yearNode.BasicFilteringField = DBField.GetFieldByDBName(typeof(DBTrackInfo), "year");
-//                yearNode.Name = "${" + yearNode.BasicFilteringField.Name + "}";
-//                yearNode.DBManager = mvCentralCore.DatabaseManager;
-//                yearNode.SortPosition = position++;
-//                menu.RootNodes.Add(yearNode);
-
-//                DBNode<DBTrackInfo> certNode = new DBNode<DBTrackInfo>();
-//                certNode.DynamicNode = true;
-//                certNode.BasicFilteringField = DBField.GetFieldByDBName(typeof(DBTrackInfo), "certification");
-//                certNode.Name = "${" + certNode.BasicFilteringField.Name + "}";
-//                certNode.DBManager = mvCentralCore.DatabaseManager;
-//                certNode.SortPosition = position++;
-//                menu.RootNodes.Add(certNode);
-
                 DBNode<DBTrackInfo> dateNode = new DBNode<DBTrackInfo>();
                 dateNode.DynamicNode = true;
                 dateNode.BasicFilteringField = DBField.GetFieldByDBName(typeof(DBTrackInfo), "date_added");
@@ -427,22 +421,6 @@ namespace mvCentral.Database
                 genreNode.SortPosition = position++;
                 genreNode.DBManager = mvCentralCore.DatabaseManager;
                 menu.RootNodes.Add(genreNode);
-
-//                DBNode<DBTrackInfo> certNode = new DBNode<DBTrackInfo>();
-//                certNode.DynamicNode = true;
-//                certNode.BasicFilteringField = DBField.GetFieldByDBName(typeof(DBTrackInfo), "certification");
-//                certNode.Name = "${" + certNode.BasicFilteringField.Name + "}";
-//                certNode.DBManager = mvCentralCore.DatabaseManager;
-//                certNode.SortPosition = position++;
-//                menu.RootNodes.Add(certNode);
-
-//                DBNode<DBTrackInfo> yearNode = new DBNode<DBTrackInfo>();
-//                yearNode.DynamicNode = true;
-//                yearNode.BasicFilteringField = DBField.GetFieldByDBName(typeof(DBTrackInfo), "year");
-//                yearNode.Name = "${" + yearNode.BasicFilteringField.Name + "}";
-//                yearNode.SortPosition = position++;
-//                yearNode.DBManager = mvCentralCore.DatabaseManager;
-//                menu.RootNodes.Add(yearNode);
 
                 menu.Commit();
             }

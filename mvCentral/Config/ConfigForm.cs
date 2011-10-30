@@ -1159,11 +1159,32 @@ namespace mvCentral
       mvLibraryTreeView.Nodes.Clear();
       splitContainer3.Panel2Collapsed = true;
 
-      lock (lockList)
+
+      DBTrackInfo workingTrack = null;
+      try
       {
-        foreach (DBTrackInfo currmv in DBTrackInfo.GetAll())
-          addMusicVideo(currmv);
+
+        lock (lockList)
+        {
+          foreach (DBTrackInfo currentTrackData in DBTrackInfo.GetAll())
+          {
+            workingTrack = currentTrackData;
+            if (currentTrackData.ArtistInfo.Count == 0)
+            {
+              currentTrackData.Delete();
+              logger.Debug("Deleted ({0}) from Library as no Artist Data", currentTrackData.Track);
+              continue;
+            }
+            
+            addMusicVideo(currentTrackData);
+          }
+        }
       }
+      catch (Exception e)
+      {
+        logger.DebugException("Exception Building Library Tree while processing track (" + workingTrack.Track + ")", e);
+      }
+
       mvLibraryTreeView.EndUpdate();
 
       if (mvLibraryTreeView.Nodes.Count > 0)
@@ -1187,6 +1208,10 @@ namespace mvCentral
         if (t1.Level == 0)
         {
           DBArtistInfo trtag = (DBArtistInfo)t1.Tag;
+
+          if (mv.ArtistInfo.Count == 0)
+            continue;
+
           if (mv.ArtistInfo[0] == trtag)
           {
             artistItem = t1;
@@ -1195,7 +1220,7 @@ namespace mvCentral
         }
       }
 
-      if (artistItem == null)
+      if (artistItem == null && mv.ArtistInfo.Count > 0)
       {
         artistItem = new TreeNode(mv.ArtistInfo[0].Artist, 1, 1);
         mv.ArtistInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
@@ -1236,10 +1261,11 @@ namespace mvCentral
           mv.AlbumInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
         }
       }
-      else AlbumNodeExist = false;
+      else 
+        AlbumNodeExist = false;
+
       TreeNode trackItem = new TreeNode(mv.Track, 3, 3);
       mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
-
       mv.Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
 
       trackItem.Tag = mv;
@@ -1250,9 +1276,11 @@ namespace mvCentral
       else albumItem = trackItem;
 
 
-      if (!AlbumNodeExist) artistItem.Nodes.Add(albumItem);
+      if (!AlbumNodeExist) 
+        artistItem.Nodes.Add(albumItem);
 
-      if (!ArtistNodeExist) mvLibraryTreeView.Nodes.Add(artistItem);
+      if (!ArtistNodeExist) 
+        mvLibraryTreeView.Nodes.Add(artistItem);
 
 
       // if the movie is offline color it red
