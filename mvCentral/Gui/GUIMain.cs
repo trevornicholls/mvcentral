@@ -776,6 +776,8 @@ namespace mvCentral.GUI
         }
       }
 
+      artistTags.Sort(delegate(string p1, string p2) { return p1.CompareTo(p2); });
+
 
       GUIDialogMultiSelect dlgMenu = (GUIDialogMultiSelect)GUIWindowManager.GetWindow(112014);
       if (dlgMenu != null)

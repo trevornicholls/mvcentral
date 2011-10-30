@@ -448,7 +448,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>177</Revision>
+      <Revision>178</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
@@ -742,14 +742,14 @@ present.</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9adda2f3-46db-43af-803d-dc59713a502d}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{04333d26-20f1-47ea-8b5c-7578d5b1886c}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{6b682b68-da3d-4f1b-abd4-31f899fa1e29}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{19d4ef8e-a106-4692-b349-be57d8aa0a2e}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
