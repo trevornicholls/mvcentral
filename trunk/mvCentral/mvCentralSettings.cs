@@ -1524,7 +1524,7 @@ namespace mvCentral.Settings {
             Description = "The default view as when the plugin is first opened.",
             Groups = "|MediaPortal GUI|Interface Options|",
             Identifier = "default_view_as",
-            Default = "Artist",
+            Default = "2",
             Hidden = false)]
         public string DefaultViewAs
         {
