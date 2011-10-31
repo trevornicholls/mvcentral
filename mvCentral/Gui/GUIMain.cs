@@ -36,15 +36,15 @@ namespace mvCentral.GUI
 
     public enum mvView
     {
-      None,
-      Artist,
-      Album,
-      Video,
-      AllAlbums,
-      AllVideos,
-      VideosOnAlbum,
-      Genres,
-      ArtistViaGenre
+      None = 1,
+      Artist = 2,
+      Album = 3,
+      Video = 4,
+      AllAlbums = 5,
+      AllVideos = 6,
+      VideosOnAlbum = 7,
+      Genres = 8,
+      ArtistViaGenre = 9
     }
 
     public enum mvSort
@@ -55,10 +55,10 @@ namespace mvCentral.GUI
 
     public enum View
     {
-      Artists,
-      Albums,
-      Tracks,
-      Generes
+      Artists = 1,
+      Albums = 2,
+      Tracks = 3,
+      Generes = 4
     }
 
     #endregion
