@@ -32,9 +32,11 @@
         <string Field="ContinueToNextPartBody">Do you wish to continue with part {0}?</string>
         <string Field="ContinueToNextPartHeader">Continue to next part?</string>
         <string Field="ContextMenu">Context Menu</string>
+        <string Field="ConfigGenre">Configure Genres</string>
 
         // D
         <string Field="Date">Date</string>
+        <string Field="DateAdded">Date Added</string>      
         <string Field="DBInfo">Watched History Statistics and Database Info</string>
 
         // E
@@ -43,6 +45,7 @@
         // F
         <string Field="FailedMountingImage">Sorry, failed mounting DVD Image</string>
         <string Field="FavouriteVideos">Favourite Videos</string>
+        <string Field="Genre">Genre</string>
 
         // G
         <string Field="G-test">Test for G</string>
@@ -58,6 +61,9 @@
         // L
         <string Field="LatestVideos">Latest Videos</string>
         <string Field="LeastPlayed">Least Played</string>
+        <string Field="LeastPlayedArtists">Least Played Artists</string>
+        <string Field="LeastPlayedVideos">Least Played Videos</string>
+            
 
         // M
         <string Field="MediaIsMissing">The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...</string>
@@ -66,6 +72,10 @@
         <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
         <string Field="MostPlayedArtist">Most Played Artist</string>
         <string Field="MostPlayedVideo">Most Played Video</string>
+        <string Field="MostPlayedArtists">Most Played Artists</string>
+        <string Field="MostPlayedVideos">Most Played Videos</string>
+
+
 
         // N
         <string Field="NoPlaylistsFound">No Playlists found in:</string>
@@ -81,7 +91,7 @@
         <string Field="PlayAllRandom">Play All (Random)</string>
         <string Field="Playlist">Playlist</string>
         <string Field="PlayByTag">Play by Tag</string>
-
+        <string Field="PlayByGenre">Play by Genre</string>
 
         // Q
 
@@ -109,8 +119,18 @@
         <string Field="VirtualDriveMessage">The virtual drive wasn't ready in time.\nPlease try again or cancel playback.</string>
         <string Field="Video">Video</string>
         <string Field="Videos">Videos</string>
+        <string Field="VideoTitle">Video Title</string>
         <string Field="ViewAs">View As</string>
         <string Field="VideoCount">Database has {0} Videos across {1} Artists</string>
 
         // W
+        
+        
+        // User messages
+        //             |23456789|23456789|23456789|23456789|23456789|23456
+        <string Field="NoGenreHeader>No Genres configured</string>
+        <string Field="NoGenreLine1">Select tags to be use as Genres from</string>
+        <string Field="NoGenreLine2">'Configure Genres' option on the menu</string>
+        <string Field="NoGenreLine3">Artist view will now be selected</string>
+
 </strings>
