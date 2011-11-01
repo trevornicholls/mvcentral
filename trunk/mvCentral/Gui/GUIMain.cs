@@ -415,6 +415,30 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnShowSort()
     {
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
+      if (dlg == null)
+      {
+        return;
+      }
+      dlg.Reset();
+      dlg.SetHeading(495); // Sort options
+
+      dlg.AddLocalizedString(103); // name
+      dlg.AddLocalizedString(269); // artist
+      dlg.AddLocalizedString(270); // album
+      dlg.AddLocalizedString(266); // track
+      dlg.AddLocalizedString(267); // duration
+      dlg.AddLocalizedString(104); // date
+
+      // show dialog and wait for result
+      dlg.DoModal(GetID);
+      if (dlg.SelectedId == -1)
+      {
+        return;
+      }
+
+      UserMessage("Not Implemented", "", "Sorting is still in development", "");
+
       base.OnShowSort();
     }
     /// <summary>
@@ -605,8 +629,16 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.TotalArtists", artList.Count + " " + Localization.Artists);
       GUIPropertyManager.SetProperty("#mvCentral.TotalVideos", vidList.Count + " " + Localization.Videos);
 
-      // set initial view to artists (need to store this at some point)
-      currentView = (mvView)int.Parse(mvCentralCore.Settings.DefaultViewAs);
+      // set initial view to artists - default to artist is issues with reading value
+      try
+      {
+        currentView = (mvView)int.Parse(mvCentralCore.Settings.DefaultViewAs);
+      }
+      catch
+      {
+        currentView = mvView.Artist;
+        mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
+      }
       
       // Belts & Braces 
       if (DBGenres.GetSelected().Count == 0 && currentView == mvView.Genres)

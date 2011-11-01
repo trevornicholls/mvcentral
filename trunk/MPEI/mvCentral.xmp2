@@ -448,7 +448,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>178</Revision>
+      <Revision>180</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
@@ -474,7 +474,8 @@ Remove the part of last commit as caused playlist type to be cleared after first
 Added new option - Clear existing Playlist when queueing/adding new playlist.
 Started the tooltips
 Fixed bug with leaving and re-entering plugin with unmatched items still
-present.</VersionDescription>
+present.
+Fix issue 25 - no default view on inital startup</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
     <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>

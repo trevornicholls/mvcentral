@@ -354,7 +354,7 @@ namespace mvCentral.Localizations
     //User Messages
     //                                    |23456789|23456789|23456789|23456789|23456789|23456
     public static string NoGenreHeader = "No Genres configured ";
-    public static string NoGenreLine1  = "Select tags to use as Genres from 'Configure Genres'";
+    public static string NoGenreLine1  = "Select tags to be use as Genres from";
     public static string NoGenreLine2  = "the 'Configure Genres' option on the menu. ";
     public static string NoGenreLine3  = "Artist view will now be selected. ";
 

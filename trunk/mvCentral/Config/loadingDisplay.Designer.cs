@@ -33,6 +33,7 @@ namespace mvCentral
           this.videos = new System.Windows.Forms.Label();
           this.pictureBox1 = new System.Windows.Forms.PictureBox();
           this.version = new System.Windows.Forms.Label();
+          this.albums = new System.Windows.Forms.Label();
           ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
           this.SuspendLayout();
           // 
@@ -51,7 +52,7 @@ namespace mvCentral
           // 
           this.artists.AutoSize = true;
           this.artists.BackColor = System.Drawing.Color.Transparent;
-          this.artists.Location = new System.Drawing.Point(180, 172);
+          this.artists.Location = new System.Drawing.Point(138, 172);
           this.artists.Name = "artists";
           this.artists.Size = new System.Drawing.Size(35, 13);
           this.artists.TabIndex = 3;
@@ -62,7 +63,7 @@ namespace mvCentral
           // 
           this.videos.AutoSize = true;
           this.videos.BackColor = System.Drawing.Color.Transparent;
-          this.videos.Location = new System.Drawing.Point(378, 172);
+          this.videos.Location = new System.Drawing.Point(415, 172);
           this.videos.Name = "videos";
           this.videos.Size = new System.Drawing.Size(35, 13);
           this.videos.TabIndex = 5;
@@ -93,12 +94,24 @@ namespace mvCentral
           this.version.Text = "version";
           this.version.UseWaitCursor = true;
           // 
+          // albums
+          // 
+          this.albums.AutoSize = true;
+          this.albums.BackColor = System.Drawing.Color.Transparent;
+          this.albums.Location = new System.Drawing.Point(277, 172);
+          this.albums.Name = "albums";
+          this.albums.Size = new System.Drawing.Size(35, 13);
+          this.albums.TabIndex = 7;
+          this.albums.Text = "label3";
+          this.albums.UseWaitCursor = true;
+          // 
           // loadingDisplay
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
           this.BackColor = System.Drawing.Color.White;
           this.ClientSize = new System.Drawing.Size(584, 194);
+          this.Controls.Add(this.albums);
           this.Controls.Add(this.version);
           this.Controls.Add(this.label1);
           this.Controls.Add(this.videos);
@@ -126,5 +139,6 @@ namespace mvCentral
         private System.Windows.Forms.Label artists;
         private System.Windows.Forms.Label videos;
         private System.Windows.Forms.Label version;
+        private System.Windows.Forms.Label albums;
     }
 }

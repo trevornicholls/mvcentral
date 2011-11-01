@@ -61,6 +61,8 @@ namespace mvCentral
     private readonly object lockList = new object();
     private delegate void InvokeDelegate();
     loadingDisplay load = null;
+    private int artistTotal = 0;
+    private int albumTotal = 0;
     // parser  
     Stack parsedStack = new Stack();
     public string extensions;
@@ -432,8 +434,7 @@ namespace mvCentral
       ReloadList();
       logger.Info("Compile Parsing and Replacement Expressions");
       FilenameParser.reLoadExpressions();
-
-      load.updateStats(DBArtistInfo.GetAll().Count, DBTrackInfo.GetAll().Count);
+      Thread.Sleep(2000);
       load.Close();
 
 
@@ -1158,7 +1159,8 @@ namespace mvCentral
       mvLibraryTreeView.BeginUpdate();
       mvLibraryTreeView.Nodes.Clear();
       splitContainer3.Panel2Collapsed = true;
-
+      int videoTotal = 0;
+      int cnt2 = 0;
 
       DBTrackInfo workingTrack = null;
       try
@@ -1168,6 +1170,7 @@ namespace mvCentral
         {
           foreach (DBTrackInfo currentTrackData in DBTrackInfo.GetAll())
           {
+
             workingTrack = currentTrackData;
             if (currentTrackData.ArtistInfo.Count == 0)
             {
@@ -1175,8 +1178,14 @@ namespace mvCentral
               logger.Debug("Deleted ({0}) from Library as no Artist Data", currentTrackData.Track);
               continue;
             }
-            
+            if (cnt2 == 10)
+            {
+              load.updateStats(artistTotal, albumTotal ,videoTotal);
+              cnt2 = 0;
+            }
             addMusicVideo(currentTrackData);
+            videoTotal++;
+            cnt2++;
           }
         }
       }
@@ -1276,11 +1285,17 @@ namespace mvCentral
       else albumItem = trackItem;
 
 
-      if (!AlbumNodeExist) 
+      if (!AlbumNodeExist)
+      {
+        albumTotal++;
         artistItem.Nodes.Add(albumItem);
+      }
 
-      if (!ArtistNodeExist) 
+      if (!ArtistNodeExist)
+      {
+        artistTotal++;
         mvLibraryTreeView.Nodes.Add(artistItem);
+      }
 
 
       // if the movie is offline color it red

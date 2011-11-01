@@ -31,35 +31,37 @@ using System.Windows.Forms;
 
 namespace mvCentral
 {
-    public partial class loadingDisplay : Form
+  public partial class loadingDisplay : Form
+  {
+    public loadingDisplay()
     {
-        public loadingDisplay()
-        {
-            InitializeComponent();
-            ShowWaiting();
-        }
-
-        public new void Close()
-        {
-            this.Dispose();
-            base.Close();
-        }
-
-        void ShowWaiting()
-        {
-            this.artists.Text = "0 " + Localizations.Localization.GetByName("Artists");
-            this.videos.Text = "0 " + Localizations.Localization.GetByName("Videos");
-            this.version.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            this.Show();
-            this.Refresh();
-        }
-
-        public void updateStats(int artists, int videos)
-        {
-          this.artists.Text = artists.ToString() + " " + Localizations.Localization.GetByName("Artists");
-          this.videos.Text = videos.ToString() + " " + Localizations.Localization.GetByName("Vidoes");
-          this.Refresh();
-        }
-
+      InitializeComponent();
+      ShowWaiting();
     }
+
+    public new void Close()
+    {
+      this.Dispose();
+      base.Close();
+    }
+
+    void ShowWaiting()
+    {
+      this.artists.Text = "0 " + Localizations.Localization.GetByName("Artists");
+      this.videos.Text = "0 " + Localizations.Localization.GetByName("Videos");
+      this.albums.Text = "0 " + Localizations.Localization.GetByName("Albums");
+      this.version.Text = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+      this.Show();
+      this.Refresh();
+    }
+
+    public void updateStats(int artists, int albums, int videos)
+    {
+      this.artists.Text = artists.ToString() + " " + Localizations.Localization.GetByName("Artists");
+      this.albums.Text = albums.ToString() + " " + Localizations.Localization.GetByName("Albums");
+      this.videos.Text = videos.ToString() + " " + Localizations.Localization.GetByName("Vidoes");
+      this.Refresh();
+    }
+
+  }
 }
