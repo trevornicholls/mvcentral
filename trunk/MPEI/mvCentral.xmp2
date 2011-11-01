@@ -448,34 +448,40 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>180</Revision>
+      <Revision>182</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
-Fixed display issue in StreamedMP skin file
-Set OSD properties, std ones : #Play.Current.Title,#Play.Current.Thumb and
-#Play.Current.Plot for album info
-Also set some MvC specific properties and a property to indicate MvC is playing.
-#Play.Current.mvArtist
-#Play.Current.mvAlbum
-Play.Current.mvVideo
-#Play.Current.mvTrack.Description
-#mvCentral.isPlaying set to true or false
-Check if Genres view is select but there are no actual genres defined, in this
-case revert to artist view.
-This should also address issues 25
-Split the settings into importer and GUI
-Added playlist shuffle options to GUI settings
-use same routine to check for artists matching genre
-now alpha sort genre in in smartplaylist genre dialog
-ensure one playlist is stopped before queuing a new one
-Fix issue with property settings not being set correctly
-Remove the part of last commit as caused playlist type to be cleared after first song.
-Added new option - Clear existing Playlist when queueing/adding new playlist.
-Started the tooltips
-Fixed bug with leaving and re-entering plugin with unmatched items still
-present.
-Fix issue 25 - no default view on inital startup</VersionDescription>
+    <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
+Fixed display issue in StreamedMP skin file
+Set OSD properties, std ones : #Play.Current.Title,#Play.Current.Thumb and
+#Play.Current.Plot for album info
+Also set some MvC specific properties and a property to indicate MvC is playing.
+#Play.Current.mvArtist
+#Play.Current.mvAlbum
+Play.Current.mvVideo
+#Play.Current.mvTrack.Description
+#mvCentral.isPlaying set to true or false
+Check if Genres view is select but there are no actual genres defined, in this
+case revert to artist view.
+This should also address issues 25
+Split the settings into importer and GUI
+Added playlist shuffle options to GUI settings
+use same routine to check for artists matching genre
+now alpha sort genre in in smartplaylist genre dialog
+ensure one playlist is stopped before queuing a new one
+Fix issue with property settings not being set correctly
+Remove the part of last commit as caused playlist type to be cleared after first song.
+Added new option - Clear existing Playlist when queueing/adding new playlist.
+Started the tooltips
+Fixed bug with leaving and re-entering plugin with unmatched items still
+present.
+Fix issue 25 - no default view on inital startup
+Further fix to Issue 25 - Now check DB is valid and if not reset to artist and
+store
+Loading display in config now displays counts of artists, albums and videos
+processed.
+Update Language file
+</VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
     <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>
@@ -743,14 +749,14 @@ Fix issue 25 - no default view on inital startup</VersionDescription>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{04333d26-20f1-47ea-8b5c-7578d5b1886c}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b2612179-4a47-493f-b8c6-adda1c706018}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{19d4ef8e-a106-4692-b349-be57d8aa0a2e}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{fe57f2e4-8497-4f12-b956-61a9954a3aa3}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

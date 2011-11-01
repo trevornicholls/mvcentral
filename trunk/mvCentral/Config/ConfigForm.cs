@@ -839,7 +839,7 @@ namespace mvCentral
                 replacement.Enabled = (bool)cell.Value;
                 break;
               case "isRegex":
-                if (cell.Value == null) cell.Value = true;
+                if (cell.Value == null) cell.Value = false;
                 replacement.IsRegex = (bool)cell.Value;
                 break;
               case "toreplace":
@@ -851,11 +851,11 @@ namespace mvCentral
                 replacement.With = (string)cell.Value;
                 break;
               case "before":
-                if (cell.Value == null) cell.Value = true;
+                if (cell.Value == null) cell.Value = false;
                 replacement.Before = (bool)cell.Value;
                 break;
               case "tagEnabled":
-                if (cell.Value == null) cell.Value = true;
+                if (cell.Value == null) cell.Value = false;
                 replacement.TagEnabled = (bool)cell.Value;
                 break;
 
