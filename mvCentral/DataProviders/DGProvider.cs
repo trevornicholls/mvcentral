@@ -660,7 +660,7 @@ namespace mvCentral.DataProviders
     {
       logger.Debug("Sending the request: " + url);
 
-      WebGrabber grabber = Utility.GetWebGrabberInstance(url);
+      mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
       grabber.Timeout = 5000;
       grabber.TimeoutIncrement = 10;

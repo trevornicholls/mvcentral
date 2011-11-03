@@ -79,6 +79,7 @@
       <HintPath>..\External\mediaportal\V1.1.8\RemotePlugins.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -269,6 +270,7 @@
     <Compile Include="Gui\Playlist\PlayListItem.cs" />
     <Compile Include="Gui\Playlist\PlayListPlayer.cs" />
     <Compile Include="Gui\Playlist\PlayListType.cs" />
+    <Compile Include="Utils\mvWebGrabber.cs" />
     <Compile Include="Utils\ROTClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

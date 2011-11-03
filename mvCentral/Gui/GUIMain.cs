@@ -639,14 +639,21 @@ namespace mvCentral.GUI
         currentView = mvView.Artist;
         mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
       }
-      
-      // Belts & Braces 
+      // Check for invalid view - should actually store the corrected one against checking here...on the todo list :)
+      //
+      // Check for genres view select but none now defined
       if (DBGenres.GetSelected().Count == 0 && currentView == mvView.Genres)
       {
         currentView = mvView.Artist;
         mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
       }
-
+      // Invalid start up view check - do not the album that was last viewed so set allAlbums
+      if (currentView == mvView.VideosOnAlbum)
+        currentView = mvView.AllAlbums;
+      // and dont know what the arist was so default to artist view
+      if (currentView == mvView.ArtistViaGenre)
+        currentView = mvView.Artist;
+   
       addToStack(currentView, true);
       setViewAsProperty(currentView);
 
