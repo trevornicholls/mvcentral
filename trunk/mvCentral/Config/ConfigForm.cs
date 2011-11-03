@@ -2237,9 +2237,6 @@ namespace mvCentral
             }
           }
 
-
-
-
           if (selectedMatch.LocalMedia[0].IsDVD && cbSplitDVD.Checked)
           {
 
@@ -2280,7 +2277,7 @@ namespace mvCentral
                   db1.Track = "Chapter " + ci.TitleID.ToString("##") + " - " + c1.chId.ToString("##");
                   db1.Chapter = "Chapter " + c1.chId.ToString("##");
                   db1.ChapterID = c1.chId;
-                  db1.PlayTime = c1.Time.ToString();
+                 db1.PlayTime = c1.Time.ToString();
                   db1.OffsetTime = c1.OffsetTime.ToString();
                   db1.ArtistInfo.Add(mv.ArtistInfo[0]);
                   if (mv.AlbumInfo != null && mv.AlbumInfo.Count > 0) db1.AlbumInfo.Add(mv.AlbumInfo[0]);

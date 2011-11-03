@@ -11,6 +11,7 @@ using Cornerstone.Tools;
 using Cornerstone.Extensions;
 using Cornerstone.Extensions.IO;
 using MediaPortal.Util;
+using mvCentral.Utils;
 using NLog;
 
 namespace mvCentral.LocalMediaManagement {
@@ -192,8 +193,8 @@ namespace mvCentral.LocalMediaManagement {
         /// </summary>
         /// <param name="url">url to resource</param>
         /// <returns>webgrabber instance</returns>
-        public static WebGrabber GetWebGrabberInstance(string url) {
-            WebGrabber grabber = new WebGrabber(url);
+        public static mvWebGrabber GetWebGrabberInstance(string url) {
+            mvWebGrabber grabber = new mvWebGrabber(url);
             grabber.UserAgent = "mvCentral/" + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             grabber.MaxRetries = mvCentralCore.Settings.MaxTimeouts;
             grabber.Timeout = mvCentralCore.Settings.TimeoutLength;

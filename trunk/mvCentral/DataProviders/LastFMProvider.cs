@@ -356,8 +356,8 @@ namespace mvCentral.DataProviders
       if (mvTrackObject.ArtFullPath.Trim().Length > 0)
         return true;
 
-      // If video thumbnails prefered grab it and return, this assumes success which is not good
-      if (mvCentralCore.Settings.PreferThumbnail)
+      // If video thumbnails prefered and this is a video file grab image(s) and return, this assumes success which is not good
+      if (mvCentralCore.Settings.PreferThumbnail && mvTrackObject.LocalMedia[0].IsVideo)
       {
         success = generateVideoThumbnail(mvTrackObject);
       }
@@ -1179,10 +1179,12 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXML(string url)
     {
+      XmlDocument xmldoc = new XmlDocument();
+
       logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
       //logger.Debug("Sending the request: " + url);
 
-      WebGrabber grabber = Utility.GetWebGrabberInstance(url);
+      mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
       grabber.Timeout = 5000;
       grabber.TimeoutIncrement = 10;
@@ -1191,7 +1193,10 @@ namespace mvCentral.DataProviders
         return grabber.GetXML();
       }
       else
+      {
+        logger.Debug("***** API ERROR *****: Code:{0} ({1})", grabber.errorCode, grabber.errorText);
         return null;
+      }
     }
   }
 }
