@@ -212,7 +212,7 @@ namespace mvCentral.LocalMediaManagement
         DeviceManager.OnVolumeInserted += OnVolumeInserted;
 
         int maxThreadCount = mvCentralCore.Settings.ThreadCount;
-
+        logger.Debug("Will start a maximum or {0} MediaScannerThreads", maxThreadCount);
         if (mediaScannerThreads.Count == 0)
         {
           for (int i = 0; i < maxThreadCount; i++)

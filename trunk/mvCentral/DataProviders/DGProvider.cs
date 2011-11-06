@@ -100,11 +100,11 @@ namespace mvCentral.DataProviders
         return false;
 
       // if we already have a backdrop move on for now
-      if (mv.ArtFullPath.Trim().Length > 0)
-        return true;
+      //if (mv.ArtFullPath.Trim().Length > 0)
+      //  return true;
 
-      if (mv.ArtFullPath.Trim().Length == 0)
-      {
+      //if (mv.ArtFullPath.Trim().Length == 0)
+      //{
         List<string> at = mv.ArtUrls;
         if (at != null)
         {
@@ -115,8 +115,11 @@ namespace mvCentral.DataProviders
           int count = 0;
           foreach (string a2 in at)
           {
-            if (mv.AlternateArts.Count >= maxArtistArts) break;
-            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) artistartAdded++;
+            if (mv.AlternateArts.Count >= maxArtistArts) 
+              break;
+
+            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) 
+              artistartAdded++;
 
             count++;
           }
@@ -127,7 +130,7 @@ namespace mvCentral.DataProviders
             return true;
           }
         }
-      }
+      //}
 
       // if we get here we didn't manage to find a proper backdrop
       // so return false

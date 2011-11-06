@@ -32,13 +32,15 @@
       this.label1 = new System.Windows.Forms.Label();
       this.uxTrackName = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
+      this.label3 = new System.Windows.Forms.Label();
+      this.uxAlbumName = new System.Windows.Forms.TextBox();
       this.SuspendLayout();
       // 
       // okButton
       // 
       this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.okButton.Location = new System.Drawing.Point(316, 159);
+      this.okButton.Location = new System.Drawing.Point(311, 193);
       this.okButton.Name = "okButton";
       this.okButton.Size = new System.Drawing.Size(75, 23);
       this.okButton.TabIndex = 3;
@@ -50,7 +52,7 @@
       // 
       this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.cancelButton.Location = new System.Drawing.Point(397, 159);
+      this.cancelButton.Location = new System.Drawing.Point(396, 193);
       this.cancelButton.Name = "cancelButton";
       this.cancelButton.Size = new System.Drawing.Size(75, 23);
       this.cancelButton.TabIndex = 2;
@@ -67,11 +69,9 @@
       this.descriptionLabel.Multiline = true;
       this.descriptionLabel.Name = "descriptionLabel";
       this.descriptionLabel.ReadOnly = true;
-      this.descriptionLabel.Size = new System.Drawing.Size(461, 30);
+      this.descriptionLabel.Size = new System.Drawing.Size(459, 30);
       this.descriptionLabel.TabIndex = 5;
-      this.descriptionLabel.Text = "Please enter a new search string for the following file(s). If these files do not" +
-    " belong together you should click \"Cancel\" and split them using the Split button" +
-    " on the Media Importer.";
+      this.descriptionLabel.Text = "Please enter a new search string for the following file(s).";
       // 
       // fileListBox
       // 
@@ -85,16 +85,16 @@
       this.fileListBox.Location = new System.Drawing.Point(12, 49);
       this.fileListBox.Name = "fileListBox";
       this.fileListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
-      this.fileListBox.Size = new System.Drawing.Size(461, 44);
+      this.fileListBox.Size = new System.Drawing.Size(459, 58);
       this.fileListBox.TabIndex = 6;
       // 
       // uxArtistName
       // 
       this.uxArtistName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.uxArtistName.Location = new System.Drawing.Point(15, 118);
+      this.uxArtistName.Location = new System.Drawing.Point(82, 114);
       this.uxArtistName.Name = "uxArtistName";
-      this.uxArtistName.Size = new System.Drawing.Size(291, 20);
+      this.uxArtistName.Size = new System.Drawing.Size(389, 20);
       this.uxArtistName.TabIndex = 7;
       // 
       // label1
@@ -102,7 +102,7 @@
       this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(12, 100);
+      this.label1.Location = new System.Drawing.Point(38, 114);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(30, 13);
       this.label1.TabIndex = 17;
@@ -112,9 +112,9 @@
       // 
       this.uxTrackName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.uxTrackName.Location = new System.Drawing.Point(15, 159);
+      this.uxTrackName.Location = new System.Drawing.Point(82, 167);
       this.uxTrackName.Name = "uxTrackName";
-      this.uxTrackName.Size = new System.Drawing.Size(291, 20);
+      this.uxTrackName.Size = new System.Drawing.Size(389, 20);
       this.uxTrackName.TabIndex = 18;
       // 
       // label2
@@ -122,11 +122,31 @@
       this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(12, 141);
+      this.label2.Location = new System.Drawing.Point(13, 170);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(58, 13);
       this.label2.TabIndex = 19;
       this.label2.Text = "Track Title";
+      // 
+      // label3
+      // 
+      this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(32, 144);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(36, 13);
+      this.label3.TabIndex = 21;
+      this.label3.Text = "Album";
+      // 
+      // uxAlbumName
+      // 
+      this.uxAlbumName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.uxAlbumName.Location = new System.Drawing.Point(82, 141);
+      this.uxAlbumName.Name = "uxAlbumName";
+      this.uxAlbumName.Size = new System.Drawing.Size(389, 20);
+      this.uxAlbumName.TabIndex = 20;
       // 
       // SearchStringPopup
       // 
@@ -134,7 +154,9 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.cancelButton;
-      this.ClientSize = new System.Drawing.Size(485, 191);
+      this.ClientSize = new System.Drawing.Size(483, 218);
+      this.Controls.Add(this.label3);
+      this.Controls.Add(this.uxAlbumName);
       this.Controls.Add(this.label2);
       this.Controls.Add(this.uxTrackName);
       this.Controls.Add(this.label1);
@@ -145,7 +167,7 @@
       this.Controls.Add(this.cancelButton);
       this.Name = "SearchStringPopup";
       this.ShowInTaskbar = false;
-      this.Text = "New Search String";
+      this.Text = "Enter New  Search Options";
       this.ResumeLayout(false);
       this.PerformLayout();
 
@@ -161,5 +183,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox uxTrackName;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox uxAlbumName;
     }
 }

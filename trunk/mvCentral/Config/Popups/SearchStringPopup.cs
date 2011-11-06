@@ -27,10 +27,22 @@ namespace mvCentral.ConfigScreen.Popups
             musicVideoMatch = match;
             uxArtistName.Text = musicVideoMatch.Signature.Artist;
             uxTrackName.Text = musicVideoMatch.Signature.Track;
+
+            if (musicVideoMatch.Signature.Album.Trim().Length > 0)
+            {
+              uxAlbumName.Text = musicVideoMatch.Signature.Album;
+              uxAlbumName.Enabled = true;
+            }
+            else
+            {
+              uxAlbumName.Enabled = false;
+              uxAlbumName.Text = string.Empty;
+            }     
         }
 
         private void okButton_Click(object sender, EventArgs e) {
           musicVideoMatch.Signature.Artist = uxArtistName.Text;
+          musicVideoMatch.Signature.Album = uxAlbumName.Text;
           musicVideoMatch.Signature.Track = uxTrackName.Text;
 
         }     

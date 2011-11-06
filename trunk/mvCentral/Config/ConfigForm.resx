@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
-        HAAAAk1TRnQBSQFMAgEBEQEAASgBEwEoARMBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        HAAAAk1TRnQBSQFMAgEBEQEAAUgBEwFIARMBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAVADAAEBAQABCAYAARQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -253,61 +253,36 @@
   <metadata name="getDT.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>397, 17</value>
   </metadata>
-  <metadata name="ColParseFileName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colParseArtist.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colParseAlbum.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colParseTrack.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colParseExt.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colParsePath.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="colParseVolumeLabel.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="ParserBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>585, 17</value>
-  </metadata>
-  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>1203, 17</value>
-  </metadata>
-  <data name="label68.Text" xml:space="preserve">
-    <value>Check the table below if the plugin was able to parse all music videos located in your Import Paths  defined above. Music Videos not parsed correctly will be highlighted. If renaming your files does not help, you can modify the plugins parser behaviour from the left hand side.</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnTestReparse.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK8gAA
-        CvIBPVL3EQAAAcRJREFUSEu1lb0rR1EYxy+SRF6TgWQyeUnJS5ESWZUsshhksMhksVgsis1qMFhI/gEU
-        CsnARFEMP4tFykt0fb+/zqmno3N/z7m49e3ec8853895nvMWxXEcUcqnF+36oLyk9tYz6xsImIPxG7QM
-        NfggoYBCGLVCI9AGxHCpe2gWKnVBWkA5Ok5DJ9C7MLYA+75G3aCEaAAd6HCYYGrNP9BmF+oJAXSb8K3J
-        F8oH0AK0KaDnJm1FISmqR+NLYXKB72FhMIPvR2geKnGNbdmXIk7mqjBniuockzaU233GuQDM47MBPOHd
-        kssoNIIlMXqu89SPL0V7AjCQ2p0m5nRwdzIB3KU3UFMggEdHM8SjpNMHqEJlLcR3QSCAC+TUZCCj2WiB
-        /lE1OmQM4Oo/AONi/tb/GlAG82MBGE0L6IfJlDM/zP2aMN/Hd0UogBPPfcEVtiUmh6tmR5hzkw6xXgso
-        RttJ6FaYcKXwHNqGXsT/VxNdlq8BcB8cCQP3DpDlO7QbE5GpAJVmpA8eyCf+c0MuQo3SXBuB7cPTdAXi
-        4cdRn0ETEA/GH1el7aRJkTuoLvzgzcU7Od+t/E0Esm8NCrx8uDQTHxnBNxzK2wROMetMAAAAAElFTkSu
-        QmCC
-</value>
-  </data>
-  <metadata name="pathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>749, 17</value>
   </metadata>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>749, 17</value>
-  </metadata>
+  <data name="cbLocalTrackArtSearch.ToolTip" xml:space="preserve">
+    <value>Enabling this option will force the importer to grab the
+track thumbnail image from the Video being imported.
+
+This uses MTN to grab the fram and muliple row/columns 
+are supported.
+
+Default Settings: Enabled</value>
+  </data>
+  <data name="cbLocalAlbumArtSearch.ToolTip" xml:space="preserve">
+    <value>Enabling this option will force the importer to grab the
+track thumbnail image from the Video being imported.
+
+This uses MTN to grab the fram and muliple row/columns 
+are supported.
+
+Default Settings: Enabled</value>
+  </data>
+  <data name="cbLocalArtistArtSearch.ToolTip" xml:space="preserve">
+    <value>Enabling this option will force the importer to grab the
+track thumbnail image from the Video being imported.
+
+This uses MTN to grab the fram and muliple row/columns 
+are supported.
+
+Default Settings: Enabled</value>
+  </data>
   <data name="cbAlbumFromTrackData.ToolTip" xml:space="preserve">
     <value>Enabling this option will force the scraper to attempt to identify the alnum
 from the track.
@@ -317,9 +292,6 @@ ranked.
 
 Default Setting: Enabled</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>749, 17</value>
-  </metadata>
   <data name="cbPreferThumbnail.ToolTip" xml:space="preserve">
     <value>Enabling this option will force the importer to grab the
 track thumbnail image from the Video being imported.
@@ -329,9 +301,6 @@ are supported.
 
 Default Settings: Enabled</value>
   </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>749, 17</value>
-  </metadata>
   <data name="cbUseMDAlbum.ToolTip" xml:space="preserve">
     <value>This option will override the scraper found album with 
 an album found during parsing.
@@ -364,7 +333,7 @@ Default Setting: Language defined for MediaPortal.</value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABw
-        EAAAAk1TRnQBSQFMAgEBBAEAAaQBBgGkAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        EAAAAk1TRnQBSQFMAgEBBAEAAcQBBgHEAQYBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABIAMAAQEBAAEgBgABIP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AYgDA/woAAZwB/wIA
         AZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIA
         AZwB/wIAAZwB/wQAEP8D4AH/A6QB/wMAAf8DAAH/AwAB/wMAAf8DpAH/A+Ah/wPgAf8DpAH/AwAB/wMA
@@ -463,6 +432,55 @@ Default Setting: Language defined for MediaPortal.</value>
   </metadata>
   <metadata name="ParserBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>585, 17</value>
+  </metadata>
+  <metadata name="ColParseFileName.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colParseArtist.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colParseAlbum.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colParseTrack.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colParseExt.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colParsePath.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="colParseVolumeLabel.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1203, 17</value>
+  </metadata>
+  <metadata name="toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1203, 17</value>
+  </metadata>
+  <data name="label68.Text" xml:space="preserve">
+    <value>Check the table below if the plugin was able to parse all music videos located in your Import Paths  defined above. Music Videos not parsed correctly will be highlighted. If renaming your files does not help, you can modify the plugins parser behaviour from the left hand side.</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnTestReparse.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK8gAA
+        CvIBPVL3EQAAAcRJREFUSEu1lb0rR1EYxy+SRF6TgWQyeUnJS5ESWZUsshhksMhksVgsis1qMFhI/gEU
+        CsnARFEMP4tFykt0fb+/zqmno3N/z7m49e3ec8853895nvMWxXEcUcqnF+36oLyk9tYz6xsImIPxG7QM
+        NfggoYBCGLVCI9AGxHCpe2gWKnVBWkA5Ok5DJ9C7MLYA+75G3aCEaAAd6HCYYGrNP9BmF+oJAXSb8K3J
+        F8oH0AK0KaDnJm1FISmqR+NLYXKB72FhMIPvR2geKnGNbdmXIk7mqjBniuockzaU233GuQDM47MBPOHd
+        kssoNIIlMXqu89SPL0V7AjCQ2p0m5nRwdzIB3KU3UFMggEdHM8SjpNMHqEJlLcR3QSCAC+TUZCCj2WiB
+        /lE1OmQM4Oo/AONi/tb/GlAG82MBGE0L6IfJlDM/zP2aMN/Hd0UogBPPfcEVtiUmh6tmR5hzkw6xXgso
+        RttJ6FaYcKXwHNqGXsT/VxNdlq8BcB8cCQP3DpDlO7QbE5GpAJVmpA8eyCf+c0MuQo3SXBuB7cPTdAXi
+        4cdRn0ETEA/GH1el7aRJkTuoLvzgzcU7Od+t/E0Esm8NCrx8uDQTHxnBNxzK2wROMetMAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <metadata name="pathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <metadata name="pathColumn.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -575,6 +593,12 @@ Default Settings: Enabled</value>
   </metadata>
   <metadata name="imageListDrag.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>1406, 17</value>
+  </metadata>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>749, 17</value>
+  </metadata>
+  <metadata name="ParserBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>585, 17</value>
   </metadata>
   <metadata name="unapprovedMatchesBindingSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
