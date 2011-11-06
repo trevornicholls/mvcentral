@@ -562,6 +562,7 @@ namespace mvCentral.GUI
               {
 
                 GUIListItem selectedItem = facadeLayout.SelectedListItem;
+
                 if (selectedItem.MusicTag.GetType() == typeof(DBGenres))
                 {
                   DisplayByGenre(facadeLayout.SelectedListItem.Label);
@@ -583,7 +584,7 @@ namespace mvCentral.GUI
                     }
                   }
                   addToPlaylist(list1, false, true, false);
-                  Player.playlistPlayer.Play(lastItemVid);
+                  Player.playlistPlayer.Play(list1.IndexOf((DBTrackInfo)selectedItem.MusicTag));
                   if (mvCentralCore.Settings.AutoFullscreen)
                     g_Player.ShowFullScreenWindow();
                   break;
