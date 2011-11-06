@@ -155,6 +155,16 @@ namespace mvCentral
       tbMaxArtistArtwork.Setting = mvCentralCore.Settings["max_artist_arts"];
       tbMaxAlbumArtwork.Setting = mvCentralCore.Settings["max_album_arts"];
       tbMaxVideoArtwork.Setting = mvCentralCore.Settings["max_track_arts"];
+
+      cbLocalArtistArtSearch.Setting = mvCentralCore.Settings["artist_artwork_from_custom_folder"];
+      tbLocalArtistArtFolder.Setting = mvCentralCore.Settings["local_artistart_folder"];
+
+      cbLocalAlbumArtSearch.Setting = mvCentralCore.Settings["album_artwork_from_custom_folder"];
+      tbLocalAlbumArtFolder.Setting = mvCentralCore.Settings["local_albumart_folder"];
+
+      cbLocalTrackArtSearch.Setting = mvCentralCore.Settings["track_artwork_from_custom_folder"];
+      tbLocalTrackArtFolder.Setting = mvCentralCore.Settings["local_trackart_folder"];
+
       // Auto Thumbnail Settings
       tbVideoPreviewCols.Setting = mvCentralCore.Settings["videoThumbNail_cols"];
       tbVideoPreviewRows.Setting = mvCentralCore.Settings["videoThumbNail_rows"];
@@ -166,6 +176,8 @@ namespace mvCentral
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
+
+      enableCheckCustomFolderArtworkControls();
 
     }
 
@@ -2377,18 +2389,20 @@ namespace mvCentral
       {
         case "tpArtist":
           artistDetailsList.DatabaseObject = CurrentArtist;
+          artistDetailsList.DatabaseObject.CommitNeeded = true;
           break;
         case "tpAlbum":
           albumDetailsList.DatabaseObject = CurrentAlbum;
+          albumDetailsList.DatabaseObject.CommitNeeded = true;
           break;
         case "tpTrack":
           trackDetailsList.DatabaseObject = CurrentTrack;
           fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
           trackDetailsList.DatabaseObject.CommitNeeded = true;
           fileDetailsList.DatabaseObject.CommitNeeded = true;
-
           break;
       }
+
     }
 
     private void btnArtPrevNext_Click(object sender, EventArgs e)
@@ -3071,5 +3085,88 @@ namespace mvCentral
     {
       bool reLoad = FilenameParser.reLoadExpressions();
     }
+
+    private void cbLocalArtistArtSearch_CheckedChanged(object sender, EventArgs e)
+    {
+      enableCheckCustomFolderArtworkControls();
+    }
+
+    private void cbLocalAlbumArtSearch_CheckedChanged(object sender, EventArgs e)
+    {
+      enableCheckCustomFolderArtworkControls();
+    }
+
+    private void cbLocalTrackArtSearch_CheckedChanged(object sender, EventArgs e)
+    {
+      enableCheckCustomFolderArtworkControls();
+    }
+
+    void enableCheckCustomFolderArtworkControls()
+    {
+      if (cbLocalArtistArtSearch.Checked)
+      {
+        tbLocalArtistArtFolder.Enabled = true;
+        btSelectLocalArtistArtFolder.Enabled = true;
+      }
+      else
+      {
+        tbLocalArtistArtFolder.Enabled = false;
+        btSelectLocalArtistArtFolder.Enabled = false;
+      }
+
+      if (cbLocalAlbumArtSearch.Checked)
+      {
+        tbLocalAlbumArtFolder.Enabled = true;
+        btSelectLocalAlbumArtFolder.Enabled = true;
+      }
+      else
+      {
+        tbLocalAlbumArtFolder.Enabled = false;
+        btSelectLocalAlbumArtFolder.Enabled = false;
+      }
+
+      if (cbLocalTrackArtSearch.Checked)
+      {
+        tbLocalTrackArtFolder.Enabled = true;
+        btSelectLocalTrackArtFolder.Enabled = true;
+      }
+      else
+      {
+        tbLocalTrackArtFolder.Enabled = false;
+        btSelectLocalTrackArtFolder.Enabled = false;
+      }
+
+    }
+
+    private void btSelectLocalArtistArtFolder_Click(object sender, EventArgs e)
+    {
+      FolderBrowserDialog customFolder = new FolderBrowserDialog();
+      if (customFolder.ShowDialog() == DialogResult.OK)
+      {
+        tbLocalArtistArtFolder.Text = customFolder.SelectedPath;
+        mvCentralCore.Settings.CustomArtistArtFolder = tbLocalArtistArtFolder.Text;
+      }
+    }
+
+    private void btSelectLocalAlbumArtFolder_Click(object sender, EventArgs e)
+    {
+      FolderBrowserDialog customFolder = new FolderBrowserDialog();
+      if (customFolder.ShowDialog() == DialogResult.OK)
+      {
+        tbLocalAlbumArtFolder.Text = customFolder.SelectedPath;
+        mvCentralCore.Settings.CustomAlbumArtFolder = tbLocalAlbumArtFolder.Text;
+      }
+    }
+
+    private void btSelectLocalTrackArtFolder_Click(object sender, EventArgs e)
+    {
+      FolderBrowserDialog customFolder = new FolderBrowserDialog();
+      if (customFolder.ShowDialog() == DialogResult.OK)
+      {
+        tbLocalTrackArtFolder.Text = customFolder.SelectedPath;
+        mvCentralCore.Settings.CustomTrackArtFolder = tbLocalTrackArtFolder.Text;
+      }
+    }
+
   }
 }

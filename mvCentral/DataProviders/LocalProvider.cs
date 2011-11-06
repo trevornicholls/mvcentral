@@ -97,73 +97,132 @@ namespace mvCentral.DataProviders
     }
 
     /// <summary>
-    /// Get Artist Artwork already on disk
+    /// Get Local Artist Artwork, check for custom folder or artwork in the same folder as the music video
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="artistInfo"></param>
     /// <returns></returns>
-    public bool GetArtistArt(DBArtistInfo mv)
+    public bool GetArtistArt(DBArtistInfo artistInfo)
     {
-      logger.Debug("In Method GetArtistArt(DBArtistInfo mv)");
-      if (mv == null)
+      logger.Debug("In Method GetArtistArt(DBArtistInfo artistInfo)");
+
+      if (artistInfo == null)
         return false;
 
       // if we already have a artist move on for now
-      if (mv.ArtFullPath.Trim().Length > 0)
+      if (artistInfo.ArtFullPath.Trim().Length > 0)
         return false;
 
       bool found = false;
-
-      found &= getArtistArtFromArtistArtFolder(mv);
-      found &= getOldArtistArt(mv);
+      // If a custom artfolder is specified the search
+      if (mvCentralCore.Settings.SearchCustomFolderForArtistArt)
+      {
+        found = getArtistArtFromCustomArtistArtFolder(artistInfo);
+        logger.Debug("Sucessfully added fanart from custom folder: {0}", artistInfo.ArtFullPath);
+      }// Look for Artwork in same folder as video
+      if (!found)
+        found = getArtistArtFromArtistArtFolder(artistInfo);
+      // Look for artwork in the ..\thumbs\mvCentral\Artists\FullSize folder
+      if (!found)
+        found = getOldArtistArt(artistInfo);
 
       return found;
     }
     /// <summary>
     /// Get Album Artwork already on disk
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="albumInfo"></param>
     /// <returns></returns>
-    public bool GetAlbumArt(DBAlbumInfo mv)
+    public bool GetAlbumArt(DBAlbumInfo albumInfo)
     {
       logger.Debug("In Method GetAlbumArt(DBAlbumInfo mv)");
 
-      if (mv == null)
+      if (albumInfo == null)
         return false;
 
       // if we already have a artist move on for now
-      if (mv.ArtFullPath.Trim().Length > 0)
+      if (albumInfo.ArtFullPath.Trim().Length > 0)
         return false;
 
       bool found = false;
 
-      found &= getAlbumArtFromAlbumArtFolder(mv);
-      found &= getOldAlbumArt(mv);
+      if (mvCentralCore.Settings.SearchCustomFolderForAlbumArt)
+      {
+        found = getAlbumArtFromCustomAlbumArtFolder(albumInfo);
+        logger.Debug("Sucessfully added fanart from custom folder: {0}", albumInfo.ArtFullPath);
+      }
+
+      if (!found)
+        found = getAlbumArtFromAlbumArtFolder(albumInfo);
+
+      if (!found)
+        found = getOldAlbumArt(albumInfo);
 
       return found;
     }
     /// <summary>
     /// Get Track/Video Artwork already on disk
     /// </summary>
-    /// <param name="mv"></param>
+    /// <param name="trackInfo"></param>
     /// <returns></returns>
-    public bool GetTrackArt(DBTrackInfo mv)
+    public bool GetTrackArt(DBTrackInfo trackInfo)
     {
       logger.Debug("In Method GetTrackArt(DBTrackInfo mv)");
-      if (mv == null)
+      if (trackInfo == null)
         return false;
-      if (this.mvTrackObject == null) this.mvTrackObject = mv;
+      if (this.mvTrackObject == null) this.mvTrackObject = trackInfo;
 
       // if we already have a trackimage move on for now
-      if (mv.ArtFullPath.Trim().Length > 0)
+      if (trackInfo.ArtFullPath.Trim().Length > 0)
         return false;
 
       bool found = false;
 
-      found &= getTrackArtFromTrackArtFolder(mv);
-      found &= getOldTrackArt(mv);
+      if (mvCentralCore.Settings.SearchCustomFolderForTrackArt)
+      {
+        found = getTrackArtFromCustomTrackArtFolder(trackInfo);
+        logger.Debug("Sucessfully added fanart from custom folder: {0}", trackInfo.ArtFullPath);
+      }
+
+      if (!found)
+        found = getTrackArtFromTrackArtFolder(trackInfo);
+
+      if (!found)
+        found = getOldTrackArt(trackInfo);
 
       return found;
     }
+
+    /// <summary>
+    /// Get Artist Artwork from the Custom Artist Artwork folder.
+    /// </summary>
+    /// <param name="mvArtistObject"></param>
+    /// <returns></returns>
+    private bool getArtistArtFromCustomArtistArtFolder(DBArtistInfo mvArtistObject)
+    {
+      string artistArtFolderPath = string.Empty;
+
+      logger.Debug("In Method getArtistArtFromCustomArtistArtFolder(DBArtistInfo mv)");
+      if (mvArtistObject == null)
+        return false;
+
+      // grab a list of possible filenames for the artist based on the user pattern
+      string pattern = mvCentralCore.Settings.ArtistArtworkFilenamePattern;
+      List<string> filenames = getPossibleNamesFromPattern(pattern, mvArtistObject);
+
+      // check the ArtistArt folder for the user patterned ArtistArt
+      artistArtFolderPath = mvCentralCore.Settings.CustomArtistArtFolder;
+      FileInfo newArtistArt = getFirstFileFromFolder(artistArtFolderPath, filenames);
+      if (newArtistArt != null && newArtistArt.Exists)
+      {
+        mvArtistObject.ArtFullPath = newArtistArt.FullName;
+        mvArtistObject.AlternateArts.Add(newArtistArt.FullName);
+        mvArtistObject.GenerateThumbnail();
+        logger.Info("Loaded artistart from " + newArtistArt.FullName);
+        return true;
+      }
+      return false;
+    }
+
     /// <summary>
     /// Get Artist Artwork from the Artist Artwork folder.
     /// </summary>
@@ -171,6 +230,8 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private bool getArtistArtFromArtistArtFolder(DBArtistInfo mvArtistObject)
     {
+      string artistArtFolderPath = string.Empty;
+
       logger.Debug("In Method getArtistArtFromArtistArtFolder(DBArtistInfo mv)");
       if (mvArtistObject == null)
         return false;
@@ -180,7 +241,7 @@ namespace mvCentral.DataProviders
       List<string> filenames = getPossibleNamesFromPattern(pattern, mvArtistObject);
 
       // check the ArtistArt folder for the user patterned ArtistArt
-      string artistArtFolderPath = mvCentralCore.Settings.ArtistArtFolder;
+      artistArtFolderPath = mvCentralCore.Settings.ArtistArtFolder;
       FileInfo newArtistArt = getFirstFileFromFolder(artistArtFolderPath, filenames);
       if (newArtistArt != null && newArtistArt.Exists)
       {
@@ -188,7 +249,6 @@ namespace mvCentral.DataProviders
         logger.Info("Loaded artistart from " + newArtistArt.FullName);
         return true;
       }
-
       return false;
     }
     /// <summary>
@@ -215,6 +275,34 @@ namespace mvCentral.DataProviders
         }
       }
       return found;
+    }
+    /// <summary>
+    /// get the Album Artwork from the custom album artwork folder 
+    /// </summary>
+    /// <param name="mvAlbumObject"></param>
+    /// <returns></returns>
+    private bool getAlbumArtFromCustomAlbumArtFolder(DBAlbumInfo mvAlbumObject)
+    {
+      logger.Debug("In Method getAlbumArtFromCustomAlbumArtFolder(DBAlbumInfo mv)");
+      if (mvAlbumObject == null)
+        return false;
+
+      // grab a list of possible filenames for the albumart based on the user pattern
+      string pattern = mvCentralCore.Settings.AlbumArtworkFilenamePattern;
+      List<string> filenames = getPossibleNamesFromPattern(pattern, mvAlbumObject);
+
+      // check the albumart folder for the user patterned albumart
+      string albumArtFolderPath = mvCentralCore.Settings.CustomAlbumArtFolder;
+      FileInfo newAlbumArt = getFirstFileFromFolder(albumArtFolderPath, filenames);
+      if (newAlbumArt != null && newAlbumArt.Exists)
+      {
+        mvAlbumObject.ArtFullPath = newAlbumArt.FullName;
+        mvAlbumObject.AlternateArts.Add(newAlbumArt.FullName);
+        mvAlbumObject.GenerateThumbnail();
+        logger.Info("Loaded Albumimage from " + newAlbumArt.FullName);
+        return true;
+      }
+      return false;
     }
     /// <summary>
     /// get the Album Artwork from Album Artwork folder 
@@ -267,6 +355,37 @@ namespace mvCentral.DataProviders
       }
       return found;
     }
+    /// <summary>
+    /// Get Track Artwork from Custom Track Artwork folder
+    /// </summary>
+    /// <param name="mvTrackObject"></param>
+    /// <returns></returns>
+    private bool getTrackArtFromCustomTrackArtFolder(DBTrackInfo mvTrackObject)
+    {
+      bool found = false;
+      logger.Debug("In Method getTrackArtFromCustomTrackArtFolder(DBTrackInfo mv)");
+
+      if (mvTrackObject == null)
+        return false;
+
+      // grab a list of possible filenames for the artistart based on the user pattern
+      string pattern = mvCentralCore.Settings.TrackArtworkFilenamePattern;
+      List<string> filenames = getPossibleNamesFromPattern(pattern, mvTrackObject);
+
+      // check the artistart folder for the user patterned artistarts
+      string trackartFolderPath = mvCentralCore.Settings.CustomTrackArtFolder;
+      FileInfo newTrackArt = getFirstFileFromFolder(trackartFolderPath, filenames);
+      if (newTrackArt != null && newTrackArt.Exists)
+      {
+        mvTrackObject.ArtFullPath = newTrackArt.FullName;
+        mvTrackObject.AlternateArts.Add(newTrackArt.FullName);
+        mvTrackObject.GenerateThumbnail();
+        logger.Info("Loaded trackimage from " + newTrackArt.FullName);
+        return true;
+      }
+      return found;
+    }
+
     /// <summary>
     /// Get Track Artwork from Track Artwork folder
     /// </summary>
@@ -330,12 +449,10 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private List<string> getPossibleNamesFromPattern(string pattern, object mv)
     {
-      logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv)");
       Regex parser = new Regex("%(.*?)%", RegexOptions.IgnoreCase);
       // Artist Artwork
       if (mv.GetType() == typeof(DBArtistInfo))
       {
-        logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv) Object:Artist");
         mvArtistObject = (DBArtistInfo)mv;
         lock (lockObj)
         {
@@ -353,7 +470,6 @@ namespace mvCentral.DataProviders
       // Album Artwork
       if (mv.GetType() == typeof(DBAlbumInfo))
       {
-        logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv)  Object:Album");
         mvAlbumObject = (DBAlbumInfo)mv;
         lock (lockObj)
         {
@@ -371,7 +487,6 @@ namespace mvCentral.DataProviders
       // This is track data
       if (mv.GetType() == typeof(DBTrackInfo))
       {
-        logger.Debug("In Method getPossibleNamesFromPattern(string pattern, object mv)  Object:Track");
         // try to create our filename(s)
         this.mvTrackObject = (DBTrackInfo)mv;
         lock (lockObj)
@@ -468,7 +583,6 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private FileInfo getFirstFileFromFolder(string folder, List<string> filenames)
     {
-      logger.Debug("In Method getFirstFileFromFolder(string folder, List<string> filenames)");
       foreach (string currFilename in filenames)
       {
         // make sure what we have is a valie filename

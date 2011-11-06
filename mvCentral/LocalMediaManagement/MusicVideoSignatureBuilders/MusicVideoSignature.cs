@@ -218,6 +218,10 @@ namespace mvCentral.SignatureBuilders
 
         return album;
       }
+      set
+      {
+        album = value;
+      }
     } private string album = null;
 
     /// <summary>

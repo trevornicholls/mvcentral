@@ -30,19 +30,19 @@
         {
       this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigForm));
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle51 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle52 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
       this.imageList = new System.Windows.Forms.ImageList(this.components);
       this.textBox6 = new System.Windows.Forms.TextBox();
       this.label9 = new System.Windows.Forms.Label();
@@ -103,14 +103,6 @@
       this.colParseExt = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.colParsePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.colParseVolumeLabel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
       this.pathsGroupBox = new System.Windows.Forms.GroupBox();
       this.toolStrip = new System.Windows.Forms.ToolStrip();
       this.addSourceButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -173,12 +165,26 @@
       this.btnExpDown = new System.Windows.Forms.Button();
       this.label70 = new System.Windows.Forms.Label();
       this.tbSettingsImporter = new System.Windows.Forms.TabPage();
+      this.btSelectLocalTrackArtFolder = new System.Windows.Forms.Button();
+      this.btSelectLocalAlbumArtFolder = new System.Windows.Forms.Button();
+      this.btSelectLocalArtistArtFolder = new System.Windows.Forms.Button();
+      this.cbLocalTrackArtSearch = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.cbLocalAlbumArtSearch = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.cbLocalArtistArtSearch = new Cornerstone.GUI.Controls.SettingCheckBox();
+      this.groupBox21 = new System.Windows.Forms.GroupBox();
+      this.groupBox22 = new System.Windows.Forms.GroupBox();
+      this.groupBox23 = new System.Windows.Forms.GroupBox();
+      this.groupBox24 = new System.Windows.Forms.GroupBox();
+      this.groupBox25 = new System.Windows.Forms.GroupBox();
+      this.groupBox26 = new System.Windows.Forms.GroupBox();
+      this.groupBox27 = new System.Windows.Forms.GroupBox();
+      this.groupBox28 = new System.Windows.Forms.GroupBox();
+      this.tbLocalTrackArtFolder = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.tbLocalAlbumArtFolder = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.tbLocalArtistArtFolder = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.label43 = new System.Windows.Forms.Label();
       this.label41 = new System.Windows.Forms.Label();
       this.cbIgnoreFolderStructure = new Cornerstone.GUI.Controls.SettingCheckBox();
-      this.groupBox4 = new System.Windows.Forms.GroupBox();
-      this.label4 = new System.Windows.Forms.Label();
-      this.tbHomeScreen = new Cornerstone.GUI.Controls.SettingsTextBox();
-      this.label5 = new System.Windows.Forms.Label();
       this.tbMaxVideoArtwork = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.label40 = new System.Windows.Forms.Label();
       this.tbMaxAlbumArtwork = new Cornerstone.GUI.Controls.SettingsTextBox();
@@ -187,6 +193,10 @@
       this.label38 = new System.Windows.Forms.Label();
       this.label37 = new System.Windows.Forms.Label();
       this.groupBox11 = new System.Windows.Forms.GroupBox();
+      this.groupBox4 = new System.Windows.Forms.GroupBox();
+      this.groupBox18 = new System.Windows.Forms.GroupBox();
+      this.groupBox19 = new System.Windows.Forms.GroupBox();
+      this.groupBox20 = new System.Windows.Forms.GroupBox();
       this.groupBox12 = new System.Windows.Forms.GroupBox();
       this.groupBox13 = new System.Windows.Forms.GroupBox();
       this.groupBox14 = new System.Windows.Forms.GroupBox();
@@ -225,8 +235,10 @@
       this.label13 = new System.Windows.Forms.Label();
       this.tbTrackArtWidth = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.tbTrackArtHeight = new Cornerstone.GUI.Controls.SettingsTextBox();
-      this.autoDataSourcesPanel1 = new mvCentral.AutoDataSourcesPanel();
       this.tbSettingsGUI = new System.Windows.Forms.TabPage();
+      this.label4 = new System.Windows.Forms.Label();
+      this.tbHomeScreen = new Cornerstone.GUI.Controls.SettingsTextBox();
+      this.label5 = new System.Windows.Forms.Label();
       this.cbClearPlaylistOnAdd = new Cornerstone.GUI.Controls.SettingCheckBox();
       this.cbGeneratedAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
       this.cbAutoShufflePlaylist = new Cornerstone.GUI.Controls.SettingCheckBox();
@@ -282,6 +294,15 @@
       this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+      this.fileNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.artistDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.albumDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.trackDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.extDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.volumeLabelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.pathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ParserBindingSource = new System.Windows.Forms.BindingSource(this.components);
+      this.autoDataSourcesPanel1 = new mvCentral.AutoDataSourcesPanel();
       this.unapprovedMatchesBindingSource = new System.Windows.Forms.BindingSource(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
       this.scMain.Panel1.SuspendLayout();
@@ -310,7 +331,6 @@
       this.tcImport.SuspendLayout();
       this.tpImportPathParser.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).BeginInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       this.pathsGroupBox.SuspendLayout();
       this.toolStrip.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.pathsGridView)).BeginInit();
@@ -331,7 +351,13 @@
       this.splitContainer1.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.dgvExpressions)).BeginInit();
       this.tbSettingsImporter.SuspendLayout();
+      this.groupBox21.SuspendLayout();
+      this.groupBox22.SuspendLayout();
+      this.groupBox23.SuspendLayout();
+      this.groupBox26.SuspendLayout();
       this.groupBox11.SuspendLayout();
+      this.groupBox4.SuspendLayout();
+      this.groupBox18.SuspendLayout();
       this.groupBox12.SuspendLayout();
       this.groupBox6.SuspendLayout();
       this.groupBox9.SuspendLayout();
@@ -342,6 +368,7 @@
       ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
       this.groupBox1.SuspendLayout();
       this.gbProgress.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).BeginInit();
       this.SuspendLayout();
       // 
@@ -1004,59 +1031,6 @@
       this.colParseVolumeLabel.Name = "colParseVolumeLabel";
       this.colParseVolumeLabel.ReadOnly = true;
       // 
-      // fileNameDataGridViewTextBoxColumn
-      // 
-      this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
-      this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
-      this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
-      this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // artistDataGridViewTextBoxColumn
-      // 
-      this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
-      this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
-      this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
-      this.artistDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // albumDataGridViewTextBoxColumn
-      // 
-      this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
-      this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
-      this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
-      this.albumDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // trackDataGridViewTextBoxColumn
-      // 
-      this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
-      this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
-      this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
-      this.trackDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // extDataGridViewTextBoxColumn
-      // 
-      this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
-      this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
-      this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
-      this.extDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // volumeLabelDataGridViewTextBoxColumn
-      // 
-      this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
-      this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
-      this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
-      this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // pathDataGridViewTextBoxColumn
-      // 
-      this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
-      this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
-      this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
-      this.pathDataGridViewTextBoxColumn.ReadOnly = true;
-      // 
-      // ParserBindingSource
-      // 
-      this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
-      // 
       // pathsGroupBox
       // 
       this.pathsGroupBox.BackColor = System.Drawing.SystemColors.Control;
@@ -1446,38 +1420,38 @@
       this.unapprovedGrid.AllowUserToAddRows = false;
       this.unapprovedGrid.AllowUserToDeleteRows = false;
       this.unapprovedGrid.AllowUserToResizeRows = false;
-      dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle40.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle40.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle40.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.unapprovedGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle40;
+      dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.unapprovedGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
       this.unapprovedGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.unapprovedGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.statusColumn,
             this.unapprovedLocalMediaColumn,
             this.unapprovedPossibleMatchesColumn});
-      dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Window;
-      dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.ControlText;
-      dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-      this.unapprovedGrid.DefaultCellStyle = dataGridViewCellStyle41;
+      dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+      dataGridViewCellStyle15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+      dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+      this.unapprovedGrid.DefaultCellStyle = dataGridViewCellStyle15;
       this.unapprovedGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.unapprovedGrid.Location = new System.Drawing.Point(0, 0);
       this.unapprovedGrid.Name = "unapprovedGrid";
-      dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.unapprovedGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle42;
+      dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.unapprovedGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
       this.unapprovedGrid.RowHeadersVisible = false;
       this.unapprovedGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
       this.unapprovedGrid.Size = new System.Drawing.Size(578, 473);
@@ -1546,44 +1520,44 @@
       // 
       this.dgvReplace.AllowUserToResizeColumns = false;
       this.dgvReplace.AllowUserToResizeRows = false;
-      dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-      this.dgvReplace.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle43;
+      dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+      this.dgvReplace.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
       this.dgvReplace.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
       this.dgvReplace.BackgroundColor = System.Drawing.SystemColors.Window;
       this.dgvReplace.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle44.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle44.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle44.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle44.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle44.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dgvReplace.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle44;
+      dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle18.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dgvReplace.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
       this.dgvReplace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-      dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Window;
-      dataGridViewCellStyle45.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle45.ForeColor = System.Drawing.SystemColors.ControlText;
-      dataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dgvReplace.DefaultCellStyle = dataGridViewCellStyle45;
+      dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+      dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Window;
+      dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
+      dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dgvReplace.DefaultCellStyle = dataGridViewCellStyle19;
       this.dgvReplace.Dock = System.Windows.Forms.DockStyle.Fill;
       this.dgvReplace.Location = new System.Drawing.Point(0, 0);
       this.dgvReplace.MultiSelect = false;
       this.dgvReplace.Name = "dgvReplace";
       this.dgvReplace.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-      dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle46.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle46.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle46.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle46.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle46.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle46.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dgvReplace.RowHeadersDefaultCellStyle = dataGridViewCellStyle46;
+      dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dgvReplace.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
       this.dgvReplace.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-      dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-      this.dgvReplace.RowsDefaultCellStyle = dataGridViewCellStyle47;
+      dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+      this.dgvReplace.RowsDefaultCellStyle = dataGridViewCellStyle21;
       this.dgvReplace.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
       this.dgvReplace.RowTemplate.Height = 18;
       this.dgvReplace.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -1701,44 +1675,44 @@
       // 
       this.dgvExpressions.AllowUserToResizeColumns = false;
       this.dgvExpressions.AllowUserToResizeRows = false;
-      dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-      this.dgvExpressions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle48;
+      dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+      this.dgvExpressions.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
       this.dgvExpressions.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
       this.dgvExpressions.BackgroundColor = System.Drawing.SystemColors.Window;
       this.dgvExpressions.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle49.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle49.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle49.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle49.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dgvExpressions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle49;
+      dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dgvExpressions.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
       this.dgvExpressions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-      dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-      dataGridViewCellStyle50.BackColor = System.Drawing.SystemColors.Window;
-      dataGridViewCellStyle50.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle50.ForeColor = System.Drawing.SystemColors.ControlText;
-      dataGridViewCellStyle50.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle50.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle50.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dgvExpressions.DefaultCellStyle = dataGridViewCellStyle50;
+      dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+      dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
+      dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.ControlText;
+      dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dgvExpressions.DefaultCellStyle = dataGridViewCellStyle24;
       this.dgvExpressions.Dock = System.Windows.Forms.DockStyle.Fill;
       this.dgvExpressions.Location = new System.Drawing.Point(0, 0);
       this.dgvExpressions.MultiSelect = false;
       this.dgvExpressions.Name = "dgvExpressions";
       this.dgvExpressions.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-      dataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-      dataGridViewCellStyle51.BackColor = System.Drawing.SystemColors.Control;
-      dataGridViewCellStyle51.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle51.ForeColor = System.Drawing.SystemColors.WindowText;
-      dataGridViewCellStyle51.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-      dataGridViewCellStyle51.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-      dataGridViewCellStyle51.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-      this.dgvExpressions.RowHeadersDefaultCellStyle = dataGridViewCellStyle51;
+      dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+      dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control;
+      dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText;
+      dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+      dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+      dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+      this.dgvExpressions.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
       this.dgvExpressions.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
-      dataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-      this.dgvExpressions.RowsDefaultCellStyle = dataGridViewCellStyle52;
+      dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+      this.dgvExpressions.RowsDefaultCellStyle = dataGridViewCellStyle26;
       this.dgvExpressions.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
       this.dgvExpressions.RowTemplate.Height = 18;
       this.dgvExpressions.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -1839,12 +1813,19 @@
       // 
       // tbSettingsImporter
       // 
+      this.tbSettingsImporter.Controls.Add(this.btSelectLocalTrackArtFolder);
+      this.tbSettingsImporter.Controls.Add(this.btSelectLocalAlbumArtFolder);
+      this.tbSettingsImporter.Controls.Add(this.btSelectLocalArtistArtFolder);
+      this.tbSettingsImporter.Controls.Add(this.cbLocalTrackArtSearch);
+      this.tbSettingsImporter.Controls.Add(this.cbLocalAlbumArtSearch);
+      this.tbSettingsImporter.Controls.Add(this.cbLocalArtistArtSearch);
+      this.tbSettingsImporter.Controls.Add(this.groupBox21);
+      this.tbSettingsImporter.Controls.Add(this.tbLocalTrackArtFolder);
+      this.tbSettingsImporter.Controls.Add(this.tbLocalAlbumArtFolder);
+      this.tbSettingsImporter.Controls.Add(this.tbLocalArtistArtFolder);
+      this.tbSettingsImporter.Controls.Add(this.label43);
       this.tbSettingsImporter.Controls.Add(this.label41);
       this.tbSettingsImporter.Controls.Add(this.cbIgnoreFolderStructure);
-      this.tbSettingsImporter.Controls.Add(this.groupBox4);
-      this.tbSettingsImporter.Controls.Add(this.label4);
-      this.tbSettingsImporter.Controls.Add(this.tbHomeScreen);
-      this.tbSettingsImporter.Controls.Add(this.label5);
       this.tbSettingsImporter.Controls.Add(this.tbMaxVideoArtwork);
       this.tbSettingsImporter.Controls.Add(this.label40);
       this.tbSettingsImporter.Controls.Add(this.tbMaxAlbumArtwork);
@@ -1894,11 +1875,196 @@
       this.tbSettingsImporter.Text = "Importer Settings";
       this.tbSettingsImporter.UseVisualStyleBackColor = true;
       // 
+      // btSelectLocalTrackArtFolder
+      // 
+      this.btSelectLocalTrackArtFolder.Image = global::mvCentral.Properties.Resources.Folders;
+      this.btSelectLocalTrackArtFolder.Location = new System.Drawing.Point(571, 443);
+      this.btSelectLocalTrackArtFolder.Name = "btSelectLocalTrackArtFolder";
+      this.btSelectLocalTrackArtFolder.Size = new System.Drawing.Size(31, 23);
+      this.btSelectLocalTrackArtFolder.TabIndex = 107;
+      this.btSelectLocalTrackArtFolder.UseVisualStyleBackColor = true;
+      this.btSelectLocalTrackArtFolder.Click += new System.EventHandler(this.btSelectLocalTrackArtFolder_Click);
+      // 
+      // btSelectLocalAlbumArtFolder
+      // 
+      this.btSelectLocalAlbumArtFolder.Image = global::mvCentral.Properties.Resources.Folders;
+      this.btSelectLocalAlbumArtFolder.Location = new System.Drawing.Point(571, 411);
+      this.btSelectLocalAlbumArtFolder.Name = "btSelectLocalAlbumArtFolder";
+      this.btSelectLocalAlbumArtFolder.Size = new System.Drawing.Size(31, 23);
+      this.btSelectLocalAlbumArtFolder.TabIndex = 106;
+      this.btSelectLocalAlbumArtFolder.UseVisualStyleBackColor = true;
+      this.btSelectLocalAlbumArtFolder.Click += new System.EventHandler(this.btSelectLocalAlbumArtFolder_Click);
+      // 
+      // btSelectLocalArtistArtFolder
+      // 
+      this.btSelectLocalArtistArtFolder.Image = global::mvCentral.Properties.Resources.Folders;
+      this.btSelectLocalArtistArtFolder.Location = new System.Drawing.Point(571, 379);
+      this.btSelectLocalArtistArtFolder.Name = "btSelectLocalArtistArtFolder";
+      this.btSelectLocalArtistArtFolder.Size = new System.Drawing.Size(31, 23);
+      this.btSelectLocalArtistArtFolder.TabIndex = 105;
+      this.btSelectLocalArtistArtFolder.UseVisualStyleBackColor = true;
+      this.btSelectLocalArtistArtFolder.Click += new System.EventHandler(this.btSelectLocalArtistArtFolder_Click);
+      // 
+      // cbLocalTrackArtSearch
+      // 
+      this.cbLocalTrackArtSearch.AutoSize = true;
+      this.cbLocalTrackArtSearch.IgnoreSettingName = true;
+      this.cbLocalTrackArtSearch.Location = new System.Drawing.Point(172, 447);
+      this.cbLocalTrackArtSearch.Name = "cbLocalTrackArtSearch";
+      this.cbLocalTrackArtSearch.Setting = null;
+      this.cbLocalTrackArtSearch.Size = new System.Drawing.Size(134, 17);
+      this.cbLocalTrackArtSearch.TabIndex = 104;
+      this.cbLocalTrackArtSearch.Text = "Local Track Art Folder:";
+      this.toolTip1.SetToolTip(this.cbLocalTrackArtSearch, resources.GetString("cbLocalTrackArtSearch.ToolTip"));
+      this.cbLocalTrackArtSearch.UseVisualStyleBackColor = true;
+      this.cbLocalTrackArtSearch.CheckedChanged += new System.EventHandler(this.cbLocalTrackArtSearch_CheckedChanged);
+      // 
+      // cbLocalAlbumArtSearch
+      // 
+      this.cbLocalAlbumArtSearch.AutoSize = true;
+      this.cbLocalAlbumArtSearch.IgnoreSettingName = true;
+      this.cbLocalAlbumArtSearch.Location = new System.Drawing.Point(172, 413);
+      this.cbLocalAlbumArtSearch.Name = "cbLocalAlbumArtSearch";
+      this.cbLocalAlbumArtSearch.Setting = null;
+      this.cbLocalAlbumArtSearch.Size = new System.Drawing.Size(135, 17);
+      this.cbLocalAlbumArtSearch.TabIndex = 103;
+      this.cbLocalAlbumArtSearch.Text = "Local Album Art Folder:";
+      this.toolTip1.SetToolTip(this.cbLocalAlbumArtSearch, resources.GetString("cbLocalAlbumArtSearch.ToolTip"));
+      this.cbLocalAlbumArtSearch.UseVisualStyleBackColor = true;
+      this.cbLocalAlbumArtSearch.CheckedChanged += new System.EventHandler(this.cbLocalAlbumArtSearch_CheckedChanged);
+      // 
+      // cbLocalArtistArtSearch
+      // 
+      this.cbLocalArtistArtSearch.AutoSize = true;
+      this.cbLocalArtistArtSearch.IgnoreSettingName = true;
+      this.cbLocalArtistArtSearch.Location = new System.Drawing.Point(172, 381);
+      this.cbLocalArtistArtSearch.Name = "cbLocalArtistArtSearch";
+      this.cbLocalArtistArtSearch.Setting = null;
+      this.cbLocalArtistArtSearch.Size = new System.Drawing.Size(132, 17);
+      this.cbLocalArtistArtSearch.TabIndex = 102;
+      this.cbLocalArtistArtSearch.Text = " Local Artist Art Folder:";
+      this.toolTip1.SetToolTip(this.cbLocalArtistArtSearch, resources.GetString("cbLocalArtistArtSearch.ToolTip"));
+      this.cbLocalArtistArtSearch.UseVisualStyleBackColor = true;
+      this.cbLocalArtistArtSearch.CheckedChanged += new System.EventHandler(this.cbLocalArtistArtSearch_CheckedChanged);
+      // 
+      // groupBox21
+      // 
+      this.groupBox21.Controls.Add(this.groupBox22);
+      this.groupBox21.Controls.Add(this.groupBox26);
+      this.groupBox21.Controls.Add(this.groupBox28);
+      this.groupBox21.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox21.Location = new System.Drawing.Point(10, 365);
+      this.groupBox21.Name = "groupBox21";
+      this.groupBox21.Size = new System.Drawing.Size(587, 2);
+      this.groupBox21.TabIndex = 101;
+      this.groupBox21.TabStop = false;
+      // 
+      // groupBox22
+      // 
+      this.groupBox22.Controls.Add(this.groupBox23);
+      this.groupBox22.Controls.Add(this.groupBox25);
+      this.groupBox22.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox22.Location = new System.Drawing.Point(0, 26);
+      this.groupBox22.Name = "groupBox22";
+      this.groupBox22.Size = new System.Drawing.Size(364, 2);
+      this.groupBox22.TabIndex = 84;
+      this.groupBox22.TabStop = false;
+      // 
+      // groupBox23
+      // 
+      this.groupBox23.Controls.Add(this.groupBox24);
+      this.groupBox23.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox23.Location = new System.Drawing.Point(0, 17);
+      this.groupBox23.Name = "groupBox23";
+      this.groupBox23.Size = new System.Drawing.Size(585, 2);
+      this.groupBox23.TabIndex = 51;
+      this.groupBox23.TabStop = false;
+      // 
+      // groupBox24
+      // 
+      this.groupBox24.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox24.Location = new System.Drawing.Point(227, 14);
+      this.groupBox24.Name = "groupBox24";
+      this.groupBox24.Size = new System.Drawing.Size(358, 10);
+      this.groupBox24.TabIndex = 50;
+      this.groupBox24.TabStop = false;
+      // 
+      // groupBox25
+      // 
+      this.groupBox25.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox25.Location = new System.Drawing.Point(227, 14);
+      this.groupBox25.Name = "groupBox25";
+      this.groupBox25.Size = new System.Drawing.Size(358, 10);
+      this.groupBox25.TabIndex = 50;
+      this.groupBox25.TabStop = false;
+      // 
+      // groupBox26
+      // 
+      this.groupBox26.Controls.Add(this.groupBox27);
+      this.groupBox26.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox26.Location = new System.Drawing.Point(0, 17);
+      this.groupBox26.Name = "groupBox26";
+      this.groupBox26.Size = new System.Drawing.Size(585, 2);
+      this.groupBox26.TabIndex = 51;
+      this.groupBox26.TabStop = false;
+      // 
+      // groupBox27
+      // 
+      this.groupBox27.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox27.Location = new System.Drawing.Point(227, 14);
+      this.groupBox27.Name = "groupBox27";
+      this.groupBox27.Size = new System.Drawing.Size(358, 10);
+      this.groupBox27.TabIndex = 50;
+      this.groupBox27.TabStop = false;
+      // 
+      // groupBox28
+      // 
+      this.groupBox28.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox28.Location = new System.Drawing.Point(227, 14);
+      this.groupBox28.Name = "groupBox28";
+      this.groupBox28.Size = new System.Drawing.Size(358, 10);
+      this.groupBox28.TabIndex = 50;
+      this.groupBox28.TabStop = false;
+      // 
+      // tbLocalTrackArtFolder
+      // 
+      this.tbLocalTrackArtFolder.Location = new System.Drawing.Point(310, 445);
+      this.tbLocalTrackArtFolder.Name = "tbLocalTrackArtFolder";
+      this.tbLocalTrackArtFolder.Setting = null;
+      this.tbLocalTrackArtFolder.Size = new System.Drawing.Size(255, 20);
+      this.tbLocalTrackArtFolder.TabIndex = 100;
+      // 
+      // tbLocalAlbumArtFolder
+      // 
+      this.tbLocalAlbumArtFolder.Location = new System.Drawing.Point(310, 411);
+      this.tbLocalAlbumArtFolder.Name = "tbLocalAlbumArtFolder";
+      this.tbLocalAlbumArtFolder.Setting = null;
+      this.tbLocalAlbumArtFolder.Size = new System.Drawing.Size(255, 20);
+      this.tbLocalAlbumArtFolder.TabIndex = 99;
+      // 
+      // tbLocalArtistArtFolder
+      // 
+      this.tbLocalArtistArtFolder.Location = new System.Drawing.Point(310, 379);
+      this.tbLocalArtistArtFolder.Name = "tbLocalArtistArtFolder";
+      this.tbLocalArtistArtFolder.Setting = null;
+      this.tbLocalArtistArtFolder.Size = new System.Drawing.Size(255, 20);
+      this.tbLocalArtistArtFolder.TabIndex = 98;
+      // 
+      // label43
+      // 
+      this.label43.AutoSize = true;
+      this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label43.Location = new System.Drawing.Point(14, 380);
+      this.label43.Name = "label43";
+      this.label43.Size = new System.Drawing.Size(145, 13);
+      this.label43.TabIndex = 97;
+      this.label43.Text = "Local Artwork Matching:";
+      // 
       // label41
       // 
       this.label41.AutoSize = true;
       this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label41.Location = new System.Drawing.Point(106, 138);
+      this.label41.Location = new System.Drawing.Point(106, 91);
       this.label41.Name = "label41";
       this.label41.Size = new System.Drawing.Size(53, 13);
       this.label41.TabIndex = 96;
@@ -1908,7 +2074,7 @@
       // 
       this.cbIgnoreFolderStructure.AutoSize = true;
       this.cbIgnoreFolderStructure.IgnoreSettingName = true;
-      this.cbIgnoreFolderStructure.Location = new System.Drawing.Point(175, 138);
+      this.cbIgnoreFolderStructure.Location = new System.Drawing.Point(175, 91);
       this.cbIgnoreFolderStructure.Name = "cbIgnoreFolderStructure";
       this.cbIgnoreFolderStructure.Setting = null;
       this.cbIgnoreFolderStructure.Size = new System.Drawing.Size(195, 17);
@@ -1920,47 +2086,9 @@
       this.cbIgnoreFolderStructure.UseVisualStyleBackColor = true;
       this.cbIgnoreFolderStructure.CheckedChanged += new System.EventHandler(this.cbIgnoreFolderStructure_CheckedChanged);
       // 
-      // groupBox4
-      // 
-      this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox4.Location = new System.Drawing.Point(12, 47);
-      this.groupBox4.Name = "groupBox4";
-      this.groupBox4.Size = new System.Drawing.Size(585, 2);
-      this.groupBox4.TabIndex = 92;
-      this.groupBox4.TabStop = false;
-      // 
-      // label4
-      // 
-      this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(172, 19);
-      this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(146, 13);
-      this.label4.TabIndex = 94;
-      this.label4.Text = "Plug-in name in home screen:";
-      // 
-      // tbHomeScreen
-      // 
-      this.tbHomeScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbHomeScreen.Location = new System.Drawing.Point(324, 16);
-      this.tbHomeScreen.Name = "tbHomeScreen";
-      this.tbHomeScreen.Setting = null;
-      this.tbHomeScreen.Size = new System.Drawing.Size(173, 20);
-      this.tbHomeScreen.TabIndex = 93;
-      // 
-      // label5
-      // 
-      this.label5.AutoSize = true;
-      this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label5.Location = new System.Drawing.Point(63, 20);
-      this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(96, 13);
-      this.label5.TabIndex = 91;
-      this.label5.Text = "Plugin Settings:";
-      // 
       // tbMaxVideoArtwork
       // 
-      this.tbMaxVideoArtwork.Location = new System.Drawing.Point(550, 294);
+      this.tbMaxVideoArtwork.Location = new System.Drawing.Point(550, 242);
       this.tbMaxVideoArtwork.Name = "tbMaxVideoArtwork";
       this.tbMaxVideoArtwork.Setting = null;
       this.tbMaxVideoArtwork.Size = new System.Drawing.Size(26, 20);
@@ -1969,7 +2097,7 @@
       // label40
       // 
       this.label40.AutoSize = true;
-      this.label40.Location = new System.Drawing.Point(505, 298);
+      this.label40.Location = new System.Drawing.Point(505, 251);
       this.label40.Name = "label40";
       this.label40.Size = new System.Drawing.Size(42, 13);
       this.label40.TabIndex = 89;
@@ -1977,7 +2105,7 @@
       // 
       // tbMaxAlbumArtwork
       // 
-      this.tbMaxAlbumArtwork.Location = new System.Drawing.Point(465, 294);
+      this.tbMaxAlbumArtwork.Location = new System.Drawing.Point(465, 242);
       this.tbMaxAlbumArtwork.Name = "tbMaxAlbumArtwork";
       this.tbMaxAlbumArtwork.Setting = null;
       this.tbMaxAlbumArtwork.Size = new System.Drawing.Size(26, 20);
@@ -1986,7 +2114,7 @@
       // label39
       // 
       this.label39.AutoSize = true;
-      this.label39.Location = new System.Drawing.Point(418, 298);
+      this.label39.Location = new System.Drawing.Point(418, 246);
       this.label39.Name = "label39";
       this.label39.Size = new System.Drawing.Size(44, 13);
       this.label39.TabIndex = 87;
@@ -1994,7 +2122,7 @@
       // 
       // tbMaxArtistArtwork
       // 
-      this.tbMaxArtistArtwork.Location = new System.Drawing.Point(383, 294);
+      this.tbMaxArtistArtwork.Location = new System.Drawing.Point(383, 242);
       this.tbMaxArtistArtwork.Name = "tbMaxArtistArtwork";
       this.tbMaxArtistArtwork.Setting = null;
       this.tbMaxArtistArtwork.Size = new System.Drawing.Size(26, 20);
@@ -2003,7 +2131,7 @@
       // label38
       // 
       this.label38.AutoSize = true;
-      this.label38.Location = new System.Drawing.Point(169, 298);
+      this.label38.Location = new System.Drawing.Point(169, 246);
       this.label38.Name = "label38";
       this.label38.Size = new System.Drawing.Size(205, 13);
       this.label38.TabIndex = 85;
@@ -2013,7 +2141,7 @@
       // 
       this.label37.AutoSize = true;
       this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label37.Location = new System.Drawing.Point(105, 298);
+      this.label37.Location = new System.Drawing.Point(105, 246);
       this.label37.Name = "label37";
       this.label37.Size = new System.Drawing.Size(54, 13);
       this.label37.TabIndex = 84;
@@ -2021,14 +2149,54 @@
       // 
       // groupBox11
       // 
+      this.groupBox11.Controls.Add(this.groupBox4);
       this.groupBox11.Controls.Add(this.groupBox12);
       this.groupBox11.Controls.Add(this.groupBox14);
       this.groupBox11.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox11.Location = new System.Drawing.Point(233, 324);
+      this.groupBox11.Location = new System.Drawing.Point(233, 270);
       this.groupBox11.Name = "groupBox11";
       this.groupBox11.Size = new System.Drawing.Size(364, 2);
       this.groupBox11.TabIndex = 83;
       this.groupBox11.TabStop = false;
+      // 
+      // groupBox4
+      // 
+      this.groupBox4.Controls.Add(this.groupBox18);
+      this.groupBox4.Controls.Add(this.groupBox20);
+      this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox4.Location = new System.Drawing.Point(0, 26);
+      this.groupBox4.Name = "groupBox4";
+      this.groupBox4.Size = new System.Drawing.Size(364, 2);
+      this.groupBox4.TabIndex = 84;
+      this.groupBox4.TabStop = false;
+      // 
+      // groupBox18
+      // 
+      this.groupBox18.Controls.Add(this.groupBox19);
+      this.groupBox18.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox18.Location = new System.Drawing.Point(0, 17);
+      this.groupBox18.Name = "groupBox18";
+      this.groupBox18.Size = new System.Drawing.Size(585, 2);
+      this.groupBox18.TabIndex = 51;
+      this.groupBox18.TabStop = false;
+      // 
+      // groupBox19
+      // 
+      this.groupBox19.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox19.Location = new System.Drawing.Point(227, 14);
+      this.groupBox19.Name = "groupBox19";
+      this.groupBox19.Size = new System.Drawing.Size(358, 10);
+      this.groupBox19.TabIndex = 50;
+      this.groupBox19.TabStop = false;
+      // 
+      // groupBox20
+      // 
+      this.groupBox20.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+      this.groupBox20.Location = new System.Drawing.Point(227, 14);
+      this.groupBox20.Name = "groupBox20";
+      this.groupBox20.Size = new System.Drawing.Size(358, 10);
+      this.groupBox20.TabIndex = 50;
+      this.groupBox20.TabStop = false;
       // 
       // groupBox12
       // 
@@ -2062,7 +2230,7 @@
       // 
       this.label33.AutoSize = true;
       this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label33.Location = new System.Drawing.Point(243, 365);
+      this.label33.Location = new System.Drawing.Point(243, 308);
       this.label33.Name = "label33";
       this.label33.Size = new System.Drawing.Size(122, 13);
       this.label33.TabIndex = 82;
@@ -2071,7 +2239,7 @@
       // label34
       // 
       this.label34.AutoSize = true;
-      this.label34.Location = new System.Drawing.Point(516, 365);
+      this.label34.Location = new System.Drawing.Point(516, 308);
       this.label34.Name = "label34";
       this.label34.Size = new System.Drawing.Size(38, 13);
       this.label34.TabIndex = 81;
@@ -2080,7 +2248,7 @@
       // label35
       // 
       this.label35.AutoSize = true;
-      this.label35.Location = new System.Drawing.Point(426, 365);
+      this.label35.Location = new System.Drawing.Point(426, 308);
       this.label35.Name = "label35";
       this.label35.Size = new System.Drawing.Size(35, 13);
       this.label35.TabIndex = 80;
@@ -2088,7 +2256,7 @@
       // 
       // tbMinAlbumWidth
       // 
-      this.tbMinAlbumWidth.Location = new System.Drawing.Point(381, 362);
+      this.tbMinAlbumWidth.Location = new System.Drawing.Point(381, 305);
       this.tbMinAlbumWidth.Name = "tbMinAlbumWidth";
       this.tbMinAlbumWidth.Setting = null;
       this.tbMinAlbumWidth.Size = new System.Drawing.Size(41, 20);
@@ -2096,7 +2264,7 @@
       // 
       // tbMinAlbumMinHeight
       // 
-      this.tbMinAlbumMinHeight.Location = new System.Drawing.Point(467, 362);
+      this.tbMinAlbumMinHeight.Location = new System.Drawing.Point(467, 305);
       this.tbMinAlbumMinHeight.Name = "tbMinAlbumMinHeight";
       this.tbMinAlbumMinHeight.Setting = null;
       this.tbMinAlbumMinHeight.Size = new System.Drawing.Size(41, 20);
@@ -2106,7 +2274,7 @@
       // 
       this.label32.AutoSize = true;
       this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label32.Location = new System.Drawing.Point(72, 429);
+      this.label32.Location = new System.Drawing.Point(68, 503);
       this.label32.Name = "label32";
       this.label32.Size = new System.Drawing.Size(91, 13);
       this.label32.TabIndex = 77;
@@ -2116,7 +2284,7 @@
       // 
       this.label31.AutoSize = true;
       this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label31.Location = new System.Drawing.Point(60, 84);
+      this.label31.Location = new System.Drawing.Point(60, 37);
       this.label31.Name = "label31";
       this.label31.Size = new System.Drawing.Size(99, 13);
       this.label31.TabIndex = 76;
@@ -2126,7 +2294,7 @@
       // 
       this.cbAlbumFromTrackData.AutoSize = true;
       this.cbAlbumFromTrackData.IgnoreSettingName = true;
-      this.cbAlbumFromTrackData.Location = new System.Drawing.Point(175, 84);
+      this.cbAlbumFromTrackData.Location = new System.Drawing.Point(175, 37);
       this.cbAlbumFromTrackData.Name = "cbAlbumFromTrackData";
       this.cbAlbumFromTrackData.Setting = null;
       this.cbAlbumFromTrackData.Size = new System.Drawing.Size(265, 17);
@@ -2138,7 +2306,7 @@
       // label30
       // 
       this.label30.AutoSize = true;
-      this.label30.Location = new System.Drawing.Point(176, 249);
+      this.label30.Location = new System.Drawing.Point(176, 202);
       this.label30.Name = "label30";
       this.label30.Size = new System.Drawing.Size(99, 13);
       this.label30.TabIndex = 74;
@@ -2148,7 +2316,7 @@
       // 
       this.cbPreferThumbnail.AutoSize = true;
       this.cbPreferThumbnail.IgnoreSettingName = true;
-      this.cbPreferThumbnail.Location = new System.Drawing.Point(175, 224);
+      this.cbPreferThumbnail.Location = new System.Drawing.Point(175, 177);
       this.cbPreferThumbnail.Name = "cbPreferThumbnail";
       this.cbPreferThumbnail.Setting = null;
       this.cbPreferThumbnail.Size = new System.Drawing.Size(287, 17);
@@ -2159,7 +2327,7 @@
       // 
       // tbVideoPreviewCols
       // 
-      this.tbVideoPreviewCols.Location = new System.Drawing.Point(416, 246);
+      this.tbVideoPreviewCols.Location = new System.Drawing.Point(416, 199);
       this.tbVideoPreviewCols.Name = "tbVideoPreviewCols";
       this.tbVideoPreviewCols.Setting = null;
       this.tbVideoPreviewCols.Size = new System.Drawing.Size(25, 20);
@@ -2167,7 +2335,7 @@
       // 
       // tbVideoPreviewRows
       // 
-      this.tbVideoPreviewRows.Location = new System.Drawing.Point(325, 246);
+      this.tbVideoPreviewRows.Location = new System.Drawing.Point(325, 199);
       this.tbVideoPreviewRows.Name = "tbVideoPreviewRows";
       this.tbVideoPreviewRows.Setting = null;
       this.tbVideoPreviewRows.Size = new System.Drawing.Size(25, 20);
@@ -2176,7 +2344,7 @@
       // label29
       // 
       this.label29.AutoSize = true;
-      this.label29.Location = new System.Drawing.Point(285, 249);
+      this.label29.Location = new System.Drawing.Point(285, 202);
       this.label29.Name = "label29";
       this.label29.Size = new System.Drawing.Size(34, 13);
       this.label29.TabIndex = 70;
@@ -2185,7 +2353,7 @@
       // label28
       // 
       this.label28.AutoSize = true;
-      this.label28.Location = new System.Drawing.Point(362, 249);
+      this.label28.Location = new System.Drawing.Point(362, 202);
       this.label28.Name = "label28";
       this.label28.Size = new System.Drawing.Size(47, 13);
       this.label28.TabIndex = 68;
@@ -2195,7 +2363,7 @@
       // 
       this.label27.AutoSize = true;
       this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label27.Location = new System.Drawing.Point(54, 221);
+      this.label27.Location = new System.Drawing.Point(54, 174);
       this.label27.Name = "label27";
       this.label27.Size = new System.Drawing.Size(105, 13);
       this.label27.TabIndex = 67;
@@ -2205,7 +2373,7 @@
       // 
       this.label26.AutoSize = true;
       this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label26.Location = new System.Drawing.Point(71, 173);
+      this.label26.Location = new System.Drawing.Point(71, 126);
       this.label26.Name = "label26";
       this.label26.Size = new System.Drawing.Size(88, 13);
       this.label26.TabIndex = 65;
@@ -2214,7 +2382,7 @@
       // groupBox7
       // 
       this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox7.Location = new System.Drawing.Point(12, 413);
+      this.groupBox7.Location = new System.Drawing.Point(12, 497);
       this.groupBox7.Name = "groupBox7";
       this.groupBox7.Size = new System.Drawing.Size(585, 2);
       this.groupBox7.TabIndex = 50;
@@ -2224,7 +2392,7 @@
       // 
       this.label14.AutoSize = true;
       this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label14.Location = new System.Drawing.Point(243, 393);
+      this.label14.Location = new System.Drawing.Point(243, 335);
       this.label14.Name = "label14";
       this.label14.Size = new System.Drawing.Size(121, 13);
       this.label14.TabIndex = 63;
@@ -2232,7 +2400,7 @@
       // 
       // tbMinArtWidth
       // 
-      this.tbMinArtWidth.Location = new System.Drawing.Point(381, 334);
+      this.tbMinArtWidth.Location = new System.Drawing.Point(381, 280);
       this.tbMinArtWidth.Name = "tbMinArtWidth";
       this.tbMinArtWidth.Setting = null;
       this.tbMinArtWidth.Size = new System.Drawing.Size(41, 20);
@@ -2243,7 +2411,7 @@
       this.groupBox6.Controls.Add(this.groupBox9);
       this.groupBox6.Controls.Add(this.groupBox8);
       this.groupBox6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox6.Location = new System.Drawing.Point(12, 279);
+      this.groupBox6.Location = new System.Drawing.Point(12, 232);
       this.groupBox6.Name = "groupBox6";
       this.groupBox6.Size = new System.Drawing.Size(585, 2);
       this.groupBox6.TabIndex = 49;
@@ -2279,7 +2447,7 @@
       // 
       // tbMinArtHeight
       // 
-      this.tbMinArtHeight.Location = new System.Drawing.Point(467, 334);
+      this.tbMinArtHeight.Location = new System.Drawing.Point(467, 280);
       this.tbMinArtHeight.Name = "tbMinArtHeight";
       this.tbMinArtHeight.Setting = null;
       this.tbMinArtHeight.Size = new System.Drawing.Size(41, 20);
@@ -2288,7 +2456,7 @@
       // label15
       // 
       this.label15.AutoSize = true;
-      this.label15.Location = new System.Drawing.Point(516, 393);
+      this.label15.Location = new System.Drawing.Point(516, 335);
       this.label15.Name = "label15";
       this.label15.Size = new System.Drawing.Size(38, 13);
       this.label15.TabIndex = 62;
@@ -2297,7 +2465,7 @@
       // label8
       // 
       this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(426, 337);
+      this.label8.Location = new System.Drawing.Point(426, 283);
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(35, 13);
       this.label8.TabIndex = 3;
@@ -2307,7 +2475,7 @@
       // 
       this.label3.AutoSize = true;
       this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label3.Location = new System.Drawing.Point(21, 57);
+      this.label3.Location = new System.Drawing.Point(21, 10);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(138, 13);
       this.label3.TabIndex = 47;
@@ -2317,7 +2485,7 @@
       // 
       this.cbSplitDVD.AutoSize = true;
       this.cbSplitDVD.IgnoreSettingName = true;
-      this.cbSplitDVD.Location = new System.Drawing.Point(179, 428);
+      this.cbSplitDVD.Location = new System.Drawing.Point(172, 502);
       this.cbSplitDVD.Name = "cbSplitDVD";
       this.cbSplitDVD.Setting = null;
       this.cbSplitDVD.Size = new System.Drawing.Size(127, 17);
@@ -2328,7 +2496,7 @@
       // label16
       // 
       this.label16.AutoSize = true;
-      this.label16.Location = new System.Drawing.Point(426, 393);
+      this.label16.Location = new System.Drawing.Point(426, 335);
       this.label16.Name = "label16";
       this.label16.Size = new System.Drawing.Size(35, 13);
       this.label16.TabIndex = 61;
@@ -2338,7 +2506,7 @@
       // 
       this.cbAutoApprove.AutoSize = true;
       this.cbAutoApprove.IgnoreSettingName = true;
-      this.cbAutoApprove.Location = new System.Drawing.Point(175, 57);
+      this.cbAutoApprove.Location = new System.Drawing.Point(175, 10);
       this.cbAutoApprove.Name = "cbAutoApprove";
       this.cbAutoApprove.Setting = null;
       this.cbAutoApprove.Size = new System.Drawing.Size(222, 17);
@@ -2351,7 +2519,7 @@
       // label12
       // 
       this.label12.AutoSize = true;
-      this.label12.Location = new System.Drawing.Point(516, 337);
+      this.label12.Location = new System.Drawing.Point(516, 283);
       this.label12.Name = "label12";
       this.label12.Size = new System.Drawing.Size(38, 13);
       this.label12.TabIndex = 4;
@@ -2361,7 +2529,7 @@
       // 
       this.cbUseMDAlbum.AutoSize = true;
       this.cbUseMDAlbum.IgnoreSettingName = true;
-      this.cbUseMDAlbum.Location = new System.Drawing.Point(175, 107);
+      this.cbUseMDAlbum.Location = new System.Drawing.Point(175, 60);
       this.cbUseMDAlbum.Name = "cbUseMDAlbum";
       this.cbUseMDAlbum.Setting = null;
       this.cbUseMDAlbum.Size = new System.Drawing.Size(309, 17);
@@ -2374,7 +2542,7 @@
       // 
       this.label13.AutoSize = true;
       this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label13.Location = new System.Drawing.Point(250, 337);
+      this.label13.Location = new System.Drawing.Point(250, 283);
       this.label13.Name = "label13";
       this.label13.Size = new System.Drawing.Size(114, 13);
       this.label13.TabIndex = 57;
@@ -2382,7 +2550,7 @@
       // 
       // tbTrackArtWidth
       // 
-      this.tbTrackArtWidth.Location = new System.Drawing.Point(381, 390);
+      this.tbTrackArtWidth.Location = new System.Drawing.Point(381, 332);
       this.tbTrackArtWidth.Name = "tbTrackArtWidth";
       this.tbTrackArtWidth.Setting = null;
       this.tbTrackArtWidth.Size = new System.Drawing.Size(41, 20);
@@ -2390,23 +2558,17 @@
       // 
       // tbTrackArtHeight
       // 
-      this.tbTrackArtHeight.Location = new System.Drawing.Point(467, 390);
+      this.tbTrackArtHeight.Location = new System.Drawing.Point(467, 332);
       this.tbTrackArtHeight.Name = "tbTrackArtHeight";
       this.tbTrackArtHeight.Setting = null;
       this.tbTrackArtHeight.Size = new System.Drawing.Size(41, 20);
       this.tbTrackArtHeight.TabIndex = 59;
       // 
-      // autoDataSourcesPanel1
-      // 
-      this.autoDataSourcesPanel1.AutoCommit = true;
-      this.autoDataSourcesPanel1.Location = new System.Drawing.Point(172, 169);
-      this.autoDataSourcesPanel1.Name = "autoDataSourcesPanel1";
-      this.autoDataSourcesPanel1.Size = new System.Drawing.Size(433, 44);
-      this.autoDataSourcesPanel1.TabIndex = 64;
-      this.toolTip1.SetToolTip(this.autoDataSourcesPanel1, resources.GetString("autoDataSourcesPanel1.ToolTip"));
-      // 
       // tbSettingsGUI
       // 
+      this.tbSettingsGUI.Controls.Add(this.label4);
+      this.tbSettingsGUI.Controls.Add(this.tbHomeScreen);
+      this.tbSettingsGUI.Controls.Add(this.label5);
       this.tbSettingsGUI.Controls.Add(this.cbClearPlaylistOnAdd);
       this.tbSettingsGUI.Controls.Add(this.cbGeneratedAutoShufflePlaylist);
       this.tbSettingsGUI.Controls.Add(this.cbAutoShufflePlaylist);
@@ -2427,11 +2589,40 @@
       this.tbSettingsGUI.Text = "GUI Settings";
       this.tbSettingsGUI.UseVisualStyleBackColor = true;
       // 
+      // label4
+      // 
+      this.label4.AutoSize = true;
+      this.label4.Location = new System.Drawing.Point(168, 17);
+      this.label4.Name = "label4";
+      this.label4.Size = new System.Drawing.Size(146, 13);
+      this.label4.TabIndex = 113;
+      this.label4.Text = "Plug-in name in home screen:";
+      // 
+      // tbHomeScreen
+      // 
+      this.tbHomeScreen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+      this.tbHomeScreen.Location = new System.Drawing.Point(320, 14);
+      this.tbHomeScreen.Name = "tbHomeScreen";
+      this.tbHomeScreen.Setting = null;
+      this.tbHomeScreen.Size = new System.Drawing.Size(173, 20);
+      this.tbHomeScreen.TabIndex = 112;
+      // 
+      // label5
+      // 
+      this.label5.AutoSize = true;
+      this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label5.Location = new System.Drawing.Point(59, 18);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(96, 13);
+      this.label5.TabIndex = 111;
+      this.label5.Text = "Plugin Settings:";
+      // 
       // cbClearPlaylistOnAdd
       // 
       this.cbClearPlaylistOnAdd.AutoSize = true;
       this.cbClearPlaylistOnAdd.IgnoreSettingName = true;
-      this.cbClearPlaylistOnAdd.Location = new System.Drawing.Point(171, 174);
+      this.cbClearPlaylistOnAdd.Location = new System.Drawing.Point(171, 202);
       this.cbClearPlaylistOnAdd.Name = "cbClearPlaylistOnAdd";
       this.cbClearPlaylistOnAdd.Setting = null;
       this.cbClearPlaylistOnAdd.Size = new System.Drawing.Size(259, 17);
@@ -2444,7 +2635,7 @@
       // 
       this.cbGeneratedAutoShufflePlaylist.AutoSize = true;
       this.cbGeneratedAutoShufflePlaylist.IgnoreSettingName = true;
-      this.cbGeneratedAutoShufflePlaylist.Location = new System.Drawing.Point(171, 151);
+      this.cbGeneratedAutoShufflePlaylist.Location = new System.Drawing.Point(171, 179);
       this.cbGeneratedAutoShufflePlaylist.Name = "cbGeneratedAutoShufflePlaylist";
       this.cbGeneratedAutoShufflePlaylist.Setting = null;
       this.cbGeneratedAutoShufflePlaylist.Size = new System.Drawing.Size(186, 17);
@@ -2457,7 +2648,7 @@
       // 
       this.cbAutoShufflePlaylist.AutoSize = true;
       this.cbAutoShufflePlaylist.IgnoreSettingName = true;
-      this.cbAutoShufflePlaylist.Location = new System.Drawing.Point(171, 128);
+      this.cbAutoShufflePlaylist.Location = new System.Drawing.Point(171, 156);
       this.cbAutoShufflePlaylist.Name = "cbAutoShufflePlaylist";
       this.cbAutoShufflePlaylist.Setting = null;
       this.cbAutoShufflePlaylist.Size = new System.Drawing.Size(136, 17);
@@ -2470,7 +2661,7 @@
       // 
       this.label42.AutoSize = true;
       this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label42.Location = new System.Drawing.Point(54, 129);
+      this.label42.Location = new System.Drawing.Point(54, 157);
       this.label42.Name = "label42";
       this.label42.Size = new System.Drawing.Size(101, 13);
       this.label42.TabIndex = 107;
@@ -2480,7 +2671,7 @@
       // 
       this.groupBox16.Controls.Add(this.groupBox17);
       this.groupBox16.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox16.Location = new System.Drawing.Point(13, 113);
+      this.groupBox16.Location = new System.Drawing.Point(13, 141);
       this.groupBox16.Name = "groupBox16";
       this.groupBox16.Size = new System.Drawing.Size(585, 2);
       this.groupBox16.TabIndex = 106;
@@ -2499,7 +2690,7 @@
       // 
       this.cbDisplayRawTrackText.AutoSize = true;
       this.cbDisplayRawTrackText.IgnoreSettingName = true;
-      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(171, 76);
+      this.cbDisplayRawTrackText.Location = new System.Drawing.Point(171, 104);
       this.cbDisplayRawTrackText.Name = "cbDisplayRawTrackText";
       this.cbDisplayRawTrackText.Setting = null;
       this.cbDisplayRawTrackText.Size = new System.Drawing.Size(215, 17);
@@ -2512,7 +2703,7 @@
       // 
       this.cbAutoFullscreen.AutoSize = true;
       this.cbAutoFullscreen.IgnoreSettingName = true;
-      this.cbAutoFullscreen.Location = new System.Drawing.Point(171, 53);
+      this.cbAutoFullscreen.Location = new System.Drawing.Point(171, 81);
       this.cbAutoFullscreen.Name = "cbAutoFullscreen";
       this.cbAutoFullscreen.Setting = null;
       this.cbAutoFullscreen.Size = new System.Drawing.Size(207, 17);
@@ -2524,7 +2715,7 @@
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(423, 32);
+      this.label2.Location = new System.Drawing.Point(423, 60);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(37, 13);
       this.label2.TabIndex = 103;
@@ -2533,7 +2724,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(168, 32);
+      this.label1.Location = new System.Drawing.Point(168, 60);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(214, 13);
       this.label1.TabIndex = 102;
@@ -2545,7 +2736,7 @@
       // 
       this.tbLatestVideos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.tbLatestVideos.Location = new System.Drawing.Point(392, 29);
+      this.tbLatestVideos.Location = new System.Drawing.Point(392, 57);
       this.tbLatestVideos.MaxLength = 2;
       this.tbLatestVideos.Name = "tbLatestVideos";
       this.tbLatestVideos.Setting = null;
@@ -2557,7 +2748,7 @@
       // 
       this.label6.AutoSize = true;
       this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label6.Location = new System.Drawing.Point(72, 32);
+      this.label6.Location = new System.Drawing.Point(72, 60);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(83, 13);
       this.label6.TabIndex = 100;
@@ -2567,7 +2758,7 @@
       // 
       this.groupBox5.Controls.Add(this.groupBox15);
       this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-      this.groupBox5.Location = new System.Drawing.Point(8, 20);
+      this.groupBox5.Location = new System.Drawing.Point(8, 48);
       this.groupBox5.Name = "groupBox5";
       this.groupBox5.Size = new System.Drawing.Size(585, 2);
       this.groupBox5.TabIndex = 99;
@@ -2975,6 +3166,68 @@
       this.toolTip1.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
       this.toolTip1.ToolTipTitle = "mvCentral Help";
       // 
+      // fileNameDataGridViewTextBoxColumn
+      // 
+      this.fileNameDataGridViewTextBoxColumn.DataPropertyName = "FileName";
+      this.fileNameDataGridViewTextBoxColumn.HeaderText = "FileName";
+      this.fileNameDataGridViewTextBoxColumn.Name = "fileNameDataGridViewTextBoxColumn";
+      this.fileNameDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // artistDataGridViewTextBoxColumn
+      // 
+      this.artistDataGridViewTextBoxColumn.DataPropertyName = "Artist";
+      this.artistDataGridViewTextBoxColumn.HeaderText = "Artist";
+      this.artistDataGridViewTextBoxColumn.Name = "artistDataGridViewTextBoxColumn";
+      this.artistDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // albumDataGridViewTextBoxColumn
+      // 
+      this.albumDataGridViewTextBoxColumn.DataPropertyName = "Album";
+      this.albumDataGridViewTextBoxColumn.HeaderText = "Album";
+      this.albumDataGridViewTextBoxColumn.Name = "albumDataGridViewTextBoxColumn";
+      this.albumDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // trackDataGridViewTextBoxColumn
+      // 
+      this.trackDataGridViewTextBoxColumn.DataPropertyName = "Track";
+      this.trackDataGridViewTextBoxColumn.HeaderText = "Track";
+      this.trackDataGridViewTextBoxColumn.Name = "trackDataGridViewTextBoxColumn";
+      this.trackDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // extDataGridViewTextBoxColumn
+      // 
+      this.extDataGridViewTextBoxColumn.DataPropertyName = "Ext";
+      this.extDataGridViewTextBoxColumn.HeaderText = "Ext";
+      this.extDataGridViewTextBoxColumn.Name = "extDataGridViewTextBoxColumn";
+      this.extDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // volumeLabelDataGridViewTextBoxColumn
+      // 
+      this.volumeLabelDataGridViewTextBoxColumn.DataPropertyName = "VolumeLabel";
+      this.volumeLabelDataGridViewTextBoxColumn.HeaderText = "VolumeLabel";
+      this.volumeLabelDataGridViewTextBoxColumn.Name = "volumeLabelDataGridViewTextBoxColumn";
+      this.volumeLabelDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // pathDataGridViewTextBoxColumn
+      // 
+      this.pathDataGridViewTextBoxColumn.DataPropertyName = "Path";
+      this.pathDataGridViewTextBoxColumn.HeaderText = "Path";
+      this.pathDataGridViewTextBoxColumn.Name = "pathDataGridViewTextBoxColumn";
+      this.pathDataGridViewTextBoxColumn.ReadOnly = true;
+      // 
+      // ParserBindingSource
+      // 
+      this.ParserBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.parseResult);
+      // 
+      // autoDataSourcesPanel1
+      // 
+      this.autoDataSourcesPanel1.AutoCommit = true;
+      this.autoDataSourcesPanel1.Location = new System.Drawing.Point(172, 122);
+      this.autoDataSourcesPanel1.Name = "autoDataSourcesPanel1";
+      this.autoDataSourcesPanel1.Size = new System.Drawing.Size(433, 44);
+      this.autoDataSourcesPanel1.TabIndex = 64;
+      this.toolTip1.SetToolTip(this.autoDataSourcesPanel1, resources.GetString("autoDataSourcesPanel1.ToolTip"));
+      // 
       // unapprovedMatchesBindingSource
       // 
       this.unapprovedMatchesBindingSource.DataSource = typeof(mvCentral.LocalMediaManagement.MusicVideoMatch);
@@ -3026,7 +3279,6 @@
       this.tcImport.ResumeLayout(false);
       this.tpImportPathParser.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.dgvParser)).EndInit();
-      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       this.pathsGroupBox.ResumeLayout(false);
       this.pathsGroupBox.PerformLayout();
       this.toolStrip.ResumeLayout(false);
@@ -3054,7 +3306,13 @@
       ((System.ComponentModel.ISupportInitialize)(this.dgvExpressions)).EndInit();
       this.tbSettingsImporter.ResumeLayout(false);
       this.tbSettingsImporter.PerformLayout();
+      this.groupBox21.ResumeLayout(false);
+      this.groupBox22.ResumeLayout(false);
+      this.groupBox23.ResumeLayout(false);
+      this.groupBox26.ResumeLayout(false);
       this.groupBox11.ResumeLayout(false);
+      this.groupBox4.ResumeLayout(false);
+      this.groupBox18.ResumeLayout(false);
       this.groupBox12.ResumeLayout(false);
       this.groupBox6.ResumeLayout(false);
       this.groupBox9.ResumeLayout(false);
@@ -3068,6 +3326,7 @@
       this.groupBox1.PerformLayout();
       this.gbProgress.ResumeLayout(false);
       this.gbProgress.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.ParserBindingSource)).EndInit();
       ((System.ComponentModel.ISupportInitialize)(this.unapprovedMatchesBindingSource)).EndInit();
       this.ResumeLayout(false);
 
@@ -3296,10 +3555,6 @@
         private System.Windows.Forms.GroupBox groupBox14;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label4;
-        private Cornerstone.GUI.Controls.SettingsTextBox tbHomeScreen;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button advancedSettingsButton;
         private System.Windows.Forms.Label label41;
         private Cornerstone.GUI.Controls.SettingCheckBox cbIgnoreFolderStructure;
@@ -3321,5 +3576,30 @@
         private Cornerstone.GUI.Controls.SettingCheckBox cbGeneratedAutoShufflePlaylist;
         private Cornerstone.GUI.Controls.SettingCheckBox cbClearPlaylistOnAdd;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btSelectLocalTrackArtFolder;
+        private System.Windows.Forms.Button btSelectLocalAlbumArtFolder;
+        private System.Windows.Forms.Button btSelectLocalArtistArtFolder;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbLocalTrackArtSearch;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbLocalAlbumArtSearch;
+        private Cornerstone.GUI.Controls.SettingCheckBox cbLocalArtistArtSearch;
+        private System.Windows.Forms.GroupBox groupBox21;
+        private System.Windows.Forms.GroupBox groupBox22;
+        private System.Windows.Forms.GroupBox groupBox23;
+        private System.Windows.Forms.GroupBox groupBox24;
+        private System.Windows.Forms.GroupBox groupBox25;
+        private System.Windows.Forms.GroupBox groupBox26;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.GroupBox groupBox28;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbLocalTrackArtFolder;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbLocalAlbumArtFolder;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbLocalArtistArtFolder;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox18;
+        private System.Windows.Forms.GroupBox groupBox19;
+        private System.Windows.Forms.GroupBox groupBox20;
+        private System.Windows.Forms.Label label4;
+        private Cornerstone.GUI.Controls.SettingsTextBox tbHomeScreen;
+        private System.Windows.Forms.Label label5;
     }
 }

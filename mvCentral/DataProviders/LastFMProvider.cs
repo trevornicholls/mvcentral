@@ -302,42 +302,44 @@ namespace mvCentral.DataProviders
         return false;
 
       // if we already have a backdrop move on for now
-      if (mvArtistObject.ArtFullPath.Trim().Length > 0)
-        return true;
+      //if (mvArtistObject.ArtFullPath.Trim().Length > 0)
+      //  return true;
 
-      if (mvArtistObject.ArtFullPath.Trim().Length == 0)
+      //if (mvArtistObject.ArtFullPath.Trim().Length == 0)
+      //{
+      // Request artist images
+      GetArtistImages(mvArtistObject);
+      // if we have some - process
+      if (mvArtistObject.ArtUrls != null)
       {
-        // Request artist images
-        GetArtistImages(mvArtistObject);
-        // if we have some - process
-        if (mvArtistObject.ArtUrls != null)
-        {
-          // grab artistart loading settings
-          int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
+        // grab artistart loading settings
+        int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
 
-          int artistartAdded = 0;
-          lock (mvArtistObject)
+        int artistartAdded = 0;
+        lock (mvArtistObject)
+        {
+          try
           {
-            try
+            foreach (string artistImage in mvArtistObject.ArtUrls)
             {
-              foreach (string artistImage in mvArtistObject.ArtUrls)
-              {
-                if (mvArtistObject.AlternateArts.Count >= maxArtistArts)
-                  break;
-                if (mvArtistObject.AddArtFromURL(artistImage) == ImageLoadResults.SUCCESS)
-                  artistartAdded++;
-              }
+              if (mvArtistObject.AlternateArts.Count >= maxArtistArts)
+                break;
+              if (mvArtistObject.AddArtFromURL(artistImage) == ImageLoadResults.SUCCESS)
+                artistartAdded++;
             }
-            catch { }
           }
-          if (artistartAdded > 0)
-            return true;
+          catch { }
         }
+        if (artistartAdded > 0)
+          return true;
       }
-      // if we get here we didn't manage to find a proper image for the artist
-      // so return false
       return false;
     }
+    //  }
+    //  // if we get here we didn't manage to find a proper image for the artist
+    //  // so return false
+    //  return false;
+    //}
     /// <summary>
     /// Lets see if last.fm has some artwork for us
     /// </summary>
@@ -353,11 +355,12 @@ namespace mvCentral.DataProviders
         return false;
 
       // if we already have a backdrop move on for now
-      if (mvTrackObject.ArtFullPath.Trim().Length > 0)
-        return true;
+      //if (mvTrackObject.ArtFullPath.Trim().Length > 0)
+      //  return true;
+
 
       // If video thumbnails prefered and this is a video file grab image(s) and return, this assumes success which is not good
-      if (mvCentralCore.Settings.PreferThumbnail && mvTrackObject.LocalMedia[0].IsVideo)
+      if (mvCentralCore.Settings.PreferThumbnail)
       {
         success = generateVideoThumbnail(mvTrackObject);
       }
@@ -379,7 +382,10 @@ namespace mvCentral.DataProviders
           else
             return false;
         }
+        else if (trackImageList == null)
+          return false;
       }
+
       // So we have some imeages from last.fm...let grab them
       if (trackImageList.Count > 0)
       {
@@ -423,6 +429,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     bool generateVideoThumbnail(DBTrackInfo mv)
     {
+      if (mvCentralCore.Settings.DisableMTN)
+        return false;
+
       string outputFilename = Path.Combine(Path.GetTempPath(), mv.Track + ".jpg");
 
       if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))

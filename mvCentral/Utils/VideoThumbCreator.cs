@@ -116,8 +116,11 @@ namespace mvCentral.Utils
         string outputFilename = Path.Combine(TempPath, Path.GetFileName(aVideoPath));
         string OutputThumb = string.Format("{0}_s{1}", Path.ChangeExtension(outputFilename, null), ".jpg");
         string ShareThumb = OutputThumb.Replace("_s.jpg", ".jpg");
-
+        
+        logger.Debug("About to start MTN process with {0}", ExtractorArgs);
         Process  processStatus = MediaPortal.Util.Utils.StartProcess(ExtractorPath, ExtractorArgs, true, true);
+        logger.Debug("Finished MTN call with {0)", ExtractorArgs);
+
 
         // give the system a few IO cycles
         Thread.Sleep(500);
@@ -146,7 +149,6 @@ namespace mvCentral.Utils
         }
 
         Thread.Sleep(30);
-
 
       }
       catch (Exception ex)

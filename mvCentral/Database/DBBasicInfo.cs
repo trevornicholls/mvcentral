@@ -338,6 +338,7 @@ namespace mvCentral.Database
       string FilePath = ArtFullPath;
       string ThumbFilePath = ArtThumbFullPath;
 
+
       // delete thumbnail
       if (ThumbFilePath.Trim().Length > 0)
       {
@@ -354,6 +355,14 @@ namespace mvCentral.Database
               throw e;
           }
         }
+      }
+
+      if (ArtFullPath.Contains(mvCentralCore.Settings.CustomArtistArtFolder) || ArtFullPath.Contains(mvCentralCore.Settings.CustomAlbumArtFolder) || ArtFullPath.Contains(mvCentralCore.Settings.CustomTrackArtFolder))
+      {
+        ArtFullPath = "";
+        AlternateArts.Remove(FilePath);
+        commitNeeded = true;
+        return;
       }
 
       // delete trackimage

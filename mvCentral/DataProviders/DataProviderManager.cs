@@ -618,7 +618,7 @@ namespace mvCentral.DataProviders
           if (success)
           {
             mv.Commit();
-            return true;
+            //return true;
           }
         }
       }

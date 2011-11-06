@@ -448,39 +448,74 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>182</Revision>
+      <Revision>184</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
-Fixed display issue in StreamedMP skin file
-Set OSD properties, std ones : #Play.Current.Title,#Play.Current.Thumb and
-#Play.Current.Plot for album info
-Also set some MvC specific properties and a property to indicate MvC is playing.
-#Play.Current.mvArtist
-#Play.Current.mvAlbum
-Play.Current.mvVideo
-#Play.Current.mvTrack.Description
-#mvCentral.isPlaying set to true or false
-Check if Genres view is select but there are no actual genres defined, in this
-case revert to artist view.
-This should also address issues 25
-Split the settings into importer and GUI
-Added playlist shuffle options to GUI settings
-use same routine to check for artists matching genre
-now alpha sort genre in in smartplaylist genre dialog
-ensure one playlist is stopped before queuing a new one
-Fix issue with property settings not being set correctly
-Remove the part of last commit as caused playlist type to be cleared after first song.
-Added new option - Clear existing Playlist when queueing/adding new playlist.
-Started the tooltips
-Fixed bug with leaving and re-entering plugin with unmatched items still
-present.
-Fix issue 25 - no default view on inital startup
-Further fix to Issue 25 - Now check DB is valid and if not reset to artist and
-store
-Loading display in config now displays counts of artists, albums and videos
-processed.
-Update Language file
+    <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
+
+Fixed display issue in StreamedMP skin file
+
+Set OSD properties, std ones : #Play.Current.Title,#Play.Current.Thumb and
+
+#Play.Current.Plot for album info
+
+Also set some MvC specific properties and a property to indicate MvC is playing.
+
+#Play.Current.mvArtist
+
+#Play.Current.mvAlbum
+
+Play.Current.mvVideo
+
+#Play.Current.mvTrack.Description
+
+#mvCentral.isPlaying set to true or false
+
+Check if Genres view is select but there are no actual genres defined, in this
+
+case revert to artist view.
+
+This should also address issues 25
+
+Split the settings into importer and GUI
+
+Added playlist shuffle options to GUI settings
+
+use same routine to check for artists matching genre
+
+now alpha sort genre in in smartplaylist genre dialog
+
+ensure one playlist is stopped before queuing a new one
+
+Fix issue with property settings not being set correctly
+
+Remove the part of last commit as caused playlist type to be cleared after first song.
+
+Added new option - Clear existing Playlist when queueing/adding new playlist.
+
+Started the tooltips
+
+Fixed bug with leaving and re-entering plugin with unmatched items still
+
+present.
+
+Fix issue 25 - no default view on inital startup
+
+Further fix to Issue 25 - Now check DB is valid and if not reset to artist and
+
+store
+
+Loading display in config now displays counts of artists, albums and videos
+
+processed.
+
+Update Language file
+
+Added custom WebGrabber class as need to handle return errors from last.fm
+last.fm errors are now decoded and displayed in the log.
+Now ensure at least 1 Sec between API calls to last.fm to meet requirements.
+Some initial work on DVD import (rips)
+
 </VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
     <OnlineLocation />
