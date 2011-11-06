@@ -65,7 +65,6 @@ namespace mvCentral.Playlist
     private String m_sFormatEpisodeTitle = String.Empty;
     private String m_sFormatEpisodeSubtitle = String.Empty;
     private String m_sFormatEpisodeMain = String.Empty;
-    private bool preventDialogOnLoad = false;
 
     DBTrackInfo prevSelectedmvTrack = null;
 
