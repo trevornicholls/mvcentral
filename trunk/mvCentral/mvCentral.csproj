@@ -148,6 +148,18 @@
     <Compile Include="Config\Popups\ArtURLPopup.designer.cs">
       <DependentUpon>ArtURLPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Config\Popups\ArtworkImportOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\ArtworkImportOptions.Designer.cs">
+      <DependentUpon>ArtworkImportOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\CustomArtworkFolders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\CustomArtworkFolders.Designer.cs">
+      <DependentUpon>CustomArtworkFolders.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config\Popups\DetailsPopup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -309,6 +321,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\ArtURLPopup.resx">
       <DependentUpon>ArtURLPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\ArtworkImportOptions.resx">
+      <DependentUpon>ArtworkImportOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\CustomArtworkFolders.resx">
+      <DependentUpon>CustomArtworkFolders.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\DetailsPopup.resx">
       <DependentUpon>DetailsPopup.cs</DependentUpon>

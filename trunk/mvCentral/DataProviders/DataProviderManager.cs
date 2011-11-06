@@ -515,7 +515,11 @@ namespace mvCentral.DataProviders
     #endregion
 
     #region Data Loading Methods
-
+    /// <summary>
+    /// Based on the calculated signature retrive data for providers
+    /// </summary>
+    /// <param name="mvSignature"></param>
+    /// <returns></returns>
     public List<DBTrackInfo> Get(MusicVideoSignature mvSignature)
     {
       List<DBSourceInfo> sources;
@@ -548,20 +552,23 @@ namespace mvCentral.DataProviders
 
       return results;
     }
-
-    public void Update(DBTrackInfo mv)
+    /// <summary>
+    /// Update the track with the received data
+    /// </summary>
+    /// <param name="mvTrackInfo"></param>
+    public void Update(DBTrackInfo mvTrackInfo)
     {
       List<DBSourceInfo> sources;
       lock (detailSources) sources = new List<DBSourceInfo>(detailSources);
 
       // unlock the mv fields for the first iteration
-      mv.ProtectExistingValuesFromCopy(false);
+      mvTrackInfo.ProtectExistingValuesFromCopy(false);
 
       // first update from the primary source of this data
       int providerCount = 0;
-      if (mv.PrimarySource != null && mv.PrimarySource.Provider != null)
+      if (mvTrackInfo.PrimarySource != null && mvTrackInfo.PrimarySource.Provider != null)
       {
-        UpdateResults success = mv.PrimarySource.Provider.Update(mv);
+        UpdateResults success = mvTrackInfo.PrimarySource.Provider.Update(mvTrackInfo);
         //logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, mv.PrimarySource.Provider.Name, mv.PrimarySource.Provider.Version, success.ToString());
         providerCount++;
       }
@@ -571,14 +578,14 @@ namespace mvCentral.DataProviders
         if (currSource.IsDisabled(DataType.DETAIL))
           continue;
 
-        if (currSource == mv.PrimarySource)
+        if (currSource == mvTrackInfo.PrimarySource)
           continue;
 
         providerCount++;
 
         if (providerCount <= mvCentralCore.Settings.DataProviderRequestLimit || mvCentralCore.Settings.DataProviderRequestLimit == 0)
         {
-          UpdateResults success = currSource.Provider.Update(mv);
+          UpdateResults success = currSource.Provider.Update(mvTrackInfo);
           //logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, currSource.Provider.Name, currSource.Provider.Version, success.ToString());
         }
         else
@@ -589,20 +596,24 @@ namespace mvCentral.DataProviders
 
         if (mvCentralCore.Settings.UseTranslator)
         {
-          mv.Translate();
+          mvTrackInfo.Translate();
         }
       }
     }
-
-    public bool GetArt(DBBasicInfo mv)
+    /// <summary>
+    /// Get artwork for suppiled object, Artist, Album or Track
+    /// </summary>
+    /// <param name="mvDBObject"></param>
+    /// <returns></returns>
+    public bool GetArt(DBBasicInfo mvDBObject)
     {
 
-      logger.Debug("In Method GetArt - object is : " + mv.GetType().ToString());
-
-      if (mv.GetType() == typeof(DBArtistInfo))
+      logger.Debug("In Method GetArt - object is : " + mvDBObject.GetType().ToString());
+      // Artist
+      if (mvDBObject.GetType() == typeof(DBArtistInfo))
       {
         // if we have already hit our limit for the number of artist arts to load, quit
-        if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
+        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -614,19 +625,19 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ARTIST))
             continue;
 
-          bool success = currSource.Provider.GetArtistArt((DBArtistInfo)mv);
+          bool success = currSource.Provider.GetArtistArt((DBArtistInfo)mvDBObject);
           if (success)
           {
-            mv.Commit();
+            mvDBObject.Commit();
             //return true;
           }
         }
       }
-
-      if (mv.GetType() == typeof(DBAlbumInfo))
+      // Album
+      if (mvDBObject.GetType() == typeof(DBAlbumInfo))
       {
         // if we have already hit our limit for the number of album arts to load, quit
-        if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
+        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -638,19 +649,19 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ALBUM))
             continue;
 
-          bool success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mv);
+          bool success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mvDBObject);
           if (success)
           {
-            mv.Commit();
+            mvDBObject.Commit();
             return true;
           }
         }
       }
-
-      if (mv.GetType() == typeof(DBTrackInfo))
+      // Track
+      if (mvDBObject.GetType() == typeof(DBTrackInfo))
       {
         // if we have already hit our limit for the number of Track arts to load, quit
-        if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -662,21 +673,25 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.TRACK))
             continue;
 
-          bool success = currSource.Provider.GetTrackArt((DBTrackInfo)mv);
+          bool success = currSource.Provider.GetTrackArt((DBTrackInfo)mvDBObject);
           if (success)
           {
-            mv.Commit();
+            mvDBObject.Commit();
             return true;
           }
         }
       }
       return false;
     }
-
-    public bool GetDetails(DBBasicInfo mv)
+    /// <summary>
+    /// Get the details for the suppkied object type, Artist, Album or Track
+    /// </summary>
+    /// <param name="mvDBObject"></param>
+    /// <returns></returns>
+    public bool GetDetails(DBBasicInfo mvDBObject)
     {
-
-      if (mv.GetType() == typeof(DBArtistInfo))
+      // Artist 
+      if (mvDBObject.GetType() == typeof(DBArtistInfo))
       {
         List<DBSourceInfo> sources;
         lock (artistSources) sources = new List<DBSourceInfo>(artistSources);
@@ -686,12 +701,12 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ARTIST))
             continue;
 
-          bool success = currSource.Provider.GetDetails((DBArtistInfo)mv);
+          bool success = currSource.Provider.GetDetails((DBArtistInfo)mvDBObject);
           if (success) return true;
         }
       }
-
-      if (mv.GetType() == typeof(DBAlbumInfo))
+      // Album
+      if (mvDBObject.GetType() == typeof(DBAlbumInfo))
       {
 
         List<DBSourceInfo> sources;
@@ -702,15 +717,15 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ALBUM))
             continue;
 
-          bool success = currSource.Provider.GetDetails((DBAlbumInfo)mv);
+          bool success = currSource.Provider.GetDetails((DBAlbumInfo)mvDBObject);
           if (success) return true;
         }
       }
-
-      if (mv.GetType() == typeof(DBTrackInfo))
+      // Track
+      if (mvDBObject.GetType() == typeof(DBTrackInfo))
       {
         // if we have already hit our limit for the number of Track arts to load, quit
-        if (mv.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -721,7 +736,7 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.TRACK))
             continue;
 
-          bool success = currSource.Provider.GetDetails((DBTrackInfo)mv);
+          bool success = currSource.Provider.GetDetails((DBTrackInfo)mvDBObject);
           if (success) return true;
         }
       }
