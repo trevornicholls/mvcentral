@@ -265,6 +265,7 @@ namespace mvCentral.GUI
     /// <returns></returns>
     public override bool OnMessage(GUIMessage message)
     {
+      
       switch (message.Message)
       {
         case GUIMessage.MessageType.GUI_MSG_PLAYLIST_CHANGED:
@@ -1114,7 +1115,6 @@ namespace mvCentral.GUI
     private void loadVideos(int ArtistID, mvSort sortOrder)
     {
       DBAlbumInfo db1 = null;
-      //previousView = currentView;
       videoSort = sortOrder;
 
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Videos + " | " + DBArtistInfo.Get(ArtistID));
