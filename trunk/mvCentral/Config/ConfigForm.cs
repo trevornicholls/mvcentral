@@ -1806,7 +1806,7 @@ namespace mvCentral
 
     private void labelForum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://forum.team-mediaportal.com/mediaportal-plugins-47/my-music-videos-v0-41-a-68337/");
+      Process.Start(@"http://forum.team-mediaportal.com/mediaportal-plugins-47/mvcentral-music-vidoes-plugin-beta-release-101640/");
     }
 
     #endregion
@@ -3062,6 +3062,8 @@ namespace mvCentral
 
     #endregion
 
+    #region Private Methods
+
     private void cbIgnoreFolderStructure_CheckedChanged(object sender, EventArgs e)
     {
       bool reLoad = FilenameParser.reLoadExpressions();
@@ -3077,5 +3079,6 @@ namespace mvCentral
       customFolders.ShowDialog();
     }
 
+    #endregion  
   }
 }
