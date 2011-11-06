@@ -448,7 +448,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>184</Revision>
+      <Revision>186</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
@@ -515,6 +515,13 @@ Added custom WebGrabber class as need to handle return errors from last.fm
 last.fm errors are now decoded and displayed in the log.
 Now ensure at least 1 Sec between API calls to last.fm to meet requirements.
 Some initial work on DVD import (rips)
+
+Re-write of artwork handling - can now specify external artwork folders for
+Artist, Album and Track images - these will be searched for matching artwork
+before grabbing online artwork.
+
+Reworked Importer setting screen
+
 
 </VersionDescription>
     <DevelopmentStatus>Beta</DevelopmentStatus>
@@ -784,14 +791,14 @@ Some initial work on DVD import (rips)
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b2612179-4a47-493f-b8c6-adda1c706018}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{a48a7fd3-c7a7-4323-9378-540833996278}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{fe57f2e4-8497-4f12-b956-61a9954a3aa3}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{e4824040-a0c8-40e7-af2b-9404462efbda}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
