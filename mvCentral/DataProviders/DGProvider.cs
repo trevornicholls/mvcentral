@@ -113,15 +113,18 @@ namespace mvCentral.DataProviders
 
           int artistartAdded = 0;
           int count = 0;
-          foreach (string a2 in at)
+          lock (at)
           {
-            if (mv.AlternateArts.Count >= maxArtistArts) 
-              break;
+            foreach (string a2 in at)
+            {
+              if (mv.AlternateArts.Count >= maxArtistArts)
+                break;
 
-            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) 
-              artistartAdded++;
+              if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+                artistartAdded++;
 
-            count++;
+              count++;
+            }
           }
           if (artistartAdded > 0)
           {
@@ -161,13 +164,16 @@ namespace mvCentral.DataProviders
         int maxTrackArt = mvCentralCore.Settings.MaxTrackArts;
 
         int count = 0;
-        foreach (string a2 in at)
+        lock (at)
         {
-          if (mv.AlternateArts.Count >= maxTrackArt) break;
-          if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
-            trackartAdded++;
+          foreach (string a2 in at)
+          {
+            if (mv.AlternateArts.Count >= maxTrackArt) break;
+            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+              trackartAdded++;
 
-          count++;
+            count++;
+          }
         }
       }
       if (trackartAdded > 0)
@@ -230,12 +236,15 @@ namespace mvCentral.DataProviders
 
           int albumartAdded = 0;
           int count = 0;
-          foreach (string a2 in at)
+          lock (at)
           {
-            if (mv.AlternateArts.Count >= maxAlbumArt) break;
-            if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) albumartAdded++;
+            foreach (string a2 in at)
+            {
+              if (mv.AlternateArts.Count >= maxAlbumArt) break;
+              if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS) albumartAdded++;
 
-            count++;
+              count++;
+            }
           }
           if (albumartAdded > 0)
           {

@@ -506,6 +506,24 @@ namespace mvCentral.Settings
     private bool _enableHashLookup;
 
     [CornerstoneSetting(
+        Name = "Disable Album Support",
+        Description = "Disable the processing of Albums in Configuration and GUI",
+        Groups = "|MusicVideo Importer|Preprocessing|",
+        Identifier = "disable_album_support",
+        Default = false,
+        Hidden = false)]
+    public bool DisableAlbumSupport
+    {
+      get { return _disablealbumsupport; }
+      set
+      {
+        _disablealbumsupport = value;
+        OnSettingChanged("disable_album_support");
+      }
+    }
+    private bool _disablealbumsupport;
+
+    [CornerstoneSetting(
         Name = "Use MD for Album",
         Description = "Use the scrapper found album instead of the parsed one. ",
         Groups = "|MusicVideo Importer|Preprocessing|",
@@ -2776,6 +2794,81 @@ namespace mvCentral.Settings
       }
     }
     private bool _renameSecondaryFiles;
+
+    #region Last.FM Profile
+
+    [CornerstoneSetting(
+        Name = "Last.FM Username",
+        Description = "Last.FM Username",
+        Groups = "|Extras|Last.FM|",
+        Identifier = "last_fm_username",
+        Default = "")]
+    public string LastFMUsername
+    {
+      get { return _lastfmusername; }
+      set
+      {
+        _lastfmusername = value;
+        OnSettingChanged("last_fm_username");
+      }
+    }
+    private string _lastfmusername;
+
+    [CornerstoneSetting(
+        Name = "Last.FM Password",
+        Description = "Last.FM Passowrd",
+        Groups = "|Extras|Last.FM|",
+        Identifier = "last_fm_password",
+        Default = "")]
+    public string LastFMPassowrd
+    {
+      get { return _lastfmpassword; }
+      set
+      {
+        _lastfmpassword = value;
+        OnSettingChanged("last_fm_password");
+      }
+    }
+    private string _lastfmpassword;
+
+    [CornerstoneSetting(
+        Name = "Show Playing Video on Last.FM",
+        Description = "Enabling this option will display the currently playing video on Last.FM",
+        Groups = "|Extras|Last.FM|",
+        Identifier = "show_on_lastfm",
+        Default = true)]
+    public bool ShowOnLastFM
+    {
+      get { return _showonlastfm; }
+      set
+      {
+        _showonlastfm = value;
+        OnSettingChanged("show_on_lastfm");
+      }
+    }
+    private bool _showonlastfm;
+
+
+    [CornerstoneSetting(
+        Name = "Submit Playing Video to Last.FM Library",
+        Description = "Enabling this option submit the currently playing video to your Last.FM Library",
+        Groups = "|Extras|Last.FM|",
+        Identifier = "submit_to_lastfm",
+        Default = false)]
+    public bool SubitOnLastFM
+    {
+      get { return _submitonlastfm; }
+      set
+      {
+        _submitonlastfm = value;
+        OnSettingChanged("submit_to_lastfm");
+      }
+    }
+    private bool _submitonlastfm;
+
+
+
+    #endregion
 
     #endregion
     #endregion
