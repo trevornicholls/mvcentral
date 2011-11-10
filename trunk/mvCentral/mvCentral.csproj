@@ -166,6 +166,12 @@
     <Compile Include="Config\Popups\DetailsPopup.Designer.cs">
       <DependentUpon>DetailsPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Config\Popups\LastFMSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\LastFMSetup.Designer.cs">
+      <DependentUpon>LastFMSetup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Config\Popups\Grabber.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +226,7 @@
     <Compile Include="DataProviders\IMusicVideoProvider.cs" />
     <Compile Include="DataProviders\InternalProvider.cs" />
     <Compile Include="DataProviders\LastFMProvider.cs" />
+    <Compile Include="Utils\LastFMScrobble.cs" />
     <Compile Include="DataProviders\LocalProvider.cs" />
     <Compile Include="DataProviders\ManuallProvider.cs" />
     <Compile Include="Extensions\MusicVideoTitleStringExtensions.cs" />
@@ -330,6 +337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\DetailsPopup.resx">
       <DependentUpon>DetailsPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\LastFMSetup.resx">
+      <DependentUpon>LastFMSetup.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\Grabber.resx">
       <DependentUpon>Grabber.cs</DependentUpon>
@@ -465,6 +475,15 @@
   <ItemGroup>
     <Content Include="Resources\mvCentralLogo.jpg" />
     <None Include="Resources\wrench.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\youtube-fm-for-mediaportal\YouTube.fm.Plugin\lastfm-sharp\lastfm-sharp.csproj">
+      <Project>{91E7DBDB-431C-432F-8430-8A1E564B43DD}</Project>
+      <Name>lastfm-sharp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -22,6 +22,8 @@ using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
 using mvCentral.ConfigScreen.Popups;
 
+using Lastfm.Services;
+
 
 namespace mvCentral.DataProviders
 {
@@ -50,7 +52,8 @@ namespace mvCentral.DataProviders
     
 
     private const string apiMusicVideoUrl = "http://ws.audioscrobbler.com/2.0/?method={0}&api_key={1}";
-    private const string apikey = "3b40fddfaeaf4bf786fad7e4a42ac81c";
+    private const string apikey = "eadfb84ac56eddbf072efbfc18a90845";
+    private const string apiSecret = "88b9694c60b240bd97ac1f02959f17c4";
 
     //        http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=cher&track=believe
     //        http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=Cher&album=Believe
@@ -492,6 +495,10 @@ namespace mvCentral.DataProviders
 
     public List<DBTrackInfo> Get(MusicVideoSignature mvSignature)
     {
+      // Switch off album support
+      if (mvCentralCore.Settings.DisableAlbumSupport)
+        mvSignature.Album = null;
+
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       if (mvSignature == null)
         return results;
@@ -1190,8 +1197,8 @@ namespace mvCentral.DataProviders
     {
       XmlDocument xmldoc = new XmlDocument();
 
-      logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
-      //logger.Debug("Sending the request: " + url);
+      //logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
+      logger.Debug("Sending the request: " + url);
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;

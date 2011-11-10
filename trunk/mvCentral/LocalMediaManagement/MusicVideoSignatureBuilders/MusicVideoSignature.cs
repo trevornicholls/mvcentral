@@ -5,6 +5,7 @@ using Cornerstone.Tools;
 using mvCentral.Database;
 using mvCentral.Extensions;
 using mvCentral.LocalMediaManagement;
+using System.Text.RegularExpressions;
 using NLog;
 using System.Collections.ObjectModel;
 
@@ -382,6 +383,11 @@ namespace mvCentral.SignatureBuilders
         folder = baseFolder.Name;
         file = LocalMedia[0].File.Name;
         path = baseFolder.FullName;
+        //if (file == "VIDEO_TS.IFO")
+        //  file = folder + ".dvd";
+        //else
+        //  file = LocalMedia[0].TrimmedFullPath;
+
         FilenameParser parser = new FilenameParser(LocalMedia[0].TrimmedFullPath);
 
 
@@ -417,13 +423,23 @@ namespace mvCentral.SignatureBuilders
         CurrentParseResult.parser = parser;
 
         if (!CurrentParseResult.failedArtist)
+        {
           artist = CurrentParseResult.Artist;
+          artist = Regex.Replace(artist, @"\s{2,}", " ").Trim();
+        }
 
         if (!CurrentParseResult.failedAlbum)
+        {
           album = CurrentParseResult.Album;
+          album = Regex.Replace(album, @"\s{2,}", " ").Trim();
+        }
 
         if (!CurrentParseResult.failedTrack)
+        {
           track = CurrentParseResult.Track;
+          track = Regex.Replace(track, @"\s{2,}", " ").Trim();
+        }
+
 
         logger.Debug(string.Format("Result of Parsing : Artist: {0}    Album: {1}    Track: {2}", artist, album, track));
       }

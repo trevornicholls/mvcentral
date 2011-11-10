@@ -135,6 +135,8 @@ namespace mvCentral
       mainTab.SelectedIndex = 1;
       // Grab settings from DB
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
+      cbDisableAlbumSupport.Setting = mvCentralCore.Settings["disable_album_support"];
+
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
       cbSplitDVD.Setting = mvCentralCore.Settings["importer_split_dvd"];
@@ -3079,6 +3081,26 @@ namespace mvCentral
       customFolders.ShowDialog();
     }
 
-    #endregion  
+    private void cbDisableAlbumSupport_CheckedChanged(object sender, EventArgs e)
+    {
+      if (cbDisableAlbumSupport.Checked)
+      {
+        cbUseMDAlbum.Enabled = false;
+        cbAlbumFromTrackData.Enabled = false;
+      }
+      else
+      {
+        cbUseMDAlbum.Enabled = true;
+        cbAlbumFromTrackData.Enabled = true;
+      }
+    }
+
+    private void btLastFMSetup_Click(object sender, EventArgs e)
+    {
+      LastFMSetup lfmSetup = new LastFMSetup();
+      lfmSetup.ShowDialog();
+    }
+
+    #endregion
   }
 }
