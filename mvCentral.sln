@@ -29,8 +29,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP-TVSeries", "..\MPTVSerie
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FollwitApi", "..\MPTVSeries\External\FollwitApi\FollwitApi.csproj", "{75EBA361-8137-4107-A5B5-753CE959983B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lastfm-sharp", "..\youtube-fm-for-mediaportal\YouTube.fm.Plugin\lastfm-sharp\lastfm-sharp.csproj", "{91E7DBDB-431C-432F-8430-8A1E564B43DD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -233,20 +231,6 @@ Global
 		{75EBA361-8137-4107-A5B5-753CE959983B}.UseCaptureDefintionsRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{75EBA361-8137-4107-A5B5-753CE959983B}.UseCaptureDefintionsRelease|Any CPU.Build.0 = Release|Any CPU
 		{75EBA361-8137-4107-A5B5-753CE959983B}.UseCaptureDefintionsRelease|x86.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Release (Standalone)|Any CPU.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Release (Standalone)|Any CPU.Build.0 = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Release (Standalone)|x86.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.Release|x86.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.UseCaptureCardDefinitions|Any CPU.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.UseCaptureCardDefinitions|Any CPU.Build.0 = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.UseCaptureCardDefinitions|x86.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.UseCaptureDefintionsRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.UseCaptureDefintionsRelease|Any CPU.Build.0 = Release|Any CPU
-		{91E7DBDB-431C-432F-8430-8A1E564B43DD}.UseCaptureDefintionsRelease|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
