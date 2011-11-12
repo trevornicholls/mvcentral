@@ -84,6 +84,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -290,6 +291,8 @@
     <Compile Include="Gui\Playlist\PlayListPlayer.cs" />
     <Compile Include="Gui\Playlist\PlayListType.cs" />
     <Compile Include="Utils\mvWebGrabber.cs" />
+    <Compile Include="Utils\Request.cs" />
+    <Compile Include="Utils\RequestParameters.cs" />
     <Compile Include="Utils\ROTClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -301,6 +304,8 @@
     <Compile Include="Utils\framegrabber.cs" />
     <Compile Include="Utils\GUIUtils.cs" />
     <Compile Include="Utils\mvCentralUtils.cs" />
+    <Compile Include="Utils\ServiceException.cs" />
+    <Compile Include="Utils\Session.cs" />
     <Compile Include="Utils\VideoThumbCreator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -478,12 +483,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\youtube-fm-for-mediaportal\YouTube.fm.Plugin\lastfm-sharp\lastfm-sharp.csproj">
-      <Project>{91E7DBDB-431C-432F-8430-8A1E564B43DD}</Project>
-      <Name>lastfm-sharp</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

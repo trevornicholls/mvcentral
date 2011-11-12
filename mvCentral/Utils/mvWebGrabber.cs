@@ -284,9 +284,16 @@ namespace mvCentral.Utils
             return null;
         }
 
-        public XmlNodeList GetXML() {
+        public XmlNodeList GetXML() 
+        {
             return GetXML(null);
         }
+
+        public XmlDocument GetXMLDoc()
+        {
+          return GetXMLAsDoc(null);
+        }
+
 
         public XmlNodeList GetXML(string rootNode) {
             string data = GetString();
@@ -320,6 +327,32 @@ namespace mvCentral.Utils
             return xmlRoot.ChildNodes;
 
         }
+
+        public XmlDocument GetXMLAsDoc(string rootNode)
+        {
+          string data = GetString();
+
+          // if there's no data return nothing
+          if (String.IsNullOrEmpty(data))
+            return null;
+
+          XmlDocument xml = new XmlDocument();
+
+          // attempts to convert data into an XmlDocument
+          try
+          {
+            xml.LoadXml(data);
+          }
+          catch (XmlException e)
+          {
+            logger.ErrorException("XML Parse error: URL=" + requestUrl, e);
+            return null;
+          }
+
+          return xml; ;
+        }
+
+
 
         #endregion
 

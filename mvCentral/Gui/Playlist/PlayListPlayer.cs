@@ -53,6 +53,9 @@ using mvCentral.GUI;
 
 namespace mvCentral.Playlist
 {
+
+
+
   public class PlayListPlayer
   {
     #region g_Player
@@ -138,7 +141,6 @@ namespace mvCentral.Playlist
       {
         return MediaPortal.Player.g_Player.ShowFullScreenWindow();
       }
-
 
       /// <summary>
       /// DVD Code - Play DVD
@@ -243,10 +245,14 @@ namespace mvCentral.Playlist
     private bool listenToExternalPlayerEvents = false;
 
     DBTrackInfo CurrentTrack = null;
+    
+    LastFMScrobble LastFMProfile = new LastFMScrobble();
 
     public PlayListPlayer()
     {
       Init();
+      if (!LastFMProfile.IsLoged)
+        LastFMProfile.Login(mvCentralCore.Settings.LastFMUsername, mvCentralCore.Settings.LastFMPassword);
     }
 
     private static PlayListPlayer singletonPlayer = new PlayListPlayer();
@@ -297,7 +303,7 @@ namespace mvCentral.Playlist
               Reset();
               _currentPlayList = PlayListType.PLAYLIST_NONE;
               SetProperties(item, true);
-            }
+             }
             GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
             GUIGraphicsContext.SendMessage(msg);
 
@@ -307,6 +313,11 @@ namespace mvCentral.Playlist
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
           {
             SetAsWatched();
+            PlayListItem item = GetCurrentItem();
+
+            if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
+              scrobbleSubmit(item);
+
             PlayNext();
 
             if (!mvPlayer.Playing)
@@ -656,8 +667,12 @@ namespace mvCentral.Playlist
                 logger.Debug("Setting Fullscreen");
                 mvPlayer.ShowFullScreenWindow();
                 SetProperties(item, false);
+
+                if (mvCentralCore.Settings.ShowOnLastFM)
+                  scrobbleSend(item);
+
               }
-              System.Threading.Thread.Sleep(1000);
+              //System.Threading.Thread.Sleep(1000);
 
             }
           }
@@ -671,6 +686,28 @@ namespace mvCentral.Playlist
       return mvPlayer.Playing;
     }
 
+    void scrobbleSend(PlayListItem item)
+    {    
+      DBArtistInfo artistInfo = null;
+      DBTrackInfo trackInfo = null;
+      trackInfo = item.Track;
+      artistInfo = DBArtistInfo.Get(trackInfo);
+      TimeSpan tt = TimeSpan.Parse(trackInfo.PlayTime);
+      logger.Debug("Sending Scrobble info {0} - {1} ({2})", artistInfo.Artist, trackInfo.Track, tt.TotalSeconds.ToString());
+      LastFMProfile.NowPlaying(artistInfo.Artist, trackInfo.Track, (int)tt.TotalSeconds);
+    }
+
+    void scrobbleSubmit(PlayListItem item)
+    {
+      DBArtistInfo artistInfo = null;
+      DBTrackInfo trackInfo = null;
+      trackInfo = item.Track;
+      artistInfo = DBArtistInfo.Get(trackInfo);
+      logger.Debug("Submit Track to Last.FM {0} - {1}", artistInfo.Artist, trackInfo.Track);
+      LastFMProfile.Submit(artistInfo.Artist, trackInfo.Track);
+      
+    }
+
     /// <summary>        
     /// Updates the movie metadata on the playback screen (for when the user clicks info). 
     /// The delay is neccesary because Player tries to use metadata from the MyVideos database.
@@ -680,6 +717,8 @@ namespace mvCentral.Playlist
     /// <param name="clear">Clears the properties instead of filling them if True</param>
     private void SetProperties(PlayListItem item, bool clear)
     {
+
+
       if (item == null) return;
 
       string title = string.Empty;

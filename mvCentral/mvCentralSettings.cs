@@ -2820,7 +2820,7 @@ namespace mvCentral.Settings
         Groups = "|Extras|Last.FM|",
         Identifier = "last_fm_password",
         Default = "")]
-    public string LastFMPassowrd
+    public string LastFMPassword
     {
       get { return _lastfmpassword; }
       set
@@ -2855,7 +2855,7 @@ namespace mvCentral.Settings
         Groups = "|Extras|Last.FM|",
         Identifier = "submit_to_lastfm",
         Default = false)]
-    public bool SubitOnLastFM
+    public bool SubmitOnLastFM
     {
       get { return _submitonlastfm; }
       set
