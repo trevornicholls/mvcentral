@@ -422,8 +422,11 @@ namespace mvCentral
 
 
       logger.Info("Load Paths, Replacements and Expressions and the Library");
+      load.updateStats("Please wait, loading paths...", 0,0,0);
       LoadPaths();
+      load.updateStats("Please wait, loading replacements...", 0, 0, 0);
       LoadReplacements();
+      load.updateStats("Please wait, loading expressions...", 0, 0, 0);
       LoadExpressions();
       //Load the library
       ReloadList();
@@ -1175,7 +1178,7 @@ namespace mvCentral
             }
             if (cnt2 == 10)
             {
-              load.updateStats(artistTotal, albumTotal ,videoTotal);
+              load.updateStats("Please wait, loading your library...", artistTotal, albumTotal, videoTotal);
               cnt2 = 0;
             }
             addMusicVideo(currentTrackData);

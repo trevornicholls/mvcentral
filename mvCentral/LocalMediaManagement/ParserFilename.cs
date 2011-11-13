@@ -86,11 +86,13 @@ namespace mvCentral.LocalMediaManagement
         regularExpressions.Clear();
         replacementRegexAfter.Clear();
         replacementRegexBefore.Clear();
+        tags.Clear();
+ 
         List<DBExpression> expressions = DBExpression.GetAll();
         foreach (DBExpression expression in expressions)
         {
           if (expression.Expression == @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?<track>[^\\]+)\.(?<ext>[^\r]+)$" && mvCentralCore.Settings.IgnoreFoldersWhenParsing)
-            continue;
+            expression.Enabled = false;
 
           if (expression.Enabled )
           {
@@ -152,7 +154,7 @@ namespace mvCentral.LocalMediaManagement
                 regexSearchString = Regex.Escape(searchString);
 
               String replaceString = replacement.With;
-              replaceString = replaceString.Replace("<space>", " ").Replace("<empty>", "");
+              replaceString = replaceString.Replace("<space>", " ").Replace("<empty>", string.Empty);
 
               var replaceRegex = new Regex(regexSearchString, RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
@@ -219,6 +221,7 @@ namespace mvCentral.LocalMediaManagement
 
         foreach (Regex regularExpression in regularExpressions)
         {       
+
           Match matchResults = null;
           try
           {
