@@ -38,6 +38,9 @@ namespace mvCentral.Utils
 
     public bool Login(string username, string password)
     {
+      if (string.IsNullOrEmpty(username.Trim()) && string.IsNullOrEmpty(password.Trim()))
+        return false;
+
       logger.Debug("Login to Last.FM and establish session");
       this.username = username;
       this.password = password;
@@ -87,8 +90,15 @@ namespace mvCentral.Utils
     /// </summary>
     /// <param name="Artist"></param>
     /// <param name="Title"></param>
-    public void Submit(string Artist, string Title)
+    public void Submit(string Artist, string Title, int Seconds)
     {
+
+      // Check how much of track was played if less than 50% do not submit
+      TimeSpan playTime = DateTime.Now - trackStartTime;
+      logger.Debug("Last.FM Submit: {0} {1}", playTime.Seconds.ToString(), (Seconds / 2).ToString());
+      if (playTime.Seconds < (Seconds / 2))
+        return;
+
       if (!IsLoged)
         return;
       try

@@ -47,6 +47,7 @@ namespace mvCentral
 
     void ShowWaiting()
     {
+      this.lbTask.Text = "Startup";
       this.artists.Text = "0 " + Localizations.Localization.GetByName("Artists");
       this.videos.Text = "0 " + Localizations.Localization.GetByName("Videos");
       this.albums.Text = "0 " + Localizations.Localization.GetByName("Albums");
@@ -55,8 +56,9 @@ namespace mvCentral
       this.Refresh();
     }
 
-    public void updateStats(int artists, int albums, int videos)
+    public void updateStats(string task, int artists, int albums, int videos)
     {
+      this.lbTask.Text = task;
       this.artists.Text = artists.ToString() + " " + Localizations.Localization.GetByName("Artists");
       this.albums.Text = albums.ToString() + " " + Localizations.Localization.GetByName("Albums");
       this.videos.Text = videos.ToString() + " " + Localizations.Localization.GetByName("Vidoes");

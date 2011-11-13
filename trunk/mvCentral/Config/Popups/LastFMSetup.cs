@@ -21,6 +21,13 @@ namespace mvCentral.ConfigScreen.Popups
       tbLastFMPassword.Setting = mvCentralCore.Settings["last_fm_password"];
       cbShowOnLastFM.Setting = mvCentralCore.Settings["show_on_lastfm"];
       cbSubmitToLastFM.Setting = mvCentralCore.Settings["submit_to_lastfm"];
+
+      if (tbLastFMUsername.Text.Trim() == string.Empty)
+        tbLastFMUsername.Text = string.Empty;
+
+      if (tbLastFMPassword.Text.Trim() == string.Empty)
+        tbLastFMPassword.Text = string.Empty;
+
     }
 
 

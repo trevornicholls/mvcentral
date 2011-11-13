@@ -448,7 +448,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>0</Major>
       <Minor>5</Minor>
       <Build>0</Build>
-      <Revision>188</Revision>
+      <Revision>192</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
@@ -523,6 +523,8 @@ before grabbing online artwork.
 Reworked Importer setting screen
 Enable forum link and some tweaks to About tab
 Fix issue where different track from selected was played.
+
+Added Last.Fm scrobble support
 
 
 </VersionDescription>
