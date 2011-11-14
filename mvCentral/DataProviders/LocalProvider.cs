@@ -489,6 +489,7 @@ namespace mvCentral.DataProviders
       {
         // try to create our filename(s)
         this.mvTrackObject = (DBTrackInfo)mv;
+        //this.mvTrackObject.LocalMedia[0].TrimmedFullPath;
         lock (lockObj)
         {
           List<string> filenames = new List<string>();
@@ -524,6 +525,12 @@ namespace mvCentral.DataProviders
     {
       // try to grab the field object
       string fieldName = match.Value.Substring(1, match.Length - 2);
+
+      //Bit of a bodge here to support %title%,really need to handle this differnetly
+      if (fieldName.ToLower() == "title")
+        return Path.GetFileNameWithoutExtension(mvTrackObject.LocalMedia[0].TrimmedFullPath);
+
+
       DBField field = DBField.GetFieldByDBName(typeof(DBArtistInfo), fieldName);
 
       // if no dice, the user probably entered an invalid string.
@@ -544,6 +551,12 @@ namespace mvCentral.DataProviders
     {
       // try to grab the field object
       string fieldName = match.Value.Substring(1, match.Length - 2);
+
+      //Bit of a bodge here to support %title%,really need to handle this differnetly
+      if (fieldName.ToLower() == "title")
+        return Path.GetFileNameWithoutExtension(mvTrackObject.LocalMedia[0].TrimmedFullPath);
+
+      // match the DB Field
       DBField field = DBField.GetFieldByDBName(typeof(DBTrackInfo), fieldName);
 
       // if no dice, the user probably entered an invalid string.
@@ -564,6 +577,12 @@ namespace mvCentral.DataProviders
     {
       // try to grab the field object
       string fieldName = match.Value.Substring(1, match.Length - 2);
+
+      //Bit of a bodge here to support %title%,really need to handle this differnetly
+      if (fieldName.ToLower() == "title")
+        return Path.GetFileNameWithoutExtension(mvTrackObject.LocalMedia[0].TrimmedFullPath);
+
+      
       DBField field = DBField.GetFieldByDBName(typeof(DBAlbumInfo), fieldName);
 
       // if no dice, the user probably entered an invalid string.
