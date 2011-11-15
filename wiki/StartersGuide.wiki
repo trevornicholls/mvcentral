@@ -9,19 +9,23 @@ mvCentral is a Music Videos plugun for MediaPortal that scans your Music Video c
 
 The plugin will support a base set of filenames and folder layouts. The parser is flexible and though the user of custom parsing and replacements is capable of supporting a wider range. The parsing engin and how to customize is detailed seperatly (TBS).
 
-The basic format is <artist> - <track name>.<ext>, the - (hypen) is mandantory as is the order - the contents of Artist and Track Name are more flexible as these are cleaned by the parsing engine.
+The basic format is 
+
+*{{{<artist> - <track name>.<ext>}}}*
+
+the - (hypen) is mandantory as is the order - the contents of Artist and Track Name are more flexible as these are cleaned by the parsing engine.
 
 Filenames like the two are perfectly acceptable and the default expresssions will handle these sucessfully.
 
-*Avril Lavigne [1080p] - Alice.mkv*
-*Nicole Scherzinger - Wet (Official Music Video 2011).mkv*
+ * *Avril Lavigne [1080p] - Alice.mkv*
+ * *Nicole Scherzinger - Wet (Official Music Video 2011).mkv*
 
 Filenames like the two below will not parse using default expressions and custom expressions will need to entered.
 
-*acdc-shoot_to_thrill-repack-proper-dvdrip-x264-2010-mv4u.mkv*
-*alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*
+ * *acdc-shoot_to_thrill-repack-proper-dvdrip-x264-2010-mv4u.mkv*
+ * *alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*
 
-*Album Support*
+= Album Support =
 
 The plugin can display you Music Vidoes similar to the native Music plugin, Artist, Album and Trackw. Album support is enabled by default and can be disabled if required.
 
@@ -30,7 +34,7 @@ Two methods are used to assoiate a track with the album, the first option is scr
 The scraping  method looks up the Album(s) that the track is found on from last.FM and returns the higest ranked, this can give unexcpected results due to the way Last.FM ranks albums. 
 
 The parsing method will look at the folder layout i.e.
-
+{{{
 Guns n Roses
 -Appetite For Destruction
 --Track 1
@@ -44,6 +48,7 @@ Guns n Roses
 --Track 1
 --Track 2
 --Track 3
+}}}
 
 This option can be disable and is neceassary if you use a folder layout based on Genre or similar.
 
@@ -61,35 +66,45 @@ Once there, the first thing you should do is look over the *Importer Settings* s
 
 You will see various options and we will go over most of them here:
 
-*Auto Approve Settings* (settings for matching/approving while importing)
- * Auto approve if match found on scraper <-- Check this if you wish to approve matches automatically
- * Use the scrapper found for album instead of the parsed one <-- Check this if you have local info for album/track info and do not wish to use parsed information
- * Split DVD in chapter <-- Check this if you want to have any videos stored on disc imported to be split into chapters before importing
+*Auto Approve Settings*
+
+|| *Auto approve if match found on scraper*||
+||This enabled by default and will automaticlly approve the Music Video and download Information and Artowork if both Artist and Track match, if no extact match is found the Music Video will be marked for user approval||
+
+*Album Support*
+ 
+|| *Disable Album Support*||
+||This will disable support for Album scraping and parsing||
+ 
+|| *Enable scraping of Album from the the Track Data*||
+||The will enable the the option to look up which Album(s) the track appears on, it will chose the highest ranked on Last.FM||
+
+|| *Use the scrapper for found album instead of the parsed one*||
+||Scapping is enabled by default and selecting this option will use the parsed Album over the one that has been parsed||
+
+*Parsing*
+
+|| *Ignore folder structure when parsing*||
+||Enabling this option will disable parsing for the Album from the folder layout||
 
 *Data Sources*
- * Automatically retrieve information in the _________ language <-- Set you language here
- * (Manually manage Music Video data sources) inaccessible
 
-*Plugin Settings*
- * Plug-in name in home screen: <-- Chose a new name for the plugin or leave it at default
-
-*GUI Settings*
- * Video is considered new if added in the last __ days <-- Set the amount of days a video will be labeled as "New" and will be accessible in the menu as such.
-
-*Video Thumbnails*
- * Prefer Video Thumbnail over parsed images for video thumbnail <-- Check this to use a "still" of the actual video rather than the parsed image for thumbnails of videos
- * Preview Appearance Rows ???  Columns ???  <-- Set the size of thumbnails
-
-*Artist Art Minimum Size* ??? Width ??? Height <-- Set the minimum size of image to be parsed for artist images
-
-*Track Art Minimum Size* ??? Width ??? Height <-- Set the minimum size of image to be parsed for track/song images
-
+|| *Automatically retrieve information in the _________ language*||
+||This will allow you select the language that information is retrived from Last.FM, there are 7 defined languages. If your language is not listed chose addtional options and select your language. The information will then be run though the Google translate API - this option can lead to imprefect results.||
+ 
 
 Once you have the plugin configured to the way you want it to look and act, let's select the "Import" tab to begin our initial import of songs.
 
 http://www.mp-pr.com/images/wiki/2.png
 
-As you can see the import tab has different sections each accessible on the left identifiable by the icons of: Folder w/Data - Check Mark - Pencil w/Plus Sign - Sheet w/Cog in that order from top to bottom. Let’s take a look at each one for a moment:
+As you can see the import tab has different sections each accessible on the left identifiable by the icons of: 
+
+ * Folder w/Data
+ * Check Mark
+ * Pencil w/Plus Sign
+ * Sheet w/Cog 
+ 
+ in that order from top to bottom. Let’s take a look at each one for a moment:
 The first one is the Sources section (Folder w/Data icon)
 In the top part of this section is where you set the location of your music videos. Click the green icon w/plus sign in the top right and browse to where your videos are stored to set it.
 
