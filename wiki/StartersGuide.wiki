@@ -94,6 +94,37 @@ You will see various options and we will go over most of them here:
 
 || *Automatically retrieve information in the _________ language*||
 ||This will allow you select the language that information is retrived from Last.FM, there are 7 defined languages. If your language is not listed chose addtional options and select your language. The information will then be run though the Google translate API - this option can lead to imprefect results.||
+
+*Video Thumbnail*
+
+||Prefer video thumbnail over parsed image for thumbnail||
+||Enabling this option with use Movie Thumbnailer to extract an image from the Music Video, this image can have a number of row/cols if required which can be configured from the Video Apperance below||
+
+*Artwork*
+
+*Number and Size Options*
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/artworksettings.jpg]
+
+This option here will allow you select the Number or and Minimum size of the thumbnails downloaded from the providers.
+
+*Custom Artwork Folders*
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/customfolder.jpg]
+
+This option will allow you select custom folders that will be searched for Artwork matching the supplied mask.
+
+Currently the support masks are
+
+Artists
+ * %artist%   Match on {{{<artist name>.<ext>}}}
+ 
+Albums
+ * %album%	-	Match on {{{<album name>.<ext>}}}
+ 
+Tracks
+ * %track%	-	Match on {{{<track name>.<ext>}}}
+ * %title%	-	match on {{{<full video filename>.<ext>}}}
  
 
 Once you have the plugin configured to the way you want it to look and act, let's select the "Import" tab to begin our initial import of songs.
