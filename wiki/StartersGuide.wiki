@@ -3,15 +3,61 @@
 = Introduction =
 Welcome to the starter's guide to mvCentral! Here we will go over a few of the basics to help you get started with mvCentral.
 
-= Details =
+mvCentral is a Music Videos plugun for MediaPortal that scans your Music Video collection and looks up the metadata using Last.FM as the primary data source.
+
+= Notes of Filename and Folder layout =
+
+The plugin will support a base set of filenames and folder layouts. The parser is flexible and though the user of custom parsing and replacements is capable of supporting a wider range. The parsing engin and how to customize is detailed seperatly (TBS).
+
+The basic format is <artist> - <track name>.<ext>, the - (hypen) is mandantory as is the order - the contents of Artist and Track Name are more flexible as these are cleaned by the parsing engine.
+
+Filenames like the two are perfectly acceptable and the default expresssions will handle these sucessfully.
+
+*Avril Lavigne [1080p] - Alice.mkv*
+*Nicole Scherzinger - Wet (Official Music Video 2011).mkv*
+
+Filenames like the two below will not parse using default expressions and custom expressions will need to entered.
+
+*acdc-shoot_to_thrill-repack-proper-dvdrip-x264-2010-mv4u.mkv*
+*alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*
+
+*Album Support*
+
+The plugin can display you Music Vidoes similar to the native Music plugin, Artist, Album and Trackw. Album support is enabled by default and can be disabled if required.
+
+Two methods are used to assoiate a track with the album, the first option is scraping from Last.FM (scraping), the second is by parsing the folder layout(parsing).
+
+The scraping  method looks up the Album(s) that the track is found on from last.FM and returns the higest ranked, this can give unexcpected results due to the way Last.FM ranks albums. 
+
+The parsing method will look at the folder layout i.e.
+
+Guns n Roses
+-Appetite For Destruction
+--Track 1
+--Track 2
+--Track 3
+-Use Your Illusion I
+--Track 1
+--Track 2
+--Track 3
+-Use Your Illusion II
+--Track 1
+--Track 2
+--Track 3
+
+This option can be disable and is neceassary if you use a folder layout based on Genre or similar.
+
+
+= First Steps =
 
 After installing the plugin, go to mvCentral's configuration in the plugins section of MediaPortal Configuration.
 
-http://www.mp-pr.com/images/wiki/0.png
+http://www.mp-pr.com/Images/wiki/0.png
 
-Once there, the first thing you should do is look over the settings tab (shown below).
+Once there, the first thing you should do is look over the *Importer Settings* settings tab (shown below).
 
-http://www.mp-pr.com/images/wiki/1.png
+[http://mvCentral.googlecode.com/svn/wiki/Images/importersettings.jpg]
+
 
 You will see various options and we will go over most of them here:
 
