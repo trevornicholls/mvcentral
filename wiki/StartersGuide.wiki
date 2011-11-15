@@ -99,18 +99,12 @@ http://www.mp-pr.com/images/wiki/2.png
 
 As you can see the import tab has different sections each accessible on the left identifiable by the icons of: 
 
- * Folder w/Data
- * Check Mark
- * Pencil w/Plus Sign
- * Sheet w/Cog 
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/folder_image.png] Select the source(s) for you Music Vidoes
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/tick.png] Select the scan amd match tab.
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/pencil_add.png] This display the string replacements tab when you amend the replacements used pre and post parsing.
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/page_gear.png] This will access the parsing expressions tab when you edit and add parsing expressions. 
  
- in that order from top to bottom. Let’s take a look at each one for a moment:
-The first one is the Sources section (Folder w/Data icon)
-In the top part of this section is where you set the location of your music videos. Click the green icon w/plus sign in the top right and browse to where your videos are stored to set it.
-
-You can also choose to import DVDs as well.
-
-The bottom part is used as a pre parse checker to make sure you don’t have any incompatible naming issues with your files.
+The bottom part is used as a pre parse checker to make sure you don’t have any incompatible naming issues with your files. This screen is best used after the initial scan when there are outstanding items as it will allow you to check the parse results.
 
 Next, let's select the Check Mark icon to move to the next section.
 
