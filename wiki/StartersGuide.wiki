@@ -1,5 +1,8 @@
 #summary Guide for beginners to mvCentral
 
+[http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
+
+
 = Introduction =
 Welcome to the starter's guide to mvCentral! Here we will go over a few of the basics to help you get started with mvCentral.
 
