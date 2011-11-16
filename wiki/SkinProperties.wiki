@@ -14,13 +14,13 @@ Currently this is just a list, will clean up and create a full skinners guide ov
 || #mvCentral.TotalArtists || Total number of Artits in DB||
 || #mvCentral.TotalVideos || Total Number of Videos in DB||
 || #mvCentral.Hierachy || Set to the current view, Atrists, Videos, Playlist etc||
-|| #mvCentral.Itemcount.Text || TBS ||
+|| #mvCentral.Itemcount.Text || Deprecated - replaced by #itemtype||
 || #mvCentral.ArtistView || Set to 'true' if on Artist view||
 || #mvCentral.TrackView || Set to 'true' if on Videos view ||
-|| #mvCentral.ArtistBio || TBS ||
-|| #mvCentral.ArtistName || TBS ||
-|| #mvCentral.ArtistImg || TBS ||
-|| #mvCentral.VideosByArtist || TBS ||
+|| #mvCentral.ArtistBio || The cleaned Artist Bio retived from the selected Provider ||
+|| #mvCentral.ArtistName || The current Artist for the selected object ||
+|| #mvCentral.ArtistImg || Full path to the primary Artist Image ||
+|| #mvCentral.VideosByArtist || Number Music Videos for selected Artist ||
 || #mvCentral.ArtistTracksRuntime || TBS ||
 || #mvCentral.ArtistGenre || TBS ||
 || #mvCentral.LocalMedia.videoresolution || TBS ||
