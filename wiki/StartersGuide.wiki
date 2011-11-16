@@ -100,7 +100,7 @@ You will see various options and we will go over most of them here:
 ||Prefer video thumbnail over parsed image for thumbnail||
 ||Enabling this option with use Movie Thumbnailer to extract an image from the Music Video, this image can have a number of row/cols if required which can be configured from the Video Apperance below||
 
-*Artwork*
+= Artwork =
 
 *Number and Size Options*
 
@@ -116,16 +116,21 @@ This option will allow you select custom folders that will be searched for Artwo
 
 Currently the support masks are
 
-Artists
- * %artist%   Match on {{{<artist name>.<ext>}}}
- 
-Albums
- * %album%	-	Match on {{{<album name>.<ext>}}}
- 
-Tracks
- * %track%	-	Match on {{{<track name>.<ext>}}}
- * %title%	-	match on {{{<full video filename>.<ext>}}}
- 
+*Artists*
+
+||%artist%||Match on {{{<artist name>.<ext>}}}||
+
+*Albums*
+
+||%album%||Match on {{{<album name>.<ext>}}}||
+
+*Tracks*
+
+||%track%||Match on {{{<track name>.<ext>}}}||
+||%title%||match on {{{<full video filename>.<ext>}}}||
+
+
+= Importing Music Videos =
 
 Once you have the plugin configured to the way you want it to look and act, let's select the "Import" tab to begin our initial import of songs.
 
