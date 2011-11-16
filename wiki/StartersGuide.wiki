@@ -2,6 +2,11 @@
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
 
+<wiki:toc max_depth="1" />
+
+
+
+
 
 = Introduction =
 Welcome to the starter's guide to mvCentral! Here we will go over a few of the basics to help you get started with mvCentral.
@@ -128,6 +133,8 @@ Currently the support masks are
 
 ||%track%||Match on {{{<track name>.<ext>}}}||
 ||%title%||match on {{{<full video filename>.<ext>}}}||
+
+
 
 
 = Importing Music Videos =
