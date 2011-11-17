@@ -28,6 +28,8 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomArtworkFolders));
       this.btSelectLocalTrackArtFolder = new System.Windows.Forms.Button();
       this.btSelectLocalAlbumArtFolder = new System.Windows.Forms.Button();
       this.btSelectLocalArtistArtFolder = new System.Windows.Forms.Button();
@@ -48,6 +50,7 @@
       this.label5 = new System.Windows.Forms.Label();
       this.tbTrackPatternMask = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.label6 = new System.Windows.Forms.Label();
+      this.tpCustomArtworkFolders = new System.Windows.Forms.ToolTip(this.components);
       this.SuspendLayout();
       // 
       // btSelectLocalTrackArtFolder
@@ -229,6 +232,7 @@
       this.tbTrackPatternMask.Setting = null;
       this.tbTrackPatternMask.Size = new System.Drawing.Size(297, 20);
       this.tbTrackPatternMask.TabIndex = 126;
+      this.tpCustomArtworkFolders.SetToolTip(this.tbTrackPatternMask, resources.GetString("tbTrackPatternMask.ToolTip"));
       // 
       // label6
       // 
@@ -238,6 +242,13 @@
       this.label6.Size = new System.Drawing.Size(67, 13);
       this.label6.TabIndex = 127;
       this.label6.Text = "Track Mask:";
+      // 
+      // tpCustomArtworkFolders
+      // 
+      this.tpCustomArtworkFolders.IsBalloon = true;
+      this.tpCustomArtworkFolders.ShowAlways = true;
+      this.tpCustomArtworkFolders.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+      this.tpCustomArtworkFolders.ToolTipTitle = "mvCentral Help";
       // 
       // CustomArtworkFolders
       // 
@@ -294,5 +305,6 @@
     private System.Windows.Forms.Label label5;
     private Cornerstone.GUI.Controls.SettingsTextBox tbTrackPatternMask;
     private System.Windows.Forms.Label label6;
+    private System.Windows.Forms.ToolTip tpCustomArtworkFolders;
   }
 }
