@@ -526,11 +526,7 @@ namespace mvCentral.DataProviders
       // try to grab the field object
       string fieldName = match.Value.Substring(1, match.Length - 2);
 
-      //Bit of a bodge here to support %title%,really need to handle this differnetly
-      if (fieldName.ToLower() == "title")
-        return Path.GetFileNameWithoutExtension(mvTrackObject.LocalMedia[0].TrimmedFullPath);
-
-
+      // match the DB Field
       DBField field = DBField.GetFieldByDBName(typeof(DBArtistInfo), fieldName);
 
       // if no dice, the user probably entered an invalid string.
@@ -541,6 +537,28 @@ namespace mvCentral.DataProviders
       }
 
       return field.GetValue(mvArtistObject).ToString();
+    }
+    /// <summary>
+    /// Get Album Field
+    /// </summary>
+    /// <param name="match"></param>
+    /// <returns></returns>
+    private string dbAlbumNameParser(Match match)
+    {
+      // try to grab the field object
+      string fieldName = match.Value.Substring(1, match.Length - 2);
+
+      // match the DB Field
+      DBField field = DBField.GetFieldByDBName(typeof(DBAlbumInfo), fieldName);
+
+      // if no dice, the user probably entered an invalid string.
+      if (field == null && match.Value != "%filename")
+      {
+        logger.Error("Error parsing \"" + match.Value + "\" from local_art_pattern advanced setting. Not a database field name.");
+        return match.Value;
+      }
+
+      return field.GetValue(mvAlbumObject).ToString();
     }
     /// <summary>
     /// Get Track field
@@ -567,32 +585,6 @@ namespace mvCentral.DataProviders
       }
 
       return field.GetValue(mvTrackObject).ToString();
-    }
-    /// <summary>
-    /// Get Album Field
-    /// </summary>
-    /// <param name="match"></param>
-    /// <returns></returns>
-    private string dbAlbumNameParser(Match match)
-    {
-      // try to grab the field object
-      string fieldName = match.Value.Substring(1, match.Length - 2);
-
-      //Bit of a bodge here to support %title%,really need to handle this differnetly
-      if (fieldName.ToLower() == "title")
-        return Path.GetFileNameWithoutExtension(mvTrackObject.LocalMedia[0].TrimmedFullPath);
-
-      
-      DBField field = DBField.GetFieldByDBName(typeof(DBAlbumInfo), fieldName);
-
-      // if no dice, the user probably entered an invalid string.
-      if (field == null && match.Value != "%filename")
-      {
-        logger.Error("Error parsing \"" + match.Value + "\" from local_art_pattern advanced setting. Not a database field name.");
-        return match.Value;
-      }
-
-      return field.GetValue(mvAlbumObject).ToString();
     }
     /// <summary>
     /// based on the filename list, returns the first file in the folder, otherwise null
