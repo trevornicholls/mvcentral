@@ -198,21 +198,22 @@ Using the earlier example we can see that the track has been identified as *Rubb
 Most approvals will use this method.  
 
 
+== Advanced Import Options ==
+
+
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/pencil_add.png] This display the string replacements tab when you amend the replacements used pre and post parsing.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/import-replacements.jpg]
+
+
+
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/page_gear.png] This will access the parsing expressions tab when you edit and add parsing expressions.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/import-parsing.jpg]
 
 
 
 
-Next let's look at the section with the pencil w/plus sign icon.
-
-http://www.mp-pr.com/images/wiki/4.png
-
-Here you can use string replacements to adhere to any particular naming issues that may confuse the parsing process.
-
-The next section, sheet w/cog, holds settings for parsing expressions.
-
-http://www.mp-pr.com/images/wiki/5.png
-
-Here u can add simple or regex expressions to conform to any special parsing you might need the engine to handle.
 
 Now that is all done let's take a look at the library you have started by clicking on the "Library" tab.
 
