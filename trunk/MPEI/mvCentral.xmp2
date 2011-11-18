@@ -253,6 +253,20 @@
               <ZipFileName>Installer{CopyFile}\{be830b3f-66ca-4091-8a27-c2a6fb7b027e}-MP2A Stereo.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Logos\Audio\MP2A Stereo.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\Default\media\hover_mvCentral.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{dbe28720-65bb-489c-b70a-2e68a95c9882}-hover_mvCentral.png</ZipFileName>
+              <DestinationFilename>%Skin%\Default\media\hover_mvCentral.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\DefaultWide\media\hover_mvCentral.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{aba50e91-6a66-4bc4-8cdd-9ace316c210f}-hover_mvCentral.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\media\hover_mvCentral.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -448,7 +462,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>208</Revision>
+      <Revision>209</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>RC Release
@@ -717,6 +731,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <LocalFileName>..\Skin\StreamedMP\media\Logos\Audio\MP2A Stereo.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{be830b3f-66ca-4091-8a27-c2a6fb7b027e}-MP2A Stereo.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Audio\MP2A Stereo.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\Default\media\hover_mvCentral.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{dbe28720-65bb-489c-b70a-2e68a95c9882}-hover_mvCentral.png</ZipFileName>
+        <DestinationFilename>%Skin%\Default\media\hover_mvCentral.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\DefaultWide\media\hover_mvCentral.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{aba50e91-6a66-4bc4-8cdd-9ace316c210f}-hover_mvCentral.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
