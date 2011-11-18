@@ -108,8 +108,8 @@
       this.descriptionLabel.Name = "descriptionLabel";
       this.descriptionLabel.Size = new System.Drawing.Size(461, 34);
       this.descriptionLabel.TabIndex = 16;
-      this.descriptionLabel.Text = "You are about to add these files as a custom and blank MusicVideo. You can edit f" +
-    "ull details through the Musicvideo Manager after you click OK.";
+      this.descriptionLabel.Text = "You are about to add these files as a custom and blank Music Video. You can edit " +
+    "full details through the music video Manager after you click OK.";
       // 
       // uxAlbum
       // 

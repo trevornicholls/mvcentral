@@ -164,8 +164,6 @@ namespace mvCentral
 
       automaticMediaInfoMenuItem.Checked = mvCentralCore.Settings.AutoRetrieveMediaInfo;
 
-
-
     }
 
     #endregion

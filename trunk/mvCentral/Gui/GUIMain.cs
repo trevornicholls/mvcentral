@@ -351,47 +351,45 @@ namespace mvCentral.GUI
       dlg.Reset();
       dlg.SetHeading(499); // Views menu
       dlg.Add(Localization.ViewAs + " " + Localization.Artists);
-      dlg.Add(Localization.ViewAs + " " + Localization.Albums);
+      if (DBAlbumInfo.GetAll().Count > 0)
+        dlg.Add(Localization.ViewAs + " " + Localization.Albums);
       dlg.Add(Localization.ViewAs + " " + Localization.Tracks);
-      dlg.Add(Localization.ViewAs + " " + Localization.Genre);
+      if (DBGenres.GetSelected().Count > 0)
+        dlg.Add(Localization.ViewAs + " " + Localization.Genre);
 
       // show dialog and wait for result
       dlg.DoModal(GetID);
       if (dlg.SelectedId == -1)
         return;
-      // Display Artists, tracks or Albums - TBA
+      // Display Artists, tracks or Albums
       persisting = false;
 
-      switch (dlg.SelectedId)
+      // Bit messy this but only way
+      if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Artists))
       {
-        case 1:
-          currentView = mvView.Artist;
-          loadArtists(artistSort);
-          addToStack(currentView, true);
-          break;
-        case 2:
-          currentView = mvView.AllAlbums;
-          addToStack(currentView, true);
-          loadAllAlbums();
-          break;
-        case 3:
-          currentView = mvView.AllVideos;
-          addToStack(currentView, true);
-          loadAllVideos(videoSort);
-          break;
-        case 4:
-          if (DBGenres.GetSelected().Count == 0)
-          {
-            UserMessage(Localization.NoGenreHeader, Localization.NoGenreLine1, Localization.NoGenreLine2, Localization.NoGenreLine3);
-          }
-          else
-          {
-            currentView = mvView.Genres;
-            addToStack(currentView, true);
-            loadGenres();
-          }
-          break;
+        currentView = mvView.Artist;
+        loadArtists(artistSort);
+        addToStack(currentView, true);
       }
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Albums))
+      {
+        currentView = mvView.AllAlbums;
+        addToStack(currentView, true);
+        loadAllAlbums();
+      }
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Tracks))
+      {
+        currentView = mvView.AllVideos;
+        addToStack(currentView, true);
+        loadAllVideos(videoSort);
+      }
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Genre))
+      {
+        currentView = mvView.Genres;
+        addToStack(currentView, true);
+        loadGenres();
+      }
+
       logger.Debug("SwitchLayout: Storing View {0}", currentView);
       mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
       GUIControl.FocusControl(GetID, facadeLayout.GetID);
@@ -644,7 +642,13 @@ namespace mvCentral.GUI
       // Check for invalid view - should actually store the corrected one against checking here...on the todo list :)
       //
       // Check for genres view select but none now defined
-      if (DBGenres.GetSelected().Count == 0 && currentView == mvView.Genres)
+      if ((DBGenres.GetSelected().Count == 0 && currentView == mvView.Genres))
+      {
+        currentView = mvView.Artist;
+        mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
+      }
+      // Also check for albums
+      if ((DBAlbumInfo.GetAll().Count == 0 && currentView == mvView.AllAlbums))
       {
         currentView = mvView.Artist;
         mvCentralCore.Settings.DefaultViewAs = ((int)currentView).ToString();
