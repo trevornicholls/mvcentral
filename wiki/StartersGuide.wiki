@@ -153,26 +153,54 @@ As you can see the import tab has different sections each accessible on the left
  
 The bottom part is used as a pre parse checker to make sure you don’t have any incompatible naming issues with your files. This screen is best used after the initial scan when there are outstanding items as it will allow you to check the parse results.
 
-The first stage is to add the folder containing your Music Video collection, you can add multiple folders if yoi wish.
+The first stage is to add the folder containing your Music Video collection, you can add multiple folders if you wish.
 
 Import will start immediatly you add a folder and you will switched to the importer screen.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/ImportFiles.jpg]
 
-
 Here we have our importer results. In this image there is an import in progress, the plugin is currently going though and attempting to identify the Artist and Track. The processing section show the current file being processed, an indication of how far though and the total number of number of imported Music Videos/Total Music Video found.
 
-When the scan is completed the processing will either say *Done!* is all scanned sucessfully of *Waiting for Close Match Approvals...*.
+When the scan is completed the processing will either say *Done!* if all scanned sucessfully of *Waiting for Close Match Approvals...* indicating manual approval is required.
 
 The screen below show a finished import that is waiting for approvals and indicates that there are 7 items waiting to be manually approved.
 
-[http://mvCentral.googlecode.com/svn/wiki/Images/WaitngApproval.jpg]
+[http://mvCentral.googlecode.com/svn/wiki/Images/waitingApproval.jpg]
+
+In this image you can see that 3 songs were not imported correctly indicated by the [http://mvCentral.googlecode.com/svn/wiki/Images/Information.png] icon.
+
+The first of these has no possible matches, the second and third have matches but these did not meet the ranking for auto approval.
+
+= Manually Approving of Imported Music Videos =
+
+There are 3 icons above the main list on import files;
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/tick.png]    *Accept suggested match.*
+
+This option will mark Music Video as approved using the suggested name, this is the option we would use for the 2nd and 3rd items in the example above.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/Edit.png]    *Manually enter the details for the Music Video.*
+
+This option allows you to enter the details of a Music Video manually, selecting this option will bring the following screen.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/manualImport.jpg]
+
+Here you can enter the details of the Artist, Album and Track. A Music Video that is entered this way will not pick up any metadata of artwork and should be used when the plugin is unable to identify the Music Video using the Custom string or you are importing DVD's.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/find.png]    *Rescan using Custom Search string.*
+
+This option allows you to reneter/correct the parsed information, clicking on the icond will display the follwoing screen.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/rescanCustom.jpg]
+
+Using the earlier example we can see that the track has been identified as *Rubber Bullets Live* and this track has not been found. We can correct this, removing the word *Live* and clicking *Ok* whcih will resend the filer back to the importer.
+
+Most approvals will use this method.  
 
 
 
 
 
-In this image you can see that 3 songs were imported successfully. If any matches need to be approved they will be green minus the white check mark and you can use the drop down on the right to set the correct match. At the top you have icons to add a video as blank editable video, rescan selected videos or delete selected videos as well as advanced options such as restarting the importer and unignoring files.
 
 Next let's look at the section with the pencil w/plus sign icon.
 
