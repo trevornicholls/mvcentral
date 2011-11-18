@@ -221,7 +221,7 @@ This section briefly covers the parsing engine and the replacements and and expr
 
 Now that is all done let's take a look at the library you have started by clicking on the "Library" tab.
 
-http://www.mp-pr.com/images/wiki/6.png
+[http://mvCentral.googlecode.com/svn/wiki/Images/mvLibrary.jpg]
 
 Here you can go over your video selection and make any changes like:
  * Image selection for artists and tracks
