@@ -33,7 +33,7 @@ Filenames like the two below will not parse using default expressions and custom
  * *acdc-shoot_to_thrill-repack-proper-dvdrip-x264-2010-mv4u.mkv*
  * *alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*
 
-= Album Support =
+== Album Support ==
 
 The plugin can display you Music Vidoes similar to the native Music plugin, Artist, Album and Trackw. Album support is enabled by default and can be disabled if required.
 
@@ -137,7 +137,7 @@ Currently the support masks are
 
 
 
-== Importing Music Videos ==
+= Importing Music Videos =
 
 Once you have the plugin configured to the way you want it to look and act, let's select the "Import" tab to begin our initial import of songs.
 
@@ -171,7 +171,7 @@ In this image you can see that 3 songs were not imported correctly indicated by 
 
 The first of these has no possible matches, the second and third have matches but these did not meet the ranking for auto approval.
 
-= Manually Approving of Imported Music Videos =
+ == Manually Approving of Imported Music Videos ==
 
 There are 3 icons above the main list on import files;
 
@@ -198,21 +198,25 @@ Using the earlier example we can see that the track has been identified as *Rubb
 Most approvals will use this method.  
 
 
-== Advanced Import Options ==
+= Advanced Import Options =
+
+This section briefly covers the parsing engine and the replacements and and expressions used and how to alter them if required.
+
+== Replacements ==
 
 
  * [http://mvCentral.googlecode.com/svn/wiki/Images/pencil_add.png] This display the string replacements tab when you amend the replacements used pre and post parsing.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/import-replacements.jpg]
 
-
+== parsing Expressions ==
 
  * [http://mvCentral.googlecode.com/svn/wiki/Images/page_gear.png] This will access the parsing expressions tab when you edit and add parsing expressions.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/import-parsing.jpg]
 
 
-
+ = Music Video Library =
 
 
 Now that is all done let's take a look at the library you have started by clicking on the "Library" tab.
