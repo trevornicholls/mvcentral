@@ -60,6 +60,7 @@
       this.btSelectLocalTrackArtFolder.Name = "btSelectLocalTrackArtFolder";
       this.btSelectLocalTrackArtFolder.Size = new System.Drawing.Size(31, 23);
       this.btSelectLocalTrackArtFolder.TabIndex = 117;
+      this.tpCustomArtworkFolders.SetToolTip(this.btSelectLocalTrackArtFolder, "Click to browse for folder");
       this.btSelectLocalTrackArtFolder.UseVisualStyleBackColor = true;
       this.btSelectLocalTrackArtFolder.Click += new System.EventHandler(this.btSelectLocalTrackArtFolder_Click);
       // 
@@ -70,6 +71,7 @@
       this.btSelectLocalAlbumArtFolder.Name = "btSelectLocalAlbumArtFolder";
       this.btSelectLocalAlbumArtFolder.Size = new System.Drawing.Size(31, 23);
       this.btSelectLocalAlbumArtFolder.TabIndex = 116;
+      this.tpCustomArtworkFolders.SetToolTip(this.btSelectLocalAlbumArtFolder, "Click to browse for folder");
       this.btSelectLocalAlbumArtFolder.UseVisualStyleBackColor = true;
       this.btSelectLocalAlbumArtFolder.Click += new System.EventHandler(this.btSelectLocalAlbumArtFolder_Click);
       // 
@@ -80,6 +82,7 @@
       this.btSelectLocalArtistArtFolder.Name = "btSelectLocalArtistArtFolder";
       this.btSelectLocalArtistArtFolder.Size = new System.Drawing.Size(31, 23);
       this.btSelectLocalArtistArtFolder.TabIndex = 115;
+      this.tpCustomArtworkFolders.SetToolTip(this.btSelectLocalArtistArtFolder, "Click to browse for folder");
       this.btSelectLocalArtistArtFolder.UseVisualStyleBackColor = true;
       this.btSelectLocalArtistArtFolder.Click += new System.EventHandler(this.btSelectLocalArtistArtFolder_Click);
       // 
@@ -127,6 +130,8 @@
       this.tbCustomTrackArtFolder.Setting = null;
       this.tbCustomTrackArtFolder.Size = new System.Drawing.Size(297, 20);
       this.tbCustomTrackArtFolder.TabIndex = 111;
+      this.tpCustomArtworkFolders.SetToolTip(this.tbCustomTrackArtFolder, "Folder for custom artwork.\r\n\r\nThe plugin will look for artworking matching the ma" +
+        "sk in this folder.\r\n");
       // 
       // tbCustomAlbumArtFolder
       // 
@@ -135,6 +140,8 @@
       this.tbCustomAlbumArtFolder.Setting = null;
       this.tbCustomAlbumArtFolder.Size = new System.Drawing.Size(297, 20);
       this.tbCustomAlbumArtFolder.TabIndex = 110;
+      this.tpCustomArtworkFolders.SetToolTip(this.tbCustomAlbumArtFolder, "Folder for custom artwork.\r\n\r\nThe plugin will look for artworking matching the ma" +
+        "sk in this folder.\r\n");
       // 
       // tbCustomArtistArtFolder
       // 
@@ -143,6 +150,8 @@
       this.tbCustomArtistArtFolder.Setting = null;
       this.tbCustomArtistArtFolder.Size = new System.Drawing.Size(297, 20);
       this.tbCustomArtistArtFolder.TabIndex = 109;
+      this.tpCustomArtworkFolders.SetToolTip(this.tbCustomArtistArtFolder, "Folder for custom artwork.\r\n\r\nThe plugin will look for artworking matching the ma" +
+        "sk in this folder.");
       // 
       // label43
       // 
@@ -189,6 +198,7 @@
       this.tbArtistPatternMask.Setting = null;
       this.tbArtistPatternMask.Size = new System.Drawing.Size(297, 20);
       this.tbArtistPatternMask.TabIndex = 121;
+      this.tpCustomArtworkFolders.SetToolTip(this.tbArtistPatternMask, resources.GetString("tbArtistPatternMask.ToolTip"));
       // 
       // label3
       // 
@@ -206,6 +216,7 @@
       this.tbAlbumPatternMask.Setting = null;
       this.tbAlbumPatternMask.Size = new System.Drawing.Size(297, 20);
       this.tbAlbumPatternMask.TabIndex = 123;
+      this.tpCustomArtworkFolders.SetToolTip(this.tbAlbumPatternMask, resources.GetString("tbAlbumPatternMask.ToolTip"));
       // 
       // label4
       // 

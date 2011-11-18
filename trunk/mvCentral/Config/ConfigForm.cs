@@ -225,7 +225,7 @@ namespace mvCentral
       strButtonText = PluginName();
       strButtonImage = string.Empty;
       strButtonImageFocus = string.Empty;
-      strPictureImage = "hover_MusicVids.png";
+      strPictureImage = "hover_mvCentral.png";
       return true;
     }
 
