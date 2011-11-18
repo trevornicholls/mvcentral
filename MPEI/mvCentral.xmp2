@@ -448,89 +448,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>193</Revision>
+      <Revision>208</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
-
-Fixed display issue in StreamedMP skin file
-
-Set OSD properties, std ones : #Play.Current.Title,#Play.Current.Thumb and
-
-#Play.Current.Plot for album info
-
-Also set some MvC specific properties and a property to indicate MvC is playing.
-
-#Play.Current.mvArtist
-
-#Play.Current.mvAlbum
-
-Play.Current.mvVideo
-
-#Play.Current.mvTrack.Description
-
-#mvCentral.isPlaying set to true or false
-
-Check if Genres view is select but there are no actual genres defined, in this
-
-case revert to artist view.
-
-This should also address issues 25
-
-Split the settings into importer and GUI
-
-Added playlist shuffle options to GUI settings
-
-use same routine to check for artists matching genre
-
-now alpha sort genre in in smartplaylist genre dialog
-
-ensure one playlist is stopped before queuing a new one
-
-Fix issue with property settings not being set correctly
-
-Remove the part of last commit as caused playlist type to be cleared after first song.
-
-Added new option - Clear existing Playlist when queueing/adding new playlist.
-
-Started the tooltips
-
-Fixed bug with leaving and re-entering plugin with unmatched items still
-
-present.
-
-Fix issue 25 - no default view on inital startup
-
-Further fix to Issue 25 - Now check DB is valid and if not reset to artist and
-
-store
-
-Loading display in config now displays counts of artists, albums and videos
-
-processed.
-
-Update Language file
-
-Added custom WebGrabber class as need to handle return errors from last.fm
-last.fm errors are now decoded and displayed in the log.
-Now ensure at least 1 Sec between API calls to last.fm to meet requirements.
-Some initial work on DVD import (rips)
-
-Re-write of artwork handling - can now specify external artwork folders for
-Artist, Album and Track images - these will be searched for matching artwork
-before grabbing online artwork.
-
-Reworked Importer setting screen
-Enable forum link and some tweaks to About tab
-Fix issue where different track from selected was played.
-
-Added Last.Fm scrobble support
+    <VersionDescription>RC Release
 
 
 </VersionDescription>
-    <DevelopmentStatus>Beta</DevelopmentStatus>
+    <DevelopmentStatus>Rc</DevelopmentStatus>
     <OnlineLocation />
-    <ReleaseDate>2011-09-23T22:26:37</ReleaseDate>
+    <ReleaseDate>2011-11-18T22:26:37</ReleaseDate>
     <Tags />
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
@@ -795,14 +722,14 @@ Added Last.Fm scrobble support
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b8a78535-cd40-4cb7-95ee-7d554912f703}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{11ef7c47-2f51-4ca4-a7df-a3e1e9176ac9}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a37c356f-95f4-4dbc-a112-8674e04980d2}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{d02fa6f7-293c-447c-8fbd-5993b8bb864f}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
