@@ -171,7 +171,7 @@ In this image you can see that 3 songs were not imported correctly indicated by 
 
 The first of these has no possible matches, the second and third have matches but these did not meet the ranking for auto approval.
 
- == Manually Approving of Imported Music Videos ==
+== Manually Approving of Imported Music Videos ==
 
 There are 3 icons above the main list on import files;
 
@@ -216,7 +216,7 @@ This section briefly covers the parsing engine and the replacements and and expr
 [http://mvCentral.googlecode.com/svn/wiki/Images/import-parsing.jpg]
 
 
- = Music Video Library =
+= Music Video Library =
 
 
 Now that is all done let's take a look at the library you have started by clicking on the "Library" tab.
