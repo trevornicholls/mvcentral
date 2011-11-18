@@ -265,7 +265,7 @@ This section briefly covers the parsing engine and the replacements and and expr
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/import-replacements.jpg]
 
-== parsing Expressions ==
+== Parsing Expressions ==
 
  * [http://mvCentral.googlecode.com/svn/wiki/Images/page_gear.png] This will access the parsing expressions tab when you edit and add parsing expressions.
 
