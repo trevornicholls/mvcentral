@@ -161,7 +161,11 @@ namespace mvCentral
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
-      
+
+      automaticMediaInfoMenuItem.Checked = mvCentralCore.Settings.AutoRetrieveMediaInfo;
+
+
+
     }
 
     #endregion

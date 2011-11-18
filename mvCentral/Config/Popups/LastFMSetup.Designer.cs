@@ -40,8 +40,8 @@
       // 
       // label1
       // 
-      this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.label1.AutoSize = true;
       this.label1.Location = new System.Drawing.Point(26, 19);
       this.label1.Name = "label1";
@@ -51,8 +51,8 @@
       // 
       // label2
       // 
-      this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                  | System.Windows.Forms.AnchorStyles.Right)));
+      this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.label2.AutoSize = true;
       this.label2.Location = new System.Drawing.Point(28, 48);
       this.label2.Name = "label2";
@@ -104,9 +104,9 @@
       this.cbSubmitToLastFM.Location = new System.Drawing.Point(31, 110);
       this.cbSubmitToLastFM.Name = "cbSubmitToLastFM";
       this.cbSubmitToLastFM.Setting = null;
-      this.cbSubmitToLastFM.Size = new System.Drawing.Size(207, 17);
+      this.cbSubmitToLastFM.Size = new System.Drawing.Size(233, 17);
       this.cbSubmitToLastFM.TabIndex = 112;
-      this.cbSubmitToLastFM.Text = "Submit Playing Video to last.Fm Library\r\n";
+      this.cbSubmitToLastFM.Text = "Submit now playing video to Last.FM Library\r\n";
       this.cbSubmitToLastFM.UseVisualStyleBackColor = true;
       // 
       // cbShowOnLastFM
@@ -116,9 +116,9 @@
       this.cbShowOnLastFM.Location = new System.Drawing.Point(31, 82);
       this.cbShowOnLastFM.Name = "cbShowOnLastFM";
       this.cbShowOnLastFM.Setting = null;
-      this.cbShowOnLastFM.Size = new System.Drawing.Size(170, 17);
+      this.cbShowOnLastFM.Size = new System.Drawing.Size(197, 17);
       this.cbShowOnLastFM.TabIndex = 113;
-      this.cbShowOnLastFM.Text = "Show Plaing video on Last.FM";
+      this.cbShowOnLastFM.Text = "Show now playing video on Last.FM";
       this.cbShowOnLastFM.UseVisualStyleBackColor = true;
       // 
       // LastFMSetup
