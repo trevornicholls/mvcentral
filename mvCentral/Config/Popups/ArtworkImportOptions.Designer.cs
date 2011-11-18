@@ -28,6 +28,7 @@
     /// </summary>
     private void InitializeComponent()
     {
+      this.components = new System.ComponentModel.Container();
       this.tbMaxVideoArtwork = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.label40 = new System.Windows.Forms.Label();
       this.tbMaxAlbumArtwork = new Cornerstone.GUI.Controls.SettingsTextBox();
@@ -59,6 +60,7 @@
       this.tbTrackArtWidth = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.tbTrackArtHeight = new Cornerstone.GUI.Controls.SettingsTextBox();
       this.btClose = new System.Windows.Forms.Button();
+      this.tpArtworkOptions = new System.Windows.Forms.ToolTip(this.components);
       this.groupBox11.SuspendLayout();
       this.groupBox4.SuspendLayout();
       this.groupBox18.SuspendLayout();
@@ -72,6 +74,7 @@
       this.tbMaxVideoArtwork.Setting = null;
       this.tbMaxVideoArtwork.Size = new System.Drawing.Size(26, 20);
       this.tbMaxVideoArtwork.TabIndex = 113;
+      this.tpArtworkOptions.SetToolTip(this.tbMaxVideoArtwork, "Maximum number of track images to download");
       // 
       // label40
       // 
@@ -89,6 +92,7 @@
       this.tbMaxAlbumArtwork.Setting = null;
       this.tbMaxAlbumArtwork.Size = new System.Drawing.Size(26, 20);
       this.tbMaxAlbumArtwork.TabIndex = 111;
+      this.tpArtworkOptions.SetToolTip(this.tbMaxAlbumArtwork, "Maximum number of Album images to download");
       // 
       // label39
       // 
@@ -106,6 +110,7 @@
       this.tbMaxArtistArtwork.Setting = null;
       this.tbMaxArtistArtwork.Size = new System.Drawing.Size(26, 20);
       this.tbMaxArtistArtwork.TabIndex = 109;
+      this.tpArtworkOptions.SetToolTip(this.tbMaxArtistArtwork, "Maximum number of Artist images to download");
       // 
       // label38
       // 
@@ -347,6 +352,12 @@
       this.btClose.UseVisualStyleBackColor = true;
       this.btClose.Click += new System.EventHandler(this.btClose_Click);
       // 
+      // tpArtworkOptions
+      // 
+      this.tpArtworkOptions.IsBalloon = true;
+      this.tpArtworkOptions.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+      this.tpArtworkOptions.ToolTipTitle = "mvCentral - Help";
+      // 
       // ArtworkImportOptions
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -421,5 +432,6 @@
     private Cornerstone.GUI.Controls.SettingsTextBox tbTrackArtWidth;
     private Cornerstone.GUI.Controls.SettingsTextBox tbTrackArtHeight;
     private System.Windows.Forms.Button btClose;
+    private System.Windows.Forms.ToolTip tpArtworkOptions;
   }
 }

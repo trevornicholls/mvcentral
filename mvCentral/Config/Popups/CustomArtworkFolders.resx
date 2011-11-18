@@ -120,6 +120,53 @@
   <metadata name="tpCustomArtworkFolders.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="tbArtistPatternMask.ToolTip" xml:space="preserve">
+    <value>Enter the mask used to match the artwork on the custom folder.
+
+The format is %&lt;mask&gt;%.&lt;ext&gt;
+
+The pipe character is used to seperate multiple masks
+
+%&lt;mask1&gt;%.&lt;ext&gt;|%&lt;mask1&gt;%.&lt;ext&gt;
+
+The following mask, using the music video Green Day - American Idiot
+would search for artwork 
+
+american idiot.jpg or american idiot.png or american idiot.bmp
+
+%artist%.jpg|%artist%.png|%artist%.bmp
+
+Available masks: %artist% - Use track name
+
+
+
+
+
+</value>
+  </data>
+  <data name="tbAlbumPatternMask.ToolTip" xml:space="preserve">
+    <value>Enter the mask used to match the artwork on the custom folder.
+
+The format is %&lt;mask&gt;%.&lt;ext&gt;
+
+The pipe character is used to seperate multiple masks
+
+%&lt;mask1&gt;%.&lt;ext&gt;|%&lt;mask1&gt;%.&lt;ext&gt;
+
+The following mask, using the music video Green Day - American Idiot
+would search for artwork 
+
+american idiot.jpg or american idiot.png or american idiot.bmp
+
+%album%.jpg|%album%.png|%album%.bmp
+
+Available masks: %album% - Use track name
+
+
+
+
+</value>
+  </data>
   <data name="tbTrackPatternMask.ToolTip" xml:space="preserve">
     <value>Enter the mask used to match the artwork on the custom folder.
 

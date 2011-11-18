@@ -445,10 +445,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/my-music-videos-v0-41-a-68337/</ForumPage>
     <UpdateUrl>G:\Development\mvcentral\MPEI\Update</UpdateUrl>
     <Version>
-      <Major>0</Major>
-      <Minor>5</Minor>
+      <Major>1</Major>
+      <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>192</Revision>
+      <Revision>193</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>Added override for GetModuleName(), loses the [ERROR][MPMain(1)]: No translation found for id 212011 is the error log and also sets #currentmodule to plugin name
@@ -795,14 +795,14 @@ Added Last.Fm scrobble support
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{a48a7fd3-c7a7-4323-9378-540833996278}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b8a78535-cd40-4cb7-95ee-7d554912f703}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e4824040-a0c8-40e7-af2b-9404462efbda}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{a37c356f-95f4-4dbc-a112-8674e04980d2}-mvCentral_Icon_Enabled.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
