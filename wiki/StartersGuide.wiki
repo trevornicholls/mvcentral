@@ -11,35 +11,35 @@
 = Introduction =
 Welcome to the starter's guide to mvCentral! Here we will go over a few of the basics to help you get started with mvCentral.
 
-mvCentral is a Music Videos plugun for MediaPortal that scans your Music Video collection and looks up the metadata using Last.FM as the primary data source.
+mvCentral is a Music Videos plugin for MediaPortal that scans your Music Video collection and looks up the metadata using Last.FM as the primary data source.
 
 = Notes of Filename and Folder layout =
 
-The plugin will support a base set of filenames and folder layouts. The parser is flexible and though the user of custom parsing and replacements is capable of supporting a wider range. The parsing engin and how to customize is detailed seperatly (TBS).
+The plugin will support a base set of filenames and folder layouts. The parser is flexible and though the user of custom parsing and replacements is capable of supporting a wider range. The parsing engine and how to customize is detailed separately (TBS).
 
 The basic format is 
 
 *{{{<artist> - <track name>.<ext>}}}*
 
-the - (hypen) is mandantory as is the order - the contents of Artist and Track Name are more flexible as these are cleaned by the parsing engine.
+the - (hyphen) is mandatory as is the order - the contents of Artist and Track Name are more flexible as these are cleaned by the parsing engine.
 
-Filenames like the two are perfectly acceptable and the default expresssions will handle these sucessfully.
+Filenames like the two are perfectly acceptable and the default expressions will handle these successfully.
 
  * *Avril Lavigne [1080p] - Alice.mkv*
  * *Nicole Scherzinger - Wet (Official Music Video 2011).mkv*
 
-Filenames like the two below will not parse using default expressions and custom expressions will need to entered.
+Filenames like the two below will not parse using default expressions; you will need to define custom expressions for these.
 
  * *acdc-shoot_to_thrill-repack-proper-dvdrip-x264-2010-mv4u.mkv*
  * *alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*
 
 == Album Support ==
 
-The plugin can display you Music Vidoes similar to the native Music plugin, Artist, Album and Trackw. Album support is enabled by default and can be disabled if required.
+The plugin can display you Music Videos similar to the native Music plugin, Artist, Album and Track. Album support is enabled by default and can be disabled if required.
 
-Two methods are used to assoiate a track with the album, the first option is scraping from Last.FM (scraping), the second is by parsing the folder layout(parsing).
+Two methods are used to associate a track with the album, the first option is scraping from Last.FM (scraping), and the second is by parsing the folder layout (parsing).
 
-The scraping  method looks up the Album(s) that the track is found on from last.FM and returns the higest ranked, this can give unexcpected results due to the way Last.FM ranks albums. 
+The scraping method looks up the Album(s) that the track is found on from last.FM and returns the highest ranked, this can give unexpected results due to the way Last.FM ranks albums. 
 
 The parsing method will look at the folder layout i.e.
 {{{
@@ -58,12 +58,12 @@ Guns n Roses
 --Track 3
 }}}
 
-This option can be disable and is neceassary if you use a folder layout based on Genre or similar.
+This option can be disabled and is necessary if you use a folder layout based on Genre or similar.
 
 
 = First Steps =
 
-After installing the plugin, go to mvCentral's configuration in the plugins section of MediaPortal Configuration.
+After installing the plugin, go to mvCentral configuration in the plugins section of MediaPortal Configuration.
 
 http://www.mp-pr.com/Images/wiki/0.png
 
@@ -77,18 +77,18 @@ You will see various options and we will go over most of them here:
 *Auto Approve Settings*
 
 || *Auto approve if match found on scraper*||
-||This enabled by default and will automaticlly approve the Music Video and download Information and Artowork if both Artist and Track match, if no extact match is found the Music Video will be marked for user approval||
+||This enabled by default and will automatically approve the Music Video and download Information and Artwork if both Artist and Track match, if no exact match is found the Music Video will be marked for user approval||
 
 *Album Support*
  
 || *Disable Album Support*||
 ||This will disable support for Album scraping and parsing||
  
-|| *Enable scraping of Album from the the Track Data*||
-||The will enable the the option to look up which Album(s) the track appears on, it will chose the highest ranked on Last.FM||
+|| *Enable scraping of Album from the Track Data*||
+||The will enable the option to look up which Album(s) the track appears on, it will chose the highest ranked on Last.FM||
 
 || *Use the scrapper for found album instead of the parsed one*||
-||Scapping is enabled by default and selecting this option will use the parsed Album over the one that has been parsed||
+||Scraping is enabled by default and selecting this option will use the parsed Album over the one that has been parsed||
 
 *Parsing*
 
@@ -98,12 +98,12 @@ You will see various options and we will go over most of them here:
 *Data Sources*
 
 || *Automatically retrieve information in the _________ language*||
-||This will allow you select the language that information is retrived from Last.FM, there are 7 defined languages. If your language is not listed chose addtional options and select your language. The information will then be run though the Google translate API - this option can lead to imprefect results.||
+||This will allow you select the language that information is retrieved from Last.FM, there are 7 defined languages. If your language is not listed chose additional options and select your language. The information will then be run though the Google translate API - this option can lead to imperfect results.||
 
 *Video Thumbnail*
 
 ||Prefer video thumbnail over parsed image for thumbnail||
-||Enabling this option with use Movie Thumbnailer to extract an image from the Music Video, this image can have a number of row/cols if required which can be configured from the Video Apperance below||
+||Enabling this option with use Movie Thumbnailer to extract an image from the Music Video, this image can have a number of row/cols if required which can be configured from the Video Appearance below||
 
 = Artwork =
 
@@ -146,22 +146,22 @@ Once you have the plugin configured to the way you want it to look and act, let'
 
 As you can see the import tab has different sections each accessible on the left identifiable by the icons of: 
 
- * [http://mvCentral.googlecode.com/svn/wiki/Images/folder_image.png] Select the source(s) for you Music Vidoes
- * [http://mvCentral.googlecode.com/svn/wiki/Images/tick.png] Select the scan amd match tab.
- * [http://mvCentral.googlecode.com/svn/wiki/Images/pencil_add.png] This display the string replacements tab when you amend the replacements used pre and post parsing.
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/folder_image.png] Select the source(s) for you Music Videos
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/tick.png] Select the scan and match tab.
+ * [http://mvCentral.googlecode.com/svn/wiki/Images/pencil_add.png] This displays the string replacements tab when you amend the replacements used pre and post parsing.
  * [http://mvCentral.googlecode.com/svn/wiki/Images/page_gear.png] This will access the parsing expressions tab when you edit and add parsing expressions. 
  
-The bottom part is used as a pre parse checker to make sure you don’t have any incompatible naming issues with your files. This screen is best used after the initial scan when there are outstanding items as it will allow you to check the parse results.
+The bottom part is used as a pre parse checker to ensure you don’t have any incompatible naming issues with your files. This screen is best used after the initial scan when there are outstanding items as it will allow you to check the parse results.
 
 The first stage is to add the folder containing your Music Video collection, you can add multiple folders if you wish.
 
-Import will start immediatly you add a folder and you will switched to the importer screen.
+Import will start immediately you add a folder focus will be switched to the importer screen.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/ImportFiles.jpg]
 
-Here we have our importer results. In this image there is an import in progress, the plugin is currently going though and attempting to identify the Artist and Track. The processing section show the current file being processed, an indication of how far though and the total number of number of imported Music Videos/Total Music Video found.
+Here we have our importer results. In this image there is an import in progress, the plugin is currently going through and attempting to identify the Artist and Track. The processing section show the current file being processed, an indication of how far though and the total number of number of imported Music Videos/Total Music Video found.
 
-When the scan is completed the processing will either say *Done!* if all scanned sucessfully of *Waiting for Close Match Approvals...* indicating manual approval is required.
+When the scan is completed the processing will either say *Done!* if all scanned successfully of *Waiting for Close Match Approvals...* indicating manual approval is required.
 
 The screen below show a finished import that is waiting for approvals and indicates that there are 7 items waiting to be manually approved.
 
@@ -181,7 +181,7 @@ This option will mark Music Video as approved using the suggested name, this is 
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/Edit.png]    *Manually enter the details for the Music Video.*
 
-This option allows you to enter the details of a Music Video manually, selecting this option will bring the following screen.
+This option allows you to enter the details of a Music Video manually; selecting this option will bring the following screen.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/manualImport.jpg]
 
@@ -189,18 +189,18 @@ Here you can enter the details of the Artist, Album and Track. A Music Video tha
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/find.png]    *Rescan using Custom Search string.*
 
-This option allows you to reneter/correct the parsed information, clicking on the icond will display the follwoing screen.
+This option allows you to renter/correct the parsed information, clicking on the icon will display the following screen.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/rescanCustom.jpg]
 
-Using the earlier example we can see that the track has been identified as *Rubber Bullets Live* and this track has not been found. We can correct this, removing the word *Live* and clicking *Ok* whcih will resend the filer back to the importer.
+Using the earlier example we can see that the track has been identified as *Rubber Bullets Live* and this track has not been found. We can correct this, removing the word *Live* and clicking *Ok* which will resend the filer back to the importer.
 
 Most approvals will use this method.  
 
 
 = GUI Settings =
 
-In this tab you can alter the behaviour of plugin functions with the GUI, alter how Playlists are handled and enable scrobbling access to your Last.Fm account.
+In this tab you can alter the behaviour of plugin functions with the GUI, alter how Playlists are handled and enable scrobbling access to your Last. FM account.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/guisettings.jpg]
 
@@ -208,12 +208,12 @@ In this tab you can alter the behaviour of plugin functions with the GUI, alter 
 *Plugin Settings*
 
 || *Plug-in name in Home Screen*||
-||This is the name that will be disdplayed on the standard home screen and plugin screen||
+||This is the name that will be displayed on the standard home screen and plugin screen||
 
 *GUI Settings*
 
 || *Video is considered new if added in the last __ day(s)*||
-||This setting controls the behavious of the Smart Playlist option *Latest Videos* - if the Music Video has been added within this time then it will be included in the playlist generated with the Smart Playlist option||
+||This setting controls the behaviours of the Smart Playlist option *Latest Videos* - if the Music Video has been added within this time then it will be included in the playlist generated with the Smart Playlist option||
 
 || *Switch to fullscreen when video starts*||
 ||This option is enabled by default and each time a video starts fullscreen video will be enabled. This can be disabled if required and manually switching to full screen with either the *X* on the keyboard of the *Red* button on the remote.||
@@ -224,39 +224,39 @@ In this tab you can alter the behaviour of plugin functions with the GUI, alter 
 *Playlist Settings*
 
 || *Shuffle playlists on load*||
-||This option is enabled by deafult and will autoshuffle playlists when loaded||
+||This option is enabled by default and will auto shuffle playlists when loaded||
 
 || *Shuffle internal generated playlists*||
 ||Internal playlist are created for each selection that includes more than a single video. When this option is enabled this will be shuffled before being played||
 
-|| *Clear playist when loading/queueing new playlist*||
-||By default selecting a new set of tracks or artist to play will clear  the existing playlist, disable this option if you to keep adding tracks to the existing playlist.||
+|| *Clear playlist when loading/queuing new playlist*||
+||By default selecting a new set of tracks or artist to play will clear the existing playlist, disable this option if you to keep adding tracks to the existing playlist.||
 
 *Scrobbling*
 
-The plugin has the ability to link to Last.FM and either display the current playing track and/or update yur last.Fm libaray.
+The plugin has the ability to link to Last.FM and either submits the current playing track and/or updates your Last.FM library when the track ends.
 
 Clicking on the *Configure Last.FM* button will display the following screen.
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/lastfm.jpg]
 
-Here you can enter your Last.FM username and Password and check that the plugin can sucessfully access Last.Fm by clicking *Test Login*.
+Here you can enter your Last.FM username and Password and check that the plugin can successfully access Last. FM by clicking *Test Login*.
 
-Note: Currently the plugin does not check MediaPortal to see if last.Fm is currently configured, this will be added in a later release.
+Note: Currently the plugin does not check MediaPortal to see if Last. FM is currently configured; this will be added in a later release.
 
-There are two oprions on this screen.
+There are two options on this screen.
 
 || *Submit Playing Video to Last.FM*||
-||In enabled the currently playing track will submited to last.FM and will display in your Last.Fm profile.||
+||In enabled the currently playing track will submitted to last.FM and will display in your Last. FM profile.||
 
 || *Submit playing video to Last.FM library*||
-||If enabled the current track will be sumbitted to your library when the ttrack finishes.||
+||If enabled the current track will be submitted to your library when the track finishes.||
 
 
 
 = Advanced Import Options =
 
-This section briefly covers the parsing engine and the replacements and and expressions used and how to alter them if required.
+This section briefly covers the parsing engine and the replacements and expressions used and how to alter them if required.
 
 == Replacements ==
 
