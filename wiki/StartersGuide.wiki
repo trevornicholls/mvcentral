@@ -198,6 +198,62 @@ Using the earlier example we can see that the track has been identified as *Rubb
 Most approvals will use this method.  
 
 
+= GUI Settings =
+
+In this tab you can alter the behaviour of plugin functions with the GUI, alter how Playlists are handled and enable scrobbling access to your Last.Fm account.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/guisettings.jpg]
+
+
+*Plugin Settings*
+
+|| *Plug-in name in Home Screen*||
+||This is the name that will be disdplayed on the standard home screen and plugin screen||
+
+*GUI Settings*
+
+|| *Video is considered new if added in the last __ day(s)*||
+||This setting controls the behavious of the Smart Playlist option *Latest Videos* - if the Music Video has been added within this time then it will be included in the playlist generated with the Smart Playlist option||
+
+|| *Switch to fullscreen when video starts*||
+||This option is enabled by default and each time a video starts fullscreen video will be enabled. This can be disabled if required and manually switching to full screen with either the *X* on the keyboard of the *Red* button on the remote.||
+
+||*Display non-cleaned version of track name*||
+||Enabling this option will display the actual track names extracted from the full filename. This is useful if you have the same tracks by an artist and some are live versions that have (Live) in the filename. ||
+
+*Playlist Settings*
+
+|| *Shuffle playlists on load*||
+||This option is enabled by deafult and will autoshuffle playlists when loaded||
+
+|| *Shuffle internal generated playlists*||
+||Internal playlist are created for each selection that includes more than a single video. When this option is enabled this will be shuffled before being played||
+
+|| *Clear playist when loading/queueing new playlist*||
+||By default selecting a new set of tracks or artist to play will clear  the existing playlist, disable this option if you to keep adding tracks to the existing playlist.||
+
+*Scrobbling*
+
+The plugin has the ability to link to Last.FM and either display the current playing track and/or update yur last.Fm libaray.
+
+Clicking on the *Configure Last.FM* button will display the following screen.
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/lastfm.jpg]
+
+Here you can enter your Last.FM username and Password and check that the plugin can sucessfully access Last.Fm by clicking *Test Login*.
+
+Note: Currently the plugin does not check MediaPortal to see if last.Fm is currently configured, this will be added in a later release.
+
+There are two oprions on this screen.
+
+|| *Submit Playing Video to Last.FM*||
+||In enabled the currently playing track will submited to last.FM and will display in your Last.Fm profile.||
+
+|| *Submit playing video to Last.FM library*||
+||If enabled the current track will be sumbitted to your library when the ttrack finishes.||
+
+
+
 = Advanced Import Options =
 
 This section briefly covers the parsing engine and the replacements and and expressions used and how to alter them if required.
