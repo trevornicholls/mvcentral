@@ -31,7 +31,7 @@ File names like the following two examples are perfectly acceptable and the defa
 File names like the following two examples will = not = parse using default expressions.  You will need to define custom expressions for these.
 
  * *acdc-shoot_to_thrill-repack-proper-dvdrip-x264-2010-mv4u.mkv*
- * *alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*
+ * *alexandra_stan-get_back_(asap)-web-1080p-x264-2011-fray_int.mkv*_
 
 == Album Support ==
 
