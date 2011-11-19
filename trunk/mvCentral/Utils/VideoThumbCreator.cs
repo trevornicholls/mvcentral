@@ -61,24 +61,24 @@ namespace mvCentral.Utils
     {
       if (String.IsNullOrEmpty(aVideoPath) || String.IsNullOrEmpty(aThumbPath))
       {
-        Log.Warn("VideoThumbCreator: Invalid arguments to generate thumbnails of your video!");
+        logger.Warn("VideoThumbCreator: Invalid arguments to generate thumbnails of your video!");
         return false;
       }
       if (!MediaPortal.Util.Utils.FileExistsInCache(aVideoPath))
       {
-        Log.Warn("VideoThumbCreator: File {0} not found!", aVideoPath);
+        logger.Warn("VideoThumbCreator: File {0} not found!", aVideoPath);
         return false;
       }
       if (!MediaPortal.Util.Utils.FileExistsInCache(ExtractorPath))
       {
-        Log.Warn("VideoThumbCreator: No {0} found to generate thumbnails of your video!", ExtractApp);
+        logger.Warn("VideoThumbCreator: No {0} found to generate thumbnails of your video!", ExtractApp);
         return false;
       }
 
       IVideoThumbBlacklist blacklist = GlobalServiceProvider.Get<IVideoThumbBlacklist>();
       if (blacklist != null && blacklist.Contains(aVideoPath))
       {
-        Log.Debug("Skipped creating thumbnail for {0}, it has been blacklisted because last attempt failed", aVideoPath);
+        logger.Debug("Skipped creating thumbnail for {0}, it has been blacklisted because last attempt failed", aVideoPath);
         return false;
       }
 
@@ -117,9 +117,12 @@ namespace mvCentral.Utils
         string OutputThumb = string.Format("{0}_s{1}", Path.ChangeExtension(outputFilename, null), ".jpg");
         string ShareThumb = OutputThumb.Replace("_s.jpg", ".jpg");
         
-        logger.Debug("About to start MTN process with {0}", ExtractorArgs);
+        logger.Debug("ThreadID: {0} - About to start MTN process with {1}",Thread.CurrentThread.ManagedThreadId.ToString() , ExtractorArgs);
         Process  processStatus = MediaPortal.Util.Utils.StartProcess(ExtractorPath, ExtractorArgs, true, true);
-        logger.Debug("Finished MTN call with {0)", ExtractorArgs);
+        if (!processStatus.HasExited)
+          logger.Debug("ThreadID:{0} - MTN process not exited Status:{0)", Thread.CurrentThread.ManagedThreadId.ToString(),processStatus.ExitCode);
+        else
+        logger.Debug("ThreadID: {0} - Finished MTN call with exit code:{1) using arguments {2}",Thread.CurrentThread.ManagedThreadId.ToString(),processStatus.ExitCode, ExtractorArgs);
 
 
         // give the system a few IO cycles
@@ -135,13 +138,14 @@ namespace mvCentral.Utils
         }
         catch (FileNotFoundException)
         {
-          Log.Debug("VideoThumbCreator: {0} did not extract a thumbnail to: {1}", ExtractApp, OutputThumb);
+          logger.Debug("VideoThumbCreator: {0} did not extract a thumbnail to: {1}", ExtractApp, OutputThumb);
         }
-        catch (Exception)
+        catch (Exception e)
         {
           try
           {
             // Clean up
+            logger.DebugException("VideoThumbCreator: Exception in file move",e);
             File.Delete(OutputThumb);
             Thread.Sleep(50);
           }
@@ -153,7 +157,7 @@ namespace mvCentral.Utils
       }
       catch (Exception ex)
       {
-        Log.Error("VideoThumbCreator: Thumbnail generation failed - {0}!", ex.ToString());
+        logger.Debug("VideoThumbCreator: Thumbnail generation failed - {0}!", ex.ToString());
       }
       if (MediaPortal.Util.Utils.FileExistsInCache(aThumbPath))
       {
@@ -181,8 +185,7 @@ namespace mvCentral.Utils
       }
       catch (Exception ex)
       {
-        Log.Error("GetThumbExtractorVersion failed:");
-        Log.Error(ex);
+        logger.DebugException("GetThumbExtractorVersion failed:",ex);
         return "";
       }
     }

@@ -91,6 +91,8 @@ namespace mvCentral.LocalMediaManagement.MusicVideoResources
       catch (System.IO.IOException)
       {
         logger.Debug("Failed to copy file : {0} for path {1}", path, Filename);
+        return ImageLoadResults.FAILED;
+
       }
 
       // verify the image file and resize it as needed
