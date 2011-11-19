@@ -434,12 +434,12 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>229</Revision>
+      <Revision>231</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>RC Release
-
-
+    <VersionDescription>RC Release
+
+
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
