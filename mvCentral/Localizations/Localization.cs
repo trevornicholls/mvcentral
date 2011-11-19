@@ -198,6 +198,7 @@ namespace mvCentral.Localizations
           if (IsInteger(propValue))
           {
             GUIUtils.SetProperty(propName + ".Label", GUILocalizeStrings.Get(int.Parse(propValue)), true);
+            logger.Debug("Set Localised IDs" + propName + ".Label to " + GUILocalizeStrings.Get(int.Parse(propValue)));
           }
           else
           {
