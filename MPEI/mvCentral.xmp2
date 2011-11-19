@@ -290,12 +290,12 @@ Click Next to continue or Cancel to exit Setup.</Value>
               <Description />
             </SectionParam>
             <SectionParam Name="Left part image">
-              <Value>sidepanel.png</Value>
+              <Value>Resources\sidepanel.png</Value>
               <ValueType>File</ValueType>
               <Description />
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</Value>
+              <Value>Resources\mvCentral-logo.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -307,41 +307,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <IncludedGroups />
         <PanelName>Welcome Screen</PanelName>
         <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
-      </SectionItem>
-      <SectionItem Guid="21abca36-6949-4384-acec-cbd586c48d21" Name="Tree View Selector" ConditionGroup="">
-        <Params>
-          <Items>
-            <SectionParam Name="Header Title">
-              <Value>Select Features</Value>
-              <ValueType>String</ValueType>
-              <Description>Header title</Description>
-            </SectionParam>
-            <SectionParam Name="Header description">
-              <Value>Select the features setup will install</Value>
-              <ValueType>String</ValueType>
-              <Description>Description of section, shown in under section title</Description>
-            </SectionParam>
-            <SectionParam Name="Header image">
-              <Value>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</Value>
-              <ValueType>File</ValueType>
-              <Description>Image in upper right part</Description>
-            </SectionParam>
-            <SectionParam Name="Description ">
-              <Value>Select the features you want to install, and deselect the features you do not want to install.</Value>
-              <ValueType>String</ValueType>
-              <Description>Description of this operation</Description>
-            </SectionParam>
-          </Items>
-        </Params>
-        <Actions>
-          <Items />
-        </Actions>
-        <IncludedGroups>
-          <string>Languages</string>
-          <string>Skins</string>
-        </IncludedGroups>
-        <PanelName>Tree View Selector</PanelName>
-        <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
       </SectionItem>
       <SectionItem Guid="0e8eb28f-e6a0-424f-a982-59edcc976e38" Name="Install Section" ConditionGroup="">
         <Params>
@@ -357,7 +322,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
               <Description>Description of section, shown in under section title</Description>
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</Value>
+              <Value>Resources\mvCentral-logo.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -386,7 +351,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
               <Description />
             </SectionParam>
             <SectionParam Name="Left part image">
-              <Value>sidepanel.png</Value>
+              <Value>Resources\sidepanel.png</Value>
               <ValueType>File</ValueType>
               <Description />
             </SectionParam>
@@ -396,7 +361,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
               <Description>Use radiobutton in place of combobox</Description>
             </SectionParam>
             <SectionParam Name="Header image">
-              <Value />
+              <Value>Resources\mvCentral-logo.png</Value>
               <ValueType>File</ValueType>
               <Description>Image in upper right part</Description>
             </SectionParam>
@@ -457,22 +422,22 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Author>Trevor/Gup</Author>
     <HomePage>http://code.google.com/p/mvcentral/</HomePage>
     <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/my-music-videos-v0-41-a-68337/</ForumPage>
-    <UpdateUrl>G:\Development\mvcentral\MPEI\Update</UpdateUrl>
+    <UpdateUrl>http://mvcentral.googlecode.com/svn/trunk/MPEI/Update/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>222</Revision>
+      <Revision>224</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>RC Release
 
 
 </VersionDescription>
-    <DevelopmentStatus>Rc</DevelopmentStatus>
-    <OnlineLocation />
-    <ReleaseDate>2011-11-18T22:26:37</ReleaseDate>
-    <Tags />
+    <DevelopmentStatus>Stable</DevelopmentStatus>
+    <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral.plugin.v1.0.0.226.mpei</OnlineLocation>
+    <ReleaseDate>2011-11-19T22:26:37</ReleaseDate>
+    <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
       <Items>
@@ -749,15 +714,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{11ef7c47-2f51-4ca4-a7df-a3e1e9176ac9}-sidepanel.png</ZipFileName>
+        <LocalFileName>Resources\sidepanel.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{4274d350-2f19-4478-bb0e-8475c666fe9b}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\mvCentral\Config\Images\mvCentral_Icon_Enabled.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{d02fa6f7-293c-447c-8fbd-5993b8bb864f}-mvCentral_Icon_Enabled.png</ZipFileName>
+        <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e40d20e2-0831-4f44-8401-3fcf3d68e117}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -806,7 +771,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>mvCentral.xmp2</ProjectFilename>
-    <UpdatePath1 />
+    <UpdatePath1>G:\Development\mvcentral\MPEI\Update\update.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
