@@ -267,6 +267,13 @@
               <ZipFileName>Installer{CopyFile}\{aba50e91-6a66-4bc4-8cdd-9ace316c210f}-hover_mvCentral.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\hover_mvCentral.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\StreamedMP\media\hover_mvCentral.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -427,15 +434,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>224</Revision>
+      <Revision>229</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>RC Release
-
-
+    <VersionDescription>RC Release
+
+
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral.plugin.v1.0.0.226.mpei</OnlineLocation>
+    <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
     <ReleaseDate>2011-11-19T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
@@ -711,18 +718,25 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{aba50e91-6a66-4bc4-8cdd-9ace316c210f}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\StreamedMP\media\hover_mvCentral.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{4274d350-2f19-4478-bb0e-8475c666fe9b}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{9f543d23-cc2f-4317-87fa-7208c2569c11}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e40d20e2-0831-4f44-8401-3fcf3d68e117}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{09e51ee9-2eb9-4237-9a90-031c132e70bc}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
