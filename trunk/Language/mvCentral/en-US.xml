@@ -128,7 +128,7 @@
         
         // User messages
         //             |23456789|23456789|23456789|23456789|23456789|23456
-        <string Field="NoGenreHeader>No Genres configured</string>
+        <string Field="NoGenreHeader">No Genres configured</string>
         <string Field="NoGenreLine1">Select tags to be use as Genres from</string>
         <string Field="NoGenreLine2">'Configure Genres' option on the menu</string>
         <string Field="NoGenreLine3">Artist view will now be selected</string>
