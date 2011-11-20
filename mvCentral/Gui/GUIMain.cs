@@ -44,7 +44,9 @@ namespace mvCentral.GUI
       AllVideos = 6,
       VideosOnAlbum = 7,
       Genres = 8,
-      ArtistViaGenre = 9
+      ArtistViaGenre = 9,
+      ArtistTracks = 10,
+      SearchedArtists = 11
     }
 
     public enum mvSort
@@ -70,9 +72,9 @@ namespace mvCentral.GUI
     private static Logger logger = LogManager.GetCurrentClassLogger();
     private mvCentralCore core = mvCentralCore.Instance;
     GUImvPlayList Player = new GUImvPlayList();
-    //GUImvStatsAndInfo Stats = new GUImvStatsAndInfo();
 
     List<mvView> screenStack = new List<mvView>();
+    List<DBArtistInfo> foundArtists = new List<DBArtistInfo>();
     private DBArtistInfo currArtist = null; 
 
     private bool initComplete = false;
@@ -86,6 +88,7 @@ namespace mvCentral.GUI
     public static DBArtistInfo currentArtistInfo = null;
     private string selAlbum = "";
     private mvView currentView = mvView.Artist;
+    private mvView runningView = mvView.None;
     private mvSort artistSort = mvSort.ascending;
     private mvSort videoSort = mvSort.ascending;
     private int genreTracks = 0;
@@ -117,19 +120,16 @@ namespace mvCentral.GUI
       PlayList = 8,
       StatsAndInfo = 9,
       GenreConfig = 10,
+      Search = 11,
       Facade = 50
     }
 
-    [SkinControlAttribute((int)GUIControls.PlayAllRandom)]
-    protected GUIButtonControl btnPlayAllRandom = null;
-    [SkinControlAttribute((int)GUIControls.PlaySmart)]
-    protected GUIButtonControl btnSmartList = null;
-    [SkinControlAttribute((int)GUIControls.PlayList)]
-    protected GUIButtonControl btnPlayList = null;
-    [SkinControlAttribute((int)GUIControls.StatsAndInfo)]
-    protected GUIButtonControl btnStatsAndInfo = null;
-    [SkinControlAttribute((int)GUIControls.GenreConfig)]
-    protected GUIButtonControl btnGenreConfig = null;
+    [SkinControlAttribute((int)GUIControls.PlayAllRandom)] protected GUIButtonControl btnPlayAllRandom = null;
+    [SkinControlAttribute((int)GUIControls.PlaySmart)] protected GUIButtonControl btnSmartList = null;
+    [SkinControlAttribute((int)GUIControls.PlayList)] protected GUIButtonControl btnPlayList = null;
+    [SkinControlAttribute((int)GUIControls.StatsAndInfo)] protected GUIButtonControl btnStatsAndInfo = null;
+    [SkinControlAttribute((int)GUIControls.GenreConfig)] protected GUIButtonControl btnGenreConfig = null;
+    [SkinControlAttribute((int)GUIControls.Search)] protected GUIButtonControl btnSearch = null;
 
     #endregion
 
@@ -505,6 +505,74 @@ namespace mvCentral.GUI
       layoutChanging = false;
     }
     /// <summary>
+    /// Search the DB for all tracks by an Artist and return that list
+    /// </summary>
+    List<DBArtistInfo> SearchOnArtist(string artistName)
+    {
+      List<DBArtistInfo> artistObject = DBArtistInfo.GetFuzzy(artistName);
+      if (artistObject != null)
+      {
+        return artistObject;
+      }
+      else
+        return null;
+    }
+    /// <summary>
+    /// Perform a search
+    /// Only Artist search supported currently
+    /// </summary>
+    void doSearch()
+    {
+      string searchString = "";
+
+      //if (_setting.SearchHistory.Count > 0)
+      //{
+      //  GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
+      //  if (dlg == null) return;
+      //  dlg.Reset();
+      //  dlg.SetHeading(Translation.SearchHistory);
+      //  dlg.Add(Translation.NewSearch);
+      //  for (int i = _setting.SearchHistory.Count; i > 0; i--)
+      //  {
+      //    dlg.Add(_setting.SearchHistory[i - 1]);
+      //  }
+      //  dlg.DoModal(GetID);
+      //  if (dlg.SelectedId == -1) return;
+      //  searchString = dlg.SelectedLabelText;
+      //  if (searchString == Translation.NewSearch)
+      //    searchString = "";
+      //}
+
+
+      VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
+
+      if (null == keyboard) return;
+
+      keyboard.Reset();
+      keyboard.Text = searchString;
+      keyboard.DoModal(GetID);
+      if (keyboard.IsConfirmed)
+      {
+        // input confirmed -- execute the search
+        searchString = keyboard.Text;
+      }
+
+      if ("" != searchString)
+      {
+        
+        foundArtists = SearchOnArtist(searchString);
+        if (foundArtists != null)
+        {
+          // If only one artist returned display the tracks
+          if (foundArtists.Count == 1)
+            LoadTracksForArtist(foundArtists);
+          else
+            LoadSearchedArtists(foundArtists, artistSort);
+        }
+      }
+
+    }
+    /// <summary>
     /// Deal with user input
     /// </summary>
     /// <param name="controlId"></param>
@@ -536,6 +604,9 @@ namespace mvCentral.GUI
         case (int)GUIControls.GenreConfig:
           SetFavoriteTags();
           break;
+        case (int)GUIControls.Search:
+          doSearch();
+          break;
         case (int)GUIControls.Facade:
           //Clicked on something in the facade
           logger.Debug("Hit Key : " + actionType.ToString());
@@ -547,7 +618,7 @@ namespace mvCentral.GUI
             case Action.ActionType.ACTION_MUSIC_PLAY:
             case Action.ActionType.ACTION_SELECT_ITEM:
 
-              if (facadeLayout.SelectedListItem.IsFolder && ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE)))
+              if (facadeLayout.SelectedListItem.IsFolder && ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE)))
               {
                 // Are we on an Artist or Album, if Artist add all tracks by artist to playlist else if album add all tracks on album to playlist
                 if (facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo))
@@ -611,6 +682,10 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
+
+      if (g_Player.HasVideo  && currentView != mvView.None)
+        runningView = currentView;
+
       // Get all Artists and Tracks
       List<DBArtistInfo> artList = DBArtistInfo.GetAll();
       List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
@@ -659,7 +734,10 @@ namespace mvCentral.GUI
       // and dont know what the arist was so default to artist view
       if (currentView == mvView.ArtistViaGenre)
         currentView = mvView.Artist;
-   
+
+      if (g_Player.HasVideo && currentView != mvView.None)
+        currentView = runningView;
+
       addToStack(currentView, true);
       setViewAsProperty(currentView);
 
@@ -686,6 +764,9 @@ namespace mvCentral.GUI
         btnSortBy.SortChanged += new SortEventHandler(SortChanged);
       }
 
+      if (_loadParameter != null)
+        processParameter();
+
       base.OnPageLoad();
     }
 
@@ -708,6 +789,40 @@ namespace mvCentral.GUI
 
     #region Private Methods
 
+    /// <summary>
+    /// Process the hyperlink parmeter(s)
+    /// </summary>
+    private void processParameter()
+    {
+      // Exit if we dont have a parameter
+      if (_loadParameter == null)
+        return;
+      // Parameter must be in the form <command>:<parameter>, return if not
+      if (!_loadParameter.Contains(":"))
+        return;
+      // Extract command and parameter
+      string command = _loadParameter.Split(':')[0].Trim().ToUpper();
+      string param = _loadParameter.Split(':')[1].Trim();
+      // and process
+      if (command == "ARTISTVIDEOS")
+      {
+        if (string.IsNullOrEmpty(param))
+          return;
+        foundArtists = SearchOnArtist(param);
+        if (foundArtists != null)
+        {
+          // If only one artist returned display the tracks
+          if (foundArtists.Count == 1)
+            LoadTracksForArtist(foundArtists);
+          else
+            LoadSearchedArtists(foundArtists, artistSort);
+        }
+      }
+    }
+    /// <summary>
+    /// Set the localised View As string
+    /// </summary>
+    /// <param name="viewAs"></param>
     private void setViewAsProperty(mvView viewAs)
     {
       switch (viewAs)
@@ -727,8 +842,11 @@ namespace mvCentral.GUI
       }
       GUIPropertyManager.Changed = true;
     }
-
-
+    /// <summary>
+    /// Add current view to the screen navigation stack and optioanlly reset the stack if requested
+    /// </summary>
+    /// <param name="activeView"></param>
+    /// <param name="resetStack"></param>
     private void addToStack(mvView activeView, bool resetStack)
     {
       if (resetStack)
@@ -944,6 +1062,21 @@ namespace mvCentral.GUI
           DisplayByGenre(lastViewedGenre);
           facadeLayout.SelectedListItemIndex = lastGenreItem;
           break;
+        case mvView.ArtistTracks:
+          // If only one artist returned display the tracks
+          if (foundArtists.Count == 1)
+            LoadTracksForArtist(foundArtists);
+          else
+            LoadSearchedArtists(foundArtists, artistSort); 
+          break;
+        case mvView.SearchedArtists:
+          // If only one artist returned display the tracks
+          if (foundArtists.Count == 1)
+            LoadTracksForArtist(foundArtists);
+          else
+            LoadSearchedArtists(foundArtists, artistSort);    
+          break;
+
       }
       addToStack(currentView, false);
     }
@@ -1329,6 +1462,148 @@ namespace mvCentral.GUI
       persisting = true;
     }
     /// <summary>
+    /// Create facade with the artists supplied in the list
+    /// </summary>
+    /// <param name="artistObjectList"></param>
+    private void LoadSearchedArtists(List<DBArtistInfo> artistList, mvSort sortDirection)
+    {
+      // Set View
+      currentView = mvView.SearchedArtists;
+      addToStack(currentView, false);  
+
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Artists);
+      GUIPropertyManager.SetProperty("#itemcount", artistList.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Artists);
+      GUIPropertyManager.Changed = true;
+
+      // Sort Artists
+      if (sortDirection == mvSort.ascending)
+        artistList.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p1.Artist.CompareTo(p2.Artist); });
+      else
+        artistList.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p2.Artist.CompareTo(p1.Artist); });
+
+      // Clear the facade and load the artists
+      GUIControl.ClearControl(GetID, facadeLayout.GetID);
+      foreach (DBArtistInfo artistData in artistList)
+      {
+        GUIListItem facadeItem = new GUIListItem();
+
+        facadeItem.Label = artistData.Artist;
+        if (string.IsNullOrEmpty(artistData.ArtThumbFullPath.Trim()))
+          facadeItem.ThumbnailImage = artistTrackArt(artistData);
+        else
+          facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
+
+        facadeItem.TVTag = artistData.bioContent;
+        facadeItem.AlbumInfoTag = artistData.bioContent;
+        facadeItem.ItemId = (int)artistData.ID;
+        facadeItem.IsFolder = true;
+        facadeItem.MusicTag = artistData;
+        facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onArtistSelected);
+        facadeLayout.Add(facadeItem);
+
+        foreach (string artistTag in artistData.Tag)
+        {
+          if (!artistTags.Contains(artistTag))
+          {
+            if (artistTag != artistData.Artist)
+              artistTags.Add(artistTag);
+          }
+        }
+      }
+      artistTags.Sort(delegate(string p1, string p2) { return p1.CompareTo(p2); });
+
+      // If first time though set properites to first item in facade
+      if (facadeLayout.Count > 0 && !persisting)
+      {
+        facadeLayout.SelectedListItemIndex = 0;
+        onArtistSelected(facadeLayout.SelectedListItem, facadeLayout);
+      }
+      persisting = true;
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
+      GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
+      clearVideoAudioProps();
+      GUIPropertyManager.Changed = true;
+    }
+    /// <summary>
+    /// Load and display tracks for this artist
+    /// </summary>
+    /// <param name="artistObject"></param>
+    private void LoadTracksForArtist(List<DBArtistInfo> artistObjectList)
+    {
+      // Set View
+      currentView = mvView.ArtistTracks;
+      addToStack(currentView, false);
+
+      // Clear facade and load tracks if we dont already have them loaded
+      GUIControl.ClearControl(GetID, facadeLayout.GetID);
+
+      // get the tracks by this artist
+
+      foreach (DBArtistInfo artistObject in artistObjectList)
+      {
+
+        List<DBTrackInfo> tracksByArtist = DBTrackInfo.GetEntriesByArtist(artistObject);
+
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Album + " | " + artistObject.Artist);
+
+
+        foreach (DBTrackInfo track in tracksByArtist)
+        {
+          GUIListItem item = new GUIListItem();
+
+          if (mvCentralCore.Settings.DisplayRawTrackText)
+          {
+            if (Path.GetFileName(track.LocalMedia[0].File.FullName).Contains("-"))
+              item.Label = Regex.Match(Path.GetFileName(track.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
+            else
+              item.Label = (Path.GetFileNameWithoutExtension(track.LocalMedia[0].File.FullName));
+          }
+          else
+            item.Label = track.Track;
+
+          // If no thumbnail set a default
+          if (!string.IsNullOrEmpty(track.ArtFullPath.Trim()))
+            item.ThumbnailImage = track.ArtFullPath;
+          else
+            item.ThumbnailImage = "defaultVideoBig.png";
+
+          item.TVTag = mvCentralUtils.StripHTML(track.bioContent);
+          item.Path = track.LocalMedia[0].File.FullName;
+          item.IsFolder = false;
+          item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
+          item.MusicTag = track;
+          item.ItemId = (int)track.ID;
+          facadeLayout.Add(item);
+        }
+      }
+      // Always set index for first track
+      if (facadeLayout.Count > 0)
+      {
+        if (lastItemVid > 0 && lastItemVid < facadeLayout.Count)
+          facadeLayout.SelectedListItemIndex = lastItemVid;
+        else
+          facadeLayout.SelectedListItemIndex = 0;
+
+        logger.Debug("(LoadTracksForArtist) Facade Selected Index set to {0}", facadeLayout.SelectedListItemIndex);
+
+        onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
+      }
+      GUIControl.FocusControl(GetID, facadeLayout.GetID);
+
+      GUIPropertyManager.SetProperty("#itemcount", facadeLayout.Count.ToString());
+      GUIPropertyManager.SetProperty("#itemtype", Localization.Videos);
+      // Set the view
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+      GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
+      GUIPropertyManager.SetProperty("#mvCentral.GenreView", "false");
+      // Tell property manager we have changed something
+      GUIPropertyManager.Changed = true;
+    }
+    /// <summary>
     /// Load Videos for this Album
     /// </summary>
     /// <param name="AlbumID"></param>
@@ -1340,36 +1615,36 @@ namespace mvCentral.GUI
 
       GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Album + " | " + DBAlbumInfo.Get(AlbumID));
       DBAlbumInfo currAlbum = DBAlbumInfo.Get(AlbumID);
-      List<DBTrackInfo> list = DBTrackInfo.GetEntriesByAlbum(currAlbum);
+      List<DBTrackInfo> trackList = DBTrackInfo.GetEntriesByAlbum(currAlbum);
       //
       this.albumID = AlbumID;
       // Clear facade and load tracks if we dont already have them loaded
       GUIControl.ClearControl(GetID, facadeLayout.GetID);
-      foreach (DBTrackInfo db1 in list)
+      foreach (DBTrackInfo track in trackList)
       {
         GUIListItem item = new GUIListItem();
 
         if (mvCentralCore.Settings.DisplayRawTrackText)
         {
-          if (Path.GetFileName(db1.LocalMedia[0].File.FullName).Contains("-"))
-            item.Label = Regex.Match(Path.GetFileName(db1.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
+          if (Path.GetFileName(track.LocalMedia[0].File.FullName).Contains("-"))
+            item.Label = Regex.Match(Path.GetFileName(track.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
           else
-            item.Label = (Path.GetFileNameWithoutExtension(db1.LocalMedia[0].File.FullName));
+            item.Label = (Path.GetFileNameWithoutExtension(track.LocalMedia[0].File.FullName));
         }
         else
-          item.Label = db1.Track;
+          item.Label = track.Track;
 
-        if (string.IsNullOrEmpty(db1.ArtFullPath.Trim()))
+        if (string.IsNullOrEmpty(track.ArtFullPath.Trim()))
           item.ThumbnailImage = "defaultAlbum.png";
         else
-          item.ThumbnailImage = db1.ArtFullPath;
+          item.ThumbnailImage = track.ArtFullPath;
 
-        item.TVTag = mvCentralUtils.StripHTML(db1.bioContent);
+        item.TVTag = mvCentralUtils.StripHTML(track.bioContent);
         selAlbum = currAlbum.Album;
-        item.Path = db1.LocalMedia[0].File.FullName;
+        item.Path = track.LocalMedia[0].File.FullName;
         item.IsFolder = false;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
-        item.MusicTag = db1;
+        item.MusicTag = track;
         item.ItemId = (int)currAlbum.ID;
         facadeLayout.Add(item);
       }
@@ -1455,7 +1730,6 @@ namespace mvCentral.GUI
       clearVideoAudioProps();
       GUIPropertyManager.Changed = true;
     }
-
     /// <summary>
     /// Display Artists that match select genre
     /// </summary>

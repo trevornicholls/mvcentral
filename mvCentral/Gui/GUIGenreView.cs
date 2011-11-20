@@ -19,9 +19,9 @@ namespace mvCentral.GUI
   {
     private void GenreActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {
-      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
+      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
       {
-        if (actionType == Action.ActionType.ACTION_MUSIC_PLAY || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo))
+        if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo))
         {
 
           List<DBArtistInfo> artistList = new List<DBArtistInfo>();

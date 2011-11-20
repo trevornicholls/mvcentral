@@ -27,7 +27,7 @@ namespace mvCentral.GUI
 
     private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {
-      if (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_PLAY || actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
+      if ((actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_PLAY) || (actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_MUSIC_PLAY) || actionType == MediaPortal.GUI.Library.Action.ActionType.ACTION_SELECT_ITEM)
       {
         //play this song, or return to previous level
         if (facadeLayout.ListLayout.SelectedListItem.Label == "..")
