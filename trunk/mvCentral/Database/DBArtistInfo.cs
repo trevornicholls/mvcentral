@@ -19,6 +19,7 @@ using Cornerstone.Tools.Translate;
 using System.Runtime.InteropServices;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using Cornerstone.Extensions;
+using mvCentral.Extensions;
 
 namespace mvCentral.Database {
     [DBTableAttribute("artist_info")]
@@ -77,10 +78,30 @@ namespace mvCentral.Database {
             if (Artist.Trim().Length == 0) return null;
             foreach (DBArtistInfo db1 in GetAll())
             {
-                if (String.Equals(Artist, db1.Artist)) return db1;
-                if (String.Equals(Artist, db1.MdID)) return db1;
+                if (String.Equals(Artist, db1.Artist,StringComparison.OrdinalIgnoreCase)) 
+                  return db1;
+
+                if (String.Equals(Artist, db1.MdID)) 
+                  return db1;
 
             }
+            return null;
+        }
+
+        public static List<DBArtistInfo> GetFuzzy(string Artist)
+        {
+          List<DBArtistInfo> artistList = new List<DBArtistInfo>();
+
+          if (Artist.Trim().Length == 0)
+            return null;
+          foreach (DBArtistInfo artistRecord in GetAll())
+          {
+            if (artistRecord.Artist.Contains(Artist, StringComparison.OrdinalIgnoreCase))
+              artistList.Add(artistRecord);
+          }
+          if (artistList.Count > 0)
+            return artistList;
+          else
             return null;
         }
 

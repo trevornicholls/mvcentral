@@ -428,7 +428,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Id>1f288e48-6f5b-481c-a1b4-605393c913db</Id>
     <Author>Trevor/Gup</Author>
     <HomePage>http://code.google.com/p/mvcentral/</HomePage>
-    <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/my-music-videos-v0-41-a-68337/</ForumPage>
+    <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/mvcentral-music-vidoes-plugin-beta-release-101640/</ForumPage>
     <UpdateUrl>http://mvcentral.googlecode.com/svn/trunk/MPEI/Update/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
@@ -437,9 +437,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Revision>231</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>RC Release
-
-
+    <VersionDescription>RC Release
+
+
+
+
+
+
+
+
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
@@ -729,14 +735,14 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9f543d23-cc2f-4317-87fa-7208c2569c11}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{2fd61a4b-16f2-4b2e-b11e-3c1dcc67228e}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{09e51ee9-2eb9-4237-9a90-031c132e70bc}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{41811725-e1e0-4f1e-b4a4-1931c61a3e93}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

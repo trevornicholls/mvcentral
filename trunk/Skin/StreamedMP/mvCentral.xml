@@ -1306,11 +1306,18 @@
           <label>#mvCentral.Translation.StatsAndInfo.Label</label>
         </control>        
         <control>
-          <description>Genre frim Tags Config</description>
+          <description>Genre from Tags Config</description>
           <type>button</type>
           <id>10</id>
           <onleft>50</onleft>
           <label>#mvCentral.Translation.ConfigGenre.Label</label>
+        </control>        
+        <control>
+          <description>Search</description>
+          <type>button</type>
+          <id>11</id>
+          <onleft>50</onleft>
+          <label>#mvCentral.Translation.Search.Label</label>
         </control>        
       </control>       
     </control>

@@ -17,10 +17,10 @@ namespace mvCentral.GUI
   public partial class mvGUIMain : WindowPluginBase
   {
     private void ArtistActions(Action.ActionType actionType)
-    {  
-      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
+    {
+      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
       {
-        if (actionType == Action.ActionType.ACTION_MUSIC_PLAY || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo ) )
+        if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo))
         {
           DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
           List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);

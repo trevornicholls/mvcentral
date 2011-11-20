@@ -33,6 +33,9 @@ namespace mvCentral
 {
   class mvCentralCore
   {
+    // Plugin ID
+    public const int PluginID = 112011;
+    
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
     public static event ProgressDelegate InitializeProgress;
@@ -49,7 +52,6 @@ namespace mvCentral
     private const string dbFileName = "mvCentral.db3";
     private const string logFileName = "mvCentral.log";
     private const string oldLogFileName = "mvCentral.old.log";
-    public const int PluginID = 112011;
     private static float loadingProgress;
     private static float loadingTotal;
     private static string loadingProgressDescription;

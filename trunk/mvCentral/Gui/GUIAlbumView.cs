@@ -19,9 +19,9 @@ namespace mvCentral.GUI
   {
     private void AlbumActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {
-      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
+      if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE))
       {
-        if (actionType == Action.ActionType.ACTION_MUSIC_PLAY || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo))
+        if ((actionType == Action.ActionType.ACTION_MUSIC_PLAY) || (actionType == Action.ActionType.ACTION_PLAY) || (actionType == Action.ActionType.ACTION_PAUSE && !g_Player.HasVideo))
         {
           DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
           List<DBTrackInfo> allTracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag);
