@@ -224,7 +224,7 @@
             <label>#mvCentral.Translation.ConfigGenre.Label</label>
           </control>                  
           <control>
-            <description>Configure Genres from tags</description>
+            <description>Search for Artist</description>
             <type>button</type>
             <id>11</id>
             <posX>39</posX>

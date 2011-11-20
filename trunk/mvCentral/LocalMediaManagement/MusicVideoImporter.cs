@@ -203,9 +203,8 @@ namespace mvCentral.LocalMediaManagement
 
       lock (syncRoot)
       {
-
-        //logger.Info("Reload Expressions");
-        //FilenameParser.reLoadExpressions();
+        logger.Info("Reload Expressions");
+        FilenameParser.reLoadExpressions();
 
         mvCentralCore.OnPowerEvent += new mvCentralCore.PowerEventDelegate(PowerEventHandler);
         mvCentralCore.DatabaseManager.ObjectDeleted += new DatabaseManager.ObjectAffectedDelegate(DatabaseManager_ObjectDeleted);
@@ -844,7 +843,10 @@ namespace mvCentral.LocalMediaManagement
           // We have a new file so add it to the filesAdded list
           newFile.ImportPath = importPath;
           newFile.UpdateVolumeInformation();
-          lock (filesAdded.SyncRoot) filesAdded.Add(newFile);
+          
+          lock (filesAdded.SyncRoot) 
+            filesAdded.Add(newFile);
+
           logger.Info("Watcher queued {0} for processing.", newFile.File.Name);
         }
       }
@@ -890,6 +892,8 @@ namespace mvCentral.LocalMediaManagement
       List<DBLocalMedia> localMediaRenamed = new List<DBLocalMedia>();
 
       logger.Debug("OnRenamedEvent: ChangeType={0}, OldFullPath='{1}', FullPath='{2}'", e.ChangeType.ToString(), e.OldFullPath, e.FullPath);
+      // Give the io a few cycles
+      Thread.Sleep(100);
 
       if (File.Exists(e.FullPath))
       {
@@ -899,9 +903,38 @@ namespace mvCentral.LocalMediaManagement
           return;
 
         DBLocalMedia localMedia = DBLocalMedia.Get(e.OldFullPath, e.FullPath.PathToFileInfo().GetDriveVolumeSerial());
-        // if this file is not in our database, return
+        // if this file is not in our database, treat as new file ___
         if (localMedia.ID == null)
-          return;
+        {
+          if (e.OldFullPath.EndsWith("___"))  //Special case to catch youtubefm files
+          {
+            // Get the importPath attached to this event
+            DBImportPath importPath = pathLookup[(FileSystemWatcher)source];
+
+            // Check if the file already exists in our system
+            DBLocalMedia newFile = DBLocalMedia.Get(e.FullPath, e.FullPath.PathToFileInfo().GetDriveVolumeSerial());
+            if (newFile.ID != null)
+            {
+              // if this file is already in the system, ignore and log a message.
+              if (importPath.IsRemovable)
+                logger.Info("Removable file {0} brought online.", newFile.File.Name);
+              else
+                logger.Warn("Watcher tried to add a pre-existing file: {0}", newFile.File.Name);
+              return;
+            }
+            // We have a new file so add it to the filesAdded list
+            newFile.ImportPath = importPath;
+            newFile.UpdateVolumeInformation();
+
+            lock (filesAdded.SyncRoot)
+              filesAdded.Add(newFile);
+
+            logger.Info("Watcher queued {0} for processing.", newFile.File.Name);
+            return;
+          }
+          else
+            return;
+        }
 
         // Add the localmedia object for this file to the rename list
         localMediaRenamed.Add(localMedia);

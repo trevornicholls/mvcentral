@@ -71,16 +71,22 @@ namespace mvCentral.Database
 
             // Remove Orphan albums
             cleaned = 0;
-            List<DBAlbumInfo> dbs = DBAlbumInfo.GetAll();
-            foreach (DBAlbumInfo db1 in dbs)
+            List<DBAlbumInfo> albumObjectList = DBAlbumInfo.GetAll();
+            foreach (DBAlbumInfo albumObject in albumObjectList)
             {
-              List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByAlbum(db1);
+              if (albumObject.Album.Trim() == string.Empty)
+              {
+                albumObject.Album = "Unknow Album";
+                albumObject.Commit();
+              }
+              List<DBTrackInfo> mvs = DBTrackInfo.GetEntriesByAlbum(albumObject);
               if (mvs.Count == 0)
               {
-                logger.Info("Removing: {0} (albuminfo orphan)", db1.Album);
-                db1.Delete();
+                logger.Info("Removing: {0} (albuminfo orphan)", albumObject.Album);
+                albumObject.Delete();
                 cleaned++;
               }
+
             }
             logger.Info("Removed {0} Album orphan entries.", cleaned.ToString());
             if (MaintenanceProgress != null) MaintenanceProgress("", 100);
