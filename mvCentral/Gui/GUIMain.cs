@@ -559,7 +559,7 @@ namespace mvCentral.GUI
 
       if ("" != searchString)
       {
-        
+        foundArtists.Clear();
         foundArtists = SearchOnArtist(searchString);
         if (foundArtists != null)
         {
@@ -682,7 +682,6 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
-
       if (g_Player.HasVideo  && currentView != mvView.None)
         runningView = currentView;
 
@@ -814,7 +813,7 @@ namespace mvCentral.GUI
           // If only one artist returned display the tracks
           if (foundArtists.Count == 1)
             LoadTracksForArtist(foundArtists);
-          else
+          else // Display a list of found artists
             LoadSearchedArtists(foundArtists, artistSort);
         }
       }
@@ -1482,8 +1481,9 @@ namespace mvCentral.GUI
       else
         artistList.Sort(delegate(DBArtistInfo p1, DBArtistInfo p2) { return p2.Artist.CompareTo(p1.Artist); });
 
-      // Clear the facade and load the artists
+      // Clear facade and load tracks if we dont already have them loaded
       GUIControl.ClearControl(GetID, facadeLayout.GetID);
+
       foreach (DBArtistInfo artistData in artistList)
       {
         GUIListItem facadeItem = new GUIListItem();
@@ -1519,6 +1519,9 @@ namespace mvCentral.GUI
         facadeLayout.SelectedListItemIndex = 0;
         onArtistSelected(facadeLayout.SelectedListItem, facadeLayout);
       }
+      // Set focus to the facade
+      GUIControl.FocusControl(GetID, facadeLayout.GetID);
+
       persisting = true;
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
@@ -2183,21 +2186,22 @@ namespace mvCentral.GUI
         // Start the background importer
         if (mvCentralCore.Settings.EnableImporterInGUI)
         {
-          //                    mvCentralCore.Importer.Start();
-          //                    mvCentralCore.Importer.Progress += new MusicVideoImporter.ImportProgressHandler(Importer_Progress);
+          logger.Debug("Start Importer");
+          mvCentralCore.Importer.Start();
+          //mvCentralCore.Importer.Progress += new MusicVideoImporter.ImportProgressHandler(Importer_Progress);
         }
 
         // Load skin based settings from skin file
-        //                skinSettings = new mvCentralSkinSettings(_windowXmlFileName);
+        // skinSettings = new mvCentralSkinSettings(_windowXmlFileName);
 
         // Get Moving Pictures specific autoplay setting
         try
         {
-          //                    diskInsertedAction = (DiskInsertedAction)Enum.Parse(typeof(DiskInsertedAction), mvCentralCore.Settings.DiskInsertionBehavior);
+          //diskInsertedAction = (DiskInsertedAction)Enum.Parse(typeof(DiskInsertedAction), mvCentralCore.Settings.DiskInsertionBehavior);
         }
         catch
         {
-          //                    diskInsertedAction = DiskInsertedAction.DETAILS;
+          //diskInsertedAction = DiskInsertedAction.DETAILS;
         }
 
         // setup the image resources for cover and backdrop display
