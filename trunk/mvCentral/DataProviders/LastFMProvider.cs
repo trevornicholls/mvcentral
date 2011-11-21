@@ -108,7 +108,7 @@ namespace mvCentral.DataProviders
     {
       get
       {
-        List<string> supportLanguages = new List<string>() { "en", "fr", "de", "pl", "ru", "es", "it" };
+        List<string> supportLanguages = new List<string>() { "en", "fr", "de", "pl", "ru", "es", "it","zh-CN" };
         return supportLanguages;
       }
     }
