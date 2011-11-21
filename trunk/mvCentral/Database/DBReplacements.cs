@@ -149,7 +149,7 @@ namespace mvCentral.Database
 
       //add(true, true, true, true, @"\s*\(.*?\)\s*", @"<empty>");
       //add(true, true, true, true, @"\s*\[.*?\]\s*", @"<empty>");
-      add(true, true, true, true, @"\s*[\(\[].*?[\]\)]\s*", @"<empty>");
+      add(true, true, true, true, @"\s*[\(\[\{].*?[\]\)\}]\s*", @"<empty>");
 
       add(true, true, true, false, "&", "and");
       add(true, true, true, false, "1080i", @"<empty>");
