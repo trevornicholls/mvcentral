@@ -114,10 +114,14 @@ namespace mvCentral
             
             languageComboBox.Items.Add(additionalOptionsText);
 
-            if (mvCentralCore.Settings.UseTranslator && mvCentralCore.Settings.TranslatorConfigured) 
-                languageComboBox.SelectedIndex = languageComboBox.Items.Count - lineOffset;
-            else 
+            if (mvCentralCore.Settings.UseTranslator && mvCentralCore.Settings.TranslatorConfigured)
+              languageComboBox.SelectedIndex = languageComboBox.Items.Count - lineOffset;
+            else
+              if (mvCentralCore.Settings.DataProviderAutoLanguage == "zh")
+                languageComboBox.SelectedItem = new CultureInfo(mvCentralCore.Settings.DataProviderAutoLanguage + "-CN");
+              else
                 languageComboBox.SelectedItem = new CultureInfo(mvCentralCore.Settings.DataProviderAutoLanguage);
+
 
 
 
