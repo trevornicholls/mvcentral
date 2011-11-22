@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mvCentral translation file -->
+<!-- Chinese (Simplified)" -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+        <!-- MediaPortal Localised IDs -> Skin Properties -->
+        <string Field="#mvCentral.Translation.Track">435</string>
+        <string Field="#mvCentral.Translation.Year">436</string>
+        <string Field="#mvCentral.Translation.Next">790</string>
+        <string Field="#mvCentral.Translation.Runtime">299</string>
+        <string Field="#mvCentral.Translation.Minutes">3004</string>	
+	
+        // A
+        <string Field="About">关于</string>
+        <string Field="AboutText">mvCentral 是 MediaPortal HTPC 程序中的一个音乐视频插件。</string>
+        <string Field="Artist">艺术家</string>
+        <string Field="Artists">艺术家</string>
+        <string Field="Album">专辑</string>
+        <string Field="Albums">专辑</string>
+        <string Field="AllVideos">所有视频</string>
+        <string Field="AddToPlaylist">添加到播放列表</string>
+        <string Field="AddAllToPlaylist">添加所有视频到播放列表</string>
+        <string Field="AddToPlaylistNext">添加到播放列表的作为下一个项目</string>
+
+        // B
+        <string Field="Back">返回</string>
+        <string Field="ButtonAutoPlay">自动播放</string>
+
+        // C
+        <string Field="Cancel">取消</string>
+        <string Field="CannotLoadSkin">不能为 vmCentral 载入\n皮肤文件！</string>
+        <string Field="ContinueToNextPartBody">从段落 {0} 继续播放吗？</string>
+        <string Field="ContinueToNextPartHeader">从下一段落继续播放吗？</string>
+        <string Field="ContextMenu">ContextMenu</string>
+        <string Field="ConfigGenre">配置流派</string>
+
+        // D
+        <string Field="Date">日期</string>
+        <string Field="DateAdded">添加的日期</string>      
+        <string Field="DBInfo">Watched 历史状态和数据库信息</string>
+
+        // E
+        <string Field="Error">错误</string>
+        
+        // F
+        <string Field="FailedMountingImage">对不起，不能载入 DVD 镜像文件</string>
+        <string Field="FavouriteVideos">收藏夹视频</string>
+        <string Field="Genre">流派</string>
+
+        // G
+        <string Field="G-test">Test for G</string>
+
+        // H
+        <string Field="HighestRated">最高星级</string>
+        <string Field="History">历史</string>
+
+        // I
+        <string Field="Initializing">初始化</string>
+        <string Field="Info">信息</string>
+
+        // L
+        <string Field="LatestVideos">最近添加的视频</string>
+        <string Field="LeastPlayed">最少播放的视频</string>
+        <string Field="LeastPlayedArtists">最少播放的艺术家</string>
+        <string Field="LeastPlayedVideos">最少播放的视频</string>
+            
+
+        // M
+        <string Field="MediaIsMissing">你已选择的音乐视频的媒体信息丢失！\n非常对不起一定是某些方面出现错误......</string>
+        <string Field="MediaNotAvailableBody">你已选择的音乐视频的媒体信息\n目前不可用。请插入或连接媒体\n标签： {0}</string>
+        <string Field="MediaNotAvailableHeader">媒体信息不可用</string>
+        <string Field="MissingExternalPlayerExe">HD 播放的可执行路径丢失。\n请更正可执行路径。</string>
+        <string Field="MostPlayedArtist">最多播放的艺术家</string>
+        <string Field="MostPlayedVideo">最多播放的视频</string>
+        <string Field="MostPlayedArtists">最多播放的艺术家</string>
+        <string Field="MostPlayedVideos">最多播放的视频</string>
+
+
+
+        // N
+        <string Field="NoPlaylistsFound">没有找到播放列表于：</string>
+        <string Field="NoArtistBio">没有艺术家 {0} 可用的传记</string>
+        <string Field="NoTrackInfo">没有可用的音轨说明</string>
+
+        // O
+        <string Field="OK">确定</string>
+
+        // P
+        <string Field="PlaybackFailed">不能播放是因为 '{0}'\n扩展名没有列表于你的 mediaportal 配置中。\n请添加此扩展名或设置外置播放器\n然后再播放。</string>
+        <string Field="PlaybackFailedHeader">播放失败</string>
+        <string Field="PlayAllRandom">播放所有（随机）</string>
+        <string Field="Playlist">播放列表</string>
+        <string Field="PlayByTag">按标签播放</string>
+        <string Field="PlayByGenre">按流派播放</string>
+
+        // Q
+
+        // R
+        <string Field="Random">随机</string>
+        <string Field="Retry">重新获取</string>
+        <string Field="ResumeFrom">恢复播放从：</string>
+        <string Field="ResumeFromLast">从上次断点时间恢复音乐视频播放吗？</string>
+        <string Field="RefreshArtwork">从在线源更新 Artwork</string>
+        
+        // S
+        <string Field="SmartPlaylistOptions">智能播放列表选项</string>
+        <string Field="SmartPlaylistTag">为播放列表选择标签</string>
+        <string Field="StatsAndInfo">状态和信息</string>
+
+        // T
+        <string Field="TotalRuntime">总计播放时间</string>
+        <string Field="TopTenVideos">Top Ten 视频</string>
+        <string Field="Tracks">音轨</string>
+
+        // U
+
+        // V
+        <string Field="VirtualDriveHeader">虚拟光驱没有准备好</string>
+        <string Field="VirtualDriveMessage">虚拟光驱没有即时准备好。\n请重试一次或取消播放。</string>
+        <string Field="Video">视频</string>
+        <string Field="Videos">视频</string>
+        <string Field="VideoTitle">视频标题</string>
+        <string Field="ViewAs">视图为</string>
+        <string Field="VideoCount">数据库中有 {0} 个视频属于 {1} 个艺术家</string>
+
+        // W
+        
+        
+        // User messages
+        //             |23456789|23456789|23456789|23456789|23456789|23456
+        <string Field="NoGenreHeader">没有流派已配置</string>
+        <string Field="NoGenreLine1">选择用于流派的标签</string>
+        <string Field="NoGenreLine2">菜单上的“配置流派”选项</string>
+        <string Field="NoGenreLine3">艺术家视图将立即被选择</string>
+
+</strings>
