@@ -277,6 +277,23 @@
           </Items>
         </Files>
       </GroupItem>
+      <GroupItem Name="MediaInfo">
+        <ParentGroup />
+        <DisplayName>MediaInfo v0.7.51.0</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>MediaInfo</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\MediaInfo\MediaInfo.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{3293f5a3-7477-4841-96d6-a92a8440139c}-MediaInfo.dll</ZipFileName>
+              <DestinationFilename>%Base%\MediaInfo.dll</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
     </Items>
   </Groups>
   <Sections>
@@ -314,6 +331,41 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <IncludedGroups />
         <PanelName>Welcome Screen</PanelName>
         <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
+      </SectionItem>
+      <SectionItem Guid="28a5004b-439a-40ba-b4bf-c4a44439350c" Name="Tree View Selector" ConditionGroup="">
+        <Params>
+          <Items>
+            <SectionParam Name="Header Title">
+              <Value>Install Lastest Version of MediaInfo.dll (v0.7.51.0)
+</Value>
+              <ValueType>String</ValueType>
+              <Description>Header title</Description>
+            </SectionParam>
+            <SectionParam Name="Header description">
+              <Value />
+              <ValueType>String</ValueType>
+              <Description>Description of section, shown in under section title</Description>
+            </SectionParam>
+            <SectionParam Name="Header image">
+              <Value />
+              <ValueType>File</ValueType>
+              <Description>Image in upper right part</Description>
+            </SectionParam>
+            <SectionParam Name="Description ">
+              <Value>Issues have been found the current version of MediaInfo.dll that is shipped with MediaPortal 1.2.1.</Value>
+              <ValueType>String</ValueType>
+              <Description>Description of this operation</Description>
+            </SectionParam>
+          </Items>
+        </Params>
+        <Actions>
+          <Items />
+        </Actions>
+        <IncludedGroups>
+          <string>MediaInfo</string>
+        </IncludedGroups>
+        <PanelName>Tree View Selector</PanelName>
+        <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
       </SectionItem>
       <SectionItem Guid="0e8eb28f-e6a0-424f-a982-59edcc976e38" Name="Install Section" ConditionGroup="">
         <Params>
@@ -434,10 +486,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>233</Revision>
+      <Revision>235</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.0.233
+    <VersionDescription>mvCentral v1.0.0.235
 
 
 
@@ -731,18 +783,25 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\MediaInfo\MediaInfo.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{3293f5a3-7477-4841-96d6-a92a8440139c}-MediaInfo.dll</ZipFileName>
+        <DestinationFilename>%Base%\MediaInfo.dll</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2fd61a4b-16f2-4b2e-b11e-3c1dcc67228e}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{50ae8a0c-c933-42af-b7b3-45c7f96f4a1d}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{41811725-e1e0-4f1e-b4a4-1931c61a3e93}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{4f47b69f-ed0d-40cb-997f-3a2688c76fff}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
