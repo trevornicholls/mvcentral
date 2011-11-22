@@ -240,9 +240,9 @@ namespace mvCentral.LocalMediaManagement
         //if (_isDTS)
         //  logger.Debug("MediaInfoWrapper: IsDTS : {0}", _isDTS);
         //if (_isTrueHD)
-        //    logger.Debug("MediaInfoWrapper: IsTrueHD : {0}", _isTrueHD);
+        //  logger.Debug("MediaInfoWrapper: IsTrueHD : {0}", _isTrueHD);
         //if (_isDTSHD)
-        //    logger.Debug("MediaInfoWrapper: IsDTSHD : {0}", _isDTSHD);
+        //  logger.Debug("MediaInfoWrapper: IsDTSHD : {0}", _isDTSHD);
         //if (_isOGG)
         //  logger.Debug("MediaInfoWrapper: IsOGG : {0}", _isOGG);
         //if (_isAAC)
