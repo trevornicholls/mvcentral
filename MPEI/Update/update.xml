@@ -93,8 +93,8 @@
 
 </VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.231.mpe1</OnlineLocation>
-        <ReleaseDate>2011-11-19T22:26:37</ReleaseDate>
+        <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.237.mpe1</OnlineLocation>
+        <ReleaseDate>2011-11-22T18:46:00</ReleaseDate>
         <Tags>music video last.fm</Tags>
         <Location>.\Release\[Name]-[Version].mpe1</Location>
         <Params>
