@@ -662,10 +662,20 @@ namespace mvCentral.Playlist
 
       DBTrackInfo mvTrack = item.TVTag as DBTrackInfo;
       if (mvTrack == null || prevSelectedmvTrack == mvTrack)
+      {
+        logger.Error("No trackdata found item {0} !!", item.Label);
         return;
+      }
 
       // Grab the artist infor for track 
       DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
+      if (artistInfo == null)
+      {
+        logger.Error("No artist found for track {0} !!", mvTrack.Track);
+        return;
+      }
+
+
       // Base skin properties
       GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);

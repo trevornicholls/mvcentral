@@ -499,16 +499,20 @@ namespace mvCentral.Database {
             }
         }
 
-        public bool HasMediaInfo {
-            get {
-                // check for invalid data
-                if (this.VideoCodec.Trim().Length == 0)
-                    return false;
-                if (this.VideoAspectRatio != "widescreen" && this.VideoAspectRatio != "fullscreen")
-                    return false;
+        public bool HasMediaInfo
+        {
+          get
+          {
+            // check for invalid data
+            if (string.IsNullOrEmpty(VideoCodec))
+              return false;
+            if (this.VideoCodec.Trim().Length == 0)
+              return false;
+            if (this.VideoAspectRatio != "widescreen" && this.VideoAspectRatio != "fullscreen")
+              return false;
 
-                return true;
-            }
+            return true;
+          }
         }
 
         /// <summary>

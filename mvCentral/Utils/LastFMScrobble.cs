@@ -129,8 +129,8 @@ namespace mvCentral.Utils
     /// <returns></returns>
     public int calculateSeconds(DateTime startTime)
     {
-      DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local);//from 1970/1/1 00:00:00 to now
-      DateTime dtNow = startTime;
+      DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);//from 1970/1/1 00:00:00 to now
+      DateTime dtNow = TimeZoneInfo.ConvertTimeToUtc(startTime);
       TimeSpan result = dtNow.Subtract(dt);
       int seconds = Convert.ToInt32(result.TotalSeconds);
       return seconds;

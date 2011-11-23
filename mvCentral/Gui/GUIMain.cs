@@ -1841,6 +1841,13 @@ namespace mvCentral.GUI
     /// <param name="parent"></param>
     void onArtistSelected(GUIListItem item, GUIControl parent)
     {
+
+      if (item == null)
+      {
+        logger.Error("onArtistSelected - No Item!!!");
+        return;
+      }
+
       // Set the Bio Content
       if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", string.Format(Localization.NoArtistBio, item.Label));
@@ -1849,8 +1856,15 @@ namespace mvCentral.GUI
       // Set artist name and image
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
+      
       // How many videos do we have for this artist
       currArtist = DBArtistInfo.Get(item.Label);
+      if (currArtist == null)
+      {
+        logger.Error("Unable to get artist {0} !!", item.Label);
+        return;
+      }
+
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
       // Artist Genres

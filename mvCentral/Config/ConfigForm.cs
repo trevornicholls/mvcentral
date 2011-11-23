@@ -134,6 +134,8 @@ namespace mvCentral
       // Start om Import tab
       mainTab.SelectedIndex = 1;
       // Grab settings from DB
+      automaticMediaInfoMenuItem.Checked = mvCentralCore.Settings.AutoRetrieveMediaInfo;
+
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
       cbDisableAlbumSupport.Setting = mvCentralCore.Settings["disable_album_support"];
 
@@ -161,9 +163,6 @@ namespace mvCentral
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
-
-      automaticMediaInfoMenuItem.Checked = mvCentralCore.Settings.AutoRetrieveMediaInfo;
-
     }
 
     #endregion
@@ -1594,8 +1593,6 @@ namespace mvCentral
         sourceTrack.Commit();
       }
 
-
-
       if (sourceDataNode.Tag.GetType() == typeof(DBAlbumInfo))
       {
         DBAlbumInfo a3 = (DBAlbumInfo)sourceDataNode.Tag;
@@ -1630,8 +1627,6 @@ namespace mvCentral
         }
       }
     }
-
-
 
     private void basicInfoChanged(object sender, EventArgs e)
     {
@@ -2367,6 +2362,9 @@ namespace mvCentral
 
     private void updateDBPage()
     {
+
+      logger.Debug("****** Update the DB ********");
+
       if (InvokeRequired)
       {
         this.Invoke(new InvokeDelegate(updateDBPage));
@@ -2377,21 +2375,36 @@ namespace mvCentral
       {
         case "tpArtist":
           artistDetailsList.DatabaseObject = CurrentArtist;
-          artistDetailsList.DatabaseObject.CommitNeeded = true;
+          artistDetailsList.DatabaseObject.Commit();
           break;
         case "tpAlbum":
           albumDetailsList.DatabaseObject = CurrentAlbum;
-          albumDetailsList.DatabaseObject.CommitNeeded = true;
+          albumDetailsList.DatabaseObject.Commit();
           break;
         case "tpTrack":
           trackDetailsList.DatabaseObject = CurrentTrack;
           fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
-          trackDetailsList.DatabaseObject.CommitNeeded = true;
-          fileDetailsList.DatabaseObject.CommitNeeded = true;
+          fileDetailsList.DatabaseObject.Commit();
+          trackDetailsList.DatabaseObject.Commit();
           break;
       }
-
     }
+
+    private void trackDetailsList_Leave(object sender, EventArgs e)
+    {
+      updateDBPage();
+    }
+
+    private void artistDetailsList_Leave(object sender, EventArgs e)
+    {
+      updateDBPage();
+    }
+
+    private void albumDetailsList_Leave(object sender, EventArgs e)
+    {
+      updateDBPage();
+    }
+
 
     private void btnArtPrevNext_Click(object sender, EventArgs e)
     {
@@ -3107,5 +3120,6 @@ namespace mvCentral
     }
 
     #endregion
+
   }
 }
