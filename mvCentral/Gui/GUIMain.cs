@@ -351,7 +351,7 @@ namespace mvCentral.GUI
       dlg.Reset();
       dlg.SetHeading(499); // Views menu
       dlg.Add(Localization.ViewAs + " " + Localization.Artists);
-      if (DBAlbumInfo.GetAll().Count > 0)
+      if (DBAlbumInfo.GetAll().Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
         dlg.Add(Localization.ViewAs + " " + Localization.Albums);
       dlg.Add(Localization.ViewAs + " " + Localization.Tracks);
       if (DBGenres.GetSelected().Count > 0)
@@ -1258,7 +1258,7 @@ namespace mvCentral.GUI
       // Load the albums (Not used Currently)
       if (facadeLayout.SelectedListItem == null)
       {
-        if (albumID != 0)
+        if (albumID != 0 && !mvCentralCore.Settings.DisableAlbumSupport)
         {
           LoadTracksOnAlbum(albumID);
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", Localization.Albums + " | " + DBArtistInfo.Get(ArtistID));
@@ -1266,7 +1266,7 @@ namespace mvCentral.GUI
         }
       }
       // If we are on an artist - load the album (Not Used Currently) - *** Possible Error ***
-      if (facadeLayout.SelectedListItem != null)
+      if (facadeLayout.SelectedListItem != null && !mvCentralCore.Settings.DisableAlbumSupport)
       {
         if ((facadeLayout.SelectedListItem.MusicTag != null && facadeLayout.SelectedListItem.MusicTag.GetType() == typeof(DBAlbumInfo)))
         {
@@ -1311,8 +1311,8 @@ namespace mvCentral.GUI
       // and load tracks if we dont already have them loaded
       foreach (DBTrackInfo trackData in artistTrackList)
       {
-        // If no Album is associated then skip to next track
-        if (trackData.AlbumInfo.Count == 0)
+        // If no Album is associated or Album support is disabled then skip to next track
+        if (trackData.AlbumInfo.Count == 0 || mvCentralCore.Settings.DisableAlbumSupport)
           continue;
         //We have an album
         DBAlbumInfo theAlbum = DBAlbumInfo.Get(trackData);
@@ -1349,8 +1349,8 @@ namespace mvCentral.GUI
       // Load tracks we don't have loaded
       foreach (DBTrackInfo trackData in artistTrackList)
       {
-        // if this track is part of an album then skip the adding track to the facade
-        if (trackData.AlbumInfo.Count > 0)
+        // if this track is part of an album and we have not disabled Album support then skip the adding track to the facade
+        if (trackData.AlbumInfo.Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
           continue;
 
         GUIListItem facadeItem = new GUIListItem();
