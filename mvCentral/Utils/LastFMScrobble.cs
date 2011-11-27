@@ -82,7 +82,7 @@ namespace mvCentral.Utils
       }
       catch (Exception exception)
       {
-        logger.ErrorException("Error with Nowplayin",exception);
+        logger.DebugException("Error with Nowplayin", exception);
       }
     }
     /// <summary>
@@ -119,7 +119,7 @@ namespace mvCentral.Utils
       }
       catch (Exception exception)
       {
-        logger.Error("Error in Submit",exception);
+        logger.DebugException("Error in Submit",exception);
       }
     }
     /// <summary>
@@ -129,11 +129,8 @@ namespace mvCentral.Utils
     /// <returns></returns>
     public int calculateSeconds(DateTime startTime)
     {
-      DateTime dt = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);//from 1970/1/1 00:00:00 to now
-      DateTime dtNow = TimeZoneInfo.ConvertTimeToUtc(startTime);
-      TimeSpan result = dtNow.Subtract(dt);
-      int seconds = Convert.ToInt32(result.TotalSeconds);
-      return seconds;
+      TimeSpan timeStamp = (DateTime.UtcNow - new DateTime(1970, 1, 1));
+      return (int)timeStamp.TotalSeconds;
     }
     /// <summary>
     /// Returns the md5 hash of a string.

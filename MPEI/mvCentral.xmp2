@@ -493,17 +493,15 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>237</Revision>
+      <Revision>240</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.0.237
+    <VersionDescription>mvCentral v1.0.0.240
 
-Enabled import while in GUI
-Fixed issue with Play button not queueing files to Playlist
-Fix to mark blank album names as 'unknown'
-Update replacements to remove {} and the contents
-Added Chinese Language support
-Now include latest MediaInfo.dll as version shipped with MP has be proveden to lock-up (User choice to install)
+Some button Description changes.
+Fix update of Artist, Album and Track info from Configuration
+Submit timestamp to Last.FM as UTC
+Additional checks for NULL items that could cause crashes if DB has been incorrectly populated
 
 
 
@@ -817,14 +815,14 @@ Now include latest MediaInfo.dll as version shipped with MP has be proveden to l
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{43a5eceb-1796-4a7e-bdb2-74172010db1d}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{6e070948-5847-4224-b5c8-5fa6226f85e2}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{21239da9-4332-404a-9190-6a7e5b4b894e}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{9105d8f1-3912-458b-965c-1685fe48563e}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

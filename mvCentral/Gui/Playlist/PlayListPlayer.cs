@@ -671,25 +671,22 @@ namespace mvCentral.Playlist
         }
         else
         {
+          SetProperties(item, false);
+
+          if (mvCentralCore.Settings.ShowOnLastFM)
+            scrobbleSend(item);
+
           skipmissing = false;
           if (MediaPortal.Util.Utils.IsVideo(item.FileName))
           {
             if (mvPlayer.HasVideo)
             {
               // needed so everything goes in sequence otherwise stop gets handled after the play events
-
               if (mvCentralCore.Settings.AutoFullscreen)
               {
                 logger.Debug("Setting Fullscreen");
                 mvPlayer.ShowFullScreenWindow();
-                SetProperties(item, false);
-
-                if (mvCentralCore.Settings.ShowOnLastFM)
-                  scrobbleSend(item);
-
               }
-              //System.Threading.Thread.Sleep(1000);
-
             }
           }
         }
