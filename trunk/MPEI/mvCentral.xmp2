@@ -281,6 +281,13 @@
               <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\StreamedMP\mymusic.hiddenmenu.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{2fcd5b93-1933-400e-aa1b-c520d3a83e35}-mymusic.hiddenmenu.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\mymusic.hiddenmenu.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -493,16 +500,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>240</Revision>
+      <Revision>243</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.0.240
+    <VersionDescription>mvCentral v1.0.0.243
 
 Some button Description changes.
 Fix update of Artist, Album and Track info from Configuration
 Submit timestamp to Last.FM as UTC
 Additional checks for NULL items that could cause crashes if DB has been incorrectly populated
-
+Disable Album support option now respected in GUI as well as Import
+Fixed issue with scrobbling now playing tracks
+Fixed issue with StreamedMP skin file with overlapping text in filmstrip layout
 
 
 
@@ -804,6 +813,13 @@ Additional checks for NULL items that could cause crashes if DB has been incorre
         <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\StreamedMP\mymusic.hiddenmenu.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{2fcd5b93-1933-400e-aa1b-c520d3a83e35}-mymusic.hiddenmenu.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\mymusic.hiddenmenu.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -815,14 +831,14 @@ Additional checks for NULL items that could cause crashes if DB has been incorre
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{6e070948-5847-4224-b5c8-5fa6226f85e2}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{feef628d-ba3b-4765-9891-afd9d32031a4}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9105d8f1-3912-458b-965c-1685fe48563e}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b203d832-2992-4417-be3f-cc22a1fbceac}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
