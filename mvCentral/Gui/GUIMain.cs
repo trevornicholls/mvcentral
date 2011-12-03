@@ -1192,6 +1192,8 @@ namespace mvCentral.GUI
             facadeItem.Label = Regex.Match(Path.GetFileName(trackData.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
           else
             facadeItem.Label = (Path.GetFileNameWithoutExtension(trackData.LocalMedia[0].File.FullName));
+
+          facadeItem.Label = Regex.Replace(facadeItem.Label, @"\s*[{].*?[}]\s*", string.Empty, RegexOptions.IgnoreCase);
         }
         else
           facadeItem.Label = trackData.Track;
@@ -1361,6 +1363,8 @@ namespace mvCentral.GUI
             facadeItem.Label = Regex.Match(Path.GetFileName(trackData.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
           else
             facadeItem.Label = (Path.GetFileNameWithoutExtension(trackData.LocalMedia[0].File.FullName));
+
+          facadeItem.Label = Regex.Replace(facadeItem.Label, @"\s*[{].*?[}]\s*", string.Empty, RegexOptions.IgnoreCase);
         }
         else
           facadeItem.Label = trackData.Track;
@@ -1563,6 +1567,9 @@ namespace mvCentral.GUI
               item.Label = Regex.Match(Path.GetFileName(track.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
             else
               item.Label = (Path.GetFileNameWithoutExtension(track.LocalMedia[0].File.FullName));
+
+            item.Label = Regex.Replace(item.Label, @"\s*[{].*?[}]\s*", string.Empty, RegexOptions.IgnoreCase);
+
           }
           else
             item.Label = track.Track;
@@ -1633,6 +1640,8 @@ namespace mvCentral.GUI
             item.Label = Regex.Match(Path.GetFileName(track.LocalMedia[0].File.FullName), @"(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?<track>[^\\$]*)\.").Groups["track"].Value;
           else
             item.Label = (Path.GetFileNameWithoutExtension(track.LocalMedia[0].File.FullName));
+
+          item.Label = Regex.Replace(item.Label, @"\s*[{].*?[}]\s*", string.Empty, RegexOptions.IgnoreCase);
         }
         else
           item.Label = track.Track;
