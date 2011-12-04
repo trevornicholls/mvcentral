@@ -145,6 +145,7 @@ namespace mvCentral
       cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
       cbDisplayRawTrackText.Setting = mvCentralCore.Settings["gui_raw_track_text"];
       cbClearPlaylistOnAdd.Setting = mvCentralCore.Settings["clear_playist_on_add"];
+      tbPlaylistFolder.Setting = mvCentralCore.Settings["playlist_folder"];
       // GUI Settings
       cbAutoShufflePlaylist.Setting = mvCentralCore.Settings["general_playlistautoshuffle"];
       cbGeneratedAutoShufflePlaylist.Setting = mvCentralCore.Settings["generated_playlistautoshuffle"];
@@ -3117,6 +3118,16 @@ namespace mvCentral
     {
       LastFMSetup lfmSetup = new LastFMSetup();
       lfmSetup.ShowDialog();
+    }
+
+    private void btPlayListFolder_Click(object sender, EventArgs e)
+    {
+      FolderBrowserDialog playListFolder = new FolderBrowserDialog();
+      if (playListFolder.ShowDialog() == DialogResult.OK)
+      {
+        tbPlaylistFolder.Text = playListFolder.SelectedPath;
+        mvCentralCore.Settings.PlayListFolder = tbPlaylistFolder.Text;
+      }
     }
 
     #endregion
