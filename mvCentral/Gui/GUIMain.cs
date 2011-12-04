@@ -682,6 +682,8 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
+      // If we have a video running then chances are we are exiting fullt screen...save the view as we need to go though
+      // the page setup and that would messup the view and window stack.
       if (g_Player.HasVideo  && currentView != mvView.None)
         runningView = currentView;
 
@@ -734,12 +736,14 @@ namespace mvCentral.GUI
       if (currentView == mvView.ArtistViaGenre)
         currentView = mvView.Artist;
 
+      // Exit from fullscreen - restore save view and dont re-init window stack
       if (g_Player.HasVideo && currentView != mvView.None)
         currentView = runningView;
-
-      addToStack(currentView, true);
+      else
+      {
+        addToStack(currentView, true);
+      }
       setViewAsProperty(currentView);
-
       logger.Info("GUI - Loaded ViewAs : {0}", currentView.ToString());
 
       // Read last used layout from and set, default to list if not yet stored
