@@ -684,7 +684,7 @@ namespace mvCentral.GUI
     {
       // If we have a video running then chances are we are exiting fullt screen...save the view as we need to go though
       // the page setup and that would messup the view and window stack.
-      if (g_Player.HasVideo  && currentView != mvView.None)
+      if ((g_Player.HasVideo || persisting) && currentView != mvView.None)
         runningView = currentView;
 
       // Get all Artists and Tracks
@@ -737,7 +737,7 @@ namespace mvCentral.GUI
         currentView = mvView.Artist;
 
       // Exit from fullscreen - restore save view and dont re-init window stack
-      if (g_Player.HasVideo && currentView != mvView.None)
+      if ((g_Player.HasVideo || persisting) && currentView != mvView.None)
         currentView = runningView;
       else
       {
@@ -769,6 +769,8 @@ namespace mvCentral.GUI
 
       if (_loadParameter != null)
         processParameter();
+
+      persisting = true;
 
       base.OnPageLoad();
     }

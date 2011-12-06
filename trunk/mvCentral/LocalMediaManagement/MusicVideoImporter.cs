@@ -1419,7 +1419,9 @@ namespace mvCentral.LocalMediaManagement
       {
         DBLocalMedia file = mediaMatch.LocalMedia[0];
         int count = 0;
-        if (file.FullPath == null) continue;
+        if (file.FullPath == null)
+          continue;
+        else
         {
           logger.Info(string.Format("Starting Local Filename Parsing, processing {0} files", MatchesNeedingInput.Count.ToString()));
           parser = new FilenameParser(file.TrimmedFullPath);
