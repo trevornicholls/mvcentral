@@ -45,13 +45,25 @@ namespace mvCentral.Utils
       this.username = username;
       this.password = password;
       //Create the session
-      Session.Authenticate(this.username, MD5(this.password));
-      if (Session.Authenticated)
+      try
       {
-        IsLoged = true;
-        return true;
+        Session.Authenticate(this.username, MD5(this.password));
       }
-      return false;
+      catch (Exception e)
+      {
+        logger.DebugException("Error creating session", e);
+      }
+      finally
+      {
+        if (Session.Authenticated)
+        {
+          IsLoged = true;
+        }
+      }
+      if (IsLoged)
+        return true;
+      else
+        return false;
     }
     /// <summary>
     /// Update now playing track on Last.FM
