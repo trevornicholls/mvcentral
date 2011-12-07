@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.IO;
 using NLog;
 using mvCentral.Database;
 
@@ -205,7 +206,7 @@ namespace mvCentral.LocalMediaManagement
     /// 
     /// </summary>
     /// <param name="filename"></param>
-    public FilenameParser(string filename)
+    public FilenameParser(string filename, DirectoryInfo baseFolder)
     {
       try
       {
@@ -221,7 +222,6 @@ namespace mvCentral.LocalMediaManagement
 
         foreach (Regex regularExpression in regularExpressions)
         {       
-
           Match matchResults = null;
           try
           {
@@ -231,7 +231,27 @@ namespace mvCentral.LocalMediaManagement
           {
             logger.ErrorException("meuh", ex);
           }
+          // No matches found with parsing expression, bail out and try the next ecpression
           if (matchResults == null) continue;
+
+          // ok, here we check if the first pasrsing expression has picked up the base drive/folder as artist & album
+          // if so we fail this parse
+          // First figure out if the base folder is a UNC path or fixed drive 
+          Uri uriInfo = new Uri(baseFolder.ToString());
+          // If a URL then we compare the artist against the hostname and the Album against the folder, if both match fail this parse
+          if (uriInfo.IsUnc)
+          {
+            if (uriInfo.Host.Equals(matchResults.Groups[1].Value, StringComparison.CurrentCultureIgnoreCase) && matchResults.Groups[2].Value == baseFolder.Name)
+              continue;
+          }
+          else
+          {
+            // if fixed drive compare artist against the drive and the Album against the folder, if both match fail this parse
+            if (baseFolder.Root.ToString().StartsWith(matchResults.Groups[1].Value) && matchResults.Groups[2].Value == baseFolder.Name)
+              continue;
+          }
+
+          // Success - now continue processing
           if (matchResults.Success)
           {
             for (int i = 1; i < matchResults.Groups.Count; i++)

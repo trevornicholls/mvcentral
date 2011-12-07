@@ -100,7 +100,7 @@ namespace mvCentral.DataProviders
         return false;
 
       // if we already have a backdrop move on for now
-      //if (mv.ArtFullPath.Trim().Length > 0)
+      //if (mv.ArtFullPath.Trim().Length > 0) 
       //  return true;
 
       //if (mv.ArtFullPath.Trim().Length == 0)
@@ -113,7 +113,7 @@ namespace mvCentral.DataProviders
 
           int artistartAdded = 0;
           int count = 0;
-          lock (at)
+          lock (mv)
           {
             foreach (string a2 in at)
             {
