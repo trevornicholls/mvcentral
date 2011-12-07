@@ -493,7 +493,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>252</Revision>
+      <Revision>253</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
     <VersionDescription>mvCentral v1.0.0.252
@@ -806,14 +806,14 @@ Also revered the top two regex expressions
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{feef628d-ba3b-4765-9891-afd9d32031a4}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{52788192-ce87-46bd-a8db-d69fbbeaa21f}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b203d832-2992-4417-be3f-cc22a1fbceac}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{cec80d63-6464-457e-b3f6-2db567262d98}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
