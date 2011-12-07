@@ -389,7 +389,7 @@ namespace mvCentral.SignatureBuilders
         //  file = LocalMedia[0].TrimmedFullPath;
 
 
-        FilenameParser parser = new FilenameParser(LocalMedia[0].File.FullName);
+        FilenameParser parser = new FilenameParser(LocalMedia[0].File.FullName, baseFolder);
 
         parseResult CurrentParseResult = new parseResult();
         parser.Matches.Add(MusicVideoImporter.cFilename, file);

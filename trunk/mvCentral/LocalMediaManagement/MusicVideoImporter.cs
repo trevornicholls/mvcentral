@@ -1423,8 +1423,9 @@ namespace mvCentral.LocalMediaManagement
           continue;
         else
         {
+          DirectoryInfo baseFolder = Utility.GetMusicVideoBaseDirectory(file.File.Directory); 
           logger.Info(string.Format("Starting Local Filename Parsing, processing {0} files", MatchesNeedingInput.Count.ToString()));
-          parser = new FilenameParser(file.TrimmedFullPath);
+          parser = new FilenameParser(file.TrimmedFullPath, baseFolder);
           CurrentParseResult = new parseResult();
           parser.Matches.Add(cFilename, file.FullPath);
           parser.Matches.Add(cExt, Path.GetExtension(file.FullPath));
