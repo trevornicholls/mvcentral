@@ -117,7 +117,6 @@ namespace mvCentral.Database
       add(true, DBExpression.cType_Simple, @"\<artist> - <track>.<ext>");
       add(true, DBExpression.cType_Simple, @"\<artist>\<track>.<ext>");
       add(true, DBExpression.cType_Simple, @"\<album>\<artist> - <track>.<ext>");
-
     }
 
     private void InitColumns()

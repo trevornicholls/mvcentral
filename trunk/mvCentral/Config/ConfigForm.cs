@@ -3088,6 +3088,8 @@ namespace mvCentral
     private void cbIgnoreFolderStructure_CheckedChanged(object sender, EventArgs e)
     {
       bool reLoad = FilenameParser.reLoadExpressions();
+      SaveAllExpressions();
+      LoadExpressions();
     }
 
     private void btArtworkOptions_Click(object sender, EventArgs e)
