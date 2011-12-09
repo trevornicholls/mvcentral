@@ -93,12 +93,12 @@ namespace mvCentral.LocalMediaManagement
         foreach (DBExpression expression in expressions)
         {
 
-          if (expression.Expression == @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$" && mvCentralCore.Settings.IgnoreFoldersWhenParsing)
+          if (expression.Expression == mvCentralCore.albumRegex && mvCentralCore.Settings.IgnoreFoldersWhenParsing)
           {
             expression.Enabled = false;
             expression.Commit();
           }
-          if (expression.Expression == @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$" && !mvCentralCore.Settings.IgnoreFoldersWhenParsing)
+          if (expression.Expression == mvCentralCore.albumRegex && !mvCentralCore.Settings.IgnoreFoldersWhenParsing)
           {
             expression.Enabled = true;
             expression.Commit();

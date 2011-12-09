@@ -35,6 +35,8 @@ namespace mvCentral
   {
     // Plugin ID
     public const int PluginID = 112011;
+
+    public const string albumRegex = @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$";
     
     private static Logger logger = LogManager.GetCurrentClassLogger();
 

@@ -106,9 +106,9 @@ namespace mvCentral.Database
 
       // Parse fill path in format  \<atist>\<album>\<track>.<ext>
       if (mvCentralCore.Settings.IgnoreFoldersWhenParsing)
-        add(false, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
+        add(false, DBExpression.cType_Regexp, mvCentralCore.albumRegex);
       else
-        add(true, DBExpression.cType_Regexp, @"(?<artist>[^\\]+)\\(?<album>[^\\]+)\\(?:\d+\s+)?(?<track>[^\\]+)\.(?<ext>[^\r]+)$");
+        add(true, DBExpression.cType_Regexp, mvCentralCore.albumRegex);
 
       // Parse Filename in format <artist> - <track>.<ext>
       add(true, DBExpression.cType_Regexp, @"^(?:.*\\)?(?:(?:[~([{]+.+?[}\])~]+\s*)?(?<artist>.*?)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?:[\s-:;]{2,}|(?!.+?[\s-:;]{2,})\-)(?:\s*[~([{]+.+?[}\])~]+\s*)?(?<track>(?:[.\s]Live[.\s])?.*?)[.\s]*(?:\d+[ip][.\s].+?)?(?:@.+?)?(?:\sHD.+)?(?:[~([{]+.+?[}\])~]+\s*)?)\.(?<ext>.{2,5})$");
