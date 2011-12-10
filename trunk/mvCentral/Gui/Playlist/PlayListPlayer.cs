@@ -243,6 +243,9 @@ namespace mvCentral.Playlist
     bool _playlistAutoShuffle = mvCentralCore.Settings.playlistAutoShuffle;
     string _currentPlaylistName = string.Empty;
     private bool listenToExternalPlayerEvents = false;
+    private bool externalPlayerStopped = true;
+    private bool m_bIsExternalPlayer = false;
+    private bool m_bIsExternalDVDPlayer = false;
 
     DBTrackInfo CurrentTrack = null;
     
@@ -251,6 +254,11 @@ namespace mvCentral.Playlist
     public PlayListPlayer()
     {
       Init();
+      // Check if External Player is being used
+      MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml"));
+      m_bIsExternalPlayer = !xmlreader.GetValueAsBool("movieplayer", "internal", true);
+      m_bIsExternalDVDPlayer = !xmlreader.GetValueAsBool("dvdplayer", "internal", true);
+
       if (!LastFMProfile.IsLoged)
         LastFMProfile.Login(mvCentralCore.Settings.LastFMUsername, mvCentralCore.Settings.LastFMPassword);
     }
@@ -456,7 +464,9 @@ namespace mvCentral.Playlist
       else
         return string.Empty;
     }
-
+    /// <summary>
+    /// Play next video in playlist
+    /// </summary>
     public void PlayNext()
     {
       if (_currentPlayList == PlayListType.PLAYLIST_NONE) 
@@ -480,6 +490,9 @@ namespace mvCentral.Playlist
         iItem = 0;
       }
 
+      if (m_bIsExternalPlayer && externalPlayerStopped)
+        return;
+
       if (!Play(iItem))
       {
         if (!mvPlayer.Playing)
@@ -488,7 +501,9 @@ namespace mvCentral.Playlist
         }
       }
     }
-
+    /// <summary>
+    /// Play previous track in playlist
+    /// </summary>
     public void PlayPrevious()
     {
       if (_currentPlayList == PlayListType.PLAYLIST_NONE)
@@ -509,7 +524,10 @@ namespace mvCentral.Playlist
         }
       }
     }
-
+    /// <summary>
+    /// Play the video
+    /// </summary>
+    /// <param name="filename"></param>
     public void Play(string filename)
     {
       if (_currentPlayList == PlayListType.PLAYLIST_NONE)
@@ -526,7 +544,11 @@ namespace mvCentral.Playlist
         }
       }
     }
-
+    /// <summary>
+    /// Play the video
+    /// </summary>
+    /// <param name="iItem"></param>
+    /// <returns></returns>
     public bool Play(int iItem)
     {
       // if play returns false PlayNext is called but this does not help against selecting an invalid file
@@ -640,6 +662,7 @@ namespace mvCentral.Playlist
         }
 
         // Start Listening to any External Player Events
+        logger.Debug("Start Listening to any External Player Events");
         listenToExternalPlayerEvents = true;
 
         // Play File
@@ -647,12 +670,13 @@ namespace mvCentral.Playlist
         mvGUIMain.currentArtistInfo = CurrentTrack.ArtistInfo[0];
         logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", mvGUIMain.currentArtistInfo.Artist, mvGUIMain.currentArtistID, filename));
         
-        //if (mvPlayer.Playing)
-        //  mvPlayer.Stop();
+        if (mvPlayer.Playing)
+          mvPlayer.Stop();
 
         playResult = mvPlayer.Play(filename);      
 
         // Stop Listening to any External Player Events
+        logger.Debug("Stop Listening to any External Player Events");
         listenToExternalPlayerEvents = false;
 
         if (!playResult)
@@ -896,11 +920,30 @@ namespace mvCentral.Playlist
 
       logger.Info("Playback Stopped in External Player");
       SetAsWatched();
-      PlayNext();
+      // Gram current video that just played
+      PlayListItem item = GetCurrentItem();
+      // Grab the video playtime
+      TimeSpan tt = TimeSpan.Parse(item.Track.PlayTime);
+      //Grab how long the extral player was playing
+      TimeSpan rt = proc.ExitTime - proc.StartTime;
+
+      DateTime trackPlayTime = new DateTime(tt.Ticks);
+      DateTime playerRuntime = new DateTime(rt.Ticks);
+
+      // if the track playtime and the runtime are within 3 seconds then assume playing ended
+      // if outside this range assume stop was pressed 
+      logger.Debug("External player stopped - differance between player runtime and track run time is {0}",Math.Abs((int)(playerRuntime - trackPlayTime).TotalSeconds));
+      if (Math.Abs((int)(playerRuntime - trackPlayTime).TotalSeconds) < 3)
+      {
+        externalPlayerStopped = false;
+        PlayNext();
+      }
+
+
       if (!mvPlayer.Playing)
       {
         mvPlayer.Release();
-
+        externalPlayerStopped = true;
         // Clear focus when playback ended
         GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
         GUIGraphicsContext.SendMessage(msg);
