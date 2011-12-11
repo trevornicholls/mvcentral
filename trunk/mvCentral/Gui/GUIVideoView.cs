@@ -46,7 +46,7 @@ namespace mvCentral.GUI
           g_Player.Play(db1.LocalMedia[0].File.FullName);
           if (db1.LocalMedia[0].IsDVD)
           {
-            //                        PlayDVD(db1);
+            //PlayDVD(db1);
           }
         }
         if (mvCentralCore.Settings.AutoFullscreen)
