@@ -246,6 +246,7 @@ namespace mvCentral.Playlist
     private bool externalPlayerStopped = true;
     private bool m_bIsExternalPlayer = false;
     private bool m_bIsExternalDVDPlayer = false;
+    private bool skipTrackActive = false;
 
     DBTrackInfo CurrentTrack = null;
     
@@ -291,19 +292,19 @@ namespace mvCentral.Playlist
       {
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM:
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_CHAPTER:
+          skipTrackActive = true;
           PlayNext();
           if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
             scrobbleSubmit(item);
-
 
           break;
 
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM:
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_CHAPTER:
+          skipTrackActive = true;
           PlayPrevious();
           if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
             scrobbleSubmit(item);
-
 
           break;
       }
@@ -318,15 +319,23 @@ namespace mvCentral.Playlist
             PlayListItem item = GetCurrentItem();
             if (item != null)
             {
-              Reset();
-              _currentPlayList = PlayListType.PLAYLIST_NONE;
+              // when skipping video with Prev or Next the stopped message is received but as skipping
+              // we do not want to treat this as a stop whcih resets and clears the playlist
+              // the skipTrackActive bool is set before playNext of playPrevious methods are called and we check this
+              // and only clear the playlist down if not true.
+              if (skipTrackActive)
+                skipTrackActive = false;
+              else
+              {
+                Reset();
+                _currentPlayList = PlayListType.PLAYLIST_NONE;
+              }
               SetProperties(item, true);
               if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
                 scrobbleSubmit(item);
-             }
+            }
             GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
             GUIGraphicsContext.SendMessage(msg);
-
           }
           break;
 

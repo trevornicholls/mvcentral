@@ -379,6 +379,8 @@ namespace mvCentral.SignatureBuilders
     {
       if (LocalMedia != null)
       {
+        string parserFilename;
+
         DirectoryInfo baseFolder = Utility.GetMusicVideoBaseDirectory(LocalMedia[0].File.Directory);
         folder = baseFolder.Name;
         file = LocalMedia[0].File.Name;
@@ -388,8 +390,12 @@ namespace mvCentral.SignatureBuilders
         //else
         //  file = LocalMedia[0].TrimmedFullPath;
 
+        if (file == "VIDEO_TS.IFO")
+          parserFilename = folder + ".dvd";
+        else
+          parserFilename = LocalMedia[0].File.FullName;
 
-        FilenameParser parser = new FilenameParser(LocalMedia[0].File.FullName, baseFolder);
+        FilenameParser parser = new FilenameParser(parserFilename, baseFolder);
 
         parseResult CurrentParseResult = new parseResult();
         parser.Matches.Add(MusicVideoImporter.cFilename, file);

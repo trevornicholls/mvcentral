@@ -247,19 +247,26 @@ namespace mvCentral.LocalMediaManagement
           // ok, here we check if the first pasrsing expression has picked up the base drive/folder as artist & album
           // if so we fail this parse
           // First figure out if the base folder is a UNC path or fixed drive 
-          Uri uriInfo = new Uri(baseFolder.ToString());
-          // If a URL then we compare the artist against the hostname and the Album against the folder, if both match fail this parse
-          if (uriInfo.IsUnc)
+
+          try
           {
-            if (uriInfo.Host.Equals(matchResults.Groups[1].Value, StringComparison.CurrentCultureIgnoreCase) && matchResults.Groups[2].Value == baseFolder.Name)
-              continue;
+            Uri uriInfo = new Uri(baseFolder.ToString());
+            // If a URL then we compare the artist against the hostname and the Album against the folder, if both match fail this parse
+            if (uriInfo.IsUnc)
+            {
+              if (uriInfo.Host.Equals(matchResults.Groups[1].Value, StringComparison.CurrentCultureIgnoreCase) && matchResults.Groups[2].Value == baseFolder.Name)
+                continue;
+            }
+            else
+            {
+              // if fixed drive compare artist against the drive and the Album against the folder, if both match fail this parse
+              if (baseFolder.Root.ToString().StartsWith(matchResults.Groups[1].Value) && matchResults.Groups[2].Value == baseFolder.Name)
+                continue;
+            }
           }
-          else
-          {
-            // if fixed drive compare artist against the drive and the Album against the folder, if both match fail this parse
-            if (baseFolder.Root.ToString().StartsWith(matchResults.Groups[1].Value) && matchResults.Groups[2].Value == baseFolder.Name)
-              continue;
-          }
+          catch
+          { }
+
 
           // Success - now continue processing
           if (matchResults.Success)
