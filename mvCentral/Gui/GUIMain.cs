@@ -1911,6 +1911,7 @@ namespace mvCentral.GUI
     {
       DBAlbumInfo albumInfo = null;
       DBTrackInfo trackInfo = null;
+      GUIPropertyManager.SetProperty("#mvCentral.DVDView", "false");
 
       // Is this a Track or Album object we are on
       if (item.MusicTag.GetType() == typeof(DBTrackInfo))
@@ -1936,16 +1937,6 @@ namespace mvCentral.GUI
         currArtist = artistInfo;
         currentArtistID = item.ItemId;
 
-        // Video
-        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
-        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
-        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
-        //logger.Debug(string.Format("Video Props for {0} - (Res: {1}) (Aspect: {2}) (Codec: {3})", item.Label, mediaInfo.VideoResolution, mediaInfo.VideoAspectRatio, mediaInfo.VideoCodec));
-        // Audio
-        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
-        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
-        GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
-        //logger.Debug(string.Format("Audio Props for {0} - (Codec: {1}) (Channels: {2})", item.Label, mediaInfo.AudioCodec, mediaInfo.AudioChannels));
         // Misc Proprities
         GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
         GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
@@ -1953,6 +1944,26 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
         GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
         GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
+
+        if (trackInfo.LocalMedia[0].IsDVD)
+        {
+          GUIPropertyManager.SetProperty("#mvCentral.DVDView", "true");
+          GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
+          GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "true");
+          GUIPropertyManager.SetProperty("#mvCentral.AlbumTracksRuntime", trackDuration(trackInfo.PlayTime));
+          clearVideoAudioProps();
+        }
+        else
+        {
+          // Video
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
+          // Audio
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+        }
         if (item.Label != "..")
         {
           //logger.Debug("Setting lastItemVid (1) to {0}", facadeLayout.SelectedListItemIndex);

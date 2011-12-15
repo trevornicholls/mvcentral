@@ -66,6 +66,7 @@ namespace mvCentral.Playlist
       bool Playing { get; }
       void Release();
       bool Play(string strFile);
+      void PlayDVD(DBTrackInfo db1);
       void Stop();
       void SeekAsolutePercentage(int iPercentage);
       double Duration { get; }
@@ -227,6 +228,7 @@ namespace mvCentral.Playlist
     }
 
     public IPlayer mvPlayer = new FakePlayer();
+    
 
     #endregion
 
@@ -262,6 +264,7 @@ namespace mvCentral.Playlist
 
       if (!LastFMProfile.IsLoged)
         LastFMProfile.Login(mvCentralCore.Settings.LastFMUsername, mvCentralCore.Settings.LastFMPassword);
+
     }
 
     private static PlayListPlayer singletonPlayer = new PlayListPlayer();
@@ -682,7 +685,10 @@ namespace mvCentral.Playlist
         if (mvPlayer.Playing)
           mvPlayer.Stop();
 
-        playResult = mvPlayer.Play(filename);      
+        //if (CurrentTrack.LocalMedia[0].IsDVD)
+        //  mvPlayer.PlayDVD(CurrentTrack);
+        //else
+          playResult = mvPlayer.Play(filename);      
 
         // Stop Listening to any External Player Events
         logger.Debug("Stop Listening to any External Player Events");

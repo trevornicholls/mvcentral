@@ -874,23 +874,30 @@ namespace mvCentral.Playlist
         return false;
       }
     }
-
+    /// <summary>
+    /// Save the current playlist
+    /// </summary>
     private void OnSavePlayList()
     {
       currentSelectedItem = facadeLayout.SelectedListItemIndex;
       string playlistFileName = string.Empty;
       if (GetKeyboard(ref playlistFileName))
       {
-
-
         string playListPath = string.Empty;
-        using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+        // Have we out own playlist folder configured
+        if (!string.IsNullOrEmpty(mvCentralCore.Settings.PlayListFolder.Trim()))
+          playListPath = mvCentralCore.Settings.PlayListFolder;
+        else
         {
-          playListPath = xmlreader.GetValueAsString("movies", "playlists", string.Empty);
+          // No, so use my videos location
+          using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+          {
+            playListPath = xmlreader.GetValueAsString("movies", "playlists", string.Empty);
+            playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
+          }
+
           playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
         }
-
-        playListPath = MediaPortal.Util.Utils.RemoveTrailingSlash(playListPath);
 
         // check if Playlist folder exists, create it if not
         if (!Directory.Exists(playListPath))
@@ -926,7 +933,10 @@ namespace mvCentral.Playlist
         saver.Save(playlist, fullPlayListPath);
       }
     }
-
+    /// <summary>
+    /// Show saved playlists
+    /// </summary>
+    /// <param name="_directory"></param>
     protected void OnShowSavedPlaylists(string _directory)
     {
       VirtualDirectory _virtualDirectory = new VirtualDirectory();
