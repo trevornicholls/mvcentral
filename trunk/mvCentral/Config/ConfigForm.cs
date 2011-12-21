@@ -10,6 +10,7 @@ using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
@@ -35,6 +36,8 @@ using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
 using mvCentral.Extractors;
 using System.Threading;
+
+
 
 namespace mvCentral
 {
@@ -2957,11 +2960,14 @@ namespace mvCentral
     {
       tsmGrabFrame.Enabled = false;
       tsmRemove.Enabled = false;
+      tsmCreateAlbum.Enabled = false;
+
       autoGrabFrame30SecsToolStripMenuItem.Enabled = false;
 
       switch (tcMusicVideo.SelectedTab.Name)
       {
         case "tpArtist":
+          tsmCreateAlbum.Enabled = true;
           break;
         case "tpAlbum":
           //                    tsmGetInfo.Enabled = true;
@@ -3133,6 +3139,15 @@ namespace mvCentral
     }
 
     #endregion
+
+    private void createAlbumToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+      DBAlbumInfo albumInfo = new DBAlbumInfo();
+      albumInfo.Album = "19";
+      //setMusicVideoAlbum(ref albumInfo, "Adele", "19", null);
+      //mvTrackData.AlbumInfo.Clear();
+      //mvTrackData.AlbumInfo.Add(albumInfo);
+    }
 
   }
 }
