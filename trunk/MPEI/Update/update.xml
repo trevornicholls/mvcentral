@@ -85,7 +85,7 @@
           <Major>1</Major>
           <Minor>0</Minor>
           <Build>0</Build>
-          <Revision>262</Revision>
+          <Revision>264</Revision>
         </Version>
         <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
         <VersionDescription>RC Release
@@ -93,8 +93,8 @@
 
 </VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.262.mpe1</OnlineLocation>
-        <ReleaseDate>2011-12-23T18:00:00</ReleaseDate>
+        <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.264.mpe1</OnlineLocation>
+        <ReleaseDate>2011-12-23T20:10:00</ReleaseDate>
         <Tags>music video last.fm</Tags>
         <Location>.\Release\[Name]-[Version].mpe1</Location>
         <Params>
