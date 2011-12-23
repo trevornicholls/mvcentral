@@ -647,6 +647,9 @@ namespace mvCentral
 
     private void SaveAllExpressions()
     {
+      if (dgvExpressions.RowCount == 0)
+        return;
+
       // need to save back all the rows
       DBExpression.ClearAll();
 
