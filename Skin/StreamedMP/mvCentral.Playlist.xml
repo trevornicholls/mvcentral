@@ -108,7 +108,7 @@
       <type>image</type>
       <posX>15</posX>
       <posY>270</posY>
-      <width>300</width>      
+      <width>300</width>
       <height>222</height>
       <keepaspectratio>yes</keepaspectratio>
       <zoom>no</zoom>
@@ -116,55 +116,54 @@
       <visible>facadeview.playlist | facadeview.filmstrip</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
-		<control>
-			<id>0</id>
-			<description>Track Description (List)</description>
-			<type>textboxscrollup</type>
-			<posX>320</posX>
-			<posY>270</posY>
-			<width>410</width>
-			<height>335</height>
-			<label>#mvCentral.Description</label>
-			<seperator>-----------------------------------------------------------------------------------</seperator>
-			<font>mediastream11</font>
-			<scrollStartDelaySec>10</scrollStartDelaySec>
-			<animation effect="fade" time="250" delay="0">WindowClose</animation>
-			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.playlist]</visible>
-		</control>
-		<control>
-			<id>0</id>
-			<description>Artist Bio (Filmstrip)</description>
-			<type>textboxscrollup</type>
-			<posX>330</posX>
-			<posY>270</posY>
-			<width>930</width>
-			<height>200</height>
-			<label>#mvCentral.Description</label>
-			<seperator>-----------------------------------------------------------------------------------</seperator>
-			<font>mediastream11</font>
-			<animation effect="fade" time="250" delay="0">WindowClose</animation>
-			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<scrollStartDelaySec>4</scrollStartDelaySec>
-			<visible>facadeview.filmstrip</visible>
-		</control>		    
-		<control>
-			<id>0</id>
-			<description>Track Description (Thumbnails)</description>
-			<type>textboxscrollup</type>
-			<posX>30</posX>
-			<posY>240</posY>
-			<width>480</width>
-			<height>335</height>
-			<label>#mvCentral.Description</label>
-			<seperator>-----------------------------------------------------------------------------------</seperator>
-			<font>mediastream11</font>
-			<scrollStartDelaySec>10</scrollStartDelaySec>
-			<animation effect="fade" time="250" delay="0">WindowClose</animation>
-			<animation effect="fade" time="250" delay="0">WindowOpen</animation>
-			<visible>[facadeview.smallicons|facadeview.largeicons]</visible>
-		</control>
-    
+    <control>
+      <id>0</id>
+      <description>Track Description (List)</description>
+      <type>textboxscrollup</type>
+      <posX>320</posX>
+      <posY>270</posY>
+      <width>410</width>
+      <height>335</height>
+      <label>#mvCentral.Description</label>
+      <seperator>-----------------------------------------------------------------------------------</seperator>
+      <font>mediastream11</font>
+      <scrollStartDelaySec>10</scrollStartDelaySec>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.playlist]</visible>
+    </control>
+    <control>
+      <id>0</id>
+      <description>Artist Bio (Filmstrip)</description>
+      <type>textboxscrollup</type>
+      <posX>330</posX>
+      <posY>270</posY>
+      <width>930</width>
+      <height>200</height>
+      <label>#mvCentral.Description</label>
+      <seperator>-----------------------------------------------------------------------------------</seperator>
+      <font>mediastream11</font>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <scrollStartDelaySec>4</scrollStartDelaySec>
+      <visible>facadeview.filmstrip</visible>
+    </control>
+    <control>
+      <id>0</id>
+      <description>Track Description (Thumbnails)</description>
+      <type>textboxscrollup</type>
+      <posX>30</posX>
+      <posY>240</posY>
+      <width>480</width>
+      <height>335</height>
+      <label>#mvCentral.Description</label>
+      <seperator>-----------------------------------------------------------------------------------</seperator>
+      <font>mediastream11</font>
+      <scrollStartDelaySec>10</scrollStartDelaySec>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.smallicons|facadeview.largeicons]</visible>
+    </control>
     <control>
       <type>actiongroup</type>
       <description>action menu</description>
@@ -538,4 +537,4 @@
     <import>common.time.xml</import>
   </controls>
 </window>
-<!--Checksum:a03673c552ac0c99bac6e4c1b390d6b6-->
+<!--Checksum:6e7e8726160056bce75ea116ddb2cb86-->
