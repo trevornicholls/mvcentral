@@ -1926,7 +1926,10 @@ namespace mvCentral.GUI
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
 
         DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+        // Get the artist and set the artist prop
         DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
+
         albumInfo = DBAlbumInfo.Get(trackInfo);
 
         if (albumInfo == null)
@@ -1981,6 +1984,8 @@ namespace mvCentral.GUI
         // get list of tracks in this album
         List<DBTrackInfo> tracksInAlbum = DBTrackInfo.GetEntriesByAlbum(albumInfo);
         DBArtistInfo thisArtist = DBArtistInfo.Get(tracksInAlbum[0]);
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistName", thisArtist.Artist);
+
         // Set the Hierachy
         GUIPropertyManager.SetProperty("#mvCentral.Hierachy", thisArtist.Artist);
          // Set image
