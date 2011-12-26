@@ -493,9 +493,11 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>262</Revision>
+      <Revision>264</Revision>
     </Version>
-    <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide </ExtensionDescription>
+    <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
+
+The plugin will also scrobble playing videos to Last.FM if required.</ExtensionDescription>
     <VersionDescription>mvCentral v1.0.0.262
 
 Fixed navigation when returning from fullscreen video

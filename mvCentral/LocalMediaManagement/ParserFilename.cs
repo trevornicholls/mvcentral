@@ -90,6 +90,12 @@ namespace mvCentral.LocalMediaManagement
         tags.Clear();
  
         List<DBExpression> expressions = DBExpression.GetAll();
+
+        // Bit of a frig here, for some reason the expression gets reversed during the 
+        // save process - check here and reverse if that is the case
+        if (expressions[0].ID != 1)
+          expressions.Reverse();
+
         foreach (DBExpression expression in expressions)
         {
 
