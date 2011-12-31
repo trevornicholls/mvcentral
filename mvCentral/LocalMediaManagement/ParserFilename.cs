@@ -254,12 +254,18 @@ namespace mvCentral.LocalMediaManagement
           // if so we fail this parse
           // First figure out if the base folder is a UNC path or fixed drive 
 
+          // ToDo: Have some idea about checking the full path agaist the actual matches found
+          //       need a reliable way validate the parse results
+          //string[] pathParts = baseFolder.FullName.Split(Path.DirectorySeparatorChar);
+          
           try
           {
             Uri uriInfo = new Uri(baseFolder.ToString());
             // If a URL then we compare the artist against the hostname and the Album against the folder, if both match fail this parse
             if (uriInfo.IsUnc)
             {
+
+
               if (uriInfo.Host.Equals(matchResults.Groups[1].Value, StringComparison.CurrentCultureIgnoreCase) && matchResults.Groups[2].Value == baseFolder.Name)
                 continue;
             }
