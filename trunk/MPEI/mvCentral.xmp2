@@ -493,55 +493,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>264</Revision>
+      <Revision>266</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
 
 The plugin will also scrobble playing videos to Last.FM if required.</ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.0.262
+    <VersionDescription>mvCentral v1.0.0.266
 
-Fixed navigation when returning from fullscreen video
+Updated externals to 1.2.2
 
-Added playlist folder selection to GUI Settings tab
+Set #mvCentral.ArtistName property all all required views
 
-Parsing work, seem a fix had broken the 
-s:\folder\artist\album\track.ext format.
-
-Make parsing even more robust, checks completed for UNC and fixed drives using
-S:\folder\&lt;artist&gt; - &lt;track&gt;.&lt;ext&gt;
-S:\folder\&lt;album&gt;\&lt;track&gt;.&lt;ext&gt;
-S:\folder\&lt;album&gt;\&lt;artist&gt; - &lt;track&gt;.&lt;ext&gt;
-
-S:&lt;artist&gt; - &lt;track&gt;.&lt;ext&gt;
-S:&lt;album&gt;\&lt;track&gt;.&lt;ext&gt;
-S:&lt;album&gt;\&lt;artist&gt; - &lt;track&gt;.&lt;ext&gt;
-
-\\host\&lt;folder&gt;\&lt;artist&gt; - &lt;track&gt;.&lt;ext&gt;
-\\host\&lt;folder&gt;\&lt;album&gt;\&lt;track&gt;.&lt;ext&gt;
-\\host\&lt;folder&gt;\&lt;album&gt;\&lt;artist&gt; - &lt;track&gt;.&lt;ext&gt;
-
-Fixed issue where no internet connection would cause plugin to crash during load.
-
-Fix issue with ignore folder structure
-
-Added a workaround for handling stop of external player (not good as based on track playtime vs external player runtime).
-Fixed issue with re-entering the plugin.
-
-fixed issue where video skip would only work first time.
-Added very basic DVD import support - this will look at the directory name if finds a file/dir named VIDEO_TS\VIDEO_TS.IFO ie. the file S:\MusicDVDs\Take That
-- Progress Live\VIDEO_TS\VIDEO_TS.IFO would result in the filename name TakeThat - Progress Live.dvd being sent to the importer.
-
-Fix issue with saving playlists to plugin specified folder
-
-
-
-
-
-
-
-
-
-</VersionDescription>
+Fix issue with a couple of text boxes being set to zero width</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
     <ReleaseDate>2011-11-19T22:26:37</ReleaseDate>
