@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.Threading;
 
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
@@ -35,7 +36,7 @@ using mvCentral.LocalMediaManagement;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
 using mvCentral.Extractors;
-using System.Threading;
+
 
 
 
@@ -1161,22 +1162,22 @@ namespace mvCentral
     /// </summary>
     public void ReloadList()
     {
+      int videoTotal = 0;
+      int cnt2 = 0;
+      artistTotal = 0;
+      albumTotal = 0;
       // turn off redraws temporarily and clear the list
       mvLibraryTreeView.BeginUpdate();
       mvLibraryTreeView.Nodes.Clear();
       splitContainer3.Panel2Collapsed = true;
-      int videoTotal = 0;
-      int cnt2 = 0;
-
       DBTrackInfo workingTrack = null;
+
       try
       {
-
         lock (lockList)
         {
           foreach (DBTrackInfo currentTrackData in DBTrackInfo.GetAll())
           {
-
             workingTrack = currentTrackData;
             if (currentTrackData.ArtistInfo.Count == 0)
             {
@@ -1207,6 +1208,7 @@ namespace mvCentral
 
       mvLibraryTreeView.Sort();
       mvLibraryTreeView.SelectedNode = mvLibraryTreeView.TopNode;
+      mvLibraryTreeView.Refresh();
     }
     /// <summary>
     /// Adds the given musicvideo and it's related files to the tree view
@@ -1574,10 +1576,10 @@ namespace mvCentral
         DBAlbumInfo albumObject = null;
 
         DBTrackInfo sourceTrack = (DBTrackInfo)sourceDataNode.Tag;
-      
-
+   
         // As this is a track the parent is either the artist or album, so pull the relevent object from the tag
         if (sourceDataNode.Parent.Parent != null)
+        {
           if ((DBArtistInfo)sourceDataNode.Parent.Parent.Tag != null)
           {
             artistObject = (DBArtistInfo)sourceDataNode.Parent.Parent.Tag;
@@ -1586,13 +1588,18 @@ namespace mvCentral
           {
             albumObject = (DBAlbumInfo)sourceDataNode.Parent.Tag;
           }
+        }
+        else
+        {
+          //level 0 is the artist
+          if (sourceDataNode.Parent.Level == 0)
+            artistObject = (DBArtistInfo)sourceDataNode.Parent.Tag;
+        }
 
         if (albumObject == null && sourceDataNode.Parent.Tag.GetType() == typeof(DBAlbumInfo))
         {
           albumObject = (DBAlbumInfo)sourceDataNode.Parent.Tag;
         }
-
-
         sourceTrack.ArtistInfo.Clear();
         sourceTrack.AlbumInfo.Clear();
         sourceTrack.ArtistInfo.Add(artistObject);
@@ -2970,17 +2977,16 @@ namespace mvCentral
       switch (tcMusicVideo.SelectedTab.Name)
       {
         case "tpArtist":
-          tsmCreateAlbum.Enabled = true;
           break;
         case "tpAlbum":
-          //                    tsmGetInfo.Enabled = true;
-          break;
+           break;
         case "tpTrack":
           if (CurrentTrack != null)
           {
             tsmGrabFrame.Enabled = true;
             tsmRemove.Enabled = true;
             autoGrabFrame30SecsToolStripMenuItem.Enabled = true;
+            tsmCreateAlbum.Enabled = true;
           }
           break;
       }
@@ -3142,14 +3148,107 @@ namespace mvCentral
     }
 
     #endregion
-
+    /// <summary>
+    /// Add Track to a user selected album
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void createAlbumToolStripMenuItem_Click(object sender, EventArgs e)
     {
-      DBAlbumInfo albumInfo = new DBAlbumInfo();
-      albumInfo.Album = "19";
-      //setMusicVideoAlbum(ref albumInfo, "Adele", "19", null);
-      //mvTrackData.AlbumInfo.Clear();
-      //mvTrackData.AlbumInfo.Add(albumInfo);
+      DBBasicInfo selectedTrack = null;
+      switch (tcMusicVideo.SelectedTab.Name)
+      {
+        case "tpTrack":
+          selectedTrack = CurrentTrack;
+          break;
+        default:
+          return;
+      }
+
+      DBTrackInfo activeTrack = DBTrackInfo.Get((int) selectedTrack.ID);
+      DBArtistInfo activeAtrist = DBArtistInfo.Get(CurrentTrack);
+
+      CreateAlbumForTrack cbft = new CreateAlbumForTrack(activeTrack);
+      cbft.ShowDialog();
+      if (cbft.exitStatus)
+      {
+        // Do we already have this album....
+        DBAlbumInfo albumCheck = DBAlbumInfo.Get(cbft.Album);
+
+        if (albumCheck == null)
+        {
+          // No existing album - create, lookup details and add to track
+          List<DBSourceInfo> sourceProviders = new List<DBSourceInfo>();
+          foreach (DBSourceInfo sourceProvider in mvCentralCore.DataProviderManager.AlbumSources)
+          {
+            if (sourceProvider.Provider is LastFMProvider)
+              sourceProviders.Add(sourceProvider);
+          }
+
+          DBAlbumInfo albumToAdd = new DBAlbumInfo();
+          albumToAdd.Album = cbft.Album;
+          albumToAdd.MdID = cbft.AlbumMBID;
+          albumToAdd.Commit();
+
+          activeTrack.AlbumInfo.Add(albumToAdd);
+          activeTrack.Commit();
+
+
+          albumToAdd.PrimarySource = sourceProviders[0];
+          albumToAdd.PrimarySource.Provider.GetAlbumDetails((DBBasicInfo)albumToAdd, cbft.Album, cbft.AlbumMBID);
+          albumToAdd.Commit();
+        }
+        else
+        {
+          // Album already exists - add to track
+          activeTrack.AlbumInfo.Add(albumCheck);
+          activeTrack.Commit();
+        }
+
+        // Reload and display the library
+        ReloadList();
+
+        // Select and expand the artist
+        foreach (TreeNode tn in mvLibraryTreeView.Nodes)
+        {
+          if (tn.Text == activeAtrist.Artist)
+          {
+            mvLibraryTreeView.SelectedNode = tn;
+            tn.Expand();
+          }
+        }
+        mvLibraryTreeView.Refresh();
+      }
+    }
+
+    /// <summary>
+    /// On right click set the selected node to the nodce under the cursor
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void mvLibraryTreeView_MouseUp(object sender, MouseEventArgs e)
+    {
+      if (mvLibraryTreeView.GetNodeAt(e.X, e.Y) != null)
+      {
+        mvLibraryTreeView.SelectedNode = mvLibraryTreeView.GetNodeAt(e.X, e.Y);
+        switch (tcMusicVideo.SelectedTab.Name)
+        {
+          case "tpArtist":
+            break;
+          case "tpAlbum":
+            break;
+          case "tpTrack":
+            if (CurrentTrack != null)
+            {
+              tsmGrabFrame.Enabled = true;
+              tsmRemove.Enabled = true;
+              autoGrabFrame30SecsToolStripMenuItem.Enabled = true;
+              tsmCreateAlbum.Enabled = true;
+            }
+            break;
+        }
+
+      }
     }
 
   }

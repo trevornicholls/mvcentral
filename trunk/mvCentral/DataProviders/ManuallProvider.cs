@@ -110,6 +110,11 @@ namespace mvCentral.DataProviders
             throw new NotImplementedException();
         }
 
+        public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+        {
+          throw new NotImplementedException();
+        }
+
         public List<DBTrackInfo> Get(MusicVideoSignature mvSignature) {
             throw new NotImplementedException();
         }
