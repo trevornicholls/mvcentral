@@ -27,6 +27,7 @@ namespace mvCentral.DataProviders
     bool GetArtistArt(DBArtistInfo mv);
     bool GetAlbumArt(DBAlbumInfo mv);
     bool GetTrackArt(DBTrackInfo mv);
+    bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID);
   }
 
   public interface IScriptableMusicVideoProvider : IMusicVideoProvider

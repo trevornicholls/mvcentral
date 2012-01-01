@@ -363,7 +363,26 @@ namespace mvCentral.DataProviders
       return results;
     }
 
-
+    /// <summary>
+    /// Get the album details 
+    /// </summary>
+    /// <param name="basicInfo"></param>
+    /// <param name="albumTitle"></param>
+    /// <param name="AlbumMBID"></param>
+    /// <returns></returns>
+    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+    {
+      List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)basicInfo);
+      if (tracksOnAlbum.Count > 0)
+      {
+        string artist = tracksOnAlbum[0].ArtistInfo[0].Artist;
+        DBAlbumInfo mv1 = (DBAlbumInfo)basicInfo;
+        basicInfo.ArtUrls.Clear();
+        setMusicVideoAlbum(ref mv1,AlbumMBID);
+        GetAlbumArt((DBAlbumInfo)basicInfo);
+      }
+      return true;
+    }
 
     private void setMusicVideoArtist(ref DBArtistInfo mv, string artist)
     {

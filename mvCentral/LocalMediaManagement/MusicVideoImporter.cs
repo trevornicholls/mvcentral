@@ -1458,7 +1458,7 @@ namespace mvCentral.LocalMediaManagement
           {
             nFailed++;
             CurrentParseResult.failedAlbum = true;
-            //                        CurrentParseResult.success = false;
+            // CurrentParseResult.success = false;
             CurrentParseResult.exception = "Album is not valid";
           }
 
@@ -1794,7 +1794,9 @@ namespace mvCentral.LocalMediaManagement
         mvCentralCore.DataProviderManager.Update(mv);
         mvCentralCore.DataProviderManager.GetArt(mv);
         mvCentralCore.DataProviderManager.GetArt(mv.ArtistInfo[0]);
-        if (mv.AlbumInfo.Count > 0) mvCentralCore.DataProviderManager.GetArt(mv.AlbumInfo[0]);
+
+        if (mv.AlbumInfo.Count > 0) 
+          mvCentralCore.DataProviderManager.GetArt(mv.AlbumInfo[0]);
       }
 
       foreach (DBLocalMedia currFile in localMedia)

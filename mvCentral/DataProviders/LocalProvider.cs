@@ -614,6 +614,11 @@ namespace mvCentral.DataProviders
       throw new NotImplementedException();
     }
 
+    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+    {
+      throw new NotImplementedException();
+    }
+
     public bool GetDetails(DBTrackInfo mv)
     {
       throw new NotImplementedException();

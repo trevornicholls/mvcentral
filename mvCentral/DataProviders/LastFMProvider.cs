@@ -196,10 +196,12 @@ namespace mvCentral.DataProviders
 
           if (artist != null)
             xml = getXML(string.Format(apiArtistTopAlbums, artist));
-          else return false;
+          else 
+            return false;
 
           if (xml == null)
             return false;
+
           XmlNode root = xml.Item(0).ParentNode;
           if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
           XmlNode n1 = root.SelectSingleNode(@"/lfm/topalbums");
@@ -223,9 +225,7 @@ namespace mvCentral.DataProviders
             if (mbid.Trim().Length == 0) mbid = null;
             setMusicVideoAlbum(ref mv1, artist, title, mbid);
             GetAlbumArt((DBAlbumInfo)mv);
-          };
-
-
+          }
         }
       }
 
@@ -292,6 +292,27 @@ namespace mvCentral.DataProviders
       }
       return true;
     }
+    /// <summary>
+    /// Get the album details 
+    /// </summary>
+    /// <param name="basicInfo"></param>
+    /// <param name="albumTitle"></param>
+    /// <param name="AlbumMBID"></param>
+    /// <returns></returns>
+    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+    {
+      List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)basicInfo);
+      if (tracksOnAlbum.Count > 0)
+      {
+        string artist = tracksOnAlbum[0].ArtistInfo[0].Artist;
+        DBAlbumInfo mv1 = (DBAlbumInfo)basicInfo;
+        basicInfo.ArtUrls.Clear();
+        setMusicVideoAlbum(ref mv1, artist, albumTitle, AlbumMBID);
+        GetAlbumArt((DBAlbumInfo)basicInfo);
+      }
+      return true;
+    }
+
     /// <summary>
     /// Request artist artwork from last.fm
     /// </summary>
