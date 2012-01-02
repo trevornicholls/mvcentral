@@ -269,6 +269,8 @@ namespace mvCentral.Database
       }
     } private String _thumbfullpath;
 
+
+
     #endregion
 
     #region General Management Methods

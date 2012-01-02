@@ -493,21 +493,20 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>0</Build>
-      <Revision>267</Revision>
+      <Revision>269</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
 
 The plugin will also scrobble playing videos to Last.FM if required.</ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.0.267
+    <VersionDescription>mvCentral v1.0.0.269
 
-Updated externals to 1.2.2
+Enhancment as per issue 28 - There is now an right click option on the track 'Create Album For Track', this will allow you to look up the album on last.fm and assign this track to that album.
 
-Set #mvCentral.ArtistName property all all required views.
-
-Fix issue with a couple of text boxes being set to zero width</VersionDescription>
+Fixed issue where artist/album &amp; video counts were not reset when re-entering config
+</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2011-12-31T22:26:37</ReleaseDate>
+    <ReleaseDate>2012-01-01T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>

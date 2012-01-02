@@ -399,6 +399,7 @@ namespace mvCentral.DataProviders
       AddSource(typeof(LastFMProvider));
       //AddSource(typeof(EchoNestProvider));
       AddSource(typeof(DGProvider));
+      AddSource(typeof(AllMusicProvider));
       AddSource(typeof(ManualProvider));
       normalizePriorities();
     }

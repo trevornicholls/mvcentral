@@ -357,11 +357,6 @@ namespace mvCentral.DataProviders
       }
       return false;
     }
-    //  }
-    //  // if we get here we didn't manage to find a proper image for the artist
-    //  // so return false
-    //  return false;
-    //}
     /// <summary>
     /// Lets see if last.fm has some artwork for us
     /// </summary>

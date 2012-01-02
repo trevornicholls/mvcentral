@@ -42,6 +42,30 @@ namespace mvCentral.Database {
             }
         } private string _album;
 
+        [DBField]
+        public int Rating
+        {
+          get { return _rating; }
+
+          set
+          {
+            _rating = value;
+            commitNeeded = true;
+          }
+        } private int _rating;
+
+        [DBField]
+        public string YearReleased
+        {
+          get { return _yearReleased; }
+
+          set
+          {
+            _yearReleased = value;
+            commitNeeded = true;
+          }
+        } private string _yearReleased;
+
         #endregion
 
         #region General Management Methods
