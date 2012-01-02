@@ -2994,9 +2994,7 @@ namespace mvCentral
 
     private void settingsButton_ButtonClick(object sender, EventArgs e)
     {
-
       settingsButton.ShowDropDown();
-
     }
 
     private void unignoreAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3067,7 +3065,7 @@ namespace mvCentral
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
 
-        if (r2.Provider is LastFMProvider || r2.Provider is DGProvider)
+        if (r2.Provider is LastFMProvider || r2.Provider is DGProvider || r2.Provider is AllMusicProvider)
         {
           if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DGProvider)
           { }
@@ -3147,7 +3145,7 @@ namespace mvCentral
       }
     }
 
-    #endregion
+
     /// <summary>
     /// Add Track to a user selected album
     /// </summary>
@@ -3250,6 +3248,6 @@ namespace mvCentral
 
       }
     }
-
+    #endregion
   }
 }
