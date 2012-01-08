@@ -64,9 +64,19 @@ namespace mvCentral.DataProviders
         }
 
 
-        public bool ProvidesDetails
+        public bool ProvidesTrackDetails
         {
             get { return false; }
+        }
+
+        public bool ProvidesArtistDetails
+        {
+          get { return false; }
+        }
+
+        public bool ProvidesAlbumDetails
+        {
+          get { return false; }
         }
 
         public bool ProvidesAlbumArt {
@@ -115,11 +125,11 @@ namespace mvCentral.DataProviders
           throw new NotImplementedException();
         }
 
-        public List<DBTrackInfo> Get(MusicVideoSignature mvSignature) {
+        public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature) {
             throw new NotImplementedException();
         }
 
-        public UpdateResults Update(DBTrackInfo mv) {
+        public UpdateResults UpdateTrack(DBTrackInfo mv) {
             throw new NotImplementedException();
         }
 

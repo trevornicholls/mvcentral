@@ -231,7 +231,7 @@ namespace mvCentral.GUI
             {
               currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
               GUIWaitCursor.Show();
-              mvCentralCore.DataProviderManager.GetArt(currArtist);
+              mvCentralCore.DataProviderManager.GetArt(currArtist,false);
               GUIWaitCursor.Hide();
               facadeLayout.SelectedListItem.ThumbnailImage = currArtist.ArtThumbFullPath;
               facadeLayout.SelectedListItem.RefreshCoverArt();
@@ -242,7 +242,7 @@ namespace mvCentral.GUI
             {
               DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
               GUIWaitCursor.Show();
-              mvCentralCore.DataProviderManager.GetArt(video);
+              mvCentralCore.DataProviderManager.GetArt(video,false);
               GUIWaitCursor.Hide();
               facadeLayout.SelectedListItem.ThumbnailImage = video.ArtFullPath;
               facadeLayout.SelectedListItem.RefreshCoverArt();
@@ -1203,6 +1203,8 @@ namespace mvCentral.GUI
         }
         else
           facadeItem.Label = trackData.Track;
+
+        facadeItem.Label2 = trackData.ArtistInfo[0].Artist;
 
         facadeItem.TVTag = trackData.bioContent;
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;

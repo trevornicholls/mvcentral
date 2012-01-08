@@ -37,42 +37,60 @@ namespace mvCentral.DataProviders
 
     #region Properties
 
-    public ReadOnlyCollection<DBSourceInfo> DetailSources
+    public ReadOnlyCollection<DBSourceInfo> TrackDetailSources
     {
       get
       {
-        return detailSources.AsReadOnly();
+        return trackDetailSources.AsReadOnly();
       }
     }
-    private List<DBSourceInfo> detailSources;
+    private List<DBSourceInfo> trackDetailSources;
 
-
-    public ReadOnlyCollection<DBSourceInfo> AlbumSources
+    public ReadOnlyCollection<DBSourceInfo> ArtistDetailSources
     {
       get
       {
-        return albumSources.AsReadOnly();
+        return artistDetailSources.AsReadOnly();
       }
     }
-    private List<DBSourceInfo> albumSources;
+    private List<DBSourceInfo> artistDetailSources;
 
-    public ReadOnlyCollection<DBSourceInfo> ArtistSources
+    public ReadOnlyCollection<DBSourceInfo> AlbumDetailSources
     {
       get
       {
-        return artistSources.AsReadOnly();
+        return albumDetailSources.AsReadOnly();
       }
     }
-    private List<DBSourceInfo> artistSources;
+    private List<DBSourceInfo> albumDetailSources;
 
-    public ReadOnlyCollection<DBSourceInfo> TrackSources
+
+    public ReadOnlyCollection<DBSourceInfo> AlbumArtSources
     {
       get
       {
-        return trackSources.AsReadOnly();
+        return albumArtSources.AsReadOnly();
       }
     }
-    private List<DBSourceInfo> trackSources;
+    private List<DBSourceInfo> albumArtSources;
+
+    public ReadOnlyCollection<DBSourceInfo> ArtistArtSources
+    {
+      get
+      {
+        return artistArtSources.AsReadOnly();
+      }
+    }
+    private List<DBSourceInfo> artistArtSources;
+
+    public ReadOnlyCollection<DBSourceInfo> TrackArtSources
+    {
+      get
+      {
+        return trackArtSources.AsReadOnly();
+      }
+    }
+    private List<DBSourceInfo> trackArtSources;
 
     public ReadOnlyCollection<DBSourceInfo> AllSources
     {
@@ -123,17 +141,21 @@ namespace mvCentral.DataProviders
     {
       dbManager = mvCentralCore.DatabaseManager;
 
-      detailSources = new List<DBSourceInfo>();
-      trackSources = new List<DBSourceInfo>();
-      albumSources = new List<DBSourceInfo>();
-      artistSources = new List<DBSourceInfo>();
+      trackDetailSources = new List<DBSourceInfo>();
+      artistDetailSources = new List<DBSourceInfo>();
+      albumDetailSources = new List<DBSourceInfo>();
+      trackArtSources = new List<DBSourceInfo>();
+      albumArtSources = new List<DBSourceInfo>();
+      artistArtSources = new List<DBSourceInfo>();
       allSources = new List<DBSourceInfo>();
 
       sorters = new Dictionary<DataType, DBSourceInfoComparer>();
-      sorters[DataType.DETAIL] = new DBSourceInfoComparer(DataType.DETAIL);
-      sorters[DataType.ALBUM] = new DBSourceInfoComparer(DataType.ALBUM);
-      sorters[DataType.ARTIST] = new DBSourceInfoComparer(DataType.ARTIST);
-      sorters[DataType.TRACK] = new DBSourceInfoComparer(DataType.TRACK);
+      sorters[DataType.TRACKDETAIL] = new DBSourceInfoComparer(DataType.TRACKDETAIL);
+      sorters[DataType.ARTISTDETAIL] = new DBSourceInfoComparer(DataType.ARTISTDETAIL);
+      sorters[DataType.ALBUMDETAIL] = new DBSourceInfoComparer(DataType.ALBUMDETAIL);
+      sorters[DataType.ALBUMART] = new DBSourceInfoComparer(DataType.ALBUMART);
+      sorters[DataType.ARTISTART] = new DBSourceInfoComparer(DataType.ARTISTART);
+      sorters[DataType.TRACKART] = new DBSourceInfoComparer(DataType.TRACKART);
 
       debugMode = mvCentralCore.Settings.DataSourceDebugActive;
 
@@ -158,7 +180,7 @@ namespace mvCentral.DataProviders
     {
       HashSet<CultureInfo> results = new HashSet<CultureInfo>();
 
-      foreach (DBSourceInfo currSource in detailSources)
+      foreach (DBSourceInfo currSource in trackDetailSources)
       {
         try
         {
@@ -206,7 +228,7 @@ namespace mvCentral.DataProviders
         foreach (DBSourceInfo currSource in getEditableList(currType))
         {
           // special case for imdb provider. should always be used as a last resort details provider
-          if (currSource.IsScriptable() && currType == DataType.TRACK)
+          if (currSource.IsScriptable() && currType == DataType.TRACKART)
           {
 
             if (languageCode != "en")
@@ -220,7 +242,7 @@ namespace mvCentral.DataProviders
               currSource.Commit();
             }
           }
-          else if (currType == DataType.ALBUM && currSource.IsScriptable())
+          else if (currType == DataType.ALBUMART && currSource.IsScriptable())
           {
             if (languageCode != "en")
             {
@@ -243,11 +265,19 @@ namespace mvCentral.DataProviders
           // valid script, enable
           else
           {
+            // Local Provider is Primary for artwork
             if (currSource.Provider is LocalProvider)
             {
               currSource.SetPriority(currType, 0);
               currSource.Commit();
             }
+            // Last.Fm is primary for matching
+            else if (currSource.Provider is LastFMProvider)
+            {
+              currSource.SetPriority(currType, 5);
+              currSource.Commit();
+            }
+
             else if (currSource.Provider.LanguageCode == "" || currSource.Provider.LanguageCode == "various")
             {
               currSource.SetPriority(currType, 50 + nextRank++);
@@ -351,17 +381,23 @@ namespace mvCentral.DataProviders
       List<DBSourceInfo> sourceList = null;
       switch (type)
       {
-        case DataType.DETAIL:
-          sourceList = detailSources;
+        case DataType.TRACKDETAIL:
+          sourceList = trackDetailSources;
           break;
-        case DataType.ALBUM:
-          sourceList = albumSources;
+        case DataType.ARTISTDETAIL:
+          sourceList = artistDetailSources;
           break;
-        case DataType.ARTIST:
-          sourceList = artistSources;
+        case DataType.ALBUMDETAIL:
+          sourceList = albumDetailSources;
           break;
-        case DataType.TRACK:
-          sourceList = trackSources;
+        case DataType.ALBUMART:
+          sourceList = albumArtSources;
+          break;
+        case DataType.ARTISTART:
+          sourceList = artistArtSources;
+          break;
+        case DataType.TRACKART:
+          sourceList = trackArtSources;
           break;
       }
 
@@ -385,10 +421,12 @@ namespace mvCentral.DataProviders
       foreach (DBSourceInfo currSource in DBSourceInfo.GetAll())
         updateListsWith(currSource);
 
-      detailSources.Sort(sorters[DataType.DETAIL]);
-      albumSources.Sort(sorters[DataType.ALBUM]);
-      artistSources.Sort(sorters[DataType.ARTIST]);
-      trackSources.Sort(sorters[DataType.TRACK]);
+      trackDetailSources.Sort(sorters[DataType.TRACKDETAIL]);
+      artistDetailSources.Sort(sorters[DataType.ARTISTDETAIL]);
+      albumDetailSources.Sort(sorters[DataType.ALBUMDETAIL]);
+      albumArtSources.Sort(sorters[DataType.ALBUMART]);
+      artistArtSources.Sort(sorters[DataType.ARTISTART]);
+      trackArtSources.Sort(sorters[DataType.TRACKART]);
     }
 
     public void LoadInternalProviders()
@@ -397,10 +435,11 @@ namespace mvCentral.DataProviders
 
       AddSource(typeof(LocalProvider));
       AddSource(typeof(LastFMProvider));
-      //AddSource(typeof(EchoNestProvider));
       AddSource(typeof(DGProvider));
       AddSource(typeof(AllMusicProvider));
+      AddSource(typeof(HTBackdropsProvider)); 
       AddSource(typeof(ManualProvider));
+      //AddSource(typeof(EchoNestProvider));
       normalizePriorities();
     }
 
@@ -459,42 +498,59 @@ namespace mvCentral.DataProviders
         if (!allSources.Contains(newSource))
           allSources.Add(newSource);
 
-      lock (artistSources)
+      lock (artistArtSources)
       {
-        if (newSource.Provider.ProvidesArtistArt && !artistSources.Contains(newSource))
-          artistSources.Add(newSource);
-        else if (!newSource.Provider.ProvidesArtistArt && artistSources.Contains(newSource))
-          artistSources.Remove(newSource);
+        if (newSource.Provider.ProvidesArtistArt && !artistArtSources.Contains(newSource))
+          artistArtSources.Add(newSource);
+        else if (!newSource.Provider.ProvidesArtistArt && artistArtSources.Contains(newSource))
+          artistArtSources.Remove(newSource);
       }
 
-      lock (albumSources)
+      lock (albumArtSources)
       {
-        if (newSource.Provider.ProvidesAlbumArt && !albumSources.Contains(newSource))
-          albumSources.Add(newSource);
-        else if (!newSource.Provider.ProvidesAlbumArt && albumSources.Contains(newSource))
-          albumSources.Remove(newSource);
+        if (newSource.Provider.ProvidesAlbumArt && !albumArtSources.Contains(newSource))
+          albumArtSources.Add(newSource);
+        else if (!newSource.Provider.ProvidesAlbumArt && albumArtSources.Contains(newSource))
+          albumArtSources.Remove(newSource);
       }
 
-      lock (trackSources)
+      lock (trackArtSources)
       {
-        if (newSource.Provider.ProvidesTrackArt && !trackSources.Contains(newSource))
-          trackSources.Add(newSource);
-        else if (!newSource.Provider.ProvidesTrackArt && trackSources.Contains(newSource))
-          trackSources.Remove(newSource);
+        if (newSource.Provider.ProvidesTrackArt && !trackArtSources.Contains(newSource))
+          trackArtSources.Add(newSource);
+        else if (!newSource.Provider.ProvidesTrackArt && trackArtSources.Contains(newSource))
+          trackArtSources.Remove(newSource);
+      }
+      
+      lock (trackDetailSources)
+      {
+        if (newSource.Provider.ProvidesTrackDetails && !trackDetailSources.Contains(newSource))
+          trackDetailSources.Add(newSource);
+        else if (!newSource.Provider.ProvidesTrackDetails && trackDetailSources.Contains(newSource))
+          trackDetailSources.Remove(newSource);
       }
 
-      lock (detailSources)
+      lock (artistDetailSources)
       {
-        if (newSource.Provider.ProvidesDetails && !detailSources.Contains(newSource))
-          detailSources.Add(newSource);
-        else if (!newSource.Provider.ProvidesDetails && detailSources.Contains(newSource))
-          detailSources.Remove(newSource);
+        if (newSource.Provider.ProvidesArtistDetails && !artistDetailSources.Contains(newSource))
+          artistDetailSources.Add(newSource);
+        else if (!newSource.Provider.ProvidesArtistDetails && artistDetailSources.Contains(newSource))
+          artistDetailSources.Remove(newSource);
       }
+
+      lock (albumDetailSources)
+      {
+        if (newSource.Provider.ProvidesAlbumDetails && !albumDetailSources.Contains(newSource))
+          albumDetailSources.Add(newSource);
+        else if (!newSource.Provider.ProvidesAlbumDetails && albumDetailSources.Contains(newSource))
+          albumDetailSources.Remove(newSource);
+      }
+    
     }
 
     // reinitializes all the priorities based on existing list order.
     // should be called after new items have been added to the list or an
-    // tiem has been ignored
+    // item has been ignored
     private void normalizePriorities()
     {
       foreach (DataType currType in Enum.GetValues(typeof(DataType)))
@@ -508,7 +564,6 @@ namespace mvCentral.DataProviders
             currSource.Commit();
           }
           count++;
-
         }
       }
     }
@@ -521,16 +576,16 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mvSignature"></param>
     /// <returns></returns>
-    public List<DBTrackInfo> Get(MusicVideoSignature mvSignature)
+    public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
       List<DBSourceInfo> sources;
-      lock (detailSources) sources = new List<DBSourceInfo>(detailSources);
+      lock (trackDetailSources) sources = new List<DBSourceInfo>(trackDetailSources);
 
       // Try each datasource (ordered by their priority) to get results
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       foreach (DBSourceInfo currSource in sources)
       {
-        if (currSource.IsDisabled(DataType.DETAIL))
+        if (currSource.IsDisabled(DataType.TRACKDETAIL))
           continue;
 
         // if we have reached the minimum number of possible matches required, we are done
@@ -539,7 +594,7 @@ namespace mvCentral.DataProviders
           break;
 
         // search with the current provider
-        List<DBTrackInfo> newResults = currSource.Provider.Get(mvSignature);
+        List<DBTrackInfo> newResults = currSource.Provider.GetTrackDetail(mvSignature);
 
         // tag the results with the current source
 
@@ -560,7 +615,7 @@ namespace mvCentral.DataProviders
     public void Update(DBTrackInfo mvTrackInfo)
     {
       List<DBSourceInfo> sources;
-      lock (detailSources) sources = new List<DBSourceInfo>(detailSources);
+      lock (trackDetailSources) sources = new List<DBSourceInfo>(trackDetailSources);
 
       // unlock the mv fields for the first iteration
       mvTrackInfo.ProtectExistingValuesFromCopy(false);
@@ -569,14 +624,14 @@ namespace mvCentral.DataProviders
       int providerCount = 0;
       if (mvTrackInfo.PrimarySource != null && mvTrackInfo.PrimarySource.Provider != null)
       {
-        UpdateResults success = mvTrackInfo.PrimarySource.Provider.Update(mvTrackInfo);
+        UpdateResults success = mvTrackInfo.PrimarySource.Provider.UpdateTrack(mvTrackInfo);
         //logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, mv.PrimarySource.Provider.Name, mv.PrimarySource.Provider.Version, success.ToString());
         providerCount++;
       }
 
       foreach (DBSourceInfo currSource in sources)
       {
-        if (currSource.IsDisabled(DataType.DETAIL))
+        if (currSource.IsDisabled(DataType.TRACKDETAIL))
           continue;
 
         if (currSource == mvTrackInfo.PrimarySource)
@@ -586,7 +641,7 @@ namespace mvCentral.DataProviders
 
         if (providerCount <= mvCentralCore.Settings.DataProviderRequestLimit || mvCentralCore.Settings.DataProviderRequestLimit == 0)
         {
-          UpdateResults success = currSource.Provider.Update(mvTrackInfo);
+          UpdateResults success = currSource.Provider.UpdateTrack(mvTrackInfo);
           //logger.Debug("UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mv.Track, currSource.Provider.Name, currSource.Provider.Version, success.ToString());
         }
         else
@@ -606,10 +661,10 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mvDBObject"></param>
     /// <returns></returns>
-    public bool GetArt(DBBasicInfo mvDBObject)
+    public bool GetArt(DBBasicInfo mvDBObject, bool primarySourceOnly)
     {
-
-      logger.Debug("In Method GetArt - object is : " + mvDBObject.GetType().ToString());
+      bool success = false;
+      int artWorkAdded = 0;
       // Artist
       if (mvDBObject.GetType() == typeof(DBArtistInfo))
       {
@@ -618,20 +673,28 @@ namespace mvCentral.DataProviders
           return true;
 
         List<DBSourceInfo> sources;
-        lock (artistSources) sources = new List<DBSourceInfo>(artistSources);
+        lock (artistArtSources) sources = new List<DBSourceInfo>(artistArtSources);
 
         foreach (DBSourceInfo currSource in sources)
         {
-          logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
-          if (currSource.IsDisabled(DataType.ARTIST))
+          if (currSource.IsDisabled(DataType.ARTISTART))
             continue;
 
-          bool success = currSource.Provider.GetArtistArt((DBArtistInfo)mvDBObject);
+          if (currSource.Provider != mvDBObject.PrimarySource.Provider && primarySourceOnly)
+            continue;
+
+          logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
+          success = currSource.Provider.GetArtistArt((DBArtistInfo)mvDBObject);
+
+
           if (success)
-          {
-            mvDBObject.Commit();
-            //return true;
-          }
+            artWorkAdded++;
+
+        }
+        if (artWorkAdded > 0)
+        {
+          mvDBObject.Commit();
+          return true;
         }
       }
       // Album
@@ -642,20 +705,22 @@ namespace mvCentral.DataProviders
           return true;
 
         List<DBSourceInfo> sources;
-        lock (albumSources) sources = new List<DBSourceInfo>(albumSources);
-
+        lock (albumArtSources) sources = new List<DBSourceInfo>(albumArtSources);
+        artWorkAdded = 0;
         foreach (DBSourceInfo currSource in sources)
         {
           logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
-          if (currSource.IsDisabled(DataType.ALBUM))
+          if (currSource.IsDisabled(DataType.ALBUMART))
             continue;
 
-          bool success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mvDBObject);
+          success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mvDBObject);
           if (success)
-          {
-            mvDBObject.Commit();
-            return true;
-          }
+            artWorkAdded++;
+        }
+        if (artWorkAdded > 0)
+        {
+          mvDBObject.Commit();
+          return true;
         }
       }
       // Track
@@ -666,20 +731,22 @@ namespace mvCentral.DataProviders
           return true;
 
         List<DBSourceInfo> sources;
-        lock (trackSources) sources = new List<DBSourceInfo>(trackSources);
-
+        lock (trackArtSources) sources = new List<DBSourceInfo>(trackArtSources);
+        artWorkAdded = 0;
         foreach (DBSourceInfo currSource in sources)
         {
           logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
-          if (currSource.IsDisabled(DataType.TRACK))
+          if (currSource.IsDisabled(DataType.TRACKART))
             continue;
 
-          bool success = currSource.Provider.GetTrackArt((DBTrackInfo)mvDBObject);
+          success = currSource.Provider.GetTrackArt((DBTrackInfo)mvDBObject);
           if (success)
-          {
-            mvDBObject.Commit();
-            return true;
-          }
+            artWorkAdded++;
+        }
+        if (artWorkAdded > 0)
+        {
+          mvDBObject.Commit();
+          return true;
         }
       }
       return false;
@@ -695,11 +762,11 @@ namespace mvCentral.DataProviders
       if (mvDBObject.GetType() == typeof(DBArtistInfo))
       {
         List<DBSourceInfo> sources;
-        lock (artistSources) sources = new List<DBSourceInfo>(artistSources);
+        lock (artistArtSources) sources = new List<DBSourceInfo>(artistArtSources);
 
         foreach (DBSourceInfo currSource in sources)
         {
-          if (currSource.IsDisabled(DataType.ARTIST))
+          if (currSource.IsDisabled(DataType.ARTISTART))
             continue;
 
           bool success = currSource.Provider.GetDetails((DBArtistInfo)mvDBObject);
@@ -711,11 +778,11 @@ namespace mvCentral.DataProviders
       {
 
         List<DBSourceInfo> sources;
-        lock (albumSources) sources = new List<DBSourceInfo>(albumSources);
+        lock (albumArtSources) sources = new List<DBSourceInfo>(albumArtSources);
 
         foreach (DBSourceInfo currSource in sources)
         {
-          if (currSource.IsDisabled(DataType.ALBUM))
+          if (currSource.IsDisabled(DataType.ALBUMART))
             continue;
 
           bool success = currSource.Provider.GetDetails((DBAlbumInfo)mvDBObject);
@@ -730,11 +797,11 @@ namespace mvCentral.DataProviders
           return true;
 
         List<DBSourceInfo> sources;
-        lock (trackSources) sources = new List<DBSourceInfo>(trackSources);
+        lock (trackArtSources) sources = new List<DBSourceInfo>(trackArtSources);
 
         foreach (DBSourceInfo currSource in sources)
         {
-          if (currSource.IsDisabled(DataType.TRACK))
+          if (currSource.IsDisabled(DataType.TRACKART))
             continue;
 
           bool success = currSource.Provider.GetDetails((DBTrackInfo)mvDBObject);

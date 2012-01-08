@@ -2376,7 +2376,6 @@ namespace mvCentral
 
     private void updateDBPage()
     {
-
       logger.Debug("****** Update the DB ********");
 
       if (InvokeRequired)
@@ -2690,11 +2689,32 @@ namespace mvCentral
       }
       if (mv == null) return;
 
+      List<DBSourceInfo> r1 = new List<DBSourceInfo>();
+      foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
+      {
+
+        if (r2.Provider is LastFMProvider || r2.Provider is DGProvider || r2.Provider is AllMusicProvider || r2.Provider is HTBackdropsProvider)
+        {
+          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DGProvider)
+          { }
+          else 
+            r1.Add(r2);
+        }
+      }
+
+      SourcePopup sp = new SourcePopup(r1);
+      if (sp.ShowDialog() == DialogResult.OK)
+      {
+
+        mv.PrimarySource = r1[sp.listBox1.SelectedIndex];
+
+      }
+
       // the update process can take a little time, so spawn it off in another thread
       ThreadStart actions = delegate
       {
         startArtProgressBar();
-        mvCentralCore.DataProviderManager.GetArt(mv);
+        mvCentralCore.DataProviderManager.GetArt(mv,true);
         stopArtProgressBar();
       };
       Thread thread = new Thread(actions);
@@ -3177,7 +3197,7 @@ namespace mvCentral
         {
           // No existing album - create, lookup details and add to track
           List<DBSourceInfo> sourceProviders = new List<DBSourceInfo>();
-          foreach (DBSourceInfo sourceProvider in mvCentralCore.DataProviderManager.AlbumSources)
+          foreach (DBSourceInfo sourceProvider in mvCentralCore.DataProviderManager.AlbumArtSources)
           {
             if (sourceProvider.Provider is LastFMProvider)
               sourceProviders.Add(sourceProvider);

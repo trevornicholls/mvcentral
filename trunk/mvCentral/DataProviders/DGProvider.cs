@@ -74,11 +74,20 @@ namespace mvCentral.DataProviders
     }
       
 
-    public bool ProvidesDetails
+    public bool ProvidesTrackDetails
     {
       get { return false; }
     }
 
+    public bool ProvidesArtistDetails
+    {
+      get { return false; }
+    }
+    public bool ProvidesAlbumDetails
+    {
+      get { return false; }
+    }
+     
     public bool ProvidesArtistArt
     {
       get { return true; }
@@ -340,7 +349,7 @@ namespace mvCentral.DataProviders
       return true;
     }
 
-    public List<DBTrackInfo> Get(MusicVideoSignature mvSignature)
+    public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       if (mvSignature == null)
@@ -651,7 +660,7 @@ namespace mvCentral.DataProviders
       return;
     }
 
-    public UpdateResults Update(DBTrackInfo mv)
+    public UpdateResults UpdateTrack(DBTrackInfo mv)
     {
       if (mv == null)
         return UpdateResults.FAILED;

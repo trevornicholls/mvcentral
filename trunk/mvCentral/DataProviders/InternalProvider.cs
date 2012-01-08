@@ -17,7 +17,7 @@ namespace mvCentral.DataProviders
 
         public virtual string Author { 
             get { 
-                return "Music Videos Team";
+                return "mvCentral Team";
             }
         }
 

@@ -16,13 +16,17 @@ namespace mvCentral.DataProviders
     string LanguageCode { get; }
     List<string> LanguageCodeList { get; }
 
-    bool ProvidesDetails { get; }
+    bool ProvidesTrackDetails { get; }
+    bool ProvidesArtistDetails { get; }
+    bool ProvidesAlbumDetails { get; }
     bool ProvidesAlbumArt { get; }
     bool ProvidesArtistArt { get; }
     bool ProvidesTrackArt { get; }
 
-    List<DBTrackInfo> Get(MusicVideoSignature mvSignature);
-    UpdateResults Update(DBTrackInfo movie);
+    List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature);
+    //List<DBArtistInfo> GetArtistDetail(MusicVideoSignature mvSignature);
+    //List<DBAlbumInfo> GetAlbumDetail(MusicVideoSignature mvSignature);
+    UpdateResults UpdateTrack(DBTrackInfo trackData);
     bool GetDetails(DBBasicInfo mv);
     bool GetArtistArt(DBArtistInfo mv);
     bool GetAlbumArt(DBAlbumInfo mv);
@@ -39,6 +43,6 @@ namespace mvCentral.DataProviders
     bool DebugMode { get; set; }
   }
 
-  public enum DataType { DETAIL, ARTIST, ALBUM, TRACK }
+  public enum DataType { TRACKDETAIL, ARTISTDETAIL, ALBUMDETAIL, ARTISTART, ALBUMART, TRACKART }
   public enum UpdateResults { SUCCESS, FAILED_NEED_ID, FAILED }
 }
