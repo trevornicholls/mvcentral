@@ -231,6 +231,7 @@
     <Compile Include="DataProviders\DataProviderManager.cs" />
     <Compile Include="DataProviders\DGProvider.cs" />
     <Compile Include="DataProviders\EchoNestProvider.cs" />
+    <Compile Include="DataProviders\HTBackdropsProvider.cs" />
     <Compile Include="DataProviders\IMusicVideoProvider.cs" />
     <Compile Include="DataProviders\InternalProvider.cs" />
     <Compile Include="DataProviders\LastFMProvider.cs" />

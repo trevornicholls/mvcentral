@@ -55,6 +55,8 @@ namespace mvCentral.DataProviders
     private static string _proxyHost;
     private static int _proxyPort;
 
+    List<string> albumURLList = new List<string>();
+
     #endregion
 
     public string Name
@@ -89,14 +91,25 @@ namespace mvCentral.DataProviders
       }
     }
 
-    public bool ProvidesDetails
+    public bool ProvidesTrackDetails
+    {
+      get { return false; }
+    }
+
+    public bool ProvidesArtistDetails
     {
       get { return true; }
     }
+    public bool ProvidesAlbumDetails
+    {
+      get { return true; }
+    }
+     
+
 
     public bool ProvidesArtistArt
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool ProvidesAlbumArt
@@ -173,12 +186,13 @@ namespace mvCentral.DataProviders
     {
       string strArtistHTML;
       string strAlbumHTML;
+      string strArtistURL;
 
       // Get details of the artist
       if (mv.GetType() == typeof(DBArtistInfo))
       {
         string artist = ((DBArtistInfo)mv).Artist;
-        if (GetArtistHTML(artist, out strArtistHTML))
+        if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
         {
           var artistInfo = new MusicArtistInfo();
           if (artistInfo.Parse(strArtistHTML))
@@ -189,6 +203,7 @@ namespace mvCentral.DataProviders
             //GetArtistArt((DBArtistInfo)mv);
           }
         }
+        return false;
       }
       // get details of the album
       if (mv.GetType() == typeof(DBAlbumInfo))
@@ -208,32 +223,84 @@ namespace mvCentral.DataProviders
             //GetArtistArt((DBArtistInfo)mv);
           }
         }
+        return false;
       }
-
-
       return true;
     }
 
-    public List<DBTrackInfo> Get(MusicVideoSignature mvSignature)
+    /// <summary>
+    /// This will try and get the track and album data. Will first find artist and then check all albums for a matching track
+    /// </summary>
+    /// <param name="mvSignature"></param>
+    /// <returns></returns>
+    public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
+      string strArtistHTML;
+      string strAlbumHTML;
+      string strArtistURL;
+      bool albumFound = false;
+
       List<DBTrackInfo> results = new List<DBTrackInfo>();
+
       if (mvSignature == null)
         return results;
+
       lock (lockList)
       {
-        DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Album, mvSignature.Track);
-        if (mv != null)
-        {
-          if (mv.ArtistInfo.Count == 0)
-          {
-            DBArtistInfo d4 = new DBArtistInfo();
-            d4.Artist = mvSignature.Artist;
-            mv.ArtistInfo.Add(d4);
-          }
-          results.Add(mv);
-        }
-      }
 
+        string artist = mvSignature.Artist;
+        if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
+        {
+          var artistInfo = new MusicArtistInfo();
+          if (artistInfo.Parse(strArtistHTML))
+          {
+            artistInfo.Artist = artist;
+            if (GetAlbumURLList(strArtistURL))
+            {
+              // we have some albums - now check the tracks in each album
+              foreach (string albumURL in albumURLList)
+              {
+                if (GetAlbumHTMLOnly(albumURL, out strAlbumHTML))
+                {
+                  var albumInfo = new MusicAlbumInfo();
+                  if (albumInfo.Parse(strAlbumHTML))
+                  {
+                    string[] tracksOnAlbum = albumInfo.Tracks.Split('|');
+                    foreach (string track in tracksOnAlbum)
+                    {
+                      if (!string.IsNullOrEmpty(track.Trim()))
+                      {
+                        string[] trackData = track.Split('@');
+                        if (mvSignature.Track == trackData[1])
+                        {
+                          albumFound = true;
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+                if (albumFound)
+                  break;
+              }
+            }
+
+          }
+        }
+
+        //DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Album, mvSignature.Track);
+        //if (mv != null)
+        //{
+        //  if (mv.ArtistInfo.Count == 0)
+        //  {
+        //    DBArtistInfo d4 = new DBArtistInfo();
+        //    d4.Artist = mvSignature.Artist;
+        //    mv.ArtistInfo.Add(d4);
+        //  }
+        //  results.Add(mv);
+        //}
+
+        }
       return results;
     }
 
@@ -311,7 +378,7 @@ namespace mvCentral.DataProviders
     {
     }
 
-    public UpdateResults Update(DBTrackInfo mv)
+    public UpdateResults UpdateTrack(DBTrackInfo mv)
     {
       return UpdateResults.SUCCESS;
     }
@@ -646,14 +713,81 @@ namespace mvCentral.DataProviders
     }
 
     /// <summary>
+    /// Attempts to get a list of album URLs for the artist from allmusic.com
+    /// </summary>
+    /// <param name="strArtistURL">This is artist URL page</param>
+    /// <returns>True if albums found</returns>
+    private bool GetAlbumURLList(String strRedirect)
+    {
+      string discHTML;
+      albumURLList.Clear();
+
+      try
+      {
+        var strURL = strRedirect + "/discography/";
+
+        var x = (HttpWebRequest)WebRequest.Create(strURL);
+
+        if (_useProxy)
+        {
+          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
+        }
+
+        x.ProtocolVersion = HttpVersion.Version10;
+        x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
+        x.ContentType = "text/html";
+        x.Timeout = 30000;
+        x.AllowAutoRedirect = false;
+
+        using (var y = (HttpWebResponse)x.GetResponse())
+        {
+          using (var z = y.GetResponseStream())
+          {
+            if (z == null)
+            {
+              return false;
+            }
+
+            using (var sr = new StreamReader(z, Encoding.UTF8))
+            {
+              discHTML = sr.ReadToEnd();
+            }
+
+            z.Close();
+            x.Abort();
+            y.Close();
+          }
+
+          for (var m = AlbumURLRegEx.Match(discHTML); m.Success; m = m.NextMatch())
+          {
+            albumURLList.Add(m.Groups["albumURL"].ToString());
+          }
+
+          // return true if we have picked up a URL
+          if (albumURLList.Count > 0)
+            return true;
+          else
+            return false;
+        }
+      }
+      catch (Exception ex)
+      {
+        logger.Error(ex);
+        return false;
+      }
+    }
+
+
+    /// <summary>
     /// Attempts to get the HTML from the artist page
     /// </summary>
     /// <param name="strArtist">Artist we are looking for</param>
     /// <param name="artistHTML">HTML of artist page</param>
     /// <returns>True if able to get HTML</returns>
-    public bool GetArtistHTML(string strArtist, out string artistHTML)
+    public bool GetArtistHTML(string strArtist, out String artistHTML, out String artistURL)
     {
       artistHTML = string.Empty;
+      artistURL = string.Empty;
       try
       {
         String strRedirect;
@@ -661,6 +795,7 @@ namespace mvCentral.DataProviders
         {
           return false;
         }
+        artistURL = strRedirect;
 
         var x = (HttpWebRequest)WebRequest.Create(strRedirect);
 
@@ -775,6 +910,58 @@ namespace mvCentral.DataProviders
     }
 
     /// <summary>
+    /// Attempts to get the HTML of album page
+    /// </summary>
+    /// <param name="strAlbumArtist">Album Artist we are looking for</param>
+    /// <param name="strAlbum">Album we are looking for</param>
+    /// <param name="albumHTML">HTML of album page</param>
+    /// <returns>True if able to get HTML</returns>
+    public bool GetAlbumHTMLOnly(string strAlbumURL, out string albumHTML)
+    {
+      albumHTML = string.Empty;
+      try
+      {
+        logger.Debug("GetAlbumHTML: Album URL: {0}", strAlbumURL);
+
+
+        var x = (HttpWebRequest)WebRequest.Create(strAlbumURL);
+
+        if (_useProxy)
+        {
+          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
+        }
+
+        using (var y = (HttpWebResponse)x.GetResponse())
+        {
+          using (var z = y.GetResponseStream())
+          {
+            if (z == null)
+            {
+              return false;
+            }
+
+            using (var sr = new StreamReader(z, Encoding.UTF8))
+            {
+              albumHTML = sr.ReadToEnd();
+            }
+
+            z.Close();
+            x.Abort();
+            y.Close();
+          }
+        }
+        return true;
+      }
+      catch (Exception ex)
+      {
+        logger.Error("Error retrieving album data for: |{0}|", strAlbumURL);
+        logger.Error(ex);
+      }
+      return false;
+    }
+
+
+    /// <summary>
     /// Attempt to make string searching more helpful.   Removes all accents and puts in lower case
     /// Then escapes characters for use in URI
     /// </summary>
@@ -806,6 +993,9 @@ namespace mvCentral.DataProviders
       strCleanArtist = strCleanArtist.Replace("&", "and").Replace("+", "and").TrimStart("the ".ToCharArray());
       return strCleanArtist;
     }
+
+
+
 
     #endregion
 

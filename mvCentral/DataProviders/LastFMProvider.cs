@@ -114,11 +114,20 @@ namespace mvCentral.DataProviders
     }
 
 
-    public bool ProvidesDetails
+    public bool ProvidesTrackDetails
     {
       get { return true; }
     }
 
+    public bool ProvidesArtistDetails
+    {
+      get { return true; }
+    }
+    public bool ProvidesAlbumDetails
+    {
+      get { return true; }
+    }
+     
     public bool ProvidesArtistArt
     {
       get { return true; }
@@ -506,8 +515,12 @@ namespace mvCentral.DataProviders
     {
       throw new NotImplementedException();
     }
-
-    public List<DBTrackInfo> Get(MusicVideoSignature mvSignature)
+    /// <summary>
+    /// Retrive Track, Artist and if requested Album data
+    /// </summary>
+    /// <param name="mvSignature"></param>
+    /// <returns></returns>
+    public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
       // Switch off album support
       if (mvCentralCore.Settings.DisableAlbumSupport)
@@ -516,6 +529,7 @@ namespace mvCentral.DataProviders
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       if (mvSignature == null)
         return results;
+
       lock (lockList)
       {
         DBTrackInfo mvTrackData = null;
@@ -532,7 +546,6 @@ namespace mvCentral.DataProviders
         else
           mvTrackData = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
 
- 
         if (mvTrackData != null)
         {
           if (mvTrackData.ArtistInfo.Count == 0)
@@ -1175,32 +1188,37 @@ namespace mvCentral.DataProviders
       return null;
     }
 
-
-    public UpdateResults Update(DBTrackInfo mv)
+    /// <summary>
+    /// Add artist and if found album to the track data object
+    /// </summary>
+    /// <param name="trackData"></param>
+    /// <returns></returns>
+    public UpdateResults UpdateTrack(DBTrackInfo trackData)
     {
-      if (mv == null)
+      if (trackData == null)
         return UpdateResults.FAILED;
+
       lock (lockList)
       {
-        DBArtistInfo db1 = DBArtistInfo.Get(mv);
-        if (db1 != null)
+        DBArtistInfo artistData = DBArtistInfo.Get(trackData);
+        if (artistData != null)
         {
-          mv.ArtistInfo[0] = db1;
+          trackData.ArtistInfo[0] = artistData;
         }
-        if (mv.ArtistInfo.Count > 0)
+        if (trackData.ArtistInfo.Count > 0)
         {
-          mv.ArtistInfo[0].PrimarySource = mv.PrimarySource;
-          mv.ArtistInfo[0].Commit();
+          trackData.ArtistInfo[0].PrimarySource = trackData.PrimarySource;
+          trackData.ArtistInfo[0].Commit();
         }
-        DBAlbumInfo db2 = DBAlbumInfo.Get(mv);
-        if (db2 != null)
+        DBAlbumInfo albumData = DBAlbumInfo.Get(trackData);
+        if (albumData != null)
         {
-          mv.AlbumInfo[0] = db2;
+          trackData.AlbumInfo[0] = albumData;
         }
-        if (mv.AlbumInfo.Count > 0)
+        if (trackData.AlbumInfo.Count > 0)
         {
-          mv.AlbumInfo[0].PrimarySource = mv.PrimarySource;
-          mv.AlbumInfo[0].Commit();
+          trackData.AlbumInfo[0].PrimarySource = trackData.PrimarySource;
+          trackData.AlbumInfo[0].Commit();
         }
       }
       return UpdateResults.SUCCESS;
@@ -1211,8 +1229,8 @@ namespace mvCentral.DataProviders
     {
       XmlDocument xmldoc = new XmlDocument();
 
-      //logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
-      logger.Debug("Sending the request: " + url);
+      logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
+      //logger.Debug("Sending the request: " + url);
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;

@@ -102,7 +102,7 @@ namespace mvCentral.BackgroundProcesses
 
           if (currArtist.ArtFullPath.Trim().Length == 0)
           {
-            mvCentralCore.DataProviderManager.GetArt(currArtist);
+            mvCentralCore.DataProviderManager.GetArt(currArtist, false);
 
             // because this operation can take some time we check again
             // if the artist/album/track was not deleted while we were getting artwork
@@ -132,7 +132,7 @@ namespace mvCentral.BackgroundProcesses
 
           if (currAlbum.ArtFullPath.Trim().Length == 0)
           {
-            mvCentralCore.DataProviderManager.GetArt(currAlbum);
+            mvCentralCore.DataProviderManager.GetArt(currAlbum,false);
 
             // because this operation can take some time we check again
             // if the artist/album/track was not deleted while we were getting artwork
@@ -162,7 +162,7 @@ namespace mvCentral.BackgroundProcesses
 
           if (currTrack.ArtFullPath.Trim().Length == 0)
           {
-            mvCentralCore.DataProviderManager.GetArt(currTrack);
+            mvCentralCore.DataProviderManager.GetArt(currTrack,false);
 
             // because this operation can take some time we check again
             // if the artist/album/track was not deleted while we were getting artwork

@@ -289,13 +289,12 @@ namespace mvCentral.SignatureBuilders
 
       // Get the default scores for this mv
       result.TitleScore = matchTitle(mv.ArtistInfo[0].Artist + " " + mv.Track);
-      //            result.YearScore = matchYear(mv.Year);
       result.MdMatch = matchMd(mv.MdID);
       result.ArtistMdMatch = matchArtistMd(ArtistMdId);
       result.AlbumMdMatch = matchAlbumMd(AlbumMdId);
 
       // check if this match came from our #1 details provider
-      ReadOnlyCollection<DBSourceInfo> detailSources = mvCentralCore.DataProviderManager.DetailSources;
+      ReadOnlyCollection<DBSourceInfo> detailSources = mvCentralCore.DataProviderManager.TrackDetailSources;
       if (detailSources.Count > 0 && detailSources[0] == mv.PrimarySource)
         result.FromTopSource = true;
       else

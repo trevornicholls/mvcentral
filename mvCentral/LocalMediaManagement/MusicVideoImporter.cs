@@ -1745,11 +1745,14 @@ namespace mvCentral.LocalMediaManagement
       // otherwise place it in the pending queue for approval
       if (mediaMatch.Selected != null && mediaMatch.Selected.Result.AutoApprove())
       {
-        if (mediaMatch.HighPriority) priorityApprovedMatches.Add(mediaMatch);
-        else approvedMatches.Add(mediaMatch);
+        if (mediaMatch.HighPriority) 
+          priorityApprovedMatches.Add(mediaMatch);
+        else 
+          approvedMatches.Add(mediaMatch);
 
         // notify any listeners
         logger.Info("Auto-approved {0} as \"{1}\" ({2})", mediaMatch.LocalMediaString, mediaMatch.Selected.MusicVideo.Track, mediaMatch.Selected.MusicVideo.ArtistInfo[0].Artist);
+
         if (MusicVideoStatusChanged != null)
           MusicVideoStatusChanged(mediaMatch, MusicVideoImporterAction.APPROVED);
       }
@@ -1762,11 +1765,15 @@ namespace mvCentral.LocalMediaManagement
       }
     }
 
-    // Associates the given file(s) to the given mv object. Also creates all
-    // relevent user related data.
-    private void AssignFileToMusicVideo(IList<DBLocalMedia> localMedia, DBTrackInfo mv, bool update)
+    /// <summary>
+    /// Associates the given file(s) to the given mv object. Also creates all relevent user related data.
+    /// </summary>
+    /// <param name="localMedia"></param>
+    /// <param name="trackData"></param>
+    /// <param name="update"></param>
+    private void AssignFileToMusicVideo(IList<DBLocalMedia> localMedia, DBTrackInfo trackData, bool update)
     {
-      if (localMedia == null || mv == null || localMedia.Count == 0)
+      if (localMedia == null || trackData == null || localMedia.Count == 0)
         return;
 
       // loop through the local media files and clear out any mv assignments
@@ -1785,18 +1792,18 @@ namespace mvCentral.LocalMediaManagement
         count++;
       }
 
-      mv.LocalMedia.Clear();
-      mv.LocalMedia.AddRange(localMedia);
+      trackData.LocalMedia.Clear();
+      trackData.LocalMedia.AddRange(localMedia);
 
       // update, associate, and commit the mv
       if (update)
       {
-        mvCentralCore.DataProviderManager.Update(mv);
-        mvCentralCore.DataProviderManager.GetArt(mv);
-        mvCentralCore.DataProviderManager.GetArt(mv.ArtistInfo[0]);
+        mvCentralCore.DataProviderManager.Update(trackData);
+        mvCentralCore.DataProviderManager.GetArt(trackData, false);
+        mvCentralCore.DataProviderManager.GetArt(trackData.ArtistInfo[0],false);
 
-        if (mv.AlbumInfo.Count > 0) 
-          mvCentralCore.DataProviderManager.GetArt(mv.AlbumInfo[0]);
+        if (trackData.AlbumInfo.Count > 0) 
+          mvCentralCore.DataProviderManager.GetArt(trackData.AlbumInfo[0],false);
       }
 
       foreach (DBLocalMedia currFile in localMedia)
@@ -1804,20 +1811,20 @@ namespace mvCentral.LocalMediaManagement
 
 
       // create user related data object for each user
-      mv.UserSettings.Clear();
+      trackData.UserSettings.Clear();
       foreach (DBUser currUser in DBUser.GetAll())
       {
         DBUserMusicVideoSettings userSettings = new DBUserMusicVideoSettings();
         userSettings.User = currUser;
         userSettings.Commit();
-        mv.UserSettings.Add(userSettings);
+        trackData.UserSettings.Add(userSettings);
         userSettings.CommitNeeded = false;
       }
       // TDN - Not sure of this lock....
-      mv.PopulateDateAdded();
-      lock (mv)
+      trackData.PopulateDateAdded();
+      lock (trackData)
       {
-        mv.Commit();
+        trackData.Commit();
       }
     }
 
@@ -1828,23 +1835,19 @@ namespace mvCentral.LocalMediaManagement
         // if we already have a mv object with assigned files, just update
         if (match.ExistingMusicVideoInfo != null && update)
         {
-          DBTrackInfo mv = match.ExistingMusicVideoInfo;
+          DBTrackInfo trackData = match.ExistingMusicVideoInfo;
 
           // Using IMusicVideoProvider
           string siteID = match.Selected.MusicVideo.GetSourceMusicVideoInfo(match.PreferedDataSource).Identifier;
-          mv.GetSourceMusicVideoInfo(match.PreferedDataSource).Identifier = siteID;
+          trackData.GetSourceMusicVideoInfo(match.PreferedDataSource).Identifier = siteID;
 
           // and update from that
-          match.PreferedDataSource.Provider.Update(mv);
-          //                   lock (mv)
-          {
-            mv.Commit();
-          }
+          match.PreferedDataSource.Provider.UpdateTrack(trackData);
+            trackData.Commit();
         }
-
-        // no mv object exists so go ahead and assign our retrieved details.
         else
         {
+          // no mv object exists so go ahead and assign our retrieved details.
           AssignFileToMusicVideo(match.LocalMedia, match.Selected.MusicVideo, update);
         }
       }
@@ -1939,8 +1942,11 @@ namespace mvCentral.LocalMediaManagement
       file.AttachedmvCentral.Clear();
     }
 
-    // Returns a possible match set for the given media file(s) 
-    // using the given custom search string
+
+    /// <summary>
+    /// Returns a possible match set for the given media file(s) using the given custom search string    
+    /// </summary>
+    /// <param name="mediaMatch"></param>
     private void GetMatches(MusicVideoMatch mediaMatch)
     {
       List<DBTrackInfo> mvList;
@@ -1957,9 +1963,9 @@ namespace mvCentral.LocalMediaManagement
       // how close a match it is
 
       if (mediaMatch.PreferedDataSource != null)
-        mvList = mediaMatch.PreferedDataSource.Provider.Get(signature);
+        mvList = mediaMatch.PreferedDataSource.Provider.GetTrackDetail(signature);
       else
-        mvList = mvCentralCore.DataProviderManager.Get(signature);
+        mvList = mvCentralCore.DataProviderManager.GetTrackDetail(signature);
 
       DBSourceInfo lastSource = null;
       bool multipleSources = false;
