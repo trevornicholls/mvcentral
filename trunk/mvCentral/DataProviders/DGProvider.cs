@@ -103,6 +103,16 @@ namespace mvCentral.DataProviders
       get { return false; }
     }
 
+    public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
+    public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
     public bool GetArtistArt(DBArtistInfo mv)
     {
       if (mv == null)

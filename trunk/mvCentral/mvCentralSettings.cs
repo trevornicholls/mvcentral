@@ -564,7 +564,7 @@ namespace mvCentral.Settings
         Description = "Ignore folder structure when parsing, tick this if folders are nor in format artist\album\track.ext  ",
         Groups = "|MusicVideo Importer|Preprocessing|",
         Identifier = "ignore_folders_when_Parsing",
-        Default = false,
+        Default = true,
         Hidden = false)]
     public bool IgnoreFoldersWhenParsing
     {

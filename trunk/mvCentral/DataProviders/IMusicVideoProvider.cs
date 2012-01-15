@@ -24,8 +24,9 @@ namespace mvCentral.DataProviders
     bool ProvidesTrackArt { get; }
 
     List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature);
-    //List<DBArtistInfo> GetArtistDetail(MusicVideoSignature mvSignature);
-    //List<DBAlbumInfo> GetAlbumDetail(MusicVideoSignature mvSignature);
+    DBTrackInfo GetArtistDetail(DBTrackInfo mv);
+    DBTrackInfo GetAlbumDetail(DBTrackInfo mv);
+
     UpdateResults UpdateTrack(DBTrackInfo trackData);
     bool GetDetails(DBBasicInfo mv);
     bool GetArtistArt(DBArtistInfo mv);

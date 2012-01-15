@@ -32,13 +32,7 @@ namespace mvCentral.DataProviders
 
     private static readonly object lockList = new object();
 
-    // NOTE: To other developers creating other applications, using this code as a base
-    //       or as a reference. PLEASE get your own API key. Do not reuse the one listed here
-    //       it is intended for Music Videos use ONLY. API keys are free and easy to apply
-    //       for. Visit this url: http://http://www.allmusic.com/
-
-    #region API variables
-
+    #region Provider variables
 
     private const string BaseURL = "http://www.allmusic.com/search/artist/";
     private const string AlbumRegExpPattern = @"<td\s*class=""cell""><a\s*href=""(?<albumURL>.*?)"">(?<albumName>.*)</a></td>";
@@ -58,6 +52,8 @@ namespace mvCentral.DataProviders
     List<string> albumURLList = new List<string>();
 
     #endregion
+
+    #region Public Methods
 
     public string Name
     {
@@ -123,6 +119,55 @@ namespace mvCentral.DataProviders
     }
 
 
+    /// <summary>
+    /// get the artist details and update missing data from this source
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
+    {
+      string strArtistHTML;
+      string strArtistURL;
+
+      // Get details of the artist
+      string artist = mv.ArtistInfo[0].Artist;
+      if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
+      {
+        var artistInfo = new MusicArtistInfo();
+        if (artistInfo.Parse(strArtistHTML))
+        {
+          artistInfo.Artist = artist;
+          DBArtistInfo mv1 = (DBArtistInfo)mv.ArtistInfo[0];
+          updateMusicVideoArtist(ref mv1, artistInfo);
+        }
+      }
+      return mv;
+    }
+
+    /// <summary>
+    /// get the artist details and update missing data from this source
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
+    {
+      string strAlbumHTML;
+      string album = mv.AlbumInfo[0].Album;
+      string artist = mv.ArtistInfo[0].Artist;
+
+      if (GetAlbumHTML(artist, album, out strAlbumHTML))
+      {
+        var albumInfo = new MusicAlbumInfo();
+        if (albumInfo.Parse(strAlbumHTML))
+        {
+          albumInfo.Artist = album;
+          DBAlbumInfo mv1 = (DBAlbumInfo)mv.AlbumInfo[0];
+          setMusicVideoAlbum(ref mv1, albumInfo);
+        }
+      }
+      return mv;
+    }
+
 
     /// <summary>
     /// Get Artist Artwork
@@ -147,35 +192,59 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <returns></returns>
-    public bool GetAlbumArt(DBAlbumInfo mv)
+    public bool GetAlbumArt(DBAlbumInfo mvAlbumObject)
     {
-      return false;
-    }
-    /// <summary>
-    /// Generate Thumbnail
-    /// </summary>
-    /// <param name="mv"></param>
-    /// <returns></returns>
-    bool generateVideoThumbnail(DBTrackInfo mv)
-    {
-      lock (this)
-      {
-        string outputFilename = Path.Combine(Path.GetTempPath(), mv.Track + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
+      logger.Info("In Method : GetAlbumArt(DBAlbumInfo mv)");
 
-        if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
+      if (mvAlbumObject == null)
+        return false;
+
+      List<string> albumImageList = mvAlbumObject.ArtUrls;
+      // Reload existing Artwork - Why springs to mind??
+      if (albumImageList.Count > 0)
+      {
+        // grab album art loading settings
+        int maxAlbumArt = mvCentralCore.Settings.MaxAlbumArts;
+
+        int albumartAdded = 0;
+        int count = 0;
+        foreach (string albumImage in albumImageList)
         {
-          if (File.Exists(outputFilename))
-          {
-            mv.AddArtFromFile(outputFilename);
-            File.Delete(outputFilename);
-            return true;
-          }
-          else
-            return false;
+          if (mvAlbumObject.AlternateArts.Count >= maxAlbumArt)
+            break;
+
+          if (mvAlbumObject.AddArtFromURL(albumImage) == ImageLoadResults.SUCCESS)
+            albumartAdded++;
+
+          count++;
         }
-        else
-          return false;
+        // We added some artwork so commit
+        if (count > 0)
+          mvAlbumObject.Commit();
       }
+
+      // Now add any new art from this provider
+      string strAlbumHTML;
+      DBArtistInfo artist = null;
+      List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum(mvAlbumObject);
+
+      if (tracksOnAlbum.Count > 0)
+        artist = DBArtistInfo.Get(tracksOnAlbum[0]);
+
+      if (GetAlbumHTML(artist.Artist, mvAlbumObject.Album, out strAlbumHTML))
+      {
+        var albumInfo = new MusicAlbumInfo();      
+
+        if (albumInfo.Parse(strAlbumHTML))
+        {
+          ImageLoadResults imageLoadResults = mvAlbumObject.AddArtFromURL(albumInfo.ImageURL);
+
+          if (imageLoadResults == ImageLoadResults.SUCCESS || imageLoadResults == ImageLoadResults.SUCCESS_REDUCED_SIZE)
+            mvAlbumObject.Commit();
+        }
+      }
+      // We always return sucess...
+      return true;
     }
     /// <summary>
     /// Get the Artist, Album Details
@@ -220,7 +289,6 @@ namespace mvCentral.DataProviders
             albumInfo.Artist = album;
             DBAlbumInfo mv1 = (DBAlbumInfo)mv;
             setMusicVideoAlbum(ref mv1, albumInfo);
-            //GetArtistArt((DBArtistInfo)mv);
           }
         }
         return false;
@@ -315,33 +383,19 @@ namespace mvCentral.DataProviders
     {
       return true;
     }
-    /// <summary>
-    /// Set the Artist information
-    /// </summary>
-    /// <param name="mv"></param>
-    /// <param name="artistInfo"></param>
-    private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo)
-    {
-      mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
-      mv.bioContent = artistInfo.AMGBiography;
-      mv.Genre = artistInfo.Genres;
-      
-    }
-    /// <summary>
-    /// Set the Album Information
-    /// </summary>
-    /// <param name="mv"></param>
-    /// <param name="albumInfo"></param>
-    private void setMusicVideoAlbum(ref DBAlbumInfo mv, MusicAlbumInfo albumInfo)
-    {
-      mv.bioSummary = getBioSummary(albumInfo.Review, 50);
-      mv.bioContent = albumInfo.Review;
-      mv.YearReleased = albumInfo.DateOfRelease;
-      mv.Rating = albumInfo.Rating;
-    }
 
+    /// <summary>
+    /// get the first x words from the Bio
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="maxWordCount"></param>
+    /// <returns></returns>
     public string getBioSummary(string text, int maxWordCount)
     {
+      // Bail out if no content to summerize
+      if (string.IsNullOrEmpty(text.Trim()))
+        return string.Empty;
+
       int wordCounter = 0;
       int stringIndex = 0;
       char[] delimiters = new[] { '\n', ' ', ',', '.' };
@@ -359,6 +413,91 @@ namespace mvCentral.DataProviders
     }
 
 
+    public UpdateResults UpdateTrack(DBTrackInfo mv)
+    {
+      return UpdateResults.SUCCESS;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    /// <summary>
+    /// Set the Album Information - override existing data
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="albumInfo"></param>
+    private void setMusicVideoAlbum(ref DBAlbumInfo mv, MusicAlbumInfo albumInfo)
+    {
+      mv.bioSummary = getBioSummary(albumInfo.Review, 50);
+      mv.bioContent = albumInfo.Review;
+      mv.YearReleased = albumInfo.DateOfRelease;
+      mv.Rating = albumInfo.Rating;
+    }
+    /// <summary>
+    /// Update missing album information
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="albumInfo"></param>
+    private void updateMusicVideoAlbum(ref DBAlbumInfo mv, MusicAlbumInfo albumInfo)
+    {
+      if (mv.bioSummary.Trim() == string.Empty)
+        mv.bioSummary = getBioSummary(albumInfo.Review, 50);
+
+      if (mv.bioContent.Trim() == string.Empty)
+        mv.bioContent = albumInfo.Review;
+
+      if (mv.YearReleased.Trim() == string.Empty)
+        mv.YearReleased = albumInfo.DateOfRelease;
+
+      if (mv.Rating == 0)
+        mv.Rating = albumInfo.Rating;
+    }
+    /// <summary>
+    /// Set the Artist information, override existing information
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="artistInfo"></param>
+    private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo)
+    {
+      mv.Born = artistInfo.Born;
+      mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
+      mv.bioContent = artistInfo.AMGBiography;
+      mv.Genre = artistInfo.Genres;
+      mv.Tones = artistInfo.Tones;
+      mv.Styles = artistInfo.Styles;
+      mv.YearsActive = artistInfo.YearsActive;
+    }
+    /// <summary>
+    /// Update missing Artist information
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="artistInfo"></param>
+    private void updateMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo)
+    {
+      if (mv.Born.Trim() == string.Empty)
+        mv.Born = artistInfo.Born;
+
+      if (mv.bioSummary.Trim() == string.Empty)
+        mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
+
+      if (mv.bioContent.Trim() == string.Empty)
+        mv.bioContent = artistInfo.AMGBiography;
+
+      if (mv.Genre.Trim() == string.Empty)
+        mv.Genre = artistInfo.Genres;
+
+      if (mv.Tones.Trim() == string.Empty)
+        mv.Tones = artistInfo.Tones;
+
+      if (mv.Styles.Trim() == string.Empty)
+        mv.Styles = artistInfo.Styles;
+
+      if (mv.YearsActive.Trim() == string.Empty)
+        mv.YearsActive = artistInfo.YearsActive;
+
+    }
+
 
     private DBTrackInfo getMusicVideoTrack(string track)
     {
@@ -373,15 +512,33 @@ namespace mvCentral.DataProviders
     private void setMusicVideoTrack(ref DBTrackInfo mv, string id)
     {
     }
-
-    private void setMusicVideoAlbum(ref DBAlbumInfo mv, XmlNode node)
+    /// <summary>
+    /// Generate Thumbnail
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    bool generateVideoThumbnail(DBTrackInfo mv)
     {
-    }
+      lock (this)
+      {
+        string outputFilename = Path.Combine(Path.GetTempPath(), mv.Track + DateTime.Now.ToFileTimeUtc().ToString() + ".jpg");
 
-    public UpdateResults UpdateTrack(DBTrackInfo mv)
-    {
-      return UpdateResults.SUCCESS;
+        if (mvCentral.Utils.VideoThumbCreator.CreateVideoThumb(mv.LocalMedia[0].File.FullName, outputFilename))
+        {
+          if (File.Exists(outputFilename))
+          {
+            mv.AddArtFromFile(outputFilename);
+            File.Delete(outputFilename);
+            return true;
+          }
+          else
+            return false;
+        }
+        else
+          return false;
+      }
     }
+    #endregion
 
     #region URL and HTTP Handling
 
@@ -533,35 +690,30 @@ namespace mvCentral.DataProviders
             foreach (Match m in matches)
             {
               var strCleanMatch = EncodeString(CleanArtist(m.Groups["artist"].ToString()));
+              //logger.Debug("GetArtistURLAlternative: Cleaned/Encoded matched Artist: |{0}|", strCleanMatch);
 
-              logger.Debug("GetArtistURLAlternative: Cleaned/Encoded matched Artist: |{0}|", strCleanMatch);
+              if (strCleanArtist != strCleanMatch) 
+                continue;
 
+              //logger.Debug("GetArtistURLAlternative: Years: {0}", m.Groups["years"].ToString().Trim());
+              if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim())) 
+                continue;
 
-              if (strCleanArtist != strCleanMatch) continue;
-
-              logger.Debug("GetArtistURLAlternative: Years: {0}", m.Groups["years"].ToString().Trim());
-
-              if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim())) continue;
-
-              //              matchIndex++;
               strPotentialURL = m.Groups["artistURL"].ToString();
               numberOfMatchesWithYears++;
 
               // give up if more than one match with years active
               if (numberOfMatchesWithYears > 1)
               {
-
-                logger.Debug("GetArtistURLAlternative: Multiple matches with years active");
-
-                return false;
+                logger.Debug("GetArtistURLAlternative: Multiple matches with years active - returning 1st entry");
+                strPotentialURL = matches[0].Groups["artistURL"].ToString();
               }
             }
 
+            // No valid match found (Not sure about this check...)
             if (numberOfMatchesWithYears == 0)
             {
-
               logger.Debug("GetArtistURLAlternative: No matches with years active");
-
               return false;
             }
 
@@ -642,10 +794,10 @@ namespace mvCentral.DataProviders
           var strAndAlbum = strAlbum.Replace("&", "and").Replace("+", "and");
 
 
-          logger.Debug("MusicInfoHandler: GetAlbumURL: strAlbum: |{0}|", strAlbum);
-          logger.Debug("MusicInfoHandler: GetAlbumURL: strStripStackEnding: |{0}|", strStripStackEnding);
-          logger.Debug("MusicInfoHandler: GetAlbumURL: strAlbumRemoveBrackets: |{0}|", strAlbumRemoveBrackets);
-          logger.Debug("MusicInfoHandler: GetAlbumURL: strRemovePunctuation: |{0}|", strRemovePunctuation);
+          //logger.Debug("MusicInfoHandler: GetAlbumURL: strAlbum: |{0}|", strAlbum);
+          //logger.Debug("MusicInfoHandler: GetAlbumURL: strStripStackEnding: |{0}|", strStripStackEnding);
+          //logger.Debug("MusicInfoHandler: GetAlbumURL: strAlbumRemoveBrackets: |{0}|", strAlbumRemoveBrackets);
+          //logger.Debug("MusicInfoHandler: GetAlbumURL: strRemovePunctuation: |{0}|", strRemovePunctuation);
 
           bool albumFound = false;
           for (var m = AlbumURLRegEx.Match(discHTML); m.Success; m = m.NextMatch())
@@ -656,8 +808,8 @@ namespace mvCentral.DataProviders
             var strFoundPunctuation = PunctuationRegex.Replace(strFoundValue, "");
             var strFoundAnd = strFoundValue.Replace("&", "and").Replace("+", "and");
 
-            logger.Debug("MusicInfoHandler: GetAlbumURL: strFoundValue: |{0}|", strFoundValue);
-            logger.Debug("MusicInfoHandler: GetAlbumURL: strFoundPunctuation: |{0}|", strFoundPunctuation);
+            //logger.Debug("MusicInfoHandler: GetAlbumURL: strFoundValue: |{0}|", strFoundValue);
+            //logger.Debug("MusicInfoHandler: GetAlbumURL: strFoundPunctuation: |{0}|", strFoundPunctuation);
 
 
             if (strFoundValue == strAlbum.ToLower())

@@ -143,12 +143,31 @@ namespace mvCentral.DataProviders
       get { return true; }
     }
 
+
+    public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
+    public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
+
+    /// <summary>
+    /// Get the Artist, Album or Track details
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
     public bool GetDetails(DBBasicInfo mv)
     {
       //logger.Debug("In Method : GetDetails(DBBasicInfo mv)");
 
       string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
 
+
+      // Get Artist Info
       if (mv.GetType() == typeof(DBArtistInfo))
       {
 
@@ -193,7 +212,7 @@ namespace mvCentral.DataProviders
         }
       }
 
-
+      // Get Album Info
       if (mv.GetType() == typeof(DBAlbumInfo))
       {
 
@@ -238,6 +257,7 @@ namespace mvCentral.DataProviders
         }
       }
 
+      // Get Track Info
       if (mv.GetType() == typeof(DBTrackInfo))
       {
         string artist = ((DBTrackInfo)mv).ArtistInfo[0].Artist;
@@ -332,12 +352,6 @@ namespace mvCentral.DataProviders
       if (mvArtistObject == null)
         return false;
 
-      // if we already have a backdrop move on for now
-      //if (mvArtistObject.ArtFullPath.Trim().Length > 0)
-      //  return true;
-
-      //if (mvArtistObject.ArtFullPath.Trim().Length == 0)
-      //{
       // Request artist images
       GetArtistImages(mvArtistObject);
       // if we have some - process
@@ -379,11 +393,6 @@ namespace mvCentral.DataProviders
 
       if (mvTrackObject == null)
         return false;
-
-      // if we already have a backdrop move on for now
-      //if (mvTrackObject.ArtFullPath.Trim().Length > 0)
-      //  return true;
-
 
       // If video thumbnails prefered and this is a video file grab image(s) and return, this assumes success which is not good
       if (mvCentralCore.Settings.PreferThumbnail)
@@ -487,23 +496,38 @@ namespace mvCentral.DataProviders
         return false;
 
       List<string> albumImageList = mvAlbumObject.ArtUrls;
-      if (albumImageList != null)
+      // First reload any artwork we have strored
+      if (albumImageList.Count > 0)
       {
         // grab album art loading settings
         int maxAlbumArt = mvCentralCore.Settings.MaxAlbumArts;
 
         int albumartAdded = 0;
-        int count = 0;
         foreach (string albumImage in albumImageList)
         {
           if (mvAlbumObject.AlternateArts.Count >= maxAlbumArt)
             break;
-          if (mvAlbumObject.AddArtFromURL(albumImage) == ImageLoadResults.SUCCESS)
-            albumartAdded++;
 
-          count++;
+          ImageLoadResults imageLoadResults = mvAlbumObject.AddArtFromURL(albumImage);
+          if (imageLoadResults == ImageLoadResults.SUCCESS || imageLoadResults == ImageLoadResults.SUCCESS_REDUCED_SIZE)
+            albumartAdded++;
         }
       }
+      else
+      {
+        // Now add any new artwork, this handles the sitution where an album has been created manually
+        DBArtistInfo artist = null;
+        List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum(mvAlbumObject);
+        if (tracksOnAlbum.Count > 0)
+          artist = DBArtistInfo.Get(tracksOnAlbum[0]);
+
+        if (string.IsNullOrEmpty(mvAlbumObject.MdID.Trim()))
+          setMusicVideoAlbum(ref mvAlbumObject, artist.Artist, mvAlbumObject.Album, null);
+        else
+          setMusicVideoAlbum(ref mvAlbumObject, mvAlbumObject.MdID);
+      }
+
+      mvAlbumObject.Commit();
       return true;
     }
     /// <summary>
@@ -568,7 +592,7 @@ namespace mvCentral.DataProviders
           }
           else if (mvTrackData.AlbumInfo.Count > 0 && mvCentralCore.Settings.SetAlbumFromTrackData)
           {
-            logger.Debug("There are {0} Albums forun for Artist: {1} / {2}", mvTrackData.AlbumInfo.Count.ToString(), mvSignature.Artist, mvSignature.Title);
+            logger.Debug("There are {0} Albums found for Artist: {1} / {2}", mvTrackData.AlbumInfo.Count.ToString(), mvSignature.Artist, mvSignature.Title);
             DBAlbumInfo albumInfo = new DBAlbumInfo();
             albumInfo.Album = mvTrackData.AlbumInfo[0].Album;
             setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvTrackData.AlbumInfo[0].Album, null);
@@ -614,15 +638,22 @@ namespace mvCentral.DataProviders
 
     private void setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)
     {
+      logger.Debug("In method : setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)");
+
       XmlNodeList xml = null;
 
-      if (!string.IsNullOrEmpty(artistmbid))
-        xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid, mvCentralCore.Settings.DataProviderAutoLanguage));
-      else
+      // Have we an MBID for this artist
+      if (string.IsNullOrEmpty(artistmbid))
+        // No, use Artist Name for lookup
         xml = getXML(string.Format(apiArtistNameGetInfo, artistName, mvCentralCore.Settings.DataProviderAutoLanguage));
+      else
+        // Use MBID for Lookup 
+        xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid, mvCentralCore.Settings.DataProviderAutoLanguage));
 
+      // Did we get some data? Bail out if not
       if (xml == null)
         return;
+
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
 
@@ -634,7 +665,6 @@ namespace mvCentral.DataProviders
         switch (node.Name)
         {
           case "name":
-
             mv.Artist = value;
             break;
           case "mbid":
@@ -666,33 +696,46 @@ namespace mvCentral.DataProviders
                 mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
               }
             }
-
             break;
         }
       }
       return;
     }
-
+    /// <summary>
+    /// Grab the album data and process (overload)
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="mbid"></param>
     private void setMusicVideoAlbum(ref DBAlbumInfo mv, string mbid)
     {
       setMusicVideoAlbum(ref mv, null, null, mbid);
     }
-
+    /// <summary>
+    /// Grab the album data and process (overload)
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="Album"></param>
+    /// <param name="mbid"></param>
     private void setMusicVideoAlbum(ref DBAlbumInfo mv, string Album, string mbid)
     {
       setMusicVideoAlbum(ref mv, null, Album, mbid);
     }
-
+    /// <summary>
+    /// Grab the album data and process
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="artist"></param>
+    /// <param name="album"></param>
+    /// <param name="mbid"></param>
     private void setMusicVideoAlbum(ref DBAlbumInfo mv, string artist, string album, string mbid)
     {
-
       logger.Debug(string.Format("In method setMusicVideoAlbum : Atrist ({0})   |    Album ({1})    |    MBID ({2})", artist, album, mbid));
-
-      if (album == null && mbid == null)
-        return;
 
       XmlNodeList xml = null;
 
+      // Do we have a valid parameter - bail out if not
+      if (album == null && mbid == null)
+        return;
 
       // API Call takes MbId or Artist & Album
       if (!string.IsNullOrEmpty(mbid))
@@ -700,21 +743,23 @@ namespace mvCentral.DataProviders
       else if (!string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(album))
         xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album, mvCentralCore.Settings.DataProviderAutoLanguage));
       
-
+      // Did we get some data back, if not bail out
       if (xml == null)
         return;
+
+      // Get the root node and check the status - if failed abort futher processing
       XmlNode root = xml.Item(0).ParentNode;
-      if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
-
-      XmlNodeList mvNodes = xml.Item(0).ChildNodes;
-
-      foreach (XmlNode node in mvNodes)
+      if (root.Attributes != null && root.Attributes["status"].Value != "ok") 
+        return;
+      // Grab the infomation nodes
+      XmlNodeList mvAlbumNodes = xml.Item(0).ChildNodes;
+      // and process
+      foreach (XmlNode node in mvAlbumNodes)
       {
         string value = node.InnerText;
         switch (node.Name)
         {
           case "name":
-
             mv.Album = value;
             break;
           case "mbid":
@@ -727,11 +772,10 @@ namespace mvCentral.DataProviders
               mv.Tag.Add(tagstr);
             }
             break;
-
           case "image":
             if (!mv.ArtUrls.Contains(value))
-
               mv.ArtUrls.Add(value);
+
             break;
           case "wiki":
             XmlNode n1 = root.SelectSingleNode(@"/lfm/album/wiki/summary");
@@ -751,13 +795,18 @@ namespace mvCentral.DataProviders
                 mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
               }
             }
-
             break;
         }
       }
       return;
     }
-
+    /// <summary>
+    /// Grab the track data and process
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <param name="artist"></param>
+    /// <param name="track"></param>
+    /// <param name="mbid"></param>
     private void setMusicVideoTrack(ref DBTrackInfo mv, string artist, string track, string mbid)
     {
       if (track == null && mbid == null)
@@ -908,11 +957,18 @@ namespace mvCentral.DataProviders
             if (node.ChildNodes[0].InnerText.Trim().Length > 0)
             {
               DBAlbumInfo d4 = new DBAlbumInfo();
+
+              // Is there an MBID for this album
               if (node.ChildNodes[2].InnerText.Trim().Length > 0)
+                // Use it for the lookup
                 setMusicVideoAlbum(ref d4, node.ChildNodes[2].InnerText);
               else
-                setMusicVideoAlbum(ref d4, node.ChildNodes[0].InnerText, node.ChildNodes[1].InnerText, null);
-              mv.AlbumInfo.Add(d4);
+                // No MBID - Use Srtist and Album name instead
+                setMusicVideoAlbum(ref d4, node.ChildNodes[0].InnerText.Trim(), node.ChildNodes[1].InnerText, null);
+
+              // Have we actually got a valid album?
+              if (d4.Album.Trim() != string.Empty)
+                mv.AlbumInfo.Add(d4);
             }
             break;
 
