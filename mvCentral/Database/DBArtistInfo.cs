@@ -62,6 +62,19 @@ namespace mvCentral.Database
     } private string _artistAltName;
 
     [DBField]
+    public string Born
+    {
+      get { return _born; }
+
+      set
+      {
+        _born = value;
+        commitNeeded = true;
+      }
+    } private string _born;
+
+
+    [DBField]
     public string Genre
     {
       get { return _genre; }
@@ -72,6 +85,42 @@ namespace mvCentral.Database
         commitNeeded = true;
       }
     } private string _genre;
+
+    [DBField]
+    public string Styles
+    {
+      get { return _styles; }
+
+      set
+      {
+        _styles = value;
+        commitNeeded = true;
+      }
+    } private string _styles;
+
+    [DBField]
+    public string Tones
+    {
+      get { return _tones; }
+
+      set
+      {
+        _tones = value;
+        commitNeeded = true;
+      }
+    } private string _tones;
+
+    [DBField]
+    public string YearsActive
+    {
+      get { return _yearsactive; }
+
+      set
+      {
+        _yearsactive = value;
+        commitNeeded = true;
+      }
+    } private string _yearsactive;
 
     #endregion
 

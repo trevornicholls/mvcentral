@@ -121,6 +121,22 @@ namespace mvCentral.DataProviders
       get { return false; }
     }
 
+
+    public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
+    public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Get the track details
+    /// </summary>
+    /// <param name="mvSignature"></param>
+    /// <returns></returns>
     public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
       List<DBTrackInfo> results = new List<DBTrackInfo>();
@@ -161,6 +177,11 @@ namespace mvCentral.DataProviders
         searchURL = string.Format(SearchArtistImageMBID, APIKey, mvArtistObject.MdID);
       // Get the images
       xml = getXML(searchURL);
+
+      // If we reveived nothing back, bail out
+      if (xml == null)
+        return false;
+
       XmlNode root = xml.Item(0).ParentNode;
       // Get image nodes
       XmlNodeList images = root.SelectNodes(@"/search/images/image");

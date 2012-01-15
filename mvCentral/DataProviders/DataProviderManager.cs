@@ -572,18 +572,22 @@ namespace mvCentral.DataProviders
 
     #region Data Loading Methods
     /// <summary>
-    /// Based on the calculated signature retrive data for providers
+    /// Based on the calculated signature retrive data from providers
     /// </summary>
     /// <param name="mvSignature"></param>
     /// <returns></returns>
     public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
-      List<DBSourceInfo> sources;
-      lock (trackDetailSources) sources = new List<DBSourceInfo>(trackDetailSources);
+      List<DBSourceInfo> trackSources;
+      lock (trackDetailSources) trackSources = new List<DBSourceInfo>(trackDetailSources);
+
+      List<DBSourceInfo> artistSources;
+      lock (artistDetailSources) artistSources = new List<DBSourceInfo>(artistDetailSources);
+
 
       // Try each datasource (ordered by their priority) to get results
       List<DBTrackInfo> results = new List<DBTrackInfo>();
-      foreach (DBSourceInfo currSource in sources)
+      foreach (DBSourceInfo currSource in trackSources)
       {
         if (currSource.IsDisabled(DataType.TRACKDETAIL))
           continue;
@@ -597,13 +601,46 @@ namespace mvCentral.DataProviders
         List<DBTrackInfo> newResults = currSource.Provider.GetTrackDetail(mvSignature);
 
         // tag the results with the current source
-
         foreach (DBTrackInfo currMusicVideo in newResults)
+        {
           currMusicVideo.PrimarySource = currSource;
 
-        // add results to our total result list and log what we found
+          // ****************** Additional Artist Info Processing ******************
+          // Check and update Artist details from additional providers
+          DBArtistInfo artInfo = new DBArtistInfo();
+          artInfo = currMusicVideo.ArtistInfo[0];
+
+          foreach (DBSourceInfo artistExtraInfo in artistDetailSources)
+          {
+            if (artistExtraInfo != currSource)
+            {
+              logger.Debug("Searching for additional Artist infomation from Provider " + artistExtraInfo.Provider.Name);
+              artInfo = artistExtraInfo.Provider.GetArtistDetail(currMusicVideo).ArtistInfo[0];
+            }
+          }
+          currMusicVideo.ArtistInfo[0] = artInfo;
+
+          // If album support disabled or no associated album then skip album processing
+          if (mvCentralCore.Settings.DisableAlbumSupport || currMusicVideo.AlbumInfo.Count == 0)
+            continue;
+
+          // ****************** Additional Album Info Processing ******************
+          // Check and update Album details from additional providers
+          DBAlbumInfo albumInfo = new DBAlbumInfo();
+          albumInfo = currMusicVideo.AlbumInfo[0];
+
+          foreach (DBSourceInfo albumExtraInfo in albumDetailSources)
+          {
+            if (albumExtraInfo != currSource)
+            {
+              logger.Debug("Searching for additional Album infomation from Provider " + albumExtraInfo.Provider.Name);
+              albumInfo = albumExtraInfo.Provider.GetAlbumDetail(currMusicVideo).AlbumInfo[0];
+            }
+          }
+          currMusicVideo.AlbumInfo[0] = albumInfo;
+        }       
+        // add results to our total result list
         results.AddRange(newResults);
-        //logger.Debug("SEARCH: Title='{0}', Provider='{1}', Version={2}, Number of Results={3}", mvSignature.Title, currSource.Provider.Name, currSource.Provider.Version, newResults.Count);
       }
 
       return results;
@@ -685,7 +722,6 @@ namespace mvCentral.DataProviders
 
           logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
           success = currSource.Provider.GetArtistArt((DBArtistInfo)mvDBObject);
-
 
           if (success)
             artWorkAdded++;

@@ -106,6 +106,16 @@ namespace mvCentral.DataProviders
       get { return true; }
     }
 
+    public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
+    public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
+    {
+      throw new NotImplementedException();
+    }
+
     /// <summary>
     /// Get Local Artist Artwork, check for custom folder or artwork in the same folder as the music video
     /// </summary>
