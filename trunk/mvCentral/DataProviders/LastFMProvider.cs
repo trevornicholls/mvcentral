@@ -151,6 +151,14 @@ namespace mvCentral.DataProviders
 
     public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
     {
+
+      string albumTitle = mv.AlbumInfo[0].Album;
+      string albumMBID = mv.AlbumInfo[0].MdID;
+      string artist = mv.ArtistInfo[0].Artist;
+
+      DBAlbumInfo mv1 = mv.AlbumInfo[0];
+      setMusicVideoAlbum(ref mv1, artist, albumTitle, albumMBID);
+
       return mv;
     }
 
@@ -738,7 +746,7 @@ namespace mvCentral.DataProviders
         return;
 
       // API Call takes MbId or Artist & Album
-      if (!string.IsNullOrEmpty(mbid))
+      if (!string.IsNullOrEmpty(mbid.Trim()))
         xml = getXML(string.Format(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
       else if (!string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(album))
         xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album, mvCentralCore.Settings.DataProviderAutoLanguage));

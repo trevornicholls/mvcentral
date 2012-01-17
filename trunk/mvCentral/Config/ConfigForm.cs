@@ -1652,7 +1652,8 @@ namespace mvCentral
         Invoke(new DBBasicInfo.ChangedEventHandler(basicInfoChanged), new object[] { sender, e });
         return;
       }
-      mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
+      if (mvLibraryTreeView.SelectedNode != null)
+        mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
     }
 
     #endregion

@@ -37,6 +37,68 @@ namespace mvCentral.BackgroundProcesses
                 }
             }
 
+
+            foreach (DBTrackInfo currTrack in DBTrackInfo.GetAll())
+            {
+              // Check for Artist missing data
+
+              try
+              {
+                logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
+                if (currTrack.ID == null)
+                  continue;
+
+                if (currTrack.ArtistInfo[0].Genre.Trim().Length == 0)
+                {
+                  mvCentralCore.DataProviderManager.GetArtistDetail(currTrack);
+
+                  // because this operation can take some time we check again
+                  // if the artist/album/track was not deleted while we were getting artwork
+                  if (currTrack.ID == null)
+                    continue;
+
+                  currTrack.Commit();
+                }
+              }
+              catch (Exception e)
+              {
+                if (e is ThreadAbortException)
+                  throw e;
+
+                logger.ErrorException("Error retrieving Video details for " + currTrack.Basic, e);
+              }
+              // Check for Album missing data if album support enabled
+              if (currTrack.AlbumInfo.Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
+              {
+                try
+                {
+                  logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
+                  if (currTrack.ID == null)
+                    continue;
+
+                  if (currTrack.AlbumInfo[0].YearReleased.Trim().Length == 0)
+                  {
+                    mvCentralCore.DataProviderManager.GetAlbumDetail(currTrack);
+
+                    // because this operation can take some time we check again
+                    // if the artist/album/track was not deleted while we were getting artwork
+                    if (currTrack.ID == null)
+                      continue;
+
+                    currTrack.Commit();
+                  }
+                }
+                catch (Exception e)
+                {
+                  if (e is ThreadAbortException)
+                    throw e;
+
+                  logger.ErrorException("Error retrieving Album details for " + currTrack.Basic, e);
+                }
+              }
+
+            }
+
             logger.Info("Background media info update process complete.");
         }
     }
