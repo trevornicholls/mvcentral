@@ -639,7 +639,7 @@ namespace mvCentral.DataProviders
           }
           currMusicVideo.AlbumInfo[0] = albumInfo;
         }       
-        // add results to our total result list
+        // add results to our total result list and log what we found
         results.AddRange(newResults);
       }
 
@@ -693,6 +693,45 @@ namespace mvCentral.DataProviders
         }
       }
     }
+
+    /// <summary>
+    /// get the artist details
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
+    {
+        // ****************** Additional Artist Info Processing ******************
+        // Check and update Artist details from additional providers
+        DBArtistInfo artInfo = new DBArtistInfo();
+        artInfo = mv.ArtistInfo[0];
+
+        foreach (DBSourceInfo artistExtraInfo in artistDetailSources)
+            artInfo = artistExtraInfo.Provider.GetArtistDetail(mv).ArtistInfo[0];
+
+      mv.ArtistInfo[0] = artInfo;
+
+      return mv;
+    }
+    /// <summary>
+    /// get the album details
+    /// </summary>
+    /// <param name="mv"></param>
+    /// <returns></returns>
+    public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
+    {
+      // ****************** Additional Album Info Processing ******************
+      // Check and update Album details from additional providers
+      DBAlbumInfo albumInfo = new DBAlbumInfo();
+      albumInfo = mv.AlbumInfo[0];
+
+      foreach (DBSourceInfo albumExtraInfo in albumDetailSources)
+          albumInfo = albumExtraInfo.Provider.GetAlbumDetail(mv).AlbumInfo[0];
+
+      mv.AlbumInfo[0] = albumInfo;
+
+      return mv;
+    }
     /// <summary>
     /// Get artwork for suppiled object, Artist, Album or Track
     /// </summary>
@@ -722,6 +761,7 @@ namespace mvCentral.DataProviders
 
           logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
           success = currSource.Provider.GetArtistArt((DBArtistInfo)mvDBObject);
+
 
           if (success)
             artWorkAdded++;

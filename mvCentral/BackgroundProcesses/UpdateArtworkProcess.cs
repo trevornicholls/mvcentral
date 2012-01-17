@@ -35,12 +35,14 @@ namespace mvCentral.BackgroundProcesses
       logger.Info("Beginging artwork updater background process.");
 
       RemoveOrphanArtwork();
-      LookForMissingArtwork();
+      LookForMissingMetaData();
 
       logger.Info("Background artwork updater process complete.");
     }
 
-    // Removes Artwork From a musicvideo
+    /// <summary>
+    /// Remove Orphaned Artwork
+    /// </summary>
     public void RemoveOrphanArtwork()
     {
       logger.Info("Checking for Orphaned Artwork....");
@@ -86,9 +88,12 @@ namespace mvCentral.BackgroundProcesses
       //OnProgress(1.0);
     }
 
-    #region Missing Artwork
+    #region Missing Artwork/Info
 
-    private void LookForMissingArtwork()
+    /// <summary>
+    /// This methoded checks for missing artwork and medatdata
+    /// </summary>
+    private void LookForMissingMetaData()
     {
       // Check for missing Artist Artwork
       logger.Info("Checking for Missing Artwork (Artists)");
@@ -96,7 +101,7 @@ namespace mvCentral.BackgroundProcesses
       {
         try
         {
-          logger.Info("Checking " + currArtist.GetType().ToString() + " CurrAlbum.ID : " + currArtist.Artist);
+          logger.Debug("Checking " + currArtist.GetType().ToString() + " CurrAlbum.ID : " + currArtist.Artist);
           if (currArtist.ID == null)
             continue;
 
@@ -126,13 +131,13 @@ namespace mvCentral.BackgroundProcesses
       {
         try
         {
-          logger.Info("Checking " + currAlbum.GetType().ToString() + " CurrMusicVideo.ID : " + currAlbum.Album);
+          logger.Debug("Checking " + currAlbum.GetType().ToString() + " CurrMusicVideo.ID : " + currAlbum.Album);
           if (currAlbum.ID == null)
             continue;
 
           if (currAlbum.ArtFullPath.Trim().Length == 0)
           {
-            mvCentralCore.DataProviderManager.GetArt(currAlbum,false);
+            mvCentralCore.DataProviderManager.GetArt(currAlbum, false);
 
             // because this operation can take some time we check again
             // if the artist/album/track was not deleted while we were getting artwork
@@ -147,7 +152,7 @@ namespace mvCentral.BackgroundProcesses
           if (e is ThreadAbortException)
             throw e;
 
-          logger.ErrorException("Error retrieving Album artwork for " + currAlbum.Basic, e);
+          logger.Error("Error retrieving Album artwork for " + currAlbum.Basic);
         }
       }
       // Check for missing video Artwork
@@ -156,13 +161,13 @@ namespace mvCentral.BackgroundProcesses
       {
         try
         {
-          logger.Info("Checking " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
+          logger.Debug("Checking " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
           if (currTrack.ID == null)
             continue;
 
           if (currTrack.ArtFullPath.Trim().Length == 0)
           {
-            mvCentralCore.DataProviderManager.GetArt(currTrack,false);
+            mvCentralCore.DataProviderManager.GetArt(currTrack, false);
 
             // because this operation can take some time we check again
             // if the artist/album/track was not deleted while we were getting artwork
@@ -178,6 +183,61 @@ namespace mvCentral.BackgroundProcesses
             throw e;
 
           logger.ErrorException("Error retrieving Video artwork for " + currTrack.Basic, e);
+        }
+        // Check for Artist missing data
+        try
+        {
+          logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
+          if (currTrack.ID == null)
+            continue;
+
+          if (currTrack.ArtistInfo[0].Genre.Trim().Length == 0)
+          {
+            mvCentralCore.DataProviderManager.GetArtistDetail(currTrack);
+
+            // because this operation can take some time we check again
+            // if the artist/album/track was not deleted while we were getting artwork
+            if (currTrack.ID == null)
+              continue;
+
+            currTrack.Commit();
+          }
+        }
+        catch (Exception e)
+        {
+          if (e is ThreadAbortException)
+            throw e;
+
+          logger.ErrorException("Error retrieving Video details for " + currTrack.Basic, e);
+        }
+        // Check for Album missing data if album support enabled
+        if (currTrack.AlbumInfo.Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
+        {
+          try
+          {
+            logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
+            if (currTrack.ID == null)
+              continue;
+
+            if (currTrack.AlbumInfo[0].YearReleased.Trim().Length == 0)
+            {
+              mvCentralCore.DataProviderManager.GetAlbumDetail(currTrack);
+
+              // because this operation can take some time we check again
+              // if the artist/album/track was not deleted while we were getting artwork
+              if (currTrack.ID == null)
+                continue;
+
+              currTrack.Commit();
+            }
+          }
+          catch (Exception e)
+          {
+            if (e is ThreadAbortException)
+              throw e;
+
+            logger.ErrorException("Error retrieving Album details for " + currTrack.Basic, e);
+          }
         }
       }
     }

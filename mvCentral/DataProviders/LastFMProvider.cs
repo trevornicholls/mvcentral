@@ -146,12 +146,12 @@ namespace mvCentral.DataProviders
 
     public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
     {
-      throw new NotImplementedException();
+      return mv;
     }
 
     public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
     {
-      throw new NotImplementedException();
+      return mv;
     }
 
 
