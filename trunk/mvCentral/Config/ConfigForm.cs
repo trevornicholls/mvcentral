@@ -1641,39 +1641,37 @@ namespace mvCentral
         }
       }
     }
-
+    /// <summary>
+    /// Update the Library treenode text if the underlying data has changed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void basicInfoChanged(object sender, EventArgs e)
     {
       // This ensures we are thread safe. Makes sure this method is run by
       // the thread that created this panel.
-
       if (InvokeRequired)
       {
         Invoke(new DBBasicInfo.ChangedEventHandler(basicInfoChanged), new object[] { sender, e });
         return;
       }
+      // Update treeview node text with changes, first check we are on a valid node
       if (mvLibraryTreeView.SelectedNode != null)
       {
-
+        // Only update text if we have a matching DB object and the ID's match
         if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBTrackInfo) && sender.GetType() == typeof(DBTrackInfo))
         {
           if (((DBTrackInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBTrackInfo)sender).ID)
             mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
-        }
-
-        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBArtistInfo) && sender.GetType() == typeof(DBArtistInfo))
+        } else if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBArtistInfo) && sender.GetType() == typeof(DBArtistInfo))
         {
           if (((DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBArtistInfo)sender).ID)
             mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
-        }
-
-        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBAlbumInfo) && sender.GetType() == typeof(DBAlbumInfo))
+        } else if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBAlbumInfo) && sender.GetType() == typeof(DBAlbumInfo))
         {
           if (((DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBAlbumInfo)sender).ID)
             mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
-        }
-
-      
+        }    
       }
     }
 
