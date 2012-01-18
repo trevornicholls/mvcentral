@@ -48,7 +48,7 @@ namespace mvCentral.BackgroundProcesses
                 if (currTrack.ID == null)
                   continue;
 
-                if (currTrack.ArtistInfo[0].Genre.Trim().Length == 0)
+                if (currTrack.ArtistInfo[0].Genre.Trim().Length == 0 || (currTrack.ArtistInfo[0].Born.Trim().Length == 0 && currTrack.ArtistInfo[0].Formed.Trim().Length == 0))
                 {
                   mvCentralCore.DataProviderManager.GetArtistDetail(currTrack);
 
