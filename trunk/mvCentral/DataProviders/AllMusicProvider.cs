@@ -462,7 +462,7 @@ namespace mvCentral.DataProviders
     /// <param name="artistInfo"></param>
     private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo, string strArtistHTML)
     {
-
+      _strFormed = string.Empty;
       HTMLUtil util = new HTMLUtil();
       // Formed - Get here directly as not a field provided by the Musicartistinfo class
       string pattern = @"<h3>.*Formed.*</h3>\s*?<p>(.*)</p>";
@@ -490,7 +490,7 @@ namespace mvCentral.DataProviders
     /// <param name="artistInfo"></param>
     private void updateMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo, string strArtistHTML)
     {
-
+      _strFormed = string.Empty;
       HTMLUtil util = new HTMLUtil();
       // Formed - Get here directly as not a field provided by the Musicartistinfo class
       string pattern = @"<h3>.*Formed.*</h3>\s*?<p>(.*)</p>";
