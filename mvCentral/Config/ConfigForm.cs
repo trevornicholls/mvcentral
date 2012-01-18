@@ -1231,7 +1231,7 @@ namespace mvCentral
 
           if (mv.ArtistInfo[0] == trtag)
           {
-            artistItem = t1;
+            artistItem = t1; 
             break;
           }
         }
@@ -1653,7 +1653,28 @@ namespace mvCentral
         return;
       }
       if (mvLibraryTreeView.SelectedNode != null)
-        mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
+      {
+
+        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBTrackInfo) && sender.GetType() == typeof(DBTrackInfo))
+        {
+          if (((DBTrackInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBTrackInfo)sender).ID)
+            mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
+        }
+
+        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBArtistInfo) && sender.GetType() == typeof(DBArtistInfo))
+        {
+          if (((DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBArtistInfo)sender).ID)
+            mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
+        }
+
+        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBAlbumInfo) && sender.GetType() == typeof(DBAlbumInfo))
+        {
+          if (((DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBAlbumInfo)sender).ID)
+            mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
+        }
+
+      
+      }
     }
 
     #endregion
