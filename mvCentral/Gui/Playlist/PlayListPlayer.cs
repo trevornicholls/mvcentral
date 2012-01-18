@@ -770,9 +770,8 @@ namespace mvCentral.Playlist
     /// <param name="clear">Clears the properties instead of filling them if True</param>
     private void SetProperties(PlayListItem item, bool clear)
     {
-
-
-      if (item == null) return;
+      if (item == null) 
+        return;
 
       string title = string.Empty;
       string osdImage = string.Empty;
@@ -792,7 +791,7 @@ namespace mvCentral.Playlist
         if (trackInfo.AlbumInfo.Count > 0)
           album = trackInfo.AlbumInfo[0].Album;
 
-        title = artistInfo.Artist + " - " + trackInfo.Track;
+        title = trackInfo.Track;
 
         if (System.IO.File.Exists(artistInfo.ArtFullPath))
           osdImage = artistInfo.ArtFullPath;

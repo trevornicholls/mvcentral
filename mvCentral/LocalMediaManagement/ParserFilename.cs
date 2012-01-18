@@ -88,7 +88,7 @@ namespace mvCentral.LocalMediaManagement
         replacementRegexAfter.Clear();
         replacementRegexBefore.Clear();
         tags.Clear();
- 
+
         List<DBExpression> expressions = DBExpression.GetAll();
 
         // Bit of a frig here, for some reason the expression gets reversed during the 
@@ -98,20 +98,19 @@ namespace mvCentral.LocalMediaManagement
 
         foreach (DBExpression expression in expressions)
         {
-
           if (expression.Expression == mvCentralCore.albumRegex && mvCentralCore.Settings.IgnoreFoldersWhenParsing)
           {
             expression.Enabled = false;
             expression.Commit();
           }
+
           if (expression.Expression == mvCentralCore.albumRegex && !mvCentralCore.Settings.IgnoreFoldersWhenParsing)
           {
             expression.Enabled = true;
             expression.Commit();
           }
 
-
-          if (expression.Enabled )
+          if (expression.Enabled)
           {
             String sExpression = String.Empty;
             switch (expression.Type)
@@ -124,12 +123,11 @@ namespace mvCentral.LocalMediaManagement
                 sExpression = expression.Expression;
                 break;
             }
+
             sExpression = sExpression.ToLower();
             sExpression = sExpression.Replace("<artist>", "<" + MusicVideoImporter.cArtist + ">");
             sExpression = sExpression.Replace("<album>", "<" + MusicVideoImporter.cAlbum + ">");
             sExpression = sExpression.Replace("<track>", "<" + MusicVideoImporter.cTrack + ">");
-
-
             // we precompile the expressions here which is faster in the end
             try
             {
@@ -201,7 +199,7 @@ namespace mvCentral.LocalMediaManagement
 
 
     /// <summary>
-    /// 
+    /// Run replacements on supplied string
     /// </summary>
     /// <param name="replacements"></param>
     /// <param name="runAgainst"></param>
@@ -219,16 +217,16 @@ namespace mvCentral.LocalMediaManagement
       return runAgainst;
     }
     /// <summary>
-    /// 
+    /// Parse the filename
     /// </summary>
     /// <param name="filename"></param>
     public FilenameParser(string filename, DirectoryInfo baseFolder)
     {
       try
       {
-        ////////////////////////////////////////////////////////////////////////////////////////////
-        // Parsing filename for all recognized naming formats to extract episode information
-        ////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        // Parsing filename for all recognized naming formats to extract Artist and Track information //
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         m_Filename = filename;
         int index = 0;
 
@@ -237,7 +235,7 @@ namespace mvCentral.LocalMediaManagement
         //logger.Info(String.Format("Replacements -> Filename before {0}   Filename after : {1}",m_Filename, m_FileNameAfterReplacement));
 
         foreach (Regex regularExpression in regularExpressions)
-        {       
+        {
           Match matchResults = null;
           try
           {
@@ -257,15 +255,13 @@ namespace mvCentral.LocalMediaManagement
           // ToDo: Have some idea about checking the full path agaist the actual matches found
           //       need a reliable way validate the parse results
           //string[] pathParts = baseFolder.FullName.Split(Path.DirectorySeparatorChar);
-          
+
           try
           {
             Uri uriInfo = new Uri(baseFolder.ToString());
             // If a URL then we compare the artist against the hostname and the Album against the folder, if both match fail this parse
             if (uriInfo.IsUnc)
             {
-
-
               if (uriInfo.Host.Equals(matchResults.Groups[1].Value, StringComparison.CurrentCultureIgnoreCase) && matchResults.Groups[2].Value == baseFolder.Name)
                 continue;
             }
@@ -292,8 +288,8 @@ namespace mvCentral.LocalMediaManagement
               {
                 // ´run after replacements on captures
                 GroupValue = RunReplacements(replacementRegexAfter, GroupValue);
-
                 GroupValue = GroupValue.Trim();
+
                 if (string.IsNullOrEmpty(GroupName.Trim()) || string.IsNullOrEmpty(GroupValue.Trim()))
                   logger.Debug("Attempt to add empty value to dictionary");
                 else
@@ -323,7 +319,6 @@ namespace mvCentral.LocalMediaManagement
 
       SimpleExpression = SimpleExpression.Replace(@"\", @"\\");
       SimpleExpression = SimpleExpression.Replace(".", @"\.");
-
 
       while (true)
       {
