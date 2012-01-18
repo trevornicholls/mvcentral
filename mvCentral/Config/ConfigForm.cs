@@ -3026,7 +3026,8 @@ namespace mvCentral
             tsmGrabFrame.Enabled = true;
             tsmRemove.Enabled = true;
             autoGrabFrame30SecsToolStripMenuItem.Enabled = true;
-            tsmCreateAlbum.Enabled = true;
+            if (mvLibraryTreeView.SelectedNode.Level < 2)
+              tsmCreateAlbum.Enabled = true;
           }
           break;
       }
@@ -3203,29 +3204,35 @@ namespace mvCentral
           return;
       }
 
+      if (mvLibraryTreeView.SelectedNode.Level == 2)
+      {
+        MessageBox.Show("Please move track to Artist level before creating an album", "Unable to Create Album", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+        return;
+      }
+
       DBTrackInfo activeTrack = DBTrackInfo.Get((int) selectedTrack.ID);
       DBArtistInfo activeAtrist = DBArtistInfo.Get(CurrentTrack);
 
-      CreateAlbumForTrack cbft = new CreateAlbumForTrack(activeTrack);
-      cbft.ShowDialog();
-      if (cbft.exitStatus)
+      CreateAlbumForTrack createAlbum = new CreateAlbumForTrack(activeTrack);
+      createAlbum.ShowDialog();
+      if (createAlbum.exitStatus)
       {
         // Do we already have this album....
-        DBAlbumInfo albumCheck = DBAlbumInfo.Get(cbft.Album);
+        DBAlbumInfo albumCheck = DBAlbumInfo.Get(createAlbum.Album);
 
         if (albumCheck == null)
         {
           // No existing album - create, lookup details and add to track
           List<DBSourceInfo> sourceProviders = new List<DBSourceInfo>();
-          foreach (DBSourceInfo sourceProvider in mvCentralCore.DataProviderManager.AlbumArtSources)
+          foreach (DBSourceInfo sourceProvider in mvCentralCore.DataProviderManager.AlbumDetailSources)
           {
-            if (sourceProvider.Provider is LastFMProvider)
-              sourceProviders.Add(sourceProvider);
+            sourceProviders.Add(sourceProvider);
           }
 
           DBAlbumInfo albumToAdd = new DBAlbumInfo();
-          albumToAdd.Album = cbft.Album;
-          albumToAdd.MdID = cbft.AlbumMBID;
+          albumToAdd.Album = createAlbum.Album;
+          albumToAdd.MdID = createAlbum.AlbumMBID;
+          albumToAdd.PrimarySource = sourceProviders[0];
           albumToAdd.Commit();
 
           activeTrack.AlbumInfo.Add(albumToAdd);
@@ -3233,7 +3240,7 @@ namespace mvCentral
 
 
           albumToAdd.PrimarySource = sourceProviders[0];
-          albumToAdd.PrimarySource.Provider.GetAlbumDetails((DBBasicInfo)albumToAdd, cbft.Album, cbft.AlbumMBID);
+          albumToAdd.PrimarySource.Provider.GetAlbumDetails((DBBasicInfo)albumToAdd, createAlbum.Album, createAlbum.AlbumMBID);
           albumToAdd.Commit();
         }
         else
@@ -3281,7 +3288,8 @@ namespace mvCentral
               tsmGrabFrame.Enabled = true;
               tsmRemove.Enabled = true;
               autoGrabFrame30SecsToolStripMenuItem.Enabled = true;
-              tsmCreateAlbum.Enabled = true;
+              if (mvLibraryTreeView.SelectedNode.Level < 2)
+                tsmCreateAlbum.Enabled = true;
             }
             break;
         }

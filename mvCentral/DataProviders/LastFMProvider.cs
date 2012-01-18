@@ -740,13 +740,16 @@ namespace mvCentral.DataProviders
       logger.Debug(string.Format("In method setMusicVideoAlbum : Atrist ({0})   |    Album ({1})    |    MBID ({2})", artist, album, mbid));
 
       XmlNodeList xml = null;
+      //if (mbid != null)
+      //  if (mbid.Trim().Length == 0)
+      //    mbid = string.Empty;
 
       // Do we have a valid parameter - bail out if not
       if (album == null && mbid == null)
         return;
 
       // API Call takes MbId or Artist & Album
-      if (!string.IsNullOrEmpty(mbid.Trim()))
+      if (!(string.IsNullOrEmpty(mbid) || mbid.Trim().Length == 0))
         xml = getXML(string.Format(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
       else if (!string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(album))
         xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album, mvCentralCore.Settings.DataProviderAutoLanguage));
