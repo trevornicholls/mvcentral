@@ -73,6 +73,17 @@ namespace mvCentral.Database
       }
     } private string _born;
 
+    [DBField]
+    public string Formed
+    {
+      get { return _formed; }
+
+      set
+      {
+        _formed = value;
+        commitNeeded = true;
+      }
+    } private string _formed;
 
     [DBField]
     public string Genre

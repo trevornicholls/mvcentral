@@ -42,6 +42,8 @@ namespace mvCentral.DataProviders
     private static readonly Regex BracketRegEx = new Regex(@"(.*)\(.+\)$", RegexOptions.Compiled);
     private static readonly Regex PunctuationRegex = new Regex("[?!.:;)()-_ ]", RegexOptions.Compiled);
 
+    private Match _match = null;
+    private string _strFormed = "";
     private static bool _strippedPrefixes;
     private static bool _logMissing;
     private static bool _useAlternative = true;
@@ -138,7 +140,7 @@ namespace mvCentral.DataProviders
         {
           artistInfo.Artist = artist;
           DBArtistInfo mv1 = (DBArtistInfo)mv.ArtistInfo[0];
-          updateMusicVideoArtist(ref mv1, artistInfo);
+          updateMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
         }
       }
       return mv;
@@ -268,8 +270,8 @@ namespace mvCentral.DataProviders
           {
             artistInfo.Artist = artist;
             DBArtistInfo mv1 = (DBArtistInfo)mv;
-            setMusicVideoArtist(ref mv1, artistInfo);
-            //GetArtistArt((DBArtistInfo)mv);
+            setMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
+            GetArtistArt((DBArtistInfo)mv);
           }
         }
         return false;
@@ -458,8 +460,21 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="artistInfo"></param>
-    private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo)
+    private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo, string strArtistHTML)
     {
+
+      HTMLUtil util = new HTMLUtil();
+      // Formed - Get here directly as not a field provided by the Musicartistinfo class
+      string pattern = @"<h3>.*Formed.*</h3>\s*?<p>(.*)</p>";
+      if (FindPattern(pattern, strArtistHTML))
+      {
+        string strValue = _match.Groups[1].Value;
+        util.RemoveTags(ref strValue);
+        util.ConvertHTMLToAnsi(strValue, out _strFormed);
+        _strFormed = _strFormed.Trim();
+      }
+
+      mv.Formed = _strFormed;
       mv.Born = artistInfo.Born;
       mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
       mv.bioContent = artistInfo.AMGBiography;
@@ -473,8 +488,23 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="artistInfo"></param>
-    private void updateMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo)
+    private void updateMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo, string strArtistHTML)
     {
+
+      HTMLUtil util = new HTMLUtil();
+      // Formed - Get here directly as not a field provided by the Musicartistinfo class
+      string pattern = @"<h3>.*Formed.*</h3>\s*?<p>(.*)</p>";
+      if (FindPattern(pattern, strArtistHTML))
+      {
+        string strValue = _match.Groups[1].Value;
+        util.RemoveTags(ref strValue);
+        util.ConvertHTMLToAnsi(strValue, out _strFormed);
+        _strFormed = _strFormed.Trim();
+      }
+
+      if (mv.Formed.Trim() == string.Empty)
+        mv.Formed = _strFormed;
+
       if (mv.Born.Trim() == string.Empty)
         mv.Born = artistInfo.Born;
 
@@ -538,6 +568,32 @@ namespace mvCentral.DataProviders
           return false;
       }
     }
+    /// <summary>
+    /// Do a Regex search with the given pattern and fill the Match object
+    /// </summary>
+    /// <param name="pattern"></param>
+    /// <param name="searchString"></param>
+    /// <returns></returns>
+    private bool FindPattern(string pattern, string searchString)
+    {
+      Regex itemsFound = new Regex(
+        pattern,
+        RegexOptions.IgnoreCase
+        | RegexOptions.Multiline
+        | RegexOptions.IgnorePatternWhitespace
+        | RegexOptions.Compiled
+        );
+
+      _match = itemsFound.Match(searchString);
+      if (_match.Success)
+      {
+        return true;
+      }
+
+      return false;
+    }
+
+
     #endregion
 
     #region URL and HTTP Handling
@@ -1121,6 +1177,7 @@ namespace mvCentral.DataProviders
     /// <returns>An encoded, cleansed string</returns>
     private string EncodeString(string strUnclean)
     {
+      strUnclean = Regex.Replace(strUnclean, " {2,}", " ");
       var stFormD = strUnclean.Normalize(NormalizationForm.FormD);
       var sb = new StringBuilder();
 

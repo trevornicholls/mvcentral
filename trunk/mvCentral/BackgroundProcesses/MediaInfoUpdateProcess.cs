@@ -65,14 +65,14 @@ namespace mvCentral.BackgroundProcesses
                 if (e is ThreadAbortException)
                   throw e;
 
-                logger.ErrorException("Error retrieving Video details for " + currTrack.Basic, e);
+                logger.ErrorException("Error retrieving Artist details for " + currTrack.Basic, e);
               }
               // Check for Album missing data if album support enabled
               if (currTrack.AlbumInfo.Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
               {
                 try
                 {
-                  logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
+                  logger.Debug("Checking for Album missing deails " + currTrack.GetType().ToString() + " Title : " + currTrack.AlbumInfo[0].Album);
                   if (currTrack.ID == null)
                     continue;
 
