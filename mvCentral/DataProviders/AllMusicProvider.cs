@@ -102,7 +102,7 @@ namespace mvCentral.DataProviders
     {
       get { return true; }
     }
-     
+
 
 
     public bool ProvidesArtistArt
@@ -235,7 +235,7 @@ namespace mvCentral.DataProviders
 
       if (GetAlbumHTML(artist.Artist, mvAlbumObject.Album, out strAlbumHTML))
       {
-        var albumInfo = new MusicAlbumInfo();      
+        var albumInfo = new MusicAlbumInfo();
 
         if (albumInfo.Parse(strAlbumHTML))
         {
@@ -370,7 +370,7 @@ namespace mvCentral.DataProviders
         //  results.Add(mv);
         //}
 
-        }
+      }
       return results;
     }
 
@@ -610,9 +610,10 @@ namespace mvCentral.DataProviders
     /// <param name="strArtist">artist name</param>
     /// <param name="strArtistURL">the URL of the artist</param>
     /// <returns>True if an artist page can be found else false</returns>
-    private bool GetArtistURL(String strArtist, out String strArtistURL)
+    private bool GetArtistURL(String strArtist, out String strArtistURL,out List<string> strArtistURLs)
     {
       strArtistURL = string.Empty;
+      strArtistURLs = new List<string>();
       try
       {
         var strEncodedArtist = EncodeString(strArtist);
@@ -643,7 +644,7 @@ namespace mvCentral.DataProviders
             {
               return false;
             }
-            var altTry = GetArtistURLAlternative(strArtist, out strArtistURL);
+            var altTry = GetArtistURLAlternative(strArtist, out strArtistURL, out strArtistURLs);
             if (altTry)
             {
               return true;
@@ -674,9 +675,11 @@ namespace mvCentral.DataProviders
     /// <param name="strArtist">Name of artist we are searching for</param>
     /// <param name="strArtistURL">URL of artist</param>
     /// <returns>True if artist page found</returns>
-    private bool GetArtistURLAlternative(String strArtist, out String strArtistURL)
+    private bool GetArtistURLAlternative(String strArtist, out String strArtistURL, out List<string> strArtistURLs)
     {
       strArtistURL = string.Empty;
+      strArtistURLs = new List<string>();
+
       try
       {
         var strEncodedArtist = EncodeString(strArtist);
@@ -717,25 +720,15 @@ namespace mvCentral.DataProviders
             x.Abort();
             y.Close();
 
-            //            var artistURLRegExp = new Regex(@"<td><a href=""(?<artistURL>.*?)"">" + Regex.Escape(strCleanArtist) +
-            //            var artistURLRegExp = new Regex(@"<td><a href=""(?<artistURL>.*?)"">(?<artist>.*?)</a></td>\s*<td>(?<genres>.*?)</td>\s*<td>(?<years>.*?)</td>\s*</tr>",
-            //              RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
-
             var matches = ArtistURLRegEx.Matches(artistHTML);
             var numberOfMatchesWithYears = 0;
-            //            var matchIndex = -1; // this is index in collection to use.   Will only be used if matched and incremented
-
-            //            //some cases like Björk where there is only a single entry matching artist in list but stil returns list rather
-            //            //then redirecting to artist page
-            //           if (matches.Count == 1 &&  )
-            //            {
-            //              strArtistURL = matches[0].Groups["artistURL"].ToString();
-            //#if DEBUG
-            //              logger.Debug("GetArtistURLAlternative: Single match on artist screen: strArtistURL: {0}", strArtistURL);
-            //#endif
-            //              return true;
-            //            }
-
+             //some cases like Björk where there is only a single entry matching artist in list but stil returns list rather then redirecting to artist page
+            if (matches.Count == 1)
+            {
+              strArtistURL = matches[0].Groups["artistURL"].ToString();
+              //logger.Debug("GetArtistURLAlternative: Single match on artist screen: strArtistURL: {0}", strArtistURL);
+              return true;
+            }
 
             var strPotentialURL = string.Empty;
             var strCleanArtist = EncodeString(CleanArtist(strArtist));
@@ -763,6 +756,13 @@ namespace mvCentral.DataProviders
               {
                 logger.Debug("GetArtistURLAlternative: Multiple matches with years active - returning 1st entry");
                 strPotentialURL = matches[0].Groups["artistURL"].ToString();
+                //strArtistURLs.Clear();
+                for (int i = 1; i < 5; i++)
+                {
+                  string artURL = matches[i].Groups["artistURL"].ToString();
+                  strArtistURLs.Add(artURL);
+                }
+                break;
               }
             }
 
@@ -996,10 +996,12 @@ namespace mvCentral.DataProviders
     {
       artistHTML = string.Empty;
       artistURL = string.Empty;
+
       try
       {
         String strRedirect;
-        if (!GetArtistURL(strArtist, out strRedirect))
+        List<string> strArtistURLs = null;
+        if (!GetArtistURL(strArtist, out strRedirect, out strArtistURLs))
         {
           return false;
         }
@@ -1062,20 +1064,63 @@ namespace mvCentral.DataProviders
       {
         String strRedirect;
         String strAlbumURL;
-        if (!GetArtistURL(strAlbumArtist, out strRedirect))
+        List<string> strArtistURLs = null;
+        if (!GetArtistURL(strAlbumArtist, out strRedirect, out strArtistURLs))
         {
           return false;
         }
 
+        bool albumFound = false;
+
         var strURL = strRedirect + "/discography/";
-        if (!GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+        if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+          albumFound = true;
+        else
         {
           strURL = strURL + "/compilations/";
-          if (!GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+          if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+            albumFound = true;
+          else
+            albumFound = false;
+        }
+        
+        // If the album was not found and there are no additional artist URLs then exit
+        if (!albumFound && strArtistURLs.Count == 0)
+          return false;
+
+        bool searchForAlbum = true;
+
+        while (searchForAlbum)
+        {
+          for (int i = 0; i < strArtistURLs.Count; i++)
           {
-            return false;
+            strURL = strArtistURLs[i] + "/discography/";
+            if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+            {
+              albumFound = true;
+              searchForAlbum = false;
+              break;
+            }             
+            else
+            {
+              strURL = strURL + "/compilations/";
+              if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+              {
+                albumFound = true;
+                searchForAlbum = false;
+                break;
+              }
+              else
+              {
+                albumFound = false;
+                searchForAlbum = false;
+              }
+            }
           }
         }
+
+        if (!albumFound)
+          return false;
 
 
         logger.Debug("GetAlbumHTML: Album URL: {0}", strAlbumURL);
