@@ -34,8 +34,8 @@ namespace mvCentral.DataProviders
 
     private const string apiMusicVideoUrl = "http://www.discogs.com/{0}/{1}?f=xml&api_key={2}";
     private const string apikey = "5f15ded8a8";
-    private static string apiArtistGetInfo = string.Format(apiMusicVideoUrl, "artist", "{0}", apikey);
-    private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "release", "{0}", apikey);
+    private static string apiArtistGetInfo = string.Format(apiMusicVideoUrl, "artists", "{0}", apikey);
+    private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "releases", "{0}", apikey);
     private static string apiSearch = string.Format("http://www.discogs.com/search?type=all&q={0}&f=xml&api_key={1}", "{0}", apikey);
 
 
@@ -113,46 +113,34 @@ namespace mvCentral.DataProviders
       throw new NotImplementedException();
     }
 
-    public bool GetArtistArt(DBArtistInfo mv)
+    public bool GetArtistArt(DBArtistInfo mvArtistObject)
     {
-      if (mv == null)
+      if (mvArtistObject == null)
         return false;
 
-      // if we already have a backdrop move on for now
-      //if (mv.ArtFullPath.Trim().Length > 0) 
-      //  return true;
+      int artistartAdded = 0;
+      int count = 0;
+      // grab artistart loading settings
+      int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
 
-      //if (mv.ArtFullPath.Trim().Length == 0)
-      //{
-        List<string> at = mv.ArtUrls;
-        if (at != null)
+      lock (mvArtistObject)
+      {
+        if (mvArtistObject.ArtUrls != null)
         {
-          // grab artistart loading settings
-          int maxArtistArts = mvCentralCore.Settings.MaxArtistArts;
-
-          int artistartAdded = 0;
-          int count = 0;
-          lock (mv)
+          foreach (string a2 in mvArtistObject.ArtUrls)
           {
-            foreach (string a2 in at)
-            {
-              if (mv.AlternateArts.Count >= maxArtistArts)
-                break;
+            if (mvArtistObject.AlternateArts.Count >= maxArtistArts)
+              break;
 
-              if (mv.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
-                artistartAdded++;
+            if (mvArtistObject.AddArtFromURL(a2) == ImageLoadResults.SUCCESS)
+              artistartAdded++;
 
-              count++;
-            }
-          }
-          if (artistartAdded > 0)
-          {
-            // Update source info
-            //                        mv.GetSourceMusicVideoInfo(SourceInfo).Identifier = mv.MdID;
-            return true;
+            count++;
           }
         }
-      //}
+        if (artistartAdded > 0)
+          return true;
+      }
 
       // if we get here we didn't manage to find a proper backdrop
       // so return false
@@ -421,7 +409,6 @@ namespace mvCentral.DataProviders
         switch (node.Name)
         {
           case "name":
-
             mv.Artist = value;
             break;
           case "mbid":
