@@ -739,7 +739,7 @@ namespace mvCentral.DataProviders
             foreach (Match m in matches)
             {
               var strCleanMatch = EncodeString(CleanArtist(m.Groups["artist"].ToString()));
-              //logger.Debug("GetArtistURLAlternative: Cleaned/Encoded matched Artist: |{0}|", strCleanMatch);
+              logger.Debug("GetArtistURLAlternative: Cleaned/Encoded matched Artist: |{0}| compare to match |{1}|", strCleanMatch, strCleanArtist);
 
               if (strCleanArtist != strCleanMatch) 
                 continue;
@@ -1088,12 +1088,16 @@ namespace mvCentral.DataProviders
         if (!albumFound && strArtistURLs.Count == 0)
           return false;
 
-        bool searchForAlbum = true;
+        logger.Debug("Album details not found from Primary artist (1st in list), check artists 1 - 4 in the list");
 
-        while (searchForAlbum)
+        bool searchForAlbum = true;
+        while (searchForAlbum && strArtistURLs.Count > 0)
         {
+          logger.Debug("In While Loop");
           for (int i = 0; i < strArtistURLs.Count; i++)
           {
+            logger.Debug("Checking {0} with URL {1}", i, strArtistURLs[i]);
+
             strURL = strArtistURLs[i] + "/discography/";
             if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
             {
@@ -1244,7 +1248,10 @@ namespace mvCentral.DataProviders
     private static string CleanArtist(string strArtist)
     {
       var strCleanArtist = strArtist.ToLower();
-      strCleanArtist = strCleanArtist.Replace("&", "and").Replace("+", "and").TrimStart("the ".ToCharArray());
+      strCleanArtist = strCleanArtist.Replace("&", "and");
+      strCleanArtist = strCleanArtist.Replace("+", "and");
+      strCleanArtist = strCleanArtist.Replace(".", string.Empty);
+      strCleanArtist = strCleanArtist.Replace("the ", string.Empty);
       return strCleanArtist;
     }
 
