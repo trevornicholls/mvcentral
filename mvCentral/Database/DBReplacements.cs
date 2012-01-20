@@ -143,7 +143,7 @@ namespace mvCentral.Database
     public static void AddDefaults()
     {
       ClearAll();
-      add(true, false, false, false, ".", @"<space>");
+      add(false, false, false, false, ".", @"<space>");
       add(true, false, false, false, "_", @"<space>");
       add(true, false, false, false, "-<space>", @"<empty>");
 

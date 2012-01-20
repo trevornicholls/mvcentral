@@ -739,7 +739,7 @@ namespace mvCentral.DataProviders
             foreach (Match m in matches)
             {
               var strCleanMatch = EncodeString(CleanArtist(m.Groups["artist"].ToString()));
-              logger.Debug("GetArtistURLAlternative: Cleaned/Encoded matched Artist: |{0}| compare to match |{1}|", strCleanMatch, strCleanArtist);
+              //logger.Debug("GetArtistURLAlternative: Cleaned/Encoded matched Artist: |{0}| compare to match |{1}|", strCleanMatch, strCleanArtist);
 
               if (strCleanArtist != strCleanMatch) 
                 continue;
@@ -1088,8 +1088,8 @@ namespace mvCentral.DataProviders
         if (!albumFound && strArtistURLs.Count == 0)
           return false;
 
+        // We have not found the album but we do have additional artists we can check
         logger.Debug("Album details not found from Primary artist (1st in list), check artists 1 - 4 in the list");
-
         bool searchForAlbum = true;
         while (searchForAlbum && strArtistURLs.Count > 0)
         {
@@ -1101,6 +1101,7 @@ namespace mvCentral.DataProviders
             strURL = strArtistURLs[i] + "/discography/";
             if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
             {
+              logger.Debug("Album found for artist URL : {0}", strURL);
               albumFound = true;
               searchForAlbum = false;
               break;
@@ -1110,6 +1111,7 @@ namespace mvCentral.DataProviders
               strURL = strURL + "/compilations/";
               if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
               {
+                logger.Debug("Album found for artist URL : {0}", strURL);
                 albumFound = true;
                 searchForAlbum = false;
                 break;
@@ -1250,13 +1252,10 @@ namespace mvCentral.DataProviders
       var strCleanArtist = strArtist.ToLower();
       strCleanArtist = strCleanArtist.Replace("&", "and");
       strCleanArtist = strCleanArtist.Replace("+", "and");
-      strCleanArtist = strCleanArtist.Replace(".", string.Empty);
+      //strCleanArtist = strCleanArtist.Replace(".", string.Empty);
       strCleanArtist = strCleanArtist.Replace("the ", string.Empty);
       return strCleanArtist;
     }
-
-
-
 
     #endregion
 
