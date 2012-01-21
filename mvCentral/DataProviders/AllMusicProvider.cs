@@ -1088,27 +1088,19 @@ namespace mvCentral.DataProviders
         if (!albumFound && strArtistURLs.Count == 0)
           return false;
 
-        // We have not found the album but we do have additional artists we can check
-        logger.Debug("Album details not found from Primary artist (1st in list), check artists 1 - 4 in the list");
-        bool searchForAlbum = true;
-        while (searchForAlbum && strArtistURLs.Count > 0)
+        if (!albumFound)
         {
-          logger.Debug("In While Loop");
-          for (int i = 0; i < strArtistURLs.Count; i++)
+          // We have not found the album but we do have additional artists we can check
+          logger.Debug("Album details not found from Primary artist (1st in list), check artists 1 - 4 in the list");
+          bool searchForAlbum = true;
+          while (searchForAlbum && strArtistURLs.Count > 0)
           {
-            logger.Debug("Checking {0} with URL {1}", i, strArtistURLs[i]);
+            logger.Debug("In While Loop");
+            for (int i = 0; i < strArtistURLs.Count; i++)
+            {
+              logger.Debug("Checking {0} with URL {1}", i, strArtistURLs[i]);
 
-            strURL = strArtistURLs[i] + "/discography/";
-            if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
-            {
-              logger.Debug("Album found for artist URL : {0}", strURL);
-              albumFound = true;
-              searchForAlbum = false;
-              break;
-            }             
-            else
-            {
-              strURL = strURL + "/compilations/";
+              strURL = strArtistURLs[i] + "/discography/";
               if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
               {
                 logger.Debug("Album found for artist URL : {0}", strURL);
@@ -1118,8 +1110,19 @@ namespace mvCentral.DataProviders
               }
               else
               {
-                albumFound = false;
-                searchForAlbum = false;
+                strURL = strURL + "/compilations/";
+                if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
+                {
+                  logger.Debug("Album found for artist URL : {0}", strURL);
+                  albumFound = true;
+                  searchForAlbum = false;
+                  break;
+                }
+                else
+                {
+                  albumFound = false;
+                  searchForAlbum = false;
+                }
               }
             }
           }

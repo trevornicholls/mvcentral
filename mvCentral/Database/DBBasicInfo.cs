@@ -270,7 +270,6 @@ namespace mvCentral.Database
     } private String _thumbfullpath;
 
 
-
     #endregion
 
     #region General Management Methods
@@ -359,7 +358,10 @@ namespace mvCentral.Database
         }
       }
 
-      if (ArtFullPath.Contains(mvCentralCore.Settings.CustomArtistArtFolder) || ArtFullPath.Contains(mvCentralCore.Settings.CustomAlbumArtFolder) || ArtFullPath.Contains(mvCentralCore.Settings.CustomTrackArtFolder))
+      // If using a custom artwork folder then dont delete the artwork.... 
+      if ((ArtFullPath.Contains(mvCentralCore.Settings.CustomArtistArtFolder) && mvCentralCore.Settings.SearchCustomFolderForArtistArt) ||
+           (ArtFullPath.Contains(mvCentralCore.Settings.CustomAlbumArtFolder) && mvCentralCore.Settings.SearchCustomFolderForAlbumArt) ||
+           (ArtFullPath.Contains(mvCentralCore.Settings.CustomTrackArtFolder) && mvCentralCore.Settings.SearchCustomFolderForTrackArt))
       {
         ArtFullPath = "";
         AlternateArts.Remove(FilePath);

@@ -1112,10 +1112,11 @@ namespace mvCentral.GUI
         GUIListItem facadeItem = new GUIListItem();
 
         facadeItem.Label = artistData.Artist;
-        if (string.IsNullOrEmpty(artistData.ArtThumbFullPath.Trim()))
+
+        if (string.IsNullOrEmpty(artistData.ArtFullPath.Trim()))
           facadeItem.ThumbnailImage = artistTrackArt(artistData);
         else
-          facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
+          facadeItem.ThumbnailImage = artistData.ArtFullPath;
 
         facadeItem.TVTag = artistData.bioContent;
         facadeItem.AlbumInfoTag = artistData.bioContent;
@@ -1501,10 +1502,10 @@ namespace mvCentral.GUI
         GUIListItem facadeItem = new GUIListItem();
 
         facadeItem.Label = artistData.Artist;
-        if (string.IsNullOrEmpty(artistData.ArtThumbFullPath.Trim()))
+        if (string.IsNullOrEmpty(artistData.ArtFullPath.Trim()))
           facadeItem.ThumbnailImage = artistTrackArt(artistData);
         else
-          facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
+          facadeItem.ThumbnailImage = artistData.ArtFullPath;
 
         facadeItem.TVTag = artistData.bioContent;
         facadeItem.AlbumInfoTag = artistData.bioContent;
@@ -1792,10 +1793,10 @@ namespace mvCentral.GUI
         GUIListItem facadeItem = new GUIListItem();
 
         facadeItem.Label = artistData.Artist;
-        if (string.IsNullOrEmpty(artistData.ArtThumbFullPath.Trim()))
+        if (string.IsNullOrEmpty(artistData.ArtFullPath.Trim()))
           facadeItem.ThumbnailImage = artistTrackArt(artistData);
         else
-          facadeItem.ThumbnailImage = artistData.ArtThumbFullPath;
+          facadeItem.ThumbnailImage = artistData.ArtFullPath;
 
         facadeItem.TVTag = artistData.bioContent;
         facadeItem.AlbumInfoTag = artistData.bioContent;
@@ -1858,32 +1859,41 @@ namespace mvCentral.GUI
     /// <param name="parent"></param>
     void onArtistSelected(GUIListItem item, GUIControl parent)
     {
-
       if (item == null)
       {
         logger.Error("onArtistSelected - No Item!!!");
         return;
       }
 
-      // Set the Bio Content
-      if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", string.Format(Localization.NoArtistBio, item.Label));
-      else
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", item.TVTag.ToString());
-      // Set artist name and image
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", item.Label);
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", item.ThumbnailImage);
-      
-      // How many videos do we have for this artist
-      currArtist = DBArtistInfo.Get(item.Label);
+      currArtist = (DBArtistInfo)item.MusicTag;
+
       if (currArtist == null)
       {
         logger.Error("Unable to get artist {0} !!", item.Label);
         return;
       }
 
+      // Set the Bio Content
+      if (string.IsNullOrEmpty(currArtist.bioContent))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", string.Format(Localization.NoArtistBio, item.Label));
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", currArtist.bioContent);
+      
+      // Set artist name and image
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", currArtist.Artist);
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", currArtist.ArtFullPath);
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
+      // Set BornOrFormed property
+      if (currArtist.Formed.Trim().Length == 0 && currArtist.Born.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", string.Empty);
+      else if (currArtist.Formed.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}",Localization.Born, currArtist.Born));
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}" + Localization.Formed, currArtist.Formed));
+
+      GUIPropertyManager.SetProperty("#mvCentral.Genre", currArtist.Genre);
+
       // Artist Genres
       string artistTags = string.Empty;
       foreach (string tag in currArtist.Tag)
@@ -1896,7 +1906,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "true");
       GUIPropertyManager.SetProperty("#mvCentral.TrackView", "false");
       GUIPropertyManager.SetProperty("#mvCentral.AlbumView", "false");
-      // Let property manager knwo we have chnages something
+      // Let property manager knwo we have changes something
       GUIPropertyManager.Changed = true;
       // Store postions in facade
       lastItemArt = facadeLayout.SelectedListItemIndex;
@@ -1927,24 +1937,23 @@ namespace mvCentral.GUI
         else
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
 
-        DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
-        // Get the artist and set the artist prop
+        // Get the artist 
         DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
+        currArtist = artistInfo;
+        currentArtistID = item.ItemId;
+        // And set some artist properites
         GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
+        GUIPropertyManager.SetProperty("#mvCentral.Genre", artistInfo.Genre);
 
+        // Get the Album and set some skin props
         albumInfo = DBAlbumInfo.Get(trackInfo);
-
         if (albumInfo == null)
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist);
         else
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist + " | " + albumInfo.Album);
 
-        currArtist = artistInfo;
-        currentArtistID = item.ItemId;
-
         // Misc Proprities
         GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
         // Set the view
         GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
         GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
@@ -1960,11 +1969,16 @@ namespace mvCentral.GUI
         }
         else
         {
-          // Video
+          // Get the mediainfo details
+          DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+          // Set Video skin props
           GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
           GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
           GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
-          // Audio
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videowidth", mediaInfo.VideoWidth.ToString());
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoheight", mediaInfo.VideoHeight.ToString());
+          GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoframerate", mediaInfo.VideoFrameRate.ToString());
+          // Set Audio skin props
           GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
           GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
           GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
