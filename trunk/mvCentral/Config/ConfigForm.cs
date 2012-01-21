@@ -80,6 +80,19 @@ namespace mvCentral
 
     CustomArtworkFolders customFolders = new CustomArtworkFolders();
     ArtworkImportOptions artworkOptions = new ArtworkImportOptions();
+
+    /// <summary>The name of the ASCII URL data format in the drag-and-drop data.</summary>
+    private const string _asciiUrlDataFormatName = "UniformResourceLocator";
+
+    /// <summary>The text encoding used to read ASCII URLs from the drag-and-drop data.</summary>
+    private static readonly Encoding _asciiUrlEncoding = Encoding.ASCII;
+
+    /// <summary>The name of the Unicode URL data format in the drag-and-drop data.</summary>
+    private const string _unicodeUrlDataFormatName = "UniformResourceLocatorW";
+
+    /// <summary>The text encoding used to read Unicode URLs from the drag-and-drop data.</summary>
+    private static readonly Encoding _unicodeUrlEncoding = Encoding.Unicode;
+
     #endregion
 
     #region Public Methods
@@ -428,7 +441,7 @@ namespace mvCentral
 
 
       logger.Info("Load Paths, Replacements and Expressions and the Library");
-      load.updateStats("Please wait, loading paths...", 0,0,0);
+      load.updateStats("Please wait, loading paths...", 0, 0, 0);
       LoadPaths();
       load.updateStats("Please wait, loading replacements...", 0, 0, 0);
       LoadReplacements();
@@ -1231,7 +1244,7 @@ namespace mvCentral
 
           if (mv.ArtistInfo[0] == trtag)
           {
-            artistItem = t1; 
+            artistItem = t1;
             break;
           }
         }
@@ -1278,7 +1291,7 @@ namespace mvCentral
           mv.AlbumInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
         }
       }
-      else 
+      else
         AlbumNodeExist = false;
 
       TreeNode trackItem = new TreeNode(mv.Track, 3, 3);
@@ -1451,7 +1464,7 @@ namespace mvCentral
         // Add drag node to drop node
         dropNode.Nodes.Add(this.dragNode);
         dropNode.ExpandAll();
-        UpdateDB(this.dragNode,dropNode);
+        UpdateDB(this.dragNode, dropNode);
         // Set drag node to null
         this.dragNode = null;
 
@@ -1576,7 +1589,7 @@ namespace mvCentral
         DBAlbumInfo albumObject = null;
 
         DBTrackInfo sourceTrack = (DBTrackInfo)sourceDataNode.Tag;
-   
+
         // As this is a track the parent is either the artist or album, so pull the relevent object from the tag
         if (sourceDataNode.Parent.Parent != null)
         {
@@ -1663,15 +1676,17 @@ namespace mvCentral
         {
           if (((DBTrackInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBTrackInfo)sender).ID)
             mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
-        } else if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBArtistInfo) && sender.GetType() == typeof(DBArtistInfo))
+        }
+        else if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBArtistInfo) && sender.GetType() == typeof(DBArtistInfo))
         {
           if (((DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBArtistInfo)sender).ID)
             mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
-        } else if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBAlbumInfo) && sender.GetType() == typeof(DBAlbumInfo))
+        }
+        else if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBAlbumInfo) && sender.GetType() == typeof(DBAlbumInfo))
         {
           if (((DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag).ID == ((DBAlbumInfo)sender).ID)
             mvLibraryTreeView.SelectedNode.Text = (sender as DBBasicInfo).Basic;
-        }    
+        }
       }
     }
 
@@ -2458,6 +2473,7 @@ namespace mvCentral
       if (sender == btnNextArt) mv.NextArt();
       if (sender == btnPrevArt) mv.PreviousArt();
       setArtImage();
+      updateDBPage();
     }
 
     private void setArtImage()
@@ -2717,7 +2733,7 @@ namespace mvCentral
         {
           if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DGProvider)
           { }
-          else 
+          else
             r1.Add(r2);
         }
       }
@@ -2734,7 +2750,7 @@ namespace mvCentral
       ThreadStart actions = delegate
       {
         startArtProgressBar();
-        mvCentralCore.DataProviderManager.GetArt(mv,true);
+        mvCentralCore.DataProviderManager.GetArt(mv, true);
         stopArtProgressBar();
       };
       Thread thread = new Thread(actions);
@@ -3019,7 +3035,7 @@ namespace mvCentral
         case "tpArtist":
           break;
         case "tpAlbum":
-           break;
+          break;
         case "tpTrack":
           if (CurrentTrack != null)
           {
@@ -3210,7 +3226,7 @@ namespace mvCentral
         return;
       }
 
-      DBTrackInfo activeTrack = DBTrackInfo.Get((int) selectedTrack.ID);
+      DBTrackInfo activeTrack = DBTrackInfo.Get((int)selectedTrack.ID);
       DBArtistInfo activeAtrist = DBArtistInfo.Get(CurrentTrack);
 
       CreateAlbumForTrack createAlbum = new CreateAlbumForTrack(activeTrack);
@@ -3297,5 +3313,189 @@ namespace mvCentral
       }
     }
     #endregion
+
+
+    /// <summary>
+    /// Handle dragenter event on panel with picturebox control
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void splitContainer3_Panel2_DragEnter(object sender, DragEventArgs e)
+    {
+      if (DoesDragDropDataContainUrl(e.Data))
+      {
+        e.Effect = DragDropEffects.Link;
+      } 
+      else if ( e.Data.GetDataPresent(DataFormats.FileDrop))
+        e.Effect = DragDropEffects.Copy; // Okay
+      else
+        e.Effect = DragDropEffects.None; // Unknown data, ignore it
+    }
+    /// <summary>
+    /// Handle the drop event
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void splitContainer3_Panel2_DragDrop(object sender, DragEventArgs e)
+    {
+      if (DoesDragDropDataContainUrl(e.Data))
+      {
+        string droppedUrl = ReadUrlFromDragDropData(e.Data);
+        if (droppedUrl != null && droppedUrl.Trim().Length != 0)
+        {
+          DBBasicInfo mv = null;
+          switch (tcMusicVideo.SelectedTab.Name)
+          {
+            case "tpArtist":
+              mv = CurrentArtist;
+              break;
+            case "tpAlbum":
+              mv = CurrentAlbum;
+              break;
+            case "tpTrack":
+              mv = CurrentTrack;
+              break;
+          }
+          if (mv == null) return;
+
+          ThreadStart actions = delegate
+          {
+            startArtProgressBar();
+            ImageLoadResults result = mv.AddArtFromURL(droppedUrl, true);
+            stopArtProgressBar();
+            switch (result)
+            {
+              case ImageLoadResults.SUCCESS:
+              case ImageLoadResults.SUCCESS_REDUCED_SIZE:
+                // set new cover to current and update screen
+                mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
+                mv.Commit();
+                break;
+              case ImageLoadResults.FAILED_ALREADY_LOADED:
+                MessageBox.Show("Art from the specified URL has already been loaded.");
+                break;
+              case ImageLoadResults.FAILED:
+                MessageBox.Show("Failed loading art from specified URL.");
+                break;
+            }
+          };
+
+          Thread thread = new Thread(actions);
+          thread.Name = "ArtUpdater";
+          thread.Start();
+        }
+      }
+      else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+      {
+
+        string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+
+        try
+        {
+          // Lets check if this is a valid image, this will throw an OutOfMemoryException if not an inage
+          Image testImage = Image.FromFile(FileList[0]);
+
+          // We got here so much be an image, lets try and load it
+          DBBasicInfo mv = null;
+          switch (tcMusicVideo.SelectedTab.Name)
+          {
+            case "tpArtist":
+              mv = CurrentArtist;
+              break;
+            case "tpAlbum":
+              mv = CurrentAlbum;
+              break;
+            case "tpTrack":
+              mv = CurrentTrack;
+              break;
+          }
+          if (mv == null) return;
+
+          bool success = mv.AddArtFromFile(FileList[0]);
+          if (success)
+          {
+            // set new art to current and update screen
+            mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
+            mv.Commit();
+            setArtImage();
+            updateDBPage();
+          }
+          else
+            MessageBox.Show("Failed loading art from specified location.");
+
+        }
+        catch (OutOfMemoryException ex)
+        {
+          MessageBox.Show("This is not a valid image file");
+        }
+      }
+    }
+
+
+
+    /// <summary>Tests whether drag-and-drop data contains a URL.</summary>
+    /// <param name="data">The drag-and-drop data.</param>
+    /// <returns><see langword="true"/> if <paramref name="data"/> contains a URL,
+    /// <see langword="false"/> otherwise.</returns>
+    private static bool DoesDragDropDataContainUrl(IDataObject data)
+    {
+      // Test for both Unicode and ASCII URLs
+      return
+          DoesDragDropDataContainUrl(data, _unicodeUrlDataFormatName) || DoesDragDropDataContainUrl(data, _asciiUrlDataFormatName);
+    }
+    /// <summary>Tests whether drag-and-drop data contains a URL using a particular text encoding.</summary>
+    /// <param name="data">The drag-and-drop data.</param>
+    /// <param name="urlDataFormatName">The data format name of the URL type.</param>
+    /// <returns><see langword="true"/> if <paramref name="data"/> contains a URL of the correct type,
+    /// <see langword="false"/> otherwise.</returns>
+    private static bool DoesDragDropDataContainUrl(IDataObject data, string urlDataFormatName)
+    {
+      return data != null && data.GetDataPresent(urlDataFormatName);
+    }
+    /// <summary>Reads a URL from drag-and-drop data.</summary>
+    /// <param name="data">The drag-and-drop data.</param>
+    /// <returns>A URL, or <see langword="null"/> if <paramref name="data"/> does not contain a URL.</returns>
+    private string ReadUrlFromDragDropData(IDataObject data)
+    {
+      // Try to read a Unicode URL from the data
+      string unicodeUrl = ReadUrlFromDragDropData(data, _unicodeUrlDataFormatName, _unicodeUrlEncoding);
+      if (unicodeUrl != null)
+      {
+        return unicodeUrl;
+      }
+
+      // Try to read an ASCII URL from the data
+      return ReadUrlFromDragDropData(data, _asciiUrlDataFormatName, _asciiUrlEncoding);
+    }
+    /// <summary>Reads a URL using a particular text encoding from drag-and-drop data.</summary>
+    /// <param name="data">The drag-and-drop data.</param>
+    /// <param name="urlDataFormatName">The data format name of the URL type.</param>
+    /// <param name="urlEncoding">The text encoding of the URL type.</param>
+    /// <returns>A URL, or <see langword="null"/> if <paramref name="data"/> does not contain a URL
+    /// of the correct type.</returns>
+    private string ReadUrlFromDragDropData(IDataObject data, string urlDataFormatName, Encoding urlEncoding)
+    {
+      // Check whether the data contains a URL
+      if (!DoesDragDropDataContainUrl(data, urlDataFormatName))
+      {
+        return null;
+      }
+
+      // Read the URL from the data
+      string url;
+      using (Stream urlStream = (Stream)data.GetData(urlDataFormatName))
+      {
+        using (TextReader reader = new StreamReader(urlStream, urlEncoding))
+        {
+          url = reader.ReadToEnd();
+        }
+      }
+
+      // URLs in drag/drop data are often padded with null characters so remove these
+      return url.TrimEnd('\0');
+    }
+
+
+
   }
 }

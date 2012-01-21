@@ -356,6 +356,24 @@ namespace mvCentral.Settings
     }
     private string _dateImportOption;
 
+    [CornerstoneSetting(
+        Name = "Always scan for provider updates in background",
+        Description = "If set to true, Music Videos will automatically check all relevent providers for missing information",
+        Groups = "|MusicVideo Importer|Matching and Importing|",
+        Identifier = "background_missing_data_scan",
+        Default = false)]
+    public bool BackgroundScanAlways
+    {
+      get { return _backgroundScanAlways; }
+      set
+      {
+        _backgroundScanAlways = value;
+        OnSettingChanged("background_missing_data_scan");
+      }
+    }
+    private bool _backgroundScanAlways;
+
+
 
     #endregion
 

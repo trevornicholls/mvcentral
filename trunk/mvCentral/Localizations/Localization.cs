@@ -255,6 +255,7 @@ namespace mvCentral.Localizations
     // B
     public static string Back = "Back";
     public static string ButtonAutoPlay = "Auto Play";
+    public static string Born = "Born";
 
     // C
     public static string Cancel = "Cancel";
@@ -275,6 +276,7 @@ namespace mvCentral.Localizations
     // F
     public static string FailedMountingImage = "Sorry, failed mounting DVD Image";
     public static string FavouriteVideos = "Favourite Videos";
+    public static string Formed = "Formed";
 
     // G
     public static string Genre = "Genre";

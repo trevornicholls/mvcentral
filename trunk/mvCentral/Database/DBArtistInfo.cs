@@ -133,6 +133,18 @@ namespace mvCentral.Database
       }
     } private string _yearsactive;
 
+    [DBField]
+    public bool DisallowBackgroundUpdate
+    {
+      get { return _disallowbackgroundupdate; }
+
+      set
+      {
+        _disallowbackgroundupdate = value;
+        commitNeeded = true;
+      }
+    } private bool _disallowbackgroundupdate;
+
     #endregion
 
     #region General Management Methods

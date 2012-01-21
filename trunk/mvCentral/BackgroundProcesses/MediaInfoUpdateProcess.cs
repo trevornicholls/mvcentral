@@ -41,15 +41,14 @@ namespace mvCentral.BackgroundProcesses
             foreach (DBTrackInfo currTrack in DBTrackInfo.GetAll())
             {
               // Check for Artist missing data
-
               try
               {
-                logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
                 if (currTrack.ID == null)
                   continue;
 
-                if (currTrack.ArtistInfo[0].Genre.Trim().Length == 0 || (currTrack.ArtistInfo[0].Born.Trim().Length == 0 && currTrack.ArtistInfo[0].Formed.Trim().Length == 0))
+                if (!currTrack.ArtistInfo[0].DisallowBackgroundUpdate && !mvCentralCore.Settings.BackgroundScanAlways)
                 {
+                  logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
                   mvCentralCore.DataProviderManager.GetArtistDetail(currTrack);
 
                   // because this operation can take some time we check again
@@ -72,12 +71,12 @@ namespace mvCentral.BackgroundProcesses
               {
                 try
                 {
-                  logger.Debug("Checking for Album missing deails " + currTrack.GetType().ToString() + " Title : " + currTrack.AlbumInfo[0].Album);
                   if (currTrack.ID == null)
                     continue;
 
-                  if (currTrack.AlbumInfo[0].YearReleased.Trim().Length == 0)
+                  if (!currTrack.AlbumInfo[0].DisallowBackgroundUpdate && !mvCentralCore.Settings.BackgroundScanAlways)
                   {
+                    logger.Debug("Checking for Album missing deails " + currTrack.GetType().ToString() + " Title : " + currTrack.AlbumInfo[0].Album);
                     mvCentralCore.DataProviderManager.GetAlbumDetail(currTrack);
 
                     // because this operation can take some time we check again
@@ -96,6 +95,13 @@ namespace mvCentral.BackgroundProcesses
                   logger.ErrorException("Error retrieving Album details for " + currTrack.Basic, e);
                 }
               }
+
+              // Prevent further background updates
+              currTrack.ArtistInfo[0].DisallowBackgroundUpdate = true;
+              if (currTrack.AlbumInfo.Count > 0)
+                currTrack.AlbumInfo[0].DisallowBackgroundUpdate = true;
+
+              currTrack.Commit();
 
             }
 

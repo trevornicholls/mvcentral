@@ -43,8 +43,12 @@ namespace mvCentral.LocalMediaManagement.MusicVideoResources
                         // position for a resume
                         if (File.Exists(_filename)) position = new FileInfo(_filename).Length;
                         resumeAttempts++;
-                        if (resumeAttempts > 1)
-                            logger.Warn("Connection lost while downloading resource. Attempting to resume...");
+                        if (resumeAttempts > 10)
+                        {
+                          logger.Warn("Connection lost while downloading resource. Attempting to resume...");
+                          status = DownloadStatus.FAILED;
+                          break;
+                        }
                         break;
                     case DownloadStatus.TIMED_OUT:
                         // if we timed out past our try limit, fail

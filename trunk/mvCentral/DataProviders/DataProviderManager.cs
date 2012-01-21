@@ -618,6 +618,7 @@ namespace mvCentral.DataProviders
               artInfo = artistExtraInfo.Provider.GetArtistDetail(currMusicVideo).ArtistInfo[0];
             }
           }
+          artInfo.DisallowBackgroundUpdate = true;
           currMusicVideo.ArtistInfo[0] = artInfo;
 
           // If album support disabled or no associated album then skip album processing
@@ -637,6 +638,7 @@ namespace mvCentral.DataProviders
               albumInfo = albumExtraInfo.Provider.GetAlbumDetail(currMusicVideo).AlbumInfo[0];
             }
           }
+          albumInfo.DisallowBackgroundUpdate = true;
           currMusicVideo.AlbumInfo[0] = albumInfo;
         }       
         // add results to our total result list and log what we found
@@ -701,13 +703,19 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
     {
-        // ****************** Additional Artist Info Processing ******************
-        // Check and update Artist details from additional providers
-        DBArtistInfo artInfo = new DBArtistInfo();
-        artInfo = mv.ArtistInfo[0];
+      // ****************** Additional Artist Info Processing ******************
+      // Check and update Artist details from additional providers
+      DBArtistInfo artInfo = new DBArtistInfo();
+      artInfo = mv.ArtistInfo[0];
 
-        foreach (DBSourceInfo artistExtraInfo in artistDetailSources)
-            artInfo = artistExtraInfo.Provider.GetArtistDetail(mv).ArtistInfo[0];
+      foreach (DBSourceInfo artistExtraInfo in artistDetailSources)
+      {
+        if (artInfo.PrimarySource != artistExtraInfo.Provider)
+        {
+          artInfo = artistExtraInfo.Provider.GetArtistDetail(mv).ArtistInfo[0];
+          artInfo.PrimarySource = artistExtraInfo;
+        }
+      }
 
       mv.ArtistInfo[0] = artInfo;
 
@@ -726,7 +734,13 @@ namespace mvCentral.DataProviders
       albumInfo = mv.AlbumInfo[0];
 
       foreach (DBSourceInfo albumExtraInfo in albumDetailSources)
+      {
+        if (albumInfo.PrimarySource != albumExtraInfo.Provider)
+        {
           albumInfo = albumExtraInfo.Provider.GetAlbumDetail(mv).AlbumInfo[0];
+          albumInfo.PrimarySource = albumExtraInfo;
+        }
+      }
 
       mv.AlbumInfo[0] = albumInfo;
 

@@ -775,6 +775,8 @@ namespace mvCentral.Playlist
 
       string title = string.Empty;
       string osdImage = string.Empty;
+      string osdVideoImage = string.Empty;
+      string osdArtistImage = string.Empty;
       string album = string.Empty;
 
       DBArtistInfo artistInfo = null;
@@ -795,10 +797,16 @@ namespace mvCentral.Playlist
 
         if (System.IO.File.Exists(artistInfo.ArtFullPath))
           osdImage = artistInfo.ArtFullPath;
+
+        if (System.IO.File.Exists(trackInfo.ArtFullPath))
+          osdVideoImage = trackInfo.ArtFullPath;
+
       }
       // Std Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
       GUIPropertyManager.SetProperty("#Play.Current.Thumb", clear ? string.Empty : osdImage);
+      GUIPropertyManager.SetProperty("#Play.Current.Artist.Thumb", clear ? string.Empty : osdImage);
+      GUIPropertyManager.SetProperty("#Play.Current.Video.Thumb", clear ? string.Empty : osdVideoImage);
       GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : trackInfo.bioContent);
       // mvCentral Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.mvArtist", clear ? string.Empty : artistInfo.Artist);
@@ -806,6 +814,11 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Current.mvVideo", clear ? string.Empty : title);
       GUIPropertyManager.SetProperty("#Play.Current.mvTrack.Description", clear ? string.Empty : trackInfo.bioContent);
       GUIPropertyManager.SetProperty("#mvCentral.isPlaying", clear ? "false" : "true");
+      // Video Properities
+      DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+      GUIPropertyManager.SetProperty("#mvCentral.Current.videowidth", mediaInfo.VideoWidth.ToString());
+      GUIPropertyManager.SetProperty("#mvCentral.Current.videoheight", mediaInfo.VideoHeight.ToString());
+      GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", mediaInfo.VideoFrameRate.ToString());
     }
 
 
