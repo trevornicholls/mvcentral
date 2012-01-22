@@ -146,9 +146,6 @@ namespace mvCentral.Database
       add(false, false, false, false, ".", @"<space>");
       add(true, false, false, false, "_", @"<space>");
       add(true, false, false, false, "-<space>", @"<empty>");
-
-      //add(true, true, true, true, @"\s*\(.*?\)\s*", @"<empty>");
-      //add(true, true, true, true, @"\s*\[.*?\]\s*", @"<empty>");
       add(true, true, true, true, @"\s*[\(\[\{].*?[\]\)\}]\s*", @"<empty>");
 
       add(true, true, true, false, "&", "and");
