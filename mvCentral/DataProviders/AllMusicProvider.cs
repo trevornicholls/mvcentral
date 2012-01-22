@@ -39,8 +39,8 @@ namespace mvCentral.DataProviders
     private static readonly Regex AlbumURLRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
     private const string ArtistRegExpPattern = @"<td><a href=""(?<artistURL>.*?)"">(?<artist>.*?)</a></td>\s*<td>(?<genres>.*?)</td>\s*<td>(?<years>.*?)</td>\s*</tr>";
     private static readonly Regex ArtistURLRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
-    private static readonly Regex BracketRegEx = new Regex(@"(.*)\(.+\)$", RegexOptions.Compiled);
-    private static readonly Regex PunctuationRegex = new Regex("[?!.:;)()-_ ]", RegexOptions.Compiled);
+    private static readonly Regex BracketRegEx = new Regex(@"\s*[\(\[\{].*?[\]\)\}]\s*", RegexOptions.Compiled);
+    private static readonly Regex PunctuationRegex = new Regex(@"[^\w\s]", RegexOptions.Compiled);
 
     private Match _match = null;
     private string _strFormed = "";
@@ -1255,8 +1255,8 @@ namespace mvCentral.DataProviders
       var strCleanArtist = strArtist.ToLower();
       strCleanArtist = strCleanArtist.Replace("&", "and");
       strCleanArtist = strCleanArtist.Replace("+", "and");
-      //strCleanArtist = strCleanArtist.Replace(".", string.Empty);
-      strCleanArtist = strCleanArtist.Replace("the ", string.Empty);
+      strCleanArtist = Regex.Replace(strCleanArtist, "^the ", "", RegexOptions.IgnoreCase);
+
       return strCleanArtist;
     }
 
