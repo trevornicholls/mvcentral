@@ -1890,7 +1890,7 @@ namespace mvCentral.GUI
       else if (currArtist.Formed.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}",Localization.Born, currArtist.Born));
       else
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}" + Localization.Formed, currArtist.Formed));
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}",Localization.Formed, currArtist.Formed));
 
       GUIPropertyManager.SetProperty("#mvCentral.Genre", currArtist.Genre);
 
