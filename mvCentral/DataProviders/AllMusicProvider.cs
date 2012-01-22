@@ -295,6 +295,15 @@ namespace mvCentral.DataProviders
         }
         return false;
       }
+
+      // get details of the album
+      if (mv.GetType() == typeof(DBTrackInfo))
+      {
+        string track = ((DBTrackInfo)mv).Track;
+        //GetTrackDetails((DBTrackInfo)mv);
+        return false;
+      }
+
       return true;
     }
 
@@ -305,6 +314,12 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
+      List<DBTrackInfo> results = new List<DBTrackInfo>();
+      return results;
+    }
+
+    private void GetTrackDetails(DBTrackInfo trackObject)
+    {
       string strArtistHTML;
       string strAlbumHTML;
       string strArtistURL;
@@ -312,67 +327,51 @@ namespace mvCentral.DataProviders
 
       List<DBTrackInfo> results = new List<DBTrackInfo>();
 
-      if (mvSignature == null)
-        return results;
+      string artist = DBArtistInfo.Get(trackObject).Artist;
 
-      lock (lockList)
+      if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
       {
-
-        string artist = mvSignature.Artist;
-        if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
+        var artistInfo = new MusicArtistInfo();
+        if (artistInfo.Parse(strArtistHTML))
         {
-          var artistInfo = new MusicArtistInfo();
-          if (artistInfo.Parse(strArtistHTML))
+          artistInfo.Artist = artist;
+          if (GetAlbumURLList(strArtistURL))
           {
-            artistInfo.Artist = artist;
-            if (GetAlbumURLList(strArtistURL))
+            // we have some albums - now check the tracks in each album
+            foreach (string albumURL in albumURLList)
             {
-              // we have some albums - now check the tracks in each album
-              foreach (string albumURL in albumURLList)
+              if (GetAlbumHTMLOnly(albumURL, out strAlbumHTML))
               {
-                if (GetAlbumHTMLOnly(albumURL, out strAlbumHTML))
+                var albumInfo = new MusicAlbumInfo();
+                if (albumInfo.Parse(strAlbumHTML))
                 {
-                  var albumInfo = new MusicAlbumInfo();
-                  if (albumInfo.Parse(strAlbumHTML))
+                  string[] tracksOnAlbum = albumInfo.Tracks.Split('|');
+                  foreach (string track in tracksOnAlbum)
                   {
-                    string[] tracksOnAlbum = albumInfo.Tracks.Split('|');
-                    foreach (string track in tracksOnAlbum)
+                    if (!string.IsNullOrEmpty(track.Trim()))
                     {
-                      if (!string.IsNullOrEmpty(track.Trim()))
+                      string[] trackData = track.Split('@');
+                      if (trackObject.Track == trackData[1])
                       {
-                        string[] trackData = track.Split('@');
-                        if (mvSignature.Track == trackData[1])
-                        {
-                          albumFound = true;
-                          break;
-                        }
+                        albumFound = true;
+                        break;
                       }
                     }
                   }
                 }
-                if (albumFound)
-                  break;
               }
+              if (albumFound)
+                break;
             }
-
           }
+
         }
-
-        //DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Album, mvSignature.Track);
-        //if (mv != null)
-        //{
-        //  if (mv.ArtistInfo.Count == 0)
-        //  {
-        //    DBArtistInfo d4 = new DBArtistInfo();
-        //    d4.Artist = mvSignature.Artist;
-        //    mv.ArtistInfo.Add(d4);
-        //  }
-        //  results.Add(mv);
-        //}
-
+        // Deal with getting the track info here
       }
-      return results;
+
+
     }
+
 
     /// <summary>
     /// Get the album details 
@@ -849,12 +848,6 @@ namespace mvCentral.DataProviders
           // replace & and + with "and"
           var strAndAlbum = strAlbum.Replace("&", "and").Replace("+", "and");
 
-
-          //logger.Debug("MusicInfoHandler: GetAlbumURL: strAlbum: |{0}|", strAlbum);
-          //logger.Debug("MusicInfoHandler: GetAlbumURL: strStripStackEnding: |{0}|", strStripStackEnding);
-          //logger.Debug("MusicInfoHandler: GetAlbumURL: strAlbumRemoveBrackets: |{0}|", strAlbumRemoveBrackets);
-          //logger.Debug("MusicInfoHandler: GetAlbumURL: strRemovePunctuation: |{0}|", strRemovePunctuation);
-
           bool albumFound = false;
           for (var m = AlbumURLRegEx.Match(discHTML); m.Success; m = m.NextMatch())
           {
@@ -864,44 +857,30 @@ namespace mvCentral.DataProviders
             var strFoundPunctuation = PunctuationRegex.Replace(strFoundValue, "");
             var strFoundAnd = strFoundValue.Replace("&", "and").Replace("+", "and");
 
-            //logger.Debug("MusicInfoHandler: GetAlbumURL: strFoundValue: |{0}|", strFoundValue);
-            //logger.Debug("MusicInfoHandler: GetAlbumURL: strFoundPunctuation: |{0}|", strFoundPunctuation);
-
-
             if (strFoundValue == strAlbum.ToLower())
             {
               albumFound = true;
-
               logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album first time: {0}", strAlbum);
-
             }
             else if (strFoundValue == strStripStackEnding.ToLower())
             {
               albumFound = true;
-
               logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after stripping stack endings: {0}", strStripStackEnding);
-
             }
             else if (strFoundValue == strAlbumRemoveBrackets.ToLower())
             {
               albumFound = true;
-
               logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after stripping trailing brackets: {0}", strStripStackEnding);
-
             }
             else if (strFoundPunctuation == strRemovePunctuation.ToLower())
             {
               albumFound = true;
-
               logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after removing punctuation: {0}", strRemovePunctuation);
-
             }
             else if (strAndAlbum == strFoundAnd)
             {
               albumFound = true;
-
               logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after replacing and: {0}", strAndAlbum);
-
             }
 
             if (!albumFound) continue;

@@ -1937,6 +1937,8 @@ namespace mvCentral.GUI
         else
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
 
+        GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", trackInfo.Rating.ToString());
+
         // Get the artist 
         DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
         currArtist = artistInfo;
@@ -1948,12 +1950,20 @@ namespace mvCentral.GUI
         // Get the Album and set some skin props
         albumInfo = DBAlbumInfo.Get(trackInfo);
         if (albumInfo == null)
+        {
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist);
+          GUIPropertyManager.SetProperty("#mvCentral.Album.Rating", string.Empty);
+        }
         else
+        {
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist + " | " + albumInfo.Album);
+          GUIPropertyManager.SetProperty("#mvCentral.Album.Rating", albumInfo.Rating.ToString());
+        }
 
         // Misc Proprities
         GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
+
+
         // Set the view
         GUIPropertyManager.SetProperty("#mvCentral.TrackView", "true");
         GUIPropertyManager.SetProperty("#mvCentral.ArtistView", "false");
@@ -1996,7 +2006,16 @@ namespace mvCentral.GUI
         clearVideoAudioProps();
         // This is a Album
         albumInfo = (DBAlbumInfo)item.MusicTag;
+        // Major issue as this should be an album - report and bomb out
+        if (albumInfo == null)
+        {
+          logger.Error("Album data not found - exit method!");
+          return;
+        }
+
         GUIPropertyManager.SetProperty("#mvCentral.Album", albumInfo.Album);
+        GUIPropertyManager.SetProperty("#mvCentral.Album.Rating", albumInfo.Rating.ToString());
+        
         // get list of tracks in this album
         List<DBTrackInfo> tracksInAlbum = DBTrackInfo.GetEntriesByAlbum(albumInfo);
         DBArtistInfo thisArtist = DBArtistInfo.Get(tracksInAlbum[0]);
