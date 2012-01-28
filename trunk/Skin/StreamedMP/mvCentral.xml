@@ -4,11 +4,24 @@
   <defaultcontrol>50</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:-</define>
-  <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
   <controls>
-    <import>mymusic.autofanart.xml</import>
     <import>mymusic.selected.fanart.xml</import>
+    
+    <!--
+    <control>
+      <type>label</type>
+      <description>Debug - #mvCentral.ArtistName / #selecteditem</description>
+      <id>0</id>
+      <posX>640</posX>
+      <posY>220</posY>
+      <width>800</width>
+      <font>mediastream12c</font>
+      <label>DEBUG: #mvCentral.ArtistName / #selecteditem</label>
+    </control> 
+    -->   
+    
+    
     <control>
       <id>0</id>
       <description>music overlay image</description>
@@ -199,42 +212,42 @@
       <visible>!facadeview.coverflow</visible>
     </control>
     <!-- ******************************************************************** -->
-    <!-- :: Artwork - Backgrounds:: List View-->
+    <!-- :: Artwork - Backgrounds:: List View and Icon Views -->
     <!-- ******************************************************************** -->
     <!-- :: Artwork - 2nd and 3rd List View :: -->
     <control>
       <id>0</id>
       <type>image</type>
       <posX>30</posX>
-      <posY>245</posY>
+      <posY>320</posY>
       <width>280</width>
       <height>280</height>
-      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
+      <texture flipY="true" diffuse="Thumb_Mask2.png">#selectedthumb</texture>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <keepaspectratio>no</keepaspectratio>
-      <visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
     </control>
     <control>
       <id>0</id>
       <type>image</type>
       <posX>15</posX>
-      <posY>245</posY>
+      <posY>320</posY>
       <width>300</width>
       <height>222</height>
-      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
+      <texture flipY="true" diffuse="Thumb_Mask2.png">#selectedthumb</texture>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <keepaspectratio>yes</keepaspectratio>
-      <visible>[facadeview.list]+[string.equals(#mvCentral.TrackView,true)]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.TrackView,true)]</visible>
     </control>
     <!-- :: Music Info - 2nd and 3rd List View Description and Genre:: -->
     <control>
       <id>0</id>
       <description>Artist/Track Description</description>
       <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>240</posY>
+      <posX>30</posX>
+      <posY>220</posY>
       <width>925</width>
       <font>mediastream16tc</font>
       <textcolor>ffffffff</textcolor>
@@ -245,14 +258,14 @@
       <label>#selecteditem</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
     </control>
     <control>
       <id>0</id>
       <description>Track Title and Runtime</description>
       <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>240</posY>
+      <posX>30</posX>
+      <posY>220</posY>
       <width>925</width>
       <font>mediastream16tc</font>
       <textcolor>ffffffff</textcolor>
@@ -263,14 +276,14 @@
       <label>#selecteditem    [#mvCentral.Duration]</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+string.equals(#mvCentral.TrackView,true)</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
     </control>
     <control>
       <id>0</id>
       <description>Album Indication text</description>
       <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>240</posY>
+      <posX>30</posX>
+      <posY>220</posY>
       <width>925</width>
       <font>mediastream16tc</font>
       <textcolor>ffffffff</textcolor>
@@ -281,13 +294,13 @@
       <label>#selecteditem    [#mvCentral.Translation.Album.Label]</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+string.equals(#mvCentral.AlbumView,true)</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
     <control>
       <id>0</id>
       <description>Album Runtime and Tracks</description>
       <type>fadelabel</type>
-      <posX>330</posX>
+      <posX>30</posX>
       <posY>275</posY>
       <width>925</width>
       <font>mediastream11c</font>
@@ -299,13 +312,26 @@
       <label>[#mvCentral.Translation.Tracks.Label #mvCentral.TracksForAlbum | #mvCentral.Translation.TotalRuntime.Label #mvCentral.AlbumTracksRuntime]</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+string.equals(#mvCentral.AlbumView,true)</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
+    <control>
+      <description>Album Star Rating Image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>30</posX>
+      <posY>251</posY>
+      <width>94</width>
+      <height>18</height>
+      <texture>star#mvCentral.Album.Rating.png</texture>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
+    </control>   
     <control>
       <id>0</id>
       <description>Tracks by Artist</description>
       <type>fadelabel</type>
-      <posX>330</posX>
+      <posX>30</posX>
       <posY>275</posY>
       <width>925</width>
       <font>mediastream12c</font>
@@ -317,7 +343,25 @@
       <label>Music Videos: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+    </control>
+    <control>
+      <id>0</id>
+      <description>Born or Formed</description>
+      <type>fadelabel</type>
+      <posX>30</posX>
+      <posY>251</posY>
+      <width>900</width>
+      <font>mediastream10c</font>
+      <textcolor>ffffffff</textcolor>
+      <align>left</align>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>ff000000</shadowColor>      
+      <label>#mvCentral.BornOrFormed</label>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
     </control>
     <!-- :: Music Info - 1st List View Description :: -->
     <control>
@@ -334,7 +378,7 @@
       <scrollStartDelaySec>10</scrollStartDelaySec>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+string.equals(#mvCentral.ArtistView, true)</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView, true)</visible>
     </control>
     <control>
       <id>0</id>
@@ -350,14 +394,31 @@
       <scrollStartDelaySec>10</scrollStartDelaySec>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+[string.equals(#mvCentral.TrackView, true)|string.equals(#mvCentral.AlbumView, true)]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.TrackView, true)|string.equals(#mvCentral.AlbumView, true)]</visible>
     </control>
+    
     <control>
       <id>0</id>
       <description>Artist Tags</description>
       <type>fadelabel</type>
       <posX>330</posX>
-      <posY>650</posY>
+      <posY>635</posY>
+      <width>925</width>
+      <font>mediastream10tc</font>
+      <textcolor>ff006698</textcolor>
+      <align>left</align>
+      <label>#mvCentral.Genre</label>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView,true)</visible>
+    </control>
+    
+    <control>
+      <id>0</id>
+      <description>Artist Tags</description>
+      <type>fadelabel</type>
+      <posX>330</posX>
+      <posY>655</posY>
       <width>925</width>
       <font>mediastream10tc</font>
       <textcolor>ff006698</textcolor>
@@ -365,19 +426,23 @@
       <label>#mvCentral.ArtistTags</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.list]+string.equals(#mvCentral.ArtistView,true)</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView,true)</visible>
     </control>
+
+
+
+
     <!-- Video Codecs -->
     <control>
       <description>SD/HD Fullscreen/Widescreen</description>
       <type>image</type>
       <id>0</id>
-      <posX>330</posX>
+      <posX>15</posX>
       <posY>280</posY>
       <width>100</width>
       <height>32</height>
       <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Video\#mvCentral.LocalMedia.videoresolution #mvCentral.LocalMedia.videoaspectratio.png</texture>
-      <visible>[facadeview.list]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     <!-- Video Codecs -->
@@ -385,12 +450,12 @@
       <description>Video Codecs</description>
       <type>image</type>
       <id>0</id>
-      <posX>430</posX>
+      <posX>115</posX>
       <posY>280</posY>
       <width>100</width>
       <height>32</height>
       <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Video\#mvCentral.LocalMedia.videocodec.png</texture>
-      <visible>[facadeview.list]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     <!-- Audio Channels / Codecs-->
@@ -398,12 +463,12 @@
       <description>Audio Codecs / Channels</description>
       <type>image</type>
       <id>0</id>
-      <posX>530</posX>
+      <posX>215</posX>
       <posY>280</posY>
       <width>100</width>
       <height>32</height>
       <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Audio\#mvCentral.LocalMedia.audio.png</texture>
-      <visible>[facadeview.list]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     <!-- ******************************* -->
@@ -486,10 +551,10 @@
       <id>0</id>
       <type>image</type>
       <posX>30</posX>
-      <posY>245</posY>
+      <posY>225</posY>
       <width>280</width>
       <height>280</height>
-      <texture>#selectedthumb</texture>
+      <texture flipY="true" diffuse="Thumb_Mask2.png">#selectedthumb</texture>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <keepaspectratio>no</keepaspectratio>
@@ -499,10 +564,10 @@
       <id>0</id>
       <type>image</type>
       <posX>15</posX>
-      <posY>245</posY>
+      <posY>225</posY>
       <width>300</width>
       <height>222</height>
-      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
+      <texture flipY="true" diffuse="Thumb_Mask2.png">#selectedthumb</texture>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <keepaspectratio>yes</keepaspectratio>
@@ -514,7 +579,7 @@
       <description>Artist/Track Description</description>
       <type>fadelabel</type>
       <posX>330</posX>
-      <posY>240</posY>
+      <posY>220</posY>
       <width>925</width>
       <font>mediastream16tc</font>
       <textcolor>ffffffff</textcolor>
@@ -532,7 +597,7 @@
       <description>Track Title and Runtime</description>
       <type>fadelabel</type>
       <posX>330</posX>
-      <posY>240</posY>
+      <posY>220</posY>
       <width>925</width>
       <font>mediastream16tc</font>
       <textcolor>ffffffff</textcolor>
@@ -550,7 +615,7 @@
       <description>Album Indication text</description>
       <type>fadelabel</type>
       <posX>330</posX>
-      <posY>240</posY>
+      <posY>220</posY>
       <width>925</width>
       <font>mediastream16tc</font>
       <textcolor>ffffffff</textcolor>
@@ -563,6 +628,39 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
+    <control>
+      <description>Album Star Rating Image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>330</posX>
+      <posY>251</posY>
+      <width>94</width>
+      <height>18</height>
+      <texture>star#mvCentral.Album.Rating.png</texture>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
+    </control>   
+    <control>
+      <id>0</id>
+      <description>Born or Formed</description>
+      <type>fadelabel</type>
+      <posX>330</posX>
+      <posY>251</posY>
+      <width>900</width>
+      <font>mediastream10c</font>
+      <textcolor>ffffffff</textcolor>
+      <align>left</align>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>ff000000</shadowColor>      
+      <label>#mvCentral.BornOrFormed</label>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.filmstrip]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+    </control>
+    
+    
     <control>
       <id>0</id>
       <description>Album Runtime and Tracks</description>
@@ -636,7 +734,23 @@
       <description>Artist Tags</description>
       <type>fadelabel</type>
       <posX>330</posX>
-      <posY>505</posY>
+      <posY>490</posY>
+      <width>925</width>
+      <font>mediastream10tc</font>
+      <textcolor>ff006698</textcolor>
+      <align>left</align>
+      <label>#mvCentral.Genre</label>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>facadeview.filmstrip+string.equals(#mvCentral.ArtistView,true)</visible>
+    </control>
+    
+    <control>
+      <id>0</id>
+      <description>Artist Tags</description>
+      <type>fadelabel</type>
+      <posX>330</posX>
+      <posY>510</posY>
       <width>925</width>
       <font>mediastream10tc</font>
       <textcolor>ff006698</textcolor>
@@ -685,214 +799,7 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <visible>facadeview.filmstrip</visible>
     </control>
-    <!-- ******************************************************************** -->
-    <!-- :: Artwork - Backgrounds:: Small/Large Icons-->
-    <!-- ******************************************************************** -->
-    <control>
-      <id>0</id>
-      <type>image</type>
-      <posX>30</posX>
-      <posY>245</posY>
-      <width>280</width>
-      <height>280</height>
-      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <keepaspectratio>no</keepaspectratio>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <type>image</type>
-      <posX>15</posX>
-      <posY>245</posY>
-      <width>300</width>
-      <height>222</height>
-      <texture flipY="true" diffuse="Thumb_Mask.png">#selectedthumb</texture>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <keepaspectratio>yes</keepaspectratio>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.TrackView,true)]</visible>
-    </control>
-    <!-- :: Music Info - Thumbnail Views Description and Genre :: -->
-    <control>
-      <id>0</id>
-      <description>Artist/Track Description</description>
-      <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>240</posY>
-      <width>925</width>
-      <font>mediastream16tc</font>
-      <textcolor>ffffffff</textcolor>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>4</shadowDistance>
-      <shadowColor>ff000000</shadowColor>
-      <align>left</align>
-      <label>#selecteditem</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <description>Track Description</description>
-      <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>240</posY>
-      <width>925</width>
-      <font>mediastream16tc</font>
-      <textcolor>ffffffff</textcolor>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>4</shadowDistance>
-      <shadowColor>ff000000</shadowColor>
-      <align>left</align>
-      <label>#selecteditem    [#mvCentral.Duration]</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <description>Album Indication text</description>
-      <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>240</posY>
-      <width>925</width>
-      <font>mediastream16tc</font>
-      <textcolor>ffffffff</textcolor>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>4</shadowDistance>
-      <shadowColor>ff000000</shadowColor>
-      <align>left</align>
-      <label>#selecteditem    [#mvCentral.Translation.Album.Label]</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <description>Album Runtime and Tracks</description>
-      <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>275</posY>
-      <width>925</width>
-      <font>mediastream11c</font>
-      <textcolor>ffffffff</textcolor>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>4</shadowDistance>
-      <shadowColor>ff000000</shadowColor>
-      <align>left</align>
-      <label>[#mvCentral.Translation.Tracks.Label #mvCentral.TracksForAlbum | #mvCentral.Translation.TotalRuntime.Label #mvCentral.AlbumTracksRuntime]</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <description>Tracks by Artist</description>
-      <type>fadelabel</type>
-      <posX>330</posX>
-      <posY>275</posY>
-      <width>925</width>
-      <font>mediastream12c</font>
-      <textcolor>ffffffff</textcolor>
-      <shadowAngle>45</shadowAngle>
-      <shadowDistance>4</shadowDistance>
-      <shadowColor>ff000000</shadowColor>
-      <align>left</align>
-      <label>Music Videos: #mvCentral.VideosByArtist    [#mvCentral.Translation.TotalRuntime.Label #mvCentral.ArtistTracksRuntime]</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
-    </control>
-    <!-- :: Music Info - 1st List View Description :: -->
-    <control>
-      <id>0</id>
-      <description>Artist Bio</description>
-      <type>textboxscrollup</type>
-      <posX>330</posX>
-      <posY>320</posY>
-      <width>480</width>
-      <height>310</height>
-      <label>#mvCentral.ArtistBio</label>
-      <seperator>-----------------------------------------------------------------------------------</seperator>
-      <font>mediastream11</font>
-      <scrollStartDelaySec>10</scrollStartDelaySec>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)]</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <description>Track Description</description>
-      <type>textboxscrollup</type>
-      <posX>330</posX>
-      <posY>320</posY>
-      <width>480</width>
-      <height>335</height>
-      <label>#mvCentral.TrackInfo</label>
-      <seperator>-----------------------------------------------------------------------------------</seperator>
-      <font>mediastream11</font>
-      <scrollStartDelaySec>10</scrollStartDelaySec>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.TrackView,true)|string.equals(#mvCentral.AlbumView,true)]</visible>
-    </control>
-    <control>
-      <id>0</id>
-      <description>Artist Tags</description>
-      <type>fadelabel</type>
-      <posX>30</posX>
-      <posY>650</posY>
-      <width>925</width>
-      <font>mediastream10tc</font>
-      <textcolor>ff006698</textcolor>
-      <align>left</align>
-      <label>#mvCentral.ArtistTags</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.ArtistView,true)</visible>
-    </control>
-    <!-- Video Codecs -->
-    <control>
-      <description>SD/HD Fullscreen/Widescreen</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>330</posX>
-      <posY>280</posY>
-      <width>100</width>
-      <height>32</height>
-      <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Video\#mvCentral.LocalMedia.videoresolution #mvCentral.LocalMedia.videoaspectratio.png</texture>
-      <visible>[facadeview.smallicons|facadeview.largeicons]</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <!-- Video Codecs -->
-    <control>
-      <description>Video Codecs</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>430</posX>
-      <posY>280</posY>
-      <width>100</width>
-      <height>32</height>
-      <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Video\#mvCentral.LocalMedia.videocodec.png</texture>
-      <visible>[facadeview.smallicons|facadeview.largeicons]</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <!-- Audio Channels / Codecs-->
-    <control>
-      <description>Audio Codecs / Channels</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>530</posX>
-      <posY>280</posY>
-      <width>100</width>
-      <height>32</height>
-      <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Audio\#mvCentral.LocalMedia.audio.png</texture>
-      <visible>[facadeview.smallicons|facadeview.largeicons]</visible>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-    </control>
-    <!--::::::::::::::
+<!--::::::::::::::
 :: LIST VIEW
 ::::::::::::::::::-->
     <control>
@@ -911,22 +818,23 @@
           <onleft>2</onleft>
           <onright>2</onright>
           <posX>760</posX>
-          <posY>280</posY>
-          <width>490</width>
-          <height>410</height>
+          <posY>232</posY>
+          <width>550</width>
+          <height>480</height>
           <scrollOffset>1</scrollOffset>
           <IconYOff>12</IconYOff>
           <IconXOff>390</IconXOff>
           <itemHeight>32</itemHeight>
           <itemWidth>72</itemWidth>
           <textXOff>-60</textXOff>
-          <textYOff>7</textYOff>
-          <textXOff2>400</textXOff2>
-          <textYOff2>19</textYOff2>
+          <textYOff>0</textYOff>
+          <textXOff2>500</textXOff2>
+          <textYOff2>21</textYOff2>
           <textXOff3>21</textXOff3>
           <textYOff3>22</textYOff3>
-          <font2>mediastream12c</font2>
+          <font2>mediastream9c</font2>
           <font3>mediastream9c</font3>
+          <textcolor2>ff006698</textcolor2>
           <keepaspectratio>no</keepaspectratio>
           <spinPosX>1175</spinPosX>
           <spinPosY>681</spinPosY>
