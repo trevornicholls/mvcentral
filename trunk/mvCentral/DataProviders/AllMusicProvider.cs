@@ -35,6 +35,10 @@ namespace mvCentral.DataProviders
     #region Provider variables
 
     private const string BaseURL = "http://www.allmusic.com/search/artist/";
+
+    private const string SongRegExpPattern = @"<td\s*class=""cell""><a\s*href=""(?<songURL>.*?)"">(?<songName>.*)</a></td>";
+    private static readonly Regex SongURLRegEx = new Regex(SongRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+
     private const string AlbumRegExpPattern = @"<td\s*class=""cell""><a\s*href=""(?<albumURL>.*?)"">(?<albumName>.*)</a></td>";
     private static readonly Regex AlbumURLRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
     private const string ArtistRegExpPattern = @"<td><a href=""(?<artistURL>.*?)"">(?<artist>.*?)</a></td>\s*<td>(?<genres>.*?)</td>\s*<td>(?<years>.*?)</td>\s*</tr>";
@@ -52,6 +56,7 @@ namespace mvCentral.DataProviders
     private static int _proxyPort;
 
     List<string> albumURLList = new List<string>();
+    List<string> songURLList = new List<string>();
 
     #endregion
 
@@ -143,6 +148,7 @@ namespace mvCentral.DataProviders
           updateMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
         }
       }
+      
       return mv;
     }
 
@@ -165,6 +171,7 @@ namespace mvCentral.DataProviders
           albumInfo.Artist = album;
           DBAlbumInfo mv1 = (DBAlbumInfo)mv.AlbumInfo[0];
           setMusicVideoAlbum(ref mv1, albumInfo);
+          getTrackRating(mv, strAlbumHTML);
         }
       }
       return mv;
@@ -296,12 +303,12 @@ namespace mvCentral.DataProviders
         return false;
       }
 
-      // get details of the album
+      // get details of the track
       if (mv.GetType() == typeof(DBTrackInfo))
       {
         string track = ((DBTrackInfo)mv).Track;
-        //GetTrackDetails((DBTrackInfo)mv);
-        return false;
+        GetTrackDetails((DBTrackInfo)mv);
+        return true;
       }
 
       return true;
@@ -323,11 +330,11 @@ namespace mvCentral.DataProviders
       string strArtistHTML;
       string strAlbumHTML;
       string strArtistURL;
-      bool albumFound = false;
+      bool songFound = false;
 
       List<DBTrackInfo> results = new List<DBTrackInfo>();
 
-      string artist = DBArtistInfo.Get(trackObject).Artist;
+      string artist = trackObject.ArtistInfo[0].Artist;
 
       if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
       {
@@ -340,7 +347,7 @@ namespace mvCentral.DataProviders
             // we have some albums - now check the tracks in each album
             foreach (string albumURL in albumURLList)
             {
-              if (GetAlbumHTMLOnly(albumURL, out strAlbumHTML))
+              if (GetPageHTMLOnly(albumURL, out strAlbumHTML))
               {
                 var albumInfo = new MusicAlbumInfo();
                 if (albumInfo.Parse(strAlbumHTML))
@@ -353,25 +360,87 @@ namespace mvCentral.DataProviders
                       string[] trackData = track.Split('@');
                       if (trackObject.Track == trackData[1])
                       {
-                        albumFound = true;
+                        songFound = getTrackRating(trackObject, strAlbumHTML);
                         break;
                       }
                     }
                   }
                 }
               }
-              if (albumFound)
-                break;
             }
           }
-
         }
-        // Deal with getting the track info here
       }
-
-
     }
 
+    /// <summary>
+    /// Get the Rating for the track
+    /// </summary>
+    /// <param name="trackObject"></param>
+    /// <param name="albumHTML"></param>
+    /// <returns></returns>
+    bool getTrackRating(DBTrackInfo trackObject, string albumHTML)
+    {
+      bool songFound = false;
+      string strSongHTML = string.Empty;
+
+      var strAlbumRemoveBrackets = BracketRegEx.Replace(trackObject.Track, "$1").Trim();
+      var strRemovePunctuation = PunctuationRegex.Replace(trackObject.Track, "").Trim();
+      var strAndAlbum = trackObject.Track.Replace("&", "and").Replace("+", "and");
+
+      songURLList.Clear();
+
+      for (var m = SongURLRegEx.Match(albumHTML); m.Success; m = m.NextMatch())
+      {
+        var strFoundValue = m.Groups["songName"].ToString().ToLower();
+        var strFoundPunctuation = PunctuationRegex.Replace(strFoundValue, "");
+        var strFoundAnd = strFoundValue.Replace("&", "and").Replace("+", "and");
+
+        if (strFoundValue == trackObject.Track.ToLower())
+        {
+          songFound = true;
+          logger.Debug("Matched song first time: {0}", trackObject.Track);
+        }
+        else if (strFoundValue == strAlbumRemoveBrackets.ToLower())
+        {
+          songFound = true;
+          logger.Debug("Matched song after stripping trailing brackets: {0}", strAlbumRemoveBrackets);
+        }
+        else if (strFoundPunctuation == strRemovePunctuation.ToLower())
+        {
+          songFound = true;
+          logger.Debug("Matched song after removing punctuation: {0}", strRemovePunctuation);
+        }
+        else if (strAndAlbum == strFoundAnd)
+        {
+          songFound = true;
+          logger.Debug("Matched song after replacing and: {0}", strAndAlbum);
+        }
+
+        if (!songFound) continue;
+        songURLList.Add(m.Groups["songURL"].ToString());
+
+
+        if (GetPageHTMLOnly(songURLList[0], out strSongHTML))
+        {
+          HTMLUtil util = new HTMLUtil();
+          // Extract Rating
+          string pattern = @"star_rating\((?<rating>\d)";
+
+          if (FindPattern(pattern, strSongHTML))
+          {
+            string strRating = _match.Groups[1].Value;
+            try
+            {
+              trackObject.Rating = Int32.Parse(strRating);
+            }
+            catch (Exception) { }
+          }
+        }
+        return true;
+      }
+      return false;
+    }
 
     /// <summary>
     /// Get the album details 
@@ -1151,21 +1220,20 @@ namespace mvCentral.DataProviders
     }
 
     /// <summary>
-    /// Attempts to get the HTML of album page
+    /// Attempts to get the HTML of page
     /// </summary>
-    /// <param name="strAlbumArtist">Album Artist we are looking for</param>
-    /// <param name="strAlbum">Album we are looking for</param>
-    /// <param name="albumHTML">HTML of album page</param>
+    /// <param name="strURL">URL of the page to get</param>
+    /// <param name="pageHTML">Returned HTML of page</param>
     /// <returns>True if able to get HTML</returns>
-    public bool GetAlbumHTMLOnly(string strAlbumURL, out string albumHTML)
+    public bool GetPageHTMLOnly(string strURL, out string pageHTML)
     {
-      albumHTML = string.Empty;
+      pageHTML = string.Empty;
       try
       {
-        logger.Debug("GetAlbumHTML: Album URL: {0}", strAlbumURL);
+        logger.Debug("GetAlbumHTML: Album URL: {0}", strURL);
 
 
-        var x = (HttpWebRequest)WebRequest.Create(strAlbumURL);
+        var x = (HttpWebRequest)WebRequest.Create(strURL);
 
         if (_useProxy)
         {
@@ -1183,7 +1251,7 @@ namespace mvCentral.DataProviders
 
             using (var sr = new StreamReader(z, Encoding.UTF8))
             {
-              albumHTML = sr.ReadToEnd();
+              pageHTML = sr.ReadToEnd();
             }
 
             z.Close();
@@ -1195,7 +1263,7 @@ namespace mvCentral.DataProviders
       }
       catch (Exception ex)
       {
-        logger.Error("Error retrieving album data for: |{0}|", strAlbumURL);
+        logger.Error("Error retrieving album data for: |{0}|", strURL);
         logger.Error(ex);
       }
       return false;

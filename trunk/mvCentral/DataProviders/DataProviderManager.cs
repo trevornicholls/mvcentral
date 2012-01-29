@@ -641,6 +641,9 @@ namespace mvCentral.DataProviders
           albumInfo.DisallowBackgroundUpdate = true;
           currMusicVideo.AlbumInfo[0] = albumInfo;
         }       
+
+
+
         // add results to our total result list and log what we found
         results.AddRange(newResults);
       }
