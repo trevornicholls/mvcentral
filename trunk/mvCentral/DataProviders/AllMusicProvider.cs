@@ -436,7 +436,21 @@ namespace mvCentral.DataProviders
             }
             catch (Exception) { }
           }
+
+          pattern = @"<td class=""content"">(?:<a href=""[^""]+"">\s*(?<composers>[^<]+)</a>(?:\s*/\s*)?)+</td>";
+          if (FindPattern(pattern, strSongHTML))
+          {
+            string strRating = _match.Groups[1].Value;
+            try
+            {
+              trackObject.Rating = Int32.Parse(strRating);
+            }
+            catch (Exception) { }
+          }      
         }
+
+
+
         return true;
       }
       return false;
