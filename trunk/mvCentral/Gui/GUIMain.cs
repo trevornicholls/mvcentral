@@ -1212,6 +1212,7 @@ namespace mvCentral.GUI
         facadeItem.IsFolder = false;
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         facadeItem.MusicTag = trackData;
+        facadeItem.Rating = trackData.Rating;
         // If no thumbnail set a default
         if (!string.IsNullOrEmpty(trackData.ArtFullPath.Trim()))
           facadeItem.ThumbnailImage = trackData.ArtFullPath;
@@ -1354,6 +1355,7 @@ namespace mvCentral.GUI
         item.IsFolder = true;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         item.MusicTag = theAlbum;
+        item.Rating = theAlbum.Rating;
         facadeLayout.Add(item);
 
       }
@@ -1384,6 +1386,7 @@ namespace mvCentral.GUI
         facadeItem.IsFolder = false;
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         facadeItem.MusicTag = trackData;
+        facadeItem.Rating = trackData.Rating;
         // If no thumbnail set a default
         if (!string.IsNullOrEmpty(trackData.ArtFullPath.Trim()))
           facadeItem.ThumbnailImage = trackData.ArtFullPath;
@@ -1595,6 +1598,7 @@ namespace mvCentral.GUI
           item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
           item.MusicTag = track;
           item.ItemId = (int)track.ID;
+          item.Rating = track.Rating;
           facadeLayout.Add(item);
         }
       }
@@ -1667,6 +1671,7 @@ namespace mvCentral.GUI
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         item.MusicTag = track;
         item.ItemId = (int)currAlbum.ID;
+        item.Rating = track.Rating;
         facadeLayout.Add(item);
       }
       // Always set index for first track

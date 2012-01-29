@@ -328,6 +328,19 @@
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>   
     <control>
+      <description>Album Star Rating Image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>30</posX>
+      <posY>251</posY>
+      <width>94</width>
+      <height>18</height>
+      <texture>star#mvCentral.Track.Rating.png</texture>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
+    </control>   
+    <control>
       <id>0</id>
       <description>Tracks by Artist</description>
       <type>fadelabel</type>
