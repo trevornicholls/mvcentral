@@ -71,6 +71,19 @@ namespace mvCentral.Database
       }
     } private int _rating;
 
+    [DBField]
+    public string Composers
+    {
+      get { return _composers; }
+
+      set
+      {
+        _composers = value;
+        commitNeeded = true;
+      }
+    } private string _composers;
+
+
     [DBField(AllowDynamicFiltering = false)]
     public string Chapter
     {

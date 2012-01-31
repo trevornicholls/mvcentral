@@ -436,21 +436,26 @@ namespace mvCentral.DataProviders
             }
             catch (Exception) { }
           }
-
-          pattern = @"<td class=""content"">(?:<a href=""[^""]+"">\s*(?<composers>[^<]+)</a>(?:\s*/\s*)?)+</td>";
-          if (FindPattern(pattern, strSongHTML))
+          // Extract the composers
+          MatchCollection allMatchResults = null;
+          try
           {
-            string strRating = _match.Groups[1].Value;
-            try
+            Regex regexObj = new Regex(@"<td class=""content"">(?:<a href=""[^""]+"">\s*(?<composers>[^<]+)</a>(?:\s*/\s*)?)+</td>", RegexOptions.IgnoreCase);
+            allMatchResults = regexObj.Matches(strSongHTML);
+
+            string match = allMatchResults[0].Groups[0].Value;
+            Regex regexObj2 = new Regex("<a href=\"http://www.allmusic.com/artist.*?[>](?<composerName>.*?)[</]", RegexOptions.IgnoreCase);
+            allMatchResults = regexObj2.Matches(match);
+            string composers = string.Empty;
+            foreach (Match composer in allMatchResults)
             {
-              trackObject.Rating = Int32.Parse(strRating);
+              composers += composer.Groups["composerName"].ToString().Trim() + "|";
             }
-            catch (Exception) { }
-          }      
+            trackObject.Composers = composers.Remove(composers.Length - 1, 1);
+          }
+          catch (Exception) 
+          { }   
         }
-
-
-
         return true;
       }
       return false;
@@ -658,13 +663,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private bool FindPattern(string pattern, string searchString)
     {
-      Regex itemsFound = new Regex(
-        pattern,
-        RegexOptions.IgnoreCase
-        | RegexOptions.Multiline
-        | RegexOptions.IgnorePatternWhitespace
-        | RegexOptions.Compiled
-        );
+      Regex itemsFound = new Regex(pattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.IgnorePatternWhitespace | RegexOptions.Compiled);
 
       _match = itemsFound.Match(searchString);
       if (_match.Success)
