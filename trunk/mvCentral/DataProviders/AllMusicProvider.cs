@@ -383,6 +383,7 @@ namespace mvCentral.DataProviders
     {
       bool songFound = false;
       string strSongHTML = string.Empty;
+      string songComposers = string.Empty; ;
 
       var strAlbumRemoveBrackets = BracketRegEx.Replace(trackObject.Track, "$1").Trim();
       var strRemovePunctuation = PunctuationRegex.Replace(trackObject.Track, "").Trim();
@@ -437,21 +438,19 @@ namespace mvCentral.DataProviders
             catch (Exception) { }
           }
           // Extract the composers
-          MatchCollection allMatchResults = null;
+          Match allMatchResults = null;
+          CaptureCollection captureCollection;
+          GroupCollection groupCollection;
           try
           {
             Regex regexObj = new Regex(@"<td class=""content"">(?:<a href=""[^""]+"">\s*(?<composers>[^<]+)</a>(?:\s*/\s*)?)+</td>", RegexOptions.IgnoreCase);
-            allMatchResults = regexObj.Matches(strSongHTML);
+            allMatchResults = regexObj.Match(strSongHTML);
+            groupCollection = allMatchResults.Groups;
+              captureCollection = groupCollection[1].Captures;
+              for (int i = 0; i < captureCollection.Count; i++)
+                songComposers += (i == captureCollection.Count - 1) ? captureCollection[i].Value : captureCollection[i].Value + "|";
 
-            string match = allMatchResults[0].Groups[0].Value;
-            Regex regexObj2 = new Regex("<a href=\"http://www.allmusic.com/artist.*?[>](?<composerName>.*?)[</]", RegexOptions.IgnoreCase);
-            allMatchResults = regexObj2.Matches(match);
-            string composers = string.Empty;
-            foreach (Match composer in allMatchResults)
-            {
-              composers += composer.Groups["composerName"].ToString().Trim() + "|";
-            }
-            trackObject.Composers = composers.Remove(composers.Length - 1, 1);
+              trackObject.Composers = songComposers;
           }
           catch (Exception) 
           { }   
