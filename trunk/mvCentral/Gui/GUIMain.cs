@@ -79,6 +79,7 @@ namespace mvCentral.GUI
 
     private bool initComplete = false;
     private Thread initThread;
+    private Thread initThread2;
     private bool preventDialogOnLoad = false;
     private readonly object propertySync = new object();
     private bool persisting = false;
@@ -160,6 +161,9 @@ namespace mvCentral.GUI
       // start initialization of the music videos core services in a seperate thread
       initThread = new Thread(new ThreadStart(mvCentralCore.Initialize));
       initThread.Start();
+
+      initThread2 = new Thread(new ThreadStart(updateToneStylesAndComnpoers));
+      initThread2.Start();
 
       // ... and listen to the progress
       mvCentralCore.InitializeProgress += new ProgressDelegate(onCoreInitializationProgress);
@@ -793,6 +797,58 @@ namespace mvCentral.GUI
     #endregion
 
     #region Private Methods
+
+    void updateToneStylesAndComnpoers()
+    {
+      // Get all Artists and Tracks
+      List<DBArtistInfo> artList = DBArtistInfo.GetAll();
+      List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
+
+      //Update Tones and Styles
+      logger.Debug("Update Tones and Styles");
+      foreach (DBArtistInfo artistData in artList)
+      {
+        // Styles
+        if (artistData.Styles.Trim().Length > 0)
+        {
+          string[] styles = artistData.Styles.Split(',');
+          foreach (string style in styles)
+          {
+            if (DBTonesAndStyles.Get("S", style.Trim()) == null)
+              DBTonesAndStyles.Add("S", style.Trim());
+          }
+        }
+        // Tones
+        if (artistData.Tones.Trim().Length > 0)
+        {
+          string[] tones = artistData.Tones.Split(',');
+          foreach (string tone in tones)
+          {
+            if (DBTonesAndStyles.Get("T", tone.Trim()) == null)
+              DBTonesAndStyles.Add("T", tone.Trim());
+          }
+        }
+      }
+      logger.Debug("Update Tones and Styles Complete - Update Composers");
+      // Update composer DB
+      DBComposers.ClearAll();
+      foreach (DBTrackInfo trackData in vidList)
+      {
+        // Skip if no composer data
+        if (trackData.Composers.Trim().Length == 0)
+          continue;
+        // Split composers string and add if we do not already have them
+        string[] composers = trackData.Composers.Split('|');
+        foreach (string composer in composers)
+        {
+          if (DBComposers.Get(composer) == null)
+            DBComposers.Add(composer);
+        }
+      }
+      logger.Debug("Composers Update complete");
+
+    }
+
 
     /// <summary>
     /// Process the hyperlink parmeter(s)
@@ -1891,7 +1947,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
       // Set BornOrFormed property
       if (currArtist.Formed.Trim().Length == 0 && currArtist.Born.Trim().Length == 0)
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", string.Empty);
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
       else if (currArtist.Formed.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}",Localization.Born, currArtist.Born));
       else
@@ -1936,13 +1992,18 @@ namespace mvCentral.GUI
         // This is an Video
         trackInfo = (DBTrackInfo)item.MusicTag;
         GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
-
+        // Track information
         if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
         else
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
-
+        // Track Rating
         GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", trackInfo.Rating.ToString());
+        // Track Composers
+        if (trackInfo.Composers.Trim().Length == 0)
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", "No Composer data");
+        else
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
 
         // Get the artist 
         DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];

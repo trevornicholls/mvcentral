@@ -48,6 +48,12 @@ namespace mvCentral
       Resume
     }
 
+    public enum ToneOrStyle
+    {
+      Tone,
+      style
+    }
+
     public delegate void PowerEventDelegate(PowerEvent powerEvent);
     public static event PowerEventDelegate OnPowerEvent;
 

@@ -770,7 +770,7 @@ namespace mvCentral.Playlist
     /// <param name="clear">Clears the properties instead of filling them if True</param>
     private void SetProperties(PlayListItem item, bool clear)
     {
-      if (item == null) 
+      if (item == null)
         return;
 
       string title = string.Empty;
@@ -815,10 +815,19 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Current.mvTrack.Description", clear ? string.Empty : trackInfo.bioContent);
       GUIPropertyManager.SetProperty("#mvCentral.isPlaying", clear ? "false" : "true");
       // Video Properities
-      DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
-      GUIPropertyManager.SetProperty("#mvCentral.Current.videowidth", mediaInfo.VideoWidth.ToString());
-      GUIPropertyManager.SetProperty("#mvCentral.Current.videoheight", mediaInfo.VideoHeight.ToString());
-      GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", mediaInfo.VideoFrameRate.ToString());
+      try
+      {
+        DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+        GUIPropertyManager.SetProperty("#mvCentral.Current.videowidth", mediaInfo.VideoWidth.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.Current.videoheight", mediaInfo.VideoHeight.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", mediaInfo.VideoFrameRate.ToString());
+      }
+      catch
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.Current.videowidth", string.Empty);
+        GUIPropertyManager.SetProperty("#mvCentral.Current.videoheight", string.Empty);
+        GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", string.Empty);
+      }
     }
 
 

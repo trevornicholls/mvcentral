@@ -281,6 +281,34 @@
               <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\Default\media\Logos\H264.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{e121db0e-d349-4d47-96e3-98346ed7f1a3}-H264.png</ZipFileName>
+              <DestinationFilename>%Skin%\Default\media\Logos\H264.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\DefaultWide\media\Thumb_Mask2.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{a9293fe3-115d-4d48-a656-c0c9f00c2e51}-Thumb_Mask2.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\media\Thumb_Mask2.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\DefaultWide\media\Logos\H264.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b69a5cc2-7b09-41b6-a5ca-6d17751e982f}-H264.png</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\media\Logos\H264.png</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\StreamedMP\media\Thumb_Mask2.png</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{b885779e-17c0-4627-9543-a5bfecfb696c}-Thumb_Mask2.png</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\media\Thumb_Mask2.png</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -794,6 +822,34 @@ Fixed issue where artist/album &amp; video counts were not reset when re-enterin
         <LocalFileName>..\Skin\StreamedMP\media\hover_mvCentral.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{ae3d4039-970a-46e9-9080-0d5dfa706682}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\Default\media\Logos\H264.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{e121db0e-d349-4d47-96e3-98346ed7f1a3}-H264.png</ZipFileName>
+        <DestinationFilename>%Skin%\Default\media\Logos\H264.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\DefaultWide\media\Thumb_Mask2.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{a9293fe3-115d-4d48-a656-c0c9f00c2e51}-Thumb_Mask2.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\media\Thumb_Mask2.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\DefaultWide\media\Logos\H264.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b69a5cc2-7b09-41b6-a5ca-6d17751e982f}-H264.png</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\media\Logos\H264.png</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\StreamedMP\media\Thumb_Mask2.png</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{b885779e-17c0-4627-9543-a5bfecfb696c}-Thumb_Mask2.png</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\media\Thumb_Mask2.png</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />

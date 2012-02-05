@@ -29,7 +29,8 @@ namespace mvCentral.GUI
       LeastPlayed = 4,
       ByTag = 5,
       ByGenre = 6,
-      Cancel = 7
+      SmartDJ = 7,
+      Cancel = 8
     }
     #region playlist
     /// <summary>
@@ -114,6 +115,7 @@ namespace mvCentral.GUI
           dlgMenu.Add(Localization.LeastPlayed);
           dlgMenu.Add(Localization.PlayByTag);
           dlgMenu.Add(Localization.PlayByGenre);
+          dlgMenu.Add("SmartDJ");
         }
         dlgMenu.DoModal(GetID);
 
@@ -150,11 +152,16 @@ namespace mvCentral.GUI
         case SmartMode.ByGenre:
           playByGenre();
           break;
+        case SmartMode.SmartDJ:
+          SmartDJPlaylist();
+          break;
         case SmartMode.Cancel:
           break;
       }
     }
-
+    /// <summary>
+    /// Play tracks by selected Genre
+    /// </summary>
     private void playByGenre()
     {
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
@@ -203,9 +210,9 @@ namespace mvCentral.GUI
           GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
       }
     }
-
-
-
+    /// <summary>
+    /// Play by Selected Tag
+    /// </summary>
     private void playByTag()
     {
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
@@ -244,7 +251,16 @@ namespace mvCentral.GUI
           GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
       }
     }
-
+    /// <summary>
+    /// Create SmartDJ Playlist
+    /// </summary>
+    private void SmartDJPlaylist()
+    {
+      GUIWindowManager.ActivateWindow(GUISmartDJ.GetWindowId());
+    }
+    /// <summary>
+    /// Play favourites
+    /// </summary>
     private void playFavourites()
     {
       { DebugMsg("NOT IMPLEMENTED"); }

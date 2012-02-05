@@ -264,6 +264,7 @@ namespace mvCentral.Localizations
     public static string ContinueToNextPartHeader = "Continue to next part?";
     public static string ContextMenu = "Context Menu";
     public static string ConfigGenre = "Configure Genres";
+    public static string Composers = "Composer(s)";
 
     // D
     public static string Date = "Date";
@@ -320,6 +321,7 @@ namespace mvCentral.Localizations
     public static string Playlist = "Playlist";
     public static string PlayByTag = "Play By Tag";
     public static string PlayByGenre = "Play By Genre";
+    public static string PlayByComposer = "Play By Composer";
 
     // Q
 
