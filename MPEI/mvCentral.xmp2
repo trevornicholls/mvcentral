@@ -328,7 +328,7 @@
       </GroupItem>
       <GroupItem Name="MediaInfo">
         <ParentGroup />
-        <DisplayName>MediaInfo v0.7.51.0</DisplayName>
+        <DisplayName>MediaInfo v0.7.53.0</DisplayName>
         <DefaulChecked>true</DefaulChecked>
         <Description>MediaInfo</Description>
         <Files>
@@ -534,8 +534,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>0</Build>
-      <Revision>291</Revision>
+      <Build>1</Build>
+      <Revision>292</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
 
@@ -890,21 +890,21 @@ Fixed issue where artist/album &amp; video counts were not reset when re-enterin
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{48379335-b8c6-4d5a-bbbf-83335a6cc493}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{e59d4ae4-a09c-45bc-9096-db5f77a9687c}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b1c04e91-cb1c-4b9a-bb1b-85c5a8fb65ab}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b7deb0fb-6ed2-4c53-aef5-6d7688613f35}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{8008e725-04e2-4cc5-8d94-f2d3225a7f8c}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{2e8b7a1e-5792-447d-9a02-39e2453715c4}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
