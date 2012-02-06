@@ -243,8 +243,8 @@
           <id>50</id>
           <description>listcontrol</description>
           <type>listcontrol</type>
-          <onleft>2</onleft>
-          <onright>2</onright>
+          <onleft>40</onleft>
+          <onright>40</onright>
           <posX>760</posX>
           <posY>232</posY>
           <width>550</width>
