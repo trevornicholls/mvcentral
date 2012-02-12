@@ -26,6 +26,7 @@
         // B
         <string Field="Back">Back</string>
         <string Field="ButtonAutoPlay">Auto Play</string>
+        <string Field="Born">Born</string>
 
         // C
         <string Field="Cancel">Cancel</string>
@@ -34,6 +35,7 @@
         <string Field="ContinueToNextPartHeader">Continue to next part?</string>
         <string Field="ContextMenu">Context Menu</string>
         <string Field="ConfigGenre">Configure Genres</string>
+        <string Field="Composers">Composer(s)</string>
 
         // D
         <string Field="Date">Date</string>
@@ -47,6 +49,7 @@
         <string Field="FailedMountingImage">Sorry, failed mounting DVD Image</string>
         <string Field="FavouriteVideos">Favourite Videos</string>
         <string Field="Genre">Genre</string>
+        <string Field="Formed">Formed</string>
 
         // G
         <string Field="G-test">Test for G</string>
@@ -93,6 +96,7 @@
         <string Field="Playlist">Playlist</string>
         <string Field="PlayByTag">Play by Tag</string>
         <string Field="PlayByGenre">Play by Genre</string>
+        <string Field="PlayByComposer">Play By Composer</string>
 
         // Q
 

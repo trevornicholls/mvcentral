@@ -697,7 +697,8 @@ namespace mvCentral.DataProviders
       try
       {
         var strEncodedArtist = EncodeString(strArtist);
-        var strURL = BaseURL + strEncodedArtist + "/filter:pop";
+        //var strURL = BaseURL + strEncodedArtist + "/filter:pop";
+        var strURL = BaseURL + strEncodedArtist;
 
         logger.Debug("GetArtistURL: Request URL: {0}", strURL);
 
@@ -763,7 +764,8 @@ namespace mvCentral.DataProviders
       try
       {
         var strEncodedArtist = EncodeString(strArtist);
-        var strURL = BaseURL + strEncodedArtist + "/filter:pop";
+        //var strURL = BaseURL + strEncodedArtist + "/filter:pop";
+        var strURL = BaseURL + strEncodedArtist;
 
         logger.Debug("GetArtistURLAlternative: Request URL: {0}", strURL);
 
