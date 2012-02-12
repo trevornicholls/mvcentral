@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window>
   <id>112015</id>
-  <defaultcontrol>30</defaultcontrol>
+  <defaultcontrol>20</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:-</define>
   <define>#usePlayFanart:Yes</define>
@@ -125,108 +125,260 @@
     
 		<!-- Selection Buttons -->
 		
+     <control Style="skinbutton">
+      <description>Mode</description>
+      <type>button</type>
+      <id>20</id>
+      <posX>30</posX>
+      <posY>220</posY>
+      <width>200</width>
+      <font>mediastream10c</font>
+      <label>-</label>
+      <onleft>50</onleft>
+      <onright>21</onright>
+      <onup>17</onup>
+    </control>
+    <control Style="skinbutton">
+      <description>Play Generated Playlist</description>
+      <type>button</type>
+      <id>21</id>
+      <posX>240</posX>
+      <posY>220</posY>
+      <width>200</width>
+      <onleft>50</onleft>
+      <onright>22</onright>
+      <font>mediastream10c</font>
+      <label>Play</label>
+    </control>
+    <control Style="skinbutton">
+      <description>Play</description>
+      <type>button</type>
+      <id>22</id>
+      <posX>450</posX>
+      <posY>220</posY>
+      <width>200</width>
+      <onleft>50</onleft>
+      <onright>20</onright>
+      <font>mediastream10c</font>
+      <label>Save</label>
+    </control>		
+		
+		
      <control Style="settingsmainbutton">
       <description>Genre Button</description>
       <type>button</type>
       <id>30</id>
       <posX>30</posX>
-      <posY>240</posY>
-      <width>400</width>
-      <textXOff>35</textXOff>
+      <posY>260</posY>
+      <width>700</width>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>20</onup>
+      <ondown>31</ondown>
+      <textXOff>5</textXOff>
+      <disabledcolor>ff808080</disabledcolor>
       <label>Select Genre</label>
+      <visible>string.equals(#mvCentral.MatchMode, true)</visible>
     </control>   
+    <control Style="settingsmainbutton">
+      <description>Channel Select</description>
+      <type>button</type>
+      <id>130</id>
+      <posX>30</posX>
+      <posY>260</posY>
+      <label>Select filter field..</label>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>20</onup>
+      <ondown>131</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <visible>string.equals(#mvCentral.MatchMode, false)</visible>
+    </control>
 
      <control Style="settingsmainbutton">
       <description>Tag Button</description>
       <type>button</type>
       <id>31</id>
       <posX>30</posX>
-      <posY>280</posY>
-      <width>400</width>
-      <textXOff>35</textXOff>
+      <posY>300</posY>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>30</onup>
+      <ondown>32</ondown>
+      <disabledcolor>ff808080</disabledcolor>
       <label>Select Tag</label>
+      <visible>string.equals(#mvCentral.MatchMode, true)</visible>
     </control>   
+    <control Style="settingsmainbutton">
+      <description>Channel Select</description>
+      <type>button</type>
+      <id>131</id>
+      <posX>30</posX>
+      <posY>300</posY>
+      <label>Select filter field..</label>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>130</onup>
+      <ondown>132</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <visible>string.equals(#mvCentral.MatchMode, false)</visible>
+    </control>
    
      <control Style="settingsmainbutton">
       <description>Style Button</description>
       <type>button</type>
       <id>32</id>
       <posX>30</posX>
-      <posY>320</posY>
-      <width>400</width>
-      <textXOff>35</textXOff>
+      <posY>340</posY>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>31</onup>
+      <ondown>33</ondown>
+      <disabledcolor>ff808080</disabledcolor>
       <label>Select Style</label>
+      <visible>string.equals(#mvCentral.MatchMode, true)</visible>
     </control>   
+    <control Style="settingsmainbutton">
+      <description>Channel Select</description>
+      <type>button</type>
+      <id>132</id>
+      <posX>30</posX>
+      <posY>340</posY>
+      <label>Select filter field..</label>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>131</onup>
+      <ondown>133</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <visible>string.equals(#mvCentral.MatchMode, false)</visible>
+    </control>
 
      <control Style="settingsmainbutton">
       <description>Tone Button</description>
       <type>button</type>
       <id>33</id>
       <posX>30</posX>
-      <posY>360</posY>
-      <width>400</width>
-      <textXOff>35</textXOff>
+      <posY>380</posY>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>32</onup>
+      <ondown>34</ondown>
+      <disabledcolor>ff808080</disabledcolor>
       <label>Select Tone</label>
+      <visible>string.equals(#mvCentral.MatchMode, true)</visible>
     </control>   
+    <control Style="settingsmainbutton">
+      <description>Channel Select</description>
+      <type>button</type>
+      <id>133</id>
+      <posX>30</posX>
+      <posY>380</posY>
+      <label>Select filter field..</label>
+      <width>700</width>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>132</onup>
+      <ondown>134</ondown>
+      <textXOff>5</textXOff>
+      <disabledcolor>ff808080</disabledcolor>
+      <visible>string.equals(#mvCentral.MatchMode, false)</visible>
+    </control>
     
      <control Style="settingsmainbutton">
       <description>Composer Button</description>
       <type>button</type>
       <id>34</id>
       <posX>30</posX>
-      <posY>400</posY>
-      <width>400</width>
-      <textXOff>35</textXOff>
+      <posY>420</posY>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>33</onup>
+      <ondown>35</ondown>
+      <disabledcolor>ff808080</disabledcolor>
       <label>Select Composer</label>
+      <visible>string.equals(#mvCentral.MatchMode, true)</visible>
     </control>   
+    <control Style="settingsmainbutton">
+      <description>Channel Select</description>
+      <type>button</type>
+      <id>134</id>
+      <posX>30</posX>
+      <posY>420</posY>
+      <label>Select filter field..</label>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>133</onup>
+      <ondown>135</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <visible>string.equals(#mvCentral.MatchMode, false)</visible>
+    </control>
     
      <control Style="settingsmainbutton">
       <description>Keyword Button</description>
       <type>button</type>
       <id>35</id>
       <posX>30</posX>
-      <posY>440</posY>
-      <width>400</width>
-      <textXOff>35</textXOff>
+      <posY>460</posY>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>34</onup>
+      <ondown>36</ondown>
+      <disabledcolor>ff808080</disabledcolor>
       <label>Enter Keyword</label>
+      <visible>string.equals(#mvCentral.MatchMode, true)</visible>
     </control>   
-
-     <control Style="skinbutton">
-      <description>Playn Playlist</description>
+    <control Style="settingsmainbutton">
+      <description>Channel Select</description>
       <type>button</type>
-      <id>38</id>
+      <id>135</id>
       <posX>30</posX>
-      <posY>550</posY>
-      <width>200</width>
-      <textXOff>35</textXOff>
-      <label>Play</label>
-      <visible>control.isvisible(50)</visible>
-    </control>   
-     <control Style="skinbutton">
-      <description>Save Playlist</description>
-      <type>button</type>
-      <id>39</id>
-      <posX>30</posX>
-      <posY>580</posY>
-      <width>200</width>
-      <textXOff>35</textXOff>
-      <label>Save</label>
-      <visible>control.isvisible(50)</visible>
-    </control>   
-
-
+      <posY>460</posY>
+      <label>Select filter field..</label>
+      <width>700</width>
+      <textXOff>5</textXOff>
+      <onleft>50</onleft>
+      <onright>50</onright>
+      <onup>134</onup>
+      <ondown>130</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <visible>string.equals(#mvCentral.MatchMode, false)</visible>
+    </control>
+ 
 	  <control>
       <type>label</type>
       <description>Artists in Playlist</description>
       <id>37</id>
       <posX>30</posX>
-      <posY>620</posY>
-      <width>350</width>
+      <posY>690</posY>
+      <width>700</width>
       <font>mediastream11c</font>
       <label></label>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
+
+
+
+
+
     
 <!-- List Control -->
 
@@ -243,8 +395,8 @@
           <id>50</id>
           <description>listcontrol</description>
           <type>listcontrol</type>
-          <onleft>40</onleft>
-          <onright>40</onright>
+          <onleft>21</onleft>
+          <onright>21</onright>
           <posX>760</posX>
           <posY>232</posY>
           <width>550</width>
@@ -278,6 +430,11 @@
         </control>
       </control>
     </control>
+    
+
+ 
+    
+    
     <import>common.overlays2.xml</import>
     <import>common.time.xml</import>
   </controls>
