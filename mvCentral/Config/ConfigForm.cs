@@ -3494,7 +3494,26 @@ namespace mvCentral
       // URLs in drag/drop data are often padded with null characters so remove these
       return url.TrimEnd('\0');
     }
+    /// <summary>
+    /// Mark selected rows to ignore
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    private void ignoreButton_Click(object sender, EventArgs e)
+    {
+      unapprovedGrid.EndEdit();
 
+      DialogResult result = MessageBox.Show("This will permanently ignore the selected file(s). This action is currently IRREVERSABLE on a file by file basis, are you sure?", "Warning!", MessageBoxButtons.YesNo);
+      if (result == DialogResult.Yes)
+      {
+
+        foreach (DataGridViewRow currRow in unapprovedGrid.SelectedRows)
+        {
+          MusicVideoMatch selectedMatch = (MusicVideoMatch)currRow.DataBoundItem;
+          mvCentralCore.Importer.Ignore(selectedMatch);
+        }
+      }
+    }
 
 
   }
