@@ -78,6 +78,8 @@
         <string Field="MostPlayedVideo">Most Played Video</string>
         <string Field="MostPlayedArtists">Most Played Artists</string>
         <string Field="MostPlayedVideos">Most Played Videos</string>
+        <string Field="ModeMatch">Mode: Match</string>
+        <string Field="ModeFilter">Mode: Filter</string>
 
 
 
@@ -111,6 +113,7 @@
         <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
         <string Field="SmartPlaylistTag">Select Tag for Playlist</string>
         <string Field="StatsAndInfo">Stats and Info</string>
+        <string Field="SelFiler">Select Filter Field...</string>
 
         // T
         <string Field="TotalRuntime">Total Runtime</string>

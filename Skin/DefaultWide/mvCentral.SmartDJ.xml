@@ -4,11 +4,20 @@
   <defaultcontrol>20</defaultcontrol>
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:-</define>
-  <define>#usePlayFanart:Yes</define>
-  <define>#useSelectedFanart:Yes</define>
+  <define>#usePlayFanart:No</define>
+  <define>#useSelectedFanart:No</define>
   <controls>
-    <import>mymusic.autofanart.xml</import>
-    <import>mymusic.selected.fanart.xml</import>
+    <import>common.time.xml</import>
+    <import>common.music.fanart.xml</import>
+    <control>
+      <description>BG</description>
+      <type>image</type>
+      <id>1</id>
+      <texture>Background.png</texture>
+      <width>1280</width>
+      <height>720</height>
+    </control>
+
     <control>
       <type>image</type>
       <id>0</id>
@@ -18,155 +27,110 @@
       <height>720</height>
       <colordiffuse>F0ffffff</colordiffuse>
       <texture>mvcSmartDJ.jpg</texture>
+      <animation effect="fade" time="70">visible</animation>
+      <animation effect="fade" time="70" delay="300">hidden</animation>
     </control>
     <control>
+      <description>Image Overlay</description>
       <id>0</id>
-      <description>music overlay image</description>
       <type>image</type>
-      <posX>0</posX>
-      <posY>0</posY>
-      <width>1281</width>
+      <posx>0</posx>
+      <posy>0</posy>
+      <width>1280</width>
       <height>720</height>
-      <texture>mainoverlay.png</texture>
+      <texture>backgroundtop.png</texture>
+      <colordiffuse>ccffffff</colordiffuse>
+      <animation effect="fade" time="70">visible</animation>
+      <animation effect="fade" time="70" delay="300">hidden</animation>
     </control>
     <control>
-      <description>TopBar Overlay</description>
-      <type>image</type>
+      <description>Image Overlay</description>
       <id>0</id>
-      <posX>0</posX>
-      <posY>0</posY>
+      <type>image</type>
+      <posx>0</posx>
+      <posy>0</posy>
       <width>1280</width>
-      <height>51</height>
-      <texture>overlay_topbar.png</texture>
-    </control>
-    <control>
-      <description>Title</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>0</posX>
-      <posY>675</posY>
-      <width>1280</width>
-      <height>47</height>
-      <texture>imagestreamtitle.png</texture>
-    </control>
-    <control>
-      <description>Bottom Bar Overlay</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>0</posX>
-      <posY>675</posY>
-      <width>1280</width>
-      <height>47</height>
-      <texture>imagestreamtitle.png</texture>
-    </control>
-    <control>
-      <description>Top Title Extension Background</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>381</posX>
-      <posY>11</posY>
-      <width>486</width>
-      <height>36</height>
-      <texture>tvtitlebg.png</texture>
-      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
-      <animation effect="fade" time="300" delay="0">WindowClose</animation>
-      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300" delay="300">WindowOpen</animation>
-      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="600" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Musicvideos Title Background</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>77</posX>
-      <posY>11</posY>
-      <width>437</width>
-      <height>35</height>
-      <texture>tvtitlebg.png</texture>
+      <height>720</height>
+      <texture>backgroundthumbsview.png</texture>
+      <colordiffuse>ffffffff</colordiffuse>
+      <animation effect="fade" time="70">visible</animation>
+      <animation effect="fade" time="70" delay="300">hidden</animation>
     </control>
     <control>
       <type>fadelabel</type>
       <description>mvCentral Title</description>
       <id>0</id>
-      <posX>493</posX>
-      <posY>13</posY>
-      <width>350</width>
-      <font>mediastream12c</font>
-      <align>right</align>
+      <posX>60</posX>
+      <posY>27</posY>
+      <width>800</width>
+      <font>font16</font>
+      <shadowAngle>45</shadowAngle> 
+			<shadowDistance>3</shadowDistance> 
+			<shadowColor>#shadow.dark</shadowColor>
+      <align>left</align>
       <visible>yes</visible>
       <label>mvCentral - SmartDJ</label>
     </control>
     <control>
-      <description>Item Count Background</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>1113</posX>
-      <posY>12</posY>
-      <width>159</width>
-      <height>27</height>
-      <texture>mediacountbackground.png</texture>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control>
+      <description>Number of Files Label</description>
       <type>label</type>
-      <description>Number of Files Label (Videos)</description>
-      <id>0</id>
-      <posX>1246</posX>
-      <posY>14</posY>
-      <width>350</width>
-      <font>mediastream10c</font>
-      <textcolor>ff006698</textcolor>
+      <id>1</id>
+      <posX>1244</posX>
+      <posY>60</posY>
+      <shadowAngle>45</shadowAngle> 
+			<shadowDistance>3</shadowDistance> 
+			<shadowColor>#shadow.dark</shadowColor>
+      <label>#itemcount #mvCentral.Translation.Videos.Label</label>
       <align>right</align>
-      <label>#mvCentral.Translation.Videos.Label #itemcount</label>
+      <textcolor>White</textcolor>
+      <font>font10</font>
       <visible>control.isvisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <!-- Menu Buttons -->
-    <control Style="skinbutton">
+    <control>
       <description>Mode</description>
       <type>button</type>
       <id>20</id>
       <posX>30</posX>
-      <posY>220</posY>
+      <posY>200</posY>
       <width>200</width>
-      <font>mediastream10c</font>
+      <font>font12</font>
       <label>-</label>
       <onleft>50</onleft>
       <onright>21</onright>
       <ondown>30</ondown>
       <onup>17</onup>
     </control>
-    <control Style="skinbutton">
+    <control>
       <description>Play Generated Playlist</description>
       <type>button</type>
       <id>21</id>
       <posX>240</posX>
-      <posY>220</posY>
+      <posY>200</posY>
       <width>200</width>
-      <onleft>50</onleft>
+      <onleft>20</onleft>
       <onright>22</onright>
       <ondown>30</ondown>
       <onup>17</onup>
-      <font>mediastream10c</font>
+      <font>font12</font>
       <label>Play</label>
     </control>
-    <control Style="skinbutton">
-      <description>Play</description>
+    <control>
+      <description>Save Generated Playlist</description>
       <type>button</type>
       <id>22</id>
       <posX>450</posX>
-      <posY>220</posY>
+      <posY>200</posY>
       <width>200</width>
-      <onleft>50</onleft>
+      <onleft>21</onleft>
       <onright>20</onright>
       <ondown>30</ondown>
       <onup>17</onup>
-      <font>mediastream10c</font>
+      <font>font12</font>
       <label>Save</label>
     </control>
     <!-- Selection Buttons -->
-    <control Style="settingsmainbutton">
+    <control>
       <description>Genre/Custom1 Button</description>
       <type>button</type>
       <id>30</id>
@@ -181,12 +145,12 @@
       <disabledcolor>ff808080</disabledcolor>
       <label>-</label>
     </control>
-    <control Style="settingsmainbutton">
+    <control>
       <description>Tag/Custom2 Button</description>
       <type>button</type>
       <id>31</id>
       <posX>30</posX>
-      <posY>300</posY>
+      <posY>310</posY>
       <width>620</width>
       <textXOff>5</textXOff>
       <onleft>50</onleft>
@@ -196,12 +160,12 @@
       <disabledcolor>ff808080</disabledcolor>
       <label>-</label>
     </control>
-    <control Style="settingsmainbutton">
+    <control>
       <description>Style/Custom3 Button</description>
       <type>button</type>
       <id>32</id>
       <posX>30</posX>
-      <posY>340</posY>
+      <posY>360</posY>
       <width>620</width>
       <textXOff>5</textXOff>
       <onleft>50</onleft>
@@ -211,12 +175,12 @@
       <disabledcolor>ff808080</disabledcolor>
       <label>-</label>
     </control>
-    <control Style="settingsmainbutton">
+    <control>
       <description>Tone/Custom4 Button</description>
       <type>button</type>
       <id>33</id>
       <posX>30</posX>
-      <posY>380</posY>
+      <posY>410</posY>
       <width>620</width>
       <textXOff>5</textXOff>
       <onleft>50</onleft>
@@ -226,12 +190,12 @@
       <disabledcolor>ff808080</disabledcolor>
       <label>-</label>
     </control>
-    <control Style="settingsmainbutton">
+    <control>
       <description>Composer/Custom5 Button</description>
       <type>button</type>
       <id>34</id>
       <posX>30</posX>
-      <posY>420</posY>
+      <posY>460</posY>
       <width>620</width>
       <textXOff>5</textXOff>
       <onleft>50</onleft>
@@ -241,12 +205,12 @@
       <disabledcolor>ff808080</disabledcolor>
       <label>-</label>
     </control>
-    <control Style="settingsmainbutton">
+    <control>
       <description>Keyword/Custom6 Button</description>
       <type>button</type>
       <id>35</id>
       <posX>30</posX>
-      <posY>460</posY>
+      <posY>510</posY>
       <width>620</width>
       <textXOff>5</textXOff>
       <onleft>50</onleft>
@@ -262,9 +226,9 @@
       <description>Artists in Playlist</description>
       <id>37</id>
       <posX>30</posX>
-      <posY>685</posY>
+      <posY>590</posY>
       <width>700</width>
-      <font>mediastream11c</font>
+      <font>font12</font>
       <label></label>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
@@ -280,53 +244,46 @@
         <description>composite control consisting of a list control and a thumbnail panel</description>
         <type>facadeview</type>
         <control>
-          <description>Playlist Layout</description>
+          <description>playlist listcontrol</description>
           <type>playlistcontrol</type>
           <id>50</id>
-          <dimColor>30ffffff</dimColor>
-          <scrollOffset>3</scrollOffset>
-          <onleft>2</onleft>
-          <onright>2</onright>
+          <onleft>21</onleft>
+          <onright>21</onright>
           <posX>700</posX>
-          <posY>270</posY>
-          <textXOff>-60</textXOff>
+          <posY>232</posY>
+          <width>800</width>
+          <height>480</height>
+          <scrollOffset>1</scrollOffset>
+          <textXOff>5</textXOff>
           <textYOff>0</textYOff>
-          <textXOff2>500</textXOff2>
-          <textYOff2>21</textYOff2>
-          <textXOff3>21</textXOff3>
-          <textYOff3>22</textYOff3>
-          <font2>mediastream9c</font2>
-          <font3>mediastream9c</font3>
+          <textXOff2>480</textXOff2>
+          <textYOff2>18</textYOff2>
+          <font>font10</font>
+          <font2>font9</font2>
           <textcolor2>ff006698</textcolor2>
-          <keepaspectratio>no</keepaspectratio>         
-          <textXOff>-40</textXOff>
-          <textXOff2>485</textXOff2>
-          <upBtnXOffset>499</upBtnXOffset>
-          <downBtnXOffset>517</downBtnXOffset>
-          <deleteBtnXOffset>535</deleteBtnXOffset>
-          <!-- Watched/Unwatched Icons -->
-          <IconYOff>13</IconYOff>
-          <IconXOff>10</IconXOff>
+          <upBtnWidth>32</upBtnWidth>
+          <downBtnWidth>32</downBtnWidth>
+          <deleteBtnWidth>37</deleteBtnWidth>
+          <upBtnHeight>30</upBtnHeight>
+          <downBtnHeight>30</downBtnHeight>
+          <deleteBtnHeight>30</deleteBtnHeight>
+          <upBtnXOffset>485</upBtnXOffset>
+          <downBtnXOffset>515</downBtnXOffset>
+          <deleteBtnXOffset>545</deleteBtnXOffset>
+          <itemWidth>18</itemWidth>
           <itemHeight>18</itemHeight>
-          <itemWidth>72</itemWidth>
-          <!-- Spin Controls -->
-          <spinWidth>50</spinWidth>
-          <spinHeight>37</spinHeight>
+          <IconXOff>8</IconXOff>
+          <IconYOff>10</IconYOff>
+          <keepaspectratio>no</keepaspectratio>
           <spinPosX>1175</spinPosX>
           <spinPosY>681</spinPosY>
           <spinAlign>Right</spinAlign>
           <spinColor>ff006698</spinColor>
-          <textureUp>arrow_round_up_nofocus.png</textureUp>
-          <textureDown>arrow_round_down_nofocus.png</textureDown>
-          <textureUpFocus>arrow_round_up_focus.png</textureUpFocus>
-          <textureDownFocus>arrow_round_down_focus.png</textureDownFocus>
-        </control>
-        
-        
+          <spinWidth>50</spinWidth>
+          <spinHeight>37</spinHeight>
+        </control>       
       </control>
     </control>
-    <import>common.overlays2.xml</import>
-    <import>common.time.xml</import>
   </controls>
 </window>
 <!--Checksum:da82566a2d2fd42308e0a967d081a037-->
