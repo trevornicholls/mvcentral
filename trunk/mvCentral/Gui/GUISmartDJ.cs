@@ -60,6 +60,7 @@ namespace mvCentral.GUI
     const int windowID = 112015;
 
     bool matchingMode = true;
+    private bool persisting = false;
 
     List<DBArtistInfo> fullArtistList = new List<DBArtistInfo>();
     List<DBTrackInfo> fullVideoList = new List<DBTrackInfo>();
@@ -166,10 +167,16 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
-      initValues();
-      fullArtistList = DBArtistInfo.GetAll();
-      fullVideoList = DBTrackInfo.GetAll();
-      facadeLayout.Visible = false;
+      facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Playlist;
+      if (!persisting)
+      {
+        initValues();
+        fullArtistList = DBArtistInfo.GetAll();
+        fullVideoList = DBTrackInfo.GetAll();
+        facadeLayout.Visible = false;
+      }
+      else
+        refreshValues();
     }
     /// <summary>
     /// Clean up
@@ -197,7 +204,7 @@ namespace mvCentral.GUI
           {
             matchingMode = false;
             setButtonControls();
-            GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, "Mode: Filter");
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeFilter);
             GUIPropertyManager.SetProperty("#mvCentral.MatchMode", "false");
             GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton1);
             GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
@@ -211,7 +218,7 @@ namespace mvCentral.GUI
           {
             matchingMode = true;
             setButtonControls();
-            GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, "Mode: Match");
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
             GUIPropertyManager.SetProperty("#mvCentral.MatchMode", "true");
           }
           break;
@@ -338,9 +345,9 @@ namespace mvCentral.GUI
               {
                 // we have a track selected so add any other tracks which are on showing on the facade
                 List<DBTrackInfo> videoList = new List<DBTrackInfo>();
-                for (int i = 0; i < facadeLayout.ListLayout.Count; i++)
+                for (int i = 0; i < facadeLayout.PlayListLayout.Count; i++)
                 {
-                  GUIListItem trackItem = facadeLayout.ListLayout[i];
+                  GUIListItem trackItem = facadeLayout.PlayListLayout[i];
                   if (!trackItem.IsFolder && trackItem.MusicTag != null)
                     videoList.Add((DBTrackInfo)trackItem.MusicTag);
                 }
@@ -447,27 +454,27 @@ namespace mvCentral.GUI
       if (fieldSelected2 == string.Empty)
       {
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, Localization.SelFilter);
       }
       if (fieldSelected3 == string.Empty)
       {
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3,Localization.SelFilter);
       }
       if (fieldSelected4 == string.Empty)
       {
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4,Localization.SelFilter);
       }
       if (fieldSelected5 == string.Empty)
       {
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5,Localization.SelFilter);
       }
       if (fieldSelected6 == string.Empty)
       {
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6,Localization.SelFilter);
       }
 
 
@@ -508,7 +515,7 @@ namespace mvCentral.GUI
       {
         GUIControl.ClearControl(windowID, (int)GUIControls.Facade);
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1,Localization.SelFilter);
       }
     }
 
@@ -580,7 +587,7 @@ namespace mvCentral.GUI
           break;
         case "keyword":
           thisField = SearchField.Keyword;
-          strRetVal = selectGenre();
+          strRetVal = getKeyword();
           keywordAdded = true;
           break;
       }
@@ -649,9 +656,9 @@ namespace mvCentral.GUI
       {
         // we have a track selected so add any other tracks which are on showing on the facade
         List<DBTrackInfo> videoList = new List<DBTrackInfo>();
-        for (int i = 0; i < facadeLayout.ListLayout.Count; i++)
+        for (int i = 0; i < facadeLayout.PlayListLayout.Count; i++)
         {
-          GUIListItem trackItem = facadeLayout.ListLayout[i];
+          GUIListItem trackItem = facadeLayout.PlayListLayout[i];
           if (!trackItem.IsFolder && trackItem.MusicTag != null)
             videoList.Add((DBTrackInfo)trackItem.MusicTag);
         }
@@ -877,8 +884,31 @@ namespace mvCentral.GUI
 
           break;
         case SearchField.Composer:
+          // If we have an empty list but we have a composer chosen then grab all artists and filter out just tracks with that composer during the facade build
+          if (artistPlayList.Count == 0 && selectedComposer != "None")
+            artistPlayList = DBArtistInfo.GetAll();
+
           break;
         case SearchField.Keyword:
+          if (artistPlayList.Count == 0)
+          {
+            foreach (DBArtistInfo artistData in fullArtistList)
+            {
+              if (artistData.bioContent.Contains(strSearchValue, StringComparison.OrdinalIgnoreCase))
+                artistPlayList.Add(artistData);
+            }
+          }
+          else
+          {
+            List<DBArtistInfo> workingArtistList = new List<DBArtistInfo>(artistPlayList);
+            artistPlayList.Clear();
+            foreach (DBArtistInfo artistData in workingArtistList)
+            {
+              if (artistData.bioContent.Contains(strSearchValue, StringComparison.OrdinalIgnoreCase))
+                artistPlayList.Add(artistData);
+            }
+          }
+
           break;
         default:
           break;
@@ -924,6 +954,12 @@ namespace mvCentral.GUI
           if (artistData.Styles.Contains(selectedStyle, StringComparison.OrdinalIgnoreCase))
             artistPlayList.Add(artistData);
         }
+        // Keyword
+        if (selectedKeyword != "None")
+        {
+          if (artistData.bioContent.Contains(selectedStyle, StringComparison.OrdinalIgnoreCase))
+            artistPlayList.Add(artistData);
+        }
       }
 
       // If we have an empty list but we have a composer chosen then grab all artists and filter out just tracks with that composer during the facade build
@@ -944,7 +980,7 @@ namespace mvCentral.GUI
       {
         foreach (DBTrackInfo trackData in DBTrackInfo.GetEntriesByArtist(artist))
         {
-          // If filtering on composer the check the track
+          // If filtering on composer the check the track.
           if (selectedComposer != "None")
           {
             if (!trackData.Composers.Contains(selectedComposer, StringComparison.OrdinalIgnoreCase))
@@ -975,6 +1011,20 @@ namespace mvCentral.GUI
             facadeItem.ThumbnailImage = trackData.ArtFullPath;
           else
             facadeItem.ThumbnailImage = "defaultVideoBig.png";
+
+          if (trackData.ActiveUserSettings.WatchedCount > 0)
+          {
+            facadeItem.IsPlayed = true;
+            facadeItem.Shaded = true; ;
+            facadeItem.IconImage = GUIGraphicsContext.Skin + @"\Media\tvseries_Watched.png";
+          }
+          else
+          {
+            facadeItem.IsPlayed = false;
+            facadeItem.Shaded = false;
+            facadeItem.IconImage = GUIGraphicsContext.Skin + @"\Media\tvseries_UnWatched.png";
+          }
+
 
           facadeLayout.Add(facadeItem);
         }
@@ -1122,10 +1172,26 @@ namespace mvCentral.GUI
       return dlg.SelectedLabelText;
     }
     /// <summary>
+    /// Capture the Keyword
+    /// </summary>
+    /// <returns></returns>
+    string getKeyword()
+    {
+      string keyWord = string.Empty;
+      if (GetKeyboard(ref keyWord))
+      {
+        return keyWord;
+      }
+      return "None";
+    }
+
+
+    /// <summary>
     /// Set/Reset to defualt
     /// </summary>
     void initValues()
     {
+      persisting = true;
       selectedGenre = "None";
       selectedLastFMTag = "None";
       selectedTone = "None";
@@ -1155,10 +1221,95 @@ namespace mvCentral.GUI
       keywordAdded = false;
 
       matchingMode = true;
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, "Mode: Match");
+      GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
       GUIPropertyManager.SetProperty("#mvCentral.MatchMode", "true");
       setButtonControls();
     }
+    /// <summary>
+    /// When re-entering SmartDJ refersh the current values
+    /// </summary>
+    void refreshValues()
+    {
+      if (matchingMode)
+      {
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
+        // Set default first
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Genre: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "LastFM Tag: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Style: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Tone: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Composer: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Keyword: None");
+        // Now set any Values
+        if (selectedGenre != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Genre: " + selectedGenre);
+
+        if (selectedLastFMTag != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "LastFM Tag: " + selectedLastFMTag);
+
+        if (selectedStyle != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Style: " + selectedStyle);
+
+        if (selectedTone != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Tone: " + selectedTone);
+
+        if (selectedComposer != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Cpmposer: " + selectedComposer);
+
+        if (selectedKeyword != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Keyword: " + selectedKeyword);
+        // Build and Display the facade
+        buildFacade();
+      }
+      else
+      {
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeFilter);
+        // Set the defaults
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, Localization.SelFilter);
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
+        // Now set the existing valuses
+        if (fieldSelected1 != string.Empty)
+        {
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("Field: {0} ({1})", fieldSelected1, customSearchStr1));
+          GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
+        }
+        if (fieldSelected2 != string.Empty)
+        {
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("Field: {0} ({1})", fieldSelected2, customSearchStr2));
+          GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
+        }
+        if (fieldSelected3 != string.Empty)
+        {
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("Field: {0} ({1})", fieldSelected3, customSearchStr3));
+          GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
+        }
+        if (fieldSelected4 != string.Empty)
+        {
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("Field: {0} ({1})", fieldSelected4, customSearchStr4));
+          GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
+        }
+        if (fieldSelected5 != string.Empty)
+        {
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("Field: {0} ({1})", fieldSelected5, customSearchStr5));
+          GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
+        }
+        if (fieldSelected6 != string.Empty)
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, string.Format("Field: {0} ({1})", fieldSelected6, customSearchStr6));
+        // Build and display the facade
+        buildFacade();
+      }
+
+    }
+
     /// <summary>
     /// Set the button text for the selected mode
     /// </summary>
@@ -1175,12 +1326,12 @@ namespace mvCentral.GUI
       }
       else
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Select Fiter Field..");
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "Select Fiter Field..");
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Select Fiter Field..");
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Select Fiter Field..");
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Select Fiter Field..");
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, Localization.SelFilter);
       }
     }
 

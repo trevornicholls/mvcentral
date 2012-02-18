@@ -305,6 +305,8 @@ namespace mvCentral.Localizations
     public static string MostPlayedVideos = "Most Played Videos";
     public static string MostPlayedArtist = "Most Played Artist";
     public static string MostPlayedVideo = "Most Played Video";
+    public static string ModeMatch = "Mode: Match";
+    public static string ModeFilter = "Mode: Filter";
 
     // N
     public static string NoPlaylistsFound = "No Playlists found in:";
@@ -337,6 +339,7 @@ namespace mvCentral.Localizations
     public static string StatsAndInfo = "Stats and Info";
     public static string SmartPlaylistTag = "Select Tag for Playlist";
     public static string TagsToGenre = "Select Tags to use as Genre";
+    public static string SelFilter = "Select Filter Field...";
  
     // T
     public static string TotalRuntime = "Total Runtime";
