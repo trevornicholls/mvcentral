@@ -102,52 +102,33 @@ namespace mvCentral.GUI
 
     private enum GUIControls
     {
-      smartMode = 20,
+      SmartDJMode = 20,
       PlayPlaylist = 21,
       SavePlaylist = 22,
-      Genre = 30,
-      LastFMTag = 31,
-      Style = 32,
-      Tone = 33,
-      Composer = 34,
-      Keyword = 35,
+      FieldButton1 = 30,
+      FieldButton2 = 31,
+      FieldButton3 = 32,
+      FieldButton4 = 33,
+      FieldButton5 = 34,
+      FieldButton6 = 35,
       MaxTime = 36,
       TotalArtists = 37,
-      Facade = 50,
-      Custom1 = 130,
-      Custom2 = 131,
-      Custom3 = 132,
-      Custom4 = 133,
-      Custom5 = 134,
-      Custom6 = 135
+      Facade = 50
     }
 
-
-
-    [SkinControl((int)GUIControls.smartMode)] protected GUIButtonControl smartDJ_SmartMode = null;
-
-
-    [SkinControl((int)GUIControls.Genre)] protected GUIButtonControl smartDJ_genre = null;
-    [SkinControl((int)GUIControls.LastFMTag)] protected GUIButtonControl smartDJ_LastFMTag = null;
-    [SkinControl((int)GUIControls.Style)] protected GUIButtonControl smartDJ_style = null;
-    [SkinControl((int)GUIControls.Tone)] protected GUIButtonControl smartDJ_tone = null;
-    [SkinControl((int)GUIControls.Composer)] protected GUIButtonControl smartDJ_composer = null;
-    [SkinControl((int)GUIControls.Keyword)] protected GUIButtonControl smartDJ_keywork = null;
-    [SkinControl((int)GUIControls.MaxTime)] protected GUISpinButton smartDJ_maxTime = null;
-
-    [SkinControl((int)GUIControls.TotalArtists)] protected GUILabelControl smartDJ_TotalArtists = null;
-
-    
+    [SkinControl((int)GUIControls.SmartDJMode)] protected GUIButtonControl smartDJ_SmartMode = null;
     [SkinControl((int)GUIControls.PlayPlaylist)] protected GUIButtonControl SmartDJ_Play = null;
     [SkinControl((int)GUIControls.SavePlaylist)] protected GUIButtonControl SmartDJ_Save = null;
 
-    [SkinControl((int)GUIControls.Custom1)] protected GUIButtonControl smartDJ_Custom1 = null;
-    [SkinControl((int)GUIControls.Custom2)] protected GUIButtonControl smartDJ_Custom2 = null;
-    [SkinControl((int)GUIControls.Custom3)] protected GUIButtonControl smartDJ_Custom3 = null;
-    [SkinControl((int)GUIControls.Custom4)] protected GUIButtonControl smartDJ_Custom4 = null;
-    [SkinControl((int)GUIControls.Custom5)] protected GUIButtonControl smartDJ_Custom5 = null;
-    [SkinControl((int)GUIControls.Custom6)] protected GUIButtonControl smartDJ_Custom6 = null;
+    [SkinControl((int)GUIControls.FieldButton1)] protected GUIButtonControl smartDJ_Button1 = null;
+    [SkinControl((int)GUIControls.FieldButton2)] protected GUIButtonControl smartDJ_Button2 = null;
+    [SkinControl((int)GUIControls.FieldButton3)] protected GUIButtonControl smartDJ_Button3 = null;
+    [SkinControl((int)GUIControls.FieldButton4)] protected GUIButtonControl smartDJ_Button4 = null;
+    [SkinControl((int)GUIControls.FieldButton5)] protected GUIButtonControl smartDJ_Button5 = null;
+    [SkinControl((int)GUIControls.FieldButton6)] protected GUIButtonControl smartDJ_Button6 = null;
+    [SkinControl((int)GUIControls.MaxTime)] protected GUISpinButton smartDJ_maxTime = null;
 
+    [SkinControl((int)GUIControls.TotalArtists)] protected GUILabelControl smartDJ_TotalArtists = null;
 
     #endregion
 
@@ -211,54 +192,124 @@ namespace mvCentral.GUI
 
       switch (controlId)
       {
-        case (int)GUIControls.smartMode:
+        case (int)GUIControls.SmartDJMode:
           if (matchingMode)
           {
             matchingMode = false;
-            GUIControl.SetControlLabel(windowID, (int)GUIControls.smartMode, "Mode: Filter");
+            setButtonControls();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, "Mode: Filter");
             GUIPropertyManager.SetProperty("#mvCentral.MatchMode", "false");
-            GUIControl.EnableControl(windowID, (int)GUIControls.Custom1);
-            GUIControl.DisableControl(windowID, (int)GUIControls.Custom2);
-            GUIControl.DisableControl(windowID, (int)GUIControls.Custom3);
-            GUIControl.DisableControl(windowID, (int)GUIControls.Custom4);
-            GUIControl.DisableControl(windowID, (int)GUIControls.Custom5);
-            GUIControl.DisableControl(windowID, (int)GUIControls.Custom6);
+            GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton1);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
 
           }
           else
           {
             matchingMode = true;
-            GUIControl.SetControlLabel(windowID, (int)GUIControls.smartMode, "Mode: Match");
+            setButtonControls();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, "Mode: Match");
             GUIPropertyManager.SetProperty("#mvCentral.MatchMode", "true");
           }
           break;
 
-        case (int)GUIControls.Genre:
-          selectedGenre = selectGenre();
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.Genre, "Genre: " + selectedGenre);
-          genPlaylist(fullArtistList);
+        case (int)GUIControls.FieldButton1:
+          if (matchingMode)
+          {
+            selectedGenre = selectGenre();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Genre: " + selectedGenre);
+            genPlaylist(fullArtistList);
+          }
+          else
+          {
+            result = getFieldAndSearchValue(ref fieldSelected1, ref customSearchStr1, GUIControls.FieldButton1);
+            if (result == FieldSetup.Success)
+              GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton2);
+
+            if (result == FieldSetup.Clear)
+              cleanAndReset(GUIControls.FieldButton1);
+          }
           break;
-        case (int)GUIControls.LastFMTag:
-          selectedLastFMTag = selectLastFMTag();
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.LastFMTag, "Last FM Tag: " + selectedLastFMTag);
-          genPlaylist(fullArtistList);
+        case (int)GUIControls.FieldButton2:
+          if (matchingMode)
+          {
+            selectedLastFMTag = selectLastFMTag();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "Last FM Tag: " + selectedLastFMTag);
+            genPlaylist(fullArtistList);
+          }
+          else
+          {
+            result = getFieldAndSearchValue(ref fieldSelected2, ref customSearchStr2, GUIControls.FieldButton2);
+            if (result == FieldSetup.Success)
+              GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton3);
+
+            if (result == FieldSetup.Clear)
+              cleanAndReset(GUIControls.FieldButton2);
+          }
           break;
-        case (int)GUIControls.Tone:
-          selectedTone = selectTone();
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.Tone, "Tone: " + selectedTone);
-          genPlaylist(fullArtistList);
+        case (int)GUIControls.FieldButton3:
+          if (matchingMode)
+          {
+            selectedTone = selectTone();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Tone: " + selectedTone);
+            genPlaylist(fullArtistList);
+          }
+          else
+          {
+            result = getFieldAndSearchValue(ref fieldSelected3, ref customSearchStr3, GUIControls.FieldButton3);
+            if (result == FieldSetup.Success)
+              GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton4);
+
+            if (result == FieldSetup.Clear)
+              cleanAndReset(GUIControls.FieldButton3);
+          }
           break;
-        case (int)GUIControls.Style:
-          selectedStyle = selectStyle();
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.Style, "Style: " + selectedStyle);
-          genPlaylist(fullArtistList);
+        case (int)GUIControls.FieldButton4:
+          if (matchingMode)
+          {
+            selectedStyle = selectStyle();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Style: " + selectedStyle);
+            genPlaylist(fullArtistList);
+          }
+          else
+          {
+            result = getFieldAndSearchValue(ref fieldSelected4, ref customSearchStr4, GUIControls.FieldButton4);
+            if (result == FieldSetup.Success)
+              GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton5);
+
+            if (result == FieldSetup.Clear)
+              cleanAndReset(GUIControls.FieldButton4);
+          }
           break;
-        case (int)GUIControls.Composer:
-          selectedComposer = selectComposer();
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.Composer, "Composer: " + selectedComposer);
-          genPlaylist(fullArtistList);
+        case (int)GUIControls.FieldButton5:
+          if (matchingMode)
+          {
+            selectedComposer = selectComposer();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Composer: " + selectedComposer);
+            genPlaylist(fullArtistList);
+          }
+          else
+          {
+            result = getFieldAndSearchValue(ref fieldSelected5, ref customSearchStr5, GUIControls.FieldButton5);
+            if (result == FieldSetup.Success)
+              GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton6);
+
+            if (result == FieldSetup.Clear)
+              cleanAndReset(GUIControls.FieldButton5);
+
+          }
           break;
-        case (int)GUIControls.Keyword:
+        case (int)GUIControls.FieldButton6:
+          if (!matchingMode)
+          {
+            result = getFieldAndSearchValue(ref fieldSelected6, ref customSearchStr6, GUIControls.FieldButton6);
+
+            if (result == FieldSetup.Clear)
+              cleanAndReset(GUIControls.FieldButton6);
+          }
           break;
         case (int)GUIControls.PlayPlaylist:
           if (facadeLayout.Count > 0)
@@ -302,58 +353,6 @@ namespace mvCentral.GUI
               break;
           }
           break;
-        case (int)GUIControls.Custom1:
-          result = getFieldAndSearchValue(ref fieldSelected1, ref customSearchStr1, GUIControls.Custom1);
-          if (result == FieldSetup.Success)
-            GUIControl.EnableControl(windowID, (int)GUIControls.Custom2);
-
-          if (result == FieldSetup.Clear)
-            cleanAndReset(GUIControls.Custom1);
-
-          break;
-        case (int)GUIControls.Custom2:
-          result = getFieldAndSearchValue(ref fieldSelected2, ref customSearchStr2, GUIControls.Custom2);
-          if (result == FieldSetup.Success)
-            GUIControl.EnableControl(windowID, (int)GUIControls.Custom3);        
-
-          if (result == FieldSetup.Clear)
-            cleanAndReset(GUIControls.Custom2);
-
-          break;
-        case (int)GUIControls.Custom3:
-          result = getFieldAndSearchValue(ref fieldSelected3, ref customSearchStr3, GUIControls.Custom3);
-          if (result == FieldSetup.Success)
-            GUIControl.EnableControl(windowID, (int)GUIControls.Custom4);
-
-          if (result == FieldSetup.Clear)
-            cleanAndReset(GUIControls.Custom3);
-
-          break;
-        case (int)GUIControls.Custom4:
-          result = getFieldAndSearchValue(ref fieldSelected4, ref customSearchStr4, GUIControls.Custom4);
-          if (result == FieldSetup.Success)
-            GUIControl.EnableControl(windowID, (int)GUIControls.Custom5);
-
-          if (result == FieldSetup.Clear)
-            cleanAndReset(GUIControls.Custom4);
-
-          break;
-        case (int)GUIControls.Custom5:
-          result = getFieldAndSearchValue(ref fieldSelected5, ref customSearchStr5, GUIControls.Custom5);
-          if (result == FieldSetup.Success)
-            GUIControl.EnableControl(windowID, (int)GUIControls.Custom6);
-
-          if (result == FieldSetup.Clear)
-            cleanAndReset(GUIControls.Custom5);
-
-          break;
-        case (int)GUIControls.Custom6:
-          result = getFieldAndSearchValue(ref fieldSelected6, ref customSearchStr6, GUIControls.Custom6);
-
-          if (result == FieldSetup.Clear)
-            cleanAndReset(GUIControls.Custom6);
-
-          break;
       }
     }
     /// <summary>
@@ -370,6 +369,15 @@ namespace mvCentral.GUI
 
     #endregion
 
+    #region Public Methods
+
+    public static int GetWindowId()
+    {
+      return windowID;
+    }
+
+    #endregion
+
     #region Private Methods
 
     /// <summary>
@@ -379,7 +387,7 @@ namespace mvCentral.GUI
     private void cleanAndReset(GUIControls controlID)
     {
       // Shuffle up the custom fields
-      if (controlID == GUIControls.Custom1)
+      if (controlID == GUIControls.FieldButton1)
       {
         fieldSelected1 = fieldSelected2;
         customSearchStr1 = customSearchStr2;
@@ -397,7 +405,7 @@ namespace mvCentral.GUI
         customSearchStr5 = customSearchStr6;
 
       }
-      else if (controlID == GUIControls.Custom2)
+      else if (controlID == GUIControls.FieldButton2)
       {
         fieldSelected2 = fieldSelected3;
         customSearchStr2 = customSearchStr3;
@@ -408,7 +416,7 @@ namespace mvCentral.GUI
         fieldSelected5 = fieldSelected6;
         customSearchStr5 = customSearchStr6;
       }
-      else if (controlID == GUIControls.Custom3)
+      else if (controlID == GUIControls.FieldButton3)
       {
         fieldSelected3 = fieldSelected4;
         customSearchStr3 = customSearchStr4;
@@ -417,19 +425,19 @@ namespace mvCentral.GUI
         fieldSelected5 = fieldSelected6;
         customSearchStr5 = customSearchStr6;
       }
-      else if (controlID == GUIControls.Custom4)
+      else if (controlID == GUIControls.FieldButton4)
       {
         fieldSelected4 = fieldSelected5;
         customSearchStr4 = customSearchStr5;
         fieldSelected5 = fieldSelected6;
         customSearchStr5 = customSearchStr6;
       }
-      else if (controlID == GUIControls.Custom5)
+      else if (controlID == GUIControls.FieldButton5)
       {
         fieldSelected5 = fieldSelected6;
         customSearchStr5 = customSearchStr6;
       }
-      else if (controlID == GUIControls.Custom6)
+      else if (controlID == GUIControls.FieldButton6)
       {
         fieldSelected5 = string.Empty;
         customSearchStr5 = string.Empty;
@@ -438,28 +446,28 @@ namespace mvCentral.GUI
       // Reset the enabled stauts of the controls
       if (fieldSelected2 == string.Empty)
       {
-        GUIControl.DisableControl(windowID, (int)GUIControls.Custom2);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom2, "Select Fiter Field..");
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "Select Fiter Field..");
       }
       if (fieldSelected3 == string.Empty)
       {
-        GUIControl.DisableControl(windowID, (int)GUIControls.Custom3);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom3, "Select Fiter Field..");
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Select Fiter Field..");
       }
       if (fieldSelected4 == string.Empty)
       {
-        GUIControl.DisableControl(windowID, (int)GUIControls.Custom4);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom4, "Select Fiter Field..");
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Select Fiter Field..");
       }
       if (fieldSelected5 == string.Empty)
       {
-        GUIControl.DisableControl(windowID, (int)GUIControls.Custom5);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom5, "Select Fiter Field..");
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Select Fiter Field..");
       }
       if (fieldSelected6 == string.Empty)
       {
-        GUIControl.DisableControl(windowID, (int)GUIControls.Custom6);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom6, "Select Fiter Field..");
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Select Fiter Field..");
       }
 
 
@@ -467,45 +475,41 @@ namespace mvCentral.GUI
       artistPlayList.Clear();
       if (fieldSelected1 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom1, string.Format("Field: {0} ({1})", fieldSelected1, customSearchStr1));
-        GUIControl.EnableControl(windowID, (int)GUIControls.Custom2);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("Field: {0} ({1})", fieldSelected1, customSearchStr1));
+        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton2);
         genFilterPlaylist(getFieldType(fieldSelected1), customSearchStr1);
-      }
-
-      if (fieldSelected2 != string.Empty)
+      } else if (fieldSelected2 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom2, string.Format("Field: {0} ({1})", fieldSelected2, customSearchStr2));
-        GUIControl.EnableControl(windowID, (int)GUIControls.Custom3);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("Field: {0} ({1})", fieldSelected2, customSearchStr2));
+        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton3);
         genFilterPlaylist(getFieldType(fieldSelected2), customSearchStr2);
-      }
-
-      if (fieldSelected3 != string.Empty)
+      } else if (fieldSelected3 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom3, string.Format("Field: {0} ({1})", fieldSelected3, customSearchStr3));
-        GUIControl.EnableControl(windowID, (int)GUIControls.Custom4);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("Field: {0} ({1})", fieldSelected3, customSearchStr3));
+        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton4);
         genFilterPlaylist(getFieldType(fieldSelected3), customSearchStr3);
-      }
-
-      if (fieldSelected4 != string.Empty)
+      } else if (fieldSelected4 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom4, string.Format("Field: {0} ({1})", fieldSelected4, customSearchStr4));
-        GUIControl.EnableControl(windowID, (int)GUIControls.Custom5);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("Field: {0} ({1})", fieldSelected4, customSearchStr4));
+        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton5);
         genFilterPlaylist(getFieldType(fieldSelected4), customSearchStr4);
-      }
-
-      if (fieldSelected5 != string.Empty)
+      } else if (fieldSelected5 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom5, string.Format("Field: {0} ({1})", fieldSelected5, customSearchStr5));
-        GUIControl.EnableControl(windowID, (int)GUIControls.Custom6);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("Field: {0} ({1})", fieldSelected5, customSearchStr5));
+        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton6);
         genFilterPlaylist(getFieldType(fieldSelected5), customSearchStr5);
       }
-
-      if (fieldSelected6 != string.Empty)
+      else if (fieldSelected6 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom6, string.Format("Field: {0} ({1})", fieldSelected6, customSearchStr6));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, string.Format("Field: {0} ({1})", fieldSelected6, customSearchStr6));
         genFilterPlaylist(getFieldType(fieldSelected6), customSearchStr6);
       }
-
+      else
+      {
+        GUIControl.ClearControl(windowID, (int)GUIControls.Facade);
+        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Select Fiter Field..");
+      }
     }
 
     /// <summary>
@@ -749,7 +753,11 @@ namespace mvCentral.GUI
       }
     }
 
-
+    /// <summary>
+    /// Get the selected field type
+    /// </summary>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
     SearchField getFieldType(string fieldName)
     {
       if (fieldName.Equals("genre", StringComparison.OrdinalIgnoreCase))
@@ -924,11 +932,11 @@ namespace mvCentral.GUI
 
       buildFacade();
     }
-
+    /// <summary>
+    /// Populate the facade
+    /// </summary>
     void buildFacade()
     {
-
-
       // Clear the facade
       GUIControl.ClearControl(GetID, facadeLayout.GetID);
       // Load tracks into facade
@@ -984,8 +992,6 @@ namespace mvCentral.GUI
       GUIControl.SetControlLabel(windowID, (int)GUIControls.TotalArtists, string.Format("Artists in Playlist: {0} / Videos in Playlist {1}", artistPlayList.Count.ToString(), facadeLayout.Count.ToString()));
 
     }
-
-
     /// <summary>
     /// Select Style
     /// </summary>
@@ -1017,7 +1023,6 @@ namespace mvCentral.GUI
 
       return dlg.SelectedLabelText;
     }
-
     /// <summary>
     /// Select Style
     /// </summary>
@@ -1040,7 +1045,6 @@ namespace mvCentral.GUI
 
       return dlg.SelectedLabelText;
     }
-
     /// <summary>
     /// Select Style
     /// </summary>
@@ -1065,7 +1069,6 @@ namespace mvCentral.GUI
 
       return dlg.SelectedLabelText;
     }
-
     /// <summary>
     /// Select Tone
     /// </summary>
@@ -1151,33 +1154,34 @@ namespace mvCentral.GUI
       composerAdded = false;
       keywordAdded = false;
 
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.smartMode, "Mode: Match");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.smartMode, "Mode: Match");
+      matchingMode = true;
+      GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, "Mode: Match");
       GUIPropertyManager.SetProperty("#mvCentral.MatchMode", "true");
-
-
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Genre, "Genre: None");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.LastFMTag, "LastFM Tag: None");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Style, "Style: None");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Tone, "Tone: None");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Composer, "Composer: None");
-
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom1, "Select Fiter Field..");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom2, "Select Fiter Field..");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom3, "Select Fiter Field..");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom4, "Select Fiter Field..");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom5, "Select Fiter Field..");
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.Custom6, "Select Fiter Field..");
+      setButtonControls();
     }
-
-
-    #endregion
-
-    #region Public Methods
-
-    public static int GetWindowId()
+    /// <summary>
+    /// Set the button text for the selected mode
+    /// </summary>
+    void setButtonControls()
     {
-      return windowID;
+      if (matchingMode)
+      {
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Genre: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "LastFM Tag: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Style: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Tone: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Composer: None");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Keyword: None");
+      }
+      else
+      {
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Select Fiter Field..");
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Select Fiter Field..");
+      }
     }
 
     #endregion
