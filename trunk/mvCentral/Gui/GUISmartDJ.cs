@@ -592,7 +592,7 @@ namespace mvCentral.GUI
     /// <returns></returns>
     private string setFilterField()
     {
-      GUIDialogSelect dlg = (GUIDialogSelect)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT);
+      GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
       {
         return string.Empty;
@@ -999,7 +999,7 @@ namespace mvCentral.GUI
     string selectGenre()
     {
       List<string> genreList = new List<string>();
-      GUIDialogSelect dlg = (GUIDialogSelect)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT);
+      GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
       {
         return string.Empty;
@@ -1029,7 +1029,7 @@ namespace mvCentral.GUI
     /// <returns></returns>
     string selectLastFMTag()
     {
-      GUIDialogSelect dlg = (GUIDialogSelect)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT);
+      GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
       {
         return string.Empty;
@@ -1051,7 +1051,7 @@ namespace mvCentral.GUI
     /// <returns></returns>
     string selectStyle()
     {
-      GUIDialogSelect dlg = (GUIDialogSelect)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT);
+      GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
       {
         return string.Empty;
@@ -1075,7 +1075,7 @@ namespace mvCentral.GUI
     /// <returns></returns>
     string selectTone()
     {
-      GUIDialogSelect dlg = (GUIDialogSelect)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT);
+      GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
       {
         return string.Empty;
@@ -1099,7 +1099,7 @@ namespace mvCentral.GUI
     /// <returns></returns>
     string selectComposer()
     {
-      GUIDialogSelect dlg = (GUIDialogSelect)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT);
+      GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
       {
         return string.Empty;
