@@ -140,7 +140,7 @@
             <type>button</type>
             <id>2</id>
             <posX>39</posX>
-            <posY>111</posY>
+            <posY>100</posY>
             <label>100</label>
             <onright>50</onright>
             <onup>17</onup>
@@ -151,7 +151,7 @@
             <type>button</type>
             <id>5</id>
             <posX>39</posX>
-            <posY>153</posY>
+            <posY>135</posY>
             <label>457</label>
             <onright>50</onright>
             <onup>2</onup>
@@ -162,7 +162,7 @@
             <type>sortbutton</type>
             <id>3</id>
             <posX>39</posX>
-            <posY>196</posY>
+            <posY>170</posY>
             <label>103</label>
             <onright>50</onright>
             <onup>5</onup>
@@ -173,7 +173,7 @@
             <type>button</type>
             <id>6</id>
             <posX>39</posX>
-            <posY>263</posY>
+            <posY>240</posY>
            <onup>5</onup>
             <ondown>7</ondown>           
             <onleft>50</onleft>
@@ -184,7 +184,7 @@
             <type>button</type>
             <id>7</id>
             <posX>39</posX>
-            <posY>313</posY>
+            <posY>275</posY>
             <onup>6</onup>
             <ondown>8</ondown>           
             <onleft>50</onleft>
@@ -195,7 +195,7 @@
             <type>button</type>
             <id>8</id>
             <posX>39</posX>
-            <posY>363</posY>
+            <posY>310</posY>
             <onup>7</onup>
             <ondown>9</ondown>           
             <onleft>50</onleft>
@@ -206,7 +206,7 @@
             <type>button</type>
             <id>9</id>
             <posX>39</posX>
-            <posY>433</posY>
+            <posY>380</posY>
             <onup>8</onup>
             <ondown>10</ondown>           
             <onleft>50</onleft>
@@ -217,8 +217,8 @@
             <type>button</type>
             <id>10</id>
             <posX>39</posX>
-            <posY>483</posY>
-            <onup>10</onup>
+            <posY>415</posY>
+            <onup>9</onup>
             <ondown>11</ondown>           
             <onleft>50</onleft>
             <label>#mvCentral.Translation.ConfigGenre.Label</label>
@@ -228,7 +228,7 @@
             <type>button</type>
             <id>11</id>
             <posX>39</posX>
-            <posY>483</posY>
+            <posY>450</posY>
             <onup>10</onup>
             <ondown>2</ondown>           
             <onleft>50</onleft>

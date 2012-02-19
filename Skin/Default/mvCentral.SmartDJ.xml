@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>112015</id>
+  <defaultcontrol>30</defaultcontrol>
+  <allowoverlay>yes</allowoverlay>
+  <define>#header.hover:-</define>
+  <define>#shadow.dark:ff000000</define>
+  <controls>
+    <import>common.time.xml</import>
+    <control>
+      <description>BG</description>
+      <type>image</type>
+      <id>1</id>
+      <texture>Background.png</texture>
+      <width>720</width>
+      <height>576</height>
+    </control>
+
+    <control>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>0</posY>
+      <width>720</width>
+      <height>576</height>
+      <colordiffuse>F0ffffff</colordiffuse>
+      <texture>mvcSmartDJDefault.jpg</texture>
+      <animation effect="fade" time="70">visible</animation>
+      <animation effect="fade" time="70" delay="300">hidden</animation>
+    </control>
+    <control>
+      <description>Image Overlay</description>
+      <id>0</id>
+      <type>image</type>
+      <posx>0</posx>
+      <posy>0</posy>
+      <width>720</width>
+      <height>576</height>
+      <texture>backgroundtop.png</texture>
+      <colordiffuse>ccffffff</colordiffuse>
+      <animation effect="fade" time="70">visible</animation>
+      <animation effect="fade" time="70" delay="300">hidden</animation>
+    </control>
+    <control>
+      <description>Image Overlay</description>
+      <id>0</id>
+      <type>image</type>
+      <posx>0</posx>
+      <posy>0</posy>
+      <width>720</width>
+      <height>576</height>
+      <texture>backgroundthumbsview.png</texture>
+      <colordiffuse>ffffffff</colordiffuse>
+      <animation effect="fade" time="70">visible</animation>
+      <animation effect="fade" time="70" delay="300">hidden</animation>
+    </control>
+    <control>
+      <type>fadelabel</type>
+      <description>mvCentral Title</description>
+      <id>0</id>
+      <posX>60</posX>
+      <posY>27</posY>
+      <width>800</width>
+      <font>font16</font>
+      <shadowAngle>45</shadowAngle> 
+			<shadowDistance>3</shadowDistance> 
+			<shadowColor>#shadow.dark</shadowColor>
+      <align>left</align>
+      <visible>yes</visible>
+      <label>mvCentral - SmartDJ</label>
+    </control>
+    <control>
+      <type>fadelabel</type>
+      <description>SmartDJ Mode</description>
+      <id>0</id>
+      <posX>60</posX>
+      <posY>65</posY>
+      <width>600</width>
+      <font>font12</font>
+      <shadowAngle>45</shadowAngle> 
+			<shadowDistance>3</shadowDistance> 
+			<shadowColor>#shadow.dark</shadowColor>
+      <align>left</align>
+      <visible>yes</visible>
+      <label>#mvCentral.SmartDJ.Mode</label>
+    </control>    
+    <control>
+      <type>label</type>
+      <description>Artists in Playlist</description>
+      <id>37</id>
+      <posX>699</posX>
+      <posY>60</posY>
+      <width>700</width>
+      <font>font10</font>
+      <label></label>
+      <align>right</align>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <!-- Menu Buttons -->
+    <control>
+      <type>actiongroup</type>
+      <description>action menu</description>
+      <defaultcontrol>20</defaultcontrol>
+      <onexit>50</onexit>
+      <buttonX>0</buttonX>
+      <buttonY>0</buttonY>
+      <buttonwidth>106</buttonwidth>
+      <buttonheight>720</buttonheight>
+      <textureFocus>-</textureFocus>
+      <textureNoFocus>Action_nofocus.png</textureNoFocus>
+      <width>154</width>
+      <height>576</height>
+      <dimColor>00ffffff</dimColor>   
+      <control>
+        <type>image</type>
+        <posX>14</posX>
+        <posY>62</posY>
+        <width>206</width>
+        <height>472</height>
+        <texture>Backslide.png</texture>
+        <colorDiffuse>fffffffff</colorDiffuse>
+        <visible>![Control.HasFocus(30)|Control.HasFocus(31)|Control.HasFocus(32)|Control.HasFocus(33)|Control.HasFocus(34)|Control.HasFocus(35)|Control.HasFocus(50)]</visible>
+        <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
+        <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
+      </control>        
+        <control>
+          <description>group element</description>
+          <type>group</type>
+          <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
+          <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
+          <posX>39</posX>
+          <posY>86</posY>
+          <visible>![Control.HasFocus(30)|Control.HasFocus(31)|Control.HasFocus(32)|Control.HasFocus(33)|Control.HasFocus(34)|Control.HasFocus(35)|Control.HasFocus(50)]</visible>
+          <control>
+            <description>Mode</description>
+            <type>button</type>
+            <id>20</id>
+            <posX>39</posX>
+            <posY>100</posY>
+            <font>font12</font>
+            <label>-</label>
+            <onleft>50</onleft>
+            <onright>30</onright>
+            <ondown>21</ondown>
+            <onup>17</onup>
+          </control>
+          <control>
+            <description>Play Generated Playlist</description>
+            <type>button</type>
+            <id>21</id>
+            <posX>39</posX>
+            <posY>135</posY>
+            <onleft>50</onleft>
+            <onright>30</onright>
+            <ondown>22</ondown>
+            <onup>20</onup>
+            <font>font12</font>
+            <label>Play</label>
+          </control>
+          <control>
+            <description>Save Generated Playlist</description>
+            <type>button</type>
+            <id>22</id>
+            <posX>39</posX>
+            <posY>170</posY>
+            <onleft>50</onleft>
+            <onright>30</onright>
+            <ondown>23</ondown>
+            <onup>21</onup>
+            <font>font12</font>
+            <label>Save</label>
+          </control>                
+          <control>
+            <description>Empty button</description>
+            <type>button</type>
+            <id>0</id>
+            <posX>39</posX>
+            <posY>205</posY>
+            <label>-</label>
+            <visible>false</visible>
+          </control>        
+          <control>
+            <description>Shuffle Playlist</description>
+            <type>checkbutton</type>
+            <id>23</id>
+            <posX>39</posX>
+            <posY>240</posY>
+            <onleft>50</onleft>
+            <onright>30</onright>
+            <ondown>24</ondown>
+            <onup>22</onup>
+            <font>font12</font>
+            <label>Shuffle</label>
+            <width>146</width>
+            <height>28</height>
+						<textXOff>9</textXOff>
+						<textYOff>4</textYOff>					
+						<markWidth>25</markWidth>
+						<markHeight>25</markHeight>
+						<markXOff>15</markXOff>
+						<markalign>right</markalign>
+						<markvalign>middle</markvalign>
+						<textureFocus>button_focus.png</textureFocus>
+						<textureNoFocus>button_nofocus.png</textureNoFocus>
+						<textureCheckmark>check-box.png</textureCheckmark>
+						<textureCheckmarkNoFocus>check-boxNF.png</textureCheckmarkNoFocus>
+						<shadowAngle>45</shadowAngle>
+						<shadowDistance>1</shadowDistance>
+						<shadowColor>ff000000</shadowColor>
+						<textcolor>ffffffff</textcolor>
+						<colordiffuse>ffffffff</colordiffuse>
+						<textcolorNoFocus>ffa9d0f7</textcolorNoFocus>
+						<disabledcolor>ff808080</disabledcolor>
+						<dimColor>ff000000</dimColor>
+						<textalign>left</textalign>
+						<textvalign>middle</textvalign>          
+          </control>                
+          <control>
+            <description>Playlist</description>
+            <type>button</type>
+            <id>24</id>
+            <posX>39</posX>
+            <posY>275</posY>
+            <onleft>50</onleft>
+            <onright>30</onright>
+            <ondown>20</ondown>
+            <onup>23</onup>
+            <font>font12</font>
+            <label>Playlists</label>
+          </control>                
+        </control>       
+      </control>
+    
+
+    <!-- Selection Buttons -->
+    <control>
+      <description>Genre/Custom1 Button</description>
+      <type>button</type>
+      <id>30</id>
+      <posX>60</posX>
+      <posY>200</posY>
+      <width>300</width>
+      <onleft>20</onleft>
+      <onright>50</onright>
+      <onup>20</onup>
+      <ondown>31</ondown>
+      <textXOff>5</textXOff>
+      <disabledcolor>ff808080</disabledcolor>
+      <label>-</label>
+    </control>
+    <control>
+      <description>Tag/Custom2 Button</description>
+      <type>button</type>
+      <id>31</id>
+      <posX>60</posX>
+      <posY>235</posY>
+      <width>300</width>
+      <textXOff>5</textXOff>
+      <onleft>20</onleft>
+      <onright>50</onright>
+      <onup>30</onup>
+      <ondown>32</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <label>-</label>
+    </control>
+    <control>
+      <description>Style/Custom3 Button</description>
+      <type>button</type>
+      <id>32</id>
+      <posX>60</posX>
+      <posY>270</posY>
+      <width>300</width>
+      <textXOff>5</textXOff>
+      <onleft>20</onleft>
+      <onright>50</onright>
+      <onup>31</onup>
+      <ondown>33</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <label>-</label>
+    </control>
+    <control>
+      <description>Tone/Custom4 Button</description>
+      <type>button</type>
+      <id>33</id>
+      <posX>60</posX>
+      <posY>305</posY>
+      <width>300</width>
+      <textXOff>5</textXOff>
+      <onleft>20</onleft>
+      <onright>50</onright>
+      <onup>32</onup>
+      <ondown>34</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <label>-</label>
+    </control>
+    <control>
+      <description>Composer/Custom5 Button</description>
+      <type>button</type>
+      <id>34</id>
+      <posX>60</posX>
+      <posY>340</posY>
+      <width>300</width>
+      <textXOff>5</textXOff>
+      <onleft>20</onleft>
+      <onright>50</onright>
+      <onup>33</onup>
+      <ondown>35</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <label>-</label>
+    </control>
+    <control>
+      <description>Keyword/Custom6 Button</description>
+      <type>button</type>
+      <id>35</id>
+      <posX>60</posX>
+      <posY>375</posY>
+      <width>300</width>
+      <textXOff>5</textXOff>
+      <onleft>20</onleft>
+      <onright>50</onright>
+      <onup>34</onup>
+      <ondown>36</ondown>
+      <disabledcolor>ff808080</disabledcolor>
+      <label>-</label>
+    </control>
+    <!-- List Control -->
+    <control>
+      <description>group element</description>
+      <type>group</type>
+      <animation effect="Fade" time="250">WindowClose</animation>
+      <animation effect="Slide" end="1200,0" time="250">WindowClose</animation>
+      <control>
+        <id>50</id>
+        <description>composite control consisting of a list control and a thumbnail panel</description>
+        <type>facadeview</type>
+        <control>
+          <description>playlist listcontrol</description>
+          <type>listcontrol</type>
+          <id>50</id>
+          <onleft>21</onleft>
+          <onright>21</onright>
+          <posX>370</posX>
+          <posY>200</posY>
+          <width>360</width>
+          <height>370</height>
+          <scrollOffset>1</scrollOffset>
+          <textXOff>-75</textXOff>
+          <textYOff>0</textYOff>
+          <textXOff2>350</textXOff2>
+          <textYOff2>14</textYOff2>
+          <font>font12</font>
+          <font2>font10</font2>
+          <textcolor2>ff006698</textcolor2>
+          <itemWidth>100</itemWidth>
+          <itemHeight>20</itemHeight>
+          <IconXOff>-70</IconXOff>
+          <IconYOff>5</IconYOff>
+          <keepaspectratio>no</keepaspectratio>
+          <spinPosX>1175</spinPosX>
+          <spinPosY>681</spinPosY>
+          <spinAlign>Right</spinAlign>
+          <spinColor>ff006698</spinColor>
+          <spinWidth>50</spinWidth>
+          <spinHeight>37</spinHeight>
+        </control>       
+      </control>
+    </control>
+  </controls>
+</window>
+<!--Checksum:da82566a2d2fd42308e0a967d081a037-->
