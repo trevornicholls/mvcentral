@@ -323,6 +323,20 @@
               <ZipFileName>Installer{CopyFile}\{0c58043a-af82-4eb9-af2d-ff619de00b1f}-mvcSmartDJ.jpg</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\mvcSmartDJ.jpg</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\DefaultWide\mvCentral.SmartDJ.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{833f562f-e846-4675-a115-0d59a8d3bf11}-mvCentral.SmartDJ.xml</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\mvCentral.SmartDJ.xml</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\DefaultWide\media\mvcSmartDJ.jpg</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{86156d29-2006-448f-8192-888ff92969f2}-mvcSmartDJ.jpg</ZipFileName>
+              <DestinationFilename>%Skin%\DefaultWide\media\mvcSmartDJ.jpg</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -535,7 +549,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>1</Build>
-      <Revision>295</Revision>
+      <Revision>297</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
 
@@ -878,6 +892,20 @@ Fixed issue where artist/album &amp; video counts were not reset when re-enterin
         <LocalFileName>..\Skin\StreamedMP\media\mvcSmartDJ.jpg</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0c58043a-af82-4eb9-af2d-ff619de00b1f}-mvcSmartDJ.jpg</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\mvcSmartDJ.jpg</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\DefaultWide\mvCentral.SmartDJ.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{833f562f-e846-4675-a115-0d59a8d3bf11}-mvCentral.SmartDJ.xml</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\mvCentral.SmartDJ.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\DefaultWide\media\mvcSmartDJ.jpg</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{86156d29-2006-448f-8192-888ff92969f2}-mvcSmartDJ.jpg</ZipFileName>
+        <DestinationFilename>%Skin%\DefaultWide\media\mvcSmartDJ.jpg</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />

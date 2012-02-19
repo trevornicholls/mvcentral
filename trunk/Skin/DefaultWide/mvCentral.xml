@@ -283,10 +283,24 @@
             <posX>71</posX>
             <posY>550</posY>
             <onup>10</onup>
-            <ondown>2</ondown>           
+            <ondown>12</ondown>           
             <onleft>50</onleft>
             <label>#mvCentral.Translation.Search.Label</label>
           </control>                  
+          <control>
+            <description>Search Youtube.FM</description>
+            <id>12</id>
+            <posX>71</posX>
+            <posY>593</posY>
+            <onup>11</onup>
+            <ondown>2</ondown>           
+            <onleft>50</onleft>
+            <type>button</type>
+            <label>#mvCentral.Translation.Search.Label Youtube.FM</label>
+            <hyperlink>29050</hyperlink>
+            <hyperlinkParameter>ARTISTVIDEOS:#mvCentral.ArtistName</hyperlinkParameter>
+            <onleft>50</onleft>
+          </control>
         </control>       
       </control>
 
