@@ -340,6 +340,8 @@ namespace mvCentral.Localizations
     public static string SmartPlaylistTag = "Select Tag for Playlist";
     public static string TagsToGenre = "Select Tags to use as Genre";
     public static string SelFilter = "Select Filter Field...";
+    public static string SelArtists = "Selected Artists";
+    public static string SelVidoes = "Selected Videos";
  
     // T
     public static string TotalRuntime = "Total Runtime";

@@ -2231,6 +2231,25 @@ namespace mvCentral.Settings
     }
     private bool _clearplaylistonadd;
 
+    [CornerstoneSetting(
+        Name = "Shuffle SmartDJ Playlists",
+        Description = "Shuffle playlists created with SmartDJ",
+        Groups = "|MediaPortal GUI|Playlist|",
+        Identifier = "_smartdjplaylistshuffle",
+        Default = true,
+        Hidden = false)]
+    public bool SmartDJPlaylistShuffle
+    {
+      get { return _smartdjplaylistshuffle; }
+      set
+      {
+        _smartdjplaylistshuffle = value;
+        OnSettingChanged("_smartdjplaylistshuffle");
+      }
+    }
+    private bool _smartdjplaylistshuffle;
+
+
 
     #endregion
 
