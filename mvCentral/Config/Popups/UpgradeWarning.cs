@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
+using System.IO;
 
 namespace mvCentral.ConfigScreen.Popups
 {
@@ -14,6 +16,8 @@ namespace mvCentral.ConfigScreen.Popups
     public UpgradeWarning()
     {
       InitializeComponent();
+      Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("mvCentral.Config.rtfFiles.UpdateNotice.rtf");
+      rtbUpdateNotice.LoadFile(stream, RichTextBoxStreamType.RichText);
       if (mvCentralCore.Settings.IgnoreFoldersWhenParsing)
       {
         stdFolderLayout.Checked = true;

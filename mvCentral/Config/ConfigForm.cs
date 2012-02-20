@@ -486,6 +486,7 @@ namespace mvCentral
       }
 
       // Display Update warning if not already done so
+      //mvCentralCore.Settings.UpgradeWarning = true;
       if (mvCentralCore.Settings.UpgradeWarning)
       {
         UpgradeWarning uw = new UpgradeWarning();
