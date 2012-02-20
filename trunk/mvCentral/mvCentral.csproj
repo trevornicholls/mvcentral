@@ -392,6 +392,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Config\rtfFiles\UpdateNotice.rtf" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoMatch.datasource" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoParser.datasource" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.parseResult.datasource" />
@@ -507,6 +508,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
