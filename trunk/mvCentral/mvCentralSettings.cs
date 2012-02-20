@@ -3003,6 +3003,24 @@ namespace mvCentral.Settings
     }
     private bool _deviceManagerEnabled;
 
+    [CornerstoneSetting(
+        Name = "Upgrade warning message flag",
+        Description = "This is set to False after the warning has been read and actioned",
+        Groups = "|Internal|",
+        Identifier = "do_upgrade_Warning",
+        Default = true)]
+    public bool UpgradeWarning
+    {
+      get { return _upgradewarning; }
+      set
+      {
+        _upgradewarning = value;
+        OnSettingChanged("do_upgrade_Warning");
+      }
+    }
+    private bool _upgradewarning;
+
+    
     #endregion
 
 

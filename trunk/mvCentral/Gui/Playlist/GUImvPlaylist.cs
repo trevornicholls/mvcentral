@@ -135,7 +135,7 @@ namespace mvCentral.Playlist
       m_directory.SetExtensions(MediaPortal.Util.Utils.VideoExtensions);
       m_directory.AddExtension(".mvplaylist");
       // Check if External Player is being used
-      MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(Config.GetFile(Config.Dir.Config, "MediaPortal.xml"));
+      MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Config, "MediaPortal.xml"));
       m_bIsExternalPlayer = !xmlreader.GetValueAsBool("movieplayer", "internal", true);
       m_bIsExternalDVDPlayer = !xmlreader.GetValueAsBool("dvdplayer", "internal", true);
     }
