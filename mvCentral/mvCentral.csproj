@@ -209,6 +209,12 @@
     <Compile Include="Config\Popups\TranslationPopup.designer.cs">
       <DependentUpon>TranslationPopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Config\Popups\UpgradeWarning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\UpgradeWarning.Designer.cs">
+      <DependentUpon>UpgradeWarning.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database\DatabaseMaintenanceManager.cs" />
     <Compile Include="Database\DBAlbumInfo.cs" />
     <Compile Include="Database\DBArtistInfo.cs" />
@@ -375,6 +381,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Config\Popups\TranslationPopup.resx">
       <DependentUpon>TranslationPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\UpgradeWarning.resx">
+      <DependentUpon>UpgradeWarning.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

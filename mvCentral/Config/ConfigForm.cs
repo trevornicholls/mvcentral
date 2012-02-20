@@ -37,9 +37,6 @@ using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.Utils;
 using mvCentral.Extractors;
 
-
-
-
 namespace mvCentral
 {
   [PluginIcons("mvCentral.Config.Images.mvCentral_Icon_Enabled.png", "mvCentral.Config.Images.mvCentral_Icon_Disabled.png")]
@@ -486,6 +483,15 @@ namespace mvCentral
       finally
       {
         Cursor.Current = Cursors.Default;
+      }
+
+      // Display Update warning if not already done so
+      if (mvCentralCore.Settings.UpgradeWarning)
+      {
+        UpgradeWarning uw = new UpgradeWarning();
+        uw.ShowDialog();
+        cbIgnoreFolderStructure.Setting = mvCentralCore.Settings["ignore_folders_when_Parsing"];
+        mvCentralCore.Settings.UpgradeWarning = false;
       }
     }
 
@@ -3155,23 +3161,40 @@ namespace mvCentral
 
     #region Private Methods
 
+    /// <summary>
+    /// Uopdate after change to igmore folder structure flag
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbIgnoreFolderStructure_CheckedChanged(object sender, EventArgs e)
     {
       bool reLoad = FilenameParser.reLoadExpressions();
       SaveAllExpressions();
       LoadExpressions();
     }
-
+    /// <summary>
+    /// Artwork Options
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btArtworkOptions_Click(object sender, EventArgs e)
     {
       artworkOptions.ShowDialog();
     }
-
+    /// <summary>
+    /// Custom Artwork folders
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btCustomArtworkFolders_Click(object sender, EventArgs e)
     {
       customFolders.ShowDialog();
     }
-
+    /// <summary>
+    /// Disable Album Support
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void cbDisableAlbumSupport_CheckedChanged(object sender, EventArgs e)
     {
       if (cbDisableAlbumSupport.Checked)
@@ -3185,13 +3208,21 @@ namespace mvCentral
         cbAlbumFromTrackData.Enabled = true;
       }
     }
-
+    /// <summary>
+    /// Get Last.Fm login details
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btLastFMSetup_Click(object sender, EventArgs e)
     {
       LastFMSetup lfmSetup = new LastFMSetup();
       lfmSetup.ShowDialog();
     }
-
+    /// <summary>
+    /// Ask for playlist folder
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     private void btPlayListFolder_Click(object sender, EventArgs e)
     {
       FolderBrowserDialog playListFolder = new FolderBrowserDialog();
@@ -3201,8 +3232,6 @@ namespace mvCentral
         mvCentralCore.Settings.PlayListFolder = tbPlaylistFolder.Text;
       }
     }
-
-
     /// <summary>
     /// Add Track to a user selected album
     /// </summary>
@@ -3250,11 +3279,8 @@ namespace mvCentral
           albumToAdd.MdID = createAlbum.AlbumMBID;
           albumToAdd.PrimarySource = sourceProviders[0];
           albumToAdd.Commit();
-
           activeTrack.AlbumInfo.Add(albumToAdd);
           activeTrack.Commit();
-
-
           albumToAdd.PrimarySource = sourceProviders[0];
           albumToAdd.PrimarySource.Provider.GetAlbumDetails((DBBasicInfo)albumToAdd, createAlbum.Album, createAlbum.AlbumMBID);
           albumToAdd.Commit();
@@ -3265,7 +3291,6 @@ namespace mvCentral
           activeTrack.AlbumInfo.Add(albumCheck);
           activeTrack.Commit();
         }
-
         // Reload and display the library
         ReloadList();
 
@@ -3281,7 +3306,6 @@ namespace mvCentral
         mvLibraryTreeView.Refresh();
       }
     }
-
     /// <summary>
     /// On right click set the selected node to the nodce under the cursor
     /// </summary>
@@ -3309,12 +3333,8 @@ namespace mvCentral
             }
             break;
         }
-
       }
     }
-    #endregion
-
-
     /// <summary>
     /// Handle dragenter event on panel with picturebox control
     /// </summary>
@@ -3430,9 +3450,6 @@ namespace mvCentral
         }
       }
     }
-
-
-
     /// <summary>Tests whether drag-and-drop data contains a URL.</summary>
     /// <param name="data">The drag-and-drop data.</param>
     /// <returns><see langword="true"/> if <paramref name="data"/> contains a URL,
@@ -3515,6 +3532,7 @@ namespace mvCentral
       }
     }
 
+    #endregion
 
   }
 }

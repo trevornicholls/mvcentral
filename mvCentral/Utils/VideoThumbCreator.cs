@@ -43,7 +43,7 @@ namespace mvCentral.Utils
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
     private static string ExtractApp = "mtn.exe";
-    private static string ExtractorPath = Config.GetFile(Config.Dir.Base, "MovieThumbnailer", ExtractApp);
+    private static string ExtractorPath = MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Base, "MovieThumbnailer", ExtractApp);
     private static int PreviewColumns = 2;
     private static int PreviewRows = 2;
 
