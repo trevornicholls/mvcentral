@@ -22,6 +22,7 @@ using mvCentral.Localizations;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
+using MediaPortal.Threading;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 using WindowPlugins;
@@ -167,8 +168,44 @@ namespace mvCentral.GUI
 
       // ... and listen to the progress
       mvCentralCore.InitializeProgress += new ProgressDelegate(onCoreInitializationProgress);
-
+      // Set last 3 added videos
+      LastThreeVideos();
+      // listen for additions to DB
+      mvCentralCore.Importer.MusicVideoStatusChanged += new MusicVideoImporter.MusicVideoStatusChangedHandler(mvStatusChangedListener);
       return success;
+    }
+    /// <summary>
+    /// Fired when new artist is commited to DB via backgriound importer thread
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="action"></param>
+    private void mvStatusChangedListener(MusicVideoMatch obj, MusicVideoImporterAction action)
+    {
+      if (action == MusicVideoImporterAction.COMMITED)
+      {
+        LastThreeVideos();
+      }
+      return;
+    }
+    /// <summary>
+    /// Update last 3 videos
+    /// </summary>
+    void LastThreeVideos()
+    {
+      List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
+      allTracks.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.DateAdded.CompareTo(p1.DateAdded); });
+      SetProperty("#mvCentral.Latest.Artist1", allTracks[0].ArtistInfo[0].Artist);
+      SetProperty("#mvCentral.Latest.Artist2", allTracks[1].ArtistInfo[0].Artist);
+      SetProperty("#mvCentral.Latest.Artist3", allTracks[2].ArtistInfo[0].Artist);
+
+      SetProperty("#mvCentral.Latest.ArtistImage1", allTracks[0].ArtistInfo[0].ArtFullPath);
+      SetProperty("#mvCentral.Latest.ArtistImage2", allTracks[1].ArtistInfo[0].ArtFullPath);
+      SetProperty("#mvCentral.Latest.ArtistImage3", allTracks[2].ArtistInfo[0].ArtFullPath);
+
+
+      SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
+      SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
+      SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
     }
 
     /// <summary>

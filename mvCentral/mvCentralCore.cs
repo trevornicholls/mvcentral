@@ -456,10 +456,6 @@ namespace mvCentral
 
 
       InitLocalization();
-      //            InitSettings();
-      //            InitPluginHandlers();
-      //            InitTorrentHandlers();
-
       // Register Win32 PowerMode Event Handler
       Microsoft.Win32.SystemEvents.PowerModeChanged += new Microsoft.Win32.PowerModeChangedEventHandler(onSystemPowerModeChanged);
       DatabaseMaintenanceManager.MaintenanceProgress += new ProgressDelegate(DatabaseMaintenanceManager_MaintenanceProgress);
