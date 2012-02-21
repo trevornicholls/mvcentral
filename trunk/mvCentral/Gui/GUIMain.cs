@@ -194,15 +194,15 @@ namespace mvCentral.GUI
     {
       List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
       allTracks.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.DateAdded.CompareTo(p1.DateAdded); });
+      // Latest 3 Artists added
       SetProperty("#mvCentral.Latest.Artist1", allTracks[0].ArtistInfo[0].Artist);
       SetProperty("#mvCentral.Latest.Artist2", allTracks[1].ArtistInfo[0].Artist);
       SetProperty("#mvCentral.Latest.Artist3", allTracks[2].ArtistInfo[0].Artist);
-
+      // Images for lastest 3 artists
       SetProperty("#mvCentral.Latest.ArtistImage1", allTracks[0].ArtistInfo[0].ArtFullPath);
       SetProperty("#mvCentral.Latest.ArtistImage2", allTracks[1].ArtistInfo[0].ArtFullPath);
       SetProperty("#mvCentral.Latest.ArtistImage3", allTracks[2].ArtistInfo[0].ArtFullPath);
-
-
+      // Latest 3 tracks Added
       SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
       SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
       SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
