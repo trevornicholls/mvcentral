@@ -804,8 +804,8 @@ namespace mvCentral.GUI
       List<DBArtistInfo> artList = DBArtistInfo.GetAll();
       List<DBTrackInfo> vidList = DBTrackInfo.GetAll();
 
-      //Update Tones and Styles
-      logger.Debug("Update Tones and Styles");
+      //Update Tones, Styles & Genres
+      logger.Debug("Update Tones, Styles and Genre");
       foreach (DBArtistInfo artistData in artList)
       {
         // Styles
@@ -828,8 +828,14 @@ namespace mvCentral.GUI
               DBTonesAndStyles.Add("T", tone.Trim());
           }
         }
+        //Genre - Inset Genre into genre table if not already there
+        if (artistData.Genre.Trim().Length > 0)
+        {
+          if (DBGenres.Get(artistData.Genre) == null)
+            DBGenres.Add(true, artistData.Genre);
+        }
       }
-      logger.Debug("Update Tones and Styles Complete - Update Composers");
+      logger.Debug("Update Tones, Styles and Genre Complete - Update Composers");
       // Update composer DB
       DBComposers.ClearAll();
       foreach (DBTrackInfo trackData in vidList)
@@ -1028,9 +1034,9 @@ namespace mvCentral.GUI
       for (int i = 0; i < dlgMenu.ListItems.Count; i++)
       {
         if (dlgMenu.ListItems[i].Selected)
-          DBGenres.add(true, dlgMenu.ListItems[i].TVTag.ToString());
+          DBGenres.Add(true, dlgMenu.ListItems[i].TVTag.ToString());
         else
-          DBGenres.add(false, dlgMenu.ListItems[i].TVTag.ToString());
+          DBGenres.Add(false, dlgMenu.ListItems[i].TVTag.ToString());
       }
 
       if (dlgMenu.SelectedLabel == -1) // Nothing was selected
@@ -1827,7 +1833,7 @@ namespace mvCentral.GUI
       logger.Debug("Checking for matches for Genre : " + genre);
       foreach (DBArtistInfo artistInfo in artistFullList)
       {
-        if (tagMatched(genre, artistInfo))
+        if (tagMatched(genre, artistInfo) || string.Equals(genre, artistInfo.Genre,StringComparison.OrdinalIgnoreCase))
         {
           if (!artistList.Contains(artistInfo))
             artistList.Add(artistInfo);

@@ -100,7 +100,7 @@ namespace mvCentral.Database
     /// </summary>
     /// <param name="enabled"></param>
     /// <param name="genre"></param>
-    public static void add(bool enabled, string genre)
+    public static void Add(bool enabled, string genre)
     {
       DBGenres r1 = new DBGenres();
       r1.Enabled = enabled;
@@ -144,7 +144,7 @@ namespace mvCentral.Database
       if (Genre.Trim().Length == 0) return null;
       foreach (DBGenres db1 in GetAll())
       {
-        if (String.Equals(Genre, db1.Genre)) return db1;
+        if (String.Equals(Genre, db1.Genre, StringComparison.OrdinalIgnoreCase)) return db1;
       }
       return null;
     }
