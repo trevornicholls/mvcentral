@@ -172,7 +172,15 @@ namespace mvCentral.GUI
       LastThreeVideos();
       // listen for additions to DB
       mvCentralCore.Importer.MusicVideoStatusChanged += new MusicVideoImporter.MusicVideoStatusChangedHandler(mvStatusChangedListener);
+      // Listen to updates from artwork 
+      mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
       return success;
+    }
+
+    void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
+    {
+      //GUIProgressControl progressControl = new GUIProgressControl();
+      SetProperty("#mvCentral.Artwork.Update.Progress", progress.ToString());
     }
     /// <summary>
     /// Fired when new artist is commited to DB via backgriound importer thread
