@@ -1864,7 +1864,7 @@ namespace mvCentral
 
     private void labelForum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://forum.team-mediaportal.com/mediaportal-plugins-47/mvcentral-music-vidoes-plugin-beta-release-101640/");
+      Process.Start(@"http://forum.team-mediaportal.com/forums/mvcentral-music-videos-plugin.573//");
     }
 
     #endregion
