@@ -50,7 +50,7 @@ namespace mvCentral.BackgroundProcesses
 
       foreach (DBTrackInfo currTrack in DBTrackInfo.GetAll())
       {
-        OnProgress(count / total);
+        OnProgress((count * 100) / total);
         count++;
         // Check for Artist missing data
         try

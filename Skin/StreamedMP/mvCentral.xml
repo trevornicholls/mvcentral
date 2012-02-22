@@ -20,8 +20,8 @@
       <label>DEBUG: #mvCentral.ArtistName / #selecteditem</label>
     </control> 
     -->   
-    
-    
+
+
     <control>
       <id>0</id>
       <description>music overlay image</description>
@@ -328,7 +328,7 @@
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>   
     <control>
-      <description>Album Star Rating Image</description>
+      <description>Track Star Rating Image</description>
       <type>image</type>
       <id>0</id>
       <posX>30</posX>
@@ -340,6 +340,27 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
     </control>   
+    <control>
+      <description>Composers</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>150</posX>
+      <posY>251</posY>
+      <width>600</width>
+      <height>18</height>
+      <font>mediastream10c</font>
+      <textcolor>ffffffff</textcolor>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>ff000000</shadowColor>
+      <align>left</align>
+      <label>#mvCentral.Composers</label>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
+    </control>   
+    
+    
     <control>
       <id>0</id>
       <description>Tracks by Artist</description>
@@ -1311,7 +1332,7 @@
         </control>
         <control>
           <description>Search Youtube.FM</description>
-          <id>12</id>
+          <id>0</id>
           <type>button</type>
           <label>#mvCentral.Translation.Search.Label Youtube.FM</label>
           <hyperlink>29050</hyperlink>
@@ -1320,6 +1341,49 @@
         </control>
       </control>
     </control>
+    
+    <control>
+      <type>label</type>
+      <description>Background Refresh</description>
+      <id>0</id>
+      <posX>5</posX>
+      <posY>685</posY>
+      <width>800</width>
+      <font>mediastream11</font>
+      <label>Refresh Progress: </label>
+      <visible>control.isvisible(12)</visible>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Progress %</description>
+      <id>0</id>
+      <posX>600</posX>
+      <posY>685</posY>
+      <width>800</width>
+      <font>mediastream11</font>
+      <label>#mvCentral.Artwork.Update.Progress</label>
+      <visible>control.isvisible(12)</visible>
+    </control>          
+    <control>
+      <description>Disk used</description>
+      <type>progress</type>
+      <id>12</id>
+      <posX>150</posX>
+      <posY>680</posY>
+      <width>440</width>
+      <height>35</height>
+      <label>-</label>
+      <texturebg>osdprogressbackv.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>440</midwidth>
+      <midheight>18</midheight>
+      <midoffsetX>8</midoffsetX>
+      <midoffsetY>11</midoffsetY>
+      <midtexture>osdprogressmid.png</midtexture>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+    </control>    
+    
     <import>common.overlays2.xml</import>
     <import>common.time.xml</import>
   </controls>

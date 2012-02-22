@@ -123,6 +123,7 @@ namespace mvCentral.GUI
       StatsAndInfo = 9,
       GenreConfig = 10,
       Search = 11,
+      ProgressBar = 12,
       Facade = 50
     }
 
@@ -132,6 +133,9 @@ namespace mvCentral.GUI
     [SkinControlAttribute((int)GUIControls.StatsAndInfo)] protected GUIButtonControl btnStatsAndInfo = null;
     [SkinControlAttribute((int)GUIControls.GenreConfig)] protected GUIButtonControl btnGenreConfig = null;
     [SkinControlAttribute((int)GUIControls.Search)] protected GUIButtonControl btnSearch = null;
+
+    [SkinControlAttribute((int)GUIControls.ProgressBar)] protected GUIProgressControl progressControl = null;
+
 
     #endregion
 
@@ -176,14 +180,33 @@ namespace mvCentral.GUI
       mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
       return success;
     }
-
+    /// <summary>
+    /// Display background refresh % compete as progress bar and text percentage
+    /// </summary>
+    /// <param name="process"></param>
+    /// <param name="progress"></param>
     void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
     {
-      //GUIProgressControl progressControl = new GUIProgressControl();
-      SetProperty("#mvCentral.Artwork.Update.Progress", progress.ToString());
+      string pName = process.Name;
+      SetProperty("#mvCentral.Artwork.Update.Progress", string.Format("{0:0.0%} Complete", (progress / 100)));
+      if (progressControl != null)
+      {
+        if (progress == 0.0)
+        {
+          progressControl.Percentage = 0;
+          GUIControl.HideControl(GetID, progressControl.GetID);
+        }
+        else if (progress >= 100.0)
+          GUIControl.HideControl(GetID, progressControl.GetID);
+        else
+        {
+          GUIControl.ShowControl(GetID, progressControl.GetID);
+          progressControl.Percentage = (float)progress;
+        }
+      }
     }
     /// <summary>
-    /// Fired when new artist is commited to DB via backgriound importer thread
+    /// Fired when new artist is commited to DB via background importer thread
     /// </summary>
     /// <param name="obj"></param>
     /// <param name="action"></param>
