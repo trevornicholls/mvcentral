@@ -29,6 +29,9 @@ namespace mvCentral.BackgroundProcesses
 
     public override void Work()
     {
+      float count = 0;
+      float total = DBTrackInfo.GetAll().Count;
+
       if (!mvCentralCore.Settings.AutoRetrieveMediaInfo)
         return;
 
@@ -47,6 +50,8 @@ namespace mvCentral.BackgroundProcesses
 
       foreach (DBTrackInfo currTrack in DBTrackInfo.GetAll())
       {
+        OnProgress(count / total);
+        count++;
         // Check for Artist missing data
         try
         {
@@ -116,6 +121,7 @@ namespace mvCentral.BackgroundProcesses
       }
 
       logger.Info("Background media info update process complete.");
+      OnProgress(1.0);
     }
   }
 }

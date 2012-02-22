@@ -11,10 +11,9 @@ using System.Threading;
 
 namespace mvCentral.BackgroundProcesses
 {
-  internal class UpdateArtworkProcess : AbstractBackgroundProcess
+  public class UpdateArtworkProcess : AbstractBackgroundProcess
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
-
 
     public override string Name
     {
@@ -34,6 +33,8 @@ namespace mvCentral.BackgroundProcesses
     {
       logger.Info("Beginging artwork updater background process.");
 
+      
+
       RemoveOrphanArtwork();
       LookForMissingMetaData();
 
@@ -51,7 +52,7 @@ namespace mvCentral.BackgroundProcesses
 
       foreach (DBTrackInfo currMusicVideo in DBTrackInfo.GetAll())
       {
-        //OnProgress(count / total);
+        OnProgress(count / total);
         count++;
 
         if (currMusicVideo.ID == null)
@@ -85,7 +86,7 @@ namespace mvCentral.BackgroundProcesses
         currMusicVideo.Commit();
       }
 
-      //OnProgress(1.0);
+      OnProgress(1.0);
     }
 
     #region Missing Artwork/Info
@@ -95,10 +96,17 @@ namespace mvCentral.BackgroundProcesses
     /// </summary>
     private void LookForMissingMetaData()
     {
+      float count = 0;
+      float total = DBArtistInfo.GetAll().Count;
+
       // Check for missing Artist Artwork
       logger.Info("Checking for Missing Artwork (Artists)");
       foreach (DBArtistInfo currArtist in DBArtistInfo.GetAll())
       {
+
+        OnProgress(count / total);
+        count++;
+
         try
         {
           logger.Debug("Checking " + currArtist.GetType().ToString() + " CurrAlbum.ID : " + currArtist.Artist);
@@ -125,10 +133,15 @@ namespace mvCentral.BackgroundProcesses
           logger.ErrorException("Error retrieving Artist artwork for " + currArtist.Basic, e);
         }
       }
+      OnProgress(1.0);
+      count = 0;
       // Check for Missing Album Artwork
       logger.Info("Checking for Missing Artwork (Albums)");
       foreach (DBAlbumInfo currAlbum in DBAlbumInfo.GetAll())
       {
+        OnProgress(count / total);
+        count++;
+
         try
         {
           logger.Debug("Checking " + currAlbum.GetType().ToString() + " CurrMusicVideo.ID : " + currAlbum.Album);
@@ -155,10 +168,14 @@ namespace mvCentral.BackgroundProcesses
           logger.Error("Error retrieving Album artwork for " + currAlbum.Basic);
         }
       }
+      OnProgress(1.0);
+      count = 0;
       // Check for missing video Artwork
       logger.Info("Checking for Missing Artwork (Videos)");
       foreach (DBTrackInfo currTrack in DBTrackInfo.GetAll())
       {
+        OnProgress(count / total);
+        count++;
         try
         {
           logger.Debug("Checking " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
@@ -185,6 +202,7 @@ namespace mvCentral.BackgroundProcesses
           logger.ErrorException("Error retrieving Video artwork for " + currTrack.Basic, e);
         }
       }
+      OnProgress(1.0);
     }
 
     #endregion
