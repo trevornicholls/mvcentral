@@ -379,7 +379,9 @@ namespace mvCentral.GUI
                   if (!trackItem.IsFolder && trackItem.MusicTag != null)
                     videoList.Add((DBTrackInfo)trackItem.MusicTag);
                 }
-                addToPlaylist(videoList, false, true, smartDJ_ShufflePlaylist.Selected);
+                // Now create a Playlist
+                addToPlaylist(videoList, false, true, false);
+                // And play it
                 Player.playlistPlayer.Play(videoList.IndexOf((DBTrackInfo)selectedItem.MusicTag));
                 if (mvCentralCore.Settings.AutoFullscreen)
                   g_Player.ShowFullScreenWindow();
@@ -937,13 +939,11 @@ namespace mvCentral.GUI
                 artistPlayList.Add(artistData);
             }
           }
-
           break;
         default:
           break;
       }
       buildFacade();
-
     }
     /// <summary>
     /// Generate match playlist based on selections
@@ -1016,6 +1016,7 @@ namespace mvCentral.GUI
               continue;
           }
           GUIListItem facadeItem = new GUIListItem();
+          // Check if raw filename display is required
           if (mvCentralCore.Settings.DisplayRawTrackText)
           {
             if (Path.GetFileName(trackData.LocalMedia[0].File.FullName).Contains("-"))
@@ -1032,7 +1033,6 @@ namespace mvCentral.GUI
           facadeItem.TVTag = trackData.bioContent;
           facadeItem.Path = trackData.LocalMedia[0].File.FullName;
           facadeItem.IsFolder = false;
-          //facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
           facadeItem.MusicTag = trackData;
           facadeItem.Rating = trackData.Rating;
           // If no thumbnail set a default
@@ -1040,7 +1040,7 @@ namespace mvCentral.GUI
             facadeItem.ThumbnailImage = trackData.ArtFullPath;
           else
             facadeItem.ThumbnailImage = "defaultVideoBig.png";
-
+          // Set the played status
           if (trackData.ActiveUserSettings.WatchedCount > 0)
           {
             facadeItem.IsPlayed = true;
@@ -1053,8 +1053,7 @@ namespace mvCentral.GUI
             facadeItem.Shaded = false;
             facadeItem.IconImage = GUIGraphicsContext.Skin + @"\Media\tvseries_UnWatched.png";
           }
-
-
+          facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
           facadeLayout.Add(facadeItem);
         }
       }
@@ -1077,6 +1076,69 @@ namespace mvCentral.GUI
 
       GUIControl.SetControlLabel(windowID, (int)GUIControls.TotalArtists, string.Format("{0}: {1} / {2}: {3}", Localization.SelArtists, artistPlayList.Count.ToString(), Localization.SelVidoes, facadeLayout.Count.ToString()));
 
+    }
+    /// <summary>
+    /// Video/Album item selected - set properities
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="parent"></param>
+    void onVideoSelected(GUIListItem item, GUIControl parent)
+    {
+      DBTrackInfo trackInfo = null;
+      // Is this a Track we are on - best to be safe
+      if (item.MusicTag.GetType() == typeof(DBTrackInfo))
+      {
+        // This is an Video
+        trackInfo = (DBTrackInfo)item.MusicTag;
+        // Basic Props
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistName", trackInfo.ArtistInfo[0].Artist);
+        // Track information
+        if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
+        else
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
+        // Track Rating
+        GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", trackInfo.Rating.ToString());
+        // Track Composers
+        if (trackInfo.Composers.Trim().Length == 0)
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", "No Composer data");
+        else
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
+        // Duration
+        GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
+
+
+        // #iswatched
+        if (trackInfo.UserSettings[0].WatchedCount > 0)
+        {
+          GUIPropertyManager.SetProperty("#iswatched", "yes");
+          GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", trackInfo.UserSettings[0].WatchedCount.ToString());
+        }
+        else
+          GUIPropertyManager.SetProperty("#iswatched", "no");
+      }
+    }
+    /// <summary>
+    /// Convert the track running time
+    /// </summary>
+    /// <param name="playTime"></param>
+    /// <returns></returns>
+    private string trackDuration(string playTime)
+    {
+      try
+      {
+        TimeSpan tt = TimeSpan.Parse(playTime);
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
+      }
+      catch
+      {
+        return "00:00:00";
+      }
     }
     /// <summary>
     /// Select Style
@@ -1291,7 +1353,7 @@ namespace mvCentral.GUI
           GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Tone: " + selectedTone);
 
         if (selectedComposer != string.Empty)
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Cpmposer: " + selectedComposer);
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Composer: " + selectedComposer);
 
         if (selectedKeyword != string.Empty)
           GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Keyword: " + selectedKeyword);
