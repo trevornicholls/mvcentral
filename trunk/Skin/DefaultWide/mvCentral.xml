@@ -1163,5 +1163,41 @@
     </control>
 			</control>
 		</control>   
+		
+    <control>
+      <type>label</type>
+      <description>Background Refresh</description>
+      <id>0</id>
+      <posX>320</posX>
+      <posY>600</posY>
+      <width>800</width>
+      <font>font9</font>
+      <align>left</align>
+      <label>Background Metadata Refresh: #mvCentral.Metadata.Update.Progress</label>
+      <visible>control.isvisible(12)</visible>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+    </control>      
+    <control>
+      <description>Rescan Completed</description>
+      <type>progress</type>
+      <id>12</id>
+      <posX>320</posX>
+      <posY>630</posY>
+      <width>440</width>
+      <height>20</height>
+      <label>-</label>
+      <texturebg>osd_progress_background.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>440</midwidth>
+      <midheight>18</midheight>
+      <midoffsetX>1</midoffsetX>
+      <midoffsetY>1</midoffsetY>
+      <midtexture>osd_progress_mid.png</midtexture>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+    </control>    
+		
+		
   </controls>
 </window>

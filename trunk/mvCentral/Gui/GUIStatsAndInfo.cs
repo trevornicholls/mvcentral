@@ -2,10 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using NLog;
+using System.Threading;
+
+// mvCentral
 using mvCentral.Localizations;
 using mvCentral.Database;
 using mvCentral.Utils;
+// Cornerstone
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.GUI.Dialogs;
+using Cornerstone.Tools;
 // MediaPortal
 using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
@@ -19,6 +26,8 @@ using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 using WindowPlugins;
 
+using NLog;
+
 namespace mvCentral.GUI
 {
   public class GUImvStatsAndInfo : WindowPluginBase
@@ -26,7 +35,6 @@ namespace mvCentral.GUI
     #region variables
 
     private static Logger logger = LogManager.GetCurrentClassLogger();
-
     const int windowID = 112013;
 
     #endregion
@@ -35,6 +43,8 @@ namespace mvCentral.GUI
 
     private enum GUIControls
     {
+      ArtworkRefreshProgress = 12,
+      MetaDataRefreshProgress = 13,
       exitScreen = 14,
       versionLabel = 15,
       videoCountLabel = 16,
@@ -72,6 +82,10 @@ namespace mvCentral.GUI
     [SkinControl((int)GUIControls.topTen9)] protected GUIFadeLabel topTen9 = null;
     [SkinControl((int)GUIControls.topTen10)] protected GUIFadeLabel topTen10 = null;
 
+    [SkinControlAttribute((int)GUIControls.MetaDataRefreshProgress)] protected GUIProgressControl MetaDataRefreshProgressBar = null;
+    [SkinControlAttribute((int)GUIControls.ArtworkRefreshProgress)] protected GUIProgressControl ArtworkUpdateProgressBar = null;
+
+
     #endregion
 
     #region Constructor
@@ -103,6 +117,10 @@ namespace mvCentral.GUI
 
     protected override void OnPageLoad()
     {
+      mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
+      GUIPropertyManager.SetProperty("#mvCentral.Metadata.Update.Progress", Localization.Inactive);
+      GUIPropertyManager.SetProperty("#mvCentral.Artwork.Update.Progress", Localization.Inactive);
+
       GUILabelControl.SetControlLabel(GetID, (int)GUIControls.versionLabel, System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString());
       List<DBTrackInfo> videoList = DBTrackInfo.GetAll();
       List<DBArtistInfo> artistList = DBArtistInfo.GetAll();
@@ -194,6 +212,42 @@ namespace mvCentral.GUI
     public static int GetWindowId()
     {
       return windowID;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    /// <summary>
+    /// Display background refresh % compete as progress bar and text percentage
+    /// </summary>
+    /// <param name="process"></param>
+    /// <param name="progress"></param>
+    void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
+    {
+      string pName = process.Name;
+      if (pName == "MediaInfo Updater")
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
+        if (MetaDataRefreshProgressBar != null)
+        {
+          if (progress == 0.0)
+            MetaDataRefreshProgressBar.Percentage = 0;
+          else
+            MetaDataRefreshProgressBar.Percentage = (float)progress;
+        }
+      }
+      else if (pName == "Artwork Updater")
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.Artwork.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
+        if (ArtworkUpdateProgressBar != null)
+        {
+          if (progress == 0.0)
+            ArtworkUpdateProgressBar.Percentage = 0;
+          else
+            ArtworkUpdateProgressBar.Percentage = (float)progress;
+        }
+      }
     }
 
     #endregion

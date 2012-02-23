@@ -6,6 +6,7 @@
   <define>#header.hover:-</define>
   <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
+  <define>#shadow.dark:ff000000</define>
   <controls>
     <import>mymusic.autofanart.xml</import>
     <import>mymusic.selected.fanart.xml</import>
@@ -34,7 +35,7 @@
       <type>label</type>
       <id>0</id>
       <posX>200</posX>
-      <posY>120</posY>
+      <posY>100</posY>
       <align>left</align>
       <font>mediastream16tc</font>
       <shadowAngle>45</shadowAngle>
@@ -62,7 +63,7 @@
       <type>label</type>
       <id>16</id>
       <posX>640</posX>
-      <posY>605</posY>
+      <posY>150</posY>
       <font>mediastream12</font>
       <align>center</align>
       <label>-</label>
@@ -362,6 +363,94 @@
       <label>-</label>
       <visible>false</visible>
     </control>
+    
+    <control>
+      <type>label</type>
+      <description>Artwork Background Refresh</description>
+      <id>0</id>
+      <posX>400</posX>
+      <posY>580</posY>
+      <width>800</width>
+      <font>mediastream11</font>
+      <align>right</align>
+      <label>Backgroup Artwork Process: </label>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Progress %</description>
+      <id>0</id>
+      <posX>850</posX>
+      <posY>580</posY>
+      <width>800</width>
+      <font>mediastream11</font>
+      <label>#mvCentral.Artwork.Update.Progress</label>
+    </control>          
+    <control>
+      <description>Rescan Completed</description>
+      <type>progress</type>
+      <id>12</id>
+      <posX>400</posX>
+      <posY>575</posY>
+      <width>440</width>
+      <height>35</height>
+      <label>-</label>
+      <texturebg>osdprogressbackv.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>440</midwidth>
+      <midheight>18</midheight>
+      <midoffsetX>8</midoffsetX>
+      <midoffsetY>11</midoffsetY>
+      <midtexture>osdprogressmid.png</midtexture>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+      <visible>yes</visible>
+    </control>    
+
+
+    <control>
+      <type>label</type>
+      <description>Metadata Background Refresh</description>
+      <id>0</id>
+      <posX>400</posX>
+      <posY>610</posY>
+      <width>800</width>
+      <font>mediastream11</font>
+      <label>Background Metadata Refresh: </label>
+      <align>right</align>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Progress %</description>
+      <id>0</id>
+      <posX>850</posX>
+      <posY>610</posY>
+      <width>800</width>
+      <font>mediastream11</font>
+      <label>#mvCentral.Metadata.Update.Progress</label>
+    </control>          
+    <control>
+      <description>Rescan Completed</description>
+      <type>progress</type>
+      <id>13</id>
+      <posX>400</posX>
+      <posY>605</posY>
+      <width>440</width>
+      <height>35</height>
+      <label>-</label>
+      <texturebg>osdprogressbackv.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>440</midwidth>
+      <midheight>18</midheight>
+      <midoffsetX>8</midoffsetX>
+      <midoffsetY>11</midoffsetY>
+      <midtexture>osdprogressmid.png</midtexture>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+      <visible>yes</visible>
+    </control>    
+    
+    
+    
     <import>common.time.xml</import>
   </controls>
 </window>
