@@ -5,6 +5,7 @@
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:-</define>
   <define>#useSelectedFanart:Yes</define>
+  <define>#shadow.dark:ff000000</define>
   <controls>
     <import>mymusic.selected.fanart.xml</import>
     
@@ -1361,11 +1362,11 @@
       <posY>685</posY>
       <width>800</width>
       <font>mediastream11</font>
-      <label>#mvCentral.Artwork.Update.Progress</label>
+      <label>#mvCentral.Metadata.Update.Progress</label>
       <visible>control.isvisible(12)</visible>
     </control>          
     <control>
-      <description>Disk used</description>
+      <description>Rescan Completed</description>
       <type>progress</type>
       <id>12</id>
       <posX>150</posX>

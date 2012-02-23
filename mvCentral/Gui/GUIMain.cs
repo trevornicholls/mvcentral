@@ -123,7 +123,7 @@ namespace mvCentral.GUI
       StatsAndInfo = 9,
       GenreConfig = 10,
       Search = 11,
-      ProgressBar = 12,
+      MetaDataProgressBar = 12,
       Facade = 50
     }
 
@@ -134,7 +134,7 @@ namespace mvCentral.GUI
     [SkinControlAttribute((int)GUIControls.GenreConfig)] protected GUIButtonControl btnGenreConfig = null;
     [SkinControlAttribute((int)GUIControls.Search)] protected GUIButtonControl btnSearch = null;
 
-    [SkinControlAttribute((int)GUIControls.ProgressBar)] protected GUIProgressControl progressControl = null;
+    [SkinControlAttribute((int)GUIControls.MetaDataProgressBar)] protected GUIProgressControl metadataProgressBar = null;
 
 
     #endregion
@@ -188,20 +188,23 @@ namespace mvCentral.GUI
     void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
     {
       string pName = process.Name;
-      SetProperty("#mvCentral.Artwork.Update.Progress", string.Format("{0:0.0%} Complete", (progress / 100)));
-      if (progressControl != null)
+      if (pName == "MediaInfo Updater")
       {
-        if (progress == 0.0)
+        SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
+        if (metadataProgressBar != null)
         {
-          progressControl.Percentage = 0;
-          GUIControl.HideControl(GetID, progressControl.GetID);
-        }
-        else if (progress >= 100.0)
-          GUIControl.HideControl(GetID, progressControl.GetID);
-        else
-        {
-          GUIControl.ShowControl(GetID, progressControl.GetID);
-          progressControl.Percentage = (float)progress;
+          if (progress == 0.0)
+          {
+            metadataProgressBar.Percentage = 0;
+            GUIControl.HideControl(GetID, metadataProgressBar.GetID);
+          }
+          else if (progress >= 100.0)
+            GUIControl.HideControl(GetID, metadataProgressBar.GetID);
+          else
+          {
+            GUIControl.ShowControl(GetID, metadataProgressBar.GetID);
+            metadataProgressBar.Percentage = (float)progress;
+          }
         }
       }
     }

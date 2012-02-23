@@ -15,6 +15,8 @@ namespace mvCentral.BackgroundProcesses
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
+    public delegate void ProcessUpdateDelegate(AbstractBackgroundProcess process, double progress, string activeFile);
+
     public override string Name
     {
       get { return "Artwork Updater"; }
@@ -47,13 +49,8 @@ namespace mvCentral.BackgroundProcesses
     public void RemoveOrphanArtwork()
     {
       logger.Info("Checking for Orphaned Artwork....");
-      float count = 0;
-      float total = DBTrackInfo.GetAll().Count;
-
       foreach (DBTrackInfo currMusicVideo in DBTrackInfo.GetAll())
       {
-        //OnProgress(count / total);
-        count++;
 
         if (currMusicVideo.ID == null)
           continue;
@@ -85,8 +82,6 @@ namespace mvCentral.BackgroundProcesses
 
         currMusicVideo.Commit();
       }
-
-      //OnProgress(1.0);
     }
 
     #region Missing Artwork/Info
@@ -97,14 +92,14 @@ namespace mvCentral.BackgroundProcesses
     private void LookForMissingMetaData()
     {
       float count = 0;
-      float total = DBArtistInfo.GetAll().Count;
+      float total = DBArtistInfo.GetAll().Count + DBAlbumInfo.GetAll().Count + DBTrackInfo.GetAll().Count;
 
       // Check for missing Artist Artwork
       logger.Info("Checking for Missing Artwork (Artists)");
       foreach (DBArtistInfo currArtist in DBArtistInfo.GetAll())
       {
 
-        //OnProgress(count / total);
+        OnProgress((count * 100) / total);
         count++;
 
         try
@@ -133,13 +128,11 @@ namespace mvCentral.BackgroundProcesses
           logger.ErrorException("Error retrieving Artist artwork for " + currArtist.Basic, e);
         }
       }
-      //OnProgress(1.0);
-      count = 0;
       // Check for Missing Album Artwork
       logger.Info("Checking for Missing Artwork (Albums)");
       foreach (DBAlbumInfo currAlbum in DBAlbumInfo.GetAll())
       {
-        //OnProgress(count / total);
+        OnProgress((count * 100) / total);
         count++;
 
         try
@@ -168,13 +161,11 @@ namespace mvCentral.BackgroundProcesses
           logger.Error("Error retrieving Album artwork for " + currAlbum.Basic);
         }
       }
-      //OnProgress(1.0);
-      count = 0;
       // Check for missing video Artwork
       logger.Info("Checking for Missing Artwork (Videos)");
       foreach (DBTrackInfo currTrack in DBTrackInfo.GetAll())
       {
-        //OnProgress(count / total);
+        OnProgress((count * 100) / total);
         count++;
         try
         {
@@ -202,7 +193,7 @@ namespace mvCentral.BackgroundProcesses
           logger.ErrorException("Error retrieving Video artwork for " + currTrack.Basic, e);
         }
       }
-      //OnProgress(1.0);
+      OnProgress(100.0);
     }
 
     #endregion

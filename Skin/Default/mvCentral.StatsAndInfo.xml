@@ -21,7 +21,7 @@
       <posX>10</posX>
       <posY>60</posY>
       <width>700</width>
-      <height>500</height>
+      <height>510</height>
       <colordiffuse>F0ffffff</colordiffuse>
       <texture>context_background.png</texture>
     </control>
@@ -32,7 +32,7 @@
       <posX>200</posX>
       <posY>130</posY>
       <width>500</width>
-      <height>380</height>
+      <height>370</height>
       <colordiffuse>60ffffff</colordiffuse>
       <texture>osd_dialog_big.png</texture>
     </control>
@@ -53,7 +53,7 @@
         <type>label</type>
         <id>0</id>
         <posX>370</posX>
-        <posY>110</posY>
+        <posY>100</posY>
         <align>center</align>
         <font>font16</font>
 			  <shadowAngle>45</shadowAngle> 
@@ -82,7 +82,7 @@
         <type>label</type>
         <id>16</id>
         <posX>360</posX>
-        <posY>520</posY>
+        <posY>125</posY>
         <font>font12</font>
         <align>center</align>
         <label>-</label>
@@ -212,7 +212,7 @@
         <id>30</id>
         <posX>240</posX>
         <posY>210</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -224,7 +224,7 @@
         <id>31</id>
         <posX>240</posX>
         <posY>235</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -236,7 +236,7 @@
         <id>32</id>
         <posX>240</posX>
         <posY>260</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -248,7 +248,7 @@
         <id>33</id>
         <posX>240</posX>
         <posY>285</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -260,7 +260,7 @@
         <id>34</id>
         <posX>240</posX>
         <posY>310</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -272,7 +272,7 @@
         <id>35</id>
         <posX>240</posX>
         <posY>335</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -284,7 +284,7 @@
         <id>36</id>
         <posX>240</posX>
         <posY>360</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -296,7 +296,7 @@
         <id>37</id>
         <posX>240</posX>
         <posY>385</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -308,7 +308,7 @@
         <id>38</id>
         <posX>240</posX>
         <posY>410</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
@@ -320,17 +320,13 @@
         <id>39</id>
         <posX>240</posX>
         <posY>435</posY>
-        <width>600</width>
+        <width>420</width>
         <font>font11</font>
         <label>-</label>
         <animation effect="slide" time="100" start="300,0">visible</animation>
         <animation effect="slide" time="0" end="300,0">hidden</animation>
       </control>      
-      
-      
-      
-      
-      
+         
         <control>
           <description>Empty button</description>
           <type>button</type>
@@ -339,6 +335,90 @@
           <visible>false</visible>
         </control>     
     
+    <control>
+      <type>label</type>
+      <description>Artwork Background Refresh</description>
+      <id>0</id>
+      <posX>230</posX>
+      <posY>500</posY>
+      <width>800</width>
+      <font>font10</font>
+      <align>right</align>
+      <label>Backgroup Artwork Process: </label>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Progress %</description>
+      <id>0</id>
+      <posX>570</posX>
+      <posY>500</posY>
+      <width>800</width>
+      <font>font10</font>
+      <label>#mvCentral.Artwork.Update.Progress</label>
+    </control>          
+    <control>
+      <description>Rescan Completed</description>
+      <type>progress</type>
+      <id>12</id>
+      <posX>230</posX>
+      <posY>502</posY>
+      <width>330</width>
+      <height>14</height>
+      <label>-</label>
+      <texturebg>osd_progress_background.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>330</midwidth>
+      <midheight>14</midheight>
+      <midoffsetX>0</midoffsetX>
+      <midoffsetY>0</midoffsetY>
+      <midtexture>osd_progress_mid.png</midtexture>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+      <visible>yes</visible>
+    </control>    
+
+
+    <control>
+      <type>label</type>
+      <description>Metadata Background Refresh</description>
+      <id>0</id>
+      <posX>230</posX>
+      <posY>525</posY>
+      <width>800</width>
+      <font>font10</font>
+      <label>Background Metadata Refresh: </label>
+      <align>right</align>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Progress %</description>
+      <id>0</id>
+      <posX>570</posX>
+      <posY>525</posY>
+      <width>800</width>
+      <font>font10</font>
+      <label>#mvCentral.Metadata.Update.Progress</label>
+    </control>          
+    <control>
+      <description>Rescan Completed</description>
+      <type>progress</type>
+      <id>13</id>
+      <posX>230</posX>
+      <posY>527</posY>
+      <width>330</width>
+      <height>14</height>
+      <label>-</label>
+      <texturebg>osd_progress_background.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>330</midwidth>
+      <midheight>14</midheight>
+      <midoffsetX>0</midoffsetX>
+      <midoffsetY>0</midoffsetY>
+      <midtexture>osd_progress_mid.png</midtexture>
+      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
+      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+      <visible>yes</visible>
+    </control>    
     
     
     <!-- <import>mvCentral.overlays2.xml</import> -->

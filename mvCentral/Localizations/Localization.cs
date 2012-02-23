@@ -265,6 +265,7 @@ namespace mvCentral.Localizations
     public static string ContextMenu = "Context Menu";
     public static string ConfigGenre = "Configure Genres";
     public static string Composers = "Composer(s)";
+    public static string Compete = "Complete";
 
     // D
     public static string Date = "Date";
@@ -289,6 +290,7 @@ namespace mvCentral.Localizations
     // I
     public static string Initializing = "Initializing";
     public static string Info = "Info";
+    public static string Inactive = "Inactive...";
 
     // L
     public static string LatestVideos = "Latest Videos";

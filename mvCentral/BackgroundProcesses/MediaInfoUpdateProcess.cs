@@ -121,7 +121,7 @@ namespace mvCentral.BackgroundProcesses
       }
 
       logger.Info("Background media info update process complete.");
-      OnProgress(1.0);
+      OnProgress(100.0);
     }
   }
 }
