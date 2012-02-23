@@ -502,7 +502,7 @@ namespace mvCentral.Playlist
         {
           PlayListItem item = playlist[i];
           strFileName = item.FileName;
-
+          
           GUIListItem pItem = new GUIListItem(item.Track.Track);
           DBArtistInfo artistInfo = DBArtistInfo.Get(item.Track);
           pItem.Path = strFileName;
@@ -615,7 +615,9 @@ namespace mvCentral.Playlist
     {
       GUIControl.ClearControl(GetID, facadeLayout.GetID);
     }
-
+    /// <summary>
+    /// Clear the Playlist
+    /// </summary>
     private void OnClearPlayList()
     {
       currentSelectedItem = -1;
@@ -631,7 +633,10 @@ namespace mvCentral.Playlist
       if (btnLoad != null)
         GUIControl.FocusControl(GetID, btnLoad.GetID);
     }
-
+    /// <summary>
+    /// Handle user click
+    /// </summary>
+    /// <param name="itemIndex"></param>
     protected override void OnClick(int itemIndex)
     {
       currentSelectedItem = facadeLayout.SelectedListItemIndex;

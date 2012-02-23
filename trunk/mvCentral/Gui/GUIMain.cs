@@ -1003,7 +1003,10 @@ namespace mvCentral.GUI
       if (!screenStack.Contains(activeView))
         screenStack.Add(activeView);
     }
-
+    /// <summary>
+    /// Get the previous menu in the stack
+    /// </summary>
+    /// <returns></returns>
     private mvView getPreviousView()
     {
       if (screenStack.Count == 1)
@@ -1019,7 +1022,9 @@ namespace mvCentral.GUI
         logger.Debug("Read Stack > {0}",mvv.ToString());
       return lastView;
     }
-
+    /// <summary>
+    /// Return top window in stack
+    /// </summary>
     public mvView TopWindow
     {
       get
@@ -1075,8 +1080,6 @@ namespace mvCentral.GUI
       }
 
       artistTags.Sort(delegate(string p1, string p2) { return p1.CompareTo(p2); });
-
-
       GUIDialogMultiSelect dlgMenu = (GUIDialogMultiSelect)GUIWindowManager.GetWindow(112014);
       if (dlgMenu != null)
       {
@@ -1112,7 +1115,6 @@ namespace mvCentral.GUI
 
       return dlgMenu.SelectedLabel;
     }
-
     /// <summary>
     /// Show the Conext Menu
     /// </summary>
@@ -1445,7 +1447,6 @@ namespace mvCentral.GUI
         artistTrackList.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p1.Track.CompareTo(p2.Track); });
       else
         artistTrackList.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.Track.CompareTo(p1.Track); });
-
 
       this.artistID = ArtistID;
       // Clear facade 
@@ -2078,6 +2079,14 @@ namespace mvCentral.GUI
           GUIPropertyManager.SetProperty("#mvCentral.Composers", "No Composer data");
         else
           GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
+        // #iswatched
+        if (trackInfo.UserSettings[0].WatchedCount > 0)
+        {
+          GUIPropertyManager.SetProperty("#iswatched", "yes");
+          GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", trackInfo.UserSettings[0].WatchedCount.ToString());
+        }
+        else
+          GUIPropertyManager.SetProperty("#iswatched", "no");
 
         // Get the artist 
         DBArtistInfo artistInfo = trackInfo.ArtistInfo[0];
