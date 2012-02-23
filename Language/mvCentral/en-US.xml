@@ -36,6 +36,7 @@
         <string Field="ContextMenu">Context Menu</string>
         <string Field="ConfigGenre">Configure Genres</string>
         <string Field="Composers">Composer(s)</string>
+        <string Field="Complete">Complete</string>
 
         // D
         <string Field="Date">Date</string>
@@ -61,6 +62,7 @@
         // I
         <string Field="Initializing">Initializing</string>
         <string Field="Info">Info</string>
+        <string Field="Inactive">Inactive...</string>
 
         // L
         <string Field="LatestVideos">Latest Videos</string>
