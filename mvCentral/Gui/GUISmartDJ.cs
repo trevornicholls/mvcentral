@@ -176,11 +176,7 @@ namespace mvCentral.GUI
     {
       base.OnPageLoad();
       // Clear the skin properties
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Composers", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
+      clearFacadeItemProps();
       // Clear the facade
       facadeLayout.CurrentLayout = GUIFacadeControl.Layout.List;
       smartDJ_ShufflePlaylist.Selected = mvCentralCore.Settings.SmartDJPlaylistShuffle;
@@ -1012,6 +1008,7 @@ namespace mvCentral.GUI
     {
       // Clear the facade
       GUIControl.ClearControl(GetID, facadeLayout.GetID);
+      clearFacadeItemProps();
       // Load tracks into facade
       foreach (DBArtistInfo artist in artistPlayList)
       {
@@ -1442,6 +1439,19 @@ namespace mvCentral.GUI
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, Localization.SelFilter);
       }
     }
+
+    /// <summary>
+    /// Clear the facade item props
+    /// </summary>
+    void clearFacadeItemProps()
+    {
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Composers", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
+    }
+
 
     #endregion
 
