@@ -174,6 +174,14 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
+      base.OnPageLoad();
+      // Clear the skin properties
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Composers", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
+      // Clear the facade
       facadeLayout.CurrentLayout = GUIFacadeControl.Layout.List;
       smartDJ_ShufflePlaylist.Selected = mvCentralCore.Settings.SmartDJPlaylistShuffle;
       if (!persisting)
@@ -1065,17 +1073,19 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#itemtype", Localization.Videos);
         GUIControl.EnableControl(windowID, (int)GUIControls.PlayPlaylist);
         GUIControl.EnableControl(windowID, (int)GUIControls.SavePlaylist);
-
+        // Select first item in the list, set the skin properities and set focus to the facade
+        facadeLayout.SelectedListItemIndex = 0;
+        onVideoSelected(facadeLayout.SelectedListItem, facadeLayout);
+        GUIControl.FocusControl(windowID, (int)GUIControls.Facade);
       }
       else
       {
         facadeLayout.Visible = false;
-        GUIControl.EnableControl(windowID, (int)GUIControls.PlayPlaylist);
-        GUIControl.EnableControl(windowID, (int)GUIControls.SavePlaylist);
+        GUIControl.DisableControl(windowID, (int)GUIControls.PlayPlaylist);
+        GUIControl.DisableControl(windowID, (int)GUIControls.SavePlaylist);
       }
-
+      // Set the info label
       GUIControl.SetControlLabel(windowID, (int)GUIControls.TotalArtists, string.Format("{0}: {1} / {2}: {3}", Localization.SelArtists, artistPlayList.Count.ToString(), Localization.SelVidoes, facadeLayout.Count.ToString()));
-
     }
     /// <summary>
     /// Video/Album item selected - set properities
@@ -1106,8 +1116,6 @@ namespace mvCentral.GUI
           GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
         // Duration
         GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
-
-
         // #iswatched
         if (trackInfo.UserSettings[0].WatchedCount > 0)
         {
@@ -1328,6 +1336,7 @@ namespace mvCentral.GUI
     /// </summary>
     void refreshValues()
     {
+      // Set the buttons
       if (matchingMode)
       {
         GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
@@ -1407,7 +1416,6 @@ namespace mvCentral.GUI
         // Build and display the facade
         buildFacade();
       }
-
     }
 
     /// <summary>

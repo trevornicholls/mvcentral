@@ -686,7 +686,14 @@ namespace mvCentral.Playlist
         logger.Error("No artist found for track {0} !!", mvTrack.Track);
         return;
       }
-
+      // #iswatched
+      if (mvTrack.UserSettings[0].WatchedCount > 0)
+      {
+        GUIPropertyManager.SetProperty("#iswatched", "yes");
+        GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", mvTrack.UserSettings[0].WatchedCount.ToString());
+      }
+      else
+        GUIPropertyManager.SetProperty("#iswatched", "no");
 
       // Base skin properties
       GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
