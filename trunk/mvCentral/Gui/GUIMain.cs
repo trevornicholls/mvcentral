@@ -414,7 +414,7 @@ namespace mvCentral.GUI
       base.SaveSettings();
     }
     /// <summary>
-    /// List avaiable views - Windowsplugin Class override
+    /// List Available views - Windowsplugin Class override
     /// </summary>
     protected override void OnShowViews()
     {
@@ -2072,14 +2072,14 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.VideoImg", item.ThumbnailImage);
         // Track information
         if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
-          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", Localization.NoTrackInfo);
         else
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
         // Track Rating
         GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", trackInfo.Rating.ToString());
         // Track Composers
         if (trackInfo.Composers.Trim().Length == 0)
-          GUIPropertyManager.SetProperty("#mvCentral.Composers", "No Composer data");
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
         else
           GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
         // #iswatched
@@ -2184,8 +2184,8 @@ namespace mvCentral.GUI
         // Set the descrioption
         if (string.IsNullOrEmpty(albumInfo.bioContent.Trim()))
         {
-          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Album Information Avaiable");
-          GUIPropertyManager.SetProperty("#mvCentral.AlbumInfo", "No Album Information Avaiable");
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo",Localization.NoTrackInfo);
+          GUIPropertyManager.SetProperty("#mvCentral.AlbumInfo", Localization.NoAlbumInfo);
         }
         else
         {

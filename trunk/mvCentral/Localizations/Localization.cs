@@ -314,6 +314,8 @@ namespace mvCentral.Localizations
     public static string NoPlaylistsFound = "No Playlists found in:";
     public static string NoArtistBio = "No Biography Available for Artist {0}";
     public static string NoTrackInfo = "No Track Description Available";
+    public static string NoComposerInfo = "No Composer Info";
+    public static string NoAlbumInfo = "No Album Information Available";
 
     // O
     public static string OK = "OK";
