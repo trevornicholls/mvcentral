@@ -1094,14 +1094,14 @@ namespace mvCentral.GUI
         GUIPropertyManager.SetProperty("#mvCentral.ArtistName", trackInfo.ArtistInfo[0].Artist);
         // Track information
         if (string.IsNullOrEmpty(item.TVTag.ToString().Trim()))
-          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", "No Track Information Avaiable");
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", Localization.NoTrackInfo);
         else
           GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", item.TVTag.ToString());
         // Track Rating
         GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", trackInfo.Rating.ToString());
         // Track Composers
         if (trackInfo.Composers.Trim().Length == 0)
-          GUIPropertyManager.SetProperty("#mvCentral.Composers", "No Composer data");
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
         else
           GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
         // Duration

@@ -11,6 +11,7 @@
     <import>mymusic.autofanart.xml</import>
     <import>mymusic.selected.fanart.xml</import>
     <control>
+      <description>First Level Image</description>
       <type>image</type>
       <id>0</id>
       <posX>140</posX>
@@ -21,6 +22,7 @@
       <texture>subsearchbg.png</texture>
     </control>
     <control>
+      <description>Top Ten List Image Background</description>
       <type>image</type>
       <id>0</id>
       <posX>560</posX>
@@ -43,8 +45,8 @@
       <shadowColor>#shadow.dark</shadowColor>
       <textcolor>ff006698</textcolor>
       <label>mvCentral - #mvCentral.Translation.DBInfo.Label</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Version</description>
@@ -55,8 +57,8 @@
       <font>mediastream10</font>
       <align>right</align>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Video Count</description>
@@ -67,12 +69,9 @@
       <font>mediastream12</font>
       <align>center</align>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
-    <!--:::::::::::::::::::::::::::::
-:: TOP BAR :: TIME :: LOCATION ::
-::::::::::::::::::::::::::::::-->
     <control>
       <description>Musicvideos Title Background</description>
       <type>image</type>
@@ -94,60 +93,6 @@
       <align>right</align>
       <visible>yes</visible>
       <label>mvCentral</label>
-    </control>
-    <control>
-      <type>fadelabel</type>
-      <description>Musicvideos Hierarchy</description>
-      <id>0</id>
-      <posX>839</posX>
-      <posY>13</posY>
-      <width>600</width>
-      <font>mediastream12c</font>
-      <align>right</align>
-      <visible>yes</visible>
-      <label>#mvCentral.Hierachy</label>
-    </control>
-    <control>
-      <description>Top Title Extension Background</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>381</posX>
-      <posY>11</posY>
-      <width>486</width>
-      <height>36</height>
-      <texture>tvtitlebg.png</texture>
-      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
-      <animation effect="fade" time="300" delay="0">WindowClose</animation>
-      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300" delay="300">WindowOpen</animation>
-      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="600" delay="0">WindowClose</animation>
-    </control>
-    <control>
-      <description>Item Count Background</description>
-      <type>image</type>
-      <id>0</id>
-      <posX>1113</posX>
-      <posY>12</posY>
-      <width>159</width>
-      <height>27</height>
-      <texture>mediacountbackground.png</texture>
-      <visible>control.isvisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
-    </control>
-    <control>
-      <type>label</type>
-      <description>Number of Files Label</description>
-      <id>0</id>
-      <posX>1246</posX>
-      <posY>14</posY>
-      <width>350</width>
-      <font>mediastream10c</font>
-      <textcolor>ff006698</textcolor>
-      <align>right</align>
-      <label>#mvCentral.TotalVideos</label>
-      <visible>control.isvisible(50)</visible>
-      <animation effect="fade" time="250">WindowOpen</animation>
-      <animation effect="fade" time="250">WindowClose</animation>
     </control>
     <control>
       <description>Title</description>
@@ -180,6 +125,63 @@
       <texture>imagestreamtitle.png</texture>
     </control>
     <control>
+      <description>Top Title Extension Background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>381</posX>
+      <posY>11</posY>
+      <width>486</width>
+      <height>36</height>
+      <texture>tvtitlebg.png</texture>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
+      <animation effect="slide" start="-514,0" end="0,0" tween="quadratic" time="300" delay="300">WindowOpen</animation>
+      <animation effect="slide" start="0,0" end="-514,0" tween="quadratic" time="600" delay="0">WindowClose</animation>
+    </control>
+    <control>
+      <type>fadelabel</type>
+      <description>Musicvideos Hierarchy</description>
+      <id>0</id>
+      <posX>839</posX>
+      <posY>13</posY>
+      <width>600</width>
+      <font>mediastream12c</font>
+      <align>right</align>
+      <visible>yes</visible>
+      <label>#mvCentral.Hierachy</label>
+    </control>
+    <control>
+      <description>Item Count Background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>1113</posX>
+      <posY>12</posY>
+      <width>159</width>
+      <height>27</height>
+      <texture>mediacountbackground.png</texture>
+      <visible>control.isvisible(50)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <control>
+      <type>label</type>
+      <description>Number of Files Label</description>
+      <id>0</id>
+      <posX>1246</posX>
+      <posY>14</posY>
+      <width>350</width>
+      <font>mediastream10c</font>
+      <textcolor>ff006698</textcolor>
+      <align>right</align>
+      <label>#mvCentral.TotalVideos</label>
+      <visible>control.isvisible(50)</visible>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
+    <!-- ******************************************** -->
+    <!--   Most Played Artist and Video Image/Info    -->
+    <!-- ******************************************** -->
+    <control>
       <description>Favorite Vid Image</description>
       <type>image</type>
       <width>200</width>
@@ -190,8 +192,8 @@
       <centered>yes</centered>
       <texture>-</texture>
       <keepaspectratio>yes</keepaspectratio>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Favorite Video</description>
@@ -202,8 +204,8 @@
       <posX>160</posX>
       <posY>335</posY>
       <width>400</width>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Favorite Artist</description>
@@ -216,8 +218,8 @@
       <centered>yes</centered>
       <texture>-</texture>
       <keepaspectratio>yes</keepaspectratio>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Favorite Artist Static</description>
@@ -227,9 +229,12 @@
       <id>1</id>
       <posX>160</posX>
       <posY>530</posY>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
+    <!-- ******************************************** -->
+    <!--             Top 10 Played Videos             -->
+    <!-- ******************************************** -->
     <control>
       <description>Top 10 Videos</description>
       <type>label</type>
@@ -243,8 +248,8 @@
       <shadowColor>#shadow.dark</shadowColor>
       <textcolor>ff006698</textcolor>
       <label>Top Ten Played Videos</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 1</description>
@@ -254,8 +259,8 @@
       <posY>240</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 2</description>
@@ -265,8 +270,8 @@
       <posY>270</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 3</description>
@@ -276,8 +281,8 @@
       <posY>300</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 4</description>
@@ -287,8 +292,8 @@
       <posY>330</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 5</description>
@@ -298,8 +303,8 @@
       <posY>360</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 6</description>
@@ -309,8 +314,8 @@
       <posY>390</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 7</description>
@@ -320,8 +325,8 @@
       <posY>420</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 8</description>
@@ -331,8 +336,8 @@
       <posY>450</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 9</description>
@@ -342,8 +347,8 @@
       <posY>480</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <description>Top 10 Video - 10</description>
@@ -353,9 +358,10 @@
       <posY>510</posY>
       <font>mediastream12</font>
       <label>-</label>
-      <animation effect="slide" time="100" start="300,0">visible</animation>
-      <animation effect="slide" time="0" end="300,0">hidden</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
+    <!-- Default Button -->
     <control>
       <description>Empty button</description>
       <type>button</type>
@@ -363,10 +369,14 @@
       <label>-</label>
       <visible>false</visible>
     </control>
-    
+    <!-- ******************************************************* -->
+    <!--   Metadata and Artwork Background Refresh Progress Bars -->
+    <!-- ******************************************************* -->
+    <!--                                                         -->
+    <!-- Artwork Progress Bar and Text -->
     <control>
       <type>label</type>
-      <description>Artwork Background Refresh</description>
+      <description>Artwork Background Refresh Lable</description>
       <id>0</id>
       <posX>400</posX>
       <posY>580</posY>
@@ -374,19 +384,29 @@
       <font>mediastream11</font>
       <align>right</align>
       <label>Backgroup Artwork Process: </label>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>#shadow.dark</shadowColor>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <type>label</type>
-      <description>Progress %</description>
+      <description>Artwork Progress Text Percentage (Format ##.#% Completed)</description>
       <id>0</id>
       <posX>850</posX>
       <posY>580</posY>
       <width>800</width>
       <font>mediastream11</font>
       <label>#mvCentral.Artwork.Update.Progress</label>
-    </control>          
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>#shadow.dark</shadowColor>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
+    </control>
     <control>
-      <description>Rescan Completed</description>
+      <description>Background Artwork Refresh Progress Bar</description>
       <type>progress</type>
       <id>12</id>
       <posX>400</posX>
@@ -396,20 +416,19 @@
       <label>-</label>
       <texturebg>osdprogressbackv.png</texturebg>
       <onlymidtexture>yes</onlymidtexture>
-      <midwidth>440</midwidth>
+      <midwidth>428</midwidth>
       <midheight>18</midheight>
-      <midoffsetX>8</midoffsetX>
+      <midoffsetX>6</midoffsetX>
       <midoffsetY>11</midoffsetY>
       <midtexture>osdprogressmid.png</midtexture>
-      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
-      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
       <visible>yes</visible>
-    </control>    
-
-
+    </control>
+    <!-- Metadata Refresh Progress Bar and Text -->
     <control>
       <type>label</type>
-      <description>Metadata Background Refresh</description>
+      <description>Metadata Background Refresh label</description>
       <id>0</id>
       <posX>400</posX>
       <posY>610</posY>
@@ -417,19 +436,29 @@
       <font>mediastream11</font>
       <label>Background Metadata Refresh: </label>
       <align>right</align>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>#shadow.dark</shadowColor>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
     <control>
       <type>label</type>
-      <description>Progress %</description>
+      <description>Metadata Refresh Progress Text Percentage (Format ##.#% Completed)</description>
       <id>0</id>
       <posX>850</posX>
       <posY>610</posY>
       <width>800</width>
       <font>mediastream11</font>
       <label>#mvCentral.Metadata.Update.Progress</label>
-    </control>          
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>#shadow.dark</shadowColor>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
+    </control>
     <control>
-      <description>Rescan Completed</description>
+      <description>Metadata Refresh Progress Bar</description>
       <type>progress</type>
       <id>13</id>
       <posX>400</posX>
@@ -439,18 +468,16 @@
       <label>-</label>
       <texturebg>osdprogressbackv.png</texturebg>
       <onlymidtexture>yes</onlymidtexture>
-      <midwidth>440</midwidth>
+      <midwidth>428</midwidth>
       <midheight>18</midheight>
-      <midoffsetX>8</midoffsetX>
+      <midoffsetX>6</midoffsetX>
       <midoffsetY>11</midoffsetY>
       <midtexture>osdprogressmid.png</midtexture>
-      <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
-      <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
+      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
+      <animation effect="fade" time="300" delay="0">WindowClose</animation>
       <visible>yes</visible>
-    </control>    
-    
-    
-    
+    </control>
+    <!-- Time Import -->
     <import>common.time.xml</import>
   </controls>
 </window>

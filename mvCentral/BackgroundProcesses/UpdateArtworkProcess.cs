@@ -34,9 +34,7 @@ namespace mvCentral.BackgroundProcesses
     public override void Work()
     {
       logger.Info("Beginging artwork updater background process.");
-
-      
-
+      Thread.Sleep(30000);
       RemoveOrphanArtwork();
       LookForMissingMetaData();
 

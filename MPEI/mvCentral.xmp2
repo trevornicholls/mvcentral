@@ -563,7 +563,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>1</Build>
-      <Revision>302</Revision>
+      <Revision>309</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
 
@@ -946,21 +946,21 @@ Fixed issue where artist/album &amp; video counts were not reset when re-enterin
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e59d4ae4-a09c-45bc-9096-db5f77a9687c}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8ec47e2d-fe66-4581-b620-16234cdab3aa}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b7deb0fb-6ed2-4c53-aef5-6d7688613f35}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{db78d268-2a8d-4122-83e0-eb946f9076f7}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2e8b7a1e-5792-447d-9a02-39e2453715c4}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{627012b1-3571-4d9a-adee-3da31446383c}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

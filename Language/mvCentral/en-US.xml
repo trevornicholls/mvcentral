@@ -88,7 +88,9 @@
         // N
         <string Field="NoPlaylistsFound">No Playlists found in:</string>
         <string Field="NoArtistBio">No Biography Available for Artist {0}</string>
-        <string Field="NoTrackInfo">No Track Description Available</string>
+        <string Field="NoTrackInfo">No Track Information Available</string>
+        <string Field="NoComposerInfo">No Composer Info</string>
+        <string Field="NoAlbumInfo">No Album Information Available</string>
 
         // O
         <string Field="OK">OK</string>
