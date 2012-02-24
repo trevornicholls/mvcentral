@@ -383,7 +383,7 @@
       <width>800</width>
       <font>mediastream11</font>
       <align>right</align>
-      <label>Backgroup Artwork Process: </label>
+      <label>Background Artwork Process: </label>
       <shadowAngle>45</shadowAngle>
       <shadowDistance>4</shadowDistance>
       <shadowColor>#shadow.dark</shadowColor>

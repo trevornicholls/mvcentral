@@ -1,31 +1,16 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
-
 // mvCentral
 using mvCentral.Localizations;
 using mvCentral.Database;
-using mvCentral.Utils;
 // Cornerstone
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using Cornerstone.GUI.Dialogs;
 using Cornerstone.Tools;
 // MediaPortal
-using MediaPortal.Configuration;
 using MediaPortal.GUI.Library;
-using MediaPortal.GUI.Video;
-using MediaPortal.Player;
-using MediaPortal.Playlists;
-using MediaPortal.Util;
-using MediaPortal.Dialogs;
-using MediaPortal.Video.Database;
-using Action = MediaPortal.GUI.Library.Action;
-using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 using WindowPlugins;
-
+// Logging
 using NLog;
 
 namespace mvCentral.GUI
@@ -117,7 +102,11 @@ namespace mvCentral.GUI
 
     protected override void OnPageLoad()
     {
+      base.OnPageLoad();
+
+      // Listen for background events
       mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
+      // Set initial propery valuesus
       GUIPropertyManager.SetProperty("#mvCentral.Metadata.Update.Progress", Localization.Inactive);
       GUIPropertyManager.SetProperty("#mvCentral.Artwork.Update.Progress", Localization.Inactive);
 
@@ -198,6 +187,7 @@ namespace mvCentral.GUI
       }
       else
         GUIPropertyManager.SetProperty("#mvCentral.FavArtist", " ");
+   
     }
 
 
