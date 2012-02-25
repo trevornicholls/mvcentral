@@ -589,7 +589,28 @@ namespace mvCentral.Playlist
         logger.Info(string.Format("GUITVSeriesPlaylist: An error occured while loading the directory - {0}", ex.Message));
       }
     }
-
+    /// <summary>
+    /// Convert the track running time
+    /// </summary>
+    /// <param name="playTime"></param>
+    /// <returns></returns>
+    private string trackDuration(string playTime)
+    {
+      try
+      {
+        TimeSpan tt = TimeSpan.Parse(playTime);
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
+      }
+      catch
+      {
+        return "00:00:00";
+      }
+    }
     /// <summary>
     /// Give total running time for supplied tracklist
     /// </summary>
@@ -600,8 +621,16 @@ namespace mvCentral.Playlist
       TimeSpan tt = TimeSpan.Parse("00:00:00");
       foreach (GUIListItem track in playList)
       {
-        DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
-        tt += TimeSpan.Parse(theTrack.PlayTime);
+        try
+        {
+          DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
+          tt += TimeSpan.Parse(theTrack.PlayTime);
+        }
+        catch (Exception e)
+        {
+          DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
+          logger.Debug("Exception processing total playlist time for track {0} with a playtime of {1}", theTrack.Track,theTrack.PlayTime);
+        }
       }
       DateTime dt = new DateTime(tt.Ticks);
       string cTime = String.Format("{0:HH:mm:ss}", dt);
@@ -695,21 +724,49 @@ namespace mvCentral.Playlist
       else
         GUIPropertyManager.SetProperty("#iswatched", "no");
 
-      // Base skin properties
+      // And set some artist properites
       GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", artistInfo.ArtFullPath);
+      // Artist Genres
+      string artistTags = string.Empty;
+      foreach (string tag in artistInfo.Tag)
+        artistTags += tag + " | ";
+      // Last.FM Tags
+      if (!string.IsNullOrEmpty(artistTags))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", artistTags.Remove(artistTags.Length - 2, 2));
+      // AllMusic Genre
+      GUIPropertyManager.SetProperty("#mvCentral.Genre", artistInfo.Genre);
+      // Set BornOrFormed property
+      if (artistInfo.Formed.Trim().Length == 0 && artistInfo.Born.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
+      else if (artistInfo.Formed.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Born, artistInfo.Born));
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Formed, artistInfo.Formed));
+
       // Track Image
       if (string.IsNullOrEmpty(mvTrack.ArtThumbFullPath.Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.VideoImage", "defaultVideoBig.png");
       else
         GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
+      // Track Rating
+      GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", mvTrack.Rating.ToString());
+      // Track Composers
+      if (mvTrack.Composers.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.Composers", mvTrack.Composers.Replace('|', ','));
 
       // Track description
       if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.Description", artistInfo.bioContent);
       else
         GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
+
+      // Misc Proprities
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(mvTrack.PlayTime));
 
       // get the media info for this video
       DBLocalMedia mediaInfo = (DBLocalMedia)mvTrack.LocalMedia[0];

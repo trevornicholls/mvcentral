@@ -6,12 +6,13 @@
   <define>#useSelectedFanart:Yes</define>
   <controls>
     <control>
-      <description>BG</description>
+      <description>Main Background Image</description>
       <type>image</type>
       <id>1</id>
       <texture>Background.png</texture>
       <width>720</width>
       <height>576</height>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <import>common.time.xml</import>
     <import>common.music.fanart.xml</import>
@@ -27,6 +28,7 @@
       <visible>yes</visible>
       <textcolor>white</textcolor>
       <label>mvCentral  -  #mvCentral.Hierachy</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <description>Number of Files Label</description>
@@ -38,6 +40,7 @@
       <align>right</align>
       <textcolor>White</textcolor>
       <font>font10</font>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <description>Total Duration for tracks by artist</description>
@@ -49,19 +52,27 @@
       <align>right</align>
       <textcolor>White</textcolor>
       <font>font10</font>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
+    <!-- ************************************ -->
+    <!--          Selected Item Image         -->
+    <!-- ************************************ -->   
     <control>
+      <description>Image for selected Item</description>
       <id>0</id>
       <type>image</type>
-      <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
       <posX>15</posX>
       <posY>145</posY>
       <width>200</width>
       <height>148</height>
       <texture flipY="true" diffuse="Thumb_Mask.png">#mvCentral.VideoImage</texture>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
       <keepaspectratio>yes</keepaspectratio>
+      <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
+    <!-- **************************************** -->
+    <!--       Selected Item Information          -->
+    <!-- **************************************** -->   
     <control>
       <id>0</id>
       <description>Artist Name</description>
@@ -71,6 +82,7 @@
       <width>925</width>
       <font>font16</font>
       <label>#mvCentral.ArtistName</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <id>0</id>
@@ -85,6 +97,7 @@
       <font>font11</font>
       <scrollStartDelaySec>10</scrollStartDelaySec>
       <visible>[facadeview.playlist | facadeview.smallicons | facadeview.largeicons]+!string.starts(#mvCentral.Description,#)+![player.hasvideo]</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <id>0</id>
@@ -99,6 +112,7 @@
       <font>font11</font>
       <scrollStartDelaySec>10</scrollStartDelaySec>
       <visible>[facadeview.playlist | facadeview.smallicons | facadeview.largeicons]+!string.starts(#mvCentral.Description,#)+[player.hasvideo]</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <id>0</id>
@@ -113,8 +127,11 @@
       <font>font12</font>
       <scrollStartDelaySec>10</scrollStartDelaySec>
       <visible>[facadeview.filmstrip]+!string.starts(#mvCentral.Description,#)</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
-
+    <!-- ************************************ -->
+    <!--              Hidden Menu             -->
+    <!-- ************************************ -->
     <control>
       <type>actiongroup</type>
       <description>action menu</description>
@@ -239,6 +256,9 @@
         </control>
       </control>
     </control>
+    <!-- ****************************************************************************** -->
+    <!--     Facade Layout Controls, List, Icons, Filmstrip, Coverflow and Playlist     -->
+    <!-- ****************************************************************************** -->
     <control>
       <description>group element</description>
       <type>group</type>

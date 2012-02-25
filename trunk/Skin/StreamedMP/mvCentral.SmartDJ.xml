@@ -249,8 +249,8 @@
       <type>label</type>
       <description>Artists in Playlist</description>
       <id>37</id>
-      <posX>30</posX>
-      <posY>685</posY>
+      <posX>5</posX>
+      <posY>687</posY>
       <width>700</width>
       <font>mediastream11c</font>
       <label></label>
