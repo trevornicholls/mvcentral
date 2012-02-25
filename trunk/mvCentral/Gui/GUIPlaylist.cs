@@ -5,7 +5,6 @@ using System.Linq;
 using NLog;
 using System.Collections.Generic;
 using System.Collections;
-//using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
@@ -73,16 +72,19 @@ namespace mvCentral.GUI
           GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
       }
     }
-
+    /// <summary>
+    /// Add selected item to end of Playlist
+    /// </summary>
+    /// <param name="listItem"></param>
     private void addToPlaylistNext(GUIListItem listItem)
     {
       PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
       PlayListItem item = new PlayListItem(listItem.TVTag as DBTrackInfo);
-
-
       playlist.Insert(item, Player.playlistPlayer.CurrentItem);
     }
-
+    /// <summary>
+    /// Create a Random Playlist of All Videos
+    /// </summary>
     private void playRandomAll()
     {
       PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
@@ -98,7 +100,10 @@ namespace mvCentral.GUI
       if (mvCentralCore.Settings.AutoFullscreen)
         GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
-
+    /// <summary>
+    /// Select Smart Playlist
+    /// </summary>
+    /// <returns></returns>
     private SmartMode ChooseSmartPlay()
     {
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
@@ -115,7 +120,7 @@ namespace mvCentral.GUI
           dlgMenu.Add(Localization.LeastPlayed);
           dlgMenu.Add(Localization.PlayByTag);
           dlgMenu.Add(Localization.PlayByGenre);
-          dlgMenu.Add("SmartDJ");
+          dlgMenu.Add("Smart DJ");
         }
         dlgMenu.DoModal(GetID);
 
@@ -126,7 +131,10 @@ namespace mvCentral.GUI
       }
       return SmartMode.Cancel;
     }
-
+    /// <summary>
+    /// Create the Smart Playlist
+    /// </summary>
+    /// <param name="mode"></param>
     private void playSmart(SmartMode mode)
     {
       switch (mode)
@@ -252,24 +260,28 @@ namespace mvCentral.GUI
       }
     }
     /// <summary>
-    /// Create SmartDJ Playlist
-    /// </summary>
-    private void SmartDJPlaylist()
-    {
-      GUIWindowManager.ActivateWindow(GUISmartDJ.GetWindowId());
-    }
-    /// <summary>
-    /// Play favourites
+    /// Play favourites (ie. Most Played)
     /// </summary>
     private void playFavourites()
     {
-      { DebugMsg("NOT IMPLEMENTED"); }
-      //            string avgPlayCount = dm.Execute("SELECT AVG(playCount) FROM Videos", true).Rows[0].fields[0];
-      //            int i = int.Parse(avgPlayCount.Split('.')[0]);
-      //            ArrayList leastPlayed = dm.getAllVideos(i, true);
-      //            addToPlaylist(leastPlayed, true, true, true);
+      PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+      playlist.Clear();
+      List<DBTrackInfo> videos = DBTrackInfo.GetAll();
+      // Sort Most played first
+      videos.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.UserSettings[0].WatchedCount.CompareTo(p1.UserSettings[0].WatchedCount); });
+      // Now add to the list
+      foreach (DBTrackInfo video in videos)
+      {
+        playlist.Add(new PlayListItem(video));
+      }
+      Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+      Player.playlistPlayer.Play(0);
+      if (mvCentralCore.Settings.AutoFullscreen)
+        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
-
+    /// <summary>
+    /// Play Tracks that have been added in the past X Days
+    /// </summary>
     private void playFreshTracks()
     {
       PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
@@ -288,18 +300,55 @@ namespace mvCentral.GUI
       if (mvCentralCore.Settings.AutoFullscreen)
         GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
-
+    /// <summary>
+    /// Play tracks with the highest rating first
+    /// </summary>
     private void playHighestRated()
-    { DebugMsg("NOT IMPLEMENTED"); }
-
+    {
+      PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+      playlist.Clear();
+      List<DBTrackInfo> videos = DBTrackInfo.GetAll();
+      // Sort Most played first
+      videos.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.Rating.CompareTo(p1.Rating); });
+      // Now add to the list
+      foreach (DBTrackInfo video in videos)
+      {
+        playlist.Add(new PlayListItem(video));
+      }
+      Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+      Player.playlistPlayer.Play(0);
+      if (mvCentralCore.Settings.AutoFullscreen)
+        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+    }
+    /// <summary>
+    /// Playlist startingh with the least played videos
+    /// </summary>
     private void playLeastPlayed()
     {
-      { DebugMsg("NOT IMPLEMENTED"); }
-      //            string avgPlayCount = dm.Execute("SELECT AVG(playCount) FROM Videos", true).Rows[0].fields[0];           
-      //            int i = int.Parse(avgPlayCount.Split('.')[0]);
-      //            ArrayList leastPlayed = dm.getAllVideos(i, false);
-      //            addToPlaylist(leastPlayed, true, true, true);
+      PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+      playlist.Clear();
+      List<DBTrackInfo> videos = DBTrackInfo.GetAll();
+      // Sort Most played first
+      videos.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p1.UserSettings[0].WatchedCount.CompareTo(p2.UserSettings[0].WatchedCount); });
+      // Now add to the list
+      foreach (DBTrackInfo video in videos)
+      {
+        playlist.Add(new PlayListItem(video));
+      }
+      Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+      Player.playlistPlayer.Play(0);
+      if (mvCentralCore.Settings.AutoFullscreen)
+        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
+    /// <summary>
+    /// Create SmartDJ Playlist
+    /// </summary>
+    private void SmartDJPlaylist()
+    {
+      GUIWindowManager.ActivateWindow(GUISmartDJ.GetWindowId());
+    }
+
+
     #endregion
   }
 }

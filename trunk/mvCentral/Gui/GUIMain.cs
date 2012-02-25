@@ -181,74 +181,6 @@ namespace mvCentral.GUI
       return success;
     }
     /// <summary>
-    /// Display metadata background refresh % compete as progress bar and text percentage
-    /// </summary>
-    /// <param name="process"></param>
-    /// <param name="progress"></param>
-    void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
-    {
-      if (process.Name == "MediaInfo Updater")
-      {
-        if (metadataProgressBar != null)
-        {
-          if (progress == 0.0)
-          {
-            metadataProgressBar.Percentage = 0;
-            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
-            GUIControl.HideControl(GetID, metadataProgressBar.GetID);
-          }
-          else if (progress >= 100.0)
-            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
-          else
-          {
-            SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
-            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "true");
-            metadataProgressBar.Percentage = (float)progress;
-          }
-        }
-        else
-        {
-          GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
-          SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", 0, Localization.Compete));
-        }
-        GUIPropertyManager.Changed = true;
-      }
-    }
-    /// <summary>
-    /// Fired when new artist is commited to DB via background importer thread
-    /// </summary>
-    /// <param name="obj"></param>
-    /// <param name="action"></param>
-    private void mvStatusChangedListener(MusicVideoMatch obj, MusicVideoImporterAction action)
-    {
-      if (action == MusicVideoImporterAction.COMMITED)
-      {
-        LastThreeVideos();
-      }
-      return;
-    }
-    /// <summary>
-    /// Update last 3 videos
-    /// </summary>
-    void LastThreeVideos()
-    {
-      List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
-      allTracks.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.DateAdded.CompareTo(p1.DateAdded); });
-      // Latest 3 Artists added
-      SetProperty("#mvCentral.Latest.Artist1", allTracks[0].ArtistInfo[0].Artist);
-      SetProperty("#mvCentral.Latest.Artist2", allTracks[1].ArtistInfo[0].Artist);
-      SetProperty("#mvCentral.Latest.Artist3", allTracks[2].ArtistInfo[0].Artist);
-      // Images for lastest 3 artists
-      SetProperty("#mvCentral.Latest.ArtistImage1", allTracks[0].ArtistInfo[0].ArtFullPath);
-      SetProperty("#mvCentral.Latest.ArtistImage2", allTracks[1].ArtistInfo[0].ArtFullPath);
-      SetProperty("#mvCentral.Latest.ArtistImage3", allTracks[2].ArtistInfo[0].ArtFullPath);
-      // Latest 3 tracks Added
-      SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
-      SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
-      SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
-    }
-
-    /// <summary>
     /// Handle keyboard/remote action
     /// </summary>
     /// <param name="action"></param>
@@ -2484,6 +2416,79 @@ namespace mvCentral.GUI
         logger.Info("GUI Initialization Complete");
       }
     }
+
+    #endregion
+
+    #region Event Handlers
+
+    /// <summary>
+    /// Display metadata background refresh % compete as progress bar and text percentage
+    /// </summary>
+    /// <param name="process"></param>
+    /// <param name="progress"></param>
+    void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
+    {
+      if (process.Name == "MediaInfo Updater")
+      {
+        if (metadataProgressBar != null)
+        {
+          if (progress == 0.0)
+          {
+            metadataProgressBar.Percentage = 0;
+            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
+            GUIControl.HideControl(GetID, metadataProgressBar.GetID);
+          }
+          else if (progress >= 100.0)
+            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
+          else
+          {
+            SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
+            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "true");
+            metadataProgressBar.Percentage = (float)progress;
+          }
+        }
+        else
+        {
+          GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
+          SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", 0, Localization.Compete));
+        }
+        GUIPropertyManager.Changed = true;
+      }
+    }
+    /// <summary>
+    /// Fired when new artist is commited to DB via background importer thread
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <param name="action"></param>
+    private void mvStatusChangedListener(MusicVideoMatch obj, MusicVideoImporterAction action)
+    {
+      if (action == MusicVideoImporterAction.COMMITED)
+      {
+        LastThreeVideos();
+      }
+      return;
+    }
+    /// <summary>
+    /// Update last 3 videos
+    /// </summary>
+    void LastThreeVideos()
+    {
+      List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
+      allTracks.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.DateAdded.CompareTo(p1.DateAdded); });
+      // Latest 3 Artists added
+      SetProperty("#mvCentral.Latest.Artist1", allTracks[0].ArtistInfo[0].Artist);
+      SetProperty("#mvCentral.Latest.Artist2", allTracks[1].ArtistInfo[0].Artist);
+      SetProperty("#mvCentral.Latest.Artist3", allTracks[2].ArtistInfo[0].Artist);
+      // Images for lastest 3 artists
+      SetProperty("#mvCentral.Latest.ArtistImage1", allTracks[0].ArtistInfo[0].ArtFullPath);
+      SetProperty("#mvCentral.Latest.ArtistImage2", allTracks[1].ArtistInfo[0].ArtFullPath);
+      SetProperty("#mvCentral.Latest.ArtistImage3", allTracks[2].ArtistInfo[0].ArtFullPath);
+      // Latest 3 tracks Added
+      SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
+      SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
+      SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
+    }
+
 
     #endregion
 
