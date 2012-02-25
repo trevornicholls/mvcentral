@@ -181,31 +181,37 @@ namespace mvCentral.GUI
       return success;
     }
     /// <summary>
-    /// Display background refresh % compete as progress bar and text percentage
+    /// Display metadata background refresh % compete as progress bar and text percentage
     /// </summary>
     /// <param name="process"></param>
     /// <param name="progress"></param>
     void ProcessManager_Progress(AbstractBackgroundProcess process, double progress)
     {
-      string pName = process.Name;
-      if (pName == "MediaInfo Updater")
+      if (process.Name == "MediaInfo Updater")
       {
-        SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
         if (metadataProgressBar != null)
         {
           if (progress == 0.0)
           {
             metadataProgressBar.Percentage = 0;
+            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
             GUIControl.HideControl(GetID, metadataProgressBar.GetID);
           }
           else if (progress >= 100.0)
-            GUIControl.HideControl(GetID, metadataProgressBar.GetID);
+            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
           else
           {
-            GUIControl.ShowControl(GetID, metadataProgressBar.GetID);
+            SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", (progress / 100), Localization.Compete));
+            GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "true");
             metadataProgressBar.Percentage = (float)progress;
           }
         }
+        else
+        {
+          GUIPropertyManager.SetProperty("#mvCentral.Metadata.Scan.Active", "false");
+          SetProperty("#mvCentral.Metadata.Update.Progress", string.Format("{0:0.0%} {1}", 0, Localization.Compete));
+        }
+        GUIPropertyManager.Changed = true;
       }
     }
     /// <summary>

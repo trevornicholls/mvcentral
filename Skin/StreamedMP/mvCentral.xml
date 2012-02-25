@@ -1309,7 +1309,7 @@
       <description>Metadata Refresh Label</description>
       <id>0</id>
       <posX>5</posX>
-      <posY>685</posY>
+      <posY>686</posY>
       <width>800</width>
       <font>mediastream11</font>
       <label>Metadata Refresh: </label>
@@ -1321,8 +1321,8 @@
       <type>label</type>
       <description>Progress percentage text (Format #.##% Complete)</description>
       <id>0</id>
-      <posX>600</posX>
-      <posY>685</posY>
+      <posX>590</posX>
+      <posY>686</posY>
       <width>800</width>
       <font>mediastream11</font>
       <label>#mvCentral.Metadata.Update.Progress</label>
@@ -1335,19 +1335,20 @@
       <type>progress</type>
       <id>12</id>
       <posX>150</posX>
-      <posY>680</posY>
+      <posY>677</posY>
       <width>440</width>
-      <height>35</height>
+      <height>40</height>
       <label>-</label>
       <texturebg>osdprogressbackv.png</texturebg>
       <onlymidtexture>yes</onlymidtexture>
       <midwidth>440</midwidth>
-      <midheight>18</midheight>
+      <midheight>22</midheight>
       <midoffsetX>8</midoffsetX>
       <midoffsetY>11</midoffsetY>
       <midtexture>osdprogressmid.png</midtexture>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
+      <visible>string.equals(#mvCentral.Metadata.Scan.Active,true)</visible>
     </control>
     <!-- Time and video overlay imports -->
     <import>common.overlays2.xml</import>

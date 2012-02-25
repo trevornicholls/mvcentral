@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <window>
+  <!-- ************************************************* -->
+  <!--     Specific Multiselect Dialog for mvCentral     -->
+  <!-- ************************************************* -->	
   <id>112014</id>
   <defaultcontrol>3</defaultcontrol>
   <allowoverlay>yes</allowoverlay>
@@ -34,7 +37,6 @@
 			<textcolor>Black</textcolor>
 			<animation effect="fade" time="250">WindowOpen</animation>
 			<animation effect="fade" time="250">WindowClose</animation>
-
 			<visible>false</visible>
 		</control>
 		<control>

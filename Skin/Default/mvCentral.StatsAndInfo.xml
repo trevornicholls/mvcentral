@@ -12,10 +12,12 @@
       <texture>Background.png</texture>
       <width>720</width>
       <height>576</height>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <import>common.time.xml</import>
     <import>common.music.fanart.xml</import>
     <control>
+      <description>Main Boarder Image</description>
       <type>image</type>
       <id>0</id>
       <posX>10</posX>
@@ -24,9 +26,10 @@
       <height>510</height>
       <colordiffuse>F0ffffff</colordiffuse>
       <texture>context_background.png</texture>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
- 
-     <control>
+    <control>
+      <description>Top 10 Boarder Image</description>
       <type>image</type>
       <id>0</id>
       <posX>200</posX>
@@ -35,9 +38,9 @@
       <height>370</height>
       <colordiffuse>60ffffff</colordiffuse>
       <texture>osd_dialog_big.png</texture>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
-    
-     <control>
+    <control>
       <type>image</type>
       <id>0</id>
       <posX>235</posX>
@@ -46,50 +49,45 @@
       <height>30</height>
       <colordiffuse>60ffffff</colordiffuse>
       <texture>tvguide_button_middle.png</texture>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
-    
-      <control>
-        <description>Main header</description>
-        <type>label</type>
-        <id>0</id>
-        <posX>370</posX>
-        <posY>100</posY>
-        <align>center</align>
-        <font>font16</font>
-			  <shadowAngle>45</shadowAngle> 
-			  <shadowDistance>4</shadowDistance> 
-			  <shadowColor>black</shadowColor>
-        <textcolor>ffa9d0f7</textcolor>
-			  <label>mvCentral - #mvCentral.Translation.DBInfo.Label</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control> 
-      <control>
-        <description>Version</description>
-        <type>label</type>
-        <id>15</id>
-        <posX>60</posX>
-        <posY>50</posY>
-        <font>font10</font>
-        <align>left</align>
-        <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      
-      <control>
-        <description>Video Count</description>
-        <type>label</type>
-        <id>16</id>
-        <posX>360</posX>
-        <posY>125</posY>
-        <font>font12</font>
-        <align>center</align>
-        <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      
+    <control>
+      <description>Main header</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>370</posX>
+      <posY>100</posY>
+      <align>center</align>
+      <font>font16</font>
+      <shadowAngle>45</shadowAngle>
+      <shadowDistance>4</shadowDistance>
+      <shadowColor>black</shadowColor>
+      <textcolor>ffa9d0f7</textcolor>
+      <label>mvCentral - #mvCentral.Translation.DBInfo.Label</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <control>
+      <description>Version</description>
+      <type>label</type>
+      <id>15</id>
+      <posX>60</posX>
+      <posY>50</posY>
+      <font>font10</font>
+      <align>left</align>
+      <label>-</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <control>
+      <description>Video Count</description>
+      <type>label</type>
+      <id>16</id>
+      <posX>360</posX>
+      <posY>125</posY>
+      <font>font12</font>
+      <align>center</align>
+      <label>-</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
     <control>
       <type>fadelabel</type>
       <description>mvCentral Title</description>
@@ -102,94 +100,93 @@
       <visible>yes</visible>
       <textcolor>ffa9d0f7</textcolor>
       <label>mvCentral  -  #mvCentral.Hierachy</label>
-    </control>      
-      
-<!--:::::::::::::::::::::::::::::
-:: TOP BAR :: TIME :: LOCATION ::
-::::::::::::::::::::::::::::::-->
-
-   
- 
-      
-      <control>
-        <description>Favorite Video</description>
-        <type>fadelabel</type>
-        <label>#mvCentral.Translation.MostPlayedVideo.Label</label>
-        <font>font11</font>
-        <id>0</id>
-        <posX>50</posX>
-        <posY>150</posY>
-        <width>400</width>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
-        <description>Favorite Video</description>
-        <type>fadelabel</type>
-        <label>#mvCentral.MostPlayed</label>
-        <font>font11</font>
-        <id>0</id>
-        <posX>50</posX>
-        <posY>170</posY>
-        <width>400</width>
-        <textcolor>ffa9d0f7</textcolor>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-      <control>
-        <description>Favorite Vid Image</description>
-        <type>image</type>
-        <id>18</id>
-        <posX>50</posX>
-        <posY>190</posY>
-        <width>150</width>
-        <height>111</height>
-        <texture>-</texture>
-        <keepaspectratio>yes</keepaspectratio>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-
-      <control>
-        <description>Favorite Artist Static</description>
-        <type>label</type>
-        <label>#mvCentral.Translation.MostPlayedArtist.Label</label>
-        <font>font11</font>
-        <id>1</id>
-        <posX>50</posX>
-        <posY>330</posY>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
-      <control>
-        <description>Favorite Artist Static</description>
-        <type>label</type>
-        <label>#mvCentral.FavArtist</label>
-        <font>font11</font>
-        <id>1</id>
-        <posX>50</posX>
-        <posY>350</posY>
-        <textcolor>ffa9d0f7</textcolor>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
-      <control>
-        <description>Favorite Artist Image</description>
-        <type>image</type>
-        <posX>50</posX>
-        <posY>380</posY>
-        <width>150</width>
-        <height>120</height>
-        <id>20</id>
-        <texture>-</texture>
-        <keepaspectratio>yes</keepaspectratio>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>
-
-
-
-
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <!-- ************************************************************* -->
+    <!--           Most Played Artist and Video Images/Text            -->
+    <!-- ************************************************************* -->
+    <control>
+      <description>Favorite Video</description>
+      <type>fadelabel</type>
+      <label>#mvCentral.Translation.MostPlayedVideo.Label</label>
+      <font>font11</font>
+      <id>0</id>
+      <posX>50</posX>
+      <posY>150</posY>
+      <width>400</width>
+      <animation effect="slide" time="100" start="300,0">visible</animation>
+      <animation effect="slide" time="0" end="300,0">hidden</animation>
+    </control>
+    <control>
+      <description>Favorite Video</description>
+      <type>fadelabel</type>
+      <label>#mvCentral.MostPlayed</label>
+      <font>font11</font>
+      <id>0</id>
+      <posX>50</posX>
+      <posY>170</posY>
+      <width>400</width>
+      <textcolor>ffa9d0f7</textcolor>
+      <animation effect="slide" time="100" start="300,0">visible</animation>
+      <animation effect="slide" time="0" end="300,0">hidden</animation>
+    </control>
+    <control>
+      <description>Favorite Vid Image</description>
+      <type>image</type>
+      <id>18</id>
+      <posX>50</posX>
+      <posY>190</posY>
+      <width>150</width>
+      <height>111</height>
+      <texture>-</texture>
+      <keepaspectratio>yes</keepaspectratio>
+      <animation effect="slide" time="100" start="300,0">visible</animation>
+      <animation effect="slide" time="0" end="300,0">hidden</animation>
+    </control>
+    <control>
+      <description>Favorite Artist Static</description>
+      <type>label</type>
+      <label>#mvCentral.Translation.MostPlayedArtist.Label</label>
+      <font>font11</font>
+      <id>1</id>
+      <posX>50</posX>
+      <posY>330</posY>
+      <animation effect="slide" time="100" start="300,0">visible</animation>
+      <animation effect="slide" time="0" end="300,0">hidden</animation>
+    </control>
+    <control>
+      <description>Favorite Artist Static</description>
+      <type>label</type>
+      <label>#mvCentral.FavArtist</label>
+      <font>font11</font>
+      <id>1</id>
+      <posX>50</posX>
+      <posY>350</posY>
+      <textcolor>ffa9d0f7</textcolor>
+      <animation effect="slide" time="100" start="300,0">visible</animation>
+      <animation effect="slide" time="0" end="300,0">hidden</animation>
+    </control>
+    <control>
+      <description>Favorite Artist Image</description>
+      <type>image</type>
+      <posX>50</posX>
+      <posY>380</posY>
+      <width>150</width>
+      <height>120</height>
+      <id>20</id>
+      <texture>-</texture>
+      <keepaspectratio>yes</keepaspectratio>
+      <animation effect="slide" time="100" start="300,0">visible</animation>
+      <animation effect="slide" time="0" end="300,0">hidden</animation>
+    </control>
+    <!-- ********************************************** -->
+    <!--           Top 10 Most Played Videos            -->
+    <!-- ********************************************** -->
+    <control>
+      <description>group element</description>
+      <type>group</type>
+      <animation effect="slide" time="70" start="-300,0" reversible="false">WindowOpen</animation>
+      <animation effect="slide" time="70" end="-300,0" reversible="false">WindowClose</animation>
       <control>
         <description>Top 10 Videos</description>
         <type>label</type>
@@ -198,14 +195,12 @@
         <posY>185</posY>
         <align>center</align>
         <font>font14</font>
-			  <shadowAngle>45</shadowAngle> 
-			  <shadowDistance>4</shadowDistance> 
-			  <shadowColor>#shadow.dark</shadowColor>
+        <shadowAngle>45</shadowAngle>
+        <shadowDistance>4</shadowDistance>
+        <shadowColor>#shadow.dark</shadowColor>
         <textcolor>ffa9d0f7</textcolor>
-			  <label>#mvCentral.Translation.TopTenVideos.Label</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>       
+        <label>#mvCentral.Translation.TopTenVideos.Label</label>
+      </control>
       <control>
         <description>Top 10 Video - 1</description>
         <type>fadelabel</type>
@@ -215,9 +210,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 2</description>
         <type>fadelabel</type>
@@ -227,9 +220,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 3</description>
         <type>fadelabel</type>
@@ -239,9 +230,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 4</description>
         <type>fadelabel</type>
@@ -251,9 +240,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 5</description>
         <type>fadelabel</type>
@@ -263,9 +250,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 6</description>
         <type>fadelabel</type>
@@ -275,9 +260,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 7</description>
         <type>fadelabel</type>
@@ -287,9 +270,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 8</description>
         <type>fadelabel</type>
@@ -299,9 +280,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 9</description>
         <type>fadelabel</type>
@@ -311,9 +290,7 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
+      </control>
       <control>
         <description>Top 10 Video - 10</description>
         <type>fadelabel</type>
@@ -323,18 +300,20 @@
         <width>420</width>
         <font>font11</font>
         <label>-</label>
-        <animation effect="slide" time="100" start="300,0">visible</animation>
-        <animation effect="slide" time="0" end="300,0">hidden</animation>
-      </control>      
-         
-        <control>
-          <description>Empty button</description>
-          <type>button</type>
-          <id>14</id>
-          <label>-</label>
-          <visible>false</visible>
-        </control>     
-    
+      </control>
+    </control>
+    <!-- Dummy Button (Required)-->
+    <control>
+      <description>Empty button</description>
+      <type>button</type>
+      <id>14</id>
+      <label>-</label>
+      <visible>false</visible>
+    </control>
+    <!-- ******************************************************************** -->
+    <!-- Background Metadata/Artwork Refresh Progress Bar and Text Percentage -->
+    <!-- ******************************************************************** -->
+    <!-- Artwork Backkground Refresh Status -->
     <control>
       <type>label</type>
       <description>Artwork Background Refresh</description>
@@ -355,7 +334,7 @@
       <width>800</width>
       <font>font10</font>
       <label>#mvCentral.Artwork.Update.Progress</label>
-    </control>          
+    </control>
     <control>
       <description>Rescan Completed</description>
       <type>progress</type>
@@ -375,9 +354,8 @@
       <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
       <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
       <visible>yes</visible>
-    </control>    
-
-
+    </control>
+    <!-- Metadata Background Refresh Status -->
     <control>
       <type>label</type>
       <description>Metadata Background Refresh</description>
@@ -398,7 +376,7 @@
       <width>800</width>
       <font>font10</font>
       <label>#mvCentral.Metadata.Update.Progress</label>
-    </control>          
+    </control>
     <control>
       <description>Rescan Completed</description>
       <type>progress</type>
@@ -418,10 +396,7 @@
       <animation effect="slide" time="150" start="-800,0">WindowOpen</animation>
       <animation effect="slide" time="150" end="-1000,0">WindowClose</animation>
       <visible>yes</visible>
-    </control>    
-    
-    
-    <!-- <import>mvCentral.overlays2.xml</import> -->
+    </control>
     <import>common.time.xml</import>
   </controls>
 </window>

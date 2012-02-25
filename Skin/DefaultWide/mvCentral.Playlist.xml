@@ -6,12 +6,13 @@
   <define>#useSelectedFanart:Yes</define>
   <controls>
     <control>
-      <description>BG</description>
+      <description>Main Background</description>
       <type>image</type>
       <id>1</id>
       <texture>Background.png</texture>
       <width>1280</width>
       <height>720</height>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <import>common.time.xml</import>
     <import>common.music.fanart.xml</import>
@@ -27,6 +28,7 @@
       <visible>yes</visible>
       <textcolor>white</textcolor>
       <label>mvCentral  -  #mvCentral.Hierachy</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <description>Number of Files Label</description>
@@ -38,6 +40,7 @@
       <align>right</align>
       <textcolor>White</textcolor>
       <font>font10</font>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
       <description>Total Duration for tracks by artist</description>
@@ -49,58 +52,71 @@
       <align>right</align>
       <textcolor>White</textcolor>
       <font>font10</font>
-    </control>
-		<control>
-			<id>0</id>
-			<type>image</type>
-			<visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
-			<posX>15</posX>
-			<posY>145</posY>
-			<width>300</width>
-			<height>222</height>
-			<texture flipY="true" diffuse="Thumb_Mask.png" >#mvCentral.VideoImage</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
-			<keepaspectratio>yes</keepaspectratio>
-		</control>		
-		<control>
-			<id>0</id>
-			<description>Artist Name</description>
-			<type>fadelabel</type>
-			<posX>40</posX>
-			<posY>100</posY>
-			<width>925</width>
-			<font>font16</font>
-			<label>#mvCentral.ArtistName</label>
-		</control>
-		<control>
-			<id>0</id>
-			<description>Track Description</description>
-			<type>textboxscrollup</type>
-			<posX>330</posX>
-			<posY>145</posY>
-			<width>350</width>
-			<height>395</height>
-			<label>#mvCentral.Description</label>
-			<seperator>-----------------------------------------------------------------------------------</seperator>
-			<font>font10</font>
-			<scrollStartDelaySec>10</scrollStartDelaySec>
-			<visible>[facadeview.playlist | facadeview.smallicons | facadeview.largeicons]+!string.starts(#mvCentral.Description,#)</visible>
-		</control>
-		<control>
-			<id>0</id>
-			<description>Track Description</description>
-			<type>textboxscrollup</type>
-			<posX>350</posX>
-			<posY>145</posY>
-			<width>800</width>
-			<height>300</height>
-			<label>#mvCentral.Description</label>
-			<seperator>-----------------------------------------------------------------------------------</seperator>
-			<font>font12</font>
-			<scrollStartDelaySec>10</scrollStartDelaySec>
-			<visible>[facadeview.filmstrip]</visible>
-		</control>
-    
+    </control>
+    <!-- ************************************ -->
+    <!--          Selected Item Image         -->
+    <!-- ************************************ -->   
+    <control>
+      <id>0</id>
+      <type>image</type>
+      <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
+      <posX>15</posX>
+      <posY>145</posY>
+      <width>300</width>
+      <height>222</height>
+      <texture flipY="true" diffuse="Thumb_Mask.png">#mvCentral.VideoImage</texture>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+      <keepaspectratio>yes</keepaspectratio>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <!-- **************************************** -->
+    <!--       Selected Item Information          -->
+    <!-- **************************************** -->   
+    <control>
+      <id>0</id>
+      <description>Artist Name</description>
+      <type>fadelabel</type>
+      <posX>40</posX>
+      <posY>100</posY>
+      <width>925</width>
+      <font>font16</font>
+      <label>#mvCentral.ArtistName</label>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <control>
+      <id>0</id>
+      <description>Track Description</description>
+      <type>textboxscrollup</type>
+      <posX>330</posX>
+      <posY>145</posY>
+      <width>350</width>
+      <height>395</height>
+      <label>#mvCentral.Description</label>
+      <seperator>-----------------------------------------------------------------------------------</seperator>
+      <font>font10</font>
+      <scrollStartDelaySec>10</scrollStartDelaySec>
+      <visible>[facadeview.playlist | facadeview.smallicons | facadeview.largeicons]+!string.starts(#mvCentral.Description,#)</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <control>
+      <id>0</id>
+      <description>Track Description</description>
+      <type>textboxscrollup</type>
+      <posX>350</posX>
+      <posY>145</posY>
+      <width>800</width>
+      <height>300</height>
+      <label>#mvCentral.Description</label>
+      <seperator>-----------------------------------------------------------------------------------</seperator>
+      <font>font12</font>
+      <scrollStartDelaySec>10</scrollStartDelaySec>
+      <visible>[facadeview.filmstrip]</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <!-- ************************************ -->
+    <!--              Hidden Menu             -->
+    <!-- ************************************ -->
     <control>
       <type>actiongroup</type>
       <description>action menu</description>
@@ -129,24 +145,24 @@
         <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
         <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
       </control>
+      <control>
+        <description>group element</description>
+        <type>group</type>
+        <posX>71</posX>
+        <posY>121</posY>
+        <layout>StackLayout</layout>
+        <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
+        <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
+        <visible>!Control.HasFocus(50)</visible>
         <control>
-          <description>group element</description>
-          <type>group</type>
-          <posX>71</posX>
-          <posY>121</posY>
-          <layout>StackLayout</layout>
-          <animation effect="slide" time="70" start="-300,0" reversible="false">visible</animation>
-          <animation effect="slide" time="70" end="-300,0" reversible="false">hidden</animation>
-          <visible>!Control.HasFocus(50)</visible>
-          <control>
-            <description>View-As button</description>
-            <type>button</type>
-            <id>2</id>
-            <label>100</label>
-            <onright>50</onright>
-            <onup>17</onup>
-            <ondown>20</ondown>
-          </control>
+          <description>View-As button</description>
+          <type>button</type>
+          <id>2</id>
+          <label>100</label>
+          <onright>50</onright>
+          <onup>17</onup>
+          <ondown>20</ondown>
+        </control>
         <control>
           <description>Shuffle button</description>
           <type>button</type>
@@ -211,10 +227,10 @@
           <onleft>50</onleft>
         </control>
       </control>
-    </control>
-    
-    
-    
+    </control>  
+    <!-- ****************************************************************************** -->
+    <!--     Facade Layout Controls, List, Icons, Filmstrip, Coverflow and Playlist     -->
+    <!-- ****************************************************************************** -->
     <control>
       <description>group element</description>
       <type>group</type>
@@ -234,8 +250,32 @@
           <scrollOffset>2</scrollOffset>
           <unfocusedAlpha>160</unfocusedAlpha>
         </control>
-
-
+        <control>
+          <description>playlist listcontrol</description>
+          <type>playlistcontrol</type>
+          <id>50</id>
+          <posX>680</posX>
+          <posY>150</posY>
+          <width>760</width>
+          <height>570</height>
+          <font>font11</font>
+          <onleft>2</onleft>
+          <onright>2</onright>
+          <upBtnWidth>32</upBtnWidth>
+          <downBtnWidth>32</downBtnWidth>
+          <deleteBtnWidth>37</deleteBtnWidth>
+          <upBtnHeight>30</upBtnHeight>
+          <downBtnHeight>30</downBtnHeight>
+          <deleteBtnHeight>30</deleteBtnHeight>
+          <upBtnXOffset>453</upBtnXOffset>
+          <downBtnXOffset>499</downBtnXOffset>
+          <deleteBtnXOffset>545</deleteBtnXOffset>
+          <scrollOffset>2</scrollOffset>
+          <itemWidth>24</itemWidth>
+          <itemHeight>24</itemHeight>
+          <IconXOff>12</IconXOff>
+          <IconYOff>4</IconYOff>
+        </control>
         <control>
           <description>Thumbnail Panel</description>
           <type>thumbnailpanel</type>
@@ -392,8 +432,7 @@
           <showScrollbar>yes</showScrollbar>
           <cards flipY="yes" diffuse="Thumb_Mask.png" mask="Picturethumbmask.png">Picturethumbmask.png</cards>
           <subitems>
-            <subitem>
-              <![CDATA[                 <controls>
+            <subitem><![CDATA[                 <controls>
               <control>
                 <description>background</description>
                 <type>image</type>
@@ -458,36 +497,10 @@
                 <texture>Logos\#mvCentral.LocalMedia.audiochannels.png</texture>
               </control>
             </controls>]]></subitem>
-      </subitems>
+          </subitems>
+        </control>
+      </control>
     </control>
-    <control>
-      <description>playlist listcontrol</description>
-      <type>playlistcontrol</type>
-      <id>50</id>
-      <posX>680</posX>
-      <posY>150</posY>
-      <width>760</width>
-      <height>570</height>
-      <font>font11</font>
-      <onleft>2</onleft>
-      <onright>2</onright>
-      <upBtnWidth>32</upBtnWidth>
-      <downBtnWidth>32</downBtnWidth>
-      <deleteBtnWidth>37</deleteBtnWidth>
-      <upBtnHeight>30</upBtnHeight>
-      <downBtnHeight>30</downBtnHeight>
-      <deleteBtnHeight>30</deleteBtnHeight>
-      <upBtnXOffset>453</upBtnXOffset>
-      <downBtnXOffset>499</downBtnXOffset>
-      <deleteBtnXOffset>545</deleteBtnXOffset>
-      <scrollOffset>2</scrollOffset>
-      <itemWidth>24</itemWidth>
-      <itemHeight>24</itemHeight>
-      <IconXOff>12</IconXOff>
-      <IconYOff>4</IconYOff>
-    </control>
-  </control>
-</control>
   </controls>
 </window>
 <!--Checksum:a03673c552ac0c99bac6e4c1b390d6b6-->
