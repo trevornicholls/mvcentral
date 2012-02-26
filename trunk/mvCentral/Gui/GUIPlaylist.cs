@@ -19,6 +19,8 @@ namespace mvCentral.GUI
   public partial class mvGUIMain : WindowPluginBase
   {
 
+    #region Enums
+
     private enum SmartMode
     {
       Favourites = 0,
@@ -31,6 +33,9 @@ namespace mvCentral.GUI
       SmartDJ = 7,
       Cancel = 8
     }
+
+    #endregion
+
     #region playlist
     /// <summary>
     /// clear the current playlist
@@ -350,5 +355,6 @@ namespace mvCentral.GUI
 
 
     #endregion
+
   }
 }
