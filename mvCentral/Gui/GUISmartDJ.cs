@@ -1120,7 +1120,10 @@ namespace mvCentral.GUI
           GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", trackInfo.UserSettings[0].WatchedCount.ToString());
         }
         else
+        {
           GUIPropertyManager.SetProperty("#iswatched", "no");
+          GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", "0");
+        }
       }
     }
     /// <summary>
