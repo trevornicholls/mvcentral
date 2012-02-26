@@ -50,6 +50,31 @@ namespace mvCentral.Playlist
 {
   public class GUImvPlayList : WindowPluginBase
   {
+    #region Enums
+
+    public enum View
+    {
+      List = 0,
+      Icons = 1,
+      LargeIcons = 2,
+      FilmStrip = 3,
+      AlbumView = 4,
+      PlayList = 5
+    }
+
+    enum guiProperty
+    {
+      Title,
+      Subtitle,
+      Description,
+      EpisodeImage,
+      SeriesBanner,
+      SeasonBanner,
+      Logos,
+    }
+
+    #endregion
+
     #region variables
     private static Logger logger = LogManager.GetCurrentClassLogger();
     private DirectoryHistory m_history = new DirectoryHistory();
@@ -100,31 +125,6 @@ namespace mvCentral.Playlist
 
     #endregion
 
-    #region Enums
-
-    public enum View
-    {
-      List = 0,
-      Icons = 1,
-      LargeIcons = 2,
-      FilmStrip = 3,
-      AlbumView = 4,
-      PlayList = 5
-    }
-
-    enum guiProperty
-    {
-      Title,
-      Subtitle,
-      Description,
-      EpisodeImage,
-      SeriesBanner,
-      SeasonBanner,
-      Logos,
-    }
-
-    #endregion
-
     #region Constructor
 
     public GUImvPlayList()
@@ -142,41 +142,22 @@ namespace mvCentral.Playlist
 
     #endregion
 
-    public static int GetWindowID
-    {
-      get { return windowID; }
-    }
+    #region Base Overrides
 
-    public override int GetID
-    {
-      get { return windowID; }
-    }
-
-    public int GetWindowId()
-    {
-      return windowID;
-    }
-
-    public override string GetModuleName()
-    {
-      return mvCentralCore.Settings.HomeScreenName;
-    }
-
-    protected View CurrentView
-    {
-      get { return currentView; }
-      set { currentView = value; }
-    }
-
-    #region BaseWindow Members
-
+    /// <summary>
+    /// Initilize
+    /// </summary>
+    /// <returns></returns>
     public override bool Init()
     {
       currentFolder = Directory.GetCurrentDirectory();
       string xmlSkin = GUIGraphicsContext.Skin + @"\mvCentral.Playlist.xml";
       return Load(xmlSkin);
     }
-
+    /// <summary>
+    /// Handle OnAction Event
+    /// </summary>
+    /// <param name="action"></param>
     public override void OnAction(Action action)
     {
       switch (action.wID)
@@ -217,6 +198,27 @@ namespace mvCentral.Playlist
           break;
       }
       base.OnAction(action);
+    }
+    /// <summary>
+    /// Handle user click
+    /// </summary>
+    /// <param name="itemIndex"></param>
+    protected override void OnClick(int itemIndex)
+    {
+      currentSelectedItem = facadeLayout.SelectedListItemIndex;
+      GUIListItem item = facadeLayout.SelectedListItem;
+      if (item == null)
+      {
+        return;
+      }
+      if (item.IsFolder)
+      {
+        return;
+      }
+
+      playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+      playlistPlayer.Reset();
+      playlistPlayer.Play(itemIndex);
     }
     /// <summary>
     /// Loading playlist
@@ -275,7 +277,6 @@ namespace mvCentral.Playlist
         btnAutoPlay.Selected = playlistPlayer.PlaylistAutoPlay;
         btnAutoPlay.Label = Localization.ButtonAutoPlay;
       }
-
     }
     /// <summary>
     /// leaving playlist screen
@@ -405,7 +406,11 @@ namespace mvCentral.Playlist
       return base.OnMessage(message);
     }
 
-    #endregion
+    protected View CurrentView
+    {
+      get { return currentView; }
+      set { currentView = value; }
+    }
 
     protected bool AllowView(View view)
     {
@@ -502,7 +507,7 @@ namespace mvCentral.Playlist
         {
           PlayListItem item = playlist[i];
           strFileName = item.FileName;
-          
+
           GUIListItem pItem = new GUIListItem(item.Track.Track);
           DBArtistInfo artistInfo = DBArtistInfo.Get(item.Track);
           pItem.Path = strFileName;
@@ -587,318 +592,6 @@ namespace mvCentral.Playlist
       {
         GUIWaitCursor.Hide();
         logger.Info(string.Format("GUITVSeriesPlaylist: An error occured while loading the directory - {0}", ex.Message));
-      }
-    }
-    /// <summary>
-    /// Convert the track running time
-    /// </summary>
-    /// <param name="playTime"></param>
-    /// <returns></returns>
-    private string trackDuration(string playTime)
-    {
-      try
-      {
-        TimeSpan tt = TimeSpan.Parse(playTime);
-        DateTime dt = new DateTime(tt.Ticks);
-        string cTime = String.Format("{0:HH:mm:ss}", dt);
-        if (cTime.StartsWith("00:"))
-          return cTime.Substring(3);
-        else
-          return cTime;
-      }
-      catch
-      {
-        return "00:00:00";
-      }
-    }
-    /// <summary>
-    /// Give total running time for supplied tracklist
-    /// </summary>
-    /// <param name="property"></param>
-    /// <param name="value"></param>
-    private string playListRunningTime(ArrayList playList)
-    {
-      TimeSpan tt = TimeSpan.Parse("00:00:00");
-      foreach (GUIListItem track in playList)
-      {
-        try
-        {
-          DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
-          tt += TimeSpan.Parse(theTrack.PlayTime);
-        }
-        catch (Exception e)
-        {
-          DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
-          logger.Debug("Exception processing total playlist time for track {0} with a playtime of {1}", theTrack.Track,theTrack.PlayTime);
-        }
-      }
-      DateTime dt = new DateTime(tt.Ticks);
-      string cTime = String.Format("{0:HH:mm:ss}", dt);
-      if (cTime.StartsWith("00:"))
-        return cTime.Substring(3);
-      else
-        return cTime;
-    }
-
-    private void ClearFileItems()
-    {
-      GUIControl.ClearControl(GetID, facadeLayout.GetID);
-    }
-    /// <summary>
-    /// Clear the Playlist
-    /// </summary>
-    private void OnClearPlayList()
-    {
-      currentSelectedItem = -1;
-      ClearFileItems();
-      playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Clear();
-      if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
-      {
-        playlistPlayer.Reset();
-      }
-      LoadDirectory(string.Empty);
-      UpdateButtonStates();
-      ClearGUIProperties();
-      if (btnLoad != null)
-        GUIControl.FocusControl(GetID, btnLoad.GetID);
-    }
-    /// <summary>
-    /// Handle user click
-    /// </summary>
-    /// <param name="itemIndex"></param>
-    protected override void OnClick(int itemIndex)
-    {
-      currentSelectedItem = facadeLayout.SelectedListItemIndex;
-      GUIListItem item = facadeLayout.SelectedListItem;
-      if (item == null)
-      {
-        return;
-      }
-      if (item.IsFolder)
-      {
-        return;
-      }
-
-      playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
-      playlistPlayer.Reset();
-      playlistPlayer.Play(itemIndex);
-    }
-    /// <summary>
-    /// Set the skin props for select facade item
-    /// </summary>
-    /// <param name="item"></param>
-    /// <param name="parent"></param>
-    private void onFacadeItemSelected(GUIListItem item, GUIControl parent)
-    {
-      //// triggered when a selection change was made on the facade
-
-      // if this is not a message from the facade, exit
-      if (parent != facadeLayout && parent != facadeLayout.FilmstripLayout &&
-          parent != facadeLayout.ThumbnailLayout && parent != facadeLayout.ListLayout &&
-          parent != facadeLayout.PlayListLayout && parent != facadeLayout.CoverFlowLayout)
-        return;
-
-      if (item == null || item.TVTag == null)
-        return;
-
-      DBTrackInfo mvTrack = item.TVTag as DBTrackInfo;
-      if (mvTrack == null || prevSelectedmvTrack == mvTrack)
-      {
-        logger.Error("No trackdata found item {0} !!", item.Label);
-        return;
-      }
-
-      // Grab the artist infor for track 
-      DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
-      if (artistInfo == null)
-      {
-        logger.Error("No artist found for track {0} !!", mvTrack.Track);
-        return;
-      }
-      // #iswatched
-      if (mvTrack.UserSettings[0].WatchedCount > 0)
-      {
-        GUIPropertyManager.SetProperty("#iswatched", "yes");
-        GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", mvTrack.UserSettings[0].WatchedCount.ToString());
-      }
-      else
-        GUIPropertyManager.SetProperty("#iswatched", "no");
-
-      // And set some artist properites
-      GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
-      GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", artistInfo.ArtFullPath);
-      // Artist Genres
-      string artistTags = string.Empty;
-      foreach (string tag in artistInfo.Tag)
-        artistTags += tag + " | ";
-      // Last.FM Tags
-      if (!string.IsNullOrEmpty(artistTags))
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", artistTags.Remove(artistTags.Length - 2, 2));
-      // AllMusic Genre
-      GUIPropertyManager.SetProperty("#mvCentral.Genre", artistInfo.Genre);
-      // Set BornOrFormed property
-      if (artistInfo.Formed.Trim().Length == 0 && artistInfo.Born.Trim().Length == 0)
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
-      else if (artistInfo.Formed.Trim().Length == 0)
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Born, artistInfo.Born));
-      else
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Formed, artistInfo.Formed));
-
-      // Track Image
-      if (string.IsNullOrEmpty(mvTrack.ArtThumbFullPath.Trim()))
-        GUIPropertyManager.SetProperty("#mvCentral.VideoImage", "defaultVideoBig.png");
-      else
-        GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
-      // Track Rating
-      GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", mvTrack.Rating.ToString());
-      // Track Composers
-      if (mvTrack.Composers.Trim().Length == 0)
-        GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
-      else
-        GUIPropertyManager.SetProperty("#mvCentral.Composers", mvTrack.Composers.Replace('|', ','));
-
-      // Track description
-      if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
-        GUIPropertyManager.SetProperty("#mvCentral.Description", artistInfo.bioContent);
-      else
-        GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
-
-      // Misc Proprities
-      GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(mvTrack.PlayTime));
-
-      // get the media info for this video
-      DBLocalMedia mediaInfo = (DBLocalMedia)mvTrack.LocalMedia[0];
-      // Set the Video props
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
-      // Set the audio props
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
-      // Properties have changed
-      GUIPropertyManager.Changed = true;
-      prevSelectedmvTrack = mvTrack;
-    }
-
-    private void ClearGUIProperties()
-    {
-      GUIPropertyManager.SetProperty("#currentmodule", string.Empty);
-      GUIPropertyManager.SetProperty("#selectedthumb", string.Empty);
-      GUIPropertyManager.SetProperty("#selectedartist", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Playlist.Count", "0");
-      GUIPropertyManager.SetProperty("#mvCentral.Playlist.Runtime", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.VideoImage", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Description", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.PlayTime", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", string.Empty);
-      // Clear the video properites
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", string.Empty);
-      // Audio
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", string.Empty);
-      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Empty);
-    }
-
-    protected override void OnQueueItem(int itemIndex)
-    {
-      RemovePlayListItem(itemIndex);
-    }
-    /// <summary>
-    /// Delete the playlist
-    /// </summary>
-    /// <param name="itemIndex"></param>
-    private void RemovePlayListItem(int itemIndex)
-    {
-      GUIListItem listItem = facadeLayout[itemIndex];
-      if (listItem == null)
-      {
-        return;
-      }
-      string itemFileName = listItem.Path;
-
-      playlistPlayer.Remove(PlayListType.PLAYLIST_MVCENTRAL, itemFileName);
-
-      LoadDirectory(currentFolder);
-      UpdateButtonStates();
-      GUIControl.SelectItemControl(GetID, facadeLayout.GetID, itemIndex);
-      SelectCurrentVideo();
-    }
-    /// <summary>
-    /// Shuffle the playlist
-    /// </summary>
-    private void OnShufflePlayList()
-    {
-      currentSelectedItem = facadeLayout.SelectedListItemIndex;
-      ClearFileItems();
-      PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
-
-      if (playlist.Count <= 0)
-      {
-        return;
-      }
-      string currentItemFileName = string.Empty;
-      if (playlistPlayer.CurrentItem >= 0)
-      {
-        if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
-        {
-          PlayListItem item = playlist[playlistPlayer.CurrentItem];
-          currentItemFileName = item.FileName;
-        }
-      }
-      playlist.Shuffle();
-      if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
-      {
-        playlistPlayer.Reset();
-      }
-
-      if (currentItemFileName.Length > 0)
-      {
-        for (int i = 0; i < playlist.Count; i++)
-        {
-          PlayListItem playListItem = playlist[i];
-          if (playListItem.FileName == currentItemFileName)
-          {
-            playlistPlayer.CurrentItem = i;
-          }
-        }
-      }
-
-      LoadDirectory(currentFolder);
-    }
-    /// <summary>
-    /// Switch to the view selected
-    /// </summary>
-    protected void SwitchView()
-    {
-      if (facadeLayout == null)
-      {
-        return;
-      }
-      switch (CurrentView)
-      {
-        case View.List:
-          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.List;
-          break;
-        case View.Icons:
-          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
-          break;
-        case View.LargeIcons:
-          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
-          break;
-        case View.FilmStrip:
-          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
-          break;
-        case View.PlayList:
-          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Playlist;
-          break;
       }
     }
     /// <summary>
@@ -1067,7 +760,338 @@ namespace mvCentral.Playlist
       LoadPlayList(selectItem.Path);
       GUIWaitCursor.Hide();
     }
+    /// <summary>
+    /// Remove item from Playlist
+    /// </summary>
+    /// <param name="itemIndex"></param>
+    protected override void OnQueueItem(int itemIndex)
+    {
+      RemovePlayListItem(itemIndex);
+    }
 
+    #endregion
+
+    #region Public Methods
+
+    public static int GetWindowID
+    {
+      get { return windowID; }
+    }
+
+    public override int GetID
+    {
+      get { return windowID; }
+    }
+
+    public int GetWindowId()
+    {
+      return windowID;
+    }
+
+    public override string GetModuleName()
+    {
+      return mvCentralCore.Settings.HomeScreenName;
+    }
+
+    #endregion
+
+    #region Private Methods
+
+    /// <summary>
+    /// Convert the track running time
+    /// </summary>
+    /// <param name="playTime"></param>
+    /// <returns></returns>
+    private string trackDuration(string playTime)
+    {
+      try
+      {
+        TimeSpan tt = TimeSpan.Parse(playTime);
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
+      }
+      catch
+      {
+        return "00:00:00";
+      }
+    }
+    /// <summary>
+    /// Give total running time for supplied tracklist
+    /// </summary>
+    /// <param name="property"></param>
+    /// <param name="value"></param>
+    private string playListRunningTime(ArrayList playList)
+    {
+      TimeSpan tt = TimeSpan.Parse("00:00:00");
+      foreach (GUIListItem track in playList)
+      {
+        try
+        {
+          DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
+          tt += TimeSpan.Parse(theTrack.PlayTime);
+        }
+        catch (Exception e)
+        {
+          DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
+          logger.Debug("Exception processing total playlist time for track {0} with a playtime of {1}", theTrack.Track,theTrack.PlayTime);
+        }
+      }
+      DateTime dt = new DateTime(tt.Ticks);
+      string cTime = String.Format("{0:HH:mm:ss}", dt);
+      if (cTime.StartsWith("00:"))
+        return cTime.Substring(3);
+      else
+        return cTime;
+    }
+
+    private void ClearFileItems()
+    {
+      GUIControl.ClearControl(GetID, facadeLayout.GetID);
+    }
+    /// <summary>
+    /// Clear the Playlist
+    /// </summary>
+    private void OnClearPlayList()
+    {
+      currentSelectedItem = -1;
+      ClearFileItems();
+      playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL).Clear();
+      if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
+      {
+        playlistPlayer.Reset();
+      }
+      LoadDirectory(string.Empty);
+      UpdateButtonStates();
+      ClearGUIProperties();
+      if (btnLoad != null)
+        GUIControl.FocusControl(GetID, btnLoad.GetID);
+    }
+    /// <summary>
+    /// Set the skin props for select facade item
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="parent"></param>
+    private void onFacadeItemSelected(GUIListItem item, GUIControl parent)
+    {
+      //// triggered when a selection change was made on the facade
+
+      // if this is not a message from the facade, exit
+      if (parent != facadeLayout && parent != facadeLayout.FilmstripLayout &&
+          parent != facadeLayout.ThumbnailLayout && parent != facadeLayout.ListLayout &&
+          parent != facadeLayout.PlayListLayout && parent != facadeLayout.CoverFlowLayout)
+        return;
+
+      if (item == null || item.TVTag == null)
+        return;
+
+      DBTrackInfo mvTrack = item.TVTag as DBTrackInfo;
+      if (mvTrack == null || prevSelectedmvTrack == mvTrack)
+      {
+        logger.Error("No trackdata found item {0} !!", item.Label);
+        return;
+      }
+
+      // Grab the artist infor for track 
+      DBArtistInfo artistInfo = DBArtistInfo.Get(mvTrack);
+      if (artistInfo == null)
+      {
+        logger.Error("No artist found for track {0} !!", mvTrack.Track);
+        return;
+      }
+      // #iswatched
+      if (mvTrack.UserSettings[0].WatchedCount > 0)
+      {
+        GUIPropertyManager.SetProperty("#iswatched", "yes");
+        GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", mvTrack.UserSettings[0].WatchedCount.ToString());
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#iswatched", "no");
+        GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", "0");
+      }
+
+      // And set some artist properites
+      GUIPropertyManager.SetProperty("#selectedartist", artistInfo.Artist);
+      GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", artistInfo.ArtFullPath);
+      // Artist Genres
+      string artistTags = string.Empty;
+      foreach (string tag in artistInfo.Tag)
+        artistTags += tag + " | ";
+      // Last.FM Tags
+      if (!string.IsNullOrEmpty(artistTags))
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", artistTags.Remove(artistTags.Length - 2, 2));
+      // AllMusic Genre
+      GUIPropertyManager.SetProperty("#mvCentral.Genre", artistInfo.Genre);
+      // Set BornOrFormed property
+      if (artistInfo.Formed.Trim().Length == 0 && artistInfo.Born.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
+      else if (artistInfo.Formed.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Born, artistInfo.Born));
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Formed, artistInfo.Formed));
+
+      // Track Image
+      if (string.IsNullOrEmpty(mvTrack.ArtThumbFullPath.Trim()))
+        GUIPropertyManager.SetProperty("#mvCentral.VideoImage", "defaultVideoBig.png");
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
+      // Track Rating
+      GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", mvTrack.Rating.ToString());
+      // Track Composers
+      if (mvTrack.Composers.Trim().Length == 0)
+        GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.Composers", mvTrack.Composers.Replace('|', ','));
+
+      // Track description
+      if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
+        GUIPropertyManager.SetProperty("#mvCentral.Description", artistInfo.bioContent);
+      else
+        GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
+
+      // Misc Proprities
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(mvTrack.PlayTime));
+
+      // get the media info for this video
+      DBLocalMedia mediaInfo = (DBLocalMedia)mvTrack.LocalMedia[0];
+      // Set the Video props
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", mediaInfo.VideoResolution);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", mediaInfo.VideoAspectRatio);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", mediaInfo.VideoCodec);
+      // Set the audio props
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", mediaInfo.AudioCodec);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", mediaInfo.AudioChannels);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Format("{0} {1}", mediaInfo.AudioCodec, mediaInfo.AudioChannels));
+      // Properties have changed
+      GUIPropertyManager.Changed = true;
+      prevSelectedmvTrack = mvTrack;
+    }
+    /// <summary>
+    /// Clear all GUI Skin Properties
+    /// </summary>
+    private void ClearGUIProperties()
+    {
+      GUIPropertyManager.SetProperty("#currentmodule", string.Empty);
+      GUIPropertyManager.SetProperty("#selectedthumb", string.Empty);
+      GUIPropertyManager.SetProperty("#selectedartist", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Hierachy", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Playlist.Count", "0");
+      GUIPropertyManager.SetProperty("#mvCentral.Playlist.Runtime", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.ArtistName", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.VideoImage", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Description", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.Duration", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.PlayTime", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.TrackTitle", string.Empty);
+      // Clear the video properites
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", string.Empty);
+      // Audio
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiocodec", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audiochannels", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.audio", string.Empty);
+    }
+    /// <summary>
+    /// Delete the playlist
+    /// </summary>
+    /// <param name="itemIndex"></param>
+    private void RemovePlayListItem(int itemIndex)
+    {
+      GUIListItem listItem = facadeLayout[itemIndex];
+      if (listItem == null)
+      {
+        return;
+      }
+      string itemFileName = listItem.Path;
+
+      playlistPlayer.Remove(PlayListType.PLAYLIST_MVCENTRAL, itemFileName);
+
+      LoadDirectory(currentFolder);
+      UpdateButtonStates();
+      GUIControl.SelectItemControl(GetID, facadeLayout.GetID, itemIndex);
+      SelectCurrentVideo();
+    }
+    /// <summary>
+    /// Shuffle the playlist
+    /// </summary>
+    private void OnShufflePlayList()
+    {
+      currentSelectedItem = facadeLayout.SelectedListItemIndex;
+      ClearFileItems();
+      PlayList playlist = playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+
+      if (playlist.Count <= 0)
+      {
+        return;
+      }
+      string currentItemFileName = string.Empty;
+      if (playlistPlayer.CurrentItem >= 0)
+      {
+        if (g_Player.Playing && playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
+        {
+          PlayListItem item = playlist[playlistPlayer.CurrentItem];
+          currentItemFileName = item.FileName;
+        }
+      }
+      playlist.Shuffle();
+      if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_MVCENTRAL)
+      {
+        playlistPlayer.Reset();
+      }
+
+      if (currentItemFileName.Length > 0)
+      {
+        for (int i = 0; i < playlist.Count; i++)
+        {
+          PlayListItem playListItem = playlist[i];
+          if (playListItem.FileName == currentItemFileName)
+          {
+            playlistPlayer.CurrentItem = i;
+          }
+        }
+      }
+
+      LoadDirectory(currentFolder);
+    }
+    /// <summary>
+    /// Switch to the view selected
+    /// </summary>
+    protected void SwitchView()
+    {
+      if (facadeLayout == null)
+      {
+        return;
+      }
+      switch (CurrentView)
+      {
+        case View.List:
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.List;
+          break;
+        case View.Icons:
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.SmallIcons;
+          break;
+        case View.LargeIcons:
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.LargeIcons;
+          break;
+        case View.FilmStrip:
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Filmstrip;
+          break;
+        case View.PlayList:
+          facadeLayout.CurrentLayout = GUIFacadeControl.Layout.Playlist;
+          break;
+      }
+    }
+    /// <summary>
+    /// Load Playlist file
+    /// </summary>
+    /// <param name="strPlayList"></param>
     protected void LoadPlayList(string strPlayList)
     {
       IPlayListIO loader = PlayListFactory.CreateIO(strPlayList);
@@ -1146,7 +1170,9 @@ namespace mvCentral.Playlist
         }
       }
     }
-
+    /// <summary>
+    /// Report error to user
+    /// </summary>
     private void TellUserSomethingWentWrong()
     {
       GUIDialogOK dlgOK = (GUIDialogOK)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_OK);
@@ -1159,7 +1185,7 @@ namespace mvCentral.Playlist
       }
     }
     /// <summary>
-    /// Highlight the currebt video
+    /// Highlight the Current video
     /// </summary>
     private void SelectCurrentVideo()
     {
@@ -1188,7 +1214,9 @@ namespace mvCentral.Playlist
         }
       }
     }
-
+    /// <summary>
+    /// Mobe selected Playlist item UP one
+    /// </summary>
     private void MovePlayListItemUp()
     {
       if (playlistPlayer.CurrentPlaylistType == PlayListType.PLAYLIST_NONE)
@@ -1290,6 +1318,7 @@ namespace mvCentral.Playlist
       UpdateButtonStates();
     }
 
+    #endregion
 
   }
 }

@@ -6,55 +6,60 @@ using Cornerstone.Database;
 
 namespace mvCentral.Database
 {
-    [DBTableAttribute("watched_history")]
-    public class DBWatchedHistory : mvCentralDBTable
+  [DBTableAttribute("watched_history")]
+  public class DBWatchedHistory : mvCentralDBTable
+  {
+
+    #region Database Fields
+
+    [DBFieldAttribute]
+    public DBUser User
     {
-
-        #region Database Fields
-
-        [DBFieldAttribute]
-        public DBUser User {
-            get { return _user; }
-            set {
-                _user = value;
-                commitNeeded = true;
-            }
-        } private DBUser _user;
+      get { return _user; }
+      set
+      {
+        _user = value;
+        commitNeeded = true;
+      }
+    } private DBUser _user;
 
 
-        [DBFieldAttribute]
-        public DBTrackInfo Movie {
-            get { return _movie; }
-            set {
-                _movie = value;
-                commitNeeded = true;
-            }
-        } private DBTrackInfo _movie;
+    [DBFieldAttribute]
+    public DBTrackInfo Movie
+    {
+      get { return _movie; }
+      set
+      {
+        _movie = value;
+        commitNeeded = true;
+      }
+    } private DBTrackInfo _movie;
 
 
-        [DBFieldAttribute(FieldName = "date_watched")]
-        public DateTime DateWatched {
-            get { return _dateWatched; }
+    [DBFieldAttribute(FieldName = "date_watched")]
+    public DateTime DateWatched
+    {
+      get { return _dateWatched; }
 
-            set {
-                _dateWatched = value;
-                commitNeeded = true;
-            }
-        } private DateTime _dateWatched;
+      set
+      {
+        _dateWatched = value;
+        commitNeeded = true;
+      }
+    } private DateTime _dateWatched;
 
 
 
-        #endregion
-        
-        public static void AddWatchedHistory(DBTrackInfo movie, DBUser user) {
-            DBWatchedHistory history = new DBWatchedHistory();
-            history.DateWatched = DateTime.Now;
-            history.Movie = movie;
-            history.User = user;
+    #endregion
 
-//            movie.WatchedHistory.Add(history);
-            history.Commit();
-            movie.Commit();
-        }
+    public static void AddWatchedHistory(DBTrackInfo movie, DBUser user)
+    {
+      DBWatchedHistory history = new DBWatchedHistory();
+      history.DateWatched = DateTime.Now;
+      history.Movie = movie;
+      history.User = user;
+      history.Commit();
+      movie.Commit();
     }
+  }
 }
