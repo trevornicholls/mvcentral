@@ -119,7 +119,7 @@
         <string Field="StatsAndInfo">Stats and Info</string>
         <string Field="SelFiler">Select Filter Field...</string>
         <string Field="SelArtists">Selected Artists</string>
-        <string Field="SelVideos">Selected Vidoes</string>
+        <string Field="SelVideos">Selected Videos</string>
 
         // T
         <string Field="TotalRuntime">Total Runtime</string>

@@ -52,14 +52,14 @@ namespace mvCentral.Database
 
     #endregion
 
-    public static void AddWatchedHistory(DBTrackInfo movie, DBUser user)
+    public static void AddWatchedHistory(DBTrackInfo MusicVideo, DBUser user)
     {
       DBWatchedHistory history = new DBWatchedHistory();
       history.DateWatched = DateTime.Now;
-      history.Movie = movie;
+      history.Movie = MusicVideo;
       history.User = user;
       history.Commit();
-      movie.Commit();
+      MusicVideo.Commit();
     }
   }
 }

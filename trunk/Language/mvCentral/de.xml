@@ -10,16 +10,19 @@
   <string Field="#mvCentral.Translation.Minutes">3004</string>
   <string Field="#mvCentral.Translation.Search">137</string>
 
- // A
+  // A
   <string Field="About">Infos</string>
   <string Field="AboutText">mvCentral ist ein Plugin für Musik Videos in MediaPortal.</string>
   <string Field="Artist">Künstler</string>
   <string Field="Artists">Künstler</string>
+  <string Field="Album">Album</string>
+  <string Field="Albums">Alben</string>
+  <string Field="AllVideos">Alle Videos</string>
   <string Field="AddToPlaylist">Hinzufügen zur Playlist</string>
   <string Field="AddAllToPlaylist">Alle zur Playlist hinzufügen</string>
   <string Field="AddToPlaylistNext">Als nächstes zur Playlist hinzufügen</string>
 
-// B
+ // B
   <string Field="Back">Zurück</string>
   <string Field="ButtonAutoPlay">Auto. Wiedergabe</string>
   <string Field="Born">Geboren</string>
@@ -31,6 +34,8 @@
   <string Field="ContinueToNextPartHeader">Fortfahren mit dem nächsten Schritt ?</string>
   <string Field="ContextMenu">Kontextmenü</string>
   <string Field="ConfigGenre">Genre erstellen</string>
+  <string Field="Composers">Komponist</string>
+  <string Field="Complete">Fertig</string>
 
  // D
   <string Field="Date">Datum</string>
@@ -46,15 +51,16 @@
   <string Field="Formed">Debüt</string>
 
 // G
- <string Field="G-test">Test for G</string>
-
- // H
+  <string Field="Genre">Genre</string>
+  
+  // H
   <string Field="HighestRated">Bewertung</string>
   <string Field="History">Übersicht</string>
 
-// I
+ // I
   <string Field="Initializing">Initialisierung</string>
   <string Field="Info">Info</string>
+  <string Field="Inactive">Inaktiv</string>
 
 // L
   <string Field="LatestVideos">Zuletzt Hinzugefügt</string>
@@ -71,13 +77,17 @@
   <string Field="MostPlayedVideo">Meist gespieltes Video</string>
   <string Field="MostPlayedArtists">Meist gespielte Artisten</string>
   <string Field="MostPlayedVideos">Meist gespielte Videos</string>
+  <string Field="ModeMatch">Modus: Vordefiniert</string>
+  <string Field="ModeFilter">Modus: Filter definieren</string>
 
 // N
   <string Field="NoPlaylistsFound">Playliste nicht gefunden in:</string>
   <string Field="NoArtistBio">Keine Biografie für den Künstler {0} vorhanden</string>
   <string Field="NoTrackInfo">Keine Beschreibung des Tracks</string>
+  <string Field="NoComposerInfo">keine Info Komponist</string>
+  <string Field="NoAlbumInfo">keine Info Album</string>
 
-// O
+ // O
   <string Field="OK">OK</string>
 
 // P
@@ -87,9 +97,12 @@
   <string Field="Playlist">Playlist</string>
   <string Field="PlayByTag">Tag</string>
   <string Field="PlayByGenre">Genre</string>
-
-  // R
+  <string Field="PlayByComposer">Abspielen nach Komponist</string>
   <string Field="Random">Zufällig</string>
+
+ // Q
+
+ // R
   <string Field="Retry">Wiederholen</string>
   <string Field="ResumeFrom">Fortsetzen ab:</string>
   <string Field="ResumeFromLast">Fortsetzen von letzter Stelle ?</string>
@@ -99,15 +112,17 @@
   <string Field="SmartPlaylistOptions">Variable Playlist</string>
   <string Field="SmartPlaylistTag">Auswahl der Wiedergabe</string>
   <string Field="StatsAndInfo">Informationen</string>
+  <string Field="SelArtists">gefundene Artisten</string>
+  <string Field="SelVideos">gefundene Videos</string>
 
 // T
   <string Field="TotalRuntime">Laufzeit</string>
   <string Field="TopTenVideos">Top 10 Videos</string>
   <string Field="Tracks">Videos</string>
 
- // U
+// U
 
- // V
+// V
   <string Field="VirtualDriveHeader">Virtueller Datenträger ist nicht bereit</string>
   <string Field="VirtualDriveMessage">Virtueller Datenträger ist nicht bereit.\nBitte versuche es erneut oder Stop die Wiedergabe</string>
   <string Field="Video">Video</string>
@@ -116,8 +131,8 @@
   <string Field="ViewAs">Ansicht als</string>
   <string Field="VideoCount">Die Datenbank verfügt über {0} Videos von {1} Artisten</string>
 
- // User messages
-        //             |23456789|23456789|23456789|23456789|23456789|23456
+// W
+
   <string Field="NoGenreHeader">Kein Genre konfiguriert</string>
   <string Field="NoGenreLine1">Tag einem Genre zuweisen</string>
   <string Field="NoGenreLine2">Genre im Menü erstellen</string>

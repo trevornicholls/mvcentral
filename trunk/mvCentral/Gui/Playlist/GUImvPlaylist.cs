@@ -902,11 +902,11 @@ namespace mvCentral.Playlist
         logger.Error("No artist found for track {0} !!", mvTrack.Track);
         return;
       }
-      // #iswatched
-      if (mvTrack.UserSettings[0].WatchedCount > 0)
+      DBUserMusicVideoSettings userSettings = mvTrack.ActiveUserSettings;
+      if (userSettings.WatchedCount > 0)
       {
         GUIPropertyManager.SetProperty("#iswatched", "yes");
-        GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", mvTrack.UserSettings[0].WatchedCount.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", userSettings.WatchedCount.ToString());
       }
       else
       {
