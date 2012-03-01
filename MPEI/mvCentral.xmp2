@@ -563,20 +563,230 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>1</Build>
-      <Revision>316</Revision>
+      <Revision>317</Revision>
     </Version>
-    <ExtensionDescription>mvCentral is a plugin to catalog and play Music Videos. Last.FM and Discogs are used to provide metadata.
-
-The plugin will also scrobble playing videos to Last.FM if required.</ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.0.269
-
-Enhancment as per issue 28 - There is now an right click option on the track 'Create Album For Track', this will allow you to look up the album on last.fm and assign this track to that album.
-
-Fixed issue where artist/album &amp; video counts were not reset when re-entering config
+    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
+
+The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
+    <VersionDescription>mvCentral v1.0.0.269
+
+Enhancment as per issue 28
+
+There is now an right click option on the track 'Create Album For Track', this will allow you to look up the album on last.fm and assign this track to that album.
+
+Fixed issue where artist/album &amp; video counts were not reset when re-entering config
+
+V1.0.1.281
+
+Added Drag and Drop of images into config. This can either be images off disk or images dragged from a 
+web browser ie. google image search (note. can only drag in the actual inage not the indoex image) 
+Note: Still a load of checks to add to drag and drop to code, currently does not care too much about the file being an image :) 
+
+Only allow background details update scan to happen once, can be overridden in advanced settings by 
+setting "Always scan for provider updates in background" to True. Doing this will cause the plugin to try and 
+update misisng data constantly..not recomended. A manual 'Get Info' will function as normal. 
+
+V1.0.1.282
+
+Added the following skin props
+
+  When navigating
+  
+    #mvCentral.Genre
+    #mvCentral.BornOrFormed
+    
+    #mvCentral.LocalMedia.videowidth
+    #mvCentral.LocalMedia.videoheight
+    #mvCentral.LocalMedia.videoframerate
+  
+  When Video Playing
+  
+    #mvCentral. Current.videowidth
+    #mvCentral. Current.videoheight
+    #mvCentral. Current.videoframerate
+    #Play.Current.Artist.Thumb 
+    #Play.Current.Video.Thumb
+
+Fixed issue where facade (#selectedthumb) used the thumbnail image not fullsize.
+
+Added full checking to drag drop of images/urls to image on config.
+
+Fixed issue where image details were not updating correctly when cyclying though image in config.
+
+Fixed issue where Fullsize image was not deleted when image deleted
+
+V1.0.1.284
+
+Added two new extra props 
+
+    #mvCentral.Album.Rating		- Allmusic supplied rating (0-9)
+    #mvCentral.Track.Rating		- Allmusic supplied rating (0-9) (Not yet working...)
+
+Fixed issues with Allmusic matching
+
+V1.0.1.285
+
+Added following props
+
+		#mvCentral.Genre		-			Allmusic supplied Genre
+		
+Reworked StreamedMP and Defauldwide main skin to add new props
+
+
+V1.0.1.286
+
+Lookup track rating from Allmusic.com
+
+
+V1.0.1.292
+
+Enabled #mvCentral.Track.Rating property and adjusted SMP skin to display it.
+
+Two new tables for composers and Styles/Tones, new SmartDJ function (still WIP)
+
+Lookup up composers, Tones, Styles and Genre from Allmusic.com
+
+Added new property
+
+	#mvCentral.Composers = comma seperated list of composers
+
+Added SmartDJ option, new screen (Part 1) - allows the gerneration of playlists from Genre, LastFm Tags, Styles, Tones or composers
+
+
+V1.0.1.294
+
+Added filter support to SmartDJ (StreamedMP skin only), updated language files.
+Still working on the filter part...comments welcome
+
+V1.0.1.295
+
+Reworked SmartDJ to use same buuton for Match and Filter, button ID's 30 to 35.
+Match and Filtering should now all be working, SMP still only skin supported.
+
+V1.0.1.297
+
+Fixed issue 32 - ignore file in importer screen
+Swapped to playlistlayout from list layout in SmartDJ
+Now remember SmartDJ settings when returning from playing the playlist
+Added SmartDF defaultwide skin file
+
+V1.0.1.298
+
+Switched back to list from playlist and added button to access generated playlist
+Updated Defaultwide and SMP skins for facade changes
+Add new localizations
+Added skin property #mvCentral.SmartDJ.Mode, display if matching or filter mode
+Added Shuffle Playlist and Playlist buttons to SmartDJ menus
+Added new setting to store playlist shuffle setting for SmartDJ
+Added search youtube.fm button to defaultwide main skin file
+
+V1.0.1.298
+
+Fixed menu in Default Skin
+Added SmartDJ skin to Default skin
+
+V1.0.1.301
+
+Added Update DB info box and ask user to chose how their files are stored and set Ignore Folder Stucture to suit.
+
+V1.0.1.302
+
+Add AllMusic artist genre to main genre table, addition of tags t genre table still allowed.
+ 
+V1.0.1.306
+
+Latest added function - New props are
+
+   #mvCentral.Latest.Artist1
+   #mvCentral.Latest.Artist2
+   #mvCentral.Latest.Artist3
+ 
+   #mvCentral.Latest.ArtistImage1
+   #mvCentral.Latest.ArtistImage2
+   #mvCentral.Latest.ArtistImage3
+  
+   #mvCentral.Latest.Track1
+   #mvCentral.Latest.Track2
+   #mvCentral.Latest.Track3
+   
+   Added Refresh progress control - show the percentage completed on the background rescan
+   
+   ID 12
+   Text property #mvCentral.Artwork.Update.Progress (displays as xx% Complete)
+  
+V1.0.1.307  
+   
+Correct issue with selected track not playing from SmartDJ - this does mean the playlist is not shuffled if playback is started by this method.
+
+Added #iswatched (yes/no) property and also set #mvCentral.Watched.Count is #iswatched if set to true.
+
+In SmartDJ expose the following property's
+   #mvCentral.ArtistName
+   #mvCentral.TrackInfo
+   #mvCentral.Track.Rating
+   #mvCentral.Composers
+   #mvCentral.Duration
+
+V1.0.1.309
+
+Aded progress bars to StatsAndInfo screen
+
+ID 12 - Artwork updater thread / Text Percentage #mvCentral.Artwork.Update.Progress
+ID 13 - Metadata Refresh thread / Text Percentage #mvCentral.Metadata.Update.Progress
+
+Both of these controls will remain visible
+
+In skin file mvCentral.xml only the Metadata progress bar is supported
+
+ID 12 / Text Percentage #mvCentral.Metadata.Update.Progress
+
+This will only be visible when the background thred is active (ie. value &gt; 0 or &lt; 100)
+
+Changes to StreamedMP, DefaultWide and Default skins for progress bars + some fixes.
+
+V1.0.1.313
+
+Playlist (mvCentral.Playlist.xml)
+	
+		Fix total playlist duration (#mvCentral.Playlist.Runtime) not being set is a treack contained an invalid duration
+		
+		Added the following additional skin properties to Playlist when item is selected.
+		  #mvCentral.ArtistImg
+			#mvCentral.ArtistTags
+			#mvCentral.Genre
+			#mvCentral.BornOrFormed
+			#mvCentral.Track.Rating
+			#mvCentral.Composers
+			#mvCentral.Duration
+			
+Removed hardcoded visibility for ID 12 (Metadata progress bar) for main screen (mvCentral.xml)
+
+Added #mvCentral.Metadata.Scan.Active skin property to indicate when refresh is in progress
+	
+	Set to 'true' is refreshing metadata
+	Set to  'false' metadata is not refreshing
+	
+Rework of Default/Defaultwide skin files, tidy, spell check, comment and animations 	
+
+V1.0.1.314
+
+Enable the following Smart Playlist Options
+  Favourites = All Videos Most to least Watched
+  Highest Rated = All Videos highest to lowest Allmusic rating
+  Least Played = All Videos least to most played 
+
+V1.0.1.316
+
+Centre Advanced Settings warning/panel
+Ensure #mvCentral.Watched.Count is set to 0 when #iswatched is set to 'no'
+			
+V1.0.1.317
+
+Release Version
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2012-01-01T22:26:37</ReleaseDate>
+    <ReleaseDate>2012-03-01T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
