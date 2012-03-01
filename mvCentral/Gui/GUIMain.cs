@@ -2021,10 +2021,11 @@ namespace mvCentral.GUI
         else
           GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
         // #iswatched
-        if (trackInfo.UserSettings[0].WatchedCount > 0)
+        DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
+        if (userSettings.WatchedCount > 0)
         {
           GUIPropertyManager.SetProperty("#iswatched", "yes");
-          GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", trackInfo.UserSettings[0].WatchedCount.ToString());
+          GUIPropertyManager.SetProperty("#mvCentral.Watched.Count", userSettings.WatchedCount.ToString());
         }
         else
         {
