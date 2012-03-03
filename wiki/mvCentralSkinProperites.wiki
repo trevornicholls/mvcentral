@@ -1,7 +1,7 @@
-#summary One-sentence summary of this page.
+ #summary One-sentence summary of this page.
 
 = Skinner Guide - Main Sceen (mvCentral.xml) =
-
+ 
   #mvCentral.ArtistView
   #mvCentral.AlbumView
   #mvCentral.TrackView
@@ -12,21 +12,21 @@
 Artist View
 	
 When in atrist view the skin property #mvCentral.ArtistView will be set to 'true'
-	
+	||*Skin Property*||*Function*||
 	||#itemtype||Set as the localized translation for Artist||
 	||#itemcount||Set to total number of Artists||	
 	||#mvCentral.Hierachy||Set as the localized translation for Artists||
 
 Selected item skin properities
 
-	||#mvCentral.ArtistBio||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist <artist>" text||
-	||#mvCentral.ArtistName||Set to the Artist Name||
-	||#mvCentral.ArtistImg||Set to the path of the full resolution artist image||
-	||#mvCentral.VideosByArtist||Set to the total number videos by this Artist|
-	||#mvCentral.ArtistTracksRuntime||Set to the total runtime of all videos by this artist, format HH:MM:SS||
-	||#mvCentral.BornOrFormed||Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details"||
-	||#mvCentral.Genre||Set to the main genre for the Artist||
-	||#mvCentral.ArtistTags||Set to a space delimited list of Last.FM tags||
+	||#mvCentral.ArtistBio	||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist <artist>" text||
+	||#mvCentral.ArtistName	||Set to the Artist Name||
+	||#mvCentral.ArtistImg	||Set to the path of the full resolution artist image||
+	||#mvCentral.VideosByArtist	||Set to the total number videos by this Artist||
+	||#mvCentral.ArtistTracksRuntime	||Set to the total runtime of all videos by this artist, format HH:MM:SS||
+	||#mvCentral.BornOrFormed	||Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details"||
+	||#mvCentral.Genre	||Set to the main genre for the Artist||
+	||#mvCentral.ArtistTags	||Set to a space delimited list of Last.FM tags||
   
   #mvCentral.Album
   #mvCentral.Album.Rating
