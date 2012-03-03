@@ -1043,6 +1043,17 @@ namespace mvCentral.GUI
       }
       dlgMenu.DoModal(GetID);
       DBGenres.ClearAll();
+      // Insert any AllMusic Genres
+      foreach (DBArtistInfo artistData in DBArtistInfo.GetAll())
+      {
+        //Genre - Inset Genre into genre table if not already there
+        if (artistData.Genre.Trim().Length > 0)
+        {
+          if (DBGenres.Get(artistData.Genre) == null)
+            DBGenres.Add(true, artistData.Genre);
+        }
+      }
+      // Now add any selected Last.FM tags as genres
       for (int i = 0; i < dlgMenu.ListItems.Count; i++)
       {
         if (dlgMenu.ListItems[i].Selected)
@@ -1919,6 +1930,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.Description", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", string.Empty);
 
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", genreRunningTime(selectGenre));
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", genreTracks.ToString());
@@ -2047,10 +2059,12 @@ namespace mvCentral.GUI
         {
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist);
           GUIPropertyManager.SetProperty("#mvCentral.Album.Rating", string.Empty);
+          GUIPropertyManager.SetProperty("#mvCentral.Album", string.Empty);
         }
         else
         {
           GUIPropertyManager.SetProperty("#mvCentral.Hierachy", artistInfo.Artist + " | " + albumInfo.Album);
+          GUIPropertyManager.SetProperty("#mvCentral.Album", albumInfo.Album);
           GUIPropertyManager.SetProperty("#mvCentral.Album.Rating", albumInfo.Rating.ToString());
         }
 
@@ -2230,7 +2244,7 @@ namespace mvCentral.GUI
 
         foreach (DBArtistInfo artistInfo in artistFullList)
         {
-          if (tagMatched(facadeLayout.SelectedListItem.Label, artistInfo))
+          if (tagMatched(facadeLayout.SelectedListItem.Label, artistInfo) || artistInfo.Genre.Equals(facadeLayout.SelectedListItem.Label,StringComparison.OrdinalIgnoreCase))
           {
             if (!artistList.Contains(artistInfo))
               artistList.Add(artistInfo);
