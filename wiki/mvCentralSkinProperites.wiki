@@ -1,8 +1,12 @@
-#mvCentral Skin Designers Guide
+#summary mvCentral Skin Designers Guide
 
-= Skinner Guide =
- 
+= mvCentral Skinning Guide =
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
+
+----
 == Skin Files required for mvCentral ==
+
  
 There are 5 skin files required for mvCentral
  
@@ -13,10 +17,9 @@ There are 5 skin files required for mvCentral
 || mvCentral.SmartDJ.xml ||112015 || SmartDJ screen, allows creating of playlists by either matching or filtering on fields ||
 || DialogMvMultiSelect.xml || 112014 || Custom select dialog allowing for muliple selections ||
 
-
 ----
-
 == Skin File - mvCentral.xml ==
+
  
 === Controls ===
  
