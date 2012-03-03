@@ -54,10 +54,10 @@ As of Version 1.0.1 the skin currently supports 4 views and a 5th is in developm
 For each view there is a corrsponding skin property, this will be set to *true* for the currely selected view, see the table below. 
 
 || *Skin Property*       || *Description*                              ||
-|| #mvCentral.ArtistView || Set to 'true' if Artists is select view ||
-|| #mvCentral.AlbumView  || Set to 'true' if Albums is select view  ||
-|| #mvCentral.TrackView  || Set to 'true' if Tracks is select view  ||
-|| #mvCentral.GenreView  || Set to 'true' if Genres is select view  ||
+|| #mvCentral.ArtistView || Set to 'true' if Artists is selected view ||
+|| #mvCentral.AlbumView  || Set to 'true' if Albums is selected view  ||
+|| #mvCentral.TrackView  || Set to 'true' if Tracks is selected view  ||
+|| #mvCentral.GenreView  || Set to 'true' if Genres is selected view  ||
 || #mvCentral.DVDView    || Currently not used - reserved           ||
 
 
@@ -73,7 +73,10 @@ For each view there is a set of skin properties exposed when an items is selecte
 
 === Artist View ===
 
-Visibility test : `<visible>string.equals(#mvCentral.ArtistView,true)</visible>`
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.ArtistView,true)</visible>`
+*Required Image File*
+ defaultArtistBig.png
 
 *Selected item skin properities*
 
@@ -90,8 +93,12 @@ Visibility test : `<visible>string.equals(#mvCentral.ArtistView,true)</visible>`
 
 
 === Album View ===
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.AlbumView,true)</visible>`
+*Required Image File*
+ defaultAlbum.png
 
-Visibility test : `<visible>string.equals(#mvCentral.AlbumView,true)</visible>`
+*Selected item skin properities*
 
 || *Skin Property*     || *Description* ||
 || #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
@@ -106,8 +113,12 @@ Visibility test : `<visible>string.equals(#mvCentral.AlbumView,true)</visible>`
 
 
 === Track (Video) View ===
-
-Visibility test : `<visible>string.equals(#mvCentral.TrackView,true)</visible>`
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.TrackView,true)</visible>`
+*Required Image File*
+ defaultVideoBig.png
+ 
+ *Selected item skin properities*
 
 || *Skin Property*     || *Description* ||
 || #iswatched || Set to 'yes' if this video has been watched and 'no' if not. ||
@@ -141,6 +152,21 @@ These additional properities are set/changed if this track is part of an Album
 || #mvCentral.Hierachy || Will be set to *Artist Name|Album Name* ||
 || #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
 
+
+=== Genre View ===
+
+This view will only be available if Genres have been configured or Artist has AllMusic Genre.
+
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.GenreView,true)</visible>`
+*Required Image File*
+ DefaultGenre.png
+
+*Selected item skin properities*
+
+|| *Skin Property*     || *Description* ||
+|| #mvCentral.ArtistTracksRuntime || Total runtime of all videos for Artists that match the Genre ||
+|| #mvCentral.VideosByArtist || Total number of videos for Artists that match the Genre ||
 
 ----
 == mvCentral.Playlist.xml ==
