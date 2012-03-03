@@ -20,8 +20,9 @@ There are 5 skin files required for mvCentral
 || DialogMvMultiSelect.xml || 112014 || Custom select dialog allowing for muliple selections ||
 
 ----
-== Skin File - mvCentral.xml ==
+== mvCentral.xml ==
 
+This is the main skin file for mvCentral and is displayed when the user first enters the plugin.
  
 === Controls ===
  
@@ -142,23 +143,30 @@ These additional properities are set/changed if this track is part of an Album
 
 
 ----
-== Skin File - mvCentral.xml ==
+== mvCentral.Playlist.xml ==
+
+Playlist Screen
 
 ----
-== Skin File - mvCentral.Playlist.xml ==
+== mvCentral.StatsAndInfo.xml ==
+
+Status and Information screen
 
 ----
-== Skin File - mvCentral.StatsAndInfo.xml ==
+== mvCentral.SmartDJ.xml ==
+
+SmartDJ screen
 
 ----
-== Skin File - mvCentral.SmartDJ.xml ==
+== DialogMvMultiSelect.xml ==
+
+Custom Multi Select Dialog 
+
+
 
 ----
-== Skin File - DialogMvMultiSelect.xml ==
 
-
-----
-
+{{{
 #mvCentral.Album
 #mvCentral.Album.Rating
 #mvCentral.AlbumInfo
@@ -221,3 +229,4 @@ These additional properities are set/changed if this track is part of an Album
 #mvCentral.VideosByArtist
 #mvCentral.ViewAs
 #mvCentral.Watched.Count
+}}}
