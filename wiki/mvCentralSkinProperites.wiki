@@ -1,8 +1,8 @@
-#summary One-sentence summary of this page.
+#mvCentral Skin Designers Guide
 
 = Skinner Guide =
  
-== Skin Files Overview ==
+== Skin Files required for mvCentral ==
  
 There are 5 skin files required for mvCentral
  
@@ -13,22 +13,41 @@ There are 5 skin files required for mvCentral
 || mvCentral.SmartDJ.xml ||112015 || SmartDJ screen, allows creating of playlists by either matching or filtering on fields ||
 || DialogMvMultiSelect.xml || 112014 || Custom select dialog allowing for muliple selections ||
 
+
+----
+
 == Skin File - mvCentral.xml ==
  
- === Controls ===
+=== Controls ===
+ 
+The following is a list of the controls used in this skin file, all but ID 12 and 50 are nornally used in a menu.
  
 || *Control ID* || *Type* || *Text* || *Description ||
+|| 2 || Button || Layout: type || MediaPortal Standard Layout Button - Calls dialog with layout choices, List, Icon (small/large), Filmstrip & Coverflow ||
+|| 3 || Button || Sort || MediaPortal Standard Sort Button - Calls dialog with sort options ||
+|| 5 || Button || Switch View || Mediaportal Standard View Button - Calls dislog with View options, Artist, Album, Tracks and Genres ||
 || 6 || Button || Play All Random || Create and play all vidoes in random order ||
 || 7 || Button || Smart Playlists || Calls a Menu Dialog with Smart Playlist option ||
 || 8 || Button || Playlist || Access the Playlist screen (mvCentral.Playlist.xml) ||
 || 9 || Button || Stats and Info || Access the Status and Information screen (mvCentral.StatsAndInfo.xml) ||
 || 10 || Button || Configured Genres || Call the Multi Select Dialog (DialogMvMultiSelect.xml) to allow Genres to be created from Last.Fm tags ||
 || 11 || Button || Search Artists || Brings up the virtual keyboard to allow entry of search string ||
-|| 12 || Progressbar || - || Metadata background progress bar Note: When scan is active #mvCentral.Metadata.Scan.Active will be set to 'true' ||
+|| 12 || Progressbar || - || Metadata background update progress bar Note: When scan is active #mvCentral.Metadata.Scan.Active will be set to 'true' ||
+|| 50 || Facade || - || Facade control - List, Icon Small, Icon Large, Filmstrip and Coverflow supported ||
 
-The following 5 properties are set to *true* when the view is active
+=== Exposed Skin Properities ===
 
-|| *Skin Property*       || *Function*                              ||
+As of Version 1.0.1 the skin currently supports 4 views and a 5th is in development.
+
+ * Artist - Initial display is Artists (Defaut View)
+ * Albums - Initial display is Albums
+ * Tracks - Inital display is tracks
+ * Genres - Inital display is Genres
+ * DVD - Initial display will be DVDs only (this is work in progress as of the 1st March 2012)
+
+For each view there is a corrsponding skin property, this will be set to *true* for the currely selected view, see the table below. 
+
+|| *Skin Property*       || *Description*                              ||
 || #mvCentral.ArtistView || Set to 'true' if Artists is select view ||
 || #mvCentral.AlbumView  || Set to 'true' if Albums is select view  ||
 || #mvCentral.TrackView  || Set to 'true' if Tracks is select view  ||
@@ -36,26 +55,91 @@ The following 5 properties are set to *true* when the view is active
 || #mvCentral.DVDView    || Currently not used - reserved           ||
 
 
-== Artist View ==
-	
-When in atrist view the skin property #mvCentral.ArtistView will be set to 'true'
+For each view there is a set of skin properties exposed when an items is selected, the following sections detail the view and properities that are exposed. 
 
-|| *Skin Property*     || *Function* ||
+*Primary Properities used for all views*
+
+|| *Skin Property*     || *Description* ||
 || #itemtype           || Set as the localized translation for Artist ||
 || #itemcount          || Set to total number of Artists ||	
-|| #mvCentral.Hierachy || Set as the localized translation for Artists ||
+|| #mvCentral.Hierachy || This skin property is altered depending on where the user has navigated to, it displays the View names initially and will expand with each level the user accesses ||
 
-Selected item skin properities
 
-||#mvCentral.ArtistBio	||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist <artist>" text||
-||#mvCentral.ArtistName	||Set to the Artist Name||
-||#mvCentral.ArtistImg	||Set to the path of the full resolution artist image||
-||#mvCentral.VideosByArtist	||Set to the total number videos by this Artist||
-||#mvCentral.ArtistTracksRuntime	||Set to the total runtime of all videos by this artist, format HH:MM:SS||
-||#mvCentral.BornOrFormed	||Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details"||
-||#mvCentral.Genre	||Set to the main genre for the Artist||
-||#mvCentral.ArtistTags	||Set to a space delimited list of Last.FM tags||
-  
+== Artist View ==
+
+Visibility test : `<visible>string.equals(#mvCentral.ArtistView,true)</visible>`
+
+*Selected item skin properities*
+
+|| *Skin Property*     || *Description* ||
+|| #mvCentral.ArtistBio	||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist *artist*" text ||
+|| #mvCentral.ArtistName	|| Set to the Artist Name ||
+|| #mvCentral.ArtistImg	|| Set to the path of the full resolution artist image ||
+|| #mvCentral.VideosByArtist	|| Set to the total number videos by this Artist ||
+|| #mvCentral.ArtistTracksRuntime	|| Set to the total runtime of all videos by this artist, format HH:MM:SS ||
+|| #mvCentral.BornOrFormed	|| Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details" ||
+|| #mvCentral.Genre	|| Set to the main genre for the Artist ||
+|| #mvCentral.ArtistTags	|| List of Last.FM tags seperated by a space ||
+
+
+
+== Album View ==
+
+Visibility test : `<visible>string.equals(#mvCentral.AlbumView,true)</visible>`
+
+|| *Skin Property*     || *Description* ||
+|| #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
+|| #mvCentral.Album.Rating || Set to rating value for the Album between 0 and 9 ||
+|| #mvCentral.ArtistName	|| Set to the Artist Name ||
+|| #mvCentral.Watched.Count || Set to the number of time the video has been watched (0 if not watched) ||
+|| #mvCentral.VideoImg	|| Set to the Album cover image ||
+|| #mvCentral.TrackInfo || Set to the full text of the Album description or localized message if not description exists ||
+|| #mvCentral.AlbumInfo || Set to the full text of the Album description or localized message if not description exists ||
+|| #mvCentral.AlbumTracksRuntime || Set to the total runtime for all videos in the album ||
+|| #mvCentral.TracksForAlbum || Set to the number of videos within this album ||
+
+
+== Track (Video) View ==
+
+Visibility test : `<visible>string.equals(#mvCentral.TrackView,true)</visible>`
+
+|| *Skin Property*     || *Description* ||
+|| #iswatched || Set to 'yes' if this video has been watched and 'no' if not. ||
+|| #mvCentral.Watched.Count || Set to the number of time the video has been watched (0 if not watched) ||
+|| #mvCentral.VideoImg	|| Set to the Video thumbnail image ||
+|| #mvCentral.TrackInfo || Set to the full text of the track description ||
+|| #mvCentral.Track.Rating || Set to rating value for the track between 0 and 9 ||
+|| #mvCentral.Composers || Set to the composer(s), if more than 1 composers are seperated by a comma ||
+|| #mvCentral.ArtistName	|| Set to the Artist Name ||
+|| #mvCentral.Genre	|| Set to Artist Genre ||
+|| #mvCentral.Duration || Set to the playtime of the track in the format MM:SS or HH:MM:SS if longer than 1hr ||
+
+
+Video and Audio Media Details as extracted and reported by MediaInfo
+
+|| *Skin Property*     || *Description* ||
+|| #mvCentral.LocalMedia.videoresolution || ||
+|| #mvCentral.LocalMedia.videoaspectratio || Set to*fullscreen* or *widescreen* ||
+|| #mvCentral.LocalMedia.videocodec || Set to the video codec ||
+|| #mvCentral.LocalMedia.videowidth || Set to the video width ||
+|| #mvCentral.LocalMedia.videoheight || Set to the video height ||
+|| #mvCentral.LocalMedia.videoframerate || Set to the video framerate ||
+|| #mvCentral.LocalMedia.audiocodec || Set to the audio codec ||
+|| #mvCentral.LocalMedia.audiochannels || Set to the numbe of audio channels ||
+|| #mvCentral.LocalMedia.audio || Combined setting of #mvCentral.LocalMedia.audiocodec #mvCentral.LocalMedia.audiochannels ||
+
+These additional properities are set/changed if this track is part of an Album
+
+|| *Skin Property*     || *Description* ||
+|| #mvCentral.Album.Rating || Set to rating value for the Album between 0 and 9 ||
+|| #mvCentral.Hierachy || Will be set to *Artist Name|Album Name* ||
+|| #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
+
+
+
+
+----
+
 #mvCentral.Album
 #mvCentral.Album.Rating
 #mvCentral.AlbumInfo
