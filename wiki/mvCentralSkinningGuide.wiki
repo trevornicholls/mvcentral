@@ -1,0 +1,259 @@
+#summary mvCentral Skin Designers Guide
+#labels Phase-Design
+
+= mvCentral Skinning Guide =
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
+
+<wiki:toc max_depth="3" />
+
+----
+== Skin Files required for mvCentral ==
+
+ 
+There are 5 skin files required for mvCentral
+ 
+|| *Skin Filename* || *Skin ID* || *Description* ||
+|| mvCentral.xml || 112011 || Main skin file, loaded when plugin is selected ||
+|| mvCentral.Playlist.xml || 112012 || Playlist skin file, access from mvCentral.xml and SmartDJ.xml ||
+|| mvCentral.StatsAndInfo.xml || 112013 || Most played Artist and Video. Also displays top ten videos and progress bars for background processes ||
+|| mvCentral.SmartDJ.xml ||112015 || SmartDJ screen, allows creating of playlists by either matching or filtering on fields ||
+|| DialogMvMultiSelect.xml || 112014 || Custom select dialog allowing for muliple selections ||
+
+----
+== mvCentral.xml ==
+
+This is the main skin file for mvCentral and is displayed when the user first enters the plugin.
+ 
+=== Controls ===
+ 
+The following is a list of the controls used in this skin file, all but ID 12 and 50 are nornally used in a menu.
+ 
+|| *Control ID* || *Type* || *Text* || *Description ||
+|| 2 || Button || Layout: type || MediaPortal Standard Layout Button - Calls dialog with layout choices, List, Icon (small/large), Filmstrip & Coverflow ||
+|| 3 || Button || Sort || MediaPortal Standard Sort Button - Calls dialog with sort options ||
+|| 5 || Button || Switch View || Mediaportal Standard View Button - Calls dislog with View options, Artist, Album, Tracks and Genres ||
+|| 6 || Button || Play All Random || Create and play all vidoes in random order ||
+|| 7 || Button || Smart Playlists || Calls a Menu Dialog with Smart Playlist option ||
+|| 8 || Button || Playlist || Access the Playlist screen (mvCentral.Playlist.xml) ||
+|| 9 || Button || Stats and Info || Access the Status and Information screen (mvCentral.StatsAndInfo.xml) ||
+|| 10 || Button || Configured Genres || Call the Multi Select Dialog (DialogMvMultiSelect.xml) to allow Genres to be created from Last.Fm tags ||
+|| 11 || Button || Search Artists || Brings up the virtual keyboard to allow entry of search string ||
+|| 12 || Progressbar || - || Metadata background update progress bar Note: When scan is active #mvCentral.Metadata.Scan.Active will be set to 'true' ||
+|| 50 || Facade || - || Facade control - List, Icon Small, Icon Large, Filmstrip and Coverflow supported ||
+
+=== Exposed Skin Properities ===
+
+As of Version 1.0.1 the skin currently supports 4 views and a 5th is in development.
+
+ * Artist - Initial display is Artists (Defaut View)
+ * Albums - Initial display is Albums
+ * Tracks - Inital display is tracks
+ * Genres - Inital display is Genres
+ * DVD - Initial display will be DVDs only (this is work in progress as of the 1st March 2012)
+
+For each view there is a corrsponding skin property, this will be set to *true* for the currely selected view, see the table below. 
+
+|| *Skin Property* || *Description*                              ||
+|| #mvCentral.ArtistView || Set to 'true' if Artists is selected view ||
+|| #mvCentral.AlbumView  || Set to 'true' if Albums is selected view  ||
+|| #mvCentral.TrackView  || Set to 'true' if Tracks is selected view  ||
+|| #mvCentral.GenreView  || Set to 'true' if Genres is selected view  ||
+|| #mvCentral.DVDView    || Currently not used - reserved           ||
+
+
+For each view there is a set of skin properties exposed when an items is selected, the following sections detail the view and properities that are exposed. 
+
+*Primary Properities used for all views*
+
+|| *Skin Property*     || *Description* ||
+|| #itemtype           || Set as the localized translation for Artist ||
+|| #itemcount          || Set to total number of Artists ||	
+|| #mvCentral.Hierachy || This skin property is altered depending on where the user has navigated to, it displays the View names initially and will expand with each level the user accesses ||
+
+
+=== Artist View ===
+
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.ArtistView,true)</visible>`
+*Required Image File*
+ defaultArtistBig.png
+
+*Selected item skin properities*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.ArtistBio	||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist *artist*" text ||
+|| #mvCentral.ArtistName	|| Set to the Artist Name ||
+|| #mvCentral.ArtistImg	|| Set to the path of the full resolution artist image ||
+|| #mvCentral.VideosByArtist	|| Set to the total number videos by this Artist ||
+|| #mvCentral.ArtistTracksRuntime	|| Set to the total runtime of all videos by this artist, format HH:MM:SS ||
+|| #mvCentral.BornOrFormed	|| Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details" ||
+|| #mvCentral.Genre	|| Set to the main genre for the Artist ||
+|| #mvCentral.ArtistTags	|| List of Last.FM tags seperated by a space ||
+
+
+
+=== Album View ===
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.AlbumView,true)</visible>`
+*Required Image File*
+ defaultAlbum.png
+
+*Selected item skin properities*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
+|| #mvCentral.Album.Rating || Set to rating value for the Album between 0 and 9 ||
+|| #mvCentral.ArtistName	|| Set to the Artist Name ||
+|| #mvCentral.Watched.Count || Set to the number of time the video has been watched (0 if not watched) ||
+|| #mvCentral.VideoImg	|| Set to the Album cover image ||
+|| #mvCentral.TrackInfo || Set to the full text of the Album description or localized message if not description exists ||
+|| #mvCentral.AlbumInfo || Set to the full text of the Album description or localized message if not description exists ||
+|| #mvCentral.AlbumTracksRuntime || Set to the total runtime for all videos in the album ||
+|| #mvCentral.TracksForAlbum || Set to the number of videos within this album ||
+
+
+=== Track (Video) View ===
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.TrackView,true)</visible>`
+*Required Image File*
+ defaultVideoBig.png
+ 
+ *Selected item skin properities*
+
+|| *Skin Property* || *Description* ||
+|| #iswatched || Set to 'yes' if this video has been watched and 'no' if not. ||
+|| #mvCentral.Watched.Count || Set to the number of time the video has been watched (0 if not watched) ||
+|| #mvCentral.VideoImg	|| Set to the Video thumbnail image ||
+|| #mvCentral.TrackInfo || Set to the full text of the track description ||
+|| #mvCentral.Track.Rating || Set to rating value for the track between 0 and 9 ||
+|| #mvCentral.Composers || Set to the composer(s), if more than 1 composers are seperated by a comma ||
+|| #mvCentral.ArtistName	|| Set to the Artist Name ||
+|| #mvCentral.Genre	|| Set to Artist Genre ||
+|| #mvCentral.Duration || Set to the playtime of the track in the format MM:SS or HH:MM:SS if longer than 1hr ||
+
+
+Video and Audio Media Details as extracted and reported by MediaInfo
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.LocalMedia.videoresolution || Video resolution 720p, 1080i, 1080p etc ||
+|| #mvCentral.LocalMedia.videoaspectratio || Set to*fullscreen* or *widescreen* ||
+|| #mvCentral.LocalMedia.videocodec || Set to the video codec ||
+|| #mvCentral.LocalMedia.videowidth || Set to the video width ||
+|| #mvCentral.LocalMedia.videoheight || Set to the video height ||
+|| #mvCentral.LocalMedia.videoframerate || Set to the video framerate ||
+|| #mvCentral.LocalMedia.audiocodec || Set to the audio codec ||
+|| #mvCentral.LocalMedia.audiochannels || Set to the numbe of audio channels ||
+|| #mvCentral.LocalMedia.audio || Combined setting of #mvCentral.LocalMedia.audiocodec #mvCentral.LocalMedia.audiochannels ||
+
+These additional properities are set/changed if this track is part of an Album
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Album.Rating || Set to rating value for the Album between 0 and 9 ||
+|| #mvCentral.Hierachy || Will be set to *Artist Name|Album Name* ||
+|| #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
+
+
+=== Genre View ===
+
+This view will only be available if Genres have been configured or Artist has AllMusic Genre.
+
+*Visibility test* 
+ `<visible>string.equals(#mvCentral.GenreView,true)</visible>`
+*Required Image File*
+ DefaultGenre.png
+
+*Selected item skin properities*
+
+|| *Skin Property*     || *Description* ||
+|| #mvCentral.ArtistTracksRuntime || Total runtime of all videos for Artists that match the Genre ||
+|| #mvCentral.VideosByArtist || Total number of videos for Artists that match the Genre ||
+
+----
+== mvCentral.Playlist.xml ==
+
+Playlist Screen
+
+----
+== mvCentral.!StatsAndInfo.xml ==
+
+Status and Information screen
+
+----
+== mvCentral.SmartDJ.xml ==
+
+SmartDJ screen
+
+----
+== !DialogMvMultiSelect.xml ==
+
+Custom Multi Select Dialog 
+
+
+
+----
+
+{{{
+#mvCentral.Album
+#mvCentral.Album.Rating
+#mvCentral.AlbumInfo
+#mvCentral.AlbumTracksRuntime
+#mvCentral.ArtistBio
+#mvCentral.ArtistImg
+#mvCentral.ArtistName
+#mvCentral.ArtistTags
+#mvCentral.ArtistTracksRuntime
+#mvCentral.Artwork.Update.Progress
+#mvCentral.Backdrop
+#mvCentral.BornOrFormed
+#mvCentral.Composers
+#mvCentral.Coverart
+#mvCentral.Current.videoframerate
+#mvCentral.Current.videoheight
+#mvCentral.Current.videowidth
+#mvCentral.Description
+#mvCentral.Duration
+#mvCentral.FavArtist
+#mvCentral.Genre
+#mvCentral.Hierachy
+#mvCentral.isPlaying
+#mvCentral.Latest.Artist1
+#mvCentral.Latest.Artist2
+#mvCentral.Latest.Artist3
+#mvCentral.Latest.ArtistImage1
+#mvCentral.Latest.ArtistImage2
+#mvCentral.Latest.ArtistImage3
+#mvCentral.Latest.Track1
+#mvCentral.Latest.Track2
+#mvCentral.Latest.Track3
+#mvCentral.LocalMedia.audio
+#mvCentral.LocalMedia.audiochannels
+#mvCentral.LocalMedia.audiocodec
+#mvCentral.LocalMedia.videoaspectratio
+#mvCentral.LocalMedia.videocodec
+#mvCentral.LocalMedia.videoframerate
+#mvCentral.LocalMedia.videoheight
+#mvCentral.LocalMedia.videoresolution
+#mvCentral.LocalMedia.videowidth
+#mvCentral.Metadata.Scan.Active
+#mvCentral.Metadata.Update.Progress
+#mvCentral.MostPlayed
+#mvCentral.Playlist.Count
+#mvCentral.Playlist.Runtime
+#mvCentral.PlayTime
+#mvCentral.Settings.HomeScreenName
+#mvCentral.SmartDJ.Mode
+#mvCentral.Sort
+#mvCentral.TotalArtists
+#mvCentral.TotalVideos
+#mvCentral.Track.Rating
+#mvCentral.TrackInfo
+#mvCentral.TracksForAlbum
+#mvCentral.TrackTitle
+#mvCentral.Translation.<TranslationName>
+#mvCentral.VideoImage
+#mvCentral.VideoImg
+#mvCentral.VideosByArtist
+#mvCentral.ViewAs
+#mvCentral.Watched.Count
+}}}
