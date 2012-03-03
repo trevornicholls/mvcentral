@@ -148,7 +148,7 @@ These additional properities are set/changed if this track is part of an Album
 Playlist Screen
 
 ----
-== mvCentral.StatsAndInfo.xml ==
+== mvCentral.!StatsAndInfo.xml ==
 
 Status and Information screen
 
@@ -158,7 +158,7 @@ Status and Information screen
 SmartDJ screen
 
 ----
-== DialogMvMultiSelect.xml ==
+== !DialogMvMultiSelect.xml ==
 
 Custom Multi Select Dialog 
 
