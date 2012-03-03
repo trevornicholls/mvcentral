@@ -53,7 +53,7 @@ As of Version 1.0.1 the skin currently supports 4 views and a 5th is in developm
 
 For each view there is a corrsponding skin property, this will be set to *true* for the currely selected view, see the table below. 
 
-|| *Skin Property*       || *Description*                              ||
+|| *Skin Property* || *Description*                              ||
 || #mvCentral.ArtistView || Set to 'true' if Artists is selected view ||
 || #mvCentral.AlbumView  || Set to 'true' if Albums is selected view  ||
 || #mvCentral.TrackView  || Set to 'true' if Tracks is selected view  ||
@@ -80,7 +80,7 @@ For each view there is a set of skin properties exposed when an items is selecte
 
 *Selected item skin properities*
 
-|| *Skin Property*     || *Description* ||
+|| *Skin Property* || *Description* ||
 || #mvCentral.ArtistBio	||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist *artist*" text ||
 || #mvCentral.ArtistName	|| Set to the Artist Name ||
 || #mvCentral.ArtistImg	|| Set to the path of the full resolution artist image ||
@@ -100,7 +100,7 @@ For each view there is a set of skin properties exposed when an items is selecte
 
 *Selected item skin properities*
 
-|| *Skin Property*     || *Description* ||
+|| *Skin Property* || *Description* ||
 || #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
 || #mvCentral.Album.Rating || Set to rating value for the Album between 0 and 9 ||
 || #mvCentral.ArtistName	|| Set to the Artist Name ||
@@ -120,7 +120,7 @@ For each view there is a set of skin properties exposed when an items is selecte
  
  *Selected item skin properities*
 
-|| *Skin Property*     || *Description* ||
+|| *Skin Property* || *Description* ||
 || #iswatched || Set to 'yes' if this video has been watched and 'no' if not. ||
 || #mvCentral.Watched.Count || Set to the number of time the video has been watched (0 if not watched) ||
 || #mvCentral.VideoImg	|| Set to the Video thumbnail image ||
@@ -134,8 +134,8 @@ For each view there is a set of skin properties exposed when an items is selecte
 
 Video and Audio Media Details as extracted and reported by MediaInfo
 
-|| *Skin Property*     || *Description* ||
-|| #mvCentral.LocalMedia.videoresolution || ||
+|| *Skin Property* || *Description* ||
+|| #mvCentral.LocalMedia.videoresolution || Video resolution 720p, 1080i, 1080p etc ||
 || #mvCentral.LocalMedia.videoaspectratio || Set to*fullscreen* or *widescreen* ||
 || #mvCentral.LocalMedia.videocodec || Set to the video codec ||
 || #mvCentral.LocalMedia.videowidth || Set to the video width ||
@@ -147,7 +147,7 @@ Video and Audio Media Details as extracted and reported by MediaInfo
 
 These additional properities are set/changed if this track is part of an Album
 
-|| *Skin Property*     || *Description* ||
+|| *Skin Property* || *Description* ||
 || #mvCentral.Album.Rating || Set to rating value for the Album between 0 and 9 ||
 || #mvCentral.Hierachy || Will be set to *Artist Name|Album Name* ||
 || #mvCentral.Album || Set to Album Name (Note: this is not present in version 1.0.1) ||
