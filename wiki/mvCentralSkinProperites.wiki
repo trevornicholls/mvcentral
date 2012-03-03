@@ -1,9 +1,33 @@
 #summary One-sentence summary of this page.
 
-= Skinner Guide - Main Sceen (mvCentral.xml) =
+= Skinner Guide =
  
+== Skin Files Overview ==
+ 
+There are 5 skin files required for mvCentral
+ 
+|| *Skin Filename* || *Skin ID* || *Description* ||
+|| mvCentral.xml || 112011 || Main skin file, loaded when plugin is selected ||
+|| mvCentral.Playlist.xml || 112012 || Playlist skin file, access from mvCentral.xml and SmartDJ.xml ||
+|| mvCentral.StatsAndInfo.xml || 112013 || Most played Artist and Video. Also displays top ten videos and progress bars for background processes ||
+|| mvCentral.SmartDJ.xml ||112015 || SmartDJ screen, allows creating of playlists by either matching or filtering on fields ||
+|| DialogMvMultiSelect.xml || 112014 || Custom select dialog allowing for muliple selections ||
+
+== Skin File - mvCentral.xml ==
+ 
+ === Controls ===
+ 
+|| *Control ID* || *Type* || *Text* || *Description ||
+|| 6 || Button || Play All Random || Create and play all vidoes in random order ||
+|| 7 || Button || Smart Playlists || Calls a Menu Dialog with Smart Playlist option ||
+|| 8 || Button || Playlist || Access the Playlist screen (mvCentral.Playlist.xml) ||
+|| 9 || Button || Stats and Info || Access the Status and Information screen (mvCentral.StatsAndInfo.xml) ||
+|| 10 || Button || Configured Genres || Call the Multi Select Dialog (DialogMvMultiSelect.xml) to allow Genres to be created from Last.Fm tags ||
+|| 11 || Button || Search Artists || Brings up the virtual keyboard to allow entry of search string ||
+|| 12 || Progressbar || - || Metadata background progress bar Note: When scan is active #mvCentral.Metadata.Scan.Active will be set to 'true' ||
+
 The following 5 properties are set to *true* when the view is active
- 
+
 || *Skin Property*       || *Function*                              ||
 || #mvCentral.ArtistView || Set to 'true' if Artists is select view ||
 || #mvCentral.AlbumView  || Set to 'true' if Albums is select view  ||
@@ -11,7 +35,7 @@ The following 5 properties are set to *true* when the view is active
 || #mvCentral.GenreView  || Set to 'true' if Genres is select view  ||
 || #mvCentral.DVDView    || Currently not used - reserved           ||
 
-  
+
 == Artist View ==
 	
 When in atrist view the skin property #mvCentral.ArtistView will be set to 'true'
@@ -21,19 +45,17 @@ When in atrist view the skin property #mvCentral.ArtistView will be set to 'true
 || #itemcount          || Set to total number of Artists ||	
 || #mvCentral.Hierachy || Set as the localized translation for Artists ||
 
-*Selected item skin properities*
+Selected item skin properities
 
-|| *Skin Property*                || *Function* ||
-|| #mvCentral.ArtistBio           ||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist [artist]" text||
-|| #mvCentral.ArtistName          ||Set to the Artist Name||
-|| #mvCentral.ArtistImg           ||Set to the path of the full resolution artist image||
-|| #mvCentral.VideosByArtist      ||Set to the total number videos by this Artist||
-|| #mvCentral.ArtistTracksRuntime ||Set to the total runtime of all videos by this artist, format HH:MM:SS||
-|| #mvCentral.BornOrFormed        ||Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details"||
-|| #mvCentral.Genre               ||Set to the main genre for the Artist||
-|| #mvCentral.ArtistTags          ||Set to a space delimited list of Last.FM tags||
-
-{{{
+||#mvCentral.ArtistBio	||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist <artist>" text||
+||#mvCentral.ArtistName	||Set to the Artist Name||
+||#mvCentral.ArtistImg	||Set to the path of the full resolution artist image||
+||#mvCentral.VideosByArtist	||Set to the total number videos by this Artist||
+||#mvCentral.ArtistTracksRuntime	||Set to the total runtime of all videos by this artist, format HH:MM:SS||
+||#mvCentral.BornOrFormed	||Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details"||
+||#mvCentral.Genre	||Set to the main genre for the Artist||
+||#mvCentral.ArtistTags	||Set to a space delimited list of Last.FM tags||
+  
 #mvCentral.Album
 #mvCentral.Album.Rating
 #mvCentral.AlbumInfo
@@ -96,4 +118,3 @@ When in atrist view the skin property #mvCentral.ArtistView will be set to 'true
 #mvCentral.VideosByArtist
 #mvCentral.ViewAs
 #mvCentral.Watched.Count
-}}}
