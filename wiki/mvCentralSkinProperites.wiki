@@ -1,0 +1,92 @@
+#summary One-sentence summary of this page.
+
+= Skinner Guide - Main Sceen (mvCentral.xml) =
+
+  #mvCentral.ArtistView
+  #mvCentral.AlbumView
+  #mvCentral.TrackView
+  #mvCentral.GenreView
+
+  #mvCentral.DVDView
+  
+Artist View
+	
+When in atrist view the skin property #mvCentral.ArtistView will be set to 'true'
+	
+	||#itemtype||Set as the localized translation for Artist||
+	||#itemcount||Set to total number of Artists||	
+	||#mvCentral.Hierachy||Set as the localized translation for Artists||
+
+Selected item skin properities
+
+	||#mvCentral.ArtistBio||Set to the full text of the Artist biography or the localaized "No Biography Available for Artist <artist>" text||
+	||#mvCentral.ArtistName||Set to the Artist Name||
+	||#mvCentral.ArtistImg||Set to the path of the full resolution artist image||
+	||#mvCentral.VideosByArtist||Set to the total number videos by this Artist|
+	||#mvCentral.ArtistTracksRuntime||Set to the total runtime of all videos by this artist, format HH:MM:SS||
+	||#mvCentral.BornOrFormed||Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details"||
+	||#mvCentral.Genre||Set to the main genre for the Artist||
+	||#mvCentral.ArtistTags||Set to a space delimited list of Last.FM tags||
+  
+  #mvCentral.Album
+  #mvCentral.Album.Rating
+  #mvCentral.AlbumInfo
+  #mvCentral.AlbumTracksRuntime
+  #mvCentral.ArtistBio
+  #mvCentral.ArtistImg
+  #mvCentral.ArtistName
+  #mvCentral.ArtistTags
+  #mvCentral.ArtistTracksRuntime
+  #mvCentral.Artwork.Update.Progress
+  #mvCentral.Backdrop
+  #mvCentral.BornOrFormed
+  #mvCentral.Composers
+  #mvCentral.Coverart
+  #mvCentral.Current.videoframerate
+  #mvCentral.Current.videoheight
+  #mvCentral.Current.videowidth
+  #mvCentral.Description
+  #mvCentral.Duration
+  #mvCentral.FavArtist
+  #mvCentral.Genre
+  #mvCentral.Hierachy
+  #mvCentral.isPlaying
+  #mvCentral.Latest.Artist1
+  #mvCentral.Latest.Artist2
+  #mvCentral.Latest.Artist3
+  #mvCentral.Latest.ArtistImage1
+  #mvCentral.Latest.ArtistImage2
+  #mvCentral.Latest.ArtistImage3
+  #mvCentral.Latest.Track1
+  #mvCentral.Latest.Track2
+  #mvCentral.Latest.Track3
+  #mvCentral.LocalMedia.audio
+  #mvCentral.LocalMedia.audiochannels
+  #mvCentral.LocalMedia.audiocodec
+  #mvCentral.LocalMedia.videoaspectratio
+  #mvCentral.LocalMedia.videocodec
+  #mvCentral.LocalMedia.videoframerate
+  #mvCentral.LocalMedia.videoheight
+  #mvCentral.LocalMedia.videoresolution
+  #mvCentral.LocalMedia.videowidth
+  #mvCentral.Metadata.Scan.Active
+  #mvCentral.Metadata.Update.Progress
+  #mvCentral.MostPlayed
+  #mvCentral.Playlist.Count
+  #mvCentral.Playlist.Runtime
+  #mvCentral.PlayTime
+  #mvCentral.Settings.HomeScreenName
+  #mvCentral.SmartDJ.Mode
+  #mvCentral.Sort
+  #mvCentral.TotalArtists
+  #mvCentral.TotalVideos
+  #mvCentral.Track.Rating
+  #mvCentral.TrackInfo
+  #mvCentral.TracksForAlbum
+  #mvCentral.TrackTitle
+  #mvCentral.Translation.<TranslationName>
+  #mvCentral.VideoImage
+  #mvCentral.VideoImg
+  #mvCentral.VideosByArtist
+  #mvCentral.ViewAs
+  #mvCentral.Watched.Count
