@@ -770,6 +770,26 @@ namespace mvCentral.Playlist
     /// <param name="clear">Clears the properties instead of filling them if True</param>
     private void SetProperties(PlayListItem item, bool clear)
     {
+      // List of Play properities that can be overidden
+      //#Play.Current.Director
+      //#Play.Current.Genre
+      //#Play.Current.Cast
+      //#Play.Current.DVDLabel
+      //#Play.Current.IMDBNumber
+      //#Play.Current.File
+      //#Play.Current.Plot
+      //#Play.Current.PlotOutline
+      //#Play.Current.UserReview
+      //#Play.Current.Rating
+      //#Play.Current.TagLine
+      //#Play.Current.Votes
+      //#Play.Current.Credits
+      //#Play.Current.Thumb
+      //#Play.Current.Title
+      //#Play.Current.Year
+      //#Play.Current.Runtime
+      //#Play.Current.MPAARating
+
       if (item == null)
         return;
 
@@ -778,6 +798,8 @@ namespace mvCentral.Playlist
       string osdVideoImage = string.Empty;
       string osdArtistImage = string.Empty;
       string album = string.Empty;
+      string genre = string.Empty;
+      string isWatched = string.Empty;
 
       DBArtistInfo artistInfo = null;
       DBTrackInfo trackInfo = null;
@@ -801,36 +823,83 @@ namespace mvCentral.Playlist
         if (System.IO.File.Exists(trackInfo.ArtFullPath))
           osdVideoImage = trackInfo.ArtFullPath;
 
+        if (artistInfo.Genre.Trim().Length > 0)
+          genre = artistInfo.Genre;
+
       }
       // Std Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
       GUIPropertyManager.SetProperty("#Play.Current.Thumb", clear ? string.Empty : osdImage);
-      GUIPropertyManager.SetProperty("#Play.Current.Artist.Thumb", clear ? string.Empty : osdImage);
-      GUIPropertyManager.SetProperty("#Play.Current.Video.Thumb", clear ? string.Empty : osdVideoImage);
+      GUIPropertyManager.SetProperty("#Play.Current.Genre", clear ? string.Empty : genre);
+      GUIPropertyManager.SetProperty("#Play.Current.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
+      GUIPropertyManager.SetProperty("#Play.Current.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
       GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : trackInfo.bioContent);
+      // Has this video been watched
+      DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
+      if (userSettings.WatchedCount > 0)
+        GUIPropertyManager.SetProperty("#Play.Current.IsWatched", "yes");
+      else
+        GUIPropertyManager.SetProperty("#Play.Current.IsWatched", "no");
       // mvCentral Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.mvArtist", clear ? string.Empty : artistInfo.Artist);
       GUIPropertyManager.SetProperty("#Play.Current.mvAlbum", clear ? string.Empty : album);
       GUIPropertyManager.SetProperty("#Play.Current.mvVideo", clear ? string.Empty : title);
-      GUIPropertyManager.SetProperty("#Play.Current.mvTrack.Description", clear ? string.Empty : trackInfo.bioContent);
+      GUIPropertyManager.SetProperty("#Play.Current.Video.Thumb", clear ? string.Empty : osdVideoImage);
       GUIPropertyManager.SetProperty("#mvCentral.isPlaying", clear ? "false" : "true");
       // Video Properities
       try
       {
         DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+        GUIPropertyManager.SetProperty("#Play.Current.AspectRatio", mediaInfo.VideoAspectRatio);
+        GUIPropertyManager.SetProperty("#Play.Current.VideoCodec.Texture", mediaInfo.VideoCodec);
+        GUIPropertyManager.SetProperty("#Play.Current.VideoResolution", mediaInfo.VideoResolution);
         GUIPropertyManager.SetProperty("#mvCentral.Current.videowidth", mediaInfo.VideoWidth.ToString());
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoheight", mediaInfo.VideoHeight.ToString());
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", mediaInfo.VideoFrameRate.ToString());
+        GUIPropertyManager.SetProperty("#Play.Current.AudioCodec.Texture", mediaInfo.AudioCodec);
+        GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", mediaInfo.AudioChannels);
       }
       catch
       {
+        GUIPropertyManager.SetProperty("#Play.Current.AspectRatio", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Current.VideoCodec.Texture", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Current.VideoResolution", string.Empty);
         GUIPropertyManager.SetProperty("#mvCentral.Current.videowidth", string.Empty);
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoheight", string.Empty);
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Current.AudioCodec.Texture", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", string.Empty);
       }
     }
 
-
+    /// <summary>
+    /// Convert the track running time
+    /// </summary>
+    /// <param name="playTime"></param>
+    /// <returns></returns>
+    private string trackDuration(string playTime)
+    {
+      try
+      {
+        TimeSpan tt = TimeSpan.Parse(playTime);
+        DateTime dt = new DateTime(tt.Ticks);
+        string cTime = String.Format("{0:HH:mm:ss}", dt);
+        if (cTime.StartsWith("00:"))
+          return cTime.Substring(3);
+        else
+          return cTime;
+      }
+      catch
+      {
+        return "00:00:00";
+      }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="item"></param>
+    /// <returns></returns>
     private string replaceDynamicFields(string value, mvCentralDBTable item)
     {
       string result = value;
@@ -844,7 +913,9 @@ namespace mvCentral.Playlist
 
       return result;
     }
-
+    /// <summary>
+    /// Set as Watched
+    /// </summary>
     private void SetAsWatched()
     {
       PlayListItem item = GetCurrentItem();
