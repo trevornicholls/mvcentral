@@ -390,23 +390,23 @@ This secion list the properties that are set when a video starts to play.
 || *Skin Property* || *Description* ||
 || #Play.Current.Title || Set to the Video title ||
 || #Play.Current.Thumb || Set to the path full resolution Artist image||
-|| #Play.Current.Genre || Set to Artist genre||
-|| #Play.Current.Runtime || Set to Runtime of the playing track ||
-|| #Play.Current.Rating || Set to the current track rating (between 0 and 9)||
+|| #Play.Current.Genre || Set to Artist genre (*v1.0.2)* ||
+|| #Play.Current.Runtime || Set to Runtime of the playing track (*v1.0.2)* ||
+|| #Play.Current.Rating || Set to the current track rating (between 0 and 9) (*v1.0.2)* ||
 || #Play.Current.Plot || Set to the full track description  ||
-|| #Play.Current.IsWatched || Set to *yes* if the track has been previouly played or *no* if not.||
+|| #Play.Current.IsWatched || Set to *yes* if the track has been previouly played or *no* if not. (*v1.0.2)* ||
 
 
 *Video and Audio Media Details as extracted and reported by MediaInfo*
 
 || *Skin Property* || *Description* ||
-|| #Play.Current.AspectRatio || Set to*fullscreen* or *widescreen* ||
-|| #Play.Current.VideoCodec.Texture || Set to the video codec ||
-|| #Play.Current.VideoResolution || Video resolution 720p, 1080i, 1080p etc ||
+|| #Play.Current.AspectRatio || Set to*fullscreen* or *widescreen* (*v1.0.2)* ||
+|| #Play.Current.VideoCodec.Texture || Set to the video codec (*v1.0.2)* ||
+|| #Play.Current.VideoResolution || Video resolution 720p, 1080i, 1080p etc (*v1.0.2)* ||
 || #mvCentral.Current.videowidth || Set to the video width ||
 || #mvCentral.Current.videoheight || Set to the video height ||
 || #mvCentral.Current.videoframerate || Set to the video framerate ||
-|| #Play.Current.AudioCodec.Texture || Set to the audio codec ||
+|| #Play.Current.AudioCodec.Texture || Set to the audio codec (*v1.0.2)* ||
 || #Play.Current.AudioChannels || et to the number of audio channels ||
 
 ----
