@@ -1082,7 +1082,7 @@ namespace mvCentral.GUI
         GUIControl.DisableControl(windowID, (int)GUIControls.SavePlaylist);
       }
       // Set the info label
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.TotalArtists, string.Format("{0}: {1} / {2}: {3}", Localization.SelArtists, artistPlayList.Count.ToString(), Localization.SelVidoes, facadeLayout.Count.ToString()));
+      GUIControl.SetControlLabel(windowID, (int)GUIControls.TotalArtists, string.Format("{0}: {1} / {2}: {3}", Localization.SelArtists, artistPlayList.Count.ToString(), Localization.SelVideos, facadeLayout.Count.ToString()));
     }
     /// <summary>
     /// Video/Album item selected - set properities
