@@ -11,7 +11,8 @@
 == Skin Files required for mvCentral ==
 
  
-There are 5 skin files required for mvCentral
+There are 5 skin files required for mvCentral, this Wiki will detailed the Controls, required images and skin properities avaiable for each skin. Please look at the included Default and DefaultWide, these can be used as a referance when building your own skin files.
+If you find what you think is a bug or if you have any suggestions for improvement please mail me or add to the issue tracker
  
 || *Skin Filename* || *Skin ID* || *Description* ||
 || mvCentral.xml || 112011 || Main skin file, loaded when plugin is selected ||
@@ -24,6 +25,8 @@ There are 5 skin files required for mvCentral
 == mvCentral.xml ==
 
 This is the main skin file for mvCentral and is displayed when the user first enters the plugin.
+
+This screen will allow display of the video files in 4 views, Artists, Albums (If enabled), Tracks (Videos) and Genres. In addition this screen will also display the progress of background metadata refresh, this is normally a once off process unless configured in Advanced setting in the plugin configuration.
  
 === Controls ===
  
@@ -168,6 +171,18 @@ This view will only be available if Genres have been configured or Artist has Al
 || *Skin Property*     || *Description* ||
 || #mvCentral.ArtistTracksRuntime || Total runtime of all videos for Artists that match the Genre ||
 || #mvCentral.VideosByArtist || Total number of videos for Artists that match the Genre ||
+
+=== Background Metadata process - Progress Bar ===
+
+Control ID 12 is a process bat that display the progess of the background Metadata process. This process is normally only run one when the user updates to a new version that has a new provider though this can be overiddeen in advanced settings.
+
+There are two skin properties that are linked to this progress bar.
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Metadata.Scan.Active || This is set to the value *true* when the background process is active ||
+|| #mvCentral.Metadata.Update.Progress|| The percentage complete, a value between 1 and 100 (Format #.##% Complete) Note: Complete is a localized string ||
+
+
 
 ----
 == mvCentral.Playlist.xml ==
