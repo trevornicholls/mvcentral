@@ -371,6 +371,43 @@ SmartDJ screen
 Custom Multi Select Dialog 
 
 
+----
+== Play Properities ==
+
+This secion list the properties that are set when a video starts to play.
+
+*mvCentral specific play properties*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.isPlaying || Set to *true* if mvCentral is playing a video ||
+|| #Play.Current.mvArtist || Set to the artist name of the currently playing track ||
+|| #Play.Current.mvAlbum || Set to the Album name the track is from or blank in no assoicated album ||
+|| #Play.Current.mvVideo || Set to the video title ||
+|| #Play.Current.Video.Thumb || Set to the video thumbnail ||
+
+*Standard play properties*
+
+|| *Skin Property* || *Description* ||
+|| #Play.Current.Title || Set to the Video title ||
+|| #Play.Current.Thumb || Set to the path full resolution Artist image||
+|| #Play.Current.Genre || Set to Artist genre||
+|| #Play.Current.Runtime || Set to Runtime of the playing track ||
+|| #Play.Current.Rating || Set to the current track rating (between 0 and 9)||
+|| #Play.Current.Plot || Set to the full track description  ||
+|| #Play.Current.IsWatched || Set to *yes* if the track has been previouly played or *no* if not.||
+
+
+*Video and Audio Media Details as extracted and reported by MediaInfo*
+
+|| *Skin Property* || *Description* ||
+|| #Play.Current.AspectRatio || Set to*fullscreen* or *widescreen* ||
+|| #Play.Current.VideoCodec.Texture || Set to the video codec ||
+|| #Play.Current.VideoResolution || Video resolution 720p, 1080i, 1080p etc ||
+|| #mvCentral.Current.videowidth || Set to the video width ||
+|| #mvCentral.Current.videoheight || Set to the video height ||
+|| #mvCentral.Current.videoframerate || Set to the video framerate ||
+|| #Play.Current.AudioCodec.Texture || Set to the audio codec ||
+|| #Play.Current.AudioChannels || et to the number of audio channels ||
 
 ----
 
