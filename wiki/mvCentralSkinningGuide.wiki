@@ -1,11 +1,28 @@
 #summary mvCentral Skin Designers Guide
-#labels Phase-Design
-
-= mvCentral Skinning Guide =
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
 
 <wiki:toc max_depth="3" />
+
+= Introduction =
+
+The purpose of this document is to help you understand how mvCentral interacts with the MediaPortal's skin engine. In this document you're going to find a general overview of how the plug-in is structured, the components that you, as a skinner should be interested in, and a list of available properties that you can use.
+
+It's recommended that you use the DefaultWide (16:9) or Default (4:3) skin as a base which is installed with the release. It is written by the same people that write the plug-in, so if you are having trouble getting something to work right, refer to this skin.
+
+If you want to see whats NEW in a particular version, search for the version throughout this page e.g. To see what has changed in v1.0.5, perform a search on term '1.0.5'.
+
+
+== Translations ==
+
+You can make use any of the plugins string translations to create button menus, headings, labels etc. Syntax for translations are just simple skin properties in the form #mvCentral.Translation.$(string).Label e.g.
+|| *Property* || *English* ||
+|| #mvCentral.Translation.Artists.Label || Artists ||
+|| #mvCentral.Translation.FavouriteVideos.Label || Favourite Videos ||
+|| #mvCentral.Translation.PlayAllRandom.Label || Play All (Random) ||
+|| #mvCentral.Translation.Tracks.Label || Tracks ||
+
+There is a wide selection of translated strings to choose from, [http://mvCentral.googlecode.com/svn/trunk/Language/mvCentral/en-US.xml here] here is a complete list. Use the Field value in the skin property to get the translation you require.
 
 ----
 == Skin Files required for mvCentral ==
@@ -182,12 +199,61 @@ There are two skin properties that are linked to this progress bar.
 || #mvCentral.Metadata.Scan.Active || This is set to the value *true* when the background process is active ||
 || #mvCentral.Metadata.Update.Progress|| The percentage complete, a value between 1 and 100 (Format #.##% Complete) Note: Complete is a localized string ||
 
+Code Example
+
+{{{
+    <control>
+      <type>label</type>
+      <description>Background Metadata Refresh Text Percentage</description>
+      <id>0</id>
+      <posX>320</posX>
+      <posY>600</posY>
+      <width>800</width>
+      <font>font9</font>
+      <align>left</align>
+      <label>Background Metadata Refresh: #mvCentral.Metadata.Update.Progress</label>
+      <visible>control.isvisible(12)</visible>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+    </control>
+    <control>
+      <description>Background Metadata Refresh Progress Bar</description>
+      <type>progress</type>
+      <id>12</id>
+      <posX>320</posX>
+      <posY>630</posY>
+      <width>440</width>
+      <height>20</height>
+      <label>-</label>
+      <texturebg>osd_progress_background.png</texturebg>
+      <onlymidtexture>yes</onlymidtexture>
+      <midwidth>440</midwidth>
+      <midheight>18</midheight>
+      <midoffsetX>1</midoffsetX>
+      <midoffsetY>1</midoffsetY>
+      <midtexture>osd_progress_mid.png</midtexture>
+      <animation effect="fade" time="70" reversible="false">visible</animation>
+      <visible>string.equals(#mvCentral.Metadata.Scan.Active,true)</visible>
+    </control>
+}}}
 
 
 ----
 == mvCentral.Playlist.xml ==
 
-Playlist Screen
+=== Controls ===
+ 
+|| *Control ID* || *Type* || *Text* || *Description ||
+|| 2 || Button || Layout: type || MediaPortal Standard Layout Button - Calls dialog with layout choices, Icon (small/large), Filmstrip, Playlist & Coverflow ||
+|| 9 || Button || Load || Load a dialog to allow loading pf previous saved Playlists ||
+|| 20 || Button || Shuffle || Shuffle currently loaded/playing Playlist ||
+|| 21 || Button || Save || Displays a virtual keboard to allow entry of playlist name to save ||
+|| 22 || Button || Clear || Clear the current Playlist ||
+|| 23 || Button || Play || Start plying the loaded Playlist ||
+|| 24 || Button || Next || Skip to next track in Playlist ||
+|| 25 || Button || Previous || Play previous track in Playlist ||
+|| 30 || ToggleButton || Repeat || If enabled will repeat the Playlist ||
+|| 40 || ToggleButton || Auto Play || When enabled will start playing the Playlist when loaded ||
+|| 50 || Facade || - || Facade control - Icon Small, Icon Large, Filmstrip, Playlist and Coverflow supported ||
 
 ----
 == mvCentral.!StatsAndInfo.xml ==
