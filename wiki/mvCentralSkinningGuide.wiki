@@ -6,6 +6,8 @@
 
 = Introduction =
 
+This document related to mvCentral release 1.0.1 (1st March 2012)
+
 The purpose of this document is to help you understand how mvCentral interacts with the MediaPortal's skin engine. In this document you're going to find a general overview of how the plug-in is structured, the components that you, as a skinner should be interested in, and a list of available properties that you can use.
 
 It's recommended that you use the DefaultWide (16:9) or Default (4:3) skin as a base which is installed with the release. It is written by the same people that write the plug-in, so if you are having trouble getting something to work right, refer to this skin.
@@ -22,7 +24,7 @@ You can make use any of the plugins string translations to create button menus, 
 || #mvCentral.Translation.PlayAllRandom.Label || Play All (Random) ||
 || #mvCentral.Translation.Tracks.Label || Tracks ||
 
-There is a wide selection of translated strings to choose from, [http://mvCentral.googlecode.com/svn/trunk/Language/mvCentral/en-US.xml here] here is a complete list. Use the Field value in the skin property to get the translation you require.
+There is a wide selection of translated strings to choose from, [http://mvCentral.googlecode.com/svn/trunk/Language/mvCentral/en-US.xml here] is a complete list. Use the Field value in the skin property to get the translation you require.
 
 ----
 == Skin Files required for mvCentral ==
@@ -39,6 +41,19 @@ If you find what you think is a bug or if you have any suggestions for improveme
 || DialogMvMultiSelect.xml || 112014 || Custom select dialog allowing for muliple selections ||
 
 ----
+== Common Properities ==
+
+*Primary Properities used within all screens*
+
+|| *Skin Property*     || *Description* ||
+|| #itemtype           || Set as the localized translation description of #itemcount ||
+|| #itemcount          || Set to total number of Artists ||	
+|| #selecteditem       || Label of current selected facade item ||	
+|| #selectedthumb      || Texture of current selected facade item ||	
+|| #mvCentral.Hierachy || This skin property is altered depending on where the user has navigated to, it displays the View names initially and will expand with each level the user accesses ||
+
+
+----
 == mvCentral.xml ==
 
 This is the main skin file for mvCentral and is displayed when the user first enters the plugin.
@@ -49,7 +64,7 @@ This screen will allow display of the video files in 4 views, Artists, Albums (I
  
 The following is a list of the controls used in this skin file, all but ID 12 and 50 are nornally used in a menu.
  
-|| *Control ID* || *Type* || *Text* || *Description ||
+|| *Control ID* || *Type* || *Text* || *Description* ||
 || 2 || Button || Layout: type || MediaPortal Standard Layout Button - Calls dialog with layout choices, List, Icon (small/large), Filmstrip & Coverflow ||
 || 3 || Button || Sort || MediaPortal Standard Sort Button - Calls dialog with sort options ||
 || 5 || Button || Switch View || Mediaportal Standard View Button - Calls dislog with View options, Artist, Album, Tracks and Genres ||
@@ -83,14 +98,6 @@ For each view there is a corrsponding skin property, this will be set to *true* 
 
 
 For each view there is a set of skin properties exposed when an items is selected, the following sections detail the view and properities that are exposed. 
-
-*Primary Properities used for all views*
-
-|| *Skin Property*     || *Description* ||
-|| #itemtype           || Set as the localized translation for Artist ||
-|| #itemcount          || Set to total number of Artists ||	
-|| #mvCentral.Hierachy || This skin property is altered depending on where the user has navigated to, it displays the View names initially and will expand with each level the user accesses ||
-
 
 === Artist View ===
 
@@ -240,9 +247,11 @@ Code Example
 ----
 == mvCentral.Playlist.xml ==
 
+The playlist screen allows the display of the current Playlist using various layouts, current supported layouts are Small Icon, Large Icon, Filmstrip, Playlist and Coverflow. This screen also allows for loading and saveing of playlistsas well as standard Playlist functions.
+
 === Controls ===
  
-|| *Control ID* || *Type* || *Text* || *Description ||
+|| *Control ID* || *Type* || *Text* || *Description* ||
 || 2 || Button || Layout: type || MediaPortal Standard Layout Button - Calls dialog with layout choices, Icon (small/large), Filmstrip, Playlist & Coverflow ||
 || 9 || Button || Load || Load a dialog to allow loading pf previous saved Playlists ||
 || 20 || Button || Shuffle || Shuffle currently loaded/playing Playlist ||
@@ -255,10 +264,101 @@ Code Example
 || 40 || ToggleButton || Auto Play || When enabled will start playing the Playlist when loaded ||
 || 50 || Facade || - || Facade control - Icon Small, Icon Large, Filmstrip, Playlist and Coverflow supported ||
 
+*Global Properites*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Hierachy	|| Set to the current navigation level ||
+|| #mvCentral.Playlist.Count	|| Set to the total number of videos in the Playlist ||
+|| #mvCentral.Playlist.Runtime || Set to the total runtime for all videos in the playlist ||
+
+*Selected item skin properities*
+
+|| *Skin Property* || *Description* ||
+|| #iswatched || Set to 'yes' if this video has been watched and 'no' if not. ||
+|| #mvCentral.Watched.Count || Set to the number of time the video has been watched (0 if not watched) ||
+|| #mvCentral.ArtistName || Set to the Artist Name ||
+|| #mvCentral.ArtistImg || Set to the path of the full resolution Artist image ||
+|| #mvCentral.ArtistTags	|| List of Last.FM tags seperated by a space ||
+|| #mvCentral.Genre	|| Set to the main genre for the Artist ||
+|| #mvCentral.BornOrFormed	|| Set to the date the Artist was born or group formed, if no data is available this is set to "No Born/Formed Details" ||
+|| #mvCentral.VideoImg	|| Set to the Video thumbnail image ||
+|| #mvCentral.Track.Rating || Set to rating value for the track between 0 and 9 ||
+|| #mvCentral.Composers || Set to the composer(s), if more than 1 composers are seperated by a comma ||
+|| #mvCentral.Description || Set to the full text of the track description or Artist Bio if no track description ||
+|| #mvCentral.Duration || Set to the playtime of the track in the format MM:SS or HH:MM:SS if longer than 1hr ||
+
+*Video and Audio Media Details as extracted and reported by MediaInfo*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.LocalMedia.videoresolution || Video resolution 720p, 1080i, 1080p etc ||
+|| #mvCentral.LocalMedia.videoaspectratio || Set to*fullscreen* or *widescreen* ||
+|| #mvCentral.LocalMedia.videocodec || Set to the video codec ||
+|| #mvCentral.LocalMedia.audiocodec || Set to the audio codec ||
+|| #mvCentral.LocalMedia.audiochannels || Set to the numbe of audio channels ||
+|| #mvCentral.LocalMedia.audio || Combined setting of #mvCentral.LocalMedia.audiocodec #mvCentral.LocalMedia.audiochannels ||
+ 
+
 ----
 == mvCentral.!StatsAndInfo.xml ==
 
-Status and Information screen
+The Status and Information screen provides an overview of the current video collection, it displays 
+
+*Total Artists and Videos
+*Most Played Artist
+*Most Played Video
+*Top Ten Played Videos
+*Progess bars for Metadata and Artwork Background Processes
+
+=== Controls ===
+ 
+|| *Control ID* || *Type* || *Text* || *Description* ||
+|| 12 || Progress || - || Metadata background process progress bar ||
+|| 13 || Progress || - || Artwork background process progress bar ||
+|| 14 || Button || - || Hidden button, need to be present and used as a default control when entering the plugin ||
+|| 15 || Label || Vx.x.x || Text set by the plugin to the version ||
+|| 16 || Label || - || Set by the plugin as 'Database has X Videos across X Artists' ||
+|| 18 || Image || - || Set by the plugin to the Video thumbnail image ||
+|| 20 || Image || - || Set by the plugin to the Artist image thumbnail ||
+|| 30 || Label || - || Top Ten display (1) - Set by the plugin to the 'Artist - Track' ||
+|| 31 || Label || - || Top Ten display (2) - Set by the plugin to the 'Artist - Track' ||
+|| 32 || Label || - || Top Ten display (3) - Set by the plugin to the 'Artist - Track' ||
+|| 33 || Label || - || Top Ten display (4) - Set by the plugin to the 'Artist - Track' ||
+|| 34 || Label || - || Top Ten display (5) - Set by the plugin to the 'Artist - Track' ||
+|| 35 || Label || - || Top Ten display (6) - Set by the plugin to the 'Artist - Track' ||
+|| 36 || Label || - || Top Ten display (7) - Set by the plugin to the 'Artist - Track' ||
+|| 37 || Label || - || Top Ten display (8) - Set by the plugin to the 'Artist - Track' ||
+|| 38 || Label || - || Top Ten display (9) - Set by the plugin to the 'Artist - Track' ||
+|| 39 || Label || - || Top Ten display (10) - Set by the plugin to the 'Artist - Track' ||
+
+*Exposed Skin Properites*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Hierachy	|| Set to the current navigation level ||
+|| #mvCentral.MostPlayed	|| Most played video track name ||
+|| #mvCentral.FavArtist	|| Most played Artist name ||
+
+=== Background Metadata & Artwork processes - Progress Bars ===
+
+Control ID 12 and 13 are progress bars they display the progess of the background Metadata and Artwork processess. 
+
+*Metadata Refresh Progress Bar*
+
+Control ID: 12 
+
+There is one skin propertie linked to this progress bar.
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Metadata.Update.Progress|| The percentage complete, a value between 1 and 100 (Format #.##% Complete) Note: Complete is a localized string ||
+
+*Artwork Refresh Progress Bar*
+
+Control ID: 13
+
+There is one skin propertie linked to this progress bar.
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Artwork.Update.Progress|| The percentage complete, a value between 1 and 100 (Format #.##% Complete) Note: Complete is a localized string ||
+
 
 ----
 == mvCentral.SmartDJ.xml ==
