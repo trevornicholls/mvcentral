@@ -1,3 +1,0 @@
-{{{
-[http://mvCentral.googlecode.com/svn/trunk/Language/mvCentral/en-US.xml here]
-}}}
