@@ -1854,12 +1854,12 @@ namespace mvCentral
 
     private void labelGoogleCode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://code.google.com/p/mvcentral/");
+      Process.Start(@"http://code.google.com/p/mvcentral");
     }
 
     private void labelManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://code.google.com/p/mvcentral/");
+      Process.Start(@"http://code.google.com/p/mvcentral/wiki/mvCentralSkinningGuide");
     }
 
     private void labelForum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
