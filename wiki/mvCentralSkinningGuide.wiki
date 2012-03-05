@@ -1,4 +1,5 @@
 #summary mvCentral Skin Designers Guide
+#labels Featured
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
 
