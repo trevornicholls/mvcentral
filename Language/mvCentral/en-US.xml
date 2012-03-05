@@ -117,7 +117,7 @@
         <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
         <string Field="SmartPlaylistTag">Select Tag for Playlist</string>
         <string Field="StatsAndInfo">Stats and Info</string>
-        <string Field="SelFiler">Select Filter Field...</string>
+        <string Field="SelFilter">Select Filter Field...</string>
         <string Field="SelArtists">Selected Artists</string>
         <string Field="SelVideos">Selected Videos</string>
 
