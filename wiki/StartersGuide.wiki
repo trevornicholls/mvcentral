@@ -1,4 +1,5 @@
 #summary Guide for beginners to mvCentral
+#labels Featured
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/mvCentralLogo.jpg]
 
