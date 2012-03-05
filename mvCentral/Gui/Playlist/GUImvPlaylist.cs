@@ -191,8 +191,8 @@ namespace mvCentral.Playlist
                 playlistPlayer.Play(0);
                 UpdateButtonStates();
               }
-              if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
-                playlistPlayer.PlayNext();
+              //if (action.wID == Action.ActionType.ACTION_NEXT_ITEM)
+              //  playlistPlayer.PlayNext();
             }
           }
           break;

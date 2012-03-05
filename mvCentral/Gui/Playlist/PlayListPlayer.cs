@@ -330,10 +330,10 @@ namespace mvCentral.Playlist
                 skipTrackActive = false;
               else
               {
+                SetProperties(item, true);
                 Reset();
                 _currentPlayList = PlayListType.PLAYLIST_NONE;
               }
-              SetProperties(item, true);
               if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
                 scrobbleSubmit(item);
             }
@@ -790,6 +790,16 @@ namespace mvCentral.Playlist
       //#Play.Current.Runtime
       //#Play.Current.MPAARating
 
+      logger.Debug("******************************************************");
+
+      if (clear)
+        logger.Debug("************* CLEAR Play Properities event *************");
+      else
+        logger.Debug("************** SET Play Properities event **************");
+
+      logger.Debug("******************************************************");
+
+
       if (item == null)
         return;
 
@@ -799,7 +809,7 @@ namespace mvCentral.Playlist
       string osdArtistImage = string.Empty;
       string album = string.Empty;
       string genre = string.Empty;
-      string isWatched = string.Empty;
+      string isWatched = "no";
 
       DBArtistInfo artistInfo = null;
       DBTrackInfo trackInfo = null;
@@ -809,7 +819,7 @@ namespace mvCentral.Playlist
         // Only sleep if setting the props
         Thread.Sleep(2000);
 
-        trackInfo = item.Track;
+        trackInfo = (DBTrackInfo)item.Track;
         artistInfo = DBArtistInfo.Get(trackInfo);
         // may not have an album
         if (trackInfo.AlbumInfo.Count > 0)
@@ -826,6 +836,12 @@ namespace mvCentral.Playlist
         if (artistInfo.Genre.Trim().Length > 0)
           genre = artistInfo.Genre;
 
+        // Has this video been watched
+        DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
+        if (userSettings.WatchedCount > 0)
+          isWatched = "yes";
+
+
       }
       // Std Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
@@ -834,12 +850,8 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Current.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
       GUIPropertyManager.SetProperty("#Play.Current.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
       GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : trackInfo.bioContent);
-      // Has this video been watched
-      DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
-      if (userSettings.WatchedCount > 0)
-        GUIPropertyManager.SetProperty("#Play.Current.IsWatched", "yes");
-      else
-        GUIPropertyManager.SetProperty("#Play.Current.IsWatched", "no");
+      GUIPropertyManager.SetProperty("#Play.Current.IsWatched", isWatched);
+
       // mvCentral Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.mvArtist", clear ? string.Empty : artistInfo.Artist);
       GUIPropertyManager.SetProperty("#Play.Current.mvAlbum", clear ? string.Empty : album);
@@ -858,6 +870,33 @@ namespace mvCentral.Playlist
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", mediaInfo.VideoFrameRate.ToString());
         GUIPropertyManager.SetProperty("#Play.Current.AudioCodec.Texture", mediaInfo.AudioCodec);
         GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", mediaInfo.AudioChannels);
+
+        if (!clear)
+        {
+          logger.Debug("**** Setting Play Properities for {0} ****", artistInfo.Artist);
+          logger.Debug(" ");
+          logger.Debug("#Play.Current.Title {0}", title);
+          logger.Debug("#Play.Current.Thumb {0}", osdImage);
+          logger.Debug("#Play.Current.Genre {0}", genre);
+          logger.Debug("#Play.Current.Runtime {0}", trackDuration(trackInfo.PlayTime));
+          logger.Debug("#Play.Current.Rating {0}", trackInfo.Rating.ToString());
+          logger.Debug("#Play.Current.Plot {0}", trackInfo.bioContent);
+          logger.Debug("#Play.Current.IsWatched {0}", isWatched);
+          logger.Debug("#Play.Current.mvArtist {0}", artistInfo.Artist);
+          logger.Debug("#Play.Current.mvAlbum {0}", album);
+          logger.Debug("#Play.Current.mvVideo {0}", title);
+          logger.Debug("#Play.Current.Video.Thumb {0}", osdVideoImage);
+          logger.Debug("#mvCentral.isPlaying {0}", clear ? "false" : "true");
+          logger.Debug("#Play.Current.AspectRatio {0}", mediaInfo.VideoAspectRatio);
+          logger.Debug("#Play.Current.VideoCodec.Texture {0}", mediaInfo.VideoCodec);
+          logger.Debug("#Play.Current.VideoResolution {0}", mediaInfo.VideoResolution);
+          logger.Debug("#mvCentral.Current.videowidth {0}", mediaInfo.VideoWidth.ToString());
+          logger.Debug("#mvCentral.Current.videoheight {0}", mediaInfo.VideoHeight.ToString());
+          logger.Debug("#mvCentral.Current.videoframerate {0}", mediaInfo.VideoFrameRate.ToString());
+          logger.Debug("#Play.Current.AudioCodec.Texture {0}", mediaInfo.AudioCodec);
+          logger.Debug("#Play.Current.AudioChannels {0}", mediaInfo.AudioChannels);
+          logger.Debug(" ");
+        }
       }
       catch
       {
