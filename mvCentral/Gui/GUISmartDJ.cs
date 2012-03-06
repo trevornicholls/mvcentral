@@ -753,7 +753,7 @@ namespace mvCentral.GUI
         {
           GUIListItem listItem = facadeLayout[i];
           PlayListItem playListItem = new PlayListItem();
-          DBTrackInfo mv = (DBTrackInfo)listItem.TVTag;
+          DBTrackInfo mv = (DBTrackInfo)listItem.MusicTag;
           playListItem.Track = mv;
           playlist.Add(playListItem);
         }
