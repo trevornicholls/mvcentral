@@ -279,6 +279,7 @@ namespace mvCentral.Localizations
     public static string FailedMountingImage = "Sorry, failed mounting DVD Image";
     public static string FavouriteVideos = "Favourite Videos";
     public static string Formed = "Formed";
+    public static string Field = "Field";
 
     // G
     public static string Genre = "Genre";

@@ -516,33 +516,33 @@ namespace mvCentral.GUI
       artistPlayList.Clear();
       if (fieldSelected1 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("Field: {0} ({1})", fieldSelected1, customSearchStr1));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("{0}: {1} ({2})",Localization.Field, fieldSelected1, customSearchStr1));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton2);
         genFilterPlaylist(getFieldType(fieldSelected1), customSearchStr1);
       } else if (fieldSelected2 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("Field: {0} ({1})", fieldSelected2, customSearchStr2));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected2, customSearchStr2));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton3);
         genFilterPlaylist(getFieldType(fieldSelected2), customSearchStr2);
       } else if (fieldSelected3 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("Field: {0} ({1})", fieldSelected3, customSearchStr3));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected3, customSearchStr3));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton4);
         genFilterPlaylist(getFieldType(fieldSelected3), customSearchStr3);
       } else if (fieldSelected4 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("Field: {0} ({1})", fieldSelected4, customSearchStr4));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected4, customSearchStr4));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton5);
         genFilterPlaylist(getFieldType(fieldSelected4), customSearchStr4);
       } else if (fieldSelected5 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("Field: {0} ({1})", fieldSelected5, customSearchStr5));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected5, customSearchStr5));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton6);
         genFilterPlaylist(getFieldType(fieldSelected5), customSearchStr5);
       }
       else if (fieldSelected6 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, string.Format("Field: {0} ({1})", fieldSelected6, customSearchStr6));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected6, customSearchStr6));
         genFilterPlaylist(getFieldType(fieldSelected6), customSearchStr6);
       }
       else
@@ -566,7 +566,7 @@ namespace mvCentral.GUI
       if (string.IsNullOrEmpty(fieldName))
       {
         fieldName = setFilterField();
-        GUIControl.SetControlLabel(windowID, (int)controlID, "Field: " + fieldName);
+        GUIControl.SetControlLabel(windowID, (int)controlID, Localization.Field + ": " + fieldName);
       }
       searchValue = filterValue(fieldName, out thisField);
       if (searchValue.Equals("None", StringComparison.OrdinalIgnoreCase))
@@ -576,7 +576,7 @@ namespace mvCentral.GUI
         return FieldSetup.Clear;
       }
 
-      GUIControl.SetControlLabel(windowID, (int)controlID, string.Format("Field: {0} ({1})", fieldName, searchValue));
+      GUIControl.SetControlLabel(windowID, (int)controlID, string.Format("{0}: {1} ({2})", Localization.Field, fieldName, searchValue));
       genFilterPlaylist(thisField, searchValue);
       return FieldSetup.Success;
 
@@ -1389,31 +1389,31 @@ namespace mvCentral.GUI
         // Now set the existing valuses
         if (fieldSelected1 != string.Empty)
         {
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("Field: {0} ({1})", fieldSelected1, customSearchStr1));
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected1, customSearchStr1));
           GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
         }
         if (fieldSelected2 != string.Empty)
         {
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("Field: {0} ({1})", fieldSelected2, customSearchStr2));
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected2, customSearchStr2));
           GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
         }
         if (fieldSelected3 != string.Empty)
         {
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("Field: {0} ({1})", fieldSelected3, customSearchStr3));
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected3, customSearchStr3));
           GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
         }
         if (fieldSelected4 != string.Empty)
         {
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("Field: {0} ({1})", fieldSelected4, customSearchStr4));
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected4, customSearchStr4));
           GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
         }
         if (fieldSelected5 != string.Empty)
         {
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("Field: {0} ({1})", fieldSelected5, customSearchStr5));
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected5, customSearchStr5));
           GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
         }
         if (fieldSelected6 != string.Empty)
-          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, string.Format("Field: {0} ({1})", fieldSelected6, customSearchStr6));
+          GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected6, customSearchStr6));
         // Build and display the facade
         buildFacade();
       }
