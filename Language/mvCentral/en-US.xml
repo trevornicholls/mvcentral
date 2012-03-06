@@ -49,11 +49,11 @@
         // F
         <string Field="FailedMountingImage">Sorry, failed mounting DVD Image</string>
         <string Field="FavouriteVideos">Favourite Videos</string>
-        <string Field="Genre">Genre</string>
         <string Field="Formed">Formed</string>
+        <string Field="Field">Field</string>
 
         // G
-        <string Field="G-test">Test for G</string>
+        <string Field="Genre">Genre</string>
 
         // H
         <string Field="HighestRated">Highest Rated</string>
