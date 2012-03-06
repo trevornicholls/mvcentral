@@ -816,6 +816,7 @@ namespace mvCentral.Playlist
 
       if (!clear)
       {
+        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
         // Only sleep if setting the props
         Thread.Sleep(2000);
 
@@ -909,6 +910,10 @@ namespace mvCentral.Playlist
         GUIPropertyManager.SetProperty("#Play.Current.AudioCodec.Texture", string.Empty);
         GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", string.Empty);
       }
+
+      if (!clear)
+        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+
     }
 
     /// <summary>
