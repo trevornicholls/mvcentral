@@ -24,6 +24,7 @@
 #endregion
 
 using System;
+using System.Timers;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -90,7 +91,7 @@ namespace mvCentral.Playlist
       protected IMediaControl _mediaCtrl = null;
 
       private System.Windows.Forms.Timer playTimer = new System.Windows.Forms.Timer();
-       public bool msgblocked1;
+      public bool msgblocked1;
       bool IPlayer.msgblocked { get { return msgblocked1; } set { msgblocked1 = value; } }
 
       public bool Playing
@@ -254,6 +255,8 @@ namespace mvCentral.Playlist
     
     LastFMScrobble LastFMProfile = new LastFMScrobble();
 
+    private System.Timers.Timer timerClearProperty;
+
     public PlayListPlayer()
     {
       Init();
@@ -279,6 +282,8 @@ namespace mvCentral.Playlist
 
     public void Init()
     {
+      timerClearProperty = new System.Timers.Timer(5000);
+
       GUIWindowManager.Receivers += new SendMessageHandler(this.OnMessage);
       GUIWindowManager.OnNewAction += new OnActionHandler(this.OnNewAction);
 
@@ -816,9 +821,11 @@ namespace mvCentral.Playlist
 
       if (!clear)
       {
-        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
         // Only sleep if setting the props
         Thread.Sleep(2000);
+        timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
+        timerClearProperty.Enabled = true;
+        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
 
         trackInfo = (DBTrackInfo)item.Track;
         artistInfo = DBArtistInfo.Get(trackInfo);
@@ -909,11 +916,16 @@ namespace mvCentral.Playlist
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", string.Empty);
         GUIPropertyManager.SetProperty("#Play.Current.AudioCodec.Texture", string.Empty);
         GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", string.Empty);
-      }
+      }      
 
-      if (!clear)
-        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+    }
 
+    void timerClearProperty_Elapsed(object sender, ElapsedEventArgs e)
+    {
+      logger.Debug("************* Clear Property Timer Fired ****************");
+      GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+      timerClearProperty.Elapsed -= new ElapsedEventHandler(timerClearProperty_Elapsed);
+      timerClearProperty.Enabled = false;
     }
 
     /// <summary>
