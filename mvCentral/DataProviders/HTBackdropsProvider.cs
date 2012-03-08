@@ -50,12 +50,12 @@ namespace mvCentral.DataProviders
     private const string SearchArtistImageMBID = "http://htbackdrops.com/api/{0}/searchXML?mbid={1}&dratio=1:1";
     private const string DownloadImage = "http://htbackdrops.com/api/{0}/download/{1}/fullsize";
 
-    private static bool _strippedPrefixes;
-    private static bool _logMissing;
-    private static bool _useAlternative = true;
-    private static bool _useProxy;
-    private static string _proxyHost;
-    private static int _proxyPort;
+    //private static bool _strippedPrefixes;
+    //private static bool _logMissing;
+    //private static bool _useAlternative = true;
+    //private static bool _useProxy;
+    //private static string _proxyHost;
+    //private static int _proxyPort;
 
     #endregion
 

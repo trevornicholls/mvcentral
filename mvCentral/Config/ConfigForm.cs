@@ -3445,7 +3445,7 @@ namespace mvCentral
             MessageBox.Show("Failed loading art from specified location.");
 
         }
-        catch (OutOfMemoryException ex)
+        catch (OutOfMemoryException)
         {
           MessageBox.Show("This is not a valid image file");
         }
