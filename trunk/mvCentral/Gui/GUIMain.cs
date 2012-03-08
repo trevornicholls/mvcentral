@@ -176,9 +176,26 @@ namespace mvCentral.GUI
       LastThreeVideos();
       // listen for additions to DB
       mvCentralCore.Importer.MusicVideoStatusChanged += new MusicVideoImporter.MusicVideoStatusChangedHandler(mvStatusChangedListener);
+      // Listen for video screen changes
+      GUIGraphicsContext.OnVideoWindowChanged += new VideoWindowChangedHandler(GUIGraphicsContext_OnVideoWindowChanged);
       // Listen to updates from artwork 
       mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
       return success;
+    }
+
+    void GUIGraphicsContext_OnVideoWindowChanged()
+    {
+      if (g_Player.Playing && (GUIWindowManager.ActiveWindow == (int)Window.WINDOW_FULLSCREEN_VIDEO) && !GUIGraphicsContext.IsFullScreenVideo)
+      {
+        bool xx = GUIGraphicsContext.IsFullScreenVideo;
+
+        if (GUIPropertyManager.GetProperty("#mvCentral.Play.Started") == "false")
+        {
+          GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
+          Thread.Sleep(1000);
+          GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+        }
+      }
     }
     /// <summary>
     /// Handle keyboard/remote action

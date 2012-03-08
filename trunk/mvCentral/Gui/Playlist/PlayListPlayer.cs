@@ -37,7 +37,6 @@ using DShowNET.Helper;
 using DirectShowLib;
 using DirectShowLib.Dvd;
 
-using MediaPortal.GUI.Library;
 using Window = MediaPortal.GUI.Library.GUIWindow.Window;
 using MediaPortal.GUI.Video;
 using MediaPortal.Dialogs;
@@ -46,6 +45,7 @@ using MediaPortal.Player;
 using MediaPortal.Playlists;
 using MediaPortal.Profile;
 using MediaPortal.Configuration;
+using MediaPortal.GUI.Library;
 
 using mvCentral.Database;
 using mvCentral.ROT;
@@ -258,6 +258,7 @@ namespace mvCentral.Playlist
     LastFMScrobble LastFMProfile = new LastFMScrobble();
 
     private System.Timers.Timer timerClearProperty;
+
 
     public PlayListPlayer()
     {
