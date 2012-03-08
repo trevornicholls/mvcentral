@@ -281,7 +281,9 @@ namespace mvCentral.Playlist
         return singletonPlayer;
       }
     }
-
+    /// <summary>
+    /// Initilize
+    /// </summary>
     public void Init()
     {
       timerClearProperty = new System.Timers.Timer(5000);
@@ -293,7 +295,10 @@ namespace mvCentral.Playlist
       MediaPortal.Util.Utils.OnStartExternal += new MediaPortal.Util.Utils.UtilEventHandler(onStartExternal);
       MediaPortal.Util.Utils.OnStopExternal += new MediaPortal.Util.Utils.UtilEventHandler(onStopExternal);
     }
-
+    /// <summary>
+    /// Handle key while media playing
+    /// </summary>
+    /// <param name="action"></param>
     void OnNewAction(MediaPortal.GUI.Library.Action action)
     {
       PlayListItem item = GetCurrentItem();
@@ -319,7 +324,10 @@ namespace mvCentral.Playlist
           break;
       }
     }
-
+    /// <summary>
+    /// Deal with GUI messages
+    /// </summary>
+    /// <param name="message"></param>
     public void OnMessage(GUIMessage message)
     {
       switch (message.Message)
@@ -453,13 +461,19 @@ namespace mvCentral.Playlist
 
       return playlist[_currentItem];
     }
-
+    /// <summary>
+    /// Get next item in playlist
+    /// </summary>
+    /// <returns></returns>
     public PlayListItem GetNextItem()
     {
-      if (_currentPlayList == PlayListType.PLAYLIST_NONE) return null;
+      if (_currentPlayList == PlayListType.PLAYLIST_NONE) 
+        return null;
 
       PlayList playlist = GetPlaylist(_currentPlayList);
-      if (playlist.Count <= 0) return null;
+      if (playlist.Count <= 0) 
+        return null;
+
       int iItem = _currentItem;
       iItem++;
 
@@ -579,13 +593,18 @@ namespace mvCentral.Playlist
           logger.Debug("PlaylistPlayer.Play() no playlist selected");
           return false;
         }
+
         PlayList playlist = GetPlaylist(_currentPlayList);
+
         if (playlist.Count <= 0)
         {
           logger.Debug("PlaylistPlayer.Play() playlist is empty");
           return false;
         }
-        if (iItem < 0) iItem = 0;
+
+        if (iItem < 0) 
+          iItem = 0;
+        
         if (iItem >= playlist.Count)
         {
           if (skipmissing)
@@ -806,7 +825,6 @@ namespace mvCentral.Playlist
 
       logger.Debug("******************************************************");
 
-
       if (item == null)
         return;
 
@@ -847,8 +865,6 @@ namespace mvCentral.Playlist
         DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
         if (userSettings.WatchedCount > 0)
           isWatched = "yes";
-
-
       }
       // Std Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
@@ -880,7 +896,7 @@ namespace mvCentral.Playlist
 
         if (!clear)
         {
-          logger.Debug("**** Setting Play Properities for {0} ****", artistInfo.Artist);
+          logger.Debug("**** Setting Play Properities for {0} - {1} (Item:{2}) ****", artistInfo.Artist, title, _currentItem);
           logger.Debug(" ");
           logger.Debug("#Play.Current.Title {0}", title);
           logger.Debug("#Play.Current.Thumb {0}", osdImage);
@@ -917,27 +933,172 @@ namespace mvCentral.Playlist
         GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", string.Empty);
       }
 
-
+      // Set 5sec timer to clear the Play Started Property
       if (!clear)
       {
         timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
         timerClearProperty.Enabled = true;
         GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
+        // Grab the next item
+        PlayListItem nextItem = null;
+        nextItem = GetNextItem();
+        // If we have one lets set the next properties
+        if (nextItem != null)
+          setNextItemProperties(nextItem, clear);
 
-        //GUIDialogNotify dlg = (GUIDialogNotify)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_NOTIFY);
-        //dlg.SetHeading("mvCentral Video Started");
-        //dlg.TimeOut = 5;
-        //dlg.SetText(string.Format("\n           {0}\n           {1}\n           {2}\n           {3}", artistInfo.Artist, title, genre, trackDuration(trackInfo.PlayTime)));
-        //dlg.SetImage(osdImage);
-        //System.Drawing.Size imgSize = new System.Drawing.Size();
-        //imgSize.Height = 130;
-        //imgSize.Width = 130;
-        //dlg.SetImageDimensions(imgSize, false, false);
-        //dlg.DoModal(GUIWindowManager.ActiveWindow);
+
+        
       }
-
     }
+    /// <summary>
+    /// Set the next item properities
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="clear"></param>
+    void setNextItemProperties(PlayListItem item, bool clear)
+    {
+      // List of Play properities that can be overidden
+      //#Play.Next.Director
+      //#Play.Next.Genre
+      //#Play.Next.Cast
+      //#Play.Next.DVDLabel
+      //#Play.Next.IMDBNumber
+      //#Play.Next.File
+      //#Play.Next.Plot
+      //#Play.Next.PlotOutline
+      //#Play.Next.UserReview
+      //#Play.Next.Rating
+      //#Play.Next.TagLine
+      //#Play.Next.Votes
+      //#Play.Next.Credits
+      //#Play.Next.Thumb
+      //#Play.Next.Title
+      //#Play.Next.Year
+      //#Play.Next.Runtime
+      //#Play.Next.MPAARating
 
+      // Exit if we do not have a valid item
+      if (item == null)
+        return;
+
+      logger.Debug("******************************************************");
+
+      if (clear)
+        logger.Debug("************* CLEAR Next Properities event *************");
+      else
+        logger.Debug("************** SET Next Properities event **************");
+
+      logger.Debug("******************************************************");
+
+
+
+      string title = string.Empty;
+      string osdImage = string.Empty;
+      string osdVideoImage = string.Empty;
+      string osdArtistImage = string.Empty;
+      string album = string.Empty;
+      string genre = string.Empty;
+      string isWatched = "no";
+
+      DBArtistInfo artistInfo = null;
+      DBTrackInfo trackInfo = null;
+
+      if (!clear)
+      {
+        trackInfo = (DBTrackInfo)item.Track;
+        artistInfo = DBArtistInfo.Get(trackInfo);
+        // may not have an album
+        if (trackInfo.AlbumInfo.Count > 0)
+          album = trackInfo.AlbumInfo[0].Album;
+
+        title = trackInfo.Track;
+
+        if (System.IO.File.Exists(artistInfo.ArtFullPath))
+          osdImage = artistInfo.ArtFullPath;
+
+        if (System.IO.File.Exists(trackInfo.ArtFullPath))
+          osdVideoImage = trackInfo.ArtFullPath;
+
+        if (artistInfo.Genre.Trim().Length > 0)
+          genre = artistInfo.Genre;
+
+        // Has this video been watched
+        DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
+        if (userSettings.WatchedCount > 0)
+          isWatched = "yes";
+
+      }
+      // Std Play Properities
+      GUIPropertyManager.SetProperty("#Play.Next.Title", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Next.Thumb", clear ? string.Empty : osdImage);
+      GUIPropertyManager.SetProperty("#Play.Next.Genre", clear ? string.Empty : genre);
+      GUIPropertyManager.SetProperty("#Play.Next.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
+      GUIPropertyManager.SetProperty("#Play.Next.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
+      GUIPropertyManager.SetProperty("#Play.Next.Plot", clear ? string.Empty : trackInfo.bioContent);
+      GUIPropertyManager.SetProperty("#Play.Next.IsWatched", isWatched);
+
+      // mvCentral Play Properities
+      GUIPropertyManager.SetProperty("#Play.Next.mvArtist", clear ? string.Empty : artistInfo.Artist);
+      GUIPropertyManager.SetProperty("#Play.Next.mvAlbum", clear ? string.Empty : album);
+      GUIPropertyManager.SetProperty("#Play.Next.mvVideo", clear ? string.Empty : title);
+      GUIPropertyManager.SetProperty("#Play.Next.Video.Thumb", clear ? string.Empty : osdVideoImage);
+      // Video Properities
+      try
+      {
+        DBLocalMedia mediaInfo = (DBLocalMedia)trackInfo.LocalMedia[0];
+        GUIPropertyManager.SetProperty("#Play.Next.AspectRatio", mediaInfo.VideoAspectRatio);
+        GUIPropertyManager.SetProperty("#Play.Next.VideoCodec.Texture", mediaInfo.VideoCodec);
+        GUIPropertyManager.SetProperty("#Play.Next.VideoResolution", mediaInfo.VideoResolution);
+        GUIPropertyManager.SetProperty("#mvCentral.Next.videowidth", mediaInfo.VideoWidth.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.Next.videoheight", mediaInfo.VideoHeight.ToString());
+        GUIPropertyManager.SetProperty("#mvCentral.Next.videoframerate", mediaInfo.VideoFrameRate.ToString());
+        GUIPropertyManager.SetProperty("#Play.Next.AudioCodec.Texture", mediaInfo.AudioCodec);
+        GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", mediaInfo.AudioChannels);
+
+        if (!clear)
+        {
+          logger.Debug("**** Setting Next Properities for {0} - {1) ****", artistInfo.Artist, title);
+          logger.Debug(" ");
+          logger.Debug("#Play.Next.Title {0}", title);
+          logger.Debug("#Play.Next.Thumb {0}", osdImage);
+          logger.Debug("#Play.Next.Genre {0}", genre);
+          logger.Debug("#Play.Next.Runtime {0}", trackDuration(trackInfo.PlayTime));
+          logger.Debug("#Play.Next.Rating {0}", trackInfo.Rating.ToString());
+          logger.Debug("#Play.Next.Plot {0}", trackInfo.bioContent);
+          logger.Debug("#Play.Next.IsWatched {0}", isWatched);
+          logger.Debug("#Play.Next.mvArtist {0}", artistInfo.Artist);
+          logger.Debug("#Play.Next.mvAlbum {0}", album);
+          logger.Debug("#Play.Next.mvVideo {0}", title);
+          logger.Debug("#Play.Next.Video.Thumb {0}", osdVideoImage);
+          logger.Debug("#mvCentral.isPlaying {0}", clear ? "false" : "true");
+          logger.Debug("#Play.Next.AspectRatio {0}", mediaInfo.VideoAspectRatio);
+          logger.Debug("#Play.Next.VideoCodec.Texture {0}", mediaInfo.VideoCodec);
+          logger.Debug("#Play.Next.VideoResolution {0}", mediaInfo.VideoResolution);
+          logger.Debug("#mvCentral.Next.videowidth {0}", mediaInfo.VideoWidth.ToString());
+          logger.Debug("#mvCentral.Next.videoheight {0}", mediaInfo.VideoHeight.ToString());
+          logger.Debug("#mvCentral.Next.videoframerate {0}", mediaInfo.VideoFrameRate.ToString());
+          logger.Debug("#Play.Next.AudioCodec.Texture {0}", mediaInfo.AudioCodec);
+          logger.Debug("#Play.Next.AudioChannels {0}", mediaInfo.AudioChannels);
+          logger.Debug(" ");
+        }
+      }
+      catch
+      {
+        GUIPropertyManager.SetProperty("#Play.Next.AspectRatio", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Next.VideoCodec.Texture", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Next.VideoResolution", string.Empty);
+        GUIPropertyManager.SetProperty("#mvCentral.Next.videowidth", string.Empty);
+        GUIPropertyManager.SetProperty("#mvCentral.Next.videoheight", string.Empty);
+        GUIPropertyManager.SetProperty("#mvCentral.Next.videoframerate", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Next.AudioCodec.Texture", string.Empty);
+        GUIPropertyManager.SetProperty("#Play.Next.AudioChannels", string.Empty);
+      }
+    }
+    /// <summary>
+    /// Reset the #mvCentral.Play.Started on timer elapsed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
     void timerClearProperty_Elapsed(object sender, ElapsedEventArgs e)
     {
       logger.Debug("************* Clear Property Timer Fired ****************");
@@ -1045,7 +1206,8 @@ namespace mvCentral.Playlist
     {
       switch (nPlayList)
       {
-        case PlayListType.PLAYLIST_MVCENTRAL: return _mvCentralPlayList;
+        case PlayListType.PLAYLIST_MVCENTRAL: 
+          return _mvCentralPlayList;
         default:
           _emptyPlayList.Clear();
           return _emptyPlayList;
