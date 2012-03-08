@@ -563,7 +563,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>2</Build>
-      <Revision>354</Revision>
+      <Revision>356</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1373,21 +1373,21 @@ Release Version
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{8ec47e2d-fe66-4581-b620-16234cdab3aa}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{417ea420-43c9-49af-9e58-cd80edeca880}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{db78d268-2a8d-4122-83e0-eb946f9076f7}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b421dbd5-fe70-4efa-b0ec-d03cd977c761}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{627012b1-3571-4d9a-adee-3da31446383c}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{982bbaf9-401a-4fc8-bac2-0d52dec4fb30}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
