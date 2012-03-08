@@ -834,7 +834,7 @@ namespace mvCentral.Playlist
           DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
           tt += TimeSpan.Parse(theTrack.PlayTime);
         }
-        catch (Exception e)
+        catch
         {
           DBTrackInfo theTrack = (DBTrackInfo)track.TVTag;
           logger.Debug("Exception processing total playlist time for track {0} with a playtime of {1}", theTrack.Track,theTrack.PlayTime);

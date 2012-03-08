@@ -48,12 +48,12 @@ namespace mvCentral.DataProviders
 
     private Match _match = null;
     private string _strFormed = "";
-    private static bool _strippedPrefixes;
-    private static bool _logMissing;
+    //private static bool _strippedPrefixes;
+    //private static bool _logMissing;
     private static bool _useAlternative = true;
-    private static bool _useProxy;
-    private static string _proxyHost;
-    private static int _proxyPort;
+    //private static bool _useProxy;
+    //private static string _proxyHost;
+    //private static int _proxyPort;
 
     List<string> albumURLList = new List<string>();
     List<string> songURLList = new List<string>();
@@ -703,10 +703,6 @@ namespace mvCentral.DataProviders
         logger.Debug("GetArtistURL: Request URL: {0}", strURL);
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
 
         x.ProtocolVersion = HttpVersion.Version10;
         x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
@@ -770,11 +766,6 @@ namespace mvCentral.DataProviders
         logger.Debug("GetArtistURLAlternative: Request URL: {0}", strURL);
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
-
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
 
         x.ProtocolVersion = HttpVersion.Version10;
         x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
@@ -887,11 +878,6 @@ namespace mvCentral.DataProviders
       {
         var x = (HttpWebRequest)WebRequest.Create(strArtistURL);
 
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
-
         x.ProtocolVersion = HttpVersion.Version10;
         x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
         x.ContentType = "text/html";
@@ -998,11 +984,6 @@ namespace mvCentral.DataProviders
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
 
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
-
         x.ProtocolVersion = HttpVersion.Version10;
         x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
         x.ContentType = "text/html";
@@ -1070,11 +1051,6 @@ namespace mvCentral.DataProviders
         artistURL = strRedirect;
 
         var x = (HttpWebRequest)WebRequest.Create(strRedirect);
-
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
 
         x.ProtocolVersion = HttpVersion.Version10;
         x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
@@ -1199,11 +1175,6 @@ namespace mvCentral.DataProviders
 
         var x = (HttpWebRequest)WebRequest.Create(strAlbumURL);
 
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
-
         using (var y = (HttpWebResponse)x.GetResponse())
         {
           using (var z = y.GetResponseStream())
@@ -1248,11 +1219,6 @@ namespace mvCentral.DataProviders
 
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
-
-        if (_useProxy)
-        {
-          x.Proxy = new WebProxy(_proxyHost, _proxyPort);
-        }
 
         using (var y = (HttpWebResponse)x.GetResponse())
         {
