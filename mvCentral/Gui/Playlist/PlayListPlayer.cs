@@ -38,7 +38,9 @@ using DirectShowLib;
 using DirectShowLib.Dvd;
 
 using MediaPortal.GUI.Library;
+using Window = MediaPortal.GUI.Library.GUIWindow.Window;
 using MediaPortal.GUI.Video;
+using MediaPortal.Dialogs;
 using MediaPortal.Util;
 using MediaPortal.Player;
 using MediaPortal.Playlists;
@@ -823,9 +825,6 @@ namespace mvCentral.Playlist
       {
         // Only sleep if setting the props
         Thread.Sleep(2000);
-        timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
-        timerClearProperty.Enabled = true;
-        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
 
         trackInfo = (DBTrackInfo)item.Track;
         artistInfo = DBArtistInfo.Get(trackInfo);
@@ -916,7 +915,26 @@ namespace mvCentral.Playlist
         GUIPropertyManager.SetProperty("#mvCentral.Current.videoframerate", string.Empty);
         GUIPropertyManager.SetProperty("#Play.Current.AudioCodec.Texture", string.Empty);
         GUIPropertyManager.SetProperty("#Play.Current.AudioChannels", string.Empty);
-      }      
+      }
+
+
+      if (!clear)
+      {
+        timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
+        timerClearProperty.Enabled = true;
+        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
+
+        //GUIDialogNotify dlg = (GUIDialogNotify)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_NOTIFY);
+        //dlg.SetHeading("mvCentral Video Started");
+        //dlg.TimeOut = 5;
+        //dlg.SetText(string.Format("\n           {0}\n           {1}\n           {2}\n           {3}", artistInfo.Artist, title, genre, trackDuration(trackInfo.PlayTime)));
+        //dlg.SetImage(osdImage);
+        //System.Drawing.Size imgSize = new System.Drawing.Size();
+        //imgSize.Height = 130;
+        //imgSize.Width = 130;
+        //dlg.SetImageDimensions(imgSize, false, false);
+        //dlg.DoModal(GUIWindowManager.ActiveWindow);
+      }
 
     }
 
