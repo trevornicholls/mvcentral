@@ -556,8 +556,8 @@ namespace mvCentral.Playlist
         int iItem = 0;
         foreach (GUIListItem item in itemlist)
         {
-          facadeLayout.Add(item);
           item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onFacadeItemSelected);
+          facadeLayout.Add(item);
 
           //	synchronize playlist with current directory
           if (strFileName.Length > 0 && item.Path == strFileName)
