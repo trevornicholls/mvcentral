@@ -346,7 +346,7 @@ namespace mvCentral.Playlist
                 skipTrackActive = false;
               else
               {
-                SetProperties(item, true);
+                //SetProperties(item, true);
                 Reset();
                 _currentPlayList = PlayListType.PLAYLIST_NONE;
               }
@@ -829,6 +829,9 @@ namespace mvCentral.Playlist
       if (item == null)
         return;
 
+      logger.Debug("Set #mvCentral.Play.Started = false");
+      GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+
       string title = string.Empty;
       string osdImage = string.Empty;
       string osdVideoImage = string.Empty;
@@ -939,16 +942,14 @@ namespace mvCentral.Playlist
       {
         timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
         timerClearProperty.Enabled = true;
+        logger.Debug("Set #mvCentral.Play.Started = true");
         GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
         // Grab the next item
         PlayListItem nextItem = null;
         nextItem = GetNextItem();
         // If we have one lets set the next properties
         if (nextItem != null)
-          setNextItemProperties(nextItem, clear);
-
-
-        
+          setNextItemProperties(nextItem, clear);       
       }
     }
     /// <summary>
@@ -1103,6 +1104,7 @@ namespace mvCentral.Playlist
     void timerClearProperty_Elapsed(object sender, ElapsedEventArgs e)
     {
       logger.Debug("************* Clear Property Timer Fired ****************");
+      logger.Debug("Set #mvCentral.Play.Started = false");
       GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
       timerClearProperty.Elapsed -= new ElapsedEventHandler(timerClearProperty_Elapsed);
       timerClearProperty.Enabled = false;

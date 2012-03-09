@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using System.Windows.Forms;
 using System.IO;
 using System.Threading;
@@ -97,6 +98,7 @@ namespace mvCentral.GUI
     private string lastViewedGenre = string.Empty;
 
     private List<string> artistTags = new List<string>();
+    public System.Timers.Timer clearPropertyTimer;
 
     public int lastItemArt = 0, lastItemVid = 0, lastItemAlb = 0, lastGenreItem = 0,artistID = 0, albumID = 0;
 
@@ -180,22 +182,46 @@ namespace mvCentral.GUI
       GUIGraphicsContext.OnVideoWindowChanged += new VideoWindowChangedHandler(GUIGraphicsContext_OnVideoWindowChanged);
       // Listen to updates from artwork 
       mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
+      // Set up timer to clear the Start.Playing property on fullscreen toggle
+      clearPropertyTimer = new System.Timers.Timer(5000);
+      clearPropertyTimer.Elapsed += new ElapsedEventHandler(clearPropertyTimer_Elapsed);
+
+
       return success;
     }
-
+    /// <summary>
+    /// Catch GUI to full screen toggle, set property #mvCentral.isPlaying to enable pop-up
+    /// </summary>
     void GUIGraphicsContext_OnVideoWindowChanged()
     {
-      if (g_Player.Playing && (GUIWindowManager.ActiveWindow == (int)Window.WINDOW_FULLSCREEN_VIDEO) && !GUIGraphicsContext.IsFullScreenVideo)
+      // make sure we are playing some video and the video source is us
+      if (GUIGraphicsContext.IsPlayingVideo && (GUIPropertyManager.GetProperty("#mvCentral.isPlaying") == "true"))
       {
-        bool xx = GUIGraphicsContext.IsFullScreenVideo;
-
-        if (GUIPropertyManager.GetProperty("#mvCentral.Play.Started") == "false")
+        if (GUIWindowManager.IsSwitchingToNewWindow)
         {
-          GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
-          Thread.Sleep(1000);
-          GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+          if (GUIGraphicsContext.IsFullScreenVideo)
+          {
+            if (GUIPropertyManager.GetProperty("#mvCentral.Play.Started") == "false")
+            {
+              clearPropertyTimer.Enabled = true;
+              logger.Debug("Set #mvCentral.Play.Started = true");
+              GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
+            }
+          }
         }
       }
+    }
+    /// <summary>
+    /// Reset the #mvCentral.Play.Started on timer elapsed
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    public void clearPropertyTimer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+      logger.Debug("************* Clear Property Timer Fired ****************");
+      logger.Debug("Set #mvCentral.Play.Started = false");
+      GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
+      clearPropertyTimer.Enabled = false;
     }
     /// <summary>
     /// Handle keyboard/remote action
@@ -801,6 +827,7 @@ namespace mvCentral.GUI
         processParameter();
 
       persisting = true;
+
 
       base.OnPageLoad();
     }
