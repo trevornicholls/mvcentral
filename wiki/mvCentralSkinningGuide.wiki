@@ -539,7 +539,9 @@ Some things to be aware of when using animations inside videoFullScreen.xml, do 
 === Skins Supporting Video Info Pop-up ==
 
 [http://code.google.com/p/streamedmp/ StreamedMP]
-http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo.jpg
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo.jpg]
 
 [http://code.google.com/p/amped/ aMPed]
-http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo-aMPed.jpg
+
+[http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo-aMPed.jpg]
