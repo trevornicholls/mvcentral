@@ -10,7 +10,7 @@
    -->
     <!-- ******** Pop next Video Box for mvCentral ********* -->
     <control>
-      <description>Movie/File Status Icons group</description>
+      <description>Video Info and Icons group</description>
       <type>group</type>
       <dimColor>ffffffff</dimColor>
       <visible>!window.isosdvisible+string.equals(#mvCentral.Play.Started,true)</visible>
