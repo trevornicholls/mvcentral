@@ -364,7 +364,57 @@ There is one skin propertie linked to this progress bar.
 ----
 == mvCentral.SmartDJ.xml ==
 
-SmartDJ screen
+SmartDJ is basiclly a Playlist builder, it has two modes.
+
+*Match*
+This mode displays buttons for the 6 main infomation metadata fields
+
+|| Genre || AllMusic Genre ||
+|| Last.FM Tag || Tags from Last.FM ||
+|| Style || Styles as sourced from AllMusic ||
+|| Tones || Tones as sourced from AllMusic ||
+|| Composer || Track composer(s) ||
+
+By clicking a button a select dialog is displayed allowing the user to chose an item, all vidoes are then searched and these are displayed in a Facade list. Each subsquent field selected will add to this list.
+
+*Filter*
+This mode allows the user to chose the order of fields, selecting a button will first display a list of fields (same as those for Match mode) and after selection will then display the data for that field allowing the user to chose as per Match mode and the result is displayed as a Facade list. Where filter mode differs is that each subsquent field chosen will use selected data set as input and will thus narrow the selected data.
+
+
+=== Controls ===
+ 
+|| *Control ID* || *Type* || *Text* || *Description* ||
+|| 20 || Button || Match or Filter || This button text will swap bewteen Match and Filter each time selected ||
+|| 21 || Button || Play Playlist || This will convert the selected items on the Facade into a Play list and start playing ||
+|| 22 || Button || Save Playlist || Displays a virtual keboard to allow entry of playlist name to save ||
+|| 23 || Checkbutton || Shuffle || If selected this will shuffle the Playlist before playing ||
+|| 24 || Button || Playlist || Jump to Playlist screen ||
+|| 30 || Button || - || Search field buuton, will either be 'Genre' or 'Select Filter Field...' ||
+|| 31 || Button || - || Search field buuton, will either be 'Last.Fm Tag' or 'Select Filter Field...' ||
+|| 32 || Button || - || Search field buuton, will either be 'Style' or 'Select Filter Field...' ||
+|| 33 || Button || - || Search field buuton, will either be 'Tone' or 'Select Filter Field...' ||
+|| 34 || Button || - || Search field buuton, will either be 'Composer' or 'Select Filter Field...' ||
+|| 35 || Button || - || Search field buuton, will either be 'Keyword' or 'Select Filter Field...' ||
+|| 37 || Label || - || Displays the total artists and videos selected (localized) ||
+|| 50 || Facade || - || Facade control - List supported ||
+
+
+*Exposed Skin Properites*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.SmartDF.Mode	|| Set to either 'Mode: Match' or 'Mode: Filter' ||
+
+*Selected item skin properties*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.#mvCentral.ArtistName	|| Set to the Artist Name *(v1.0.2)*||
+|| #mvCentral.#mvCentral.TrackInfo	|| Set to the full text of the track description *(v1.0.2)*||
+|| #mvCentral.#mvCentral.Track.Rating	|| Set to rating value for the track between 0 and 9 *(v1.0.2)*||
+|| #mvCentral.#mvCentral.Composers	|| Set to the composer(s), if more than 1 composers are seperated by a comma *(v1.0.2)*||
+|| #mvCentral.#mvCentral.Duration	|| Set to the playtime of the track in the format MM:SS or HH:MM:SS if longer than 1hr *(v1.0.2)*||
+|| #mvCentral.#mvCentral.ArtistName	|| Artist name for selected item on Facade list *(v1.0.2)*||
+|| #iswatched || Set to *yes* if the track has been previouly played or *no* if not. *(v1.0.2)* ||
+|| ##mvCentral.Watched.Count || Set to the number of times the video has been watched *(v1.0.2)* ||
 
 ----
 == !DialogMvMultiSelect.xml ==
@@ -442,9 +492,10 @@ This secion list the properties that are set when a video starts to play, curren
 || #mvCentral.Next.videoheight || Set to the video height ||
 || #mvCentral.Next.videoframerate || Set to the video framerate ||
 || #Play.Next.AudioCodec.Texture || Set to the audio codec (*v1.0.2)* ||
-|| #Play.Next.AudioChannels || et to the number of audio channels ||
+|| #Play.Next.AudioChannels || Set to the number of audio channels ||
 
-== Video info pop-up on Video Start ==
+
+== Video info pop-up on Video Start *(v1.0.2)* ==
 
 Property
 ||#mvCentral.Play.Started||
@@ -455,73 +506,38 @@ Possible Values
 
 Using the above property you can provide an info pop-box each time a video starts, the image below is from StreamedMP.
 
-http://mvCentral.googlecode.com/svn/wiki/Images/videoInfo.jpg
+http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo.jpg
 
-
-
-----
-
+Example code (only single control shown, full file can be found [http://mvCentral.googlecode.com/svn/trunk/Skin/StreamedMP/mvCentral.PlaySTart.xml HERE])
 {{{
-#mvCentral.Album
-#mvCentral.Album.Rating
-#mvCentral.AlbumInfo
-#mvCentral.AlbumTracksRuntime
-#mvCentral.ArtistBio
-#mvCentral.ArtistImg
-#mvCentral.ArtistName
-#mvCentral.ArtistTags
-#mvCentral.ArtistTracksRuntime
-#mvCentral.Artwork.Update.Progress
-#mvCentral.Backdrop
-#mvCentral.BornOrFormed
-#mvCentral.Composers
-#mvCentral.Coverart
-#mvCentral.Current.videoframerate
-#mvCentral.Current.videoheight
-#mvCentral.Current.videowidth
-#mvCentral.Description
-#mvCentral.Duration
-#mvCentral.FavArtist
-#mvCentral.Genre
-#mvCentral.Hierachy
-#mvCentral.isPlaying
-#mvCentral.Latest.Artist1
-#mvCentral.Latest.Artist2
-#mvCentral.Latest.Artist3
-#mvCentral.Latest.ArtistImage1
-#mvCentral.Latest.ArtistImage2
-#mvCentral.Latest.ArtistImage3
-#mvCentral.Latest.Track1
-#mvCentral.Latest.Track2
-#mvCentral.Latest.Track3
-#mvCentral.LocalMedia.audio
-#mvCentral.LocalMedia.audiochannels
-#mvCentral.LocalMedia.audiocodec
-#mvCentral.LocalMedia.videoaspectratio
-#mvCentral.LocalMedia.videocodec
-#mvCentral.LocalMedia.videoframerate
-#mvCentral.LocalMedia.videoheight
-#mvCentral.LocalMedia.videoresolution
-#mvCentral.LocalMedia.videowidth
-#mvCentral.Metadata.Scan.Active
-#mvCentral.Metadata.Update.Progress
-#mvCentral.MostPlayed
-#mvCentral.Playlist.Count
-#mvCentral.Playlist.Runtime
-#mvCentral.PlayTime
-#mvCentral.Settings.HomeScreenName
-#mvCentral.SmartDJ.Mode
-#mvCentral.Sort
-#mvCentral.TotalArtists
-#mvCentral.TotalVideos
-#mvCentral.Track.Rating
-#mvCentral.TrackInfo
-#mvCentral.TracksForAlbum
-#mvCentral.TrackTitle
-#mvCentral.Translation.<TranslationName>
-#mvCentral.VideoImage
-#mvCentral.VideoImg
-#mvCentral.VideosByArtist
-#mvCentral.ViewAs
-#mvCentral.Watched.Count
+    <control>
+      <description>Movie/File Status Icons group</description>
+      <type>group</type>
+      <dimColor>ffffffff</dimColor>
+      <visible>!window.isosdvisible+string.equals(#mvCentral.Play.Started,true)</visible>
+      <animation effect="fade" time="300" delay="300">VisibleChange</animation>
+      <animation effect="slide" start="600,0" end="0,0" tween="quadratic" time="500" delay="100">VisibleChange</animation>
+      <control>
+        <description>background</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>700</posX>
+        <posY>530</posY>
+        <width>585</width>
+        <height>192</height>
+        <texture>mpinfo_filmbox.old.png</texture>
+      </control>
+      .
+      .
+      .
+      .
+    </control>
 }}}
+
+Some things to be aware of when using animations inside videoFullScreen.xml, do not use animation types WindowOpen or WindowClose as these will cause MediaPortal to crash. I have used VisibleChange type - I have not tested other types.
+
+=== Skins Supporting Video Info Pop-up ==
+
+[http://code.google.com/p/streamedmp/ StreamedMP]
+
+[http://code.google.com/p/amped/ aMPed]
