@@ -182,10 +182,13 @@ namespace mvCentral.GUI
       GUIGraphicsContext.OnVideoWindowChanged += new VideoWindowChangedHandler(GUIGraphicsContext_OnVideoWindowChanged);
       // Listen to updates from artwork 
       mvCentralCore.ProcessManager.Progress += new ProcessProgressDelegate(ProcessManager_Progress);
-      // Set up timer to clear the Start.Playing property on fullscreen toggle
-      clearPropertyTimer = new System.Timers.Timer(5000);
-      clearPropertyTimer.Elapsed += new ElapsedEventHandler(clearPropertyTimer_Elapsed);
-
+      
+      // If On start Video Info enabed set up timer to clear the Start.Playing property on fullscreen toggle
+      if (mvCentralCore.Settings.EnableVideoStartInfo)
+      {
+        clearPropertyTimer = new System.Timers.Timer((double)mvCentralCore.Settings.VideoInfoStartTimer);
+        clearPropertyTimer.Elapsed += new ElapsedEventHandler(clearPropertyTimer_Elapsed);
+      }
 
       return success;
     }
