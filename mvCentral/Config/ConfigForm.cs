@@ -3535,6 +3535,13 @@ namespace mvCentral
       }
     }
 
+    private void cbEnableVideoStartInfo_CheckedChanged(object sender, EventArgs e)
+    {
+      if (cbEnableVideoStartInfo.Checked)
+        tbInfoStartTimer.Enabled = true;
+      else
+        tbInfoStartTimer.Enabled = false;
+    }
     #endregion
 
   }
