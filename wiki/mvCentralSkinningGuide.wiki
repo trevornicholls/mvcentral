@@ -381,7 +381,7 @@ By clicking a button a select dialog is displayed allowing the user to chose an 
 This mode allows the user to chose the order of fields, selecting a button will first display a list of fields (same as those for Match mode) and after selection will then display the data for that field allowing the user to chose as per Match mode and the result is displayed as a Facade list. Where filter mode differs is that each subsquent field chosen will use selected data set as input and will thus narrow the selected data.
 
 
-=== Controls ===
+=== *Controls* ===
  
 || *Control ID* || *Type* || *Text* || *Description* ||
 || 20 || Button || Match or Filter || This button text will swap bewteen Match and Filter each time selected ||
@@ -399,12 +399,12 @@ This mode allows the user to chose the order of fields, selecting a button will 
 || 50 || Facade || - || Facade control - List supported ||
 
 
-*Exposed Skin Properites*
+=== *Exposed Skin Properites* ===
 
 || *Skin Property* || *Description* ||
 || #mvCentral.SmartDF.Mode	|| Set to either 'Mode: Match' or 'Mode: Filter' ||
 
-*Selected item skin properties*
+=== *Selected item skin properties* ===
 
 || *Skin Property* || *Description* ||
 || #mvCentral.#mvCentral.ArtistName	|| Set to the Artist Name *(v1.0.2)*||
@@ -419,7 +419,7 @@ This mode allows the user to chose the order of fields, selecting a button will 
 ----
 == !DialogMvMultiSelect.xml ==
 
-Custom Multi Select Dialog 
+Custom Multi Select Dialog, there is not much that need to be changed with this file as uses std dialog images as per DialogSelect.xml.
 
 
 ----
@@ -508,7 +508,7 @@ Using the above property you can provide an info pop-box each time a video start
 
 http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo.jpg
 
-Example code (only single control shown, full file can be found [http://mvCentral.googlecode.com/svn/trunk/Skin/StreamedMP/mvCentral.PlaySTart.xml HERE])
+Example code (only single control shown, full file can be found [http://mvCentral.googlecode.com/svn/trunk/Skin/StreamedMP/mvCentral.PlayStart.xml HERE])
 {{{
     <control>
       <description>Movie/File Status Icons group</description>
@@ -539,5 +539,7 @@ Some things to be aware of when using animations inside videoFullScreen.xml, do 
 === Skins Supporting Video Info Pop-up ==
 
 [http://code.google.com/p/streamedmp/ StreamedMP]
+http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo.jpg
 
 [http://code.google.com/p/amped/ aMPed]
+http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo-aMPed.jpg
