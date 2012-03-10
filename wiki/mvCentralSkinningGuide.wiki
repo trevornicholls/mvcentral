@@ -375,9 +375,10 @@ Custom Multi Select Dialog
 ----
 == Play Properities ==
 
-This secion list the properties that are set when a video starts to play.
+This secion list the properties that are set when a video starts to play, currently playing video and next video in playlist properities are provided.
 
-*mvCentral specific play properties*
+
+*mvCentral specific current play properties*
 
 || *Skin Property* || *Description* ||
 || #mvCentral.isPlaying || Set to *true* if mvCentral is playing a video ||
@@ -386,7 +387,7 @@ This secion list the properties that are set when a video starts to play.
 || #Play.Current.mvVideo || Set to the video title ||
 || #Play.Current.Video.Thumb || Set to the video thumbnail ||
 
-*Standard play properties*
+*Standard current play properties*
 
 || *Skin Property* || *Description* ||
 || #Play.Current.Title || Set to the Video title ||
@@ -409,6 +410,54 @@ This secion list the properties that are set when a video starts to play.
 || #mvCentral.Current.videoframerate || Set to the video framerate ||
 || #Play.Current.AudioCodec.Texture || Set to the audio codec (*v1.0.2)* ||
 || #Play.Current.AudioChannels || et to the number of audio channels ||
+
+*mvCentral specific current play properties*
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.isPlaying || Set to *true* if mvCentral is playing a video ||
+|| #Play.Next.mvArtist || Set to the artist name of the currently playing track ||
+|| #Play.Next.mvAlbum || Set to the Album name the track is from or blank in no assoicated album ||
+|| #Play.Next.mvVideo || Set to the video title ||
+|| #Play.Next.Video.Thumb || Set to the video thumbnail ||
+
+*Standard current play properties*
+
+|| *Skin Property* || *Description* ||
+|| #Play.Next.Title || Set to the Video title ||
+|| #Play.Next.Thumb || Set to the path full resolution Artist image||
+|| #Play.Next.Genre || Set to Artist genre (*v1.0.2)* ||
+|| #Play.Next.Runtime || Set to Runtime of the playing track (*v1.0.2)* ||
+|| #Play.Next.Rating || Set to the current track rating (between 0 and 9) (*v1.0.2)* ||
+|| #Play.Next.Plot || Set to the full track description  ||
+|| #Play.Next.IsWatched || Set to *yes* if the track has been previouly played or *no* if not. (*v1.0.2)* ||
+
+
+*Video and Audio Media Details as extracted and reported by MediaInfo*
+
+|| *Skin Property* || *Description* ||
+|| #Play.Next.AspectRatio || Set to*fullscreen* or *widescreen* (*v1.0.2)* ||
+|| #Play.Next.VideoCodec.Texture || Set to the video codec (*v1.0.2)* ||
+|| #Play.Next.VideoResolution || Video resolution 720p, 1080i, 1080p etc (*v1.0.2)* ||
+|| #mvCentral.Next.videowidth || Set to the video width ||
+|| #mvCentral.Next.videoheight || Set to the video height ||
+|| #mvCentral.Next.videoframerate || Set to the video framerate ||
+|| #Play.Next.AudioCodec.Texture || Set to the audio codec (*v1.0.2)* ||
+|| #Play.Next.AudioChannels || et to the number of audio channels ||
+
+== Video info pop-up on Video Start ==
+
+Property
+||#mvCentral.Play.Started||
+
+Possible Values
+|| true || For the first 5 secs (Default) when a video starts ||
+|| false || Set when timeout expires, this is 5 seconds by default but can be changed in configuration ||
+
+Using the above property you can provide an info pop-box each time a video starts, the image below is from StreamedMP.
+
+http://mvCentral.googlecode.com/svn/wiki/Images/videoInfo.jpg
+
+
 
 ----
 
