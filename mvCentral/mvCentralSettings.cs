@@ -713,7 +713,7 @@ namespace mvCentral.Settings
     Name = "Enable Video Start Info Timer",
     Description = "This setting is the number of millseconds #mvCentral.PlayStart remains set after a video starts, the default is 5000 miliseconds (5 seconds).",
     Groups = "|MusicVideo|GUI|",
-    Identifier = "evideo_start_info_timer",
+    Identifier = "video_start_info_timer",
     Default = 5000,
     Hidden = false)]
     public int VideoInfoStartTimer
@@ -722,7 +722,7 @@ namespace mvCentral.Settings
       set
       {
         _videostartinfotimer = value;
-        OnSettingChanged("evideo_start_info_timer");
+        OnSettingChanged("video_start_info_timer");
       }
     }
     private int _videostartinfotimer;
