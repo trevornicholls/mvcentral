@@ -852,7 +852,7 @@ namespace mvCentral.Playlist
       if (!clear)
       {
         // Only sleep if setting the props
-        Thread.Sleep(2000);
+        Thread.Sleep(mvCentralCore.Settings.PlayProperitiesSetDelay);
 
         trackInfo = (DBTrackInfo)item.Track;
         artistInfo = DBArtistInfo.Get(trackInfo);

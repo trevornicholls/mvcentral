@@ -2076,6 +2076,23 @@ namespace mvCentral.Settings
     }
     private bool _useRemoteControlFiltering;
 
+    [CornerstoneSetting(
+    Name = "Play Properities Setting Delay",
+    Description = "The number of milliseconds that Music Videos waits after starting to play a video and setting the #Play properities. The delay is neccesary because Player tries to use metadata from the MyVideos database and we want to update this after that happens so the correct info is there ",
+    Groups = "|MediaPortal GUI|Tweaks|",
+    Identifier = "gui_play_properities_delay",
+    Default = 500)]
+    public int PlayProperitiesSetDelay
+    {
+      get { return _playproperitiessetdelay; }
+      set
+      {
+        _playproperitiessetdelay = value;
+        OnSettingChanged("gui_play_properities_delay");
+      }
+    }
+    private int _playproperitiessetdelay;
+
     #endregion
 
     #region Playback Options
