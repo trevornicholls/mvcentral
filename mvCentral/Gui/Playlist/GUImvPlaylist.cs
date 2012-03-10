@@ -951,9 +951,9 @@ namespace mvCentral.Playlist
 
       // Track description
       if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
-        GUIPropertyManager.SetProperty("#mvCentral.Description", artistInfo.bioContent);
+        GUIPropertyManager.SetProperty("#mvCentral.Description", mvCentralUtils.bioNoiseFilter(artistInfo.bioContent));
       else
-        GUIPropertyManager.SetProperty("#mvCentral.Description", mvTrack.bioContent);
+        GUIPropertyManager.SetProperty("#mvCentral.Description", mvCentralUtils.bioNoiseFilter(mvTrack.bioContent));
 
       // Misc Proprities
       GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(mvTrack.PlayTime));

@@ -885,7 +885,7 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Current.Genre", clear ? string.Empty : genre);
       GUIPropertyManager.SetProperty("#Play.Current.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
       GUIPropertyManager.SetProperty("#Play.Current.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
-      GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : trackInfo.bioContent);
+      GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : mvCentralUtils.bioNoiseFilter(trackInfo.bioContent));
       GUIPropertyManager.SetProperty("#Play.Current.IsWatched", isWatched);
 
       // mvCentral Play Properities
@@ -1054,7 +1054,7 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Next.Genre", clear ? string.Empty : genre);
       GUIPropertyManager.SetProperty("#Play.Next.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
       GUIPropertyManager.SetProperty("#Play.Next.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
-      GUIPropertyManager.SetProperty("#Play.Next.Plot", clear ? string.Empty : trackInfo.bioContent);
+      GUIPropertyManager.SetProperty("#Play.Next.Plot", clear ? string.Empty : mvCentralUtils.bioNoiseFilter(trackInfo.bioContent));
       GUIPropertyManager.SetProperty("#Play.Next.IsWatched", isWatched);
 
       // mvCentral Play Properities
