@@ -503,6 +503,7 @@ namespace mvCentral.Playlist
     /// </summary>
     public void PlayNext()
     {
+      timerClearProperty.Enabled = false;
       if (_currentPlayList == PlayListType.PLAYLIST_NONE) 
         return;
 
@@ -540,6 +541,8 @@ namespace mvCentral.Playlist
     /// </summary>
     public void PlayPrevious()
     {
+      timerClearProperty.Enabled = false;
+
       if (_currentPlayList == PlayListType.PLAYLIST_NONE)
         return;
 
