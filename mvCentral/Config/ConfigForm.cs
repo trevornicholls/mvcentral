@@ -3542,6 +3542,12 @@ namespace mvCentral
       else
         tbInfoStartTimer.Enabled = false;
     }
+
+    private void llSupportedSkins_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+    {
+      Process.Start(@"http://code.google.com/p/mvcentral/wiki/mvCentralSkinningGuide#Skins_Supporting_Video_Info_Pop-up");
+    }
+
     #endregion
 
   }
