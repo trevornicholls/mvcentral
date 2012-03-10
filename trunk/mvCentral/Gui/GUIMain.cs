@@ -1249,8 +1249,8 @@ namespace mvCentral.GUI
         else
           facadeItem.ThumbnailImage = artistData.ArtFullPath;
 
-        facadeItem.TVTag = artistData.bioContent;
-        facadeItem.AlbumInfoTag = artistData.bioContent;
+        facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(artistData.bioContent);
+        facadeItem.AlbumInfoTag = mvCentralUtils.bioNoiseFilter(artistData.bioContent);
         facadeItem.ItemId = (int)artistData.ID;
         facadeItem.IsFolder = true;
         facadeItem.MusicTag = artistData;
@@ -1338,7 +1338,7 @@ namespace mvCentral.GUI
 
         facadeItem.Label2 = trackData.ArtistInfo[0].Artist;
 
-        facadeItem.TVTag = trackData.bioContent;
+        facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(trackData.bioContent);
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;
         facadeItem.IsFolder = false;
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
@@ -1480,7 +1480,7 @@ namespace mvCentral.GUI
         else
           item.ThumbnailImage = theAlbum.ArtFullPath;
 
-        item.TVTag = theAlbum.bioContent;
+        item.TVTag = mvCentralUtils.bioNoiseFilter(theAlbum.bioContent);
         selArtist = currArtist.Artist;
         item.IsFolder = true;
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
@@ -1510,7 +1510,7 @@ namespace mvCentral.GUI
         else
           facadeItem.Label = trackData.Track;
 
-        facadeItem.TVTag = trackData.bioContent;
+        facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(trackData.bioContent);
         selArtist = currArtist.Artist;
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;
         facadeItem.IsFolder = false;
@@ -1577,7 +1577,7 @@ namespace mvCentral.GUI
           item.ThumbnailImage = theAlbum.ArtFullPath;
 
         item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
-        item.TVTag = theAlbum.bioContent;
+        item.TVTag = mvCentralUtils.bioNoiseFilter(theAlbum.bioContent);
         item.IsFolder = true;
         item.MusicTag = theAlbum;
         facadeLayout.Add(item);
@@ -1640,8 +1640,8 @@ namespace mvCentral.GUI
         else
           facadeItem.ThumbnailImage = artistData.ArtFullPath;
 
-        facadeItem.TVTag = artistData.bioContent;
-        facadeItem.AlbumInfoTag = artistData.bioContent;
+        facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(artistData.bioContent);
+        facadeItem.AlbumInfoTag = mvCentralUtils.bioNoiseFilter(artistData.bioContent);
         facadeItem.ItemId = (int)artistData.ID;
         facadeItem.IsFolder = true;
         facadeItem.MusicTag = artistData;
@@ -1722,7 +1722,7 @@ namespace mvCentral.GUI
           else
             item.ThumbnailImage = "defaultVideoBig.png";
 
-          item.TVTag = mvCentralUtils.StripHTML(track.bioContent);
+          item.TVTag = mvCentralUtils.bioNoiseFilter(track.bioContent);
           item.Path = track.LocalMedia[0].File.FullName;
           item.IsFolder = false;
           item.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
@@ -1794,7 +1794,7 @@ namespace mvCentral.GUI
         else
           item.ThumbnailImage = track.ArtFullPath;
 
-        item.TVTag = mvCentralUtils.StripHTML(track.bioContent);
+        item.TVTag = mvCentralUtils.bioNoiseFilter(track.bioContent);
         selAlbum = currAlbum.Album;
         item.Path = track.LocalMedia[0].File.FullName;
         item.IsFolder = false;
@@ -1933,8 +1933,8 @@ namespace mvCentral.GUI
         else
           facadeItem.ThumbnailImage = artistData.ArtFullPath;
 
-        facadeItem.TVTag = artistData.bioContent;
-        facadeItem.AlbumInfoTag = artistData.bioContent;
+        facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(artistData.bioContent);
+        facadeItem.AlbumInfoTag = mvCentralUtils.bioNoiseFilter(artistData.bioContent);
         facadeItem.ItemId = (int)artistData.ID;
         facadeItem.IsFolder = true;
         facadeItem.MusicTag = artistData;
@@ -2013,7 +2013,8 @@ namespace mvCentral.GUI
       if (string.IsNullOrEmpty(currArtist.bioContent))
         GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", string.Format(Localization.NoArtistBio, item.Label));
       else
-        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", currArtist.bioContent);
+        GUIPropertyManager.SetProperty("#mvCentral.ArtistBio", mvCentralUtils.bioNoiseFilter(currArtist.bioContent));
+      //mvCentralUtils.StripHTML(track.bioContent);
       
       // Set artist name and image
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", currArtist.Artist);
@@ -2192,8 +2193,8 @@ namespace mvCentral.GUI
         }
         else
         {
-          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", albumInfo.bioContent);
-          GUIPropertyManager.SetProperty("#mvCentral.AlbumInfo", albumInfo.bioContent);
+          GUIPropertyManager.SetProperty("#mvCentral.TrackInfo", mvCentralUtils.bioNoiseFilter(albumInfo.bioContent));
+          GUIPropertyManager.SetProperty("#mvCentral.AlbumInfo", mvCentralUtils.bioNoiseFilter(albumInfo.bioContent));
         }
         // Set tracks and Runtime for Album contents
         GUIPropertyManager.SetProperty("#mvCentral.AlbumTracksRuntime", runningTime(tracksInAlbum));

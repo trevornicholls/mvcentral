@@ -1035,7 +1035,7 @@ namespace mvCentral.GUI
             facadeItem.Label = trackData.Track;
 
           facadeItem.Label2 = trackData.ArtistInfo[0].Artist;
-          facadeItem.TVTag = trackData.bioContent;
+          facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(trackData.bioContent);
           facadeItem.Path = trackData.LocalMedia[0].File.FullName;
           facadeItem.IsFolder = false;
           facadeItem.MusicTag = trackData;

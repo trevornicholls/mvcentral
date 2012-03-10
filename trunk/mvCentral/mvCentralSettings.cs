@@ -2001,7 +2001,22 @@ namespace mvCentral.Settings
     }
     private bool _displayrawtracktext;
 
-
+    [CornerstoneSetting(
+        Name = "Custom Replace Regex",
+        Description = "Custom replacement regex filter to be appplied before Bio or Album/Track description text is displayed and will remove matched text.",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "custom_regex_for_desciptions",
+        Default = "")]
+    public string CustomBioRegex
+    {
+      get { return _customebioregex; }
+      set
+      {
+        _customebioregex = value;
+        OnSettingChanged("custom_regex_for_desciptions");
+      }
+    }
+    private string _customebioregex;
 
     #endregion
 
