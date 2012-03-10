@@ -166,6 +166,8 @@ namespace mvCentral
       tbLatestVideos.Setting = mvCentralCore.Settings["oldAfter_days"];
       cbAutoFullscreen.Setting = mvCentralCore.Settings["auto_fullscreen"];
       cbDisplayRawTrackText.Setting = mvCentralCore.Settings["gui_raw_track_text"];
+      cbEnableVideoStartInfo.Setting = mvCentralCore.Settings["enable_video_start_info"];
+      tbInfoStartTimer.Setting = mvCentralCore.Settings["evideo_start_info_timer"];
 
       // Auto Thumbnail Settings
       tbVideoPreviewCols.Setting = mvCentralCore.Settings["videoThumbNail_cols"];

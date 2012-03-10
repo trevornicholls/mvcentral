@@ -287,7 +287,7 @@ namespace mvCentral.Playlist
     /// </summary>
     public void Init()
     {
-      timerClearProperty = new System.Timers.Timer(5000);
+      timerClearProperty = new System.Timers.Timer((double)mvCentralCore.Settings.VideoInfoStartTimer);
 
       GUIWindowManager.Receivers += new SendMessageHandler(this.OnMessage);
       GUIWindowManager.OnNewAction += new OnActionHandler(this.OnNewAction);
@@ -346,9 +346,9 @@ namespace mvCentral.Playlist
                 skipTrackActive = false;
               else
               {
-                //SetProperties(item, true);
                 Reset();
                 _currentPlayList = PlayListType.PLAYLIST_NONE;
+                SetProperties(item, true);
               }
               if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
                 scrobbleSubmit(item);
@@ -829,6 +829,12 @@ namespace mvCentral.Playlist
       if (item == null)
         return;
 
+      // If set have been told to clear the properties but we are playing a video, exit out - this happens because we get the stop play event after the start play event for the next video.
+      if (clear && mvPlayer.Playing)
+      {
+        logger.Debug("************** Abort SET Play Properities event, there is a Video Playing **************");
+        return;
+      }
       logger.Debug("Set #mvCentral.Play.Started = false");
       GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "false");
 
@@ -940,10 +946,14 @@ namespace mvCentral.Playlist
       // Set 5sec timer to clear the Play Started Property
       if (!clear)
       {
-        timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
-        timerClearProperty.Enabled = true;
-        logger.Debug("Set #mvCentral.Play.Started = true");
-        GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
+        // Only set  #mvCentral.Play.Started and clear timer if On Video Start Info is enabled
+        if (mvCentralCore.Settings.EnableVideoStartInfo)
+        {
+          timerClearProperty.Elapsed += new ElapsedEventHandler(timerClearProperty_Elapsed);
+          timerClearProperty.Enabled = true;
+          logger.Debug("Set #mvCentral.Play.Started = true");
+          GUIPropertyManager.SetProperty("#mvCentral.Play.Started", "true");
+        }
         // Grab the next item
         PlayListItem nextItem = null;
         nextItem = GetNextItem();
@@ -951,6 +961,11 @@ namespace mvCentral.Playlist
         if (nextItem != null)
           setNextItemProperties(nextItem, clear);       
       }
+
+      logger.Debug("**** On exit from setProperities ****");
+      logger.Debug("Set #mvCentral.Play.Started : {0}", GUIPropertyManager.GetProperty("#mvCentral.Play.Started"));
+      logger.Debug("Set #mvCentral.isPlaying    : {0}", GUIPropertyManager.GetProperty("#mvCentral.isPlaying"));
+
     }
     /// <summary>
     /// Set the next item properities

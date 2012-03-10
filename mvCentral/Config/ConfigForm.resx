@@ -125,7 +125,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAW
-        HAAAAk1TRnQBSQFMAgEBEQEAAcABFQHAARUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
+        HAAAAk1TRnQBSQFMAgEBEQEAAfgBFQH4ARUBEAEAARABAAT/AQkBAAj/AUIBTQE2AQQGAAE2AQQCAAEo
         AwABQAMAAVADAAEBAQABCAYAARQYAAGAAgABgAMAAoABAAGAAwABgAEAAYABAAKAAgADwAEAAcAB3AHA
         AQAB8AHKAaYBAAEzBQABMwEAATMBAAEzAQACMwIAAxYBAAMcAQADIgEAAykBAANVAQADTQEAA0IBAAM5
         AQABgAF8Af8BAAJQAf8BAAGTAQAB1gEAAf8B7AHMAQABxgHWAe8BAAHWAucBAAGQAakBrQIAAf8BMwMA
@@ -264,7 +264,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABw
-        EAAAAk1TRnQBSQFMAgEBBAEAATwBCQE8AQkBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        EAAAAk1TRnQBSQFMAgEBBAEAAXQBCQF0AQkBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABIAMAAQEBAAEgBgABIP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AYgDA/woAAZwB/wIA
         AZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIAAZwB/wIA
         AZwB/wIAAZwB/wQAEP8D4AH/A6QB/wMAAf8DAAH/AwAB/wMAAf8DpAH/A+Ah/wPgAf8DpAH/AwAB/wMA
@@ -489,6 +489,14 @@ The main languages supported by last.FM are listed, you can chose
 a langiage not support by Lat.FM and this will be run though Google Translate.
 
 Default Setting: Language defined for MediaPortal.</value>
+  </data>
+  <data name="cbEnableVideoStartInfo.ToolTip" xml:space="preserve">
+    <value>When enabled the skin property #mvCentral.Play.Starting will be set to true, this will allow
+supporting skins to display an info box with the main video details for a few seconds.
+
+There is an assoiated timer that can be configured to reduce or extend the timeout (5 Secs by default)
+
+Default Setting: Enabled</value>
   </data>
   <data name="cbClearPlaylistOnAdd.ToolTip" xml:space="preserve">
     <value>When queing a new playlist either via loading, smartplaylist or pressing play on

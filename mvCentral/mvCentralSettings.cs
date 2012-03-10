@@ -690,6 +690,43 @@ namespace mvCentral.Settings
     private bool _preferthumbnail;
 
 
+    [CornerstoneSetting(
+    Name = "Enable Video Start Info",
+    Description = "This will enable #mvCentral.PlayStart. This allows supporting skins to display a info box each time a video starts. ",
+    Groups = "|MusicVideo|GUI|",
+    Identifier = "enable_video_start_info",
+    Default = true,
+    Hidden = false)]
+    public bool EnableVideoStartInfo
+    {
+      get { return _enablevideostartinfo; }
+      set
+      {
+        _enablevideostartinfo = value;
+        OnSettingChanged("enable_video_start_info");
+      }
+    }
+    private bool _enablevideostartinfo;
+
+
+    [CornerstoneSetting(
+    Name = "Enable Video Start Info Timer",
+    Description = "This setting is the number of millseconds #mvCentral.PlayStart remains set after a video starts, the default is 5000 miliseconds (5 seconds).",
+    Groups = "|MusicVideo|GUI|",
+    Identifier = "evideo_start_info_timer",
+    Default = 5000,
+    Hidden = false)]
+    public int VideoInfoStartTimer
+    {
+      get { return _videostartinfotimer; }
+      set
+      {
+        _videostartinfotimer = value;
+        OnSettingChanged("evideo_start_info_timer");
+      }
+    }
+    private int _videostartinfotimer;
+
 
     #endregion
 
