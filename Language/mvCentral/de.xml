@@ -71,7 +71,7 @@
   <string Field="PlayByTag">Tag</string>
   <string Field="PlayByGenre">Genre</string>
   <string Field="PlayByComposer">Abspielen nach Komponist</string>
-  <string Field="Random">Zufällig</string>
+  <string Field="RandomHD">Zufällig (HD)</string>
   <string Field="Retry">Wiederholen</string>
   <string Field="ResumeFrom">Fortsetzen ab:</string>
   <string Field="ResumeFromLast">Fortsetzen von letzter Stelle ?</string>

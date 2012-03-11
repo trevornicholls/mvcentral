@@ -78,7 +78,7 @@
         // Q
 
         // R
-        <string Field="Random">Losowo</string>
+        <string Field="RandomHD">Losowo (HD)</string>
         <string Field="Retry">Powtórz</string>
         <string Field="ResumeFrom">Wznów od:</string>
         <string Field="ResumeFromLast">Wznowiæ wideoklip od ostatniego momentu?</string>
