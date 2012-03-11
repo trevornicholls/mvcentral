@@ -26,7 +26,7 @@ namespace mvCentral.GUI
       Favourites = 0,
       FreshTracks = 1,
       HighestRated = 2,
-      Random = 3,
+      RandomHD = 3,
       LeastPlayed = 4,
       ByTag = 5,
       ByGenre = 6,
@@ -106,6 +106,26 @@ namespace mvCentral.GUI
         GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
     }
     /// <summary>
+    /// Create a Random Playlist of All HD Videos
+    /// </summary>
+    private void playRandomHDAll()
+    {
+      PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+      playlist.Clear();
+      List<DBTrackInfo> videos = DBTrackInfo.GetAll();
+      foreach (DBTrackInfo video in videos)
+      {
+        DBLocalMedia mediaInfo = (DBLocalMedia)video.LocalMedia[0];
+        if (mediaInfo.VideoResolution.StartsWith("1080") || mediaInfo.VideoResolution.StartsWith("720") || mediaInfo.VideoResolution.Equals("HD", StringComparison.OrdinalIgnoreCase))
+          playlist.Add(new PlayListItem(video));
+      }
+      Player.playlistPlayer.CurrentPlaylistType = PlayListType.PLAYLIST_MVCENTRAL;
+      playlist.Shuffle();
+      Player.playlistPlayer.Play(0);
+      if (mvCentralCore.Settings.AutoFullscreen)
+        GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+    }
+    /// <summary>
     /// Select Smart Playlist
     /// </summary>
     /// <returns></returns>
@@ -121,7 +141,7 @@ namespace mvCentral.GUI
           dlgMenu.Add(Localization.FavouriteVideos);
           dlgMenu.Add(Localization.LatestVideos);
           dlgMenu.Add(Localization.HighestRated);
-          dlgMenu.Add(Localization.Random);
+          dlgMenu.Add(Localization.RandomHD);
           dlgMenu.Add(Localization.LeastPlayed);
           dlgMenu.Add(Localization.PlayByTag);
           dlgMenu.Add(Localization.PlayByGenre);
@@ -156,8 +176,8 @@ namespace mvCentral.GUI
         case SmartMode.LeastPlayed:
           playLeastPlayed();
           break;
-        case SmartMode.Random:
-          playRandomAll();
+        case SmartMode.RandomHD:
+          playRandomHDAll();
           break;
         case SmartMode.ByTag:
           playByTag();

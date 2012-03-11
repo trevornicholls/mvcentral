@@ -107,7 +107,7 @@
         // Q
 
         // R
-        <string Field="Random">Random</string>
+        <string Field="RandomHD">Random (HD)</string>
         <string Field="Retry">Retry</string>
         <string Field="ResumeFrom">Resume from:</string>
         <string Field="ResumeFromLast">Resume Music Video from last time?</string>

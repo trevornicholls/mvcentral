@@ -324,7 +324,13 @@ namespace mvCentral.GUI
           }
           break;
         case (int)GUIControls.FieldButton6:
-          if (!matchingMode)
+          if (matchingMode)
+          {
+            selectedKeyword = getKeyword();
+            GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Keyword: " + selectedKeyword);
+            genPlaylist(fullArtistList);
+          }
+          else
           {
             result = getFieldAndSearchValue(ref fieldSelected6, ref customSearchStr6, GUIControls.FieldButton6);
 
@@ -992,6 +998,8 @@ namespace mvCentral.GUI
         {
           if (artistData.bioContent.Contains(selectedStyle, StringComparison.OrdinalIgnoreCase))
             artistPlayList.Add(artistData);
+          else if (keywordInTrackDescription(artistData,selectedKeyword))
+            artistPlayList.Add(artistData);
         }
       }
 
@@ -1000,6 +1008,21 @@ namespace mvCentral.GUI
         artistPlayList = DBArtistInfo.GetAll();
 
       buildFacade();
+    }
+    /// <summary>
+    /// Does the keyword exist in the Track description
+    /// </summary>
+    /// <param name="artistInfo"></param>
+    /// <returns></returns>
+    bool keywordInTrackDescription(DBArtistInfo artistInfo, string keyWord)
+    {
+      List<DBTrackInfo> videosByArtist = DBTrackInfo.GetEntriesByArtist(artistInfo);
+      foreach (DBTrackInfo track in videosByArtist)
+      {
+        if (track.bioContent.Contains(keyWord, StringComparison.OrdinalIgnoreCase))
+          return true;
+      }
+      return false;
     }
     /// <summary>
     /// Populate the facade
@@ -1020,6 +1043,7 @@ namespace mvCentral.GUI
             if (!trackData.Composers.Contains(selectedComposer, StringComparison.OrdinalIgnoreCase))
               continue;
           }
+          // 
           GUIListItem facadeItem = new GUIListItem();
           // Check if raw filename display is required
           if (mvCentralCore.Settings.DisplayRawTrackText)

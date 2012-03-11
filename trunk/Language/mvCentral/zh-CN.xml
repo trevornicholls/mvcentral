@@ -96,7 +96,7 @@
         // Q
 
         // R
-        <string Field="Random">随机</string>
+        <string Field="RandomHD">随机 (HD)</string>
         <string Field="Retry">重新获取</string>
         <string Field="ResumeFrom">恢复播放从：</string>
         <string Field="ResumeFromLast">从上次断点时间恢复音乐视频播放吗？</string>

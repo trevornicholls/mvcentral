@@ -333,7 +333,7 @@ namespace mvCentral.Localizations
     // Q
 
     // R
-    public static string Random = "Random";
+    public static string RandomHD = "Random (HD)";
     public static string Retry = "Retry";
     public static string ResumeFrom = "Resume from:";
     public static string ResumeFromLast = "Resume Music Video from last time?";
