@@ -5,17 +5,19 @@
   <allowoverlay>yes</allowoverlay>
   <define>#header.hover:-</define>
   <define>#shadow.dark:ff000000</define>
+  <define>#useSelectedFanart:Yes</define>
   <controls>
-    <import>common.time.xml</import>
-    <control>
+  	<control>
       <description>Main Background Image</description>
       <type>image</type>
-      <id>1</id>
+      <id>0</id>
       <texture>Background.png</texture>
       <width>720</width>
       <height>576</height>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
+    <import>common.time.xml</import>
+    <import>common.music.fanart.xml</import>
     <control>
       <description>SmartDJ Background Image</description>
       <type>image</type>
