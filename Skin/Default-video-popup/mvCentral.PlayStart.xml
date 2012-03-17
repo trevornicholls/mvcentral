@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <controls>
+    <!--
+   **************************************************************************************
+   This file is an import to videoFullScreen.xml
+   **************************************************************************************
+   NOTE: *** DO NOT USE WindowOpen/WindowClose Animation Types in videoFullScreen.xml ***
+   **************************************************************************************
+   -->
+    <!-- ******** Pop next Video Box for mvCentral ********* -->
+    <control>
+      <description>Movie/File Status Icons group</description>
+      <type>group</type>
+      <dimColor>ffffffff</dimColor>
+      <visible>!window.isosdvisible+!window.ispauseosdvisible+string.equals(#mvCentral.Play.Started,true)</visible>
+      <animation effect="fade" start="0" end="100" time="700" delay="300">Visible</animation>
+      <animation effect="fade" start="100" end="0" time="700" delay="300">Hidden</animation>
+      <control>
+        <description>background</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>328</posX>
+        <posY>454</posY>
+        <width>386</width>
+        <height>116</height>
+        <texture>black.png</texture>
+      </control>
+      <control>
+        <description>background</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>335</posX>
+        <posY>461</posY>
+        <width>370</width>
+        <height>100</height>
+        <texture>blue.png</texture>
+      </control>
+      <control>
+        <description>Artist Thumb</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>340</posX>
+        <posY>465</posY>
+        <width>94</width>
+        <height>94</height>
+        <texture mask="Picturethumbmask.png">#Play.Current.Thumb</texture>
+      </control>
+      <control>
+        <description>Atrtist Name</description>
+        <id>0</id>
+        <type>fadelabel</type>
+        <posX>440</posX>
+        <posY>462</posY>
+        <width>300</width>
+        <font>font12</font>
+        <label>#Play.Current.mvArtist</label>
+      </control>
+      <control>
+        <description>Track Name</description>
+        <id>0</id>
+        <type>fadelabel</type>
+        <posX>440</posX>
+        <posY>480</posY>
+        <width>300</width>
+        <font>font12</font>
+        <label>#Play.Current.mvVideo</label>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>Genre</description>
+        <id>0</id>
+        <type>fadelabel</type>
+        <posX>440</posX>
+        <posY>513</posY>
+        <width>300</width>
+        <font>font11</font>
+        <label>#Play.Current.Genre </label>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>Runtime</description>
+        <id>0</id>
+        <type>fadelabel</type>
+        <posX>700</posX>
+        <posY>537</posY>
+        <width>300</width>
+        <align>right</align>
+        <font>font11</font>
+        <label>#Play.Current.Runtime </label>
+        <textcolor>ff909090</textcolor>
+      </control>
+      <control>
+        <description>Album Star Rating Image</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>440</posX>
+        <posY>535</posY>
+        <width>300</width>
+        <width>94</width>
+        <height>18</height>
+        <texture>star#Play.Current.Rating.png</texture>
+      </control>
+      <!-- Video Codecs -->
+      <control>
+        <description>SD/HD Fullscreen/Widescreen</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>900</posX>
+        <posY>675</posY>
+        <width>100</width>
+        <height>32</height>
+        <texture>Logos\Video\#Play.Current.VideoResolution #Play.Current.AspectRatio.png</texture>
+      </control>
+      <control>
+        <description>Video Codecs</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>1020</posX>
+        <posY>675</posY>
+        <width>100</width>
+        <height>32</height>
+        <texture>Logos\Video\#Play.Current.VideoCodec.Texture.png</texture>
+      </control>
+      <!-- Audio Channels / Codecs-->
+      <control>
+        <description>Audio Codecs / Channels</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>1140</posX>
+        <posY>675</posY>
+        <width>100</width>
+        <height>32</height>
+        <texture>Logos\Audio\#Play.Current.AudioCodec.Texture #Play.Current.AudioChannels.png</texture>
+      </control>
+    </control>
+  </controls>
+</window>

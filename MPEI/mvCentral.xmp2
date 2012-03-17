@@ -372,6 +372,13 @@
               <ZipFileName>Installer{CopyFile}\{8fafe635-3f8d-4845-b6d5-90c27bdfea59}-mvcentral.smartdj.selected.fanart.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvcentral.smartdj.selected.fanart.xml</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\StreamedMP\videoOSD.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{d377d997-b35b-42d8-a73d-3de8ddf32183}-videoOSD.xml</ZipFileName>
+              <DestinationFilename>%Skin%\StreamedMP\videoOSD.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -584,12 +591,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>2</Build>
-      <Revision>382</Revision>
+      <Revision>383</Revision>
     </Version>
-    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
-
-
-
+    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
+
+
+
+
+
+
+
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
     <VersionDescription>V1.0.2.333
 
@@ -717,10 +728,13 @@ This option was the same as Play All Random on the menu so a little pointless. A
 Fully enabled Keyword search in SmartDJ
 Enabled Fanart in SmartDJ as Fanart Handler now supports this screen. (StreamedMP, Default and DeafultWide)
 
+V1.0.3.383
+
+ Tweaks to StreamedMP skins files and videoFullScreen and videoOSD files
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2012-03-01T22:26:37</ReleaseDate>
+    <ReleaseDate>2012-03-17T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
@@ -1099,6 +1113,13 @@ Enabled Fanart in SmartDJ as Fanart Handler now supports this screen. (StreamedM
         <LocalFileName>..\Skin\StreamedMP\mvcentral.smartdj.selected.fanart.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8fafe635-3f8d-4845-b6d5-90c27bdfea59}-mvcentral.smartdj.selected.fanart.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvcentral.smartdj.selected.fanart.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\StreamedMP\videoOSD.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{d377d997-b35b-42d8-a73d-3de8ddf32183}-videoOSD.xml</ZipFileName>
+        <DestinationFilename>%Skin%\StreamedMP\videoOSD.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
