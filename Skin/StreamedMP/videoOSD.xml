@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+  <id>2901</id>
+  <defaultcontrol>218</defaultcontrol>
+  <allowoverlay>no</allowoverlay>
+  <controls>
+    <import>common.time.xml</import>
+    <!-- ::::::::::TVSeries ClearArt :::::::::: -->
+    <control>
+      <description>TVSeries ClearArt</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>1000</posX>
+      <posY>420</posY>
+      <width>250</width>
+      <height>126</height>
+      <texture>#TVSeries.Play.ClearArt</texture>
+    </control>
+    <control>
+      <description>background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>0</posX>
+      <posY>523</posY>
+      <width>1280</width>
+      <height>197</height>
+      <texture>osdbackground.png</texture>
+    </control>
+    <control>
+      <description>DVD Cover</description>
+      <type>image</type>
+      <id>0</id>
+      <texture>#Play.Current.Thumb</texture>
+      <posX>16</posX>
+      <posY>554</posY>
+      <width>160</width>
+      <height>160</height>
+      <align>left</align>
+      <centered>yes</centered>
+      <keepaspectratio>yes</keepaspectratio>
+      <visible>!player.paused</visible>
+    </control>
+    <control>
+      <description>mvCentral Artist Name</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <width>700</width>
+      <posX>195</posX>
+      <posY>555</posY>
+      <font>mediastream14tc</font>
+      <label>#Play.Current.mvArtist</label>
+      <textcolor>ffFFFFFF</textcolor>
+      <visible>!player.paused+string.equals(#mvCentral.isPlaying,true)</visible>
+    </control>
+    <control>
+      <description>Album Star Rating Image</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>195</posX>
+      <posY>615</posY>
+      <width>300</width>
+      <width>94</width>
+      <height>18</height>
+      <texture>star#Play.Current.Rating.png</texture>
+      <visible>!player.paused+string.equals(#mvCentral.isPlaying,true)</visible>
+    </control>             
+    <control>
+      <description>Movie Name</description>
+      <type>fadelabel</type>
+      <id>0</id>
+      <posX>195</posX>
+      <posY>585</posY>
+      <width>480</width>
+      <font>mediastream12tc</font>
+      <label>#Play.Current.Title </label>
+      <textcolor>ffFFFFFF</textcolor>
+      <visible>!player.paused</visible>
+    </control>
+    <control>
+      <description>Movie Year</description>
+      <id>0</id>
+      <type>fadelabel</type>
+      <width>700</width>
+      <posX>195</posX>
+      <posY>608</posY>
+      <font>mediastream11tc</font>
+      <label>#Play.Current.Year </label>
+      <textcolor>ff909090</textcolor>
+      <visible>!player.paused</visible>
+    </control>
+    <control>
+      <description>Plot</description>
+      <type>textboxscrollup</type>
+      <id>0</id>
+      <posX>690</posX>
+      <posY>557</posY>
+      <width>550</width>
+      <height>96</height>
+      <seperator>------------------------------------</seperator>
+      <label>#Play.Current.Plot</label>
+      <font>mediastream11</font>
+      <visible>!control.hasfocus(218)+!control.hasfocus(219)+!control.hasfocus(220)+!control.hasfocus(221)+!control.isvisible(300)+!control.isvisible(301)+!control.isvisible(302)+!control.isvisible(303)+!control.isvisible(304)+!control.isvisible(305)+!player.rewinding+!player.forwarding</visible>
+    </control>
+    <!-- :::::::::: MENU (BECOMES VISIBLE WHEN YOU PRESS AN ARROW KEY) :::::::::: -->
+    <control>
+      <type>group</type>
+      <description>group element</description>
+      <animation effect="slide" time="0" end="1200,0">focus</animation>
+      <animation effect="slide" time="0" end="-1200,0">windowopen</animation>
+      <posX>1027</posX>
+      <posY>560</posY>
+      <width>200</width>
+      <height>52</height>
+      <layout>GridLayout(4,0,0,0)</layout>
+      <control>
+        <description>Subtitles</description>
+        <type>togglebutton</type>
+        <id>218</id>
+        <width>50</width>
+        <height>52</height>
+        <AltTextureFocus>osdvizfo.png</AltTextureFocus>
+        <AltTextureNoFocus>osdviznf.png</AltTextureNoFocus>
+        <textureFocus>osdvizfo.png</textureFocus>
+        <textureNoFocus>osdviznf.png</textureNoFocus>
+        <label>-</label>
+        <font>-</font>
+        <onleft>221</onleft>
+        <onright>219</onright>
+        <onup>221</onup>
+        <ondown>219</ondown>
+      </control>
+      <control>
+        <description>Bookmarks Menu</description>
+        <type>togglebutton</type>
+        <id>219</id>
+        <width>50</width>
+        <height>52</height>
+        <AltTextureFocus>osdbookmarksfo.png</AltTextureFocus>
+        <AltTextureNoFocus>osdbookmarksnf.png</AltTextureNoFocus>
+        <textureFocus>osdbookmarksfo.png</textureFocus>
+        <textureNoFocus>osdbookmarksnf.png</textureNoFocus>
+        <label>-</label>
+        <font>-</font>
+        <onleft>218</onleft>
+        <onright>220</onright>
+        <onup>218</onup>
+        <ondown>220</ondown>
+      </control>
+      <control>
+        <description>Video Menu</description>
+        <type>togglebutton</type>
+        <id>220</id>
+        <width>50</width>
+        <height>52</height>
+        <AltTextureFocus>osdvideofo.png</AltTextureFocus>
+        <AltTextureNoFocus>osdvideonf.png</AltTextureNoFocus>
+        <textureFocus>osdvideofo.png</textureFocus>
+        <textureNoFocus>osdvideonf.png</textureNoFocus>
+        <label>-</label>
+        <font>-</font>
+        <onleft>219</onleft>
+        <onright>221</onright>
+        <onup>219</onup>
+        <ondown>221</ondown>
+      </control>
+      <control>
+        <description>Audio Menu</description>
+        <type>togglebutton</type>
+        <id>221</id>
+        <width>50</width>
+        <height>52</height>
+        <AltTextureFocus>osdaudiofo.png</AltTextureFocus>
+        <AltTextureNoFocus>osdaudionf.png</AltTextureNoFocus>
+        <textureFocus>osdaudiofo.png</textureFocus>
+        <textureNoFocus>osdaudionf.png</textureNoFocus>
+        <label>-</label>
+        <font>-</font>
+        <onleft>220</onleft>
+        <onright>218</onright>
+        <onup>220</onup>
+        <ondown>218</ondown>
+      </control>
+    </control>
+    <control>
+      <description>subtitles label</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>1220</posX>
+      <posY>630</posY>
+      <label>200083</label>
+      <font>mediastream10tc</font>
+      <align>right</align>
+      <textcolor>ff808080</textcolor>
+      <visible>Control.HasFocus(218)</visible>
+    </control>
+    <control>
+      <description>bookmarks label</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>1220</posX>
+      <posY>630</posY>
+      <label>1064</label>
+      <font>mediastream10tc</font>
+      <align>right</align>
+      <textcolor>ff808080</textcolor>
+      <visible>Control.HasFocus(219)</visible>
+    </control>
+    <control>
+      <description>video menu label</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>1220</posX>
+      <posY>630</posY>
+      <label>200081</label>
+      <font>mediastream10tc</font>
+      <align>right</align>
+      <textcolor>ff808080</textcolor>
+      <visible>Control.HasFocus(220)</visible>
+    </control>
+    <control>
+      <description>audio menu label</description>
+      <type>label</type>
+      <id>0</id>
+      <posX>1220</posX>
+      <posY>630</posY>
+      <label>200082</label>
+      <font>mediastream10tc</font>
+      <align>right</align>
+      <textcolor>ff808080</textcolor>
+      <visible>Control.HasFocus(221)</visible>
+    </control>
+    <import>videoOSD.SubtitlesMenu.xml</import>
+    <import>videoOSD.VideoMenu.xml</import>
+    <import>videoOSD.AudioMenu.xml</import>
+    <import>videoOSD.VolumeMenu.xml</import>
+    <import>common.player.xml</import>
+    <import>common.progressbar.xml</import>
+    <import>videoOSD.mediainfo2.xml</import>
+  </controls>
+</window>
+<!--Checksum:28d6dd3d421feb313bab9770530e5edd-->
