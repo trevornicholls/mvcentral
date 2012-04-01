@@ -30,7 +30,9 @@ namespace mvCentral.GUI
     MostPlayedArtists = 6,
     MostPlayedVideos = 7,
     LeastPlayedArtists = 8,
-    LeastPlayedVideos = 9
+    LeastPlayedVideos = 9,
+    AlbumReleaseDate = 10,
+    Composer = 11
   }
   /// <summary>
   /// Enum for Direction
@@ -68,6 +70,10 @@ namespace mvCentral.GUI
           return Localization.LeastPlayedArtists;
         case SortingFields.LeastPlayedVideos:
           return Localization.LeastPlayedVideos;
+        case SortingFields.AlbumReleaseDate:
+          return Localization.AlbumReleaseDate;
+        case SortingFields.Composer:
+          return Localization.Composer;
         default:
           return "";
       }
@@ -109,6 +115,12 @@ namespace mvCentral.GUI
         case SortingFields.LeastPlayedVideos:
           ascending = DBSortPreferences.Instance.SortLeastPlayedVideosAscending;
           break;
+        case SortingFields.AlbumReleaseDate:
+          ascending = DBSortPreferences.Instance.SortAlbumReleaseDateAscending;
+          break;
+        case SortingFields.Composer:
+          ascending = DBSortPreferences.Instance.SortComposerAscending;
+          break;
         default:
           ascending = true;
           break;
@@ -131,39 +143,36 @@ namespace mvCentral.GUI
         case SortingFields.VideoTitle:
           DBSortPreferences.Instance.SortVideoTitleAscending = isAscending;
           break;
-
         case SortingFields.Artist:
           DBSortPreferences.Instance.SortArtistAscending = isAscending;
           break;
-
         case SortingFields.Album:
           DBSortPreferences.Instance.SortAlbumAscending = isAscending;
           break;
-
         case SortingFields.DateAdded:
           DBSortPreferences.Instance.SortDateAddedAscending = isAscending;
           break;
-
         case SortingFields.Runtime:
           DBSortPreferences.Instance.SortRuntimeAscending = isAscending;
           break;
-
         case SortingFields.MostPlayedArtists:
           DBSortPreferences.Instance.SortMostPlayedArtistsAscending = isAscending;
           break;
-
         case SortingFields.MostPlayedVideos:
           DBSortPreferences.Instance.SortMostPlayedVideosAscending = isAscending;
           break;
-
         case SortingFields.LeastPlayedArtists:
           DBSortPreferences.Instance.SortLeastPlayedArtistsAscending = isAscending;
           break;
-
         case SortingFields.LeastPlayedVideos:
           DBSortPreferences.Instance.SortLeastPlayedVideosAscending = isAscending;
           break;
-
+        case SortingFields.AlbumReleaseDate:
+          DBSortPreferences.Instance.SortAlbumReleaseDateAscending = isAscending;
+          break;
+        case SortingFields.Composer:
+          DBSortPreferences.Instance.SortComposerAscending = isAscending;
+          break;
         default:
           break;
       }

@@ -48,6 +48,12 @@ namespace mvCentral.DataProviders
 
     private Match _match = null;
     private string _strFormed = "";
+    private string _strBirth = "";
+    private string _strDeath = "";
+
+    private int begIndex = 0;
+    private int endIndex = 0;
+    private string _strGenres = string.Empty;
     //private static bool _strippedPrefixes;
     //private static bool _logMissing;
     private static bool _useAlternative = true;
@@ -560,8 +566,74 @@ namespace mvCentral.DataProviders
         _strFormed = _strFormed.Trim();
       }
 
+      // if we have no Born, formed of Genre info the will make a guess we are looking at a classical composer
+      if (artistInfo.Born.Trim().Length == 0 && _strFormed.Trim().Length == 0 && artistInfo.Genres.Trim().Length == 0)
+      {
+        _strBirth = string.Empty;
+        // Composer Birth - Get here directly as not a field provided by the Musicartistinfo class
+        pattern = @"<h3>.*Birth.*</h3>\s*?<p>(.*)</p>";
+        if (FindPattern(pattern, strArtistHTML))
+        {
+          string strValue = _match.Groups[1].Value;
+          util.RemoveTags(ref strValue);
+          util.ConvertHTMLToAnsi(strValue, out _strBirth);
+          artistInfo.Born = _strBirth.Trim();
+        }
+
+        _strDeath = string.Empty;
+        // Composer Death - Get here directly as not a field provided by the Musicartistinfo class
+        pattern = @"<h3>.*Death.*</h3>\s*?<p>(.*)</p>";
+        if (FindPattern(pattern, strArtistHTML))
+        {
+          string strValue = _match.Groups[1].Value;
+          util.RemoveTags(ref strValue);
+          util.ConvertHTMLToAnsi(strValue, out _strDeath);
+          _strDeath = _strDeath.Trim();
+        }
+
+
+        string _strYearsActive = string.Empty;
+        // Composer Years Active - Get here directly as not a field provided by the Musicartistinfo class
+        pattern = @"<h3>.*Years.*Active.*</h3>\s*?<p>(.*)</p>";
+        if (FindPattern(pattern, strArtistHTML))
+        {
+          string strValue = _match.Groups[1].Value;
+          util.RemoveTags(ref strValue);
+          util.ConvertHTMLToAnsi(strValue, out _strYearsActive);
+          artistInfo.YearsActive = _strYearsActive.Trim();
+        }
+
+        // Genres
+        begIndex = 0;
+        endIndex = 0;
+        _strGenres = string.Empty;
+
+        string strHTMLLow = strArtistHTML.ToLower();
+        begIndex = strHTMLLow.IndexOf("<h3>genres</h3>");
+        endIndex = strHTMLLow.IndexOf("<h3>country</h3>", begIndex + 2);
+
+        if (begIndex != -1 && endIndex != -1)
+        {
+          string contentInfo = strArtistHTML.Substring(begIndex, endIndex - begIndex);
+          pattern = @"(<li>(.*?)</li>)";
+          if (FindPattern(pattern, contentInfo))
+          {
+            string data = "";
+            while (_match.Success)
+            {
+              data += string.Format("{0}, ", _match.Groups[2].Value);
+              _match = _match.NextMatch();
+            }
+            util.RemoveTags(ref data);
+            util.ConvertHTMLToAnsi(data, out _strGenres);
+            artistInfo.Genres = _strGenres.Trim(new[] { ' ', ',' });
+          }
+        }
+      }
+      // Now fill in the data
       mv.Formed = _strFormed;
       mv.Born = artistInfo.Born;
+      mv.Death = _strDeath;
       mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
       mv.bioContent = artistInfo.AMGBiography;
       mv.Genre = artistInfo.Genres;
@@ -588,11 +660,80 @@ namespace mvCentral.DataProviders
         _strFormed = _strFormed.Trim();
       }
 
+      // if we have no Born, formed of Genre info the will make a guess we are looking at a classical composer
+      if (artistInfo.Born.Trim().Length == 0 && _strFormed.Trim().Length == 0 && artistInfo.Genres.Trim().Length == 0)
+      {
+        _strBirth = string.Empty;
+        // Composer Birth - Get here directly as not a field provided by the Musicartistinfo class
+        pattern = @"<h3>.*Birth.*</h3>\s*?<p>(.*)</p>";
+        if (FindPattern(pattern, strArtistHTML))
+        {
+          string strValue = _match.Groups[1].Value;
+          util.RemoveTags(ref strValue);
+          util.ConvertHTMLToAnsi(strValue, out _strBirth);
+          artistInfo.Born = _strBirth.Trim();
+        }
+
+        _strDeath = string.Empty;
+        // Composer Death - Get here directly as not a field provided by the Musicartistinfo class
+        pattern = @"<h3>.*Death.*</h3>\s*?<p>(.*)</p>";
+        if (FindPattern(pattern, strArtistHTML))
+        {
+          string strValue = _match.Groups[1].Value;
+          util.RemoveTags(ref strValue);
+          util.ConvertHTMLToAnsi(strValue, out _strDeath);
+          _strDeath = _strDeath.Trim();
+        }
+
+
+        string _strYearsActive = string.Empty;
+        // Composer Years Active - Get here directly as not a field provided by the Musicartistinfo class
+        pattern = @"<h3>.*Years.*Active.*</h3>\s*?<p>(.*)</p>";
+        if (FindPattern(pattern, strArtistHTML))
+        {
+          string strValue = _match.Groups[1].Value;
+          util.RemoveTags(ref strValue);
+          util.ConvertHTMLToAnsi(strValue, out _strYearsActive);
+          artistInfo.YearsActive = _strYearsActive.Trim();
+        }
+
+        // Genres
+        begIndex = 0;
+        endIndex = 0;
+        _strGenres = string.Empty;
+
+        string strHTMLLow = strArtistHTML.ToLower();
+        begIndex = strHTMLLow.IndexOf("<h3>genres</h3>");
+        endIndex = strHTMLLow.IndexOf("<h3>country</h3>", begIndex + 2);
+
+        if (begIndex != -1 && endIndex != -1)
+        {
+          string contentInfo = strArtistHTML.Substring(begIndex, endIndex - begIndex);
+          pattern = @"(<li>(.*?)</li>)";
+          if (FindPattern(pattern, contentInfo))
+          {
+            string data = "";
+            while (_match.Success)
+            {
+              data += string.Format("{0}, ", _match.Groups[2].Value);
+              _match = _match.NextMatch();
+            }
+            util.RemoveTags(ref data);
+            util.ConvertHTMLToAnsi(data, out _strGenres);
+            artistInfo.Genres = _strGenres.Trim(new[] { ' ', ',' });
+          }
+        }
+      }
+
+
       if (mv.Formed.Trim() == string.Empty)
         mv.Formed = _strFormed;
 
       if (mv.Born.Trim() == string.Empty)
         mv.Born = artistInfo.Born;
+
+      if (mv.Death.Trim() == string.Empty)
+        mv.Death = _strDeath;
 
       if (mv.bioSummary.Trim() == string.Empty)
         mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);

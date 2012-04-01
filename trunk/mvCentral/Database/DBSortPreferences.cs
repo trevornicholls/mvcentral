@@ -160,6 +160,36 @@ namespace mvCentral.Database
       }
     } private bool _sortLeastPlayedVideosAscending;
 
+
+    [DBFieldAttribute(Default = "True")]
+    public bool SortAlbumReleaseDateAscending
+    {
+      get { return _sortAlbumReleaseDateAscending; }
+      set
+      {
+        if (_sortAlbumReleaseDateAscending != value)
+        {
+          _sortAlbumReleaseDateAscending = value;
+          commitNeeded = true;
+        }
+      }
+    } private bool _sortAlbumReleaseDateAscending;
+
+    [DBFieldAttribute(Default = "True")]
+    public bool SortComposerAscending
+    {
+      get { return _sortComposerAscending; }
+      set
+      {
+        if (_sortComposerAscending != value)
+        {
+          _sortComposerAscending = value;
+          commitNeeded = true;
+        }
+      }
+    } private bool _sortComposerAscending;
+
+
     #endregion
 
     static DBSortPreferences instance;

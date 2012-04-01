@@ -74,6 +74,19 @@ namespace mvCentral.Database
     } private string _born;
 
     [DBField]
+    public string Death
+    {
+      get { return _death; }
+
+      set
+      {
+        _death = value;
+        commitNeeded = true;
+      }
+    } private string _death;
+
+
+    [DBField]
     public string Formed
     {
       get { return _formed; }

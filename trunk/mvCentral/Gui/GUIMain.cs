@@ -1096,8 +1096,20 @@ namespace mvCentral.GUI
         //Genre - Inset Genre into genre table if not already there
         if (artistData.Genre.Trim().Length > 0)
         {
-          if (DBGenres.Get(artistData.Genre) == null)
-            DBGenres.Add(true, artistData.Genre);
+          if (artistData.Genre.Contains(','))
+          {
+            string[] _genres = artistData.Genre.Split(',');
+            foreach (string _genre in _genres)
+            {
+              if (DBGenres.Get(_genre) == null)
+                DBGenres.Add(true, _genre);
+            }
+          }
+          else
+          {
+            if (DBGenres.Get(artistData.Genre) == null)
+              DBGenres.Add(true, artistData.Genre);
+          }
         }
       }
       // Now add any selected Last.FM tags as genres
