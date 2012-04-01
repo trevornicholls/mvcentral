@@ -247,6 +247,7 @@ namespace mvCentral.Localizations
     public static string Artists = "Artists";
     public static string Album = "Album";
     public static string Albums = "Albums";
+    public static string AlbumReleaseDate = "Album Release Date";
     public static string AllVideos = "All Videos";
     public static string AddToPlaylist = "Add To Playlist";
     public static string AddAllToPlaylist = "Add All To Playlist";
@@ -264,6 +265,7 @@ namespace mvCentral.Localizations
     public static string ContinueToNextPartHeader = "Continue to next part?";
     public static string ContextMenu = "Context Menu";
     public static string ConfigGenre = "Configure Genres";
+    public static string Composer = "Composer";
     public static string Composers = "Composer(s)";
     public static string Compete = "Complete";
 

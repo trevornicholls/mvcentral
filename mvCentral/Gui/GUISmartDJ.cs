@@ -840,7 +840,7 @@ namespace mvCentral.GUI
             // If have not selected list then run though and add matching artists
             foreach (DBArtistInfo artistData in fullArtistList)
             {
-              if (string.Equals(artistData.Genre, strSearchValue, StringComparison.OrdinalIgnoreCase))
+              if (string.Equals(artistData.Genre, strSearchValue, StringComparison.OrdinalIgnoreCase) || artistData.Genre.Contains(strSearchValue,StringComparison.OrdinalIgnoreCase))
                 artistPlayList.Add(artistData);
             }
           }
@@ -969,7 +969,7 @@ namespace mvCentral.GUI
       {
         if (selectedGenre != "None")
         {
-          if (artistData.Genre == selectedGenre)
+          if (artistData.Genre == selectedGenre || artistData.Genre.Contains(selectedGenre))
             artistPlayList.Add(artistData);
         }
         // LastFM Tags
@@ -1192,10 +1192,25 @@ namespace mvCentral.GUI
       {
         if (artistObject.Genre.Trim().Length > 0)
         {
-          if (!genreList.Contains(artistObject.Genre.Trim()))
+          if (artistObject.Genre.Contains(","))
           {
-            genreList.Add(artistObject.Genre.Trim());
-            dlg.Add(artistObject.Genre.Trim());
+            string[] _genres = artistObject.Genre.Split(',');
+            foreach (string _genre in _genres)
+            {
+              if (!genreList.Contains(_genre.Trim()))
+              {
+                genreList.Add(_genre.Trim());
+                dlg.Add(_genre.Trim());
+              }
+            }
+          }
+          else
+          {
+            if (!genreList.Contains(artistObject.Genre.Trim()))
+            {
+              genreList.Add(artistObject.Genre.Trim());
+              dlg.Add(artistObject.Genre.Trim());
+            }
           }
         }
       }
