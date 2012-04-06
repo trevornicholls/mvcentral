@@ -697,7 +697,7 @@ namespace mvCentral.DataProviders
           artistInfo.YearsActive = _strYearsActive.Trim();
         }
 
-        // Genres
+        // Get the classic Genres, this is presented in a different format than pop/rock genres
         begIndex = 0;
         endIndex = 0;
         _strGenres = string.Empty;
