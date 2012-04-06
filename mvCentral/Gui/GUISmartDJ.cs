@@ -1174,7 +1174,7 @@ namespace mvCentral.GUI
       }
     }
     /// <summary>
-    /// Select Style
+    /// Select Genre (This is the actual Gnere field and not the genres built from last.fm tags)
     /// </summary>
     /// <returns></returns>
     string selectGenre()
@@ -1182,12 +1182,10 @@ namespace mvCentral.GUI
       List<string> genreList = new List<string>();
       GUIDialogSelect2 dlg = (GUIDialogSelect2)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_SELECT2);
       if (dlg == null)
-      {
         return string.Empty;
-      }
+
       dlg.Reset();
       dlg.SetHeading("Select Genre");
-      dlg.Add("None");
       foreach (DBArtistInfo artistObject in DBArtistInfo.GetAll())
       {
         if (artistObject.Genre.Trim().Length > 0)
@@ -1198,22 +1196,23 @@ namespace mvCentral.GUI
             foreach (string _genre in _genres)
             {
               if (!genreList.Contains(_genre.Trim()))
-              {
                 genreList.Add(_genre.Trim());
-                dlg.Add(_genre.Trim());
-              }
             }
           }
           else
           {
             if (!genreList.Contains(artistObject.Genre.Trim()))
-            {
               genreList.Add(artistObject.Genre.Trim());
-              dlg.Add(artistObject.Genre.Trim());
-            }
           }
         }
       }
+      // Sort the Genre list we have created
+      genreList.Sort();
+      // And add to the dialog
+      dlg.Add("None");
+      foreach (string genre in genreList)
+        dlg.Add(genre.Trim());
+
       // show dialog and wait for result
       dlg.DoModal(GetID);
 
@@ -1232,11 +1231,13 @@ namespace mvCentral.GUI
       }
       dlg.Reset();
       dlg.SetHeading("Select LastFM Tag");
-      dlg.Add("None");     
-      foreach (DBGenres lastFMTags in DBGenres.GetAll())
-        dlg.Add(lastFMTags.Genre);
+      dlg.Add("None");
+      List<DBGenres> lastFMTages = DBGenres.GetAll();
+      lastFMTages.Sort(delegate(DBGenres p1, DBGenres p2) { return p1.Genre.CompareTo(p2.Genre); });
+      foreach (DBGenres lastFMTag in lastFMTages)
+        dlg.Add(lastFMTag.Genre);
 
-      // show dialog and wait for result
+      // show dialog and wait for resultb
       dlg.DoModal(GetID);
 
       return dlg.SelectedLabelText;

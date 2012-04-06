@@ -887,8 +887,8 @@ namespace mvCentral.GUI
         //Genre - Inset Genre into genre table if not already there
         if (artistData.Genre.Trim().Length > 0)
         {
-          if (DBGenres.Get(artistData.Genre) == null)
-            DBGenres.Add(true, artistData.Genre);
+          if (DBGenres.Get(artistData.Genre.Trim()) == null)
+            DBGenres.Add(true, artistData.Genre.Trim());
         }
       }
       logger.Debug("Update Tones, Styles and Genre Complete - Update Composers");
@@ -1101,14 +1101,14 @@ namespace mvCentral.GUI
             string[] _genres = artistData.Genre.Split(',');
             foreach (string _genre in _genres)
             {
-              if (DBGenres.Get(_genre) == null)
-                DBGenres.Add(true, _genre);
+              if (DBGenres.Get(_genre.Trim()) == null)
+                DBGenres.Add(true, _genre.Trim());
             }
           }
           else
           {
-            if (DBGenres.Get(artistData.Genre) == null)
-              DBGenres.Add(true, artistData.Genre);
+            if (DBGenres.Get(artistData.Genre.Trim()) == null)
+              DBGenres.Add(true, artistData.Genre.Trim());
           }
         }
       }
@@ -1116,9 +1116,9 @@ namespace mvCentral.GUI
       for (int i = 0; i < dlgMenu.ListItems.Count; i++)
       {
         if (dlgMenu.ListItems[i].Selected)
-          DBGenres.Add(true, dlgMenu.ListItems[i].TVTag.ToString());
+          DBGenres.Add(true, dlgMenu.ListItems[i].TVTag.ToString().Trim());
         else
-          DBGenres.Add(false, dlgMenu.ListItems[i].TVTag.ToString());
+          DBGenres.Add(false, dlgMenu.ListItems[i].TVTag.ToString().Trim());
       }
 
       if (dlgMenu.SelectedLabel == -1) // Nothing was selected

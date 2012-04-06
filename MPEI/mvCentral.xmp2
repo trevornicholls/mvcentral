@@ -590,8 +590,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>2</Build>
-      <Revision>383</Revision>
+      <Build>3</Build>
+      <Revision>386</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -602,139 +602,16 @@ Click Next to continue or Cancel to exit Setup.</Value>
 
 
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
-    <VersionDescription>V1.0.2.333
+    <VersionDescription>mvCentral v1.0.3.386
 
-Set #mvCentral.Album property when Album is hightliged in Video/Album view. 
-Fix issue where AllMusic sources genres were cleared when accessing 'Configure Genres' Option.
-Fix issue where #mvCentral.ArtistTracksRuntime and #mvCentral.VideosByArtist were not set fot Genre view if only using AllMusic genres
- 
-V1.0.2.xxx
+ Start work on sorting
+ Add code to pull classical composer info from AllMusic, Birth,  Death, Genres and years active (Rescan needed - Advanced  Setting 'Always scan for provider updates in background' set to  True )
 
-Add the follwoing #Play properites
 
- #Play.Current.Genre
- #Play.Current.Rating
- #Play.Current.Runtime
- #Play.Current.IsWatched
-
- #Play.Current.AspectRatio
- #Play.Current.VideoCodec.Texture
- #Play.Current.VideoResolution
- #Play.Current.AudioCodec.Texture
-
-Remove these #Play properites
-
- #Play.Current.mvTrack.Description
- #Play.Current.Artist.Thumb
- 
- V1.0.2.345
- 
- Fix typeo in for localization SelVideos (was SelVidoes)
- 
-V1.0.2.349
-
- Fix error where skipping to next/prev track would first set then clear the #Play properites
- 
-V1.0.2.350
-
- Added missing page count background and text
- 
-V1.0.2.351
-
- Fix issue where SmartDJ would not save a playlist
- 
-V1.0.2.353
-
- Added translation for 'Field' and localized in SmartDJ
- 
-V1.0.2.254
-
- Added #mvCentral.Play.Started, will be set to 'true' for the first 2secs of a video starting
-
-V1.0.2.356
-
-Add 5sec timer to #mvCentral.Play.Started. This is set to 'true' when the video
-props are sec and set to false 5 secs later.
-
-NOTE: In controls that use this property do not use animation type WiindowOpen or WindowClose - MP crashes if you do.
-
-V1.0.2.360
-
- Added the following #Play.Next properities
- 
-    #Play.Next.Title
-    #Play.Next.Thumb
-    #Play.Next.Genre
-    #Play.Next.Runtime
-    #Play.Next.Rating
-    #Play.Next.Plot
-    #Play.Next.mvArtist
-    #Play.Next.mvAlbum
-    #Play.Next.mvVideo
-    #Play.Next.Video.Thumb
-    #Play.Next.AspectRatio
-    #Play.Next.VideoCodec.Texture
-    #Play.Next.VideoResolution
-    #mvCentral.Next.videowidth
-    #mvCentral.Next.videoheight
-    #mvCentral.Next.videoframerate
-    #Play.Next.AudioCodec.Texture
-    #Play.Current.AudioChannels
-
- For the StreamedMP skin added mvCentral.PlayStart.xml which is an import file into videoFullScreen.xml, this provides a pop-up info box each time a video starts
-
-V1.0.2.362
-
- Fix pop-up issue when starting a new video while existing video playing.
- 
-V1.0.2.363
-
- Revert mvCentral.PlayStart.xml to use old logo paths
- 
-V1.0.2.364
-
- Updated credits on About tab.
- 
-V1.0.2.365
-
- Reverted mvCentral.xml to old style logo paths
- 
-V1.0.2.368
- 
- Fix #mvCentral.isPlaying always set to true
- Added 2 new setting to the GUI tab in configuration, Enable On Video Starting
- functions and On Video Start timer.
- Corrected timer file name
- 
-V1.0.2.377
-
- Tweaks to Configuration GUI settings tab
- Reduced wait time between video starting and setting the #Play proprieties from 2000ms to 500ms.
- Added added advanced option to change the delay before setting #Play properties in MediaPortal GUI|Tweaks
- Description changes in xml
- Added link to GUI configuration to support skins for video info pop-up
- Cancel the timer for video info on Prev/Next track selection
- 
-V1.0.2.380
-
- Added custom regex filter that is applied to bio and album/track description text before it is displayed. 
- The regex is configured via advanced options in the section 'MediaPortal GUI|Interface Options' 
- option "Custom Replacement Filter Regex" 
- 
-V1.0.2.382
-
-Changed SmartPlaylist Random option to Random (HD) - this will play all videos that are marked 720p, 1080p,1080i or HD.
-This option was the same as Play All Random on the menu so a little pointless. All language files have been updated.
-Fully enabled Keyword search in SmartDJ
-Enabled Fanart in SmartDJ as Fanart Handler now supports this screen. (StreamedMP, Default and DeafultWide)
-
-V1.0.3.383
-
- Tweaks to StreamedMP skins files and videoFullScreen and videoOSD files
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2012-03-17T22:26:37</ReleaseDate>
+    <ReleaseDate>2012-04-01T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
