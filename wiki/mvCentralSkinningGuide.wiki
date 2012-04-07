@@ -545,3 +545,18 @@ Some things to be aware of when using animations inside videoFullScreen.xml, do 
 [http://code.google.com/p/amped/ aMPed]
 
 [http://mvCentral.googlecode.com/svn/wiki/Images/thumbnails/videoInfo-aMPed.jpg]
+
+----
+== Latest Added Music Video Support ==
+
+mvCentral will check for the last 3 added music vidoes and if found will set 3 skin properities for each music video found.
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.latest.enabled || Set *true* if there are latest videos ||
+
+
+|| *Skin Property* || *Description* ||
+|| #mvCentral.Latest.ArtistX || X = 1, 2 or 3 - Artist Name ||
+|| #mvCentral.Latest.ArtistImageX || X = 1,2 or 3 - Full path to Artist Image ||
+|| #mvCentral.Latest.TrackX || X = 1,2 or 3 - Track Name ||
+  
