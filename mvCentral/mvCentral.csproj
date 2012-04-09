@@ -502,6 +502,7 @@
     <EmbeddedResource Include="Config\Images\mvCentral_Icon_Enabled.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\dvd.png" />
     <Content Include="Resources\mvCentralLogo.jpg" />
     <None Include="Resources\wrench.png" />
   </ItemGroup>

@@ -651,9 +651,10 @@
       this.imageListTreeView.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTreeView.ImageStream")));
       this.imageListTreeView.TransparentColor = System.Drawing.Color.Transparent;
       this.imageListTreeView.Images.SetKeyName(0, "");
-      this.imageListTreeView.Images.SetKeyName(1, "album.png");
-      this.imageListTreeView.Images.SetKeyName(2, "artist.png");
+      this.imageListTreeView.Images.SetKeyName(1, "artist.png");
+      this.imageListTreeView.Images.SetKeyName(2, "album.png");
       this.imageListTreeView.Images.SetKeyName(3, "track.png");
+      this.imageListTreeView.Images.SetKeyName(4, "dvd.png");
       // 
       // lblArtResolution
       // 
