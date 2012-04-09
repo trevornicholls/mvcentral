@@ -591,7 +591,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>3</Build>
-      <Revision>386</Revision>
+      <Revision>388</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -608,10 +608,12 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
  Add code to pull classical composer info from AllMusic, Birth,  Death, Genres and years active (Rescan needed - Advanced  Setting 'Always scan for provider updates in background' set to  True )
 
 
+
+
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2012-04-01T22:26:37</ReleaseDate>
+    <ReleaseDate>2012-04-07T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>

@@ -2337,6 +2337,41 @@ namespace mvCentral.GUI
       }
     }
 
+    /// <summary>
+    /// Update last 3 videos
+    /// </summary>
+    private void LastThreeVideos()
+    {
+      try
+      {
+        List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
+        if (allTracks.Count > 0)
+        {
+          allTracks.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.DateAdded.CompareTo(p1.DateAdded); });
+          // Latest 3 Artists added
+          SetProperty("#mvCentral.Latest.Artist1", allTracks[0].ArtistInfo[0].Artist);
+          SetProperty("#mvCentral.Latest.Artist2", allTracks[1].ArtistInfo[0].Artist);
+          SetProperty("#mvCentral.Latest.Artist3", allTracks[2].ArtistInfo[0].Artist);
+          // Images for lastest 3 artists
+          SetProperty("#mvCentral.Latest.ArtistImage1", allTracks[0].ArtistInfo[0].ArtFullPath);
+          SetProperty("#mvCentral.Latest.ArtistImage2", allTracks[1].ArtistInfo[0].ArtFullPath);
+          SetProperty("#mvCentral.Latest.ArtistImage3", allTracks[2].ArtistInfo[0].ArtFullPath);
+          // Latest 3 tracks Added
+          SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
+          SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
+          SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
+
+          SetProperty("#mvCentral.latest.enabled", "true");
+        }
+        else
+          logger.Debug("NO videos have been loaded into mvCentral - kinda pointless doing the lastet videos!");
+      }
+      catch
+      {
+        logger.Debug("Error during read of last 3 videos added - are there any videos?");
+      }
+    }
+
 
     #endregion
 
@@ -2546,41 +2581,6 @@ namespace mvCentral.GUI
       }
       return;
     }
-    /// <summary>
-    /// Update last 3 videos
-    /// </summary>
-    void LastThreeVideos()
-    {
-      try
-      {
-        List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
-        if (allTracks.Count > 0)
-        {
-          allTracks.Sort(delegate(DBTrackInfo p1, DBTrackInfo p2) { return p2.DateAdded.CompareTo(p1.DateAdded); });
-          // Latest 3 Artists added
-          SetProperty("#mvCentral.Latest.Artist1", allTracks[0].ArtistInfo[0].Artist);
-          SetProperty("#mvCentral.Latest.Artist2", allTracks[1].ArtistInfo[0].Artist);
-          SetProperty("#mvCentral.Latest.Artist3", allTracks[2].ArtistInfo[0].Artist);
-          // Images for lastest 3 artists
-          SetProperty("#mvCentral.Latest.ArtistImage1", allTracks[0].ArtistInfo[0].ArtFullPath);
-          SetProperty("#mvCentral.Latest.ArtistImage2", allTracks[1].ArtistInfo[0].ArtFullPath);
-          SetProperty("#mvCentral.Latest.ArtistImage3", allTracks[2].ArtistInfo[0].ArtFullPath);
-          // Latest 3 tracks Added
-          SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
-          SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
-          SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
-
-          SetProperty("#mvCentral.latest.enabled", "true");
-        }
-        else
-          logger.Debug("NO videos have been loaded into mvCentral - kinda pointless doing the lastet videos!");
-      }
-      catch
-      {
-        logger.Debug("Error during read of last 3 videos added - are there any videos?");
-      }
-    }
-
 
     #endregion
 

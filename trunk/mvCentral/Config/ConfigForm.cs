@@ -1303,7 +1303,13 @@ namespace mvCentral
       else
         AlbumNodeExist = false;
 
-      TreeNode trackItem = new TreeNode(mv.Track, 3, 3);
+      TreeNode trackItem = null;
+      if (mv.LocalMedia[0].IsDVD)
+        trackItem = new TreeNode(mv.Track, 4, 4);
+      else
+        trackItem = new TreeNode(mv.Track, 3, 3);
+
+
       mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
       mv.Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
 
