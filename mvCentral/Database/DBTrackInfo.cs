@@ -440,6 +440,26 @@ namespace mvCentral.Database
       }
     }
 
+    /// <summary>
+    /// Returns a list of DBTrackInfo that are marked as DVDs
+    /// </summary>
+    /// <param name="mbid"></param>
+    /// <returns></returns>
+    public static List<DBTrackInfo> GetDVDEntries()
+    {
+      lock (lockList)
+      {
+        List<DBTrackInfo> results = new List<DBTrackInfo>();
+        List<DBTrackInfo> db1 = DBTrackInfo.GetAll();
+        foreach (DBTrackInfo db2 in db1)
+        {
+          if (db2.LocalMedia[0].IsDVD)
+            results.Add(db2);
+        }
+        return results;
+      }
+    }
+
     #endregion
 
     public override int CompareTo(object obj)
