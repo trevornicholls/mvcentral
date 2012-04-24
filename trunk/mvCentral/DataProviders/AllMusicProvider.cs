@@ -312,9 +312,18 @@ namespace mvCentral.DataProviders
       // get details of the track
       if (mv.GetType() == typeof(DBTrackInfo))
       {
-        string track = ((DBTrackInfo)mv).Track;
-        GetTrackDetails((DBTrackInfo)mv);
-        return true;
+        if (((DBTrackInfo)mv).LocalMedia[0].IsDVD)
+        {
+          string track = ((DBTrackInfo)mv).Track;
+          GetDVDDetails((DBTrackInfo)mv);
+          return true;
+        }
+        else
+        {
+          string track = ((DBTrackInfo)mv).Track;
+          GetTrackDetails((DBTrackInfo)mv);
+          return true;
+        }
       }
 
       return true;
@@ -330,7 +339,10 @@ namespace mvCentral.DataProviders
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       return results;
     }
-
+    /// <summary>
+    /// Get the details of the track
+    /// </summary>
+    /// <param name="trackObject"></param>
     private void GetTrackDetails(DBTrackInfo trackObject)
     {
       string strArtistHTML;
@@ -378,6 +390,59 @@ namespace mvCentral.DataProviders
         }
       }
     }
+
+    /// <summary>
+    /// Get the details of the track
+    /// </summary>
+    /// <param name="trackObject"></param>
+    private void GetDVDDetails(DBTrackInfo trackObject)
+    {
+      string strArtistHTML;
+      string strAlbumHTML;
+      string strArtistURL;
+      bool songFound = false;
+
+      List<DBTrackInfo> results = new List<DBTrackInfo>();
+
+      string artist = trackObject.ArtistInfo[0].Artist;
+
+      if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
+      {
+        var artistInfo = new MusicArtistInfo();
+        if (artistInfo.Parse(strArtistHTML))
+        {
+          artistInfo.Artist = artist;
+          if (GetDVDURLList(strArtistURL))
+          {
+            // we have some albums - now check the tracks in each album
+            foreach (string albumURL in albumURLList)
+            {
+              if (GetPageHTMLOnly(albumURL, out strAlbumHTML))
+              {
+                var albumInfo = new MusicAlbumInfo();
+                if (albumInfo.Parse(strAlbumHTML))
+                {
+                  string[] tracksOnAlbum = albumInfo.Tracks.Split('|');
+                  foreach (string track in tracksOnAlbum)
+                  {
+                    if (!string.IsNullOrEmpty(track.Trim()))
+                    {
+                      string[] trackData = track.Split('@');
+                      if (trackObject.Track == trackData[1])
+                      {
+                        songFound = getTrackRating(trackObject, strAlbumHTML);
+                        break;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
 
     /// <summary>
     /// Get the Rating for the track
@@ -1122,6 +1187,66 @@ namespace mvCentral.DataProviders
       try
       {
         var strURL = strRedirect + "/discography/";
+
+        var x = (HttpWebRequest)WebRequest.Create(strURL);
+
+        x.ProtocolVersion = HttpVersion.Version10;
+        x.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:6.0) Gecko/20100101 Firefox/6.0";
+        x.ContentType = "text/html";
+        x.Timeout = 30000;
+        x.AllowAutoRedirect = false;
+
+        using (var y = (HttpWebResponse)x.GetResponse())
+        {
+          using (var z = y.GetResponseStream())
+          {
+            if (z == null)
+            {
+              return false;
+            }
+
+            using (var sr = new StreamReader(z, Encoding.UTF8))
+            {
+              discHTML = sr.ReadToEnd();
+            }
+
+            z.Close();
+            x.Abort();
+            y.Close();
+          }
+
+          for (var m = AlbumURLRegEx.Match(discHTML); m.Success; m = m.NextMatch())
+          {
+            albumURLList.Add(m.Groups["albumURL"].ToString());
+          }
+
+          // return true if we have picked up a URL
+          if (albumURLList.Count > 0)
+            return true;
+          else
+            return false;
+        }
+      }
+      catch (Exception ex)
+      {
+        logger.Error(ex);
+        return false;
+      }
+    }
+
+    /// <summary>
+    /// Attempts to get a list of album URLs for the artist from allmusic.com
+    /// </summary>
+    /// <param name="strArtistURL">This is artist URL page</param>
+    /// <returns>True if albums found</returns>
+    private bool GetDVDURLList(String strRedirect)
+    {
+      string discHTML;
+      albumURLList.Clear();
+
+      try
+      {
+        var strURL = strRedirect + "/discography/dvds-videos/";
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
 
