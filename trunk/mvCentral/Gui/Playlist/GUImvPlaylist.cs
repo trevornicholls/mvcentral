@@ -947,7 +947,7 @@ namespace mvCentral.Playlist
       if (mvTrack.Composers.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
       else
-        GUIPropertyManager.SetProperty("#mvCentral.Composers", mvTrack.Composers.Replace('|', ','));
+        GUIPropertyManager.SetProperty("#mvCentral.Composers", mvTrack.Composers.Replace("|", ", "));
 
       // Track description
       if (string.IsNullOrEmpty(mvTrack.bioContent.Trim()))
