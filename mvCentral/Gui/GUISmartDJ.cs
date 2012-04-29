@@ -1134,7 +1134,7 @@ namespace mvCentral.GUI
         if (trackInfo.Composers.Trim().Length == 0)
           GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
         else
-          GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace('|', ','));
+          GUIPropertyManager.SetProperty("#mvCentral.Composers", trackInfo.Composers.Replace("|", ", "));
         // Duration
         GUIPropertyManager.SetProperty("#mvCentral.Duration", trackDuration(trackInfo.PlayTime));
         // #iswatched
