@@ -360,9 +360,9 @@ namespace mvCentral.Playlist
 
         case GUIMessage.MessageType.GUI_MSG_PLAYBACK_ENDED:
           {
-            SetAsWatched();
-
             PlayListItem item = GetCurrentItem();
+            SetAsWatched();
+            SetProperties(item, true);
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
               scrobbleSubmit(item);
 
