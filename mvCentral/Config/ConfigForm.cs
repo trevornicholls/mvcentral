@@ -2296,7 +2296,14 @@ namespace mvCentral
             }
           }
 
-          if (selectedMatch.LocalMedia[0].IsDVD && cbSplitDVD.Checked)
+          // We have DVD and set to split DVD into chapters
+          // This is a great idea that falls flat for two reasons..
+          //  1. There is not decent source of DVD/Track info 
+          //  2. Even if the tracks were split out and named I have yet to find a method of playing a single track from a DVD
+          // For now will skip this
+          bool dothisCodeBlock = false;
+          // Split the DVD into chapters 
+          if (selectedMatch.LocalMedia[0].IsDVD && cbSplitDVD.Checked && dothisCodeBlock)
           {
 
             string videoPath = mediaToPlay.GetVideoPath();
@@ -2351,8 +2358,9 @@ namespace mvCentral
               return;
             }
           }
-          // update the match
 
+
+          // update the match
           PossibleMatch selectedMV = new PossibleMatch();
           selectedMV.MusicVideo = mv;
 
