@@ -255,70 +255,137 @@ namespace mvCentral.GUI
       }
       else if (wID == MediaPortal.GUI.Library.Action.ActionType.ACTION_CONTEXT_MENU)
       {
-        int contextChoice = ShowContextMenu();
-        switch (contextChoice)
+        string contextChoice = ShowContextMenu();
+        if (contextChoice == Localization.AddToPlaylist)
         {
-          case 0:
-            //Add to playlist
-            // If on a folder add all Videos for Artist
-            if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
-            {
-              currArtist = DBArtistInfo.Get(facadeLayout.ListLayout.SelectedListItem.Label);
-              List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
-              addToPlaylist(allTracksByArtist, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
-            }
-            else
-            {
-              // Add video to playlist
-              PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
-              string filename = facadeLayout.ListLayout.SelectedListItem.Label;
-              string path = facadeLayout.ListLayout.SelectedListItem.Path;
-              DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
-              PlayListItem p1 = new PlayListItem(video);
-              p1.Track = video;
-              playlist.Add(p1);
-            }
-            break;
-          case 1:
-            // Add all videos to the playlist
-            List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
-            addToPlaylist(allTracks, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
-            break;
-          case 2:
-            addToPlaylistNext(facadeLayout.SelectedListItem);
-            break;
-          case 3:
-            if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
-            {
-              currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
-              GUIWaitCursor.Show();
-              mvCentralCore.DataProviderManager.GetArt(currArtist,false);
-              GUIWaitCursor.Hide();
-              facadeLayout.SelectedListItem.ThumbnailImage = currArtist.ArtThumbFullPath;
-              facadeLayout.SelectedListItem.RefreshCoverArt();
-              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
-              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
-            }
-            else
-            {
-              DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
-              GUIWaitCursor.Show();
-              mvCentralCore.DataProviderManager.GetArt(video,false);
-              GUIWaitCursor.Hide();
-              facadeLayout.SelectedListItem.ThumbnailImage = video.ArtFullPath;
-              facadeLayout.SelectedListItem.RefreshCoverArt();
-              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
-              facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
-            }
-            break;
-          default:
-            //Exit
-            break;
+          //Add to playlist
+
+          // If on a folder add all Videos for Artist
+          if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
+          {
+            currArtist = DBArtistInfo.Get(facadeLayout.ListLayout.SelectedListItem.Label);
+            List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
+            addToPlaylist(allTracksByArtist, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+          }
+          else
+          {
+            // Add video to playlist
+            PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
+            string filename = facadeLayout.ListLayout.SelectedListItem.Label;
+            string path = facadeLayout.ListLayout.SelectedListItem.Path;
+            DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
+            PlayListItem p1 = new PlayListItem(video);
+            p1.Track = video;
+            playlist.Add(p1);
+          }
+        }
+        else if (contextChoice == Localization.AddAllToPlaylist)
+        {
+          // Add all videos to the playlist
+
+          List<DBTrackInfo> allTracks = DBTrackInfo.GetAll();
+          addToPlaylist(allTracks, false, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+        }
+        else if (contextChoice == Localization.AddToPlaylistNext)
+        {
+          // Add video as next playlist item
+
+          addToPlaylistNext(facadeLayout.SelectedListItem);
+        }
+        else if (contextChoice == Localization.RefreshArtwork)
+        {
+          // Refresh the artwork
+
+          if (facadeLayout.ListLayout.SelectedListItem.IsFolder)
+          {
+            currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
+            GUIWaitCursor.Show();
+            mvCentralCore.DataProviderManager.GetArt(currArtist, false);
+            GUIWaitCursor.Hide();
+            facadeLayout.SelectedListItem.ThumbnailImage = currArtist.ArtThumbFullPath;
+            facadeLayout.SelectedListItem.RefreshCoverArt();
+            facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
+            facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
+          }
+          else
+          {
+            DBTrackInfo video = (DBTrackInfo)facadeLayout.ListLayout.SelectedListItem.MusicTag;
+            GUIWaitCursor.Show();
+            mvCentralCore.DataProviderManager.GetArt(video, false);
+            GUIWaitCursor.Hide();
+            facadeLayout.SelectedListItem.ThumbnailImage = video.ArtFullPath;
+            facadeLayout.SelectedListItem.RefreshCoverArt();
+            facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex - 1;
+            facadeLayout.SelectedListItemIndex = facadeLayout.SelectedListItemIndex + 1;
+          }
+        }
+        else if (contextChoice == Localization.RateVid)
+        {
+          // Allow user rating of video
+
+          onSetRating(facadeLayout.SelectedListItemIndex);
         }
       }
+
       else
         base.OnAction(action);
     }
+
+    /// <summary>
+    /// Set the user rating for the video, this will cycle though all video with the facade
+    /// </summary>
+    /// <param name="itemNumber"></param>
+    void onSetRating(int itemNumber)
+    {
+      GUIListItem item = facadeLayout[itemNumber];
+      GUIDialogSetRating itemRating = (GUIDialogSetRating)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_RATING);
+
+
+      DBTrackInfo videoToRate = (DBTrackInfo)item.MusicTag;
+      DBArtistInfo artist = (DBArtistInfo)videoToRate.ArtistInfo[0];
+      DBUserMusicVideoSettings userSettings = videoToRate.ActiveUserSettings;
+      if (userSettings.UserRating == null)
+        userSettings.UserRating = 0;
+
+      itemRating.Rating = (int)userSettings.UserRating;
+      itemRating.SetTitle(String.Format("{0}-{1}", artist.Artist, videoToRate.Track));
+      itemRating.FileName = videoToRate.LocalMedia[0].FullPath;
+
+      itemRating.DoModal(GetID);
+
+      if (itemRating != null)
+        userSettings.UserRating = itemRating.Rating;
+
+      if (itemRating.Result == GUIDialogSetRating.ResultCode.Previous)
+      {
+        while (itemNumber > 0)
+        {
+          itemNumber--;
+          item = facadeLayout[itemNumber];
+          if (!item.IsFolder && !item.IsRemote)
+          {
+            onSetRating(itemNumber);
+            return;
+          }
+        }
+      }
+
+      if (itemRating.Result == GUIDialogSetRating.ResultCode.Next)
+      {
+        while (itemNumber + 1 < facadeLayout.Count)
+        {
+          itemNumber++;
+          item = facadeLayout[itemNumber];
+          if (!item.IsFolder && !item.IsRemote)
+          {
+            onSetRating(itemNumber);
+            return;
+          }
+        }
+      }
+    }
+      
+      
     /// <summary>
     /// Handle a playlist change
     /// </summary>
@@ -1143,7 +1210,7 @@ namespace mvCentral.GUI
     /// Show the Conext Menu
     /// </summary>
     /// <returns></returns>
-    private int ShowContextMenu()
+    private string ShowContextMenu()
     {
       GUIDialogMenu dlgMenu = (GUIDialogMenu)GUIWindowManager.GetWindow((int)GUIWindow.Window.WINDOW_DIALOG_MENU);
       if (dlgMenu != null)
@@ -1158,17 +1225,18 @@ namespace mvCentral.GUI
           {
             dlgMenu.Add(Localization.AddToPlaylistNext);
           }
-          dlgMenu.Add(Localization.Cancel);
           dlgMenu.Add(Localization.RefreshArtwork);
+          if (!facadeLayout.SelectedListItem.IsFolder)
+          dlgMenu.Add(Localization.RateVid);
         }
         dlgMenu.DoModal(GetID);
 
         if (dlgMenu.SelectedLabel == -1) // Nothing was selected
-          return -1;
+          return null;
 
-        return dlgMenu.SelectedLabel;
+        return dlgMenu.SelectedLabelText;
       }
-      return -1;
+      return null;
     }
     /// <summary>
     /// Load the current view and set the idex to the last used.

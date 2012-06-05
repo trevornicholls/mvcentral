@@ -302,25 +302,55 @@ namespace mvCentral.Playlist
     /// <param name="action"></param>
     void OnNewAction(MediaPortal.GUI.Library.Action action)
     {
+      DBTrackInfo track = null;
+      DBUserMusicVideoSettings userSettings = null;
       PlayListItem item = GetCurrentItem();
+      if (item != null)
+      {
+        track = item.Track;
+        userSettings = track.ActiveUserSettings;
+        if (userSettings.UserRating == null)
+          userSettings.UserRating = 0;
+      }
 
       switch (action.wID)
       {
+        case MediaPortal.GUI.Library.Action.ActionType.REMOTE_1:
+          userSettings.UserRating = 1;
+          break;
+        case MediaPortal.GUI.Library.Action.ActionType.REMOTE_2:
+          userSettings.UserRating = 2;
+          break;
+        case MediaPortal.GUI.Library.Action.ActionType.REMOTE_3:
+          userSettings.UserRating = 3;
+          break;
+        case MediaPortal.GUI.Library.Action.ActionType.REMOTE_4:
+          userSettings.UserRating = 4;
+          break;
+        case MediaPortal.GUI.Library.Action.ActionType.REMOTE_5:
+          userSettings.UserRating = 5;
+          break;
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_ITEM:
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_NEXT_CHAPTER:
-          skipTrackActive = true;
-          PlayNext();
-          if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-            scrobbleSubmit(item);
+          if (!track.LocalMedia[0].IsDVD)
+          {
+            skipTrackActive = true;
+            PlayNext();
+            if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
+              scrobbleSubmit(item);
+          }
 
           break;
 
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_ITEM:
         case MediaPortal.GUI.Library.Action.ActionType.ACTION_PREV_CHAPTER:
-          skipTrackActive = true;
-          PlayPrevious();
-          if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-            scrobbleSubmit(item);
+          if (!track.LocalMedia[0].IsDVD)
+          {
+            skipTrackActive = true;
+            PlayPrevious();
+            if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
+              scrobbleSubmit(item);
+          }
 
           break;
       }

@@ -340,6 +340,7 @@ namespace mvCentral.Localizations
     public static string ResumeFrom = "Resume from:";
     public static string ResumeFromLast = "Resume Music Video from last time?";
     public static string RefreshArtwork = "Refresh Artwork from Online Sources";
+    public static string RateVid = "Video Rating";
 
     // S
     public static string SmartPlaylistOptions = "Smart Playlists";
