@@ -43,12 +43,13 @@ using MediaPortal.Dialogs;
 using MediaPortal.Video.Database;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
-using WindowPlugins;
+using mvCentral.GUI;
+
 
 
 namespace mvCentral.Playlist
 {
-  public class GUImvPlayList : WindowPluginBase
+  public class GUImvPlayList : WindowPluginBaseMVC
   {
     #region Enums
 
