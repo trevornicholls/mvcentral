@@ -10,12 +10,12 @@ using MediaPortal.Player;
 
 using mvCentral.Database;
 
-using WindowPlugins;
+
 
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class mvGUIMain : WindowPluginBaseMVC
   {
     private void GenreActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {

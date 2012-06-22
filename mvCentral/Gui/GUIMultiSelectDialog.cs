@@ -49,7 +49,7 @@ using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
-using WindowPlugins;
+
 using NLog;
 
 /*

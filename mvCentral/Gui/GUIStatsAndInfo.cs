@@ -9,13 +9,13 @@ using mvCentral.Database;
 using Cornerstone.Tools;
 // MediaPortal
 using MediaPortal.GUI.Library;
-using WindowPlugins;
+
 // Logging
 using NLog;
 
 namespace mvCentral.GUI
 {
-  public class GUImvStatsAndInfo : WindowPluginBase
+  public class GUImvStatsAndInfo : WindowPluginBaseMVC
   {
     #region variables
 

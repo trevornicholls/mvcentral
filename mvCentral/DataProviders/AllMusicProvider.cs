@@ -34,8 +34,12 @@ namespace mvCentral.DataProviders
 
     #region Provider variables
 
-    private const string BaseURL = "http://www.allmusic.com/search/artist/";
+    private const string BaseURL = "http://www.allmusic.com/search/artists/";
 
+    // Allmusic new site amendments
+    private const string artistSearchPattern = @"<a href=""/artist/(?<artist>.*?)\s*-mn\s*(?<code>.*?)[""]";
+
+    // Old AllMusic regex
     private const string SongRegExpPattern = @"<td\s*class=""cell""><a\s*href=""(?<songURL>.*?)"">(?<songName>.*)</a></td>";
     private static readonly Regex SongURLRegEx = new Regex(SongRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
@@ -43,6 +47,8 @@ namespace mvCentral.DataProviders
     private static readonly Regex AlbumURLRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
     private const string ArtistRegExpPattern = @"<td><a href=""(?<artistURL>.*?)"">(?<artist>.*?)</a></td>\s*<td>(?<genres>.*?)</td>\s*<td>(?<years>.*?)</td>\s*</tr>";
     private static readonly Regex ArtistURLRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+
+    // Some clean up regex
     private static readonly Regex BracketRegEx = new Regex(@"\s*[\(\[\{].*?[\]\)\}]\s*", RegexOptions.Compiled);
     private static readonly Regex PunctuationRegex = new Regex(@"[^\w\s]", RegexOptions.Compiled);
 

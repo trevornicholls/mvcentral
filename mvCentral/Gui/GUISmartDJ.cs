@@ -13,7 +13,7 @@ using MediaPortal.Dialogs;
 using MediaPortal.Video.Database;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
-using WindowPlugins;
+
 // mvCentral
 using mvCentral.Database;
 using mvCentral;
@@ -28,7 +28,7 @@ using NLog;
 
 namespace mvCentral.GUI
 {
-  public class GUISmartDJ : WindowPluginBase
+  public class GUISmartDJ : WindowPluginBaseMVC
   {
 
     #region Enums

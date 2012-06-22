@@ -26,12 +26,12 @@ using MediaPortal.Player;
 using MediaPortal.Threading;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
-using WindowPlugins;
+
 using NLog;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class mvGUIMain : WindowPluginBaseMVC
   {
 
     #region enums
@@ -531,6 +531,9 @@ namespace mvCentral.GUI
       GUIControl.FocusControl(GetID, facadeLayout.GetID);
       setViewAsProperty(currentView);
     }
+
+
+
     /// <summary>
     /// Show the layout selection menu
     /// </summary>

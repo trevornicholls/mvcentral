@@ -17,12 +17,12 @@ using DirectShowLib;
 using DirectShowLib.Dvd;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
-using WindowPlugins;
+
 
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class mvGUIMain : WindowPluginBaseMVC
   {
 
     private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
