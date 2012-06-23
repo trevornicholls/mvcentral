@@ -302,16 +302,23 @@ namespace mvCentral.Playlist
     /// <param name="action"></param>
     void OnNewAction(MediaPortal.GUI.Library.Action action)
     {
+      // Is this my playlist, exit if not.
+      if (_currentPlayList != PlayListType.PLAYLIST_MVCENTRAL)
+        return;
+
       DBTrackInfo track = null;
       DBUserMusicVideoSettings userSettings = null;
+      // Get the current playlist item
       PlayListItem item = GetCurrentItem();
-      if (item != null)
-      {
-        track = item.Track;
-        userSettings = track.ActiveUserSettings;
-        if (userSettings.UserRating == null)
-          userSettings.UserRating = 0;
-      }
+      // Bail out if no item found
+      if (item == null)
+        return;
+
+      track = item.Track;
+      userSettings = track.ActiveUserSettings;
+      if (userSettings.UserRating == null)
+        userSettings.UserRating = 0;
+
 
       switch (action.wID)
       {
@@ -414,6 +421,7 @@ namespace mvCentral.Playlist
           {
             logger.Debug(string.Format("Playlistplayer: Start file ({0})", message.Label));
             // Play the file
+            _currentPlayList = PlayListType.PLAYLIST_MVCENTRAL;
             mvPlayer.Play(message.Label);
           }
           break;
@@ -422,6 +430,7 @@ namespace mvCentral.Playlist
           {
             logger.Debug(string.Format("Playlistplayer: Stop file"));
             mvPlayer.Stop();
+            _currentPlayList = PlayListType.PLAYLIST_NONE;
 
             PlayListItem item = GetCurrentItem();
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
@@ -460,7 +469,8 @@ namespace mvCentral.Playlist
 
     public string Get(int iItem)
     {
-      if (_currentPlayList == PlayListType.PLAYLIST_NONE) return string.Empty;
+      if (_currentPlayList == PlayListType.PLAYLIST_NONE) 
+        return string.Empty;
 
       PlayList playlist = GetPlaylist(_currentPlayList);
       if (playlist.Count <= 0) return string.Empty;
