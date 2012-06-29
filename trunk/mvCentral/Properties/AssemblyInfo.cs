@@ -37,3 +37,9 @@ using MediaPortal.Common.Utils;
 //[assembly: AssemblyFileVersion("0.4.0")]
 
 [assembly: CompatibleVersion("1.1.6.27644")]
+[assembly: UsesSubsystem("MP.SkinEngine")]
+[assembly: UsesSubsystem("MP.Config")]
+[assembly: UsesSubsystem("MP.Input")]
+[assembly: UsesSubsystem("MP.Players")]
+[assembly: UsesSubsystem("MP.Externals")]
+

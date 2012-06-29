@@ -814,9 +814,16 @@ namespace mvCentral.Playlist
       DBTrackInfo trackInfo = null;
       trackInfo = item.Track;
       artistInfo = DBArtistInfo.Get(trackInfo);
-      TimeSpan tt = TimeSpan.Parse(trackInfo.PlayTime);
-      logger.Debug("Sending Scrobble info {0} - {1} ({2})", artistInfo.Artist, trackInfo.Track, tt.TotalSeconds.ToString());
-      LastFMProfile.NowPlaying(artistInfo.Artist, trackInfo.Track, (int)tt.TotalSeconds);
+      try
+      {
+        TimeSpan tt = TimeSpan.Parse(trackInfo.PlayTime);
+        logger.Debug("Sending Scrobble info {0} - {1} ({2})", artistInfo.Artist, trackInfo.Track, tt.TotalSeconds.ToString());
+        LastFMProfile.NowPlaying(artistInfo.Artist, trackInfo.Track, (int)tt.TotalSeconds);
+      }
+      catch
+      {
+        logger.Debug("***** Invalid track time - will not submit to Last.FM");
+      }
     }
 
     void scrobbleSubmit(PlayListItem item)

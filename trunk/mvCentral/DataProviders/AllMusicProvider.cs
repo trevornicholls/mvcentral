@@ -113,11 +113,12 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesArtistDetails
     {
-      get { return true; }
+      get { return false; } // Disabled Currently due to Allmusic site changes
     }
+
     public bool ProvidesAlbumDetails
     {
-      get { return true; }
+      get { return false; }  // Disabled Currently due to Allmusic site changes
     }
 
 
@@ -129,7 +130,7 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesAlbumArt
     {
-      get { return true; }
+      get { return false; } // Disabled Currently due to Allmusic site changes
     }
 
     public bool ProvidesTrackArt
