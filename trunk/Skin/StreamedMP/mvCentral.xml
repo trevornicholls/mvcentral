@@ -615,7 +615,7 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <keepaspectratio>no</keepaspectratio>
-      <visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.GenreView,true)|string.equals(#mvCentral.DVDView,true)]</visible>
     </control>
     <control>
       <id>0</id>
@@ -646,7 +646,7 @@
       <label>#selecteditem</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)|string.equals(#mvCentral.DVDView,true)]</visible>
     </control>
     <control>
       <id>0</id>
@@ -713,7 +713,7 @@
       <label>#mvCentral.BornOrFormed</label>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
-      <visible>[facadeview.filmstrip]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>[facadeview.filmstrip]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)|string.equals(#mvCentral.DVDView,true)]</visible>
     </control>
     <control>
       <id>0</id>
@@ -781,7 +781,7 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <scrollStartDelaySec>4</scrollStartDelaySec>
-      <visible>facadeview.filmstrip+[string.equals(#mvCentral.TrackView,true)|string.equals(#mvCentral.AlbumView,true)]</visible>
+      <visible>facadeview.filmstrip+[string.equals(#mvCentral.TrackView,true)|string.equals(#mvCentral.AlbumView,true)|string.equals(#mvCentral.DVDView,true)]</visible>
     </control>
     <control>
       <id>0</id>
@@ -1104,7 +1104,18 @@
           			<font>mediastream10</font>
           			<textcolor>gainsboro</textcolor>
           			<label>#mvCentral.Translation.Video.Label: #selecteditem</label>
-          			<visible>string.equals(#mvCentral.TrackView, true)</visible>
+          			<visible>[string.equals(#mvCentral.TrackView, true)]</visible>
+          		</control>
+          		<control>
+          			<description>Video Title</description>
+          			<type>fadelabel</type>
+          			<posX>20</posX>
+          			<posY>32</posY>
+          			<width>320</width>
+          			<font>mediastream10</font>
+          			<textcolor>gainsboro</textcolor>
+          			<label>DVD: #selecteditem</label>
+          			<visible>[string.equals(#mvCentral.DVDView,true)]</visible>
           		</control>
           		<control>
           			<description>Tracks on Album</description>
@@ -1158,7 +1169,7 @@
           			<font>mediastream10</font>
                 <lineSpacing>2</lineSpacing>
           			<scrollStartDelaySec>10</scrollStartDelaySec>
-          			<visible>[string.equals(#mvCentral.TrackView, true)|string.equals(#mvCentral.AlbumView, true)]</visible>
+          			<visible>[string.equals(#mvCentral.TrackView, true)|string.equals(#mvCentral.AlbumView, true)|string.equals(#mvCentral.DVDView,true)]</visible>
           		</control>
                <control>
                 <description>SD/HD Fullscreen/Widescreen</description>

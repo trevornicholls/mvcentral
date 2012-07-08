@@ -544,7 +544,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Items>
       <DependencyItem>
         <Type>MediaPortal</Type>
-        <Id />
+        <Id>1f288e48-6f5b-481c-a1b4-605393c913db</Id>
         <MinVersion>
           <Major>1</Major>
           <Minor>1</Minor>
@@ -558,8 +558,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Revision>27644</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
-        <Message>requires MediaPortal version 1.1.6.27644 to 0.0.0.0.</Message>
-        <Name>MediaPortal</Name>
+        <Message>Requires MediaPortal version 1.1.6.27644</Message>
+        <Name>mvCentral</Name>
       </DependencyItem>
     </Items>
   </Dependencies>
@@ -570,12 +570,18 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Items>
             <CompatibleVersionItem>
               <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
-              <DesignedForVersion>1.1.6.27644</DesignedForVersion>
+              <DesignedForVersion>1.2.100.0</DesignedForVersion>
             </CompatibleVersionItem>
           </Items>
         </CompatibleVersion>
         <SubSystemsUsed>
-          <Items />
+          <Items>
+            <SubSystemItem Name="MP.SkinEngine" />
+            <SubSystemItem Name="MP.Config" />
+            <SubSystemItem Name="MP.Input" />
+            <SubSystemItem Name="MP.Players" />
+            <SubSystemItem Name="MP.Externals" />
+          </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
     </Items>
@@ -591,7 +597,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>3</Build>
-      <Revision>398</Revision>
+      <Revision>400</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -624,6 +630,13 @@ button to type menubutton for layouts and views
 Allmusic still broken
 
 Fix issue where MvC reacted (or tried to) prev/next events.
+
+Disable Allmusic provider
+Trap issue with invalid track time
+Last 1.2.3 code base
+
+Updated version in line with compatibility requirements
+
 
 
 </VersionDescription>
@@ -1027,21 +1040,21 @@ Fix issue where MvC reacted (or tried to) prev/next events.
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{417ea420-43c9-49af-9e58-cd80edeca880}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{eceaa562-54af-440c-a82d-02acfd3cfdf6}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b421dbd5-fe70-4efa-b0ec-d03cd977c761}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{bb51a53f-997f-4e36-810a-c77411504531}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{982bbaf9-401a-4fc8-bac2-0d52dec4fb30}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{e7246de0-84c9-4a59-8a18-90b2d4d8b571}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

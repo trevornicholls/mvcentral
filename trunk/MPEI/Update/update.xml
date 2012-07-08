@@ -47,12 +47,12 @@
             </MinVersion>
             <MaxVersion>
               <Major>1</Major>
-              <Minor>1</Minor>
-              <Build>6</Build>
-              <Revision>27644</Revision>
+              <Minor>2</Minor>
+              <Build>100</Build>
+              <Revision>0</Revision>
             </MaxVersion>
             <WarnOnly>false</WarnOnly>
-            <Message>requires MediaPortal version 1.1.6.27644 to 0.0.0.0.</Message>
+            <Message>requires MediaPortal version 1.1.6.27644 to 1.2.100.0.</Message>
             <Name>MediaPortal</Name>
           </DependencyItem>
         </Items>
@@ -64,7 +64,7 @@
               <Items>
                 <CompatibleVersionItem>
                   <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
-                  <DesignedForVersion>1.1.6.27644</DesignedForVersion>
+                  <DesignedForVersion>1.2.100.0</DesignedForVersion>
                 </CompatibleVersionItem>
               </Items>
             </CompatibleVersion>
@@ -93,8 +93,8 @@
 
 </VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.2.384.mpe1</OnlineLocation>
-        <ReleaseDate>2012-03-18T12:30:00</ReleaseDate>
+        <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.2.400.mpe1</OnlineLocation>
+        <ReleaseDate>2012-07-08T17:55:00</ReleaseDate>
         <Tags>music video last.fm</Tags>
         <Location>.\Release\[Name]-[Version].mpe1</Location>
         <Params>
