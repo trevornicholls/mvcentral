@@ -245,6 +245,7 @@
     <Compile Include="DataProviders\LastFMProvider.cs" />
     <Compile Include="Gui\GUISmartDJ.cs" />
     <Compile Include="Gui\WindowPluginsBaseMVC.cs" />
+    <Compile Include="Utils\AMGHTMLParser.cs" />
     <Compile Include="Utils\LastFMScrobble.cs" />
     <Compile Include="DataProviders\LocalProvider.cs" />
     <Compile Include="DataProviders\ManuallProvider.cs" />
