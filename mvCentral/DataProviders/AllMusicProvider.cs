@@ -43,10 +43,13 @@ namespace mvCentral.DataProviders
     private const string SongRegExpPattern = @"<td\s*class=""cell""><a\s*href=""(?<songURL>.*?)"">(?<songName>.*)</a></td>";
     private static readonly Regex SongURLRegEx = new Regex(SongRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
-    private const string AlbumRegExpPattern = @"<td\s*class=""cell""><a\s*href=""(?<albumURL>.*?)"">(?<albumName>.*)</a></td>";
-    private static readonly Regex AlbumURLRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
-    private const string ArtistRegExpPattern = @"<td><a href=""(?<artistURL>.*?)"">(?<artist>.*?)</a></td>\s*<td>(?<genres>.*?)</td>\s*<td>(?<years>.*?)</td>\s*</tr>";
+    // **** Artist Regex ****
+    private const string ArtistRegExpPattern = @"<dl class=""info small"">\s*<dt class=""name primary_link"">\s*<a href=""(?<artistURL>.*?)"".*>(?<artist>.*?)</a>\s*</dt>\s*<dd class=""years-active"">active: (?<years>.*?)</dd>\s*<dd class=""genre third_link"">\s*(?<genres>.*?)\s*</dd>";
     private static readonly Regex ArtistURLRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+
+    // **** Album Regex ****
+    private const string AlbumRegExpPattern = @"<td class=""title primary_link"".*?<a href=""(?<albumURL>.*?)"" class=""title.*?"" data-tooltip="".*?"">(?<albumName>.*?)</a>";
+    private static readonly Regex AlbumURLRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
 
     // Some clean up regex
     private static readonly Regex BracketRegEx = new Regex(@"\s*[\(\[\{].*?[\]\)\}]\s*", RegexOptions.Compiled);
@@ -113,12 +116,12 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesArtistDetails
     {
-      get { return false; } // Disabled Currently due to Allmusic site changes
+      get { return true; } // Disabled Currently due to Allmusic site changes
     }
 
     public bool ProvidesAlbumDetails
     {
-      get { return false; }  // Disabled Currently due to Allmusic site changes
+      get { return true; }  // Disabled Currently due to Allmusic site changes
     }
 
 
@@ -130,7 +133,7 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesAlbumArt
     {
-      get { return false; } // Disabled Currently due to Allmusic site changes
+      get { return true; } // Disabled Currently due to Allmusic site changes
     }
 
     public bool ProvidesTrackArt
@@ -153,8 +156,9 @@ namespace mvCentral.DataProviders
       string artist = mv.ArtistInfo[0].Artist;
       if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
       {
-        var artistInfo = new MusicArtistInfo();
-        if (artistInfo.Parse(strArtistHTML))
+        var artistInfo = AMGHTMLParser.ParseArtistHTML(strArtistHTML, artist);
+        //var artistInfo = new MusicArtistInfo();
+        if (artistInfo != null)
         {
           artistInfo.Artist = artist;
           DBArtistInfo mv1 = (DBArtistInfo)mv.ArtistInfo[0];
@@ -178,8 +182,10 @@ namespace mvCentral.DataProviders
 
       if (GetAlbumHTML(artist, album, out strAlbumHTML))
       {
-        var albumInfo = new MusicAlbumInfo();
-        if (albumInfo.Parse(strAlbumHTML))
+        //var albumInfo = new MusicAlbumInfo();
+        //if (albumInfo.Parse(strAlbumHTML))
+        var albumInfo = AMGHTMLParser.ParseAlbumHTML(strAlbumHTML, album, artist);
+        if (albumInfo != null)
         {
           albumInfo.Artist = album;
           DBAlbumInfo mv1 = (DBAlbumInfo)mv.AlbumInfo[0];
@@ -285,8 +291,9 @@ namespace mvCentral.DataProviders
         string artist = ((DBArtistInfo)mv).Artist;
         if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
         {
-          var artistInfo = new MusicArtistInfo();
-          if (artistInfo.Parse(strArtistHTML))
+          var artistInfo = AMGHTMLParser.ParseArtistHTML(strArtistHTML, artist);
+
+          if (artistInfo != null)
           {
             artistInfo.Artist = artist;
             DBArtistInfo mv1 = (DBArtistInfo)mv;
@@ -305,8 +312,8 @@ namespace mvCentral.DataProviders
 
         if (GetAlbumHTML(artist.Artist, album, out strAlbumHTML))
         {
-          var albumInfo = new MusicAlbumInfo();
-          if (albumInfo.Parse(strAlbumHTML))
+          var albumInfo = AMGHTMLParser.ParseAlbumHTML(strAlbumHTML, album, artist.Artist);
+          if (albumInfo != null)
           {
             albumInfo.Artist = album;
             DBAlbumInfo mv1 = (DBAlbumInfo)mv;
@@ -593,11 +600,11 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="albumInfo"></param>
-    private void setMusicVideoAlbum(ref DBAlbumInfo mv, MusicAlbumInfo albumInfo)
+    private void setMusicVideoAlbum(ref DBAlbumInfo mv, AlbumInfo albumInfo)
     {
       mv.bioSummary = getBioSummary(albumInfo.Review, 50);
       mv.bioContent = albumInfo.Review;
-      mv.YearReleased = albumInfo.DateOfRelease;
+      mv.YearReleased = albumInfo.Year.ToString();
       mv.Rating = albumInfo.Rating;
     }
     /// <summary>
@@ -624,90 +631,14 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="artistInfo"></param>
-    private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo, string strArtistHTML)
+    private void setMusicVideoArtist(ref DBArtistInfo mv, ArtistInfo artistInfo, string strArtistHTML)
     {
-      _strFormed = string.Empty;
-      HTMLUtil util = new HTMLUtil();
-      // Formed - Get here directly as not a field provided by the Musicartistinfo class
-      string pattern = @"<h3>.*Formed.*</h3>\s*?<p>(.*)</p>";
-      if (FindPattern(pattern, strArtistHTML))
-      {
-        string strValue = _match.Groups[1].Value;
-        util.RemoveTags(ref strValue);
-        util.ConvertHTMLToAnsi(strValue, out _strFormed);
-        _strFormed = _strFormed.Trim();
-      }
-
-      // if we have no Born, formed of Genre info the will make a guess we are looking at a classical composer
-      if (artistInfo.Born.Trim().Length == 0 && _strFormed.Trim().Length == 0 && artistInfo.Genres.Trim().Length == 0)
-      {
-        _strBirth = string.Empty;
-        // Composer Birth - Get here directly as not a field provided by the Musicartistinfo class
-        pattern = @"<h3>.*Birth.*</h3>\s*?<p>(.*)</p>";
-        if (FindPattern(pattern, strArtistHTML))
-        {
-          string strValue = _match.Groups[1].Value;
-          util.RemoveTags(ref strValue);
-          util.ConvertHTMLToAnsi(strValue, out _strBirth);
-          artistInfo.Born = _strBirth.Trim();
-        }
-
-        _strDeath = string.Empty;
-        // Composer Death - Get here directly as not a field provided by the Musicartistinfo class
-        pattern = @"<h3>.*Death.*</h3>\s*?<p>(.*)</p>";
-        if (FindPattern(pattern, strArtistHTML))
-        {
-          string strValue = _match.Groups[1].Value;
-          util.RemoveTags(ref strValue);
-          util.ConvertHTMLToAnsi(strValue, out _strDeath);
-          _strDeath = _strDeath.Trim();
-        }
-
-
-        string _strYearsActive = string.Empty;
-        // Composer Years Active - Get here directly as not a field provided by the Musicartistinfo class
-        pattern = @"<h3>.*Years.*Active.*</h3>\s*?<p>(.*)</p>";
-        if (FindPattern(pattern, strArtistHTML))
-        {
-          string strValue = _match.Groups[1].Value;
-          util.RemoveTags(ref strValue);
-          util.ConvertHTMLToAnsi(strValue, out _strYearsActive);
-          artistInfo.YearsActive = _strYearsActive.Trim();
-        }
-
-        // Genres
-        begIndex = 0;
-        endIndex = 0;
-        _strGenres = string.Empty;
-
-        string strHTMLLow = strArtistHTML.ToLower();
-        begIndex = strHTMLLow.IndexOf("<h3>genres</h3>");
-        endIndex = strHTMLLow.IndexOf("<h3>country</h3>", begIndex + 2);
-
-        if (begIndex != -1 && endIndex != -1)
-        {
-          string contentInfo = strArtistHTML.Substring(begIndex, endIndex - begIndex);
-          pattern = @"(<li>(.*?)</li>)";
-          if (FindPattern(pattern, contentInfo))
-          {
-            string data = "";
-            while (_match.Success)
-            {
-              data += string.Format("{0}, ", _match.Groups[2].Value);
-              _match = _match.NextMatch();
-            }
-            util.RemoveTags(ref data);
-            util.ConvertHTMLToAnsi(data, out _strGenres);
-            artistInfo.Genres = _strGenres.Trim(new[] { ' ', ',' });
-          }
-        }
-      }
       // Now fill in the data
-      mv.Formed = _strFormed;
-      mv.Born = artistInfo.Born;
-      mv.Death = _strDeath;
-      mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
-      mv.bioContent = artistInfo.AMGBiography;
+      mv.Formed = mvCentralUtils.StripHTML(artistInfo.Formed);
+      mv.Born = mvCentralUtils.StripHTML(artistInfo.Born);
+      mv.Death = mvCentralUtils.StripHTML(artistInfo.Death);
+      mv.bioSummary = getBioSummary(artistInfo.AMGBio, 50);
+      mv.bioContent = artistInfo.AMGBio;
       mv.Genre = artistInfo.Genres;
       mv.Tones = artistInfo.Tones;
       mv.Styles = artistInfo.Styles;
@@ -718,100 +649,22 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="artistInfo"></param>
-    private void updateMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo, string strArtistHTML)
+    private void updateMusicVideoArtist(ref DBArtistInfo mv, ArtistInfo artistInfo, string strArtistHTML)
     {
-      _strFormed = string.Empty;
-      HTMLUtil util = new HTMLUtil();
-      // Formed - Get here directly as not a field provided by the Musicartistinfo class
-      string pattern = @"<h3>.*Formed.*</h3>\s*?<p>(.*)</p>";
-      if (FindPattern(pattern, strArtistHTML))
-      {
-        string strValue = _match.Groups[1].Value;
-        util.RemoveTags(ref strValue);
-        util.ConvertHTMLToAnsi(strValue, out _strFormed);
-        _strFormed = _strFormed.Trim();
-      }
-
-      // if we have no Born, formed of Genre info the will make a guess we are looking at a classical composer
-      if (artistInfo.Born.Trim().Length == 0 && _strFormed.Trim().Length == 0 && artistInfo.Genres.Trim().Length == 0)
-      {
-        _strBirth = string.Empty;
-        // Composer Birth - Get here directly as not a field provided by the Musicartistinfo class
-        pattern = @"<h3>.*Birth.*</h3>\s*?<p>(.*)</p>";
-        if (FindPattern(pattern, strArtistHTML))
-        {
-          string strValue = _match.Groups[1].Value;
-          util.RemoveTags(ref strValue);
-          util.ConvertHTMLToAnsi(strValue, out _strBirth);
-          artistInfo.Born = _strBirth.Trim();
-        }
-
-        _strDeath = string.Empty;
-        // Composer Death - Get here directly as not a field provided by the Musicartistinfo class
-        pattern = @"<h3>.*Death.*</h3>\s*?<p>(.*)</p>";
-        if (FindPattern(pattern, strArtistHTML))
-        {
-          string strValue = _match.Groups[1].Value;
-          util.RemoveTags(ref strValue);
-          util.ConvertHTMLToAnsi(strValue, out _strDeath);
-          _strDeath = _strDeath.Trim();
-        }
-
-
-        string _strYearsActive = string.Empty;
-        // Composer Years Active - Get here directly as not a field provided by the Musicartistinfo class
-        pattern = @"<h3>.*Years.*Active.*</h3>\s*?<p>(.*)</p>";
-        if (FindPattern(pattern, strArtistHTML))
-        {
-          string strValue = _match.Groups[1].Value;
-          util.RemoveTags(ref strValue);
-          util.ConvertHTMLToAnsi(strValue, out _strYearsActive);
-          artistInfo.YearsActive = _strYearsActive.Trim();
-        }
-
-        // Get the classic Genres, this is presented in a different format than pop/rock genres
-        begIndex = 0;
-        endIndex = 0;
-        _strGenres = string.Empty;
-
-        string strHTMLLow = strArtistHTML.ToLower();
-        begIndex = strHTMLLow.IndexOf("<h3>genres</h3>");
-        endIndex = strHTMLLow.IndexOf("<h3>country</h3>", begIndex + 2);
-
-        if (begIndex != -1 && endIndex != -1)
-        {
-          string contentInfo = strArtistHTML.Substring(begIndex, endIndex - begIndex);
-          pattern = @"(<li>(.*?)</li>)";
-          if (FindPattern(pattern, contentInfo))
-          {
-            string data = "";
-            while (_match.Success)
-            {
-              data += string.Format("{0}, ", _match.Groups[2].Value);
-              _match = _match.NextMatch();
-            }
-            util.RemoveTags(ref data);
-            util.ConvertHTMLToAnsi(data, out _strGenres);
-            artistInfo.Genres = _strGenres.Trim(new[] { ' ', ',' });
-          }
-        }
-      }
-
-
       if (mv.Formed.Trim() == string.Empty)
-        mv.Formed = _strFormed;
+        mv.Formed = mvCentralUtils.StripHTML(artistInfo.Formed);
 
       if (mv.Born.Trim() == string.Empty)
-        mv.Born = artistInfo.Born;
+        mv.Born = mvCentralUtils.StripHTML(artistInfo.Born);
 
       if (mv.Death.Trim() == string.Empty)
-        mv.Death = _strDeath;
+        mv.Death = mvCentralUtils.StripHTML(artistInfo.Death);
 
       if (mv.bioSummary.Trim() == string.Empty)
-        mv.bioSummary = getBioSummary(artistInfo.AMGBiography, 50);
+        mv.bioSummary = getBioSummary(artistInfo.AMGBio, 50);
 
       if (mv.bioContent.Trim() == string.Empty)
-        mv.bioContent = artistInfo.AMGBiography;
+        mv.bioContent = artistInfo.AMGBio;
 
       if (mv.Genre.Trim() == string.Empty)
         mv.Genre = artistInfo.Genres;
@@ -824,7 +677,6 @@ namespace mvCentral.DataProviders
 
       if (mv.YearsActive.Trim() == string.Empty)
         mv.YearsActive = artistInfo.YearsActive;
-
     }
 
 
@@ -1381,70 +1233,16 @@ namespace mvCentral.DataProviders
           return false;
         }
 
-        bool albumFound = false;
-
-        var strURL = strRedirect + "/discography/";
-        if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
-          albumFound = true;
-        else
+        var strURL = strRedirect + "/overview/main#discography";
+        if (!GetAlbumURL(strURL, strAlbum, out strAlbumURL))
         {
-          strURL = strURL + "/compilations/";
-          if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
-            albumFound = true;
-          else
-            albumFound = false;
-        }
-        
-        // If the album was not found and there are no additional artist URLs then exit
-        if (!albumFound && strArtistURLs.Count == 0)
-          return false;
-
-        if (!albumFound)
-        {
-          // We have not found the album but we do have additional artists we can check
-          logger.Debug("Album details not found from Primary artist (1st in list), check artists 1 - 4 in the list");
-          bool searchForAlbum = true;
-          while (searchForAlbum && strArtistURLs.Count > 0)
+          strURL = strRedirect + "/overview/compilations#discography";
+          if (!GetAlbumURL(strURL, strAlbum, out strAlbumURL))
           {
-            logger.Debug("In While Loop");
-            for (int i = 0; i < strArtistURLs.Count; i++)
-            {
-              logger.Debug("Checking {0} with URL {1}", i, strArtistURLs[i]);
-
-              strURL = strArtistURLs[i] + "/discography/";
-              if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
-              {
-                logger.Debug("Album found for artist URL : {0}", strURL);
-                albumFound = true;
-                searchForAlbum = false;
-                break;
-              }
-              else
-              {
-                strURL = strURL + "/compilations/";
-                if (GetAlbumURL(strURL, strAlbum, out strAlbumURL))
-                {
-                  logger.Debug("Album found for artist URL : {0}", strURL);
-                  albumFound = true;
-                  searchForAlbum = false;
-                  break;
-                }
-                else
-                {
-                  albumFound = false;
-                  searchForAlbum = false;
-                }
-              }
-            }
+            return false;
           }
         }
-
-        if (!albumFound)
-          return false;
-
-
         logger.Debug("GetAlbumHTML: Album URL: {0}", strAlbumURL);
-
 
         var x = (HttpWebRequest)WebRequest.Create(strAlbumURL);
 

@@ -235,7 +235,9 @@
     <Compile Include="Database\DBUserMusicVideoSettings.cs" />
     <Compile Include="Database\DBWatchedHistory.cs" />
     <Compile Include="Database\MusicVideosDBTable.cs" />
+    <Compile Include="DataProviders\AlbumInfo.cs" />
     <Compile Include="DataProviders\AllMusicProvider.cs" />
+    <Compile Include="DataProviders\ArtistInfo.cs" />
     <Compile Include="DataProviders\DataProviderManager.cs" />
     <Compile Include="DataProviders\DGProvider.cs" />
     <Compile Include="DataProviders\EchoNestProvider.cs" />
