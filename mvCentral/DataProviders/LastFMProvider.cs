@@ -1166,17 +1166,24 @@ namespace mvCentral.DataProviders
             case "image":
               foreach (XmlNode n3 in n2.ChildNodes)
               {
-                XmlNode imageWidth = n3.Attributes.GetNamedItem("width");
-                XmlNode imageHeight = n3.Attributes.GetNamedItem("height");
-                if (int.Parse(imageHeight.InnerText) >= minHeight && int.Parse(imageWidth.InnerText) >= minWidth)
-                  result.Add(n3.InnerText);
+                try
+                {
+                  XmlNode imageWidth = n3.Attributes.GetNamedItem("width");
+                  XmlNode imageHeight = n3.Attributes.GetNamedItem("height");
+                  if (int.Parse(imageHeight.InnerText) >= minHeight && int.Parse(imageWidth.InnerText) >= minWidth)
+                    result.Add(n3.InnerText);
+                }
+                catch { }
               }
               break;
           }
 
         }
       }
-      return result;
+      if (result.Count == 0)
+        return result;
+      else
+      return null;
     }
 
     private List<string> GetTrackImages(string artist, string track)

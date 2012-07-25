@@ -576,11 +576,11 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </CompatibleVersion>
         <SubSystemsUsed>
           <Items>
-            <SubSystemItem Name="MP.SkinEngine" />
-            <SubSystemItem Name="MP.Config" />
-            <SubSystemItem Name="MP.Input" />
             <SubSystemItem Name="MP.Players" />
+            <SubSystemItem Name="MP.Input" />
+            <SubSystemItem Name="MP.Config" />
             <SubSystemItem Name="MP.Externals" />
+            <SubSystemItem Name="MP.SkinEngine" />
           </Items>
         </SubSystemsUsed>
       </PluginDependencyItem>
@@ -597,7 +597,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>3</Build>
-      <Revision>400</Revision>
+      <Revision>407</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1040,21 +1040,21 @@ Updated version in line with compatibility requirements
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{eceaa562-54af-440c-a82d-02acfd3cfdf6}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{90c130cd-d815-4121-81b1-d011c68f8138}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{bb51a53f-997f-4e36-810a-c77411504531}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{50cf629d-b885-4cc9-b96f-6f168b00a429}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e7246de0-84c9-4a59-8a18-90b2d4d8b571}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{73958b6a-9562-43c5-8e3e-8699c33b537a}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
