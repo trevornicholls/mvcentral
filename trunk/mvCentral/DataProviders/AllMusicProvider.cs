@@ -895,7 +895,8 @@ namespace mvCentral.DataProviders
                 logger.Debug("GetArtistURLAlternative: Multiple matches with years active - returning 1st entry");
                 strPotentialURL = matches[0].Groups["artistURL"].ToString();
                 //strArtistURLs.Clear();
-                for (int i = 1; i < 5; i++)
+                int j = matches.Count;
+                for (int i = 0; i < j; i++)
                 {
                   string artURL = matches[i].Groups["artistURL"].ToString();
                   strArtistURLs.Add(artURL);
