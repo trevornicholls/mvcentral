@@ -1091,10 +1091,10 @@ namespace mvCentral.DataProviders
           {
             case "image":
               // See if we just have a size option....
-              XmlNode imageSize = iSize.Attributes["name"];
+              XmlNode imageSize = iSize.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value == "medium" || imageSize.Value == "large")
+                if (imageSize.Value != "small")
                   mv.ArtUrls.Add(iSize.InnerText);
               }
               else
@@ -1132,10 +1132,10 @@ namespace mvCentral.DataProviders
             else
             {
               // No height/width see if we just have a name 
-              XmlNode imageSize = iSize.Attributes["name"];
+              XmlNode imageSize = iSize.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value == "medium" || imageSize.Value == "large")
+                if (imageSize.Value != "small")
                   mv.ArtUrls.Add(iSize.InnerText);
               }
             }
@@ -1173,7 +1173,7 @@ namespace mvCentral.DataProviders
               XmlNode imageSize = n2.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value == "medium" || imageSize.Value == "large")
+                if (imageSize.Value != "small")
                   result.Add(n2.InnerText);
               }
               else
@@ -1199,6 +1199,11 @@ namespace mvCentral.DataProviders
         return null;
     }
 
+    /// <summary>
+    /// Try and get the image for the track
+    /// </summary>
+    /// <param name="mbid"></param>
+    /// <returns></returns>
     private List<string> GetTrackImages(string mbid)
     {
       XmlNodeList xml = null;
@@ -1222,7 +1227,7 @@ namespace mvCentral.DataProviders
               XmlNode imageSize = n2.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value == "medium" || imageSize.Value == "large")
+                if (imageSize.Value != "small")
                   result.Add(n2.InnerText);
               }
               else
@@ -1262,22 +1267,30 @@ namespace mvCentral.DataProviders
       XmlNode n1 = root.SelectSingleNode(@"/lfm/track/album");
       if (n1 != null)
       {
-
         foreach (XmlNode n2 in n1.ChildNodes)
         {
           switch (n2.Name)
           {
             case "image":
-              foreach (XmlNode n3 in n2.ChildNodes)
+              // See if we just have a size option....
+              XmlNode imageSize = n2.Attributes["size"];
+              if (imageSize != null)
               {
-                try
+                if (imageSize.Value != "small")
+                  result.Add(n2.InnerText);
+              }
+              else
+              {
+                foreach (XmlNode n3 in n2.ChildNodes)
                 {
-                  XmlNode imageWidth = n3.Attributes.GetNamedItem("width");
-                  XmlNode imageHeight = n3.Attributes.GetNamedItem("height");
-                  if (int.Parse(imageHeight.InnerText) >= minHeight && int.Parse(imageWidth.InnerText) >= minWidth)
-                    result.Add(n3.InnerText);
+                  XmlNode imageWidth = n3.Attributes["width"];
+                  if (imageWidth != null)
+                  {
+                    XmlNode imageHeight = n3.Attributes["height"];
+                    if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
+                      result.Add(n3.InnerText);
+                  }
                 }
-                catch {}
               }
               break;
           }
