@@ -597,7 +597,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>3</Build>
-      <Revision>413</Revision>
+      <Revision>415</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -650,6 +650,10 @@ Updated version in line with compatibility requirements
 mvCentral 1.0.3.413
  
  Remove debug code and clean for release.
+
+mvCentral 1.0.3.415
+
+ Fix bug with Allmusic that would throw an exception if track had  no albumidentified.
 
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
