@@ -257,18 +257,20 @@ namespace mvCentral.DataProviders
       List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum(mvAlbumObject);
 
       if (tracksOnAlbum.Count > 0)
+      {
         artist = DBArtistInfo.Get(tracksOnAlbum[0]);
 
-      if (GetAlbumHTML(artist.Artist, mvAlbumObject.Album, out strAlbumHTML))
-      {
-        var albumInfo = new MusicAlbumInfo();
-
-        if (albumInfo.Parse(strAlbumHTML))
+        if (GetAlbumHTML(artist.Artist, mvAlbumObject.Album, out strAlbumHTML))
         {
-          ImageLoadResults imageLoadResults = mvAlbumObject.AddArtFromURL(albumInfo.ImageURL);
+          var albumInfo = new MusicAlbumInfo();
 
-          if (imageLoadResults == ImageLoadResults.SUCCESS || imageLoadResults == ImageLoadResults.SUCCESS_REDUCED_SIZE)
-            mvAlbumObject.Commit();
+          if (albumInfo.Parse(strAlbumHTML))
+          {
+            ImageLoadResults imageLoadResults = mvAlbumObject.AddArtFromURL(albumInfo.ImageURL);
+
+            if (imageLoadResults == ImageLoadResults.SUCCESS || imageLoadResults == ImageLoadResults.SUCCESS_REDUCED_SIZE)
+              mvAlbumObject.Commit();
+          }
         }
       }
       // We always return sucess...
