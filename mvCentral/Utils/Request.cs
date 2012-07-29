@@ -100,8 +100,8 @@ namespace mvCentral.Utils
     {
       XmlDocument xmldoc = new XmlDocument();
 
-      //logger.Debug("Sending the request: " + url.Replace("eadfb84ac56eddbf072efbfc18a90845","<apiKey>"));
-      logger.Debug("Sending the request: " + url);
+      logger.Debug("Sending the request: " + url.Replace("eadfb84ac56eddbf072efbfc18a90845","<apiKey>"));
+      //logger.Debug("Sending the request: " + url);
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
