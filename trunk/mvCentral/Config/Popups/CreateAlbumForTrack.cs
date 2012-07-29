@@ -139,8 +139,8 @@ namespace mvCentral.ConfigScreen.Popups
     {
       XmlDocument xmldoc = new XmlDocument();
 
-      //logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
-      logger.Debug("Sending the request: " + url);
+      logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
+      //logger.Debug("Sending the request: " + url);
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
