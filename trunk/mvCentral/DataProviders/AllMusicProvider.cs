@@ -47,6 +47,11 @@ namespace mvCentral.DataProviders
     private const string ArtistRegExpPattern = @"<dl class=""info small"">\s*<dt class=""name primary_link"">\s*<a href=""(?<artistURL>.*?)"".*>(?<artist>.*?)</a>\s*</dt>\s*<dd class=""years-active"">active: (?<years>.*?)</dd>\s*<dd class=""genre third_link"">\s*(?<genres>.*?)\s*</dd>";
     private static readonly Regex ArtistURLRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
 
+    // **** Artist Regex Alt ****
+    private const string ArtistAltRegExpPattern = @"<dl class=""info small"">\s*<dt class=""name primary_link"">\s*<a href=""(?<artistURL>.*?)"".*>(?<artist>.*?)</a>\s*</dt>\s*<dd class=""genre third_link"">\s*(?<genres>.*?)\s*</dd>";
+    private static readonly Regex ArtistAltURLRegEx = new Regex(ArtistAltRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled);
+
+
     // **** Album Regex ****
     private const string AlbumRegExpPattern = @"<td class=""title primary_link"".*?<a href=""(?<albumURL>.*?)"" class=""title.*?"" data-tooltip="".*?"">(?<albumName>.*?)</a>";
     private static readonly Regex AlbumURLRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
@@ -823,6 +828,7 @@ namespace mvCentral.DataProviders
     {
       strArtistURL = string.Empty;
       strArtistURLs = new List<string>();
+      bool checkYears = true;
 
       try
       {
@@ -860,7 +866,16 @@ namespace mvCentral.DataProviders
             x.Abort();
             y.Close();
 
+            
+            
             var matches = ArtistURLRegEx.Matches(artistHTML);
+
+            if (matches.Count == 0)
+            {
+              checkYears = false;
+              matches = ArtistAltURLRegEx.Matches(artistHTML);
+            }
+
             var numberOfMatchesWithYears = 0;
              //some cases like Björk where there is only a single entry matching artist in list but stil returns list rather then redirecting to artist page
             if (matches.Count == 1)
@@ -885,7 +900,7 @@ namespace mvCentral.DataProviders
                 continue;
 
               //logger.Debug("GetArtistURLAlternative: Years: {0}", m.Groups["years"].ToString().Trim());
-              if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim())) 
+              if (checkYears && string.IsNullOrEmpty(m.Groups["years"].ToString().Trim())) 
                 continue;
 
               strPotentialURL = m.Groups["artistURL"].ToString();
@@ -908,7 +923,7 @@ namespace mvCentral.DataProviders
             }
 
             // No valid match found (Not sure about this check...)
-            if (numberOfMatchesWithYears == 0)
+            if (checkYears && numberOfMatchesWithYears == 0)
             {
               logger.Debug("GetArtistURLAlternative: No matches with years active");
               return false;
