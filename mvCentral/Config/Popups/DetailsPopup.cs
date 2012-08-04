@@ -36,8 +36,17 @@ namespace mvCentral.ConfigScreen.Popups
       label7.DataBindings.Add("Text", r1, "summary");
       label8.DataBindings.Add("Text", r1, "id");
       textBox1.DataBindings.Add("Text", r1, "title");
+
+      if (r1.Count > 0)
+      {
+          Text += string.Format(" - {0} found", r1.Count);
+      }
     }
 
-
+    public override sealed string Text
+    {
+        get { return base.Text; }
+        set { base.Text = value; }
+    }
   }
 }

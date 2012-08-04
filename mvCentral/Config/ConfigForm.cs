@@ -1478,7 +1478,13 @@ namespace mvCentral
 
         // Add drag node to drop node
         dropNode.Nodes.Add(this.dragNode);
-        dropNode.ExpandAll();
+        
+        // Expands all the node only if we're dragging inside an album, not on the author.
+        if (dropNode.Tag.GetType() == typeof(DBAlbumInfo))
+        {
+            dropNode.ExpandAll();
+        }
+
         UpdateDB(this.dragNode, dropNode);
         // Set drag node to null
         this.dragNode = null;
@@ -1498,11 +1504,17 @@ namespace mvCentral
           {
             this.mvLibraryTreeView.Nodes.Remove(t1);
           }
-
         }
         _dragStarted = false;
 
-        // Disable scroll timer
+        // Select the drop node, to update the selected tab in tcMusicVideo
+        // Sets to null because the selected node is already the right one, but the
+        // event tvLibrary_AfterSelect was masked by _dragStarted switch.
+        mvLibraryTreeView.SelectedNode = null;
+        mvLibraryTreeView.SelectedNode = dropNode;
+        mvLibraryTreeView.Select();
+
+          // Disable scroll timer
         this.lvtimer.Enabled = false;
       }
     }
@@ -2791,6 +2803,22 @@ namespace mvCentral
         return;
       }
       artworkProgressBar.Visible = true;
+      lblArtworkProgress.Visible = true;
+    }
+    public delegate void UpdateProgressBarDelegate(string text);
+    /// <summary>
+    /// Updates the progress bar label
+    /// </summary>
+    /// <param name="text"></param>
+    private void updateProgressBar(string text)
+    {
+        if (InvokeRequired)
+        {
+            Invoke(new UpdateProgressBarDelegate(updateProgressBar), text);
+            return;
+        }
+
+        lblArtworkProgress.Text = text;
     }
     /// <summary>
     /// Stop progress bar
@@ -2805,6 +2833,7 @@ namespace mvCentral
       setArtImage();
       updateDBPage();
       artworkProgressBar.Visible = false;
+      lblArtworkProgress.Visible = false;
     }
     /// <summary>
     /// Resend the file to the importer
@@ -2813,6 +2842,8 @@ namespace mvCentral
     /// <param name="e"></param>
     private void sentToImporterToolStripMenuItem_Click(object sender, EventArgs e)
     {
+      DialogResult result = System.Windows.Forms.DialogResult.None;
+
       switch (tcMusicVideo.SelectedTab.Name)
       {
         case "tpTrack":
@@ -2822,7 +2853,7 @@ namespace mvCentral
 
             // If we made it this far all files are available and we can notify the user
             // about what the reassign process is going to do.
-            DialogResult result = MessageBox.Show(
+            result = MessageBox.Show(
                     "You are about to reassign this file or set of files\n" +
                     "to a new music video. This will send the file(s) back to\n" +
                     "the importer and you will loose all custom modifications\n" +
@@ -2850,7 +2881,7 @@ namespace mvCentral
           {
             // If we made it this far all files are available and we can notify the user
             // about what the reassign process is going to do.
-            DialogResult result = MessageBox.Show(
+            result = MessageBox.Show(
                     "You are about to reassign this file or set of files\n" +
                     "to a new music video. This will send the file(s) back to\n" +
                     "the importer and you will loose all custom modifications\n" +
@@ -2885,7 +2916,7 @@ namespace mvCentral
           {
             // If we made it this far all files are available and we can notify the user
             // about what the reassign process is going to do.
-            DialogResult result = MessageBox.Show(
+            result = MessageBox.Show(
                     "You are about to reassign this file or set of files\n" +
                     "to a new music video. This will send the file(s) back to\n" +
                     "the importer and you will loose all custom modifications\n" +
@@ -2914,9 +2945,14 @@ namespace mvCentral
           }
           break;
       }
-      tcImport.SelectedTab = tpMatch;
-      tcMusicVideo.SelectedTab = tpImport;
-      tcMusicVideo.Focus();
+      
+      // Changes current tab only if the user selected YES.
+      if (result == System.Windows.Forms.DialogResult.Yes)
+      {
+          tcImport.SelectedTab = tpMatch;
+          mainTab.SelectedTab = tpImport;
+          mainTab.Focus();
+      }
     }
 
     private bool checkTrackForRemoval(DBTrackInfo mv)
@@ -3109,7 +3145,16 @@ namespace mvCentral
 
     private void btnShowFileDetails_Click(object sender, EventArgs e)
     {
-      scTrackDetails.Panel2Collapsed = !scTrackDetails.Panel2Collapsed;
+        if (tcTrackFileDetails.SelectedTab == tpDetailsFile)
+        {
+            tcTrackFileDetails.SelectedTab = tpDetailsTrack;
+            btnShowFileDetails.Text = "Show File Details";
+        }
+        else
+        {
+            tcTrackFileDetails.SelectedTab = tpDetailsFile;
+            btnShowFileDetails.Text = "Show Track Details";
+        }
     }
 
     private void btnShowArtistDetails_Click_1(object sender, EventArgs e)
@@ -3156,24 +3201,23 @@ namespace mvCentral
       SourcePopup sp = new SourcePopup(r1);
       if (sp.ShowDialog() == DialogResult.OK)
       {
-
         mv.PrimarySource = r1[sp.listBox1.SelectedIndex];
 
         // the update process can take a little time, so spawn it off in another thread
         ThreadStart actions = delegate
-         {
+        {
            startArtProgressBar();
+           mv.PrimarySource.Provider.ProgressChanged += (s, args) => updateProgressBar(((ProgressEventArgs)args).Text);
            mv.PrimarySource.Provider.GetDetails(mv);
            mv.Commit();
            stopArtProgressBar();
-         };
+        };
 
         Thread thread = new Thread(actions);
         thread.Name = "DetailsUpdater";
         thread.Start();
       }
     }
-
     #endregion
 
     #region Private Methods
@@ -3563,6 +3607,5 @@ namespace mvCentral
     }
 
     #endregion
-
   }
 }

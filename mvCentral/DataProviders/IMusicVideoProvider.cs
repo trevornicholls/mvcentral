@@ -33,6 +33,13 @@ namespace mvCentral.DataProviders
     bool GetAlbumArt(DBAlbumInfo mv);
     bool GetTrackArt(DBTrackInfo mv);
     bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID);
+
+    event EventHandler ProgressChanged;
+  }
+
+  public class ProgressEventArgs : EventArgs
+  {
+      public string Text { get; set; }
   }
 
   public interface IScriptableMusicVideoProvider : IMusicVideoProvider

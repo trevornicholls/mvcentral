@@ -69,8 +69,10 @@ namespace mvCentral.DataProviders
     private static string apiAlbummbidGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&mbid={0}&lang={1}", apikey);
     private static string apiArtistAlbumGetInfo = string.Format(apiMusicVideoUrl, "album.getinfo&artist={0}&album={1}&lang={2}", apikey);
     private static string apiArtistTopAlbums = string.Format(apiMusicVideoUrl, "artist.gettopalbums&artist={0}", apikey);
+    private static string apiArtistTopAlbumsPages = string.Format(apiMusicVideoUrl, "artist.gettopalbums&artist={0}&page={1}", apikey);
     // Tracks
     private static string apiArtistTopTracks = string.Format(apiMusicVideoUrl, "artist.gettoptracks&artist={0}", apikey);
+    private static string apiArtistTopTracksPages = string.Format(apiMusicVideoUrl, "artist.gettoptracks&artist={0}&page={1}", apikey);
     private static string apiTrackGetInfo = string.Format(apiMusicVideoUrl, "set&track={0}&lang={1}", apikey);
     private static string apiTrackmbidGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&mbid={0}&lang={1}", apikey);
     private static string apiArtistTrackGetInfo = string.Format(apiMusicVideoUrl, "track.getinfo&artist={0}&track={1}&lang={2}", apikey);
@@ -174,50 +176,56 @@ namespace mvCentral.DataProviders
 
       string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
 
+      ReportProgress("");
 
       // Get Artist Info
       if (mv.GetType() == typeof(DBArtistInfo))
       {
+          string artist = ((DBArtistInfo)mv).Artist;
+          XmlNodeList xml = null;
 
-        string artist = ((DBArtistInfo)mv).Artist;
-        XmlNodeList xml = null;
+          if (artist != null)
+          {
+              ReportProgress("Getting Artists...");
+              xml = getXML(apiArtistSearch, artist);
+          }
+          else 
+              return false;
 
-        if (artist != null)
-          xml = getXML(string.Format(apiArtistSearch, artist));
-        else return false;
+          if (xml == null)
+              return false;
+          XmlNode root = xml.Item(0).ParentNode;
+          if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
+          XmlNode n1 = root.SelectSingleNode(@"/lfm/results/artistmatches");
 
-        if (xml == null)
-          return false;
-        XmlNode root = xml.Item(0).ParentNode;
-        if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
-        XmlNode n1 = root.SelectSingleNode(@"/lfm/results/artistmatches");
+          List<Release> r1 = new List<Release>();
+          foreach (XmlNode x1 in n1.ChildNodes)
+          {
+              Release r2 = new Release(x1);
+              if (r2.id != null || r2.id.Trim().Length > 0)
+                  r1.Add(r2);
+          }
 
-        List<Release> r1 = new List<Release>();
-        foreach (XmlNode x1 in n1.ChildNodes)
-        {
-          Release r2 = new Release(x1);
-          if (r2.id != null || r2.id.Trim().Length > 0)
-            r1.Add(r2);
-        }
-        r1.Sort(Release.TitleComparison);
-        DetailsPopup d1 = new DetailsPopup(r1);
+          ReportProgress("Done!");
+          r1.Sort(Release.TitleComparison);
+          DetailsPopup d1 = new DetailsPopup(r1);
 
-        if (d1.ShowDialog() == DialogResult.OK)
-        {
-          DBArtistInfo mv1 = (DBArtistInfo)mv;
-          mv.ArtUrls.Clear();
-          string title = d1.textBox1.Text;
-          string mbid = d1.label8.Text;
-          if (title.Trim().Length == 0) title = null;
-          if (mbid.Trim().Length == 0) mbid = null;
+          if (d1.ShowDialog() == DialogResult.OK)
+          {
+              DBArtistInfo mv1 = (DBArtistInfo)mv;
+              mv.ArtUrls.Clear();
+              string title = d1.textBox1.Text;
+              string mbid = d1.label8.Text;
+              if (title.Trim().Length == 0) title = null;
+              if (mbid.Trim().Length == 0) mbid = null;
 
-          if (string.IsNullOrEmpty(mbid))
-            setMusicVideoArtist(ref mv1, title, string.Empty);
-          else
-            setMusicVideoArtist(ref mv1, string.Empty, mbid);
+              if (string.IsNullOrEmpty(mbid))
+                  setMusicVideoArtist(ref mv1, title, string.Empty);
+              else
+                  setMusicVideoArtist(ref mv1, string.Empty, mbid);
 
-            GetArtistArt((DBArtistInfo)mv);
-        }
+              GetArtistArt((DBArtistInfo)mv);
+          }
       }
 
       // Get Album Info
@@ -231,9 +239,12 @@ namespace mvCentral.DataProviders
           XmlNodeList xml = null;
 
           if (artist != null)
-            xml = getXML(string.Format(apiArtistTopAlbums, artist));
-          else 
-            return false;
+          {
+              ReportProgress("Getting Albums...");
+              xml = getXML(apiArtistTopAlbums, artist);
+          }
+          else
+              return false;
 
           if (xml == null)
             return false;
@@ -242,14 +253,41 @@ namespace mvCentral.DataProviders
           if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
           XmlNode n1 = root.SelectSingleNode(@"/lfm/topalbums");
 
-          List<Release> r1 = new List<Release>();
+          int page = Convert.ToInt16(n1.Attributes["page"].Value);
+          int perPage = Convert.ToInt16(n1.Attributes["perPage"].Value);
+          int totalPages = Convert.ToInt16(n1.Attributes["totalPages"].Value);
+          int total = Convert.ToInt16(n1.Attributes["total"].Value);
+          // Process the page we already have
+          List<Release> artistTopAlbumns = new List<Release>();
           foreach (XmlNode x1 in n1.ChildNodes)
           {
             Release r2 = new Release(x1);
-            r1.Add(r2);
+            artistTopAlbumns.Add(r2);
           }
-          r1.Sort(Release.TitleComparison);
-          DetailsPopup d1 = new DetailsPopup(r1);
+
+          for (int requestPage = 2; requestPage <= totalPages; requestPage++)
+          {
+              ReportProgress(string.Format("Getting Albums ({0}/{1})...", artistTopAlbumns.Count, total));
+
+              // Now get the next Page
+              xml = getXML(apiArtistTopAlbumsPages, artist, requestPage.ToString());
+              if (xml != null)
+              {
+                  root = xml.Item(0).ParentNode;
+                  if (root.Attributes != null && root.Attributes["status"].Value != "ok") continue;
+                  XmlNode topAlbumPage = root.SelectSingleNode(@"/lfm/topalbums");
+                  // Process the new page
+                  foreach (XmlNode album in topAlbumPage.ChildNodes)
+                  {
+                      Release topAlbum = new Release(album);
+                      artistTopAlbumns.Add(topAlbum);
+                  }
+              }
+          }
+
+          ReportProgress("Done!");
+          artistTopAlbumns.Sort(Release.TitleComparison);
+          DetailsPopup d1 = new DetailsPopup(artistTopAlbumns);
 
           if (d1.ShowDialog() == DialogResult.OK)
           {
@@ -273,7 +311,10 @@ namespace mvCentral.DataProviders
         XmlNodeList xml = null;
 
         if (artist != null)
-          xml = getXML(string.Format(apiArtistTopTracks, artist));
+        {
+            ReportProgress("Getting Tracks...");
+            xml = getXML(apiArtistTopTracks, artist);
+        }
         else return false;
 
         if (xml == null)
@@ -288,7 +329,7 @@ namespace mvCentral.DataProviders
         int totalPages = Convert.ToInt16(n1.Attributes["totalPages"].Value);
         int total = Convert.ToInt16(n1.Attributes["total"].Value);
         // Process the page we already have
-        List<Release> artistTopTracks = new List<Release>(); 
+        List<Release> artistTopTracks = new List<Release>();
 
         foreach (XmlNode x1 in n1.ChildNodes)
         {
@@ -296,22 +337,28 @@ namespace mvCentral.DataProviders
           artistTopTracks.Add(r2);
         }
 
-        for (int requestPage = 2; requestPage < totalPages; requestPage++)
+        for (int requestPage = 2; requestPage <= totalPages; requestPage++)
         {
-          // Now get the next Page
-          xml = getXML(string.Format(apiArtistTopTracks, artist) + "&page=" + requestPage.ToString());
-          root = xml.Item(0).ParentNode;
-          XmlNode topTrackPage = root.SelectSingleNode(@"/lfm/toptracks");
-          // Process the page we already have
-          foreach (XmlNode track in topTrackPage.ChildNodes)
-          {
-            Release topTrack = new Release(track);
-            artistTopTracks.Add(topTrack);
-          }
+            ReportProgress(string.Format("Getting Tracks ({0}/{1})...", artistTopTracks.Count, total));
+
+            // Now get the next Page
+            xml = getXML(apiArtistTopTracksPages, artist, requestPage.ToString());
+            if (xml != null)
+            {
+                root = xml.Item(0).ParentNode;
+                if (root.Attributes != null && root.Attributes["status"].Value != "ok") continue;
+                XmlNode topTrackPage = root.SelectSingleNode(@"/lfm/toptracks");
+                // Process the new page
+                foreach (XmlNode track in topTrackPage.ChildNodes)
+                {
+                    Release topTrack = new Release(track);
+                    artistTopTracks.Add(topTrack);
+                }
+            }
         }
 
+        ReportProgress("Done!");
         artistTopTracks.Sort(Release.TitleComparison);
-
         DetailsPopup d1 = new DetailsPopup(artistTopTracks);
 
         if (d1.ShowDialog() == DialogResult.OK)
@@ -498,7 +545,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo mvAlbumObject)
     {
-      logger.Info("In Method : GetAlbumArt(DBAlbumInfo mv)");
+      logger.Debug("In Method : GetAlbumArt(DBAlbumInfo mv)");
 
       if (mvAlbumObject == null)
         return false;
@@ -529,7 +576,7 @@ namespace mvCentral.DataProviders
         if (tracksOnAlbum.Count > 0)
           artist = DBArtistInfo.Get(tracksOnAlbum[0]);
 
-        if (string.IsNullOrEmpty(mvAlbumObject.MdID.Trim()))
+        if (mvAlbumObject.MdID == null || string.IsNullOrEmpty(mvAlbumObject.MdID.Trim()))
           setMusicVideoAlbum(ref mvAlbumObject, artist.Artist, mvAlbumObject.Album, null);
         else
           setMusicVideoAlbum(ref mvAlbumObject, mvAlbumObject.MdID);
@@ -653,10 +700,10 @@ namespace mvCentral.DataProviders
       // Have we an MBID for this artist
       if (string.IsNullOrEmpty(artistmbid))
         // No, use Artist Name for lookup
-        xml = getXML(string.Format(apiArtistNameGetInfo, artistName, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiArtistNameGetInfo, artistName, mvCentralCore.Settings.DataProviderAutoLanguage);
       else
         // Use MBID for Lookup 
-        xml = getXML(string.Format(apiArtistmbidGetInfo, artistmbid, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiArtistmbidGetInfo, artistmbid, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // Did we get some data? Bail out if not
       if (xml == null)
@@ -750,9 +797,9 @@ namespace mvCentral.DataProviders
 
       // API Call takes MbId or Artist & Album
       if (!(string.IsNullOrEmpty(mbid) || mbid.Trim().Length == 0))
-        xml = getXML(string.Format(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
       else if (!string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(album))
-        xml = getXML(string.Format(apiArtistAlbumGetInfo, artist, album, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiArtistAlbumGetInfo, artist, album, mvCentralCore.Settings.DataProviderAutoLanguage);
       
       // Did we get some data back, if not bail out
       if (xml == null)
@@ -827,15 +874,15 @@ namespace mvCentral.DataProviders
 
       // If we only have a valid track name
       if (artist == null && mbid == null && track != null)
-        xml = getXML(string.Format(apiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // if we only have a valid MBID
       if (track == null && artist == null && mbid != null)
-        xml = getXML(string.Format(apiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // If now MBID but we do have Artist & Track
       if (mbid == null && artist != null && track != null)
-        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // We had nothing so lets get out of here
       if (xml == null)
@@ -928,9 +975,9 @@ namespace mvCentral.DataProviders
       XmlNodeList xml = null;
 
       if (artist == null)
-        xml = getXML(string.Format(apiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage);
       else
-        xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage));
+        xml = getXML(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       if (xml == null)
         return null;
@@ -1032,7 +1079,7 @@ namespace mvCentral.DataProviders
         foreach (string s1 in str)
         {
           XmlNodeList xml = null;
-          xml = getXML(string.Format(apiArtistTrackGetInfo, artist, s1, mvCentralCore.Settings.DataProviderAutoLanguage));
+          xml = getXML(apiArtistTrackGetInfo, artist, s1, mvCentralCore.Settings.DataProviderAutoLanguage);
           if (xml == null) continue;
           XmlNode root = xml.Item(0).ParentNode;
           if (root.Attributes != null && root.Attributes["status"].Value != "ok") continue;
@@ -1051,7 +1098,7 @@ namespace mvCentral.DataProviders
 
       XmlNodeList xml = null;
 
-      xml = getXML(string.Format(apiArtistGetInfo, artist, mvCentralCore.Settings.DataProviderAutoLanguage));
+      xml = getXML(apiArtistGetInfo, artist, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       if (xml == null) return null;
       XmlNode root = xml.Item(0).ParentNode;
@@ -1070,10 +1117,10 @@ namespace mvCentral.DataProviders
       int minHeight = mvCentralCore.Settings.MinimumArtistHeight;
 
       XmlNodeList xml = null;
-      if (!string.IsNullOrEmpty(mv.MdID.Trim()))
-        xml = getXML(string.Format(apiArtistmbidGetImagesInfo, mv.MdID));
+      if (mv.MdID != null && !string.IsNullOrEmpty(mv.MdID.Trim()))
+        xml = getXML(apiArtistmbidGetImagesInfo, mv.MdID);
       else
-        xml = getXML(string.Format(apiArtistNameGetImagesInfo, mv.Artist));
+        xml = getXML(apiArtistNameGetImagesInfo, mv.Artist);
 
       if (xml == null) return;
       List<string> result = new List<string>();
@@ -1156,7 +1203,7 @@ namespace mvCentral.DataProviders
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
 
-      xml = getXML(string.Format(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
+      xml = getXML(apiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
       if (xml == null) return null;
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
@@ -1210,7 +1257,7 @@ namespace mvCentral.DataProviders
       int minWidth = mvCentralCore.Settings.MinimumTrackWidth;
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
-      xml = getXML(string.Format(apiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage));
+      xml = getXML(apiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
       if (xml == null) return null;
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
@@ -1259,7 +1306,7 @@ namespace mvCentral.DataProviders
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
       XmlNodeList xml = null;
-      xml = getXML(string.Format(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage));
+      xml = getXML(apiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
       if (xml == null) return null;
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
@@ -1315,9 +1362,9 @@ namespace mvCentral.DataProviders
       XmlNodeList xml = null;
 
       if (artist == null)
-        xml = getXML(string.Format(apiTrackSearch, track));
+        xml = getXML(apiTrackSearch, track);
       else
-        xml = getXML(string.Format(apiArtistTrackSearch, artist, track));
+        xml = getXML(apiArtistTrackSearch, artist, track);
 
       if (xml == null)
         return null;
@@ -1379,11 +1426,21 @@ namespace mvCentral.DataProviders
       return UpdateResults.SUCCESS;
     }
 
-    // given a url, retrieves the xml result set and returns the nodelist of Item objects
-    private static XmlNodeList getXML(string url)
+    // calls the getXMLFromURL but the URL is formatted using
+    // the baseString with the given parameters escaped them to be usable on URLs.
+    private static XmlNodeList getXML(string baseString, params object[] parameters)
     {
-      XmlDocument xmldoc = new XmlDocument();
+        for (int i=0; i<parameters.Length; i++)
+        {
+            parameters[i] = Uri.EscapeDataString((string)parameters[i]);
+        }
 
+        return getXMLFromURL(string.Format(baseString, parameters));
+    }
+
+    // given a url, retrieves the xml result set and returns the nodelist of Item objects
+    private static XmlNodeList getXMLFromURL(string url)
+    {
       logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
       //logger.Debug("Sending the request: " + url);
 
@@ -1400,6 +1457,15 @@ namespace mvCentral.DataProviders
         logger.Debug("***** API ERROR *****: Code:{0} ({1})", grabber.errorCode, grabber.errorText);
         return null;
       }
+    }
+
+    public event EventHandler ProgressChanged;
+    private void ReportProgress(string text)
+    {
+        if (ProgressChanged != null)
+        {
+            ProgressChanged(this, new ProgressEventArgs {Text = text});
+        }
     }
   }
 }

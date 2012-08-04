@@ -654,5 +654,6 @@ namespace mvCentral.DataProviders
       throw new NotImplementedException();
     }
 
+    public event EventHandler ProgressChanged;
   }
 }

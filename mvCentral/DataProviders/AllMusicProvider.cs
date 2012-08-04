@@ -227,7 +227,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo mvAlbumObject)
     {
-      logger.Info("In Method : GetAlbumArt(DBAlbumInfo mv)");
+      logger.Debug("In Method : GetAlbumArt(DBAlbumInfo mv)");
 
       if (mvAlbumObject == null)
         return false;
@@ -1378,5 +1378,6 @@ namespace mvCentral.DataProviders
 
     #endregion
 
+    public event EventHandler ProgressChanged;
   }
 }

@@ -279,7 +279,7 @@ namespace mvCentral.DataProviders
           XmlNodeList xml = null;
 
           if (artist != null)
-            xml = getXML(string.Format(apiArtistGetInfo, artist));
+            xml = getXML(apiArtistGetInfo, artist);
           else return false;
 
           if (xml == null)
@@ -316,7 +316,7 @@ namespace mvCentral.DataProviders
         XmlNodeList xml = null;
 
         if (artist != null)
-          xml = getXML(string.Format(apiArtistGetInfo, artist));
+          xml = getXML(apiArtistGetInfo, artist);
         else return false;
 
         if (xml == null)
@@ -395,7 +395,7 @@ namespace mvCentral.DataProviders
     {
       if (artist == null)
         return;
-      XmlNodeList xml = getXML(string.Format(apiArtistGetInfo, artist));
+      XmlNodeList xml = getXML(apiArtistGetInfo, artist);
       if (xml == null)
         return;
       XmlNode root = xml.Item(0).ParentNode;
@@ -462,7 +462,7 @@ namespace mvCentral.DataProviders
       //first get artist info
 
       if (artist != null)
-        xml = getXML(string.Format(apiArtistGetInfo, artist));
+        xml = getXML(apiArtistGetInfo, artist);
       else return null;
 
       if (xml == null)
@@ -522,7 +522,7 @@ namespace mvCentral.DataProviders
       // get release info
 
       if (track != null)
-        xml = getXML(string.Format(apiSearch, artist + " " + track));
+        xml = getXML(apiSearch, artist + " " + track);
       else return null;
 
       if (xml == null)
@@ -550,7 +550,7 @@ namespace mvCentral.DataProviders
 
       // get release info
 
-      xml = getXML(string.Format(apiTrackGetInfo, id));
+      xml = getXML(apiTrackGetInfo, id);
       if (xml == null)
         return;
       XmlNode root = xml.Item(0).ParentNode;
@@ -593,7 +593,7 @@ namespace mvCentral.DataProviders
 
       // get release info
 
-      xml = getXML(string.Format(apiTrackGetInfo, id));
+      xml = getXML(apiTrackGetInfo, id);
       if (xml == null)
         return;
       XmlNode root = xml.Item(0).ParentNode;
@@ -690,10 +690,20 @@ namespace mvCentral.DataProviders
       return UpdateResults.SUCCESS;
     }
 
+    // calls the getXMLFromURL but the URL is formatted using
+    // the baseString with the given parameters escaped them to be usable on URLs.
+    private static XmlNodeList getXML(string baseString, params object[] parameters)
+    {
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            parameters[i] = Uri.EscapeDataString((string)parameters[i]);
+        }
 
+        return getXMLFromURL(string.Format(baseString, parameters));
+    }
 
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
-    private static XmlNodeList getXML(string url)
+    private static XmlNodeList getXMLFromURL(string url)
     {
       logger.Debug("Sending the request: " + url);
 
@@ -710,6 +720,7 @@ namespace mvCentral.DataProviders
         return null;
     }
 
+    public event EventHandler ProgressChanged;
   }
 
 
@@ -769,7 +780,5 @@ namespace mvCentral.DataProviders
       return title.CompareTo(other.title);
     }
     #endregion
-
-
   }
 }
