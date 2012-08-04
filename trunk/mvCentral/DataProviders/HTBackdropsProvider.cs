@@ -167,16 +167,18 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetArtistArt(DBArtistInfo mvArtistObject)
     {
-      string searchURL = string.Empty;
-      XmlNodeList xml = null;
+      XmlNodeList xml;
 
+      // Get the images
       // If we have a MBID for this Artist use this to retrive the image otherwise fall back to keyword search
       if (string.IsNullOrEmpty(mvArtistObject.MdID.Trim()))
-        searchURL = string.Format(SearchArtistImage, APIKey, mvArtistObject.Artist);
+      {
+          xml = getXML(SearchArtistImage, APIKey, mvArtistObject.Artist);
+      }
       else
-        searchURL = string.Format(SearchArtistImageMBID, APIKey, mvArtistObject.MdID);
-      // Get the images
-      xml = getXML(searchURL);
+      {
+          xml = getXML(SearchArtistImageMBID, APIKey, mvArtistObject.MdID);
+      }
 
       // If we reveived nothing back, bail out
       if (xml == null)
@@ -307,11 +309,21 @@ namespace mvCentral.DataProviders
 
     #region URL and HTTP Handling
 
-    // given a url, retrieves the xml result set and returns the nodelist of Item objects
-    private static XmlNodeList getXML(string url)
+    // calls the getXMLFromURL but the URL is formatted using
+    // the baseString with the given parameters escaped them to be usable on URLs.
+    private static XmlNodeList getXML(string baseString, params object[] parameters)
     {
-      XmlDocument xmldoc = new XmlDocument();
+        for (int i = 0; i < parameters.Length; i++)
+        {
+            parameters[i] = Uri.EscapeDataString((string)parameters[i]);
+        }
 
+        return getXMLFromURL(string.Format(baseString, parameters));
+    }
+
+    // given a url, retrieves the xml result set and returns the nodelist of Item objects
+    private static XmlNodeList getXMLFromURL(string url)
+    {
       logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
       //logger.Debug("Sending the request: " + url);
 
@@ -332,5 +344,6 @@ namespace mvCentral.DataProviders
 
     #endregion
 
+    public event EventHandler ProgressChanged;
   }
 }

@@ -23,7 +23,7 @@ namespace mvCentral.ConfigScreen.Popups
             InitializeComponent();
             listBox1.DataSource = r1;
             // Define the field to be displayed
-            listBox1.DisplayMember = "ProviderType";
+            // listBox1.DisplayMember = "Provider";
 
             // Define the field to be used as the value
             listBox1.ValueMember = "";
