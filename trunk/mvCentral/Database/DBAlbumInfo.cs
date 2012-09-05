@@ -112,7 +112,7 @@ namespace mvCentral.Database {
             if (mv.AlbumInfo.Count == 0) return null;
             foreach (DBAlbumInfo db1 in GetAll())
             {
-                if (db1.MdID.Trim().Length > 0)
+                if (db1.MdID != null && db1.MdID.Trim().Length > 0)
                   if (String.Equals(db1.MdID, mv.AlbumInfo[0].MdID)) return db1;
                 if (db1.Album.Trim().Length > 0)
                     if (String.Equals(db1.Album, mv.AlbumInfo[0].Album)) return db1;
