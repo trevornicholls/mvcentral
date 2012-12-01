@@ -20,13 +20,8 @@ namespace mvCentral.Utils
     private static readonly Regex StyleRegEx = new Regex(StyleRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
     private const string ActiveRegExp = @"<dt>Active</dt>\s*<dd class=""active"">(?<active>.*?)</dd>";
     private static readonly Regex ActiveRegEx = new Regex(ActiveRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-    // Born / Formed
     private const string BornRegExp = @"<dd class=""birth"">\s*<span>(?<born>.*?)</span>";
     private static readonly Regex BornRegEx = new Regex(BornRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-    // Death
-    private const string DeathRegExp = @"<dd class=""death"">\s*<span>(?<death>.*?)</span>";
-    private static readonly Regex DeathRegEx = new Regex(DeathRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
     private const string TonesRegExp = @"<h4>artist moods</h4>\s*<ul>(?<tones>.*?)</ul>";
     private static readonly Regex TonesRegEx = new Regex(TonesRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
     private const string BIORegExp = @"<div id=""bio"">\s*<div class=""heading"">.*?</div>(?<BIO>.*?)<div class=""advertisement leaderboard"">";
@@ -41,11 +36,6 @@ namespace mvCentral.Utils
     private static readonly Regex ArtistAlbumNameRegEx = new Regex(ArtistAlbumNameRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
     private const string ArtistAlbumLabelRegExp = @"<td class=""label"".*?<span class=""full-title"">(?<label>.*?)</span>";
     private static readonly Regex ArtistAlbumLabelRegEx = new Regex(ArtistAlbumLabelRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
-
-    // mvCentral Added
-    private const string IsFormedRegExp = @"<dt>\s*formed\s*</dt>\s*<dd class=""birth"">";
-    private static readonly Regex IsFormedRegEx = new Regex(IsFormedRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
 
     // album regular expressions
     private const string AlbumImgURLRegExp = @"<div class=""image-container"" data-large="".*?http(?<imageURL>.*?)&quot;,&quot;author";
@@ -247,25 +237,11 @@ namespace mvCentral.Utils
 
       // born / formed
       var strBorn = string.Empty;
-      var strFormed = string.Empty;
       var bornMatch = BornRegEx.Match(artistDetails);
-      var formedMatch = IsFormedRegEx.Match(artistDetails);
       if (bornMatch.Success)
       {
-        if (formedMatch.Success)
-          strFormed = bornMatch.Groups["born"].Value.Trim();
-        else
-          strBorn = bornMatch.Groups["born"].Value.Trim();
+        strBorn = bornMatch.Groups["born"].Value.Trim();
       }
-
-      // death
-      var strDeath = string.Empty;
-      var deathMatch = DeathRegEx.Match(artistDetails);
-      if (deathMatch.Success)
-      {
-          strDeath = deathMatch.Groups["death"].Value.Trim();
-      }
-
 
       // build up tones into one string
       var strTones = string.Empty;
@@ -320,8 +296,6 @@ namespace mvCentral.Utils
         Albums = albumList,
         Artist = strArtist,
         Born = strBorn,
-        Death = strDeath,
-        Formed = strFormed,
         Compilations = string.Empty,
         Genres = strGenres,
         Image = strImg,
@@ -336,8 +310,6 @@ namespace mvCentral.Utils
       return artistInfo;
 
     }
-
-
   }
 
 }
