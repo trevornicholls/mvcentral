@@ -70,6 +70,10 @@ namespace mvCentral.DataProviders
     List<string> albumURLList = new List<string>();
     List<string> songURLList = new List<string>();
 
+
+    // Possible regex to get composers
+    // <a\s*href="[^"]+"\s*class="primary_link">Tim McGraw</a>\s*</div>\s*<div class="artist secondary_link">\s*(?:<a\s*href="[^"]+">(?<composer>[^<]+)</a>(?:<span>\s*/\s*</span>)?)*\s*</div>
+
     #endregion
 
     #region Public Methods
@@ -187,7 +191,7 @@ namespace mvCentral.DataProviders
           albumInfo.Artist = album;
           DBAlbumInfo mv1 = (DBAlbumInfo)mv.AlbumInfo[0];
           setMusicVideoAlbum(ref mv1, albumInfo);
-          getTrackRating(mv, strAlbumHTML);
+          getTrackComposers(mv, strAlbumHTML, string.Empty);
         }
       }
       return mv;
@@ -362,26 +366,36 @@ namespace mvCentral.DataProviders
       string strAlbumHTML;
       string strArtistURL;
       bool songFound = false;
+      const int trackName = 1;
+      const int trackURL = 3;
 
       List<DBTrackInfo> results = new List<DBTrackInfo>();
 
-      string artist = trackObject.ArtistInfo[0].Artist;
+      string strAlbumArtist = trackObject.ArtistInfo[0].Artist;
 
-      if (GetArtistHTML(artist, out strArtistHTML, out strArtistURL))
+      if (GetArtistHTML(strAlbumArtist, out strArtistHTML, out strArtistURL))
       {
         var artistInfo = new MusicArtistInfo();
         if (artistInfo.Parse(strArtistHTML))
         {
-          artistInfo.Artist = artist;
+          artistInfo.Artist = strAlbumArtist;
           if (GetAlbumURLList(strArtistURL))
           {
             // we have some albums - now check the tracks in each album
             foreach (string albumURL in albumURLList)
             {
+              // If we found the song then exit...
+              if (songFound)
+                break;
+
               if (GetPageHTMLOnly(albumURL, out strAlbumHTML))
               {
-                var albumInfo = new MusicAlbumInfo();
-                if (albumInfo.Parse(strAlbumHTML))
+                string strAlbum = Regex.Match(albumURL, "[^/]+-", RegexOptions.Singleline | RegexOptions.IgnoreCase).Value;
+                strAlbum = Regex.Replace(strAlbum, "[-?*]", " ", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+                var albumInfo = AMGHTMLParser.ParseAlbumHTML(strAlbumHTML, strAlbum.Trim(), strAlbumArtist);
+
+                if (albumInfo != null)
                 {
                   string[] tracksOnAlbum = albumInfo.Tracks.Split('|');
                   foreach (string track in tracksOnAlbum)
@@ -389,9 +403,12 @@ namespace mvCentral.DataProviders
                     if (!string.IsNullOrEmpty(track.Trim()))
                     {
                       string[] trackData = track.Split('@');
-                      if (trackObject.Track == trackData[1])
+
+                      if (string.Equals(trackObject.Track, trackData[trackName], StringComparison.CurrentCultureIgnoreCase))
                       {
-                        songFound = getTrackRating(trackObject, strAlbumHTML);
+                        logger.Debug("Get Composers for Track {0} by {1}", trackObject.Track, strAlbumArtist);
+                        songFound = getTrackComposers(trackObject, strAlbumHTML, trackData[trackURL]);
+                        logger.Debug("Composers for Track {0} by {1} are {2}", trackObject.Track, strAlbumArtist, trackObject.Composers);
                         break;
                       }
                     }
@@ -443,7 +460,7 @@ namespace mvCentral.DataProviders
                       string[] trackData = track.Split('@');
                       if (trackObject.Track == trackData[1])
                       {
-                        songFound = getTrackRating(trackObject, strAlbumHTML);
+                        songFound = getTrackComposers(trackObject, strAlbumHTML, trackData[3]);
                         break;
                       }
                     }
@@ -463,9 +480,8 @@ namespace mvCentral.DataProviders
     /// <param name="trackObject"></param>
     /// <param name="albumHTML"></param>
     /// <returns></returns>
-    bool getTrackRating(DBTrackInfo trackObject, string albumHTML)
+    bool getTrackComposers(DBTrackInfo trackObject, string albumHTML, string trackURL)
     {
-      bool songFound = false;
       string strSongHTML = string.Empty;
       string songComposers = string.Empty; ;
 
@@ -473,74 +489,31 @@ namespace mvCentral.DataProviders
       var strRemovePunctuation = PunctuationRegex.Replace(trackObject.Track, "").Trim();
       var strAndAlbum = trackObject.Track.Replace("&", "and").Replace("+", "and");
 
-      songURLList.Clear();
-
-      for (var m = SongURLRegEx.Match(albumHTML); m.Success; m = m.NextMatch())
+      // Extract the composers first
+      string trackHTML = string.Empty;
+      GetPageHTMLOnly(trackURL, out trackHTML);
+      MatchCollection allMatchResults = null;
+      CaptureCollection captureCollection;
+      GroupCollection groupCollection;
+      try
       {
-        var strFoundValue = m.Groups["songName"].ToString().ToLower();
-        var strFoundPunctuation = PunctuationRegex.Replace(strFoundValue, "");
-        var strFoundAnd = strFoundValue.Replace("&", "and").Replace("+", "and");
+        Regex trackRegex = new Regex("Composed by:\\s*(?:<a\\s*href=\"[^\"]+\">(?<composer>[^<]+)</a>(?:<span>\\s*/\\s*</span>)?)*\\s*</div>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        allMatchResults = trackRegex.Matches(trackHTML);
 
-        if (strFoundValue == trackObject.Track.ToLower())
+        foreach (Match match in allMatchResults)
         {
-          songFound = true;
-          logger.Debug("Matched song first time: {0}", trackObject.Track);
-        }
-        else if (strFoundValue == strAlbumRemoveBrackets.ToLower())
-        {
-          songFound = true;
-          logger.Debug("Matched song after stripping trailing brackets: {0}", strAlbumRemoveBrackets);
-        }
-        else if (strFoundPunctuation == strRemovePunctuation.ToLower())
-        {
-          songFound = true;
-          logger.Debug("Matched song after removing punctuation: {0}", strRemovePunctuation);
-        }
-        else if (strAndAlbum == strFoundAnd)
-        {
-          songFound = true;
-          logger.Debug("Matched song after replacing and: {0}", strAndAlbum);
-        }
+          groupCollection = match.Groups;
+          captureCollection = groupCollection[1].Captures;
+          for (int i = 0; i < captureCollection.Count; i++)
+            songComposers += (i == captureCollection.Count - 1) ? captureCollection[i].Value : captureCollection[i].Value + "|";
 
-        if (!songFound) continue;
-        songURLList.Add(m.Groups["songURL"].ToString());
-
-
-        if (GetPageHTMLOnly(songURLList[0], out strSongHTML))
-        {
-          HTMLUtil util = new HTMLUtil();
-          // Extract Rating
-          string pattern = @"star_rating\((?<rating>\d)";
-
-          if (FindPattern(pattern, strSongHTML))
-          {
-            string strRating = _match.Groups[1].Value;
-            try
-            {
-              trackObject.Rating = Int32.Parse(strRating);
-            }
-            catch (Exception) { }
-          }
-          // Extract the composers
-          Match allMatchResults = null;
-          CaptureCollection captureCollection;
-          GroupCollection groupCollection;
-          try
-          {
-            Regex regexObj = new Regex(@"<td class=""content"">(?:<a href=""[^""]+"">\s*(?<composers>[^<]+)</a>(?:\s*/\s*)?)+</td>", RegexOptions.IgnoreCase);
-            allMatchResults = regexObj.Match(strSongHTML);
-            groupCollection = allMatchResults.Groups;
-              captureCollection = groupCollection[1].Captures;
-              for (int i = 0; i < captureCollection.Count; i++)
-                songComposers += (i == captureCollection.Count - 1) ? captureCollection[i].Value : captureCollection[i].Value + "|";
-
-              trackObject.Composers = songComposers;
-          }
-          catch (Exception) 
-          { }   
         }
+        trackObject.Composers = songComposers;
         return true;
       }
+      catch (Exception)
+      { } 
+
       return false;
     }
 
@@ -758,6 +731,7 @@ namespace mvCentral.DataProviders
     {
       strArtistURL = string.Empty;
       strArtistURLs = new List<string>();
+      bool Classical = false;
       try
       {
         var strEncodedArtist = EncodeString(strArtist);
@@ -772,21 +746,6 @@ namespace mvCentral.DataProviders
         x.ContentType = "text/html";
         x.Timeout = 30000;
         x.AllowAutoRedirect = false;
-
-        //using (var y = (HttpWebResponse)x.GetResponse())
-        //{
-        //  x.Abort();
-        //  if ((int)y.StatusCode != 302)
-        //  {
-        //    y.Close();
-        //  }
-        //  strArtistURL = y.GetResponseHeader("Location");
-
-        //  logger.Debug("GetArtistURLAlternative: strArtistURL: {0}", strArtistURL);
-
-        //  y.Close();
-
-        //}
 
         using (var y = (HttpWebResponse)x.GetResponse())
         {
@@ -820,26 +779,36 @@ namespace mvCentral.DataProviders
               var strCleanMatch = EncodeString(CleanArtist(m.Groups["artist"].ToString()));
               logger.Debug("GetArtistURL: Cleaned/Encoded matched Artist: |{0}|", strCleanMatch);
 
-              if (strCleanArtist != strCleanMatch) continue;
-              logger.Debug("GetArtistURL: Years: {0}", m.Groups["years"].ToString().Trim());
-              if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim())) continue;
+              if (strCleanArtist != strCleanMatch) 
+                continue;
 
-              strPotentialURL = m.Groups["artistURL"].ToString();
+              // Skip the years check if this is Classical
+              if (m.Groups["genres"].ToString().ToLower().Contains("classical"))
+                Classical = true;
+
+
+              logger.Debug("GetArtistURL: Years: {0}", m.Groups["years"].ToString().Trim());
+              if (string.IsNullOrEmpty(m.Groups["years"].ToString().Trim()) && !Classical)
+                continue;
+
+
               numberOfMatchesWithYears++;
 
-              // give up if more than one match with years active
+              //give up if more than one match with years active
               if (numberOfMatchesWithYears > 1)
               {
                 logger.Debug("GetArtistURL: Multiple matches with years active");
-                return false;
+                break;
               }
+              strPotentialURL = m.Groups["artistURL"].ToString();
             }
 
-            //if (numberOfMatchesWithYears == 0)
-            //{
-            //  logger.Debug("GetArtistURL: No matches with years active");
-            //  return false;
-            //}
+ 
+            if (numberOfMatchesWithYears == 0 && !Classical)
+            {
+              logger.Debug("GetArtistURL: No matches with years active");
+              return false;
+            }
 
             // only one match with years active so return URL for that artist.
             strArtistURL = strPotentialURL;
@@ -987,7 +956,7 @@ namespace mvCentral.DataProviders
 
       try
       {
-        var strURL = strRedirect + "/discography/";
+        var strURL = strRedirect + "#discography";
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
 
@@ -1228,24 +1197,18 @@ namespace mvCentral.DataProviders
       pageHTML = string.Empty;
       try
       {
-        logger.Debug("GetAlbumHTML: Album URL: {0}", strURL);
-
+        logger.Debug("GetPageHTMLOnly: URL: {0}", strURL);
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
-
         using (var y = (HttpWebResponse)x.GetResponse())
         {
           using (var z = y.GetResponseStream())
           {
             if (z == null)
-            {
               return false;
-            }
 
             using (var sr = new StreamReader(z, Encoding.UTF8))
-            {
               pageHTML = sr.ReadToEnd();
-            }
 
             z.Close();
             x.Abort();
@@ -1256,7 +1219,7 @@ namespace mvCentral.DataProviders
       }
       catch (Exception ex)
       {
-        logger.Error("Error retrieving album data for: |{0}|", strURL);
+        logger.Error("Error retrieving HTML data for: |{0}|", strURL);
         logger.Error(ex);
       }
       return false;

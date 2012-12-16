@@ -2217,6 +2217,12 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
       // Set BornOrFormed property
+      if (currArtist.Formed == null)
+        currArtist.Formed = string.Empty;
+      if (currArtist.Born == null)
+        currArtist.Born = string.Empty;
+
+
       if (currArtist.Formed.Trim().Length == 0 && currArtist.Born.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
       else if (currArtist.Formed.Trim().Length == 0)
