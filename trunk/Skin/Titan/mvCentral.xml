@@ -1425,7 +1425,7 @@
       <midtexture>osd_progress_mid.png</midtexture>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
-      <visible>string.equals(#mvCentral.Metadata.Scan.Active,true)</visible>
+      <visible>string.equals(#mvCentral.Metadata.Scan.Active,true)+[facadeview.list|facadeview.smallicons|facadeview.largeicons]</visible>
     </control>
     <!-- Time and video overlay imports -->
     <import>common.overlay.xml</import>
