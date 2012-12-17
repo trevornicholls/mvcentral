@@ -22,13 +22,15 @@ using mvCentral.Playlist;
 using mvCentral.Utils;
 using mvCentral.Localizations;
 using mvCentral.Extensions;
+using WindowPlugins;
+
 // Other
 using NLog;
 
 
 namespace mvCentral.GUI
 {
-  public class GUISmartDJ : WindowPluginBaseMVC
+  public class GUISmartDJ : WindowPluginBase
   {
 
     #region Enums

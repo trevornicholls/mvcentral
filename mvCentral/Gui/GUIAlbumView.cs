@@ -9,13 +9,11 @@ using MediaPortal.Dialogs;
 using MediaPortal.Player;
 
 using mvCentral.Database;
-
-
-
+using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBaseMVC
+  public partial class mvGUIMain : WindowPluginBase
   {
     private void AlbumActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {

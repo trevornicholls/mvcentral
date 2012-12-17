@@ -223,7 +223,6 @@ Global
 		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|x86.ActiveCfg = Release|x86
 		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|x86.Build.0 = Release|x86
 		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|x86.ActiveCfg = Release|x86
 		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|x86.Build.0 = Release|x86
 		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|Any CPU.ActiveCfg = Release|x86
