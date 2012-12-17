@@ -12,11 +12,13 @@ using mvCentral.Database;
 using mvCentral.Playlist;
 using mvCentral.Utils;
 using mvCentral.Localizations;
+using WindowPlugins;
+
 
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBaseMVC
+  public partial class mvGUIMain : WindowPluginBase
   {
 
     #region Enums
