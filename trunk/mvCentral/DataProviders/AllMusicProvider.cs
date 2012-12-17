@@ -826,8 +826,6 @@ namespace mvCentral.DataProviders
         logger.Error(ex);
         return false;
       }
-
-      return true;
     }
 
 
