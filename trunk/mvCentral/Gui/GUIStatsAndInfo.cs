@@ -17,7 +17,7 @@ using NLog;
 
 namespace mvCentral.GUI
 {
-  public class GUImvStatsAndInfo : WindowPluginBase
+  public class GUImvStatsAndInfo : GUIWindow
   {
     #region variables
 

@@ -61,11 +61,11 @@ namespace mvCentral.GUI
 
     public enum View
     {
-      Artists = 1,
-      Albums = 2,
-      Tracks = 3,
-      Generes = 4,
-      DVDs = 5
+      Artists = 0,
+      Albums = 1,
+      Tracks = 2,
+      Generes = 3,
+      DVDs = 4
     }
 
     #endregion
@@ -510,8 +510,10 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void SetView(int SelectedViewID)
     {
+
+
       // Display Artists, tracks or Albums
-      
+      logger.Debug("SetView Called: View {0}", SelectedViewID);
       persisting = false;
 
  
@@ -857,7 +859,7 @@ namespace mvCentral.GUI
       if (artList.Count == 0 && vidList.Count == 0)
       {
         GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Artists);
-        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Empty DB"); 
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Empty DB");
         UserMessage("mvCentral - No Content", "There is no content to view", "", "Please setup plugin and scan in configuration");
         currentView = mvView.None;
         addToStack(currentView, true);
@@ -920,8 +922,8 @@ namespace mvCentral.GUI
 
       logger.Info("GUI - Loaded Layout : {0}", CurrentLayout.ToString());
 
-        SwitchLayout();
-        UpdateButtonStates();
+      SwitchLayout();
+      UpdateButtonStates();
 
       GUIPropertyManager.Changed = true;
 
