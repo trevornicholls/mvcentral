@@ -30,7 +30,7 @@ using NLog;
 
 namespace mvCentral.GUI
 {
-  public class GUISmartDJ : WindowPluginBase
+  public class GUISmartDJ : GUIWindow
   {
 
     #region Enums
@@ -135,9 +135,11 @@ namespace mvCentral.GUI
     [SkinControl((int)GUIControls.FieldButton4)] protected GUIButtonControl smartDJ_Button4 = null;
     [SkinControl((int)GUIControls.FieldButton5)] protected GUIButtonControl smartDJ_Button5 = null;
     [SkinControl((int)GUIControls.FieldButton6)] protected GUIButtonControl smartDJ_Button6 = null;
-    [SkinControl((int)GUIControls.MaxTime)] protected GUISpinButton smartDJ_maxTime = null;
+    //[SkinControl((int)GUIControls.MaxTime)] protected GUISpinButton smartDJ_maxTime = null;
 
     [SkinControl((int)GUIControls.TotalArtists)] protected GUILabelControl smartDJ_TotalArtists = null;
+
+    [SkinControl((int)GUIControls.Facade)] protected GUIFacadeControl facadeLayout = null;
 
 
     #endregion
@@ -176,7 +178,7 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
-      base.OnPageLoad();
+      //base.OnPageLoad();
       // Clear the skin properties
       clearFacadeItemProps();
       // Clear the facade
@@ -194,6 +196,7 @@ namespace mvCentral.GUI
       else
         refreshValues();
     }
+
     /// <summary>
     /// Clean up
     /// </summary>
@@ -769,6 +772,26 @@ namespace mvCentral.GUI
         saver.Save(playlist, fullPlayListPath);
       }
     }
+
+     bool GetKeyboard(ref string strLine)
+    {
+      VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
+      if (null == keyboard)
+      {
+        return false;
+      }
+      keyboard.Reset();
+      keyboard.Text = strLine;
+      keyboard.DoModal(GetID);
+      if (keyboard.IsConfirmed)
+      {
+        strLine = keyboard.Text;
+        return true;
+      }
+      return false;
+    }
+
+
 
     /// <summary>
     /// Adds a list of Music Videos to a playlist, or a list of artists Music Videos

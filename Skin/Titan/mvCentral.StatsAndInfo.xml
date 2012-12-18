@@ -22,9 +22,6 @@
       <shouldCache>true</shouldCache>
     </control>
 
-    <import>mvcentral.autofanart.xml</import>
-    <import>mvcentral.selected.fanart.xml</import>
-    
   	<control>
 	  	<description>background</description>
 		  <type>image</type>
@@ -33,10 +30,11 @@
 		  <posY>152</posY>
   		<width>1903</width>
 	  	<height>790</height>
-  		<texture>panel_large.png</texture>
+  		<texture>panel_list_noinfo.png</texture>
   		<animation effect="fade" time="250">WindowOpen</animation>
   		<animation effect="fade" time="250">WindowClose</animation>
   	</control>
+  	  	
     <control>
       <id>1</id>
       <type>image</type>
@@ -217,7 +215,7 @@
       <type>label</type>
       <id>0</id>
       <posX>1000</posX>
-      <posY>190</posY>
+      <posY>192</posY>
       <align>left</align>
       <font>fontB16</font>
       <textcolor>ff006698</textcolor>
@@ -375,7 +373,8 @@
       <type>label</type>
       <description>Artwork Progress Text Percentage (Format ##.#% Completed)</description>
       <id>0</id>
-      <posX>1560</posX>8      <posY>800</posY>
+      <posX>1560</posX>
+8      <posY>800</posY>
       <width>800</width>
       <font>font10</font>
       <label>#mvCentral.Artwork.Update.Progress</label>
@@ -420,7 +419,7 @@
       <type>label</type>
       <description>Metadata Refresh Progress Text Percentage (Format ##.#% Completed)</description>
       <id>0</id>
-      <posX>1560</posX>
+      <posX>1560</posX>
       <posY>845</posY>
       <width>800</width>
       <font>font10</font>

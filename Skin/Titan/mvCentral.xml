@@ -8,7 +8,7 @@
   <define>#useSelectedFanart:Yes</define>
   <define>#shadow.dark:ff000000</define>
   <controls>
-  	<!--
+    <!--
     <import>mvcentral.autofanart.xml</import>
     <import>mvcentral.selected.fanart.xml</import>
     -->
@@ -25,11 +25,6 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    
-
-
-    
-    
     <import>common.time.xml</import>
     <control>
       <type>fadelabel</type>
@@ -187,7 +182,6 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
     </control>
-
     <control>
       <id>1</id>
       <description>Album Indication Text</description>
@@ -202,7 +196,6 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
-    
     <control>
       <id>1</id>
       <description>Album Indication Text</description>
@@ -217,7 +210,6 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
-
     <control>
       <id>1</id>
       <description>Album Runtime and Tracks</description>
@@ -267,15 +259,28 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
-
-
-
+    <control>
+      <description>Composers</description>
+      <type>label</type>
+      <id>1</id>
+      <posX>290</posX>
+      <posY>365</posY>
+      <width>440</width>
+      <height>18</height>
+      <font>font11</font>
+      <textcolor>ffffffff</textcolor>
+      <align>left</align>
+      <label>#mvCentral.Composers</label>
+      <animation effect="fade" time="250" delay="0">WindowClose</animation>
+      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
+    </control>
     <control>
       <description>Track Star Rating Image</description>
       <type>imagelist</type>
       <id>1</id>
-      <posX>290</posX>
-      <posY>390</posY>
+      <posX>285</posX>
+      <posY>400</posY>
       <width>315</width>
       <height>29</height>
       <textureWidth>32</textureWidth>
@@ -291,22 +296,6 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
-      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
-    </control>
-    <control>
-      <description>Composers</description>
-      <type>label</type>
-      <id>1</id>
-      <posX>150</posX>
-      <posY>251</posY>
-      <width>600</width>
-      <height>18</height>
-      <font>mediastream10c</font>
-      <textcolor>ffffffff</textcolor>
-      <align>left</align>
-      <label>#mvCentral.Composers</label>
-      <animation effect="fade" time="250" delay="0">WindowClose</animation>
-      <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+string.equals(#mvCentral.TrackView,true)</visible>
     </control>
     <control>
@@ -363,9 +352,6 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.TrackView, true)]</visible>
     </control>
-
-
-
     <control>
       <id>1</id>
       <description>Artist Bio</description>
@@ -471,7 +457,6 @@
     <!-- ******************************************* -->
     <!-- Section: Coverflow View - Artwork/Info -    -->
     <!-- ******************************************* -->
-    
     <control>
       <id>1</id>
       <description>Tracks by Artist</description>
@@ -499,13 +484,10 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.coverflow]+string.equals(#mvCentral.AlbumView,true)</visible>
-    </control>    
-    
-    
+    </control>
     <!-- ********************************************* -->
     <!-- Section: Filmstrip View - Artwork/Information -->
     <!-- ********************************************* -->
-    
     <control>
       <id>1</id>
       <type>image</type>
@@ -519,7 +501,6 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-    
     <control>
       <id>1</id>
       <type>image</type>
@@ -546,7 +527,6 @@
       <keepaspectratio>yes</keepaspectratio>
       <visible>facadeview.filmstrip+string.equals(#mvCentral.TrackView,true)</visible>
     </control>
-    
     <control>
       <id>1</id>
       <description>Artist/Track Description</description>
@@ -592,8 +572,6 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
     </control>
-
-
     <control>
       <id>1</id>
       <description>Born or Formed</description>
@@ -639,7 +617,6 @@
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>facadeview.filmstrip+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
     </control>
-    
     <control>
       <description>Album Star Rating Image</description>
       <type>imagelist</type>
@@ -661,8 +638,7 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
-    </control>    
-    
+    </control>
     <control>
       <id>1</id>
       <description>Artist Bio</description>
@@ -763,8 +739,6 @@
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <visible>facadeview.filmstrip</visible>
     </control>
-    
-    
     <!-- ************************************** -->
     <!--            Facade Views                -->
     <!-- ************************************** -->
@@ -1212,11 +1186,9 @@
         <posX>53</posX>
         <posY>155</posY>
         <layout>StackLayout(0, Vertical, true)</layout>
-
-<!--
         <control>
-          <description>View-As</description>
-          <type>button</type>
+          <description>Layout Button</description>
+          <type>menubutton</type>
           <id>2</id>
           <textureFocus>hiddenmenu_item_selected.png</textureFocus>
           <textureNoFocus>-</textureNoFocus>
@@ -1224,31 +1196,14 @@
           <height>69</height>
           <textXOff>62</textXOff>
           <textYOff>16</textYOff>
-          <label>100</label>
+          <label></label>
+          <mode>dialoglist</mode>
+          <dialogTitle>792</dialogTitle>
+          <valueTextInButton>yes</valueTextInButton>
+          <valuePrefixText>95</valuePrefixText>
           <onright>50</onright>
-          <onup>17</onup>
+          <ondown>3</ondown>
         </control>
--->
-					<control>
-						<description>Layout Button</description>
-						<type>menubutton</type>
-						<id>2</id>
-						<textureFocus>hiddenmenu_item_selected.png</textureFocus>
-						<textureNoFocus>-</textureNoFocus>
-						<width>499</width>
-						<height>69</height>
-						<textXOff>62</textXOff>
-						<textYOff>16</textYOff>
-						<label></label>	
-						<mode>dialoglist</mode>				
-						<dialogTitle>792</dialogTitle> 					
-						<valueTextInButton>yes</valueTextInButton>
-						<valuePrefixText>95</valuePrefixText>
-            <onright>50</onright>
-            <ondown>3</ondown>
-					</control>
-
-
         <control>
           <description>Sort Menu button</description>
           <type>button</type>
@@ -1264,27 +1219,25 @@
           <ondown>5</ondown>
           <onup>2</onup>
         </control>
-        
-				<control>
-					<description>Switch View</description>
-					<type>menubutton</type>
-					<id>5</id>
-					<textureFocus>hiddenmenu_item_selected.png</textureFocus>
-					<textureNoFocus>-</textureNoFocus>
-					<width>499</width>
-					<height>69</height>
-					<textXOff>62</textXOff>
-					<textYOff>16</textYOff>
-					<label></label>
-					<mode>dialoglist</mode>
-					<dialogTitle>499</dialogTitle>
-					<valueTextInButton>yes</valueTextInButton>
-					<valuePrefixText>97</valuePrefixText>
-      		<onright>50</onright>
-      		<onup>3</onup>
-      		<ondown>6</ondown>
-				</control>
-                     
+        <control>
+          <description>Switch View</description>
+          <type>menubutton</type>
+          <id>5</id>
+          <textureFocus>hiddenmenu_item_selected.png</textureFocus>
+          <textureNoFocus>-</textureNoFocus>
+          <width>499</width>
+          <height>69</height>
+          <textXOff>62</textXOff>
+          <textYOff>16</textYOff>
+          <label></label>
+          <mode>dialoglist</mode>
+          <dialogTitle>499</dialogTitle>
+          <valueTextInButton>yes</valueTextInButton>
+          <valuePrefixText>97</valuePrefixText>
+          <onright>50</onright>
+          <onup>3</onup>
+          <ondown>6</ondown>
+        </control>
         <control>
           <description>Empty button</description>
           <type>button</type>
