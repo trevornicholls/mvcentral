@@ -1,0 +1,571 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>mvCentral</RootNamespace>
+    <AssemblyName>mvCentral</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\mvCentral.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\mvCentral.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Bass.Net">
+      <HintPath>..\External\mediaportal\V1.1.8\Bass.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="BassRegistration">
+      <HintPath>..\External\mediaportal\V1.1.8\BassRegistration.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Utils">
+      <HintPath>..\External\mediaportal\V1.1.8\Common.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="Core">
+      <HintPath>..\External\mediaportal\V1.1.8\Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Cornerstone">
+      <HintPath>..\External\Cornerstone.dll</HintPath>
+    </Reference>
+    <Reference Include="Cornerstone.MP">
+      <HintPath>..\External\Cornerstone.MP.dll</HintPath>
+    </Reference>
+    <Reference Include="Databases">
+      <HintPath>..\External\mediaportal\v1.2.3\Databases.dll</HintPath>
+    </Reference>
+    <Reference Include="Dialogs">
+      <HintPath>..\External\mediaportal\V1.1.8\Dialogs.dll</HintPath>
+    </Reference>
+    <Reference Include="DirectShowLib">
+      <HintPath>..\External\mediaportal\V1.1.8\DirectShowLib.dll</HintPath>
+    </Reference>
+    <Reference Include="MediaPortal.Support">
+      <HintPath>..\External\mediaportal\V1.1.8\MediaPortal.Support.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\External\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="RemotePlugins">
+      <HintPath>..\External\mediaportal\V1.1.8\RemotePlugins.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Utils">
+      <HintPath>..\External\mediaportal\V1.1.8\Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowPlugins">
+      <HintPath>..\External\mediaportal\V1.1.8\WindowPlugins.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BackgroundProcesses\FileSyncProcess.cs" />
+    <Compile Include="BackgroundProcesses\MediaInfoUpdateProcess.cs" />
+    <Compile Include="BackgroundProcesses\UpdateArtworkProcess.cs" />
+    <Compile Include="Config\AdvancedSettingsWarningPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Config\AdvancedSettingsWarningPane.designer.cs">
+      <DependentUpon>AdvancedSettingsWarningPane.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\AutoDataSourcesPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Config\AutoDataSourcesPanel.Designer.cs">
+      <DependentUpon>AutoDataSourcesPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\DragHelper.cs" />
+    <Compile Include="Config\loadingDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\loadingDisplay.designer.cs">
+      <DependentUpon>loadingDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\AddImportPathPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\AddImportPathPopup.designer.cs">
+      <DependentUpon>AddImportPathPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\AdvancedSettingsPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\AdvancedSettingsPopup.designer.cs">
+      <DependentUpon>AdvancedSettingsPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\ArtPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\ArtPopup.designer.cs">
+      <DependentUpon>ArtPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\ArtURLPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\ArtURLPopup.designer.cs">
+      <DependentUpon>ArtURLPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\ArtworkImportOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\ArtworkImportOptions.Designer.cs">
+      <DependentUpon>ArtworkImportOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\CreateAlbumForTrack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\CreateAlbumForTrack.Designer.cs">
+      <DependentUpon>CreateAlbumForTrack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\CustomArtworkFolders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\CustomArtworkFolders.Designer.cs">
+      <DependentUpon>CustomArtworkFolders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\DetailsPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\DetailsPopup.Designer.cs">
+      <DependentUpon>DetailsPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\LastFMSetup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\LastFMSetup.Designer.cs">
+      <DependentUpon>LastFMSetup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\Grabber.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\Grabber.designer.cs">
+      <DependentUpon>Grabber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\ManualAssignPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\ManualAssignPopup.designer.cs">
+      <DependentUpon>ManualAssignPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\SearchStringPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\SearchStringPopup.Designer.cs">
+      <DependentUpon>SearchStringPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\SourcePopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\SourcePopup.Designer.cs">
+      <DependentUpon>SourcePopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\TranslationPopup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\TranslationPopup.designer.cs">
+      <DependentUpon>TranslationPopup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\Popups\UpgradeWarning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\Popups\UpgradeWarning.Designer.cs">
+      <DependentUpon>UpgradeWarning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config\TablessTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Config\TablessTabControl.Designer.cs">
+      <DependentUpon>TablessTabControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DatabaseMaintenanceManager.cs" />
+    <Compile Include="Database\DBAlbumInfo.cs" />
+    <Compile Include="Database\DBArtistInfo.cs" />
+    <Compile Include="Database\DBBasicInfo.cs" />
+    <Compile Include="Database\DBComposers.cs" />
+    <Compile Include="Database\DBExpressions.cs" />
+    <Compile Include="Database\DBGenres.cs" />
+    <Compile Include="Database\DBImportPath.cs" />
+    <Compile Include="Database\DBLocalMedia.cs" />
+    <Compile Include="Database\DBMusicVideoNodeSettings.cs" />
+    <Compile Include="Database\DBReplacements.cs" />
+    <Compile Include="Database\DBSortPreferences.cs" />
+    <Compile Include="Database\DBSourceInfo.cs" />
+    <Compile Include="Database\DBSourceMusicVideoInfo.cs" />
+    <Compile Include="Database\DBTonesAndStyles.cs" />
+    <Compile Include="Database\DBTrackInfo.cs" />
+    <Compile Include="Database\DBUser.cs" />
+    <Compile Include="Database\DBUserMusicVideoSettings.cs" />
+    <Compile Include="Database\DBWatchedHistory.cs" />
+    <Compile Include="Database\MusicVideosDBTable.cs" />
+    <Compile Include="DataProviders\AllMusicProvider.cs" />
+    <Compile Include="DataProviders\AlbumInfo.cs" />
+    <Compile Include="DataProviders\ArtistInfo.cs" />
+    <Compile Include="DataProviders\DataProviderManager.cs" />
+    <Compile Include="DataProviders\DGProvider.cs" />
+    <Compile Include="DataProviders\EchoNestProvider.cs" />
+    <Compile Include="DataProviders\HTBackdropsProvider.cs" />
+    <Compile Include="DataProviders\IMusicVideoProvider.cs" />
+    <Compile Include="DataProviders\InternalProvider.cs" />
+    <Compile Include="DataProviders\LastFMProvider.cs" />
+    <Compile Include="Gui\GUISmartDJ.cs" />
+    <Compile Include="Gui\WindowPluginsBaseMVC.cs" />
+    <Compile Include="Utils\AMGHTMLParser.cs" />
+    <Compile Include="Utils\LastFMScrobble.cs" />
+    <Compile Include="DataProviders\LocalProvider.cs" />
+    <Compile Include="DataProviders\ManuallProvider.cs" />
+    <Compile Include="Extensions\MusicVideoTitleStringExtensions.cs" />
+    <Compile Include="Config\ConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Config\ConfigForm.Designer.cs">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extractors\BDInfoExtractor.cs" />
+    <Compile Include="Extractors\BDInfo\LanguageCodes.cs" />
+    <Compile Include="Extractors\BDInfo\TSPlaylistFile.cs" />
+    <Compile Include="Extractors\BDInfo\TSStream.cs" />
+    <Compile Include="Extractors\BDInfo\TSStreamClip.cs" />
+    <Compile Include="Extractors\BDInfo\TSStreamClipFile.cs" />
+    <Compile Include="Extractors\BlurayExtractor.cs" />
+    <Compile Include="Extractors\ChapterEntry.cs" />
+    <Compile Include="Extractors\ChapterExtractor.cs" />
+    <Compile Include="Extractors\ChapterInfo.cs" />
+    <Compile Include="Extractors\DvdExtractor.cs" />
+    <Compile Include="Extractors\Eac3toExtractor.cs" />
+    <Compile Include="Extractors\Grabber.cs" />
+    <Compile Include="Extractors\HddvdExtractor.cs" />
+    <Compile Include="Extractors\Ifo2Extractor.cs" />
+    <Compile Include="Extractors\IfoUtil.cs" />
+    <Compile Include="Extractors\MplsExtractor.cs" />
+    <Compile Include="Extractors\TextExtractor.cs" />
+    <Compile Include="Extractors\XplExtractor.cs" />
+    <Compile Include="Gui\GUIAlbumView.cs" />
+    <Compile Include="Gui\GUIGenreView.cs" />
+    <Compile Include="Gui\GUIMultiSelectDialog.cs" />
+    <Compile Include="Gui\GUIPlaylist.cs" />
+    <Compile Include="Gui\GUIStatsAndInfo.cs" />
+    <Compile Include="Gui\GUIVideoView.cs" />
+    <Compile Include="Gui\GUIArtistView.cs" />
+    <Compile Include="Gui\GUISort.cs" />
+    <Compile Include="Gui\GUIMain.cs" />
+    <Compile Include="Gui\Sort.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoResources\BasicArt.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\ISignatureBuilder.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\LocalBuilder.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoSignatureBuilders\MusicVideoSignature.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoSignatureProvider.cs" />
+    <Compile Include="LocalMediaManagement\ParserFilename.cs" />
+    <Compile Include="Localizations\Localization.cs" />
+    <Compile Include="LocalMediaManagement\DeviceManager.cs" />
+    <Compile Include="LocalMediaManagement\MediaInfoWrapper.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoImporter.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoResources\FileBasedResource.cs" />
+    <Compile Include="LocalMediaManagement\MusicVideoResources\ImageResource.cs" />
+    <Compile Include="LocalMediaManagement\Utility.cs" />
+    <Compile Include="LocalMediaManagement\VideoUtility.cs" />
+    <Compile Include="mvCentralCore.cs" />
+    <Compile Include="mvCentralSettings.cs" />
+    <Compile Include="Gui\Playlist\GUImvPlaylist.cs" />
+    <Compile Include="Gui\Playlist\IPlayListIO.cs" />
+    <Compile Include="Gui\Playlist\PlayList.cs" />
+    <Compile Include="Gui\Playlist\PlayListFactory.cs" />
+    <Compile Include="Gui\Playlist\PlayListIO.cs" />
+    <Compile Include="Gui\Playlist\PlayListItem.cs" />
+    <Compile Include="Gui\Playlist\PlayListPlayer.cs" />
+    <Compile Include="Gui\Playlist\PlayListType.cs" />
+    <Compile Include="Utils\mvWebGrabber.cs" />
+    <Compile Include="Utils\Request.cs" />
+    <Compile Include="Utils\RequestParameters.cs" />
+    <Compile Include="Utils\ROTClass.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\VersionInfo.cs" />
+    <Compile Include="Utils\framegrabber.cs" />
+    <Compile Include="Utils\GUIUtils.cs" />
+    <Compile Include="Utils\mvCentralUtils.cs" />
+    <Compile Include="Utils\ServiceException.cs" />
+    <Compile Include="Utils\Session.cs" />
+    <Compile Include="Utils\VideoThumbCreator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\AdvancedSettingsWarningPane.resx">
+      <DependentUpon>AdvancedSettingsWarningPane.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\AutoDataSourcesPanel.resx">
+      <DependentUpon>AutoDataSourcesPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\ConfigForm.resx">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\loadingDisplay.resx">
+      <DependentUpon>loadingDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\AddImportPathPopup.resx">
+      <DependentUpon>AddImportPathPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\AdvancedSettingsPopup.resx">
+      <DependentUpon>AdvancedSettingsPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\ArtPopup.resx">
+      <DependentUpon>ArtPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\ArtURLPopup.resx">
+      <DependentUpon>ArtURLPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\ArtworkImportOptions.resx">
+      <DependentUpon>ArtworkImportOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\CreateAlbumForTrack.resx">
+      <DependentUpon>CreateAlbumForTrack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\CustomArtworkFolders.resx">
+      <DependentUpon>CustomArtworkFolders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\DetailsPopup.resx">
+      <DependentUpon>DetailsPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\LastFMSetup.resx">
+      <DependentUpon>LastFMSetup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\Grabber.resx">
+      <DependentUpon>Grabber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\ManualAssignPopup.resx">
+      <DependentUpon>ManualAssignPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\SearchStringPopup.resx">
+      <DependentUpon>SearchStringPopup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\SourcePopup.resx">
+      <DependentUpon>SourcePopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\TranslationPopup.resx">
+      <DependentUpon>TranslationPopup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Config\Popups\UpgradeWarning.resx">
+      <DependentUpon>UpgradeWarning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\rtfFiles\UpdateNotice.rtf" />
+    <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoMatch.datasource" />
+    <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoParser.datasource" />
+    <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.parseResult.datasource" />
+    <None Include="Properties\VersionInfo.cs.tmpl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowDown.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowUp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cancel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CogAdd.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FolderPageWhite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Folders.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Languages.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OK.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PageWhiteText.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_down_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_up_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\approved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ignored.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_rotate_clockwise.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\find.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_divide.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_join.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Config\Images\mvCentral_Icon_Disabled.png" />
+    <EmbeddedResource Include="Config\Images\mvCentral_Icon_Enabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\dvd.png" />
+    <Content Include="Resources\mvCentralLogo.jpg" />
+    <None Include="Resources\wrench.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
+    <PreBuildEvent>subwcrev "$(SolutionDir)." "$(ProjectDir)Properties\VersionInfo.cs.tmpl" "$(ProjectDir)Properties\VersionInfo.cs"</PreBuildEvent>
+  </PropertyGroup>
+</Project>

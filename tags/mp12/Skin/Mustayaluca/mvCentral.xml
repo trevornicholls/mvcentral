@@ -1,0 +1,558 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<window>
+	<id>112011</id>
+	<defaultcontrol>50</defaultcontrol>
+	<allowoverlay>no</allowoverlay>
+	<define>#header.hover:-</define>
+	<define>#usePlayFanart:Yes</define>
+	<define>#useSelectedFanart:Yes</define>
+	<controls>
+		<control>
+			<description>Dummy label indicating artist/video view</description>
+			<type>label</type>
+			<id>30</id>
+			<posX>0</posX>
+			<posY>0</posY>
+			<label></label>
+		</control>
+		<control>
+			<description>Default Background</description>
+			<type>image</type>
+			<id>0</id>
+			<texture>backgrounds\music\default.jpg</texture>
+			<width>1920</width>
+			<height>1080</height>
+		</control>
+		<import>common.music.fanart.xml</import>
+		<control>
+			<description>music overlay image</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>0</posY>
+			<width>1925</width>
+			<height>1085</height>
+			<texture>overlay_background.png</texture>
+		</control>
+		<control>
+			<description>music overlay image</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>0</posY>
+			<width>1925</width>
+			<height>1085</height>
+			<texture>overlay_episode_fulllist.png</texture>
+			<visible>!control.isvisible(30)</visible>
+		</control>
+		<control>
+			<description>Backdrop Overlay - Wide List View</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>0</posY>
+			<width>1925</width>
+			<height>1085</height>
+			<texture>overlay_music_list.png</texture>
+			<visible>control.isvisible(30)</visible>
+		</control>
+		<control>
+			<description>Backdrop Overlay Bar</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>998</posY>
+			<width>1920</width>
+			<height>82</height>
+			<texture>overlay_bar_bottom.png</texture>
+		</control>
+		<control Style="BigTitle">
+			<description>Selected Item</description>
+			<type>label</type>
+			<id>1</id>
+			<posX>70</posX>
+			<posY>45</posY>
+			<width>1220</width>
+			<label>#selecteditem</label>
+			<visible>control.HasFocus(50)+!player.hasmedia</visible>
+		</control>
+		<control Style="Time">
+			<description>Date</description>
+			<type>label</type>
+			<id>1</id>
+			<posX>70</posX>
+			<posY>120</posY>
+			<label>#date / #time</label>
+			<visible>control.hasfocus(50)</visible>
+		</control>
+		<control Style="DetailText">
+			<description>Number of Files Label</description>
+			<type>label</type>
+			<label>#mvCentral.Hierachy</label>
+			<posX>70</posX>
+			<posY>1030</posY>
+			<width>1000</width>
+		</control>
+		<control>
+			<description>Artist Thumb Backround</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>1315</posX>
+			<posY>234</posY>
+			<width>550</width>
+			<height>368</height>
+			<texture>episode_thumb_background_reflect.png</texture>
+			<visible>!control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<description>Artist Image</description>
+			<type>image</type>
+			<id>13</id>
+			<keepaspectratio>yes</keepaspectratio>
+			<centered>yes</centered>
+			<zoom>yes</zoom>
+			<zoomfromtop>yes</zoomfromtop>
+			<posX>1345</posX>
+			<posY>264</posY>
+			<width>490</width>
+			<height>277</height>
+			<texture>#mvCentral.ArtistImg</texture>
+			<visible>!control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<description>Artist Thumb Overlay</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>1315</posX>
+			<posY>234</posY>
+			<width>550</width>
+			<height>368</height>
+			<texture>episode_thumb_background_overlay_reflect.png</texture>
+			<visible>!control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control Style="DetailTitle">
+			<type>label</type>
+			<id>0</id>
+			<posX>1315</posX>
+			<posY>596</posY>
+			<label>#SkinTranslation.Translations.artist.info.Label</label>
+			<width>600</width>
+			<visible>!control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<type>image</type>
+			<id>0</id>
+			<posX>1236</posX>
+			<posY>310</posY>
+			<width>530</width>
+			<height>555</height>
+			<texture>music_thumb_big_background_reflect.png</texture>
+			<visible>control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<id>0</id>
+			<type>image</type>
+			<posX>1281</posX>
+			<posY>355</posY>
+			<width>440</width>
+			<height>440</height>
+			<texture>default_audio.png</texture>
+			<visible>control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<id>14</id>
+			<type>image</type>
+			<posX>1281</posX>
+			<posY>355</posY>
+			<width>440</width>
+			<height>440</height>
+			<keepaspectratio>yes</keepaspectratio>
+			<centered>yes</centered>
+			<texture>#mvCentral.VideoImg</texture>
+			<zoom>yes</zoom>
+			<visible>control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<type>image</type>
+			<id>0</id>
+			<posX>1236</posX>
+			<posY>310</posY>
+			<width>530</width>
+			<height>555</height>
+			<texture>music_thumb_big_overlay_reflect.png</texture>
+			<visible>control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control Style="DetailTextDroid">
+			<description>Artist Biography</description>
+			<type>textboxscrollup</type>
+			<id>40</id>
+			<posX>1315</posX>
+			<posY>662</posY>
+			<width>570</width>
+			<height>235</height>
+			<seperator>-----------------------------------------------------------------------------------</seperator>
+			<label>#mvCentral.ArtistBio</label>
+			<scrollStartDelaySec>10</scrollStartDelaySec>
+			<visible>!control.isvisible(30)+Control.HasFocus(50)</visible>
+		</control>
+		<control>
+			<description>listscroller bg</description>
+			<type>image</type>
+			<id>0</id>
+			<posX>0</posX>
+			<posY>507</posY>
+			<width>70</width>
+			<height>67</height>
+			<texture>listscroller_bg.png</texture>
+			<colordiffuse>40ffffff</colordiffuse>
+			<visible>facadeview.list+string.contains(#scrolling.up,yes)|string.contains(#scrolling.down,yes)</visible>
+			<animation effect="slide" start="-70,0" end="0,0" tween="quadratic" easing="in" time="250">Visible</animation>
+			<animation effect="slide" start="0,0" end="-70,0" tween="quadratic" easing="in" time="250">Hidden</animation>
+		</control>
+		<control>
+			<type>label</type>
+			<id>0</id>
+			<posX>-3</posX>
+			<posY>510</posY>
+			<width>69</width>
+			<height>69</height>
+			<font>font7</font>
+			<textcolor>ffffffff</textcolor>
+			<label>#selecteditem.scrolllabel</label>
+			<visible>facadeview.list+string.contains(#scrolling.up,yes)|string.contains(#scrolling.down,yes)</visible>
+			<align>center</align>
+			<valign>middle</valign>
+			<animation effect="slide" start="-70,0" end="0,0" tween="quadratic" easing="in" time="250">Visible</animation>
+			<animation effect="slide" start="0,0" end="-70,0" tween="quadratic" easing="in" time="250">Hidden</animation>
+		</control>
+		<control>
+			<type>group</type>
+			<description>group element</description>
+			<control>
+				<description>composite control consisting of a list control and a thumbnail panel</description>
+				<type>facadeview</type>
+				<id>50</id>
+				<control>
+					<description>List View</description>
+					<type>listcontrol</type>
+					<id>50</id>
+					<onleft>2</onleft>
+					<onright>2</onright>
+					<posX>72</posX>
+					<posY>231</posY>
+					<height>730</height>
+					<textureFocus>list_wide_focus.png</textureFocus>
+					<width>1008</width>
+					<IconXOff>2000</IconXOff>
+					<spinPosX>2000</spinPosX>
+					<spinCanFocus>no</spinCanFocus>
+					<textXOff>-20</textXOff>
+					<textYOff>18</textYOff>
+					<textXOff2>868</textXOff2>
+					<textYOff2>18</textYOff2>
+					<textXOff3>888</textXOff3>
+					<textYOff3>18</textYOff3>
+					<animation effect="slide" start="0" end="335" tween="back" ease="easeout" time="300" reversible="false">unfocus</animation>
+					<animation effect="slide" start="335" end="0" tween="back" ease="easeout" time="300" reversible="false">focus</animation>
+				</control>
+			</control>
+		</control>
+		<control>
+			<type>actiongroup</type>
+			<description>action menu</description>
+			<defaultcontrol>2</defaultcontrol>
+			<onexit>50</onexit>
+			<buttonX>0</buttonX>
+			<buttonY>0</buttonY>
+			<buttonwidth>106</buttonwidth>
+			<buttonheight>720</buttonheight>
+			<width>568</width>
+			<height>900</height>
+			<dimColor>00ffffff</dimColor>
+			<control>
+				<type>image</type>
+				<posX>0</posX>
+				<posY>0</posY>
+				<width>400</width>
+				<height>998</height>
+				<texture>hidden_menu_short_background.png</texture>
+				<colorDiffuse>fffffffff</colorDiffuse>
+				<visible>!Control.HasFocus(50)+control.isvisible(50)</visible>
+				<animation effect="slide" time="250" start="-300,0" reversible="false">visible</animation>
+				<animation effect="slide" time="250" end="-300,0" reversible="false">hidden</animation>
+			</control>
+			<control>
+				<type>image</type>
+				<posX>272</posX>
+				<posY>60</posY>
+				<width>128</width>
+				<height>128</height>
+				<texture>logo_musicvideos.png</texture>
+				<visible>!Control.HasFocus(50)+Control.IsVisible(50)</visible>
+				<animation effect="slide" time="250" start="-300,0" reversible="false">visible</animation>
+				<animation effect="slide" time="250" end="-300,0" reversible="false">hidden</animation>
+			</control>
+			<control>
+				<type>label</type>
+				<posX>370</posX>
+				<posY>178</posY>
+				<width>300</width>
+				<font>font3</font>
+				<label>mvCentral</label>
+				<align>right</align>
+				<visible>!Control.HasFocus(50)+Control.IsVisible(50)</visible>
+				<animation effect="slide" time="250" start="-300,0" reversible="false">visible</animation>
+				<animation effect="slide" time="250" end="-300,0" reversible="false">hidden</animation>
+			</control>
+			<control>
+				<description>group element</description>
+				<type>group</type>
+				<animation effect="slide" time="250" start="-300,0" reversible="false">visible</animation>
+				<animation effect="slide" time="250" end="-300,0" reversible="false">hidden</animation>
+				<visible>!Control.HasFocus(50)+control.isvisible(50)</visible>
+				<control>
+					<description>button group</description>
+					<type>group</type>
+					<posX>0</posX>
+					<posY>230</posY>
+					<layout>StackLayout(0, Vertical, true)</layout>
+					<visible>!Control.HasFocus(50)</visible>
+					<animation effect="slide" time="250" start="-300,0" reversible="false">visible</animation>
+					<animation effect="slide" time="250" end="-300,0" reversible="false">hidden</animation>
+					<control>
+						<description>Random</description>
+						<type>button</type>
+						<id>2</id>
+						<onleft>50</onleft>
+						<onright>50</onright>
+						<onup>21</onup>
+						<ondown>3</ondown>
+						<label>#SkinTranslation.Translations.musicvids.random.Label</label>
+					</control>
+					<control>
+						<description>Smart Playlists</description>
+						<type>button</type>
+						<id>3</id>
+						<onleft>50</onleft>
+						<onright>50</onright>
+						<onup>2</onup>
+						<ondown>4</ondown>
+						<label>#SkinTranslation.Translations.musicvids.SmartPlaylist.Label</label>
+					</control>
+					<control>
+						<description>Playlist</description>
+						<type>button</type>
+						<id>4</id>
+						<onleft>50</onleft>
+						<onright>50</onright>
+						<onup>3</onup>
+						<ondown>999</ondown>
+						<label>136</label>
+					</control>
+					<control>
+						<description>Statistics</description>
+						<type>button</type>
+						<id>999</id>
+						<onleft>50</onleft>
+						<onright>50</onright>
+						<onup>4</onup>
+						<ondown>999</ondown>
+						<label>Statistics</label>
+					</control>
+				</control>
+			</control>
+			<control>
+				<type>image</type>
+				<id>0</id>
+				<posX>600</posX>
+				<posY>244</posY>
+				<width>720</width>
+				<height>592</height>
+				<texture>context_background.png</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control Style="DetailTitle">
+				<description>Heading text label</description>
+				<type>label</type>
+				<id>0</id>
+				<posX>677</posX>
+				<posY>300</posY>
+				<width>570</width>
+				<label>mvCentral</label>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control Style="Time">
+				<description>SubHeading text label</description>
+				<type>label</type>
+				<id>0</id>
+				<posX>677</posX>
+				<posY>340</posY>
+				<width>570</width>
+				<label>Statistics</label>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Vid bg</description>
+				<type>image</type>
+				<id>0</id>
+				<posX>662</posX>
+				<posY>380</posY>
+				<width>620</width>
+				<height>190</height>
+				<texture>now_playing_video_background.png</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Vid Image</description>
+				<type>image</type>
+				<id>18</id>
+				<posX>687</posX>
+				<posY>405</posY>
+				<width>249</width>
+				<height>140</height>
+				<keepaspectratio>yes</keepaspectratio>
+				<centered>yes</centered>
+				<zoom>yes</zoom>
+				<zoomfromtop>yes</zoomfromtop>
+				<texture>#mvCentral.MostPlayedThumb</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Vid Overlay</description>
+				<type>image</type>
+				<id>0</id>
+				<posX>662</posX>
+				<posY>380</posY>
+				<width>620</width>
+				<height>190</height>
+				<texture>now_playing_video_shine.png</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Vid Static</description>
+				<type>fadelabel</type>
+				<id>1</id>
+				<label>Most Played Video</label>
+				<posX>960</posX>
+				<posY>420</posY>
+				<width>400</width>
+				<font>font12</font>
+				<textcolor>ff9c9d9d</textcolor>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Vid label</description>
+				<type>fadelabel</type>
+				<id>17</id>
+				<posX>960</posX>
+				<posY>470</posY>
+				<width>320</width>
+				<font>font12</font>
+				<label>#mvCentral.MostPlayed</label>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Artist bg</description>
+				<type>image</type>
+				<id>0</id>
+				<posX>662</posX>
+				<posY>570</posY>
+				<width>620</width>
+				<height>190</height>
+				<texture>now_playing_video_background.png</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Artist</description>
+				<type>image</type>
+				<id>20</id>
+				<posX>687</posX>
+				<posY>595</posY>
+				<width>249</width>
+				<height>140</height>
+				<keepaspectratio>yes</keepaspectratio>
+				<centered>yes</centered>
+				<zoom>yes</zoom>
+				<zoomfromtop>yes</zoomfromtop>
+				<texture>#mvCentral.FavArtistThumb</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Artist Overlay</description>
+				<type>image</type>
+				<id>0</id>
+				<posX>662</posX>
+				<posY>570</posY>
+				<width>620</width>
+				<height>190</height>
+				<texture>now_playing_video_shine.png</texture>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Artist Static</description>
+				<type>label</type>
+				<id>1</id>
+				<posX>960</posX>
+				<posY>610</posY>
+				<width>400</width>
+				<font>font12</font>
+				<textcolor>ff9c9d9d</textcolor>
+				<label>Most Played Artist</label>
+				<visible>control.hasfocus(999)</visible>
+			</control>
+			<control>
+				<description>Favorite Artist</description>
+				<type>label</type>
+				<id>19</id>
+				<posX>960</posX>
+				<posY>660</posY>
+				<width>320</width>
+				<font>font12</font>
+				<textcolor>ffffffff</textcolor>
+				<visible>control.hasfocus(999)</visible>
+				<label>#mvCentral.FavArtist</label>
+			</control>
+			<control>
+				<description>Library Count</description>
+				<type>fadelabel</type>
+				<label></label>
+				<id>0</id>
+				<posX>677</posX>
+				<posY>767</posY>
+				<width>560</width>
+				<font>font2</font>
+				<textcolor>ffa9d0f7</textcolor>
+				<visible>control.hasfocus(999)</visible>
+				<label>#mvCentral.TotalArtists / #mvCentral.TotalVideos</label>
+			</control>
+			<control>
+				<description>Artist Count</description>
+				<type>label</type>
+				<id>15</id>
+				<posX>2000</posX>
+				<posY>10</posY>
+				<visible>no</visible>
+				<label>-</label>
+			</control>
+			<control>
+				<description>Artist Count</description>
+				<type>label</type>
+				<id>16</id>
+				<posX>2000</posX>
+				<posY>10</posY>
+				<label>-</label>
+				<visible>no</visible>
+			</control>
+			<control>
+				<description>Sort Label Overlay</description>
+				<type>label</type>
+				<id>22</id>
+				<posX>2000</posX>
+				<posY>10</posY>
+				<label>-</label>
+				<visible>no</visible>
+			</control>
+			<import>common.overlay.xml</import>
+		</control>
+	</controls>
+</window>

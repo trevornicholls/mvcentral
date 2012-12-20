@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- mvCentral translation file -->
+<!-- English (US) -->
+<!-- Note: English is the fallback for any strings not found in other languages -->
+<strings>
+        <!-- MediaPortal Localised IDs -> Skin Properties -->
+        <string Field="#mvCentral.Translation.Track">435</string>
+        <string Field="#mvCentral.Translation.Year">436</string>
+        <string Field="#mvCentral.Translation.Next">790</string>
+        <string Field="#mvCentral.Translation.Runtime">299</string>
+        <string Field="#mvCentral.Translation.Minutes">3004</string>	
+        <string Field="#mvCentral.Translation.Search">137</string>	
+	
+        // A
+        <string Field="About">About</string>
+        <string Field="AboutText">mvCentral is a Music Videos plug-in for the MediaPortal HTPC application.</string>
+        <string Field="Artist">Artist</string>
+        <string Field="Artists">Artists</string>
+        <string Field="Album">Album</string>
+        <string Field="Albums">Albums</string>
+        <string Field="AllVideos">All Videos</string>
+        <string Field="AddToPlaylist">Add To Playlist</string>
+        <string Field="AddAllToPlaylist">Add All To Playlist</string>
+        <string Field="AddToPlaylistNext">Add To Playlist as Next Item</string>
+
+        // B
+        <string Field="Back">Back</string>
+        <string Field="ButtonAutoPlay">Auto Play</string>
+        <string Field="Born">Born</string>
+
+        // C
+        <string Field="Cancel">Cancel</string>
+        <string Field="CannotLoadSkin">Could not load the skin\nfile for mvCentral!</string>
+        <string Field="ContinueToNextPartBody">Do you wish to continue with part {0}?</string>
+        <string Field="ContinueToNextPartHeader">Continue to next part?</string>
+        <string Field="ContextMenu">Context Menu</string>
+        <string Field="ConfigGenre">Configure Genres</string>
+        <string Field="Composers">Composer(s)</string>
+        <string Field="Complete">Complete</string>
+
+        // D
+        <string Field="Date">Date</string>
+        <string Field="DateAdded">Date Added</string>      
+        <string Field="DBInfo">Watched History Statistics and Database Info</string>
+
+        // E
+        <string Field="Error">Error</string>
+        
+        // F
+        <string Field="FailedMountingImage">Sorry, failed mounting DVD Image</string>
+        <string Field="FavouriteVideos">Favourite Videos</string>
+        <string Field="Formed">Formed</string>
+        <string Field="Field">Field</string>
+
+        // G
+        <string Field="Genre">Genre</string>
+
+        // H
+        <string Field="HighestRated">Highest Rated</string>
+        <string Field="History">History</string>
+
+        // I
+        <string Field="Initializing">Initializing</string>
+        <string Field="Info">Info</string>
+        <string Field="Inactive">Inactive...</string>
+
+        // L
+        <string Field="LatestVideos">Latest Videos</string>
+        <string Field="LeastPlayed">Least Played</string>
+        <string Field="LeastPlayedArtists">Least Played Artists</string>
+        <string Field="LeastPlayedVideos">Least Played Videos</string>
+            
+
+        // M
+        <string Field="MediaIsMissing">The media for the Music video you have selected is missing!\nVery sorry but something has gone wrong...</string>
+        <string Field="MediaNotAvailableBody">The media for the Music video you have selected is not\ncurrently available. Please insert or connect media\nlabeled: {0}</string>
+        <string Field="MediaNotAvailableHeader">Media Not Available</string>
+        <string Field="MissingExternalPlayerExe">The executable for HD playback is missing.\nPlease correct the path to the executable.</string>
+        <string Field="MostPlayedArtist">Most Played Artist</string>
+        <string Field="MostPlayedVideo">Most Played Video</string>
+        <string Field="MostPlayedArtists">Most Played Artists</string>
+        <string Field="MostPlayedVideos">Most Played Videos</string>
+        <string Field="ModeMatch">Mode: Match</string>
+        <string Field="ModeFilter">Mode: Filter</string>
+
+
+
+        // N
+        <string Field="NoPlaylistsFound">No Playlists found in:</string>
+        <string Field="NoArtistBio">No Biography Available for Artist {0}</string>
+        <string Field="NoTrackInfo">No Track Information Available</string>
+        <string Field="NoComposerInfo">No Composer Info</string>
+        <string Field="NoAlbumInfo">No Album Information Available</string>
+
+        // O
+        <string Field="OK">OK</string>
+
+        // P
+        <string Field="PlaybackFailed">Playback is not possible because the '{0}'\nextension is not listed in your mediaportal configuration.\nPlease add this extension or setup an external player\nand try again.</string>
+        <string Field="PlaybackFailedHeader">Playback Failed</string>
+        <string Field="PlayAllRandom">Play All (Random)</string>
+        <string Field="Playlist">Playlist</string>
+        <string Field="PlayByTag">Play by Tag</string>
+        <string Field="PlayByGenre">Play by Genre</string>
+        <string Field="PlayByComposer">Play By Composer</string>
+
+        // Q
+
+        // R
+        <string Field="RandomHD">Random (HD)</string>
+        <string Field="Retry">Retry</string>
+        <string Field="ResumeFrom">Resume from:</string>
+        <string Field="ResumeFromLast">Resume Music Video from last time?</string>
+        <string Field="RefreshArtwork">Refresh Artwork from Online Sources</string>
+        
+        // S
+        <string Field="SmartPlaylistOptions">Smart Playlist Options</string>
+        <string Field="SmartPlaylistTag">Select Tag for Playlist</string>
+        <string Field="StatsAndInfo">Stats and Info</string>
+        <string Field="SelFilter">Select Filter Field...</string>
+        <string Field="SelArtists">Selected Artists</string>
+        <string Field="SelVideos">Selected Videos</string>
+
+        // T
+        <string Field="TotalRuntime">Total Runtime</string>
+        <string Field="TopTenVideos">Top Ten Videos</string>
+        <string Field="Tracks">Tracks</string>
+
+        // U
+
+        // V
+        <string Field="VirtualDriveHeader">Virtual drive not ready</string>
+        <string Field="VirtualDriveMessage">The virtual drive wasn't ready in time.\nPlease try again or cancel playback.</string>
+        <string Field="Video">Video</string>
+        <string Field="Videos">Videos</string>
+        <string Field="VideoTitle">Video Title</string>
+        <string Field="ViewAs">View As</string>
+        <string Field="VideoCount">Database has {0} Videos across {1} Artists</string>
+
+        // W
+        
+        
+        // User messages
+        //             |23456789|23456789|23456789|23456789|23456789|23456
+        <string Field="NoGenreHeader">No Genres configured</string>
+        <string Field="NoGenreLine1">Select tags to be use as Genres from</string>
+        <string Field="NoGenreLine2">'Configure Genres' option on the menu</string>
+        <string Field="NoGenreLine3">Artist view will now be selected</string>
+
+</strings>
