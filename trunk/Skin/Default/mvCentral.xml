@@ -10,8 +10,8 @@
       <type>image</type>
       <id>0</id>
       <texture>Background.png</texture>
-      <width>720</width>
-      <height>576</height>
+      <width>1440</width>
+      <height>720</height>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <import>common.time.xml</import>
@@ -148,22 +148,24 @@
         <posY>86</posY>
         <control>
           <description>View-As</description>
-          <type>button</type>
+          <type>menubutton</type>
           <id>2</id>
           <posX>39</posX>
           <posY>100</posY>
           <label>100</label>
+          <mode>dialoglist</mode>
           <onright>50</onright>
           <onup>17</onup>
           <ondown>5</ondown>
         </control>
         <control>
           <description>Switch View</description>
-          <type>button</type>
+          <type>menubutton</type>
           <id>5</id>
           <posX>39</posX>
           <posY>135</posY>
           <label>457</label>
+          <mode>dialoglist</mode>
           <onright>50</onright>
           <onup>2</onup>
           <ondown>3</ondown>
@@ -381,9 +383,9 @@
       <description>Artist Bio (If No Overlay)</description>
       <type>textboxscrollup</type>
       <posX>30</posX>
-      <posY>450</posY>
-      <width>680</width>
-      <height>95</height>
+      <posY>510</posY>
+      <width>780</width>
+      <height>105</height>
       <label>#mvCentral.ArtistBio</label>
       <seperator>-----------------------------------------------------------------------------------</seperator>
       <font>font11</font>
@@ -396,9 +398,9 @@
       <description>Artist Bio (If Overlay)</description>
       <type>textboxscrollup</type>
       <posX>230</posX>
-      <posY>450</posY>
+      <posY>510</posY>
       <width>495</width>
-      <height>95</height>
+      <height>105</height>
       <label>#mvCentral.ArtistBio</label>
       <seperator>-----------------------------------------------------------------------------------</seperator>
       <font>font11</font>
@@ -706,8 +708,8 @@
           <spinColor>ff006698</spinColor>
           <spinWidth>25</spinWidth>
           <spinHeight>26</spinHeight>
-          <spinPosX>624</spinPosX>
-          <spinPosY>548</spinPosY>
+          <spinPosX>900</spinPosX>
+          <spinPosY>600</spinPosY>
         </control>
         <control>
           <description>Thumbnail Panel</description>

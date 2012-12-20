@@ -6,5 +6,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <StartAction>Program</StartAction>
+    <StartProgram>E:\HTPC\MediaPortal\MediaPortal.exe</StartProgram>
   </PropertyGroup>
 </Project>
