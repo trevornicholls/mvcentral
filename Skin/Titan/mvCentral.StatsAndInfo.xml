@@ -9,8 +9,7 @@
   <define>#useSelectedFanart:Yes</define>
   <define>#shadow.dark:ff000000</define>
   <controls>
-  	
-  	<control>
+    <control>
       <description>DEFAULT BACKGROUND</description>
       <type>image</type>
       <id>0</id>
@@ -21,20 +20,18 @@
       <texture>background.png</texture>
       <shouldCache>true</shouldCache>
     </control>
-
-  	<control>
-	  	<description>background</description>
-		  <type>image</type>
-		  <id>0</id>
-	  	<posX>10</posX>
-		  <posY>152</posY>
-  		<width>1903</width>
-	  	<height>790</height>
-  		<texture>panel_list_noinfo.png</texture>
-  		<animation effect="fade" time="250">WindowOpen</animation>
-  		<animation effect="fade" time="250">WindowClose</animation>
-  	</control>
-  	  	
+    <control>
+      <description>background</description>
+      <type>image</type>
+      <id>0</id>
+      <posX>10</posX>
+      <posY>152</posY>
+      <width>1903</width>
+      <height>790</height>
+      <texture>panel_list_noinfo.png</texture>
+      <animation effect="fade" time="250">WindowOpen</animation>
+      <animation effect="fade" time="250">WindowClose</animation>
+    </control>
     <control>
       <id>1</id>
       <type>image</type>
@@ -72,7 +69,6 @@
       <animation effect="fade" time="300" delay="300">WindowOpen</animation>
       <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
-
     <control>
       <description>Video Count</description>
       <type>label</type>
@@ -85,7 +81,6 @@
       <animation effect="fade" time="300" delay="300">WindowOpen</animation>
       <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
-
     <control>
       <type>fadelabel</type>
       <description>mvCentral Hierarchy</description>
@@ -100,31 +95,28 @@
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>
-  
-      <control>
-        <type>image</type>
-        <id>1</id>
-        <posX>600</posX>
-        <posY>785</posY>
-        <width>1250</width>
-        <height>2</height>
-        <texture>hiddenmenu_separator.png</texture>
-        <animation effect="fade" time="50">visible</animation>
-        <animation effect="fade" time="0">hidden</animation>
-      </control>
-      <control>
-        <type>image</type>
-        <id>1</id>
-        <posX>600</posX>
-        <posY>240</posY>
-        <width>1250</width>
-        <height>2</height>
-        <texture>hiddenmenu_separator.png</texture>
-        <animation effect="fade" time="50">visible</animation>
-        <animation effect="fade" time="0">hidden</animation>
-      </control>
-    
-    
+    <control>
+      <type>image</type>
+      <id>1</id>
+      <posX>600</posX>
+      <posY>785</posY>
+      <width>1250</width>
+      <height>2</height>
+      <texture>hiddenmenu_separator.png</texture>
+      <animation effect="fade" time="50">visible</animation>
+      <animation effect="fade" time="0">hidden</animation>
+    </control>
+    <control>
+      <type>image</type>
+      <id>1</id>
+      <posX>600</posX>
+      <posY>240</posY>
+      <width>1250</width>
+      <height>2</height>
+      <texture>hiddenmenu_separator.png</texture>
+      <animation effect="fade" time="50">visible</animation>
+      <animation effect="fade" time="0">hidden</animation>
+    </control>
     <!-- ******************************************** -->
     <!--   Most Played Artist and Video Image/Info    -->
     <!-- ******************************************** -->
@@ -166,9 +158,6 @@
       <animation effect="fade" time="300" delay="300">WindowOpen</animation>
       <animation effect="fade" time="300" delay="0">WindowClose</animation>
     </control>
-
-
-
     <control>
       <id>20</id>
       <description>Favorite Artist</description>
@@ -374,13 +363,7 @@
       <description>Artwork Progress Text Percentage (Format ##.#% Completed)</description>
       <id>0</id>
       <posX>1560</posX>
-8      <posY>800</posY>
-      <width>800</width>
-      <font>font10</font>
-      <label>#mvCentral.Artwork.Update.Progress</label>
-      <animation effect="fade" time="300" delay="300">WindowOpen</animation>
-      <animation effect="fade" time="300" delay="0">WindowClose</animation>
-    </control>
+8      <posY>800</posY><width>800</width><font>font10</font><label>#mvCentral.Artwork.Update.Progress</label><animation effect="fade" time="300" delay="300">WindowOpen</animation><animation effect="fade" time="300" delay="0">WindowClose</animation></control>
     <control>
       <description>Background Artwork Refresh Progress Bar</description>
       <type>progress</type>
