@@ -22,15 +22,13 @@ using mvCentral.Playlist;
 using mvCentral.Utils;
 using mvCentral.Localizations;
 using mvCentral.Extensions;
-using WindowPlugins;
-
 // Other
 using NLog;
 
 
 namespace mvCentral.GUI
 {
-  public class GUISmartDJ : GUIWindow
+  public class GUISmartDJ : WindowPluginBaseMVC
   {
 
     #region Enums
@@ -135,11 +133,9 @@ namespace mvCentral.GUI
     [SkinControl((int)GUIControls.FieldButton4)] protected GUIButtonControl smartDJ_Button4 = null;
     [SkinControl((int)GUIControls.FieldButton5)] protected GUIButtonControl smartDJ_Button5 = null;
     [SkinControl((int)GUIControls.FieldButton6)] protected GUIButtonControl smartDJ_Button6 = null;
-    //[SkinControl((int)GUIControls.MaxTime)] protected GUISpinButton smartDJ_maxTime = null;
+    [SkinControl((int)GUIControls.MaxTime)] protected GUISpinButton smartDJ_maxTime = null;
 
     [SkinControl((int)GUIControls.TotalArtists)] protected GUILabelControl smartDJ_TotalArtists = null;
-
-    [SkinControl((int)GUIControls.Facade)] protected GUIFacadeControl facadeLayout = null;
 
 
     #endregion
@@ -178,7 +174,7 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
-      //base.OnPageLoad();
+      base.OnPageLoad();
       // Clear the skin properties
       clearFacadeItemProps();
       // Clear the facade
@@ -196,7 +192,6 @@ namespace mvCentral.GUI
       else
         refreshValues();
     }
-
     /// <summary>
     /// Clean up
     /// </summary>
@@ -222,20 +217,24 @@ namespace mvCentral.GUI
           if (matchingMode)
           {
             matchingMode = false;
+            setButtonControls();
             GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeFilter);
             GUIPropertyManager.SetProperty("#mvCentral.SmartDJ.Mode", "Mode: Filter");
+            GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton1);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
+            GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
+
           }
           else
           {
             matchingMode = true;
+            setButtonControls();
             GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
             GUIPropertyManager.SetProperty("#mvCentral.SmartDJ.Mode", "Mode: Filter");
           }
-          setDefaultValues();
-          refreshValues();
-          reCalculatePlaylist();
-          setButtonControls();
-          GUIControl.FocusControl(windowID, (int)GUIControls.FieldButton1);
           break;
 
         case (int)GUIControls.FieldButton1:
@@ -379,27 +378,24 @@ namespace mvCentral.GUI
             case Action.ActionType.ACTION_MUSIC_PLAY:
             case Action.ActionType.ACTION_SELECT_ITEM:
 
-              if (facadeLayout.SelectedListItem != null)
+              GUIListItem selectedItem = facadeLayout.SelectedListItem;
+              videoList.Clear();
+              if (!selectedItem.IsFolder && selectedItem.MusicTag != null)
               {
-                GUIListItem selectedItem = facadeLayout.SelectedListItem;
-                videoList.Clear();
-                if (!selectedItem.IsFolder && selectedItem.MusicTag != null)
+                // we have a track selected so add any other tracks which are on showing on the facade
+                for (int i = 0; i < facadeLayout.ListLayout.Count; i++)
                 {
-                  // we have a track selected so add any other tracks which are on showing on the facade
-                  for (int i = 0; i < facadeLayout.ListLayout.Count; i++)
-                  {
-                    GUIListItem trackItem = facadeLayout.ListLayout[i];
-                    if (!trackItem.IsFolder && trackItem.MusicTag != null)
-                      videoList.Add((DBTrackInfo)trackItem.MusicTag);
-                  }
-                  // Now create a Playlist
-                  addToPlaylist(videoList, false, true, false);
-                  // And play it
-                  Player.playlistPlayer.Play(videoList.IndexOf((DBTrackInfo)selectedItem.MusicTag));
-                  if (mvCentralCore.Settings.AutoFullscreen)
-                    g_Player.ShowFullScreenWindow();
-                  break;
+                  GUIListItem trackItem = facadeLayout.ListLayout[i];
+                  if (!trackItem.IsFolder && trackItem.MusicTag != null)
+                    videoList.Add((DBTrackInfo)trackItem.MusicTag);
                 }
+                // Now create a Playlist
+                addToPlaylist(videoList, false, true, false);
+                // And play it
+                Player.playlistPlayer.Play(videoList.IndexOf((DBTrackInfo)selectedItem.MusicTag));
+                if (mvCentralCore.Settings.AutoFullscreen)
+                  g_Player.ShowFullScreenWindow();
+                break;
               }
               break;
           }
@@ -520,42 +516,31 @@ namespace mvCentral.GUI
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6,Localization.SelFilter);
       }
-      // Reload the playlist
-      reCalculatePlaylist();
-    }
 
-    /// <summary>
-    /// Clear and regenerate the playlist 
-    /// </summary>
-    private void reCalculatePlaylist()
-    {
+
       //Reload the playlist
       artistPlayList.Clear();
       if (fieldSelected1 != string.Empty)
       {
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected1, customSearchStr1));
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, string.Format("{0}: {1} ({2})",Localization.Field, fieldSelected1, customSearchStr1));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton2);
         genFilterPlaylist(getFieldType(fieldSelected1), customSearchStr1);
-      }
-      else if (fieldSelected2 != string.Empty)
+      } else if (fieldSelected2 != string.Empty)
       {
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton2, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected2, customSearchStr2));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton3);
         genFilterPlaylist(getFieldType(fieldSelected2), customSearchStr2);
-      }
-      else if (fieldSelected3 != string.Empty)
+      } else if (fieldSelected3 != string.Empty)
       {
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton3, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected3, customSearchStr3));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton4);
         genFilterPlaylist(getFieldType(fieldSelected3), customSearchStr3);
-      }
-      else if (fieldSelected4 != string.Empty)
+      } else if (fieldSelected4 != string.Empty)
       {
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected4, customSearchStr4));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton5);
         genFilterPlaylist(getFieldType(fieldSelected4), customSearchStr4);
-      }
-      else if (fieldSelected5 != string.Empty)
+      } else if (fieldSelected5 != string.Empty)
       {
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, string.Format("{0}: {1} ({2})", Localization.Field, fieldSelected5, customSearchStr5));
         GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton6);
@@ -570,9 +555,8 @@ namespace mvCentral.GUI
       {
         GUIControl.ClearControl(windowID, (int)GUIControls.Facade);
         GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
-        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1, Localization.SelFilter);
+        GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton1,Localization.SelFilter);
       }
-
     }
 
     /// <summary>
@@ -783,26 +767,6 @@ namespace mvCentral.GUI
         saver.Save(playlist, fullPlayListPath);
       }
     }
-
-     bool GetKeyboard(ref string strLine)
-    {
-      VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
-      if (null == keyboard)
-      {
-        return false;
-      }
-      keyboard.Reset();
-      keyboard.Text = strLine;
-      keyboard.DoModal(GetID);
-      if (keyboard.IsConfirmed)
-      {
-        strLine = keyboard.Text;
-        return true;
-      }
-      return false;
-    }
-
-
 
     /// <summary>
     /// Adds a list of Music Videos to a playlist, or a list of artists Music Videos
@@ -1374,18 +1338,7 @@ namespace mvCentral.GUI
     /// </summary>
     void initValues()
     {
-      setDefaultValues();
       persisting = true;
-      matchingMode = true;
-      GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
-      GUIPropertyManager.SetProperty("#mvCentral.SmartDJ.Mode", "Mode: Matching");
-      setButtonControls();
-    }
-    /// <summary>
-    /// Set the initial valuse
-    /// </summary>
-    private void setDefaultValues()
-    {
       selectedGenre = "None";
       selectedLastFMTag = "None";
       selectedTone = "None";
@@ -1414,6 +1367,10 @@ namespace mvCentral.GUI
       composerAdded = false;
       keywordAdded = false;
 
+      matchingMode = true;
+      GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
+      GUIPropertyManager.SetProperty("#mvCentral.SmartDJ.Mode", "Mode: Matching");
+      setButtonControls();
     }
     /// <summary>
     /// When re-entering SmartDJ refersh the current values
@@ -1515,13 +1472,6 @@ namespace mvCentral.GUI
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, "Tone: None");
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, "Composer: None");
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, "Keyword: None");
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton1);
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton2);
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton3);
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton4);
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton5);
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton6);
-
       }
       else
       {
@@ -1531,12 +1481,6 @@ namespace mvCentral.GUI
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton4, Localization.SelFilter);
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton5, Localization.SelFilter);
         GUIControl.SetControlLabel(windowID, (int)GUIControls.FieldButton6, Localization.SelFilter);
-        GUIControl.EnableControl(windowID, (int)GUIControls.FieldButton1);
-        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton2);
-        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton3);
-        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton4);
-        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton5);
-        GUIControl.DisableControl(windowID, (int)GUIControls.FieldButton6);
       }
     }
 

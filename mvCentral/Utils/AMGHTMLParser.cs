@@ -48,23 +48,14 @@ namespace mvCentral.Utils
     private static readonly Regex AlbumGenreRegEx = new Regex(AlbumGenreRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
     private const string AlbumStylesRegExp = @"<dd class=""styles"">\s*<ul>(?<styles>.*?)</ul>.*</dl>";
     private static readonly Regex AlbumStylesRegEx = new Regex(AlbumStylesRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
-    
     private const string AlbumMoodsRegExp = @"<h4>album moods</h4>\s*<ul>(?<moods>.*?)</ul>";
     private static readonly Regex AlbumMoodsRegEx = new Regex(AlbumMoodsRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
-    
     private const string AlbumReviewRegExp = @"<div class=""editorial-text collapsible-content"" itemprop=""description"">(?<review>.*?)</div>";
     private static readonly Regex AlbumReviewRegEx = new Regex(AlbumReviewRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
-    
     private const string AlbumTracksRegExp = @"<div id=""tracks"">.*<tbody>(?<tracks>.*?)</tbody>";
     private static readonly Regex AlbumTracksRegEx = new Regex(AlbumTracksRegExp, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
-
     private const string TrackRegExp = @"<tr>.*?<td class=""tracknum"">(?<trackNo>.*?)</td>.*?<div class=""title"">\s*<a.*?>\s*(?<title>.*?)?\s*</a>.*?<td class=""time"">\s*(?<time>.*?)\s*</td>.*?</tr>";
     private static readonly Regex TrackRegEx = new Regex(TrackRegExp, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-    private const string TrackURLRegExp = @"<div class=""title"">\s*<a href=""(?<url>.*?)?\s*"".*?";
-    private static readonly Regex TrackURLRegEx = new Regex(TrackURLRegExp, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
-
-    public static Regex composerRegEx = new Regex("Composed by:\\s*(?:<a\\s*href=\"[^\"]+\">(?<composer>[^<]+)</a>(?:<span>\\s*/\\s*</span>)?)*\\s*</div>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
 
     // general regular expressions
     private const string HTMLListRegExp = @"<li>.*?</li>";
@@ -74,8 +65,6 @@ namespace mvCentral.Utils
 
     public static AlbumInfo ParseAlbumHTML(string albumHTML, string strAlbum, string strAlbumArtist)
     {
-
-
       // Image URL
       var imgURL = string.Empty;
       var imgMatch = AlbumImgURLRegEx.Match(albumHTML);
@@ -118,9 +107,7 @@ namespace mvCentral.Utils
       var trackMatch = AlbumTracksRegEx.Match(albumHTML);
       if (trackMatch.Success)
       {
-        var trackURLs = TrackURLRegEx.Matches(trackMatch.Groups["tracks"].Value.Trim());
         var tracks = TrackRegEx.Matches(trackMatch.Groups["tracks"].Value.Trim());
-
         foreach (Match track in tracks)
         {
           var strDuration = track.Groups["time"].Value;
@@ -137,7 +124,7 @@ namespace mvCentral.Utils
           }
 
           strTracks += track.Groups["trackNo"].Value + "@" + track.Groups["title"].Value + "@" +
-                       iDuration.ToString(CultureInfo.InvariantCulture) + "@" + trackURLs[int.Parse(track.Groups["trackNo"].Value) - 1].Groups["url"].Value + "|";
+                       iDuration.ToString(CultureInfo.InvariantCulture) + "|";
         }
       }
 

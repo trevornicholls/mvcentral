@@ -24,7 +24,6 @@ using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
 using MediaPortal.Threading;
-using WindowPlugins;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 
@@ -32,7 +31,7 @@ using NLog;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class mvGUIMain : WindowPluginBaseMVC
   {
 
     #region enums
@@ -61,11 +60,11 @@ namespace mvCentral.GUI
 
     public enum View
     {
-      Artists = 0,
-      Albums = 1,
-      Tracks = 2,
-      Generes = 3,
-      DVDs = 4
+      Artists = 1,
+      Albums = 2,
+      Tracks = 3,
+      Generes = 4,
+      DVDs = 5
     }
 
     #endregion
@@ -104,8 +103,6 @@ namespace mvCentral.GUI
     public System.Timers.Timer clearPropertyTimer;
 
     public int lastItemArt = 0, lastItemVid = 0, lastItemAlb = 0, lastGenreItem = 0,artistID = 0, albumID = 0;
-
-    private View view = View.Artists;
 
     protected mvView CurrentView
     {
@@ -405,18 +402,6 @@ namespace mvCentral.GUI
             return true;
           }
         //break;
-
-        case GUIMessage.MessageType.GUI_MSG_CLICKED:
-        case GUIMessage.MessageType.GUI_MSG_ITEM_SELECT:
-
-          // Respond to the correct control.  The value is retrived directly from the control by the called handler.
-          if (message.TargetControlId == btnViews.GetID)
-          {
-            SetView(btnViews.SelectedItemValue);
-            GUIControl.FocusControl(GetID, btnViews.GetID);
-          }
-          break;
-
       }
       return base.OnMessage(message);
     }
@@ -475,29 +460,6 @@ namespace mvCentral.GUI
       logger.Debug("LoadSettings");
       base.LoadSettings();
     }
-
-    /// <summary>
-    /// Override the initviews and add my own
-    /// </summary>
-    protected override void InitViewSelections()
-    {
-      btnViews.ClearMenu();
-
-      // Add the view options to the menu.
-      int index = 0;
-      btnViews.AddItem(Localization.ViewAs + " " + Localization.Artists, index++);            // Artists
-      if (DBAlbumInfo.GetAll().Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
-        btnViews.AddItem(Localization.ViewAs + " " + Localization.Albums, index++);           // Albums
-      btnViews.AddItem(Localization.ViewAs + " " + Localization.Tracks, index++);             // Tracks
-      if (DBGenres.GetSelected().Count > 0)
-        btnViews.AddItem(Localization.ViewAs + " " + Localization.Genre, index++);            // Genres
-      btnViews.AddItem(Localization.ViewAs + " " + "DVDs", index++);                          // DVDs
-
-
-      // Have the menu select the currently selected view.
-      btnViews.SetSelectedItemByValue((int)view);
-    }
-
     /// <summary>
     /// Save any settings - Windowsplugin Class override
     /// </summary>
@@ -508,41 +470,56 @@ namespace mvCentral.GUI
     /// <summary>
     /// List Available views - Windowsplugin Class override
     /// </summary>
-    protected override void SetView(int SelectedViewID)
+    protected override void OnShowViews()
     {
+      GUIDialogMenu dlg = (GUIDialogMenu)GUIWindowManager.GetWindow((int)Window.WINDOW_DIALOG_MENU);
+      if (dlg == null)
+      {
+        return;
+      }
+      dlg.Reset();
+      dlg.SetHeading(499); // Views menu
+      dlg.Add(Localization.ViewAs + " " + Localization.Artists);
+      if (DBAlbumInfo.GetAll().Count > 0 && !mvCentralCore.Settings.DisableAlbumSupport)
+        dlg.Add(Localization.ViewAs + " " + Localization.Albums);
+      dlg.Add(Localization.ViewAs + " " + Localization.Tracks);
+      if (DBGenres.GetSelected().Count > 0)
+        dlg.Add(Localization.ViewAs + " " + Localization.Genre);
+      dlg.Add(Localization.ViewAs + " " + "DVDs");
 
-
+      // show dialog and wait for result
+      dlg.DoModal(GetID);
+      if (dlg.SelectedId == -1)
+        return;
       // Display Artists, tracks or Albums
-      logger.Debug("SetView Called: View {0}", SelectedViewID);
       persisting = false;
 
- 
       // Bit messy this but only way
-      if (SelectedViewID == (int)View.Artists)
+      if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Artists))
       {
         currentView = mvView.Artist;
         loadArtists(artistSort);
         addToStack(currentView, true);
       }
-      else if (SelectedViewID == (int)View.Albums)
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Albums))
       {
         currentView = mvView.AllAlbums;
         addToStack(currentView, true);
         loadAllAlbums();
       }
-      else if (SelectedViewID == (int)View.Tracks)
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Tracks))
       {
         currentView = mvView.AllVideos;
         addToStack(currentView, true);
         loadAllVideos(videoSort);
       }
-      else if (SelectedViewID == (int)View.Generes)
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " " + Localization.Genre))
       {
         currentView = mvView.Genres;
         addToStack(currentView, true);
         loadGenres();
       }
-      else if (SelectedViewID == (int)View.DVDs)
+      else if (dlg.SelectedLabelText == (Localization.ViewAs + " DVDs"))
       {
         currentView = mvView.DVDView;
         addToStack(currentView, true);
@@ -560,17 +537,17 @@ namespace mvCentral.GUI
     /// <summary>
     /// Show the layout selection menu
     /// </summary>
-    //protected override void OnShowLayouts()
-    //{
-    //  base.OnShowLayouts();
+    protected override void OnShowLayouts()
+    {
+      base.OnShowLayouts();
 
-    //  if (currentView == mvView.Artist)
-    //    facadeLayout.SelectedListItemIndex = lastItemArt;
-    //  else if (currentView == mvView.Video)
-    //    facadeLayout.SelectedListItemIndex = lastItemVid;
-    //  else if (currentView == mvView.Album)
-    //    facadeLayout.SelectedListItemIndex = lastItemAlb;
-    //}
+      if (currentView == mvView.Artist)
+        facadeLayout.SelectedListItemIndex = lastItemArt;
+      else if (currentView == mvView.Video)
+        facadeLayout.SelectedListItemIndex = lastItemVid;
+      else if (currentView == mvView.Album)
+        facadeLayout.SelectedListItemIndex = lastItemAlb;
+    }
     /// <summary>
     /// Show the sort options (None Currently)
     /// </summary>
@@ -844,9 +821,6 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void OnPageLoad()
     {
-
-      InitViewSelections();
-      UpdateButtonStates();
       // If we have a video running then chances are we are exiting fullt screen...save the view as we need to go though
       // the page setup and that would messup the view and window stack.
       if (persisting && currentView != mvView.None)
@@ -859,7 +833,7 @@ namespace mvCentral.GUI
       if (artList.Count == 0 && vidList.Count == 0)
       {
         GUIPropertyManager.SetProperty("#mvCentral.ViewAs", Localization.Artists);
-        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Empty DB");
+        GUIPropertyManager.SetProperty("#mvCentral.Hierachy", "Empty DB"); 
         UserMessage("mvCentral - No Content", "There is no content to view", "", "Please setup plugin and scan in configuration");
         currentView = mvView.None;
         addToStack(currentView, true);
@@ -922,8 +896,8 @@ namespace mvCentral.GUI
 
       logger.Info("GUI - Loaded Layout : {0}", CurrentLayout.ToString());
 
-      SwitchLayout();
-      UpdateButtonStates();
+        SwitchLayout();
+        UpdateButtonStates();
 
       GUIPropertyManager.Changed = true;
 
@@ -2243,12 +2217,6 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", DBTrackInfo.GetEntriesByArtist(currArtist).Count.ToString());
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", runningTime(DBTrackInfo.GetEntriesByArtist(currArtist)));
       // Set BornOrFormed property
-      if (currArtist.Formed == null)
-        currArtist.Formed = string.Empty;
-      if (currArtist.Born == null)
-        currArtist.Born = string.Empty;
-
-
       if (currArtist.Formed.Trim().Length == 0 && currArtist.Born.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
       else if (currArtist.Formed.Trim().Length == 0)

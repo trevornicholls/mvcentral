@@ -7,7 +7,6 @@ using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
-using WindowPlugins;
 
 using mvCentral.Database;
 
@@ -16,7 +15,7 @@ using mvCentral.Database;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class mvGUIMain : WindowPluginBaseMVC
   {
     private void GenreActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {

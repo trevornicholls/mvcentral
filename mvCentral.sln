@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvCentral", "mvCentral\mvCe
 		{14201B8D-31C3-4FB5-9356-9485676C147B} = {14201B8D-31C3-4FB5-9356-9485676C147B}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cornerstone", "..\moving-pictures\Cornerstone\Cornerstone.csproj", "{14201B8D-31C3-4FB5-9356-9485676C147B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cornerstone.MP", "..\moving-pictures\Cornerstone.MP\Cornerstone.MP.csproj", "{77C78161-3206-45FD-A419-60218F3354C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\svnroot\mediaportal\trunk\MediaPortal\Core\Core.csproj", "{02FFFC1F-2555-4B99-8B01-3432D0673855}"
@@ -26,8 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MP-TVSeries", "..\MPTVSeries\MP-TVSeries\MP-TVSeries.csproj", "{A983AA7A-DE3C-4587-9416-22373A35B721}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FollwitApi", "..\MPTVSeries\External\FollwitApi\FollwitApi.csproj", "{75EBA361-8137-4107-A5B5-753CE959983B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cornerstone", "..\moving-pictures\Cornerstone\Cornerstone.csproj", "{14201B8D-31C3-4FB5-9356-9485676C147B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +58,22 @@ Global
 		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.UseCaptureDefintionsRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.UseCaptureDefintionsRelease|Any CPU.Build.0 = Release|Any CPU
 		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.UseCaptureDefintionsRelease|x86.ActiveCfg = Release|Any CPU
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|x86.ActiveCfg = Debug|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|x86.Build.0 = Debug|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|Any CPU.ActiveCfg = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|x86.ActiveCfg = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|x86.Build.0 = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|x86.ActiveCfg = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|x86.Build.0 = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|Any CPU.ActiveCfg = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|x86.ActiveCfg = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|x86.Build.0 = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|Any CPU.Build.0 = Release|Any CPU
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|x86.ActiveCfg = Release|x86
+		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|x86.Build.0 = Release|x86
 		{77C78161-3206-45FD-A419-60218F3354C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77C78161-3206-45FD-A419-60218F3354C0}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{77C78161-3206-45FD-A419-60218F3354C0}.Release (Standalone)|Any CPU.ActiveCfg = Release|Any CPU
@@ -215,23 +231,6 @@ Global
 		{75EBA361-8137-4107-A5B5-753CE959983B}.UseCaptureDefintionsRelease|Any CPU.ActiveCfg = Release|Any CPU
 		{75EBA361-8137-4107-A5B5-753CE959983B}.UseCaptureDefintionsRelease|Any CPU.Build.0 = Release|Any CPU
 		{75EBA361-8137-4107-A5B5-753CE959983B}.UseCaptureDefintionsRelease|x86.ActiveCfg = Release|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|x86.ActiveCfg = Debug|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Debug|x86.Build.0 = Debug|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|Any CPU.ActiveCfg = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|x86.ActiveCfg = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release (Standalone)|x86.Build.0 = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|x86.ActiveCfg = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.Release|x86.Build.0 = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|Any CPU.ActiveCfg = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|x86.ActiveCfg = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureCardDefinitions|x86.Build.0 = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|Any CPU.ActiveCfg = Release|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|Any CPU.Build.0 = Release|Any CPU
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|x86.ActiveCfg = Release|x86
-		{14201B8D-31C3-4FB5-9356-9485676C147B}.UseCaptureDefintionsRelease|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

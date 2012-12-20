@@ -8,12 +8,11 @@ using MediaPortal.Playlists;
 using MediaPortal.GUI.Library;
 using MediaPortal.Dialogs;
 using MediaPortal.Player;
-using WindowPlugins;
 
 
 namespace mvCentral.GUI
 {
-    public partial class mvGUIMain : WindowPluginBase
+    public partial class mvGUIMain : WindowPluginBaseMVC
     {
         long lastPress = 0;
         string sortString = "";

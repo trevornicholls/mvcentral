@@ -44,14 +44,12 @@ using MediaPortal.Video.Database;
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 using mvCentral.GUI;
-using WindowPlugins;
-
 
 
 
 namespace mvCentral.Playlist
 {
-  public class GUImvPlayList : WindowPluginBase
+  public class GUImvPlayList : WindowPluginBaseMVC
   {
     #region Enums
 
@@ -123,8 +121,8 @@ namespace mvCentral.Playlist
     [SkinControl((int)GUIControls.PlayPlaylist)] protected GUIButtonControl btnPlay = null;
     [SkinControl((int)GUIControls.NextTrack)] protected GUIButtonControl btnNext = null;
     [SkinControl((int)GUIControls.PrevTrack)] protected GUIButtonControl btnPrevious = null;
-    [SkinControl((int)GUIControls.RepeatPlaylist)] protected GUICheckButton btnRepeat = null;
-    [SkinControl((int)GUIControls.AutoPlayPlaylist)] protected GUICheckButton btnAutoPlay = null;
+    [SkinControl((int)GUIControls.RepeatPlaylist)] protected GUIToggleButtonControl btnRepeat = null;
+    [SkinControl((int)GUIControls.AutoPlayPlaylist)] protected GUIToggleButtonControl btnAutoPlay = null;
 
     #endregion
 
@@ -932,11 +930,6 @@ namespace mvCentral.Playlist
       // AllMusic Genre
       GUIPropertyManager.SetProperty("#mvCentral.Genre", artistInfo.Genre);
       // Set BornOrFormed property
-      if (artistInfo.Formed == null)
-        artistInfo.Formed = string.Empty;
-      if (artistInfo.Born == null)
-        artistInfo.Born = string.Empty;
-
       if (artistInfo.Formed.Trim().Length == 0 && artistInfo.Born.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
       else if (artistInfo.Formed.Trim().Length == 0)
