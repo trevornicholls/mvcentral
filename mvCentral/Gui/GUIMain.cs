@@ -510,8 +510,6 @@ namespace mvCentral.GUI
     /// </summary>
     protected override void SetView(int SelectedViewID)
     {
-
-
       // Display Artists, tracks or Albums
       logger.Debug("SetView Called: View {0}", SelectedViewID);
       persisting = false;
