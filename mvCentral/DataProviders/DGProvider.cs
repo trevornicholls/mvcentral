@@ -375,9 +375,9 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="basicInfo"></param>
     /// <param name="albumTitle"></param>
-    /// <param name="AlbumMBID"></param>
+    /// <param name="albumMbid"></param>
     /// <returns></returns>
-    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
     {
       List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)basicInfo);
       if (tracksOnAlbum.Count > 0)
@@ -385,7 +385,7 @@ namespace mvCentral.DataProviders
         string artist = tracksOnAlbum[0].ArtistInfo[0].Artist;
         DBAlbumInfo mv1 = (DBAlbumInfo)basicInfo;
         basicInfo.ArtUrls.Clear();
-        setMusicVideoAlbum(ref mv1,AlbumMBID);
+        setMusicVideoAlbum(ref mv1,albumMbid);
         GetAlbumArt((DBAlbumInfo)basicInfo);
       }
       return true;

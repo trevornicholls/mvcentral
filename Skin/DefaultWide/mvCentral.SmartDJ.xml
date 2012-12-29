@@ -19,6 +19,16 @@
     <import>common.time.xml</import>
     <import>common.music.fanart.xml</import>
     <control>
+      <description>General Overlay</description>
+      <id>0</id>
+      <type>image</type>
+      <posX>0</posX>
+      <posY>30</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>general_overlay.png</texture>
+    </control>
+    <control>
       <description>Image Overlay Top</description>
       <id>0</id>
       <type>image</type>
@@ -229,8 +239,6 @@
         <onright>50</onright>
         <onup>20</onup>
         <ondown>31</ondown>
-        <textXOff>5</textXOff>
-        <disabledcolor>ff808080</disabledcolor>
         <label>-</label>
       </control>
       <control>
@@ -238,14 +246,12 @@
         <type>button</type>
         <id>31</id>
         <posX>60</posX>
-        <posY>250</posY>
+        <posY>240</posY>
         <width>620</width>
-        <textXOff>5</textXOff>
         <onleft>20</onleft>
         <onright>50</onright>
         <onup>30</onup>
         <ondown>32</ondown>
-        <disabledcolor>ff808080</disabledcolor>
         <label>-</label>
       </control>
       <control>
@@ -253,14 +259,12 @@
         <type>button</type>
         <id>32</id>
         <posX>60</posX>
-        <posY>300</posY>
+        <posY>280</posY>
         <width>620</width>
-        <textXOff>5</textXOff>
         <onleft>20</onleft>
         <onright>50</onright>
         <onup>31</onup>
         <ondown>33</ondown>
-        <disabledcolor>ff808080</disabledcolor>
         <label>-</label>
       </control>
       <control>
@@ -268,14 +272,12 @@
         <type>button</type>
         <id>33</id>
         <posX>60</posX>
-        <posY>350</posY>
+        <posY>320</posY>
         <width>620</width>
-        <textXOff>5</textXOff>
         <onleft>20</onleft>
         <onright>50</onright>
         <onup>32</onup>
         <ondown>34</ondown>
-        <disabledcolor>ff808080</disabledcolor>
         <label>-</label>
       </control>
       <control>
@@ -283,14 +285,12 @@
         <type>button</type>
         <id>34</id>
         <posX>60</posX>
-        <posY>400</posY>
+        <posY>360</posY>
         <width>620</width>
-        <textXOff>5</textXOff>
         <onleft>20</onleft>
         <onright>50</onright>
         <onup>33</onup>
         <ondown>35</ondown>
-        <disabledcolor>ff808080</disabledcolor>
         <label>-</label>
       </control>
       <control>
@@ -298,14 +298,12 @@
         <type>button</type>
         <id>35</id>
         <posX>60</posX>
-        <posY>450</posY>
+        <posY>400</posY>
         <width>620</width>
-        <textXOff>5</textXOff>
         <onleft>20</onleft>
         <onright>50</onright>
         <onup>34</onup>
         <ondown>36</ondown>
-        <disabledcolor>ff808080</disabledcolor>
         <label>-</label>
       </control>
     </control>
@@ -326,12 +324,10 @@
           <description>playlist listcontrol</description>
           <type>listcontrol</type>
           <id>50</id>
-          <onleft>30</onleft>
-          <onright>21</onright>
           <posX>700</posX>
           <posY>200</posY>
           <width>800</width>
-          <height>500</height>
+          <height>470</height>
           <scrollOffset>1</scrollOffset>
           <textXOff>5</textXOff>
           <textYOff>0</textYOff>
@@ -340,17 +336,14 @@
           <font>font11</font>
           <font2>font9</font2>
           <textcolor2>ff006698</textcolor2>
-          <itemWidth>18</itemWidth>
-          <itemHeight>18</itemHeight>
+          <itemWidth>32</itemWidth>
+          <itemHeight>32</itemHeight>
+          <textureHeight>42</textureHeight>
           <IconXOff>8</IconXOff>
-          <IconYOff>10</IconYOff>
+          <IconYOff>5</IconYOff>
           <keepaspectratio>no</keepaspectratio>
-          <spinPosX>1175</spinPosX>
-          <spinPosY>681</spinPosY>
-          <spinAlign>Right</spinAlign>
-          <spinColor>ff006698</spinColor>
-          <spinWidth>50</spinWidth>
-          <spinHeight>37</spinHeight>
+          <onleft>30</onleft>
+          <onright>21</onright>
         </control>
       </control>
     </control>

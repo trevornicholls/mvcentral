@@ -344,7 +344,7 @@ namespace mvCentral.Playlist
             skipTrackActive = true;
             PlayNext();
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-              scrobbleSubmit(item);
+              ScrobbleSubmit(item);
           }
 
           break;
@@ -356,7 +356,7 @@ namespace mvCentral.Playlist
             skipTrackActive = true;
             PlayPrevious();
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-              scrobbleSubmit(item);
+              ScrobbleSubmit(item);
           }
 
           break;
@@ -388,7 +388,7 @@ namespace mvCentral.Playlist
                 SetProperties(item, true);
               }
               if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-                scrobbleSubmit(item);
+                ScrobbleSubmit(item);
             }
             GUIMessage msg = new GUIMessage(GUIMessage.MessageType.GUI_MSG_ITEM_FOCUS, 0, 0, 0, -1, 0, null);
             GUIGraphicsContext.SendMessage(msg);
@@ -401,7 +401,7 @@ namespace mvCentral.Playlist
             SetAsWatched();
             SetProperties(item, true);
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-              scrobbleSubmit(item);
+              ScrobbleSubmit(item);
 
             PlayNext();
 
@@ -434,7 +434,7 @@ namespace mvCentral.Playlist
 
             PlayListItem item = GetCurrentItem();
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
-              scrobbleSubmit(item);
+              ScrobbleSubmit(item);
           }
           break;
 
@@ -748,10 +748,10 @@ namespace mvCentral.Playlist
         listenToExternalPlayerEvents = true;
 
         // Play File
-        mvGUIMain.currentArtistID = (int)CurrentTrack.ArtistInfo[0].ID;
-        mvGUIMain.currentArtistInfo = CurrentTrack.ArtistInfo[0];
-        logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", mvGUIMain.currentArtistInfo.Artist, mvGUIMain.currentArtistID, filename));
-        
+        MvGuiMain.CurrentArtistId = (int)CurrentTrack.ArtistInfo[0].ID;
+        MvGuiMain.CurrentArtistInfo = CurrentTrack.ArtistInfo[0];
+        logger.Debug(string.Format("Start playing : Artist: {0} with and ID: {1} Filename :{2}", MvGuiMain.CurrentArtistInfo.Artist, MvGuiMain.CurrentArtistId, filename));
+        // Check if the playing is playling and stop playback if it is.
         if (mvPlayer.Playing)
           mvPlayer.Stop();
 
@@ -771,7 +771,7 @@ namespace mvCentral.Playlist
           logger.Info(string.Format("PlaylistPlayer: *** unable to play - {0} - skipping file!", item.FileName));
 
           // do not try to play the next file list
-          if (MediaPortal.Util.Utils.IsVideo(item.FileName))
+          if (MediaPortal.Util.Utils.IsVideo(filename))
             skipmissing = false;
           else
             skipmissing = true;
@@ -783,10 +783,10 @@ namespace mvCentral.Playlist
           SetProperties(item, false);
 
           if (mvCentralCore.Settings.ShowOnLastFM)
-            scrobbleSend(item);
+            ScrobbleSend(item);
 
           skipmissing = false;
-          if (MediaPortal.Util.Utils.IsVideo(item.FileName))
+          if (MediaPortal.Util.Utils.IsVideo(filename))
           {
             if (mvPlayer.HasVideo)
             {
@@ -802,13 +802,10 @@ namespace mvCentral.Playlist
       }
       while (skipmissing);
      
-      //SetInitTimerValues();
-      //playTimer.Start();
-
       return mvPlayer.Playing;
     }
 
-    void scrobbleSend(PlayListItem item)
+    void ScrobbleSend(PlayListItem item)
     {    
       DBArtistInfo artistInfo = null;
       DBTrackInfo trackInfo = null;
@@ -826,7 +823,7 @@ namespace mvCentral.Playlist
       }
     }
 
-    void scrobbleSubmit(PlayListItem item)
+    void ScrobbleSubmit(PlayListItem item)
     {
       DBArtistInfo artistInfo = null;
       DBTrackInfo trackInfo = null;

@@ -12,8 +12,8 @@
       <type>image</type>
       <id>0</id>
       <texture>Background.png</texture>
-      <width>720</width>
-      <height>576</height>
+      <width>960</width>
+      <height>720</height>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <import>common.time.xml</import>
@@ -24,35 +24,21 @@
       <id>0</id>
       <posX>0</posX>
       <posY>0</posY>
-      <width>720</width>
-      <height>576</height>
+      <width>960</width>
+      <height>720</height>
       <colordiffuse>F0ffffff</colordiffuse>
       <texture>mvcSmartDJDefault.jpg</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
-      <description>Main Image Overlay</description>
+      <description>General Overlay</description>
       <id>0</id>
       <type>image</type>
-      <posx>0</posx>
-      <posy>0</posy>
-      <width>720</width>
-      <height>576</height>
-      <texture>backgroundtop.png</texture>
-      <colordiffuse>ccffffff</colordiffuse>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
-    </control>
-    <control>
-      <description>Thumbs Image Overlay</description>
-      <id>0</id>
-      <type>image</type>
-      <posx>0</posx>
-      <posy>0</posy>
-      <width>720</width>
-      <height>576</height>
-      <texture>backgroundthumbsview.png</texture>
-      <colordiffuse>ffffffff</colordiffuse>
-      <animation effect="fade" time="70" reversible="false">visible</animation>
+      <posX>0</posX>
+      <posY>30</posY>
+      <width>960</width>
+      <height>720</height>
+      <texture>general_overlay.png</texture>
     </control>
     <control>
       <type>fadelabel</type>
@@ -354,27 +340,19 @@
           <onright>21</onright>
           <posX>370</posX>
           <posY>200</posY>
-          <width>360</width>
-          <height>370</height>
+          <width>600</width>
+          <height>470</height>
           <scrollOffset>1</scrollOffset>
-          <textXOff>-75</textXOff>
+          <textXOff>-30</textXOff>
           <textYOff>0</textYOff>
-          <textXOff2>350</textXOff2>
+          <textXOff2>590</textXOff2>
           <textYOff2>14</textYOff2>
           <font>font12</font>
           <font2>font10</font2>
           <textcolor2>ff006698</textcolor2>
-          <itemWidth>100</itemWidth>
-          <itemHeight>20</itemHeight>
           <IconXOff>-70</IconXOff>
           <IconYOff>5</IconYOff>
           <keepaspectratio>no</keepaspectratio>
-          <spinPosX>1175</spinPosX>
-          <spinPosY>681</spinPosY>
-          <spinAlign>Right</spinAlign>
-          <spinColor>ff006698</spinColor>
-          <spinWidth>50</spinWidth>
-          <spinHeight>37</spinHeight>
         </control>
       </control>
     </control>

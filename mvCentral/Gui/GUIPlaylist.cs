@@ -18,7 +18,7 @@ using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class MvGuiMain : WindowPluginBase
   {
 
     #region Enums
@@ -42,7 +42,7 @@ namespace mvCentral.GUI
     /// <summary>
     /// clear the current playlist
     /// </summary>
-    private void clearPlaylist()
+    private void ClearPlaylist()
     {
       PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
       playlist.Clear();
@@ -53,7 +53,7 @@ namespace mvCentral.GUI
     /// <param name="items"></param>
     /// <param name="playNow"></param>
     /// <param name="clear"></param>
-    private void addToPlaylist(List<DBTrackInfo> items, bool playNow, bool clear, bool shuffle)
+    private void AddToPlaylist(List<DBTrackInfo> items, bool playNow, bool clear, bool shuffle)
     {
       PlayList playlist = Player.playlistPlayer.GetPlaylist(PlayListType.PLAYLIST_MVCENTRAL);
       if (clear)

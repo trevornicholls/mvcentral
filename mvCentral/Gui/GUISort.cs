@@ -13,7 +13,7 @@ using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-    public partial class mvGUIMain : WindowPluginBase
+    public partial class MvGuiMain : WindowPluginBase
     {
         long lastPress = 0;
         string sortString = "";

@@ -174,7 +174,7 @@
       <keepaspectratio>yes</keepaspectratio>
       <zoom>no</zoom>
       <texture flipY="true" diffuse="diffusemirrorwide.png">#mvCentral.VideoImage</texture>
-      <visible>facadeview.playlist | facadeview.filmstrip</visible>
+      <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.list]</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
     </control>
     <control>
@@ -313,9 +313,13 @@
         <layout>StackLayout</layout>
         <control>
           <description>View-As button</description>
-          <type>button</type>
+          <type>menubutton</type>
           <id>2</id>
-          <label>100</label>
+          <label></label>
+          <mode>dialoglist</mode>
+          <dialogTitle>792</dialogTitle>
+          <valueTextInButton>yes</valueTextInButton>
+          <valuePrefixText>95</valuePrefixText>
           <onleft>50</onleft>
           <onup>17</onup>
         </control>
@@ -342,14 +346,14 @@
         </control>
         <control>
           <description>Repeat on/off Button</description>
-          <type>togglebutton</type>
+          <type>checkbutton</type>
           <id>30</id>
           <label>486</label>
           <onleft>50</onleft>
         </control>
         <control>
           <description>AutoPlay on/off Button</description>
-          <type>togglebutton</type>
+          <type>checkbutton</type>
           <id>40</id>
           <label>Auto Play</label>
           <onleft>50</onleft>
@@ -410,11 +414,6 @@
         <type>facadeview</type>
         <id>50</id>
         <control>
-          <description>List Layout</description>
-          <type>listcontrol</type>
-          <id>50</id>
-        </control>
-        <control>
           <description>Filmstrip Layout</description>
           <type>filmstrip</type>
           <id>50</id>
@@ -433,7 +432,8 @@
           <thumbPosX>16</thumbPosX>
           <thumbPosY>6</thumbPosY>
           <thumbs flipY="true" diffuse="diffusemirrorwide.png" />
-          <InfoImage></InfoImage>
+          <InfoImage>
+          </InfoImage>
           <imageFolder>-</imageFolder>
           <imageFolderFocus>-</imageFolderFocus>
           <frame>-</frame>
@@ -543,4 +543,4 @@
     <import>common.time.xml</import>
   </controls>
 </window>
-<!--Checksum:6e7e8726160056bce75ea116ddb2cb86-->
+<!--Checksum:e02afd7e4dfca5ef0e80125d7125695f-->

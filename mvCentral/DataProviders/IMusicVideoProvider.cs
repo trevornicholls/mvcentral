@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using mvCentral.Database;
 using mvCentral.SignatureBuilders;
 
@@ -32,7 +31,7 @@ namespace mvCentral.DataProviders
     bool GetArtistArt(DBArtistInfo mv);
     bool GetAlbumArt(DBAlbumInfo mv);
     bool GetTrackArt(DBTrackInfo mv);
-    bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID);
+    bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid);
 
     event EventHandler ProgressChanged;
   }
@@ -44,7 +43,7 @@ namespace mvCentral.DataProviders
 
   public interface IScriptableMusicVideoProvider : IMusicVideoProvider
   {
-    int ScriptID { get; }
+    int ScriptId { get; }
     DateTime? Published { get; }
 
     bool Load(string script);
