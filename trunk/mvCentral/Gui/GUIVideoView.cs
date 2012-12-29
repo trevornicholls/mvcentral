@@ -24,7 +24,7 @@ using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class MvGuiMain : WindowPluginBase
   {
 
     private void VideoActions(MediaPortal.GUI.Library.Action.ActionType actionType)
@@ -34,8 +34,8 @@ namespace mvCentral.GUI
         //play this song, or return to previous level
         if (facadeLayout.ListLayout.SelectedListItem.Label == "..")
         {
-          currentView = mvView.Artist;
-          addToStack(currentView, false);
+          _currentView = MvView.Artist;
+          addToStack(_currentView, false);
           logger.Debug("Calling loadCurrent from VideoActions");
           loadCurrent();
         }

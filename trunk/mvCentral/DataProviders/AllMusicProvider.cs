@@ -163,7 +163,7 @@ namespace mvCentral.DataProviders
         {
           artistInfo.Artist = artist;
           DBArtistInfo mv1 = (DBArtistInfo)mv.ArtistInfo[0];
-          updateMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
+          UpdateMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
         }
       }
       
@@ -190,7 +190,7 @@ namespace mvCentral.DataProviders
         {
           albumInfo.Artist = album;
           DBAlbumInfo mv1 = (DBAlbumInfo)mv.AlbumInfo[0];
-          setMusicVideoAlbum(ref mv1, albumInfo);
+          SetMusicVideoAlbum(ref mv1, albumInfo);
           getTrackComposers(mv, strAlbumHTML, string.Empty);
         }
       }
@@ -300,7 +300,7 @@ namespace mvCentral.DataProviders
           {
             artistInfo.Artist = artist;
             DBArtistInfo mv1 = (DBArtistInfo)mv;
-            setMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
+            SetMusicVideoArtist(ref mv1, artistInfo, strArtistHTML);
             GetArtistArt((DBArtistInfo)mv);
           }
         }
@@ -320,7 +320,7 @@ namespace mvCentral.DataProviders
           {
             albumInfo.Artist = album;
             DBAlbumInfo mv1 = (DBAlbumInfo)mv;
-            setMusicVideoAlbum(ref mv1, albumInfo);
+            SetMusicVideoAlbum(ref mv1, albumInfo);
           }
         }
         return false;
@@ -522,9 +522,9 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="basicInfo"></param>
     /// <param name="albumTitle"></param>
-    /// <param name="AlbumMBID"></param>
+    /// <param name="albumMbid"></param>
     /// <returns></returns>
-    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
     {
       return true;
     }
@@ -567,43 +567,26 @@ namespace mvCentral.DataProviders
 
     #region Private Methods
 
+
     /// <summary>
     /// Set the Album Information - override existing data
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="albumInfo"></param>
-    private void setMusicVideoAlbum(ref DBAlbumInfo mv, AlbumInfo albumInfo)
+    private void SetMusicVideoAlbum(ref DBAlbumInfo mv, AlbumInfo albumInfo)
     {
       mv.bioSummary = getBioSummary(albumInfo.Review, 50);
       mv.bioContent = albumInfo.Review;
       mv.YearReleased = albumInfo.Year.ToString();
       mv.Rating = albumInfo.Rating;
     }
-    /// <summary>
-    /// Update missing album information
-    /// </summary>
-    /// <param name="mv"></param>
-    /// <param name="albumInfo"></param>
-    private void updateMusicVideoAlbum(ref DBAlbumInfo mv, MusicAlbumInfo albumInfo)
-    {
-      if (mv.bioSummary.Trim() == string.Empty)
-        mv.bioSummary = getBioSummary(albumInfo.Review, 50);
 
-      if (mv.bioContent.Trim() == string.Empty)
-        mv.bioContent = albumInfo.Review;
-
-      if (mv.YearReleased.Trim() == string.Empty)
-        mv.YearReleased = albumInfo.DateOfRelease;
-
-      if (mv.Rating == 0)
-        mv.Rating = albumInfo.Rating;
-    }
     /// <summary>
     /// Set the Artist information, override existing information
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="artistInfo"></param>
-    private void setMusicVideoArtist(ref DBArtistInfo mv, ArtistInfo artistInfo, string strArtistHTML)
+    private void SetMusicVideoArtist(ref DBArtistInfo mv, ArtistInfo artistInfo, string strArtistHTML)
     {
       // Now fill in the data
       mv.Formed = mvCentralUtils.StripHTML(artistInfo.Formed);
@@ -621,7 +604,7 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="mv"></param>
     /// <param name="artistInfo"></param>
-    private void updateMusicVideoArtist(ref DBArtistInfo mv, ArtistInfo artistInfo, string strArtistHTML)
+    private void UpdateMusicVideoArtist(ref DBArtistInfo mv, ArtistInfo artistInfo, string strArtistHTML)
     {
       if (mv.Formed.Trim() == string.Empty)
         mv.Formed = mvCentralUtils.StripHTML(artistInfo.Formed);

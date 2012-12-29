@@ -260,9 +260,9 @@ namespace mvCentral.DataProviders
     /// </summary>
     /// <param name="basicInfo"></param>
     /// <param name="albumTitle"></param>
-    /// <param name="AlbumMBID"></param>
+    /// <param name="albumMbid"></param>
     /// <returns></returns>
-    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+    public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
     {
       return true;
     }

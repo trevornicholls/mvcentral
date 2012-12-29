@@ -847,12 +847,12 @@ namespace mvCentral.DataProviders
     /// <summary>
     /// Get the details for the suppkied object type, Artist, Album or Track
     /// </summary>
-    /// <param name="mvDBObject"></param>
+    /// <param name="mvDbObject"></param>
     /// <returns></returns>
-    public bool GetDetails(DBBasicInfo mvDBObject)
+    public bool GetDetails(DBBasicInfo mvDbObject)
     {
       // Artist 
-      if (mvDBObject.GetType() == typeof(DBArtistInfo))
+      if (mvDbObject.GetType() == typeof(DBArtistInfo))
       {
         List<DBSourceInfo> sources;
         lock (artistArtSources) sources = new List<DBSourceInfo>(artistArtSources);
@@ -862,12 +862,12 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ARTISTART))
             continue;
 
-          bool success = currSource.Provider.GetDetails((DBArtistInfo)mvDBObject);
+          bool success = currSource.Provider.GetDetails((DBArtistInfo)mvDbObject);
           if (success) return true;
         }
       }
       // Album
-      if (mvDBObject.GetType() == typeof(DBAlbumInfo))
+      if (mvDbObject.GetType() == typeof(DBAlbumInfo))
       {
 
         List<DBSourceInfo> sources;
@@ -878,15 +878,15 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ALBUMART))
             continue;
 
-          bool success = currSource.Provider.GetDetails((DBAlbumInfo)mvDBObject);
+          bool success = currSource.Provider.GetDetails((DBAlbumInfo)mvDbObject);
           if (success) return true;
         }
       }
       // Track
-      if (mvDBObject.GetType() == typeof(DBTrackInfo))
+      if (mvDbObject.GetType() == typeof(DBTrackInfo))
       {
         // if we have already hit our limit for the number of Track arts to load, quit
-        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+        if (mvDbObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -897,7 +897,7 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.TRACKART))
             continue;
 
-          bool success = currSource.Provider.GetDetails((DBTrackInfo)mvDBObject);
+          bool success = currSource.Provider.GetDetails((DBTrackInfo)mvDbObject);
           if (success) return true;
         }
       }

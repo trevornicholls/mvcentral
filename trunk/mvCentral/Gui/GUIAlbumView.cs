@@ -13,7 +13,7 @@ using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class MvGuiMain : WindowPluginBase
   {
     private void AlbumActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {
@@ -23,11 +23,11 @@ namespace mvCentral.GUI
         {
           DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
           List<DBTrackInfo> allTracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)facadeLayout.SelectedListItem.MusicTag);
-          addToPlaylist(allTracksOnAlbum, true, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+          AddToPlaylist(allTracksOnAlbum, true, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
         }
         else
         {
-          currentView = mvView.Artist;
+          _currentView = MvView.Artist;
           artistID = facadeLayout.SelectedListItem.ItemId;
           logger.Debug("Calling loadCurrent from AlbumActions");
           loadCurrent();

@@ -129,7 +129,7 @@ namespace mvCentral.DataProviders
             throw new NotImplementedException();
         }
 
-        public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string AlbumMBID)
+        public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
         {
           throw new NotImplementedException();
         }

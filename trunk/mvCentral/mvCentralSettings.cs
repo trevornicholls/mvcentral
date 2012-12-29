@@ -1822,6 +1822,25 @@ namespace mvCentral.Settings
     private string _defaultviewas;
 
 
+    [CornerstoneSetting(
+        Name = "View-AS",
+        Description = "The last selected view-as, ir Artists, Albums, Tracks, Genres or DVD.",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "view_as",
+        Default = "0",
+        Hidden = false)]
+    public string ViewAs
+    {
+      get { return _viewas; }
+      set
+      {
+        _viewas = value;
+        OnSettingChanged("view_as");
+      }
+    }
+    private string _viewas;
+
+
 
     [CornerstoneSetting(
         Name = "Click Shows Details",

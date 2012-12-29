@@ -163,6 +163,7 @@ namespace mvCentral.Playlist
     /// <param name="action"></param>
     public override void OnAction(Action action)
     {
+      logger.Debug("key Pressed {0}",action.wID);
       switch (action.wID)
       {
         case Action.ActionType.ACTION_SHOW_PLAYLIST:
@@ -177,8 +178,8 @@ namespace mvCentral.Playlist
         case Action.ActionType.ACTION_DELETE_SELECTED_ITEM:
           DeletePlayListItem();
           return;
-        // Handle case where playlist has been stopped and we receive a player action.
-        // This allows us to restart the playback proccess...
+          // Handle case where playlist has been stopped and we receive a player action.
+          // This allows us to restart the playback proccess...
         case Action.ActionType.ACTION_MUSIC_PLAY:
         case Action.ActionType.ACTION_NEXT_ITEM:
         case Action.ActionType.ACTION_PAUSE:

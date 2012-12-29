@@ -2,7 +2,7 @@
 <window>
   <id>112012</id>
   <defaultcontrol>2</defaultcontrol>
-  <allowoverlay>[facadeview.playlist|facadeview.filmstrip|facadeview.coverflow | facadeview.smallicons | facadeview.largeicons]</allowoverlay>
+  <allowoverlay>[facadeview.playlist|facadeview.coverflow | facadeview.smallicons | facadeview.largeicons]</allowoverlay>
   <define>#useSelectedFanart:Yes</define>
   <controls>
     <control>
@@ -16,6 +16,16 @@
     </control>
     <import>common.time.xml</import>
     <import>common.music.fanart.xml</import>
+    <control>
+      <description>General Overlay</description>
+      <id>0</id>
+      <type>image</type>
+      <posX>0</posX>
+      <posY>30</posY>
+      <width>1280</width>
+      <height>720</height>
+      <texture>general_overlay.png</texture>
+    </control>
     <control>
       <type>fadelabel</type>
       <description>mvCentral Title</description>
@@ -39,7 +49,7 @@
       <label>#selectedindex/#mvCentral.Playlist.Count #mvCentral.Translation.Videos.Label</label>
       <align>right</align>
       <textcolor>White</textcolor>
-      <font>font10</font>
+      <font>font12</font>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <control>
@@ -51,7 +61,7 @@
       <label>Playlist #mvCentral.Translation.Runtime.Label #mvCentral.Playlist.Runtime</label>
       <align>right</align>
       <textcolor>White</textcolor>
-      <font>font10</font>
+      <font>font12</font>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
     <!-- ************************************ -->
@@ -61,9 +71,9 @@
       <id>0</id>
       <type>image</type>
       <visible>[facadeview.playlist | facadeview.filmstrip | facadeview.smallicons | facadeview.largeicons]</visible>
-      <posX>15</posX>
-      <posY>145</posY>
-      <width>300</width>
+      <posX>38</posX>
+      <posY>210</posY>
+      <width>280</width>
       <height>222</height>
       <texture flipY="true" diffuse="Thumb_Mask.png">#mvCentral.VideoImage</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
@@ -78,9 +88,9 @@
       <description>Artist Name</description>
       <type>fadelabel</type>
       <posX>40</posX>
-      <posY>100</posY>
+      <posY>155</posY>
       <width>925</width>
-      <font>font16</font>
+      <font>font18</font>
       <label>#mvCentral.ArtistName</label>
       <animation effect="fade" time="70" reversible="false">visible</animation>
     </control>
@@ -89,7 +99,7 @@
       <description>Track Description</description>
       <type>textboxscrollup</type>
       <posX>330</posX>
-      <posY>145</posY>
+      <posY>210</posY>
       <width>350</width>
       <height>395</height>
       <label>#mvCentral.Description</label>
@@ -104,9 +114,9 @@
       <description>Track Description</description>
       <type>textboxscrollup</type>
       <posX>350</posX>
-      <posY>145</posY>
+      <posY>210</posY>
       <width>800</width>
-      <height>300</height>
+      <height>290</height>
       <label>#mvCentral.Description</label>
       <seperator>-----------------------------------------------------------------------------------</seperator>
       <font>font12</font>
@@ -156,9 +166,12 @@
         <visible>!Control.HasFocus(50)</visible>
         <control>
           <description>View-As button</description>
-          <type>button</type>
+          <type>menubutton</type>
           <id>2</id>
-          <label>100</label>
+          <label></label>
+          <mode>dialoglist</mode>
+          <valueTextInButton>yes</valueTextInButton>
+          <valuePrefixText>97</valuePrefixText>
           <onright>50</onright>
           <onup>17</onup>
           <ondown>20</ondown>
@@ -172,14 +185,14 @@
         </control>
         <control>
           <description>Repeat on/off button</description>
-          <type>togglebutton</type>
+          <type>checkbutton</type>
           <id>30</id>
           <label>486</label>
           <onleft>50</onleft>
         </control>
         <control>
           <description>AutoPlay on/off button</description>
-          <type>togglebutton</type>
+          <type>checkbutton</type>
           <id>40</id>
           <label>Auto Play</label>
           <onleft>50</onleft>
@@ -255,9 +268,9 @@
           <type>playlistcontrol</type>
           <id>50</id>
           <posX>680</posX>
-          <posY>150</posY>
+          <posY>210</posY>
           <width>760</width>
-          <height>570</height>
+          <height>450</height>
           <font>font11</font>
           <onleft>2</onleft>
           <onright>2</onright>
@@ -325,44 +338,39 @@
           <type>filmstrip</type>
           <colordiffuse>90ffffff</colordiffuse>
           <dimColor>90ffffff</dimColor>
-          <id>50</id>
-          <scrollOffset>2</scrollOffset>
-          <posX>380</posX>
+          <posX>5</posX>
           <posY>550</posY>
-          <width>920</width>
-          <height>720</height>
           <onup>2</onup>
-          <onleft>2</onleft>
-          <thumbWidth>105</thumbWidth>
-          <thumbHeight>105</thumbHeight>
+          <ondown>2</ondown>
+          <scrollOffset>2</scrollOffset>
+          <width>1270</width>
+          <height>576</height>
+          <thumbWidth>150</thumbWidth>
+          <thumbHeight>150</thumbHeight>
           <thumbPosX>0</thumbPosX>
           <thumbPosY>0</thumbPosY>
-          <itemWidth>131</itemWidth>
-          <itemHeight>131</itemHeight>
-          <textureWidth>105</textureWidth>
-          <textureHeight>105</textureHeight>
-          <imageFolder>Picturethumbframe.png</imageFolder>
-          <imageFolderFocus>Picturethumbframe.png</imageFolderFocus>
+          <itemWidth>140</itemWidth>
+          <itemHeight>160</itemHeight>
+          <textureWidth>150</textureWidth>
+          <textureHeight>150</textureHeight>
           <frame>Picturethumbframe.png</frame>
           <frameFocus>Picturethumbframe.png</frameFocus>
           <textureMask>Picturethumbmask.png</textureMask>
           <thumbs mask="Picturethumbmask.png"></thumbs>
           <background>emtpy.png</background>
-          <InfoImage flipY="true" diffuse="Thumb_Mask.png"></InfoImage>
+          <InfoImage></InfoImage>
           <showFrame>yes</showFrame>
           <showFolder>no</showFolder>
           <showBackGround>no</showBackGround>
           <showInfoImage>no</showInfoImage>
           <keepaspectratio>no</keepaspectratio>
           <dimColor>80ffffff</dimColor>
-          <spinWidth>33</spinWidth>
-          <spinHeight>33</spinHeight>
-          <spinPosX>1200</spinPosX>
-          <spinPosY>680</spinPosY>
-          <spinAlign>Right</spinAlign>
-          <spinColor>ffffffff</spinColor>
-          <thumbAnimation effect="zoom" start="100,100" end="180,180" time="700" tween="circle" ease="inout">focus</thumbAnimation>
-          <thumbAnimation effect="zoom" start="170,170" end="100,100" time="900" tween="back" ease="inout">unfocus</thumbAnimation>
+          <textureUp>arrow_round_right_nofocus.png</textureUp>
+          <textureDown>arrow_round_left_nofocus.png</textureDown>
+          <textureUpFocus>arrow_round_right_focus.png</textureUpFocus>
+          <textureDownFocus>arrow_round_left_focus.png</textureDownFocus>
+          <thumbAnimation effect="zoom" start="100,100" end="120,120" time="200" tween="circle" ease="inout">focus</thumbAnimation>
+          <thumbAnimation effect="zoom" start="120,120" end="100,100" time="200" tween="back" ease="inout">unfocus</thumbAnimation>
         </control>
         <control>
           <description>Cover Flow view</description>

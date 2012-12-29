@@ -456,6 +456,13 @@
               <ZipFileName>Installer{CopyFile}\{345652e3-2c6e-48f7-bb4b-782e751ed2e1}-DefaultGenre.png</ZipFileName>
               <DestinationFilename>%Skin%\Titan\media\DefaultGenre.png</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\Skin\Titan\DialogMvMultiSelect.xml</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{6fa1511a-9027-41c1-a135-216ae6c36c76}-DialogMvMultiSelect.xml</ZipFileName>
+              <DestinationFilename>%Skin%\Titan\DialogMvMultiSelect.xml</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -545,7 +552,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </Actions>
         <IncludedGroups>
           <string>MediaInfo</string>
-          <string>Skins</string>
         </IncludedGroups>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
@@ -675,7 +681,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>3</Build>
-      <Revision>427</Revision>
+      <Revision>430</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1333,6 +1339,13 @@ Update to Mediainfo.fll 0.7.61
         <ZipFileName>Installer{CopyFile}\{345652e3-2c6e-48f7-bb4b-782e751ed2e1}-DefaultGenre.png</ZipFileName>
         <DestinationFilename>%Skin%\Titan\media\DefaultGenre.png</DestinationFilename>
       </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\Skin\Titan\DialogMvMultiSelect.xml</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{6fa1511a-9027-41c1-a135-216ae6c36c76}-DialogMvMultiSelect.xml</ZipFileName>
+        <DestinationFilename>%Skin%\Titan\DialogMvMultiSelect.xml</DestinationFilename>
+      </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
@@ -1344,21 +1357,21 @@ Update to Mediainfo.fll 0.7.61
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{b5674194-d73c-4750-992a-b840f32be815}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{7e1097ad-e9e7-40d6-9c86-27edb47fea20}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2c5f7bec-587c-4f8f-b985-9af9e5ba2378}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{8dce94a7-04d6-491f-ae21-ad22800724ba}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5cdc22f6-bfc4-4bd0-977c-1763c1e85303}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{b70c43c1-17a9-42c7-a699-8b1d0843d5dc}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>

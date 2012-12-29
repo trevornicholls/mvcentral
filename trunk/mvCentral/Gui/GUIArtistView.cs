@@ -15,7 +15,7 @@ using WindowPlugins;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class MvGuiMain : WindowPluginBase
   {
     private void ArtistActions(Action.ActionType actionType)
     {
@@ -25,7 +25,7 @@ namespace mvCentral.GUI
         {
           DBArtistInfo currArtist = DBArtistInfo.Get(facadeLayout.SelectedListItem.Label);
           List<DBTrackInfo> allTracksByArtist = DBTrackInfo.GetEntriesByArtist(currArtist);
-          addToPlaylist(allTracksByArtist, true, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+          AddToPlaylist(allTracksByArtist, true, mvCentralCore.Settings.ClearPlaylistOnAdd, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
         }
       }
       else if (actionType == Action.ActionType.REMOTE_0 ||
@@ -41,7 +41,7 @@ namespace mvCentral.GUI
         DoSpell(actionType);
       else
       {
-        currentView = mvView.Artist;
+        _currentView = MvView.Artist;
         artistID = facadeLayout.SelectedListItem.ItemId;
         logger.Debug("Calling loadCurrent from ArtistActions");
         loadCurrent();

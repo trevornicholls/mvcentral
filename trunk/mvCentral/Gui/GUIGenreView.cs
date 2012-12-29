@@ -16,7 +16,7 @@ using mvCentral.Database;
 
 namespace mvCentral.GUI
 {
-  public partial class mvGUIMain : WindowPluginBase
+  public partial class MvGuiMain : WindowPluginBase
   {
     private void GenreActions(MediaPortal.GUI.Library.Action.ActionType actionType)
     {
@@ -41,12 +41,12 @@ namespace mvCentral.GUI
           }
           
           if (mvCentralCore.Settings.ClearPlaylistOnAdd)
-            clearPlaylist();
+            ClearPlaylist();
 
           foreach (DBArtistInfo currArtist in artistList)
           {
             List<DBTrackInfo> artistTracks = DBTrackInfo.GetEntriesByArtist(currArtist);
-            addToPlaylist(artistTracks, false, false, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
+            AddToPlaylist(artistTracks, false, false, mvCentralCore.Settings.GeneratedPlaylistAutoShuffle);
           }
           Player.playlistPlayer.Play(0);
           if (mvCentralCore.Settings.AutoFullscreen)
@@ -54,7 +54,7 @@ namespace mvCentral.GUI
         }
         else
         {
-          currentView = mvView.Genres;
+          _currentView = MvView.Genres;
           artistID = facadeLayout.SelectedListItem.ItemId;
           logger.Debug("Calling loadCurrent from GenreActions");
           loadCurrent();
