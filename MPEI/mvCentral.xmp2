@@ -833,8 +833,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>3</Build>
-      <Revision>430</Revision>
+      <Build>4</Build>
+      <Revision>433</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1021,6 +1021,14 @@ Update Allmusic scraper for new website layout.
 
 Update to Mediainfo.fll 0.7.61
 
+Updated to use 1.3b dll's, latest cornerstone
+
+Remove custom version of WindowPluginBase Class and revert to core version
+
+Titan Skin Support
+
+Amended MPEI to allow for selection of skins and installation of play start files for Titan
+
 
 
 
@@ -1028,7 +1036,7 @@ Update to Mediainfo.fll 0.7.61
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2012-12-20T22:26:37</ReleaseDate>
+    <ReleaseDate>2012-12-30T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>

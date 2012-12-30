@@ -292,7 +292,7 @@
       <orientation>horizontal</orientation>
       <align>left</align>
       <imagesToDraw>10</imagesToDraw>
-      <percentage>#mvCentral.Album.Rating</percentage>
+      <percentage>#mvCentral.Track.Rating</percentage>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
       <visible>[facadeview.filmstrip]+string.equals(#mvCentral.AlbumView,true)</visible>
@@ -834,33 +834,33 @@
           <posY>648</posY>
           <width>1690</width>
           <height>768</height>
-          <onup>2</onup>
-          <onright>50</onright>
-          <thumbWidth>230</thumbWidth>
-          <thumbHeight>229</thumbHeight>
-          <thumbPosX>0</thumbPosX>
-          <thumbPosY>0</thumbPosY>
-          <itemWidth>240</itemWidth>
-          <itemHeight>239</itemHeight>
-          <textureWidth>230</textureWidth>
-          <textureHeight>229</textureHeight>
-          <thumbs flipY="true" diffuse="Thumb_Mask_test.png" mask="music_filmstrip_mask.png"></thumbs>
-          <InfoImage flipY="true" diffuse="Thumb_Mask_test.png"></InfoImage>
-          <showFrame>yes</showFrame>
-          <textYOff>-2000</textYOff>
-          <showFolder>no</showFolder>
-          <showBackGround>no</showBackGround>
-          <showInfoImage>no</showInfoImage>
-          <keepaspectratio>yes</keepaspectratio>
-          <scrollbarBackground>scrollbar_bg_hor.png</scrollbarBackground>
-          <scrollbarLeft>scrollbar_left_hor.png</scrollbarLeft>
-          <scrollbarRight>scrollbar_right_hor.png</scrollbarRight>
-          <scrollbarWidth>717</scrollbarWidth>
-          <scrollbarHeight>8</scrollbarHeight>
-          <scrollbarYOff>322</scrollbarYOff>
-          <spinPosX>-2000</spinPosX>
-          <thumbAnimation effect="zoom" acceleration="-2" start="100,100" reversible="false" end="128,128" center="0,700" time="200">focus</thumbAnimation>
-          <thumbAnimation effect="zoom" start="128,128" reversible="false" end="100,100" center="0,700" time="100">unfocus</thumbAnimation>
+					<onup>2</onup>
+					<onleft>50</onleft>
+					<thumbWidth>230</thumbWidth>
+					<thumbHeight>229</thumbHeight>
+					<thumbPosX>0</thumbPosX>
+					<thumbPosY>0</thumbPosY>
+					<itemWidth>240</itemWidth>
+					<itemHeight>239</itemHeight>
+					<textureWidth>230</textureWidth>
+					<textureHeight>229</textureHeight>
+					<thumbs flipY="true" diffuse="Thumb_Mask_test.png" mask="music_filmstrip_mask.png"></thumbs>
+					<InfoImage flipY="true" diffuse="Thumb_Mask_test.png"></InfoImage>
+					<showFrame>yes</showFrame>
+					<textYOff>-2000</textYOff>
+					<showFolder>no</showFolder>
+					<showBackGround>no</showBackGround>
+					<showInfoImage>no</showInfoImage>
+					<keepaspectratio>yes</keepaspectratio>
+				  <scrollbarBackground>scrollbar_bg_hor.png</scrollbarBackground>
+				  <scrollbarLeft>scrollbar_left_hor.png</scrollbarLeft>
+				  <scrollbarRight>scrollbar_right_hor.png</scrollbarRight>
+				  <scrollbarWidth>717</scrollbarWidth>
+					<scrollbarHeight>8</scrollbarHeight>
+				  <scrollbarYOff>322</scrollbarYOff>
+	        <spinPosX>-2000</spinPosX>
+					<thumbAnimation effect="zoom" acceleration="-2" start="100,100" reversible="false" end="128,128" center="0,700" time="200">focus</thumbAnimation>
+					<thumbAnimation effect="zoom" start="128,128" reversible="false" end="100,100" center="0,700" time="100">unfocus</thumbAnimation>
         </control>
         <control>
           <description>Cover Flow view</description>
@@ -1206,7 +1206,7 @@
         </control>
         <control>
           <description>Sort Menu button</description>
-          <type>button</type>
+          <type>sortbutton</type>
           <id>3</id>
           <textureFocus>hiddenmenu_item_selected.png</textureFocus>
           <textureNoFocus>-</textureNoFocus>
