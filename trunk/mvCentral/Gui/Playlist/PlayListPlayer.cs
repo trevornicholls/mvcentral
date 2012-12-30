@@ -892,6 +892,7 @@ namespace mvCentral.Playlist
       string album = string.Empty;
       string genre = string.Empty;
       string isWatched = "no";
+      string userTrackRating = string.Empty;
 
       DBArtistInfo artistInfo = null;
       DBTrackInfo trackInfo = null;
@@ -922,13 +923,15 @@ namespace mvCentral.Playlist
         DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
         if (userSettings.WatchedCount > 0)
           isWatched = "yes";
+        userTrackRating = userSettings.UserRating.ToString();
+
       }
       // Std Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
       GUIPropertyManager.SetProperty("#Play.Current.Thumb", clear ? string.Empty : osdImage);
       GUIPropertyManager.SetProperty("#Play.Current.Genre", clear ? string.Empty : genre);
       GUIPropertyManager.SetProperty("#Play.Current.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
-      GUIPropertyManager.SetProperty("#Play.Current.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
+      GUIPropertyManager.SetProperty("#Play.Current.Rating", clear ? string.Empty : userTrackRating);
       GUIPropertyManager.SetProperty("#Play.Current.Plot", clear ? string.Empty : mvCentralUtils.bioNoiseFilter(trackInfo.bioContent));
       GUIPropertyManager.SetProperty("#Play.Current.IsWatched", isWatched);
 
@@ -959,7 +962,7 @@ namespace mvCentral.Playlist
           logger.Debug("#Play.Current.Thumb {0}", osdImage);
           logger.Debug("#Play.Current.Genre {0}", genre);
           logger.Debug("#Play.Current.Runtime {0}", trackDuration(trackInfo.PlayTime));
-          logger.Debug("#Play.Current.Rating {0}", trackInfo.Rating.ToString());
+          logger.Debug("#Play.Current.Rating {0}", userTrackRating);
           logger.Debug("#Play.Current.Plot {0}", trackInfo.bioContent);
           logger.Debug("#Play.Current.IsWatched {0}", isWatched);
           logger.Debug("#Play.Current.mvArtist {0}", artistInfo.Artist);
@@ -1063,6 +1066,7 @@ namespace mvCentral.Playlist
       string album = string.Empty;
       string genre = string.Empty;
       string isWatched = "no";
+      string userTrackRating = string.Empty;
 
       DBArtistInfo artistInfo = null;
       DBTrackInfo trackInfo = null;
@@ -1090,6 +1094,7 @@ namespace mvCentral.Playlist
         DBUserMusicVideoSettings userSettings = trackInfo.ActiveUserSettings;
         if (userSettings.WatchedCount > 0)
           isWatched = "yes";
+        userTrackRating = userSettings.UserRating.ToString();
 
       }
       // Std Play Properities
@@ -1097,7 +1102,7 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#Play.Next.Thumb", clear ? string.Empty : osdImage);
       GUIPropertyManager.SetProperty("#Play.Next.Genre", clear ? string.Empty : genre);
       GUIPropertyManager.SetProperty("#Play.Next.Runtime", clear ? string.Empty : trackDuration(trackInfo.PlayTime));
-      GUIPropertyManager.SetProperty("#Play.Next.Rating", clear ? string.Empty : trackInfo.Rating.ToString());
+      GUIPropertyManager.SetProperty("#Play.Next.Rating", clear ? string.Empty : userTrackRating);
       GUIPropertyManager.SetProperty("#Play.Next.Plot", clear ? string.Empty : mvCentralUtils.bioNoiseFilter(trackInfo.bioContent));
       GUIPropertyManager.SetProperty("#Play.Next.IsWatched", isWatched);
 
@@ -1127,7 +1132,7 @@ namespace mvCentral.Playlist
           logger.Debug("#Play.Next.Thumb {0}", osdImage);
           logger.Debug("#Play.Next.Genre {0}", genre);
           logger.Debug("#Play.Next.Runtime {0}", trackDuration(trackInfo.PlayTime));
-          logger.Debug("#Play.Next.Rating {0}", trackInfo.Rating.ToString());
+          logger.Debug("#Play.Next.Rating {0}", userTrackRating);
           logger.Debug("#Play.Next.Plot {0}", trackInfo.bioContent);
           logger.Debug("#Play.Next.IsWatched {0}", isWatched);
           logger.Debug("#Play.Next.mvArtist {0}", artistInfo.Artist);
