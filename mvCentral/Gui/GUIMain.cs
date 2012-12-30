@@ -345,14 +345,24 @@ namespace mvCentral.GUI
       if (userSettings.UserRating == null)
         userSettings.UserRating = 0;
 
-      itemRating.Rating = (int)userSettings.UserRating;
+      try
+      {
+        itemRating.Rating = (int)userSettings.UserRating/2;
+      }
+      catch (DivideByZeroException  e)
+      {
+        itemRating.Rating = 0;
+      }
+
       itemRating.SetTitle(String.Format("{0}-{1}", artist.Artist, videoToRate.Track));
       itemRating.FileName = videoToRate.LocalMedia[0].FullPath;
-
+      itemRating.SetHeading("Rate Music Video");
+      // Open the Dialog
       itemRating.DoModal(GetID);
-
-      if (itemRating != null)
-        userSettings.UserRating = itemRating.Rating;
+      // Set the rating
+      logger.Debug("Set rating of ({0}) for video {1}", (itemRating.Rating*2).ToString(CultureInfo.InvariantCulture), itemRating.FileName);
+      userSettings.UserRating = itemRating.Rating*2;
+      videoToRate.Rating = itemRating.Rating * 2;
 
       if (itemRating.Result == GUIDialogSetRating.ResultCode.Previous)
       {
@@ -1517,14 +1527,14 @@ namespace mvCentral.GUI
         DBAlbumInfo theAlbum = DBAlbumInfo.Get(trackData);
 
         // Check if we already have this album as a facade item
-        bool IsPresent = false;
+        bool isPresent = false;
         for (int i = 0; i <= facadeLayout.Count - 1; i++)
         {
           if (facadeLayout[i].Label == trackData.AlbumInfo[0].Album)
-            IsPresent = true;
+            isPresent = true;
         }
         // and skip adding if we do
-        if (IsPresent)
+        if (isPresent)
           continue;
 
 
