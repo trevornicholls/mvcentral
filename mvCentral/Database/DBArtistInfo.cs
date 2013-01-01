@@ -99,6 +99,19 @@ namespace mvCentral.Database
     } private string _formed;
 
     [DBField]
+    public string Disbanded
+    {
+      get { return _disbanded; }
+
+      set
+      {
+        _disbanded = value;
+        commitNeeded = true;
+      }
+    } private string _disbanded;
+
+
+    [DBField]
     public string Genre
     {
       get { return _genre; }

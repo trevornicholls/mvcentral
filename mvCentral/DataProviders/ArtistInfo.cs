@@ -13,6 +13,7 @@ namespace mvCentral.DataProviders
     public string Born { get; set; }
     public string Death { get; set; }
     public string Formed { get; set; }
+    public string Disbanded { get; set; }
     public string Compilations { get; set; }
     public string Genres { get; set; }
     public string Image { get; set; }

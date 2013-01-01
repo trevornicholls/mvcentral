@@ -590,6 +590,7 @@ namespace mvCentral.DataProviders
     {
       // Now fill in the data
       mv.Formed = mvCentralUtils.StripHTML(artistInfo.Formed);
+      mv.Disbanded = mvCentralUtils.StripHTML(artistInfo.Disbanded);
       mv.Born = mvCentralUtils.StripHTML(artistInfo.Born);
       mv.Death = mvCentralUtils.StripHTML(artistInfo.Death);
       mv.bioSummary = getBioSummary(artistInfo.AMGBio, 50);
@@ -608,6 +609,9 @@ namespace mvCentral.DataProviders
     {
       if (mv.Formed.Trim() == string.Empty)
         mv.Formed = mvCentralUtils.StripHTML(artistInfo.Formed);
+
+      if (mv.Disbanded.Trim() == string.Empty)
+        mv.Disbanded = mvCentralUtils.StripHTML(artistInfo.Disbanded);
 
       if (mv.Born.Trim() == string.Empty)
         mv.Born = mvCentralUtils.StripHTML(artistInfo.Born);
