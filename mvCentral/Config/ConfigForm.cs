@@ -69,6 +69,10 @@ namespace mvCentral
     public string extensions;
     delegate void SetDGVCallback(string shortFilename, string Artist, string Title, string longFilename);
     delegate void ClearDGVCallback();
+
+    public delegate void ReloadLibraryList();
+    public ReloadLibraryList ReloadDelegate;
+
     //import tab
     private List<DBImportPath> paths = new List<DBImportPath>();
     private BindingSource pathBindingSource;
@@ -180,6 +184,7 @@ namespace mvCentral
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
+
     }
 
     #endregion
@@ -1212,7 +1217,7 @@ namespace mvCentral
               load.updateStats("Please wait, loading your library...", artistTotal, albumTotal, videoTotal);
               cnt2 = 0;
             }
-            addMusicVideo(currentTrackData);
+            AddMusicVideo(currentTrackData);
             videoTotal++;
             cnt2++;
           }
@@ -1236,113 +1241,109 @@ namespace mvCentral
     /// Adds the given musicvideo and it's related files to the tree view
     /// </summary>
     /// <param name="mv"></param>
-    private void addMusicVideo(DBTrackInfo mv)
+    private void AddMusicVideo(DBTrackInfo mv)
     {
       TreeNode artistItem = null;
       TreeNode albumItem = null;
-      bool ArtistNodeExist = true;
-      bool AlbumNodeExist = true;
-      foreach (TreeNode t1 in mvLibraryTreeView.Nodes)
+      var artistNodeExist = true;
+      var albumNodeExist = true;
+      // Check if we already have the Artist
+      foreach (TreeNode mvLibraryNode in mvLibraryTreeView.Nodes)
       {
-        if (t1.Level == 0)
+        if (mvLibraryNode.Level != 0) continue;
+        var trtag = (DBArtistInfo)mvLibraryNode.Tag;
+
+        if (mv.ArtistInfo.Count == 0 || mv.ArtistInfo[0] != trtag) continue;
+
+        artistItem = mvLibraryNode;
+        break;
+      }
+      // Add the Artist if we do not already have them
+      if (artistItem == null && mv.ArtistInfo.Count > 0)
+      {
+        artistItem = new TreeNode(mv.ArtistInfo[0].Artist, 1, 1) {Name = mv.ArtistInfo[0].Artist};
+
+        if (mv.ArtistInfo[0].ArtFullPath.Trim() == "")
+          artistItem.ForeColor = Color.Blue;
+
+        mv.ArtistInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+        mv.ArtistInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+
+        artistItem.Tag = mv.ArtistInfo[0];
+        artistNodeExist = false;
+      }
+      // Check if we have the Album
+      if (mv.AlbumInfo.Count > 0)
+      {
+        foreach (TreeNode libraryMainNode in mvLibraryTreeView.Nodes)
         {
-          DBArtistInfo trtag = (DBArtistInfo)t1.Tag;
-
-          if (mv.ArtistInfo.Count == 0)
-            continue;
-
-          if (mv.ArtistInfo[0] == trtag)
+          foreach (TreeNode libraryChildNode in libraryMainNode.Nodes)
           {
-            artistItem = t1;
+            if ((libraryChildNode.Level != 1) || (libraryChildNode.Tag.GetType() != typeof(DBAlbumInfo))) continue;
+            var trtag = (DBAlbumInfo)libraryChildNode.Tag;
+
+            if (mv.AlbumInfo[0] != trtag) continue;
+            albumItem = libraryChildNode;
             break;
           }
         }
-      }
-
-      if (artistItem == null && mv.ArtistInfo.Count > 0)
-      {
-        artistItem = new TreeNode(mv.ArtistInfo[0].Artist, 1, 1);
-        mv.ArtistInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
-
-        mv.ArtistInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
-        artistItem.Tag = mv.ArtistInfo[0];
-        ArtistNodeExist = false;
-      }
-
-      if (mv.AlbumInfo.Count > 0)
-      {
-        foreach (TreeNode t1 in mvLibraryTreeView.Nodes)
-          foreach (TreeNode t2 in t1.Nodes)
-          {
-            if (t2.Level == 1)
-            {
-              if (t2.Tag.GetType() == typeof(DBAlbumInfo))
-              {
-                DBAlbumInfo trtag = (DBAlbumInfo)t2.Tag;
-
-                if (mv.AlbumInfo[0] == trtag)
-                {
-                  albumItem = t2;
-                  break;
-                }
-              }
-            }
-
-          }
-
+        // Add Album if we do not already have it
         if (albumItem == null)
         {
-          AlbumNodeExist = false;
-          albumItem = new TreeNode(mv.AlbumInfo[0].Album, 2, 2);
-          albumItem.Tag = mv.AlbumInfo[0];
-          mv.AlbumInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
+          albumNodeExist = false;
+          albumItem = new TreeNode(mv.AlbumInfo[0].Album, 2, 2) {Tag = mv.AlbumInfo[0], Name = mv.AlbumInfo[0].Album};
 
+          if (mv.AlbumInfo[0].ArtFullPath.Trim() == "")
+          {
+            albumItem.ForeColor = Color.Blue;
+            if (artistItem != null) artistItem.ForeColor = Color.Blue;
+          }
+
+          mv.AlbumInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
           mv.AlbumInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
         }
       }
       else
-        AlbumNodeExist = false;
+        albumNodeExist = false;
 
       TreeNode trackItem = null;
-      if (mv.LocalMedia[0].IsDVD)
-        trackItem = new TreeNode(mv.Track, 4, 4);
-      else
-        trackItem = new TreeNode(mv.Track, 3, 3);
+      trackItem = mv.LocalMedia[0].IsDVD ? new TreeNode(mv.Track, 4, 4) : new TreeNode(mv.Track, 3, 3);
+      trackItem.Name = mv.Track;
 
+      if (mv.ArtFullPath.Trim() == "")
+      {
+        trackItem.ForeColor = Color.Blue;
+        if (albumItem != null) albumItem.ForeColor = Color.Blue;
+        if (artistItem != null) artistItem.ForeColor = Color.Blue;
+      }
 
       mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
       mv.Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
 
       trackItem.Tag = mv;
 
-
-      if (albumItem != null)
+      if (albumItem == null)
+        albumItem = trackItem;
+      else
         albumItem.Nodes.Add(trackItem);
-      else albumItem = trackItem;
 
 
-      if (!AlbumNodeExist)
+      if (!albumNodeExist)
       {
         albumTotal++;
-        artistItem.Nodes.Add(albumItem);
+        if (artistItem != null) artistItem.Nodes.Add(albumItem);
       }
 
-      if (!ArtistNodeExist)
+      if (!artistNodeExist)
       {
         artistTotal++;
         mvLibraryTreeView.Nodes.Add(artistItem);
       }
 
-
       // if the movie is offline color it red
-      if (mv.LocalMedia.Count > 0)
-      {
-        if (!mv.LocalMedia[0].IsAvailable)
-        {
-          trackItem.ForeColor = Color.Red;
-          trackItem.ToolTipText = "This musicvideo is currently offline.";
-        }
-      }
+      if (mv.LocalMedia.Count <= 0 || mv.LocalMedia[0].IsAvailable) return;
+      trackItem.ForeColor = Color.Red;
+      trackItem.ToolTipText = "This musicvideo is currently offline.";
     }
 
 
@@ -2699,7 +2700,7 @@ namespace mvCentral
           }
         };
 
-        Thread thread = new Thread(actions);
+        var thread = new Thread(actions);
         thread.Name = "ArtUpdater";
         thread.Start();
       }
@@ -3396,6 +3397,124 @@ namespace mvCentral
         }
       }
     }
+
+    /// <summary>
+    /// Clear Artwork Missing Highlight and check node tree to see if anyother azrtwork is missing
+    /// if not reset the highlight for any parants.
+    /// </summary>
+    /// <param name="treeView"></param>
+    /// <param name="matchString"></param>
+    private void ResetMissingArtworkHighlight(TreeView treeView, string matchString)
+    {
+      // Print each node recursively.
+      TreeNodeCollection nodes = treeView.Nodes;
+      foreach (TreeNode mainNode in nodes)
+      {
+        if (mainNode.Name != matchString)
+        {
+          ResetAlbumNodes(mainNode, matchString);
+        }
+        else
+        {
+          mainNode.ForeColor = Color.Black;
+          logger.Debug("<Artist> Reset ForeColour to Black for {0} ",mainNode.Name);
+          CheckIfAllArtworkComplete(mainNode);
+          break;
+        }
+      }
+    }
+    private void ResetAlbumNodes(TreeNode treeNode, string matchString)
+    {
+      foreach (TreeNode albumNode in treeNode.Nodes)
+      {
+        if (albumNode.Name != matchString)
+        {
+          ResetTrackNodes(albumNode, matchString);
+        }
+        else
+        {
+          albumNode.ForeColor = Color.Black;
+          CheckIfAllArtworkComplete(albumNode);
+          logger.Debug("<Album> Reset ForeColour to Black for {0} ", albumNode.Name);
+          break;
+        }
+      }
+    }
+    private void ResetTrackNodes(TreeNode treeNode, string matchString)
+    {
+      foreach (TreeNode trackNode in treeNode.Nodes)
+      {
+        if (trackNode.Name != matchString) continue;
+        trackNode.ForeColor = Color.Black;
+        logger.Debug("<Album> Reset ForeColour to Black for {0} ", trackNode.Name);
+        CheckIfAllArtworkComplete(trackNode);
+        break;
+      }
+    }
+    /// <summary>
+    /// Check if any missing artwork for Artist and all children, if none ensure missing Artwork indication is reset. 
+    /// </summary>
+    /// <param name="libraryNode"></param>
+    private void CheckIfAllArtworkComplete(TreeNode libraryNode)
+    {
+      var artworkMissing = false;
+      DBAlbumInfo mvAlbumInfo;
+      DBTrackInfo mvTrackInfo;
+      DBArtistInfo mvArtistInfo;
+      TreeNode l0Node = null;
+
+      string artistName = string.Empty;
+
+      //Find The Parant
+      switch (libraryNode.Level)
+      {
+        case 1:
+          l0Node = libraryNode.Parent;
+          artistName = l0Node.Name;
+          break;
+        case 2:
+          TreeNode l1Node = libraryNode.Parent;
+          l0Node = l1Node.Parent;
+          artistName = l0Node.Name;
+          break;
+        default:
+          // Already Parent
+          break;
+      }
+
+      if (!string.IsNullOrEmpty(artistName) && DBArtistInfo.Get(artistName).ArtFullPath.Trim() == "")
+        artworkMissing = true;
+
+      List<DBTrackInfo> trackList = DBTrackInfo.GetEntriesByArtist(DBArtistInfo.Get(artistName));
+      if (trackList == null) return;
+
+      foreach (var track in trackList)
+      {
+        if (track.ArtFullPath.Trim() == "")
+          artworkMissing = true;
+
+        DBAlbumInfo album = DBAlbumInfo.Get(track);
+        if (album != null && album.ArtFullPath.Trim() == "")
+          artworkMissing = true;
+      }
+
+
+      if (l0Node == null || artworkMissing) return;
+      l0Node.ForeColor = Color.Black;
+      foreach (TreeNode mvNode in l0Node.Nodes)
+      {
+        mvNode.ForeColor = Color.Black;
+        foreach (TreeNode mvNodeAlbum in mvNode.Nodes)
+        {
+          mvNodeAlbum.ForeColor = Color.Black;
+          foreach (TreeNode mvTrackNode in mvNodeAlbum.Nodes)
+          {
+            mvTrackNode.ForeColor = Color.Black;
+          }
+        }
+      }
+    }
+
     /// <summary>
     /// Handle dragenter event on panel with picturebox control
     /// </summary>
@@ -3419,9 +3538,12 @@ namespace mvCentral
     /// <param name="e"></param>
     private void splitContainer3_Panel2_DragDrop(object sender, DragEventArgs e)
     {
+      ReloadDelegate = new ReloadLibraryList(ReloadList);
+
       if (DoesDragDropDataContainUrl(e.Data))
       {
-        string droppedUrl = ReadUrlFromDragDropData(e.Data);
+        var theTreeNode = string.Empty;
+        var droppedUrl = ReadUrlFromDragDropData(e.Data);
         if (droppedUrl != null && droppedUrl.Trim().Length != 0)
         {
           DBBasicInfo mv = null;
@@ -3429,12 +3551,15 @@ namespace mvCentral
           {
             case "tpArtist":
               mv = CurrentArtist;
+              theTreeNode = CurrentArtist.Artist;
               break;
             case "tpAlbum":
               mv = CurrentAlbum;
+              theTreeNode = CurrentAlbum.Album;
               break;
             case "tpTrack":
               mv = CurrentTrack;
+              theTreeNode = CurrentAlbum.Album;
               break;
           }
           if (mv == null) return;
@@ -3442,7 +3567,7 @@ namespace mvCentral
           ThreadStart actions = delegate
           {
             startArtProgressBar();
-            ImageLoadResults result = mv.AddArtFromURL(droppedUrl, true);
+            var result = mv.AddArtFromURL(droppedUrl, true);
             stopArtProgressBar();
             switch (result)
             {
@@ -3459,22 +3584,23 @@ namespace mvCentral
                 MessageBox.Show("Failed loading art from specified URL.");
                 break;
             }
+            ResetMissingArtworkHighlight(mvLibraryTreeView, theTreeNode);
+            mvLibraryTreeView.Refresh();
           };
-
-          Thread thread = new Thread(actions);
-          thread.Name = "ArtUpdater";
+ 
+          var thread = new Thread(actions) {Name = "ArtUpdateFromURL"};
           thread.Start();
         }
       }
       else if (e.Data.GetDataPresent(DataFormats.FileDrop))
       {
 
-        string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+        var fileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
 
         try
         {
           // Lets check if this is a valid image, this will throw an OutOfMemoryException if not an inage
-          Image testImage = Image.FromFile(FileList[0]);
+          Image testImage = Image.FromFile(fileList[0]);
 
           // We got here so much be an image, lets try and load it
           DBBasicInfo mv = null;
@@ -3492,7 +3618,7 @@ namespace mvCentral
           }
           if (mv == null) return;
 
-          bool success = mv.AddArtFromFile(FileList[0]);
+          bool success = mv.AddArtFromFile(fileList[0]);
           if (success)
           {
             // set new art to current and update screen

@@ -10,6 +10,6 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <StartAction>Program</StartAction>
-    <StartProgram>D:\HTPC\MediaPortal\MediaPortal.exe</StartProgram>
+    <StartProgram>D:\HTPC\MediaPortal\Configuration.exe</StartProgram>
   </PropertyGroup>
 </Project>
