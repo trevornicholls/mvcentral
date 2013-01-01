@@ -20,8 +20,13 @@ namespace mvCentral.Utils
     private static readonly Regex StyleRegEx = new Regex(StyleRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
     private const string ActiveRegExp = @"<dt>Active</dt>\s*<dd class=""active"">(?<active>.*?)</dd>";
     private static readonly Regex ActiveRegEx = new Regex(ActiveRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+    
     private const string BornRegExp = @"<dd class=""birth"">\s*<span>(?<born>.*?)</span>";
     private static readonly Regex BornRegEx = new Regex(BornRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+    private const string DeathRegExp = @"<dd class=""death"">\s*<span>(?<death>.*?)</span>";
+    private static readonly Regex DeathRegEx = new Regex(DeathRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
     private const string TonesRegExp = @"<h4>artist moods</h4>\s*<ul>(?<tones>.*?)</ul>";
     private static readonly Regex TonesRegEx = new Regex(TonesRegExp, RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline);
     private const string BIORegExp = @"<div id=""bio"">\s*<div class=""heading"">.*?</div>(?<BIO>.*?)<div class=""advertisement leaderboard"">";
@@ -250,11 +255,34 @@ namespace mvCentral.Utils
 
       // born / formed
       var strBorn = string.Empty;
+      var strFormed = string.Empty;
+      // Find the match - Bordn or Formed are both in as Birth
       var bornMatch = BornRegEx.Match(artistDetails);
+      // Check it Born or Formed
+      var asBorn = Regex.IsMatch(artistDetails, @"<dt>\s*born\s*</dt>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
       if (bornMatch.Success)
       {
-        strBorn = bornMatch.Groups["born"].Value.Trim();
+        if (asBorn)
+          strBorn = bornMatch.Groups["born"].Value.Trim();
+        else
+          strFormed = bornMatch.Groups["born"].Value.Trim();
       }
+
+      // Death / Disbanded
+      var strDeath = string.Empty;
+      var strDisbanded = string.Empty;
+      // Find the match - Bordn or Formed are both in as Birth
+      var deathMatch = DeathRegEx.Match(artistDetails);
+      // Check if Died or Disbanded
+      var asDisbanded = Regex.IsMatch(artistDetails, @"<dt>\s*disbanded\s*</dt>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+      if (deathMatch.Success)
+      {
+        if (asDisbanded)
+          strDisbanded = deathMatch.Groups["death"].Value.Trim();
+        else
+          strDeath = deathMatch.Groups["death"].Value.Trim();
+      }
+
 
       // build up tones into one string
       var strTones = string.Empty;
@@ -309,6 +337,9 @@ namespace mvCentral.Utils
         Albums = albumList,
         Artist = strArtist,
         Born = strBorn,
+        Formed = strFormed,
+        Death = strDeath,
+        Disbanded = strDisbanded,
         Compilations = string.Empty,
         Genres = strGenres,
         Image = strImg,
