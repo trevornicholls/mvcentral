@@ -652,6 +652,7 @@ namespace mvCentral.DataProviders
             albumInfo.Album = mvTrackData.AlbumInfo[0].Album;
             setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvTrackData.AlbumInfo[0].Album, null);
             mvTrackData.AlbumInfo.Clear();
+            mvTrackData.ArtistInfo[0].Artist = mvSignature.Artist;
             mvTrackData.AlbumInfo.Add(albumInfo);
 
           }
@@ -1397,26 +1398,27 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public UpdateResults UpdateTrack(DBTrackInfo trackData)
     {
+      // Have we anything to update?
       if (trackData == null)
         return UpdateResults.FAILED;
 
       lock (lockList)
       {
-        DBArtistInfo artistData = DBArtistInfo.Get(trackData);
+        // Update the Artist
+        var artistData = DBArtistInfo.Get(trackData);
         if (artistData != null)
-        {
           trackData.ArtistInfo[0] = artistData;
-        }
+
         if (trackData.ArtistInfo.Count > 0)
         {
           trackData.ArtistInfo[0].PrimarySource = trackData.PrimarySource;
           trackData.ArtistInfo[0].Commit();
         }
-        DBAlbumInfo albumData = DBAlbumInfo.Get(trackData);
+        // Update the Album
+        var albumData = DBAlbumInfo.Get(trackData);
         if (albumData != null)
-        {
-          trackData.AlbumInfo[0] = albumData;
-        }
+            trackData.AlbumInfo[0] = albumData;
+
         if (trackData.AlbumInfo.Count > 0)
         {
           trackData.AlbumInfo[0].PrimarySource = trackData.PrimarySource;
