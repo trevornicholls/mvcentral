@@ -1295,8 +1295,8 @@ namespace mvCentral
 
           if (mv.AlbumInfo[0].ArtFullPath.Trim() == "")
           {
-            albumItem.ForeColor = Color.Blue;
-            if (artistItem != null) artistItem.ForeColor = Color.Blue;
+            albumItem.BackColor = Color.Yellow;
+            if (artistItem != null) artistItem.BackColor = Color.Yellow;
           }
 
           mv.AlbumInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
@@ -1312,9 +1312,9 @@ namespace mvCentral
 
       if (mv.ArtFullPath.Trim() == "")
       {
-        trackItem.ForeColor = Color.Blue;
-        if (albumItem != null) albumItem.ForeColor = Color.Blue;
-        if (artistItem != null) artistItem.ForeColor = Color.Blue;
+        trackItem.BackColor = Color.Yellow;
+        if (albumItem != null) albumItem.BackColor = Color.Yellow;
+        if (artistItem != null) artistItem.BackColor = Color.Yellow;
       }
 
       mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
@@ -2440,18 +2440,22 @@ namespace mvCentral
       if (e.Node.Tag.GetType() == typeof(DBArtistInfo)) tcMusicVideo.SelectTab("tpArtist");
       if (e.Node.Tag.GetType() == typeof(DBAlbumInfo)) tcMusicVideo.SelectTab("tpAlbum");
       if (e.Node.Tag.GetType() == typeof(DBTrackInfo)) tcMusicVideo.SelectTab("tpTrack");
-      updateDBPage();
       setArtImage();
+      UpdateDbPage();
     }
 
-
-    private void updateDBPage()
+    /// <summary>
+    /// Update the Database and clear missing artwork indicator
+    /// </summary>
+    private void UpdateDbPage()
     {
+      DBArtistInfo artist = null;
+
       logger.Debug("****** Update the DB ********");
 
       if (InvokeRequired)
       {
-        this.Invoke(new InvokeDelegate(updateDBPage));
+        this.Invoke(new InvokeDelegate(UpdateDbPage));
         return;
       }
 
@@ -2460,33 +2464,49 @@ namespace mvCentral
         case "tpArtist":
           artistDetailsList.DatabaseObject = CurrentArtist;
           artistDetailsList.DatabaseObject.Commit();
+          artist = CurrentArtist;
           break;
         case "tpAlbum":
           albumDetailsList.DatabaseObject = CurrentAlbum;
           albumDetailsList.DatabaseObject.Commit();
+          var tracks = DBTrackInfo.GetEntriesByAlbum(CurrentAlbum);
+          artist = DBArtistInfo.Get(tracks[0]);
           break;
         case "tpTrack":
           trackDetailsList.DatabaseObject = CurrentTrack;
           fileDetailsList.DatabaseObject = CurrentTrack.LocalMedia[0];
           fileDetailsList.DatabaseObject.Commit();
           trackDetailsList.DatabaseObject.Commit();
+          artist = DBArtistInfo.Get(CurrentTrack);
           break;
+      }
+
+      // Bail out if we did not get an Artist
+      if (artist == null) return;
+      // Find the Artist in the TreeView and then Check and clear missing artwork highlight if all artwork present
+      foreach (TreeNode mainNode in mvLibraryTreeView.Nodes)
+      {
+        if (mainNode.Name == artist.Artist)
+        {
+          CheckIfAllArtworkComplete(mainNode);
+          mvLibraryTreeView.Refresh();
+        }
       }
     }
 
     private void trackDetailsList_Leave(object sender, EventArgs e)
     {
-      updateDBPage();
+      UpdateDbPage();
     }
 
     private void artistDetailsList_Leave(object sender, EventArgs e)
     {
-      updateDBPage();
+      UpdateDbPage();
     }
 
     private void albumDetailsList_Leave(object sender, EventArgs e)
     {
-      updateDBPage();
+      UpdateDbPage();
     }
 
 
@@ -2509,7 +2529,7 @@ namespace mvCentral
       if (sender == btnNextArt) mv.NextArt();
       if (sender == btnPrevArt) mv.PreviousArt();
       setArtImage();
-      updateDBPage();
+      UpdateDbPage();
     }
 
     private void setArtImage()
@@ -2645,7 +2665,7 @@ namespace mvCentral
           mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
           mv.Commit();
           setArtImage();
-          updateDBPage();
+          UpdateDbPage();
         }
         else
           MessageBox.Show("Failed loading art from specified location.");
@@ -2736,7 +2756,7 @@ namespace mvCentral
         mv.DeleteCurrentArt();
         mv.Commit();
         setArtImage();
-        updateDBPage();
+        UpdateDbPage();
       }
     }
     /// <summary>
@@ -2832,7 +2852,7 @@ namespace mvCentral
         return;
       }
       setArtImage();
-      updateDBPage();
+      UpdateDbPage();
       artworkProgressBar.Visible = false;
       lblArtworkProgress.Visible = false;
     }
@@ -3044,8 +3064,9 @@ namespace mvCentral
         mv.AlternateArts.Add(filename1);
         mv.Commit();
         setArtImage();
-        updateDBPage();
+        UpdateDbPage();
       }
+
     }
     /// <summary>
     /// Grab as x4 image thumbnail
@@ -3067,7 +3088,7 @@ namespace mvCentral
           mv.AddArtFromFile(outputResizedFilename);
           mv.Commit();
           setArtImage();
-          updateDBPage();
+          UpdateDbPage();
           File.Delete(outputResizedFilename);
         }
       }
@@ -3079,7 +3100,7 @@ namespace mvCentral
       GrabberPopup p1 = new GrabberPopup(CurrentTrack);
       p1.ShowDialog(this);
       setArtImage();
-      updateDBPage();
+      UpdateDbPage();
     }
 
     private void cmLibrary_Opened(object sender, EventArgs e)
@@ -3478,7 +3499,8 @@ namespace mvCentral
           artistName = l0Node.Name;
           break;
         default:
-          // Already Parent
+          l0Node = libraryNode;
+          artistName = l0Node.Name;
           break;
       }
 
@@ -3500,16 +3522,16 @@ namespace mvCentral
 
 
       if (l0Node == null || artworkMissing) return;
-      l0Node.ForeColor = Color.Black;
+      l0Node.BackColor = Color.White;
       foreach (TreeNode mvNode in l0Node.Nodes)
       {
-        mvNode.ForeColor = Color.Black;
+        mvNode.BackColor = Color.White;
         foreach (TreeNode mvNodeAlbum in mvNode.Nodes)
         {
-          mvNodeAlbum.ForeColor = Color.Black;
+          mvNodeAlbum.BackColor = Color.White;
           foreach (TreeNode mvTrackNode in mvNodeAlbum.Nodes)
           {
-            mvTrackNode.ForeColor = Color.Black;
+            mvTrackNode.BackColor = Color.White;
           }
         }
       }
@@ -3625,7 +3647,7 @@ namespace mvCentral
             mv.ArtFullPath = mv.AlternateArts[mv.AlternateArts.Count - 1];
             mv.Commit();
             setArtImage();
-            updateDBPage();
+            UpdateDbPage();
           }
           else
             MessageBox.Show("Failed loading art from specified location.");
