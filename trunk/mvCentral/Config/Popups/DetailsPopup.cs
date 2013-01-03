@@ -35,7 +35,7 @@ namespace mvCentral.ConfigScreen.Popups
       label6.DataBindings.Add("Text", r1, "uri");
       label7.DataBindings.Add("Text", r1, "summary");
       label8.DataBindings.Add("Text", r1, "id");
-      textBox1.DataBindings.Add("Text", r1, "title");
+      selectedItem.DataBindings.Add("Text", r1, "title");
 
       if (r1.Count > 0)
       {
