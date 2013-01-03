@@ -305,6 +305,7 @@ namespace mvCentral.Utils
       {
         AMGBIO = AMGBioMatch.Groups["BIO"].Value.Trim();
         AMGBIO = HTMLRegEx.Replace(AMGBIO, "");
+        AMGBIO = AMGBIO.TrimStart(' ','\n');
       }
 
       // artist image URL

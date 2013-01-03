@@ -21,6 +21,8 @@ namespace mvCentral.DataProviders
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
+    public event EventHandler ProgressChanged;
+
     private DBTrackInfo mvTrackObject;
     private DBArtistInfo mvArtistObject;
     private DBAlbumInfo mvAlbumObject;
@@ -654,6 +656,5 @@ namespace mvCentral.DataProviders
       throw new NotImplementedException();
     }
 
-    public event EventHandler ProgressChanged;
   }
 }

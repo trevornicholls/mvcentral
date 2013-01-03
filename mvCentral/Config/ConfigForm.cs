@@ -2785,9 +2785,9 @@ namespace mvCentral
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
 
-        if (r2.Provider is LastFMProvider || r2.Provider is DGProvider || r2.Provider is AllMusicProvider || r2.Provider is HTBackdropsProvider)
+        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider || r2.Provider is HTBackdropsProvider)
         {
-          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DGProvider)
+          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DgProvider)
           { }
           else
             r1.Add(r2);
@@ -3179,11 +3179,6 @@ namespace mvCentral
         }
     }
 
-    private void btnShowArtistDetails_Click_1(object sender, EventArgs e)
-    {
-      scArtistList.Panel2Collapsed = !scArtistList.Panel2Collapsed;
-    }
-
     private void tsmRemove_Click(object sender, EventArgs e)
     {
       CurrentTrack.DeleteAndIgnore();
@@ -3212,9 +3207,9 @@ namespace mvCentral
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
 
-        if (r2.Provider is LastFMProvider || r2.Provider is DGProvider || r2.Provider is AllMusicProvider)
+        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider)
         {
-          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DGProvider)
+          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DgProvider)
           { }
           else r1.Add(r2);
         }
@@ -3479,12 +3474,9 @@ namespace mvCentral
     private void CheckIfAllArtworkComplete(TreeNode libraryNode)
     {
       var artworkMissing = false;
-      DBAlbumInfo mvAlbumInfo;
-      DBTrackInfo mvTrackInfo;
-      DBArtistInfo mvArtistInfo;
       TreeNode l0Node = null;
 
-      string artistName = string.Empty;
+      var artistName = string.Empty;
 
       //Find The Parant
       switch (libraryNode.Level)

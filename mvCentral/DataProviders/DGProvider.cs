@@ -18,12 +18,13 @@ using mvCentral.ConfigScreen.Popups;
 namespace mvCentral.DataProviders
 {
 
-  class DGProvider : InternalProvider, IMusicVideoProvider
+  class DgProvider : InternalProvider, IMusicVideoProvider
   {
-    private static Logger logger = LogManager.GetCurrentClassLogger();
+    private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+    private static readonly object LockList = new object();
 
-    private static readonly object lockList = new object();
-
+    public event EventHandler ProgressChanged;
+  
     // NOTE: To other developers creating other applications, using this code as a base
     //       or as a reference. PLEASE get your own API key. Do not reuse the one listed here
     //       it is intended for Music Videos use ONLY. API keys are free and easy to apply
@@ -158,7 +159,7 @@ namespace mvCentral.DataProviders
 
       if ((bool)mvCentralCore.Settings["prefer_thumbnail"].Value)
       {
-        logger.Debug("Call generateVideoThumbnail");
+        Logger.Debug("Call generateVideoThumbnail");
           return generateVideoThumbnail(mv);
       }
 
@@ -190,7 +191,7 @@ namespace mvCentral.DataProviders
       }
       else
       {
-        logger.Debug("No Track art found - Genterate Video Thumbnail");
+        Logger.Debug("No Track art found - Genterate Video Thumbnail");
           if (generateVideoThumbnail(mv))
             return true;
           else
@@ -352,7 +353,7 @@ namespace mvCentral.DataProviders
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       if (mvSignature == null)
         return results;
-      lock (lockList)
+      lock (LockList)
       {
         DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Album, mvSignature.Track);
         if (mv != null)
@@ -661,7 +662,7 @@ namespace mvCentral.DataProviders
     {
       if (mv == null)
         return UpdateResults.FAILED;
-      lock (lockList)
+      lock (LockList)
       {
         DBArtistInfo db1 = DBArtistInfo.Get(mv);
         if (db1 != null)
@@ -705,7 +706,7 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXMLFromURL(string url)
     {
-      logger.Debug("Sending the request: " + url);
+      Logger.Debug("Sending the request: " + url);
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
@@ -719,41 +720,40 @@ namespace mvCentral.DataProviders
       else
         return null;
     }
-
-    public event EventHandler ProgressChanged;
   }
 
 
 
   public class Release : IComparable<Release>
   {
-    public Release(XmlNode ArtistTopTrackPage)
+    public Release(XmlNode artistTopTrackPage)
     {
 
-      if (ArtistTopTrackPage.Attributes["type"] != null) type = ArtistTopTrackPage.Attributes["type"].Value;
-      if (ArtistTopTrackPage.Attributes["status"] != null) status = ArtistTopTrackPage.Attributes["status"].Value;
-      if (ArtistTopTrackPage["title"] != null) title = ArtistTopTrackPage["title"].InnerText;
-      if (ArtistTopTrackPage["format"] != null) format = ArtistTopTrackPage["format"].InnerText;
-      if (ArtistTopTrackPage["label"] != null) label = ArtistTopTrackPage["label"].InnerText;
-      if (ArtistTopTrackPage["uri"] != null) uri = ArtistTopTrackPage["uri"].InnerText;
-      if (ArtistTopTrackPage["summary"] != null) summary = ArtistTopTrackPage["summary"].InnerText;
-      if (uri != null) id = uri.Substring(uri.LastIndexOf("/") + 1);
-      else if (ArtistTopTrackPage.Attributes["id"] != null) id = ArtistTopTrackPage.Attributes["id"].Value;
+      if (artistTopTrackPage.Attributes["type"] != null) type = artistTopTrackPage.Attributes["type"].Value;
+      if (artistTopTrackPage.Attributes["status"] != null) status = artistTopTrackPage.Attributes["status"].Value;
+      if (artistTopTrackPage["title"] != null) title = artistTopTrackPage["title"].InnerText;
+      if (artistTopTrackPage["format"] != null) format = artistTopTrackPage["format"].InnerText;
+      if (artistTopTrackPage["label"] != null) label = artistTopTrackPage["label"].InnerText;
+      if (artistTopTrackPage["uri"] != null) uri = artistTopTrackPage["uri"].InnerText;
+      if (artistTopTrackPage["summary"] != null) summary = artistTopTrackPage["summary"].InnerText;
 
-      if (id == null)
-      {
-        foreach (XmlNode topTrack in ArtistTopTrackPage)
-          
-          switch (topTrack.Name)
-          {
-            case "name":
-              title = topTrack.InnerText;
-              break;
-            case "mbid":
-              id = topTrack.InnerText;
-              break;
-          }
-      }
+      if (uri != null) 
+        id = uri.Substring(uri.LastIndexOf("/", System.StringComparison.Ordinal) + 1);
+      else if (artistTopTrackPage.Attributes["id"] != null) 
+        id = artistTopTrackPage.Attributes["id"].Value;
+
+      if (id != null) return;
+
+      foreach (XmlNode topTrack in artistTopTrackPage)         
+        switch (topTrack.Name)
+        {
+          case "name":
+            title = topTrack.InnerText;
+            break;
+          case "mbid":
+            id = topTrack.InnerText;
+            break;
+        }
     }
 
     public String type { get; set; }
@@ -765,19 +765,16 @@ namespace mvCentral.DataProviders
     public String summary { get; set; }
     public String id { get; set; }
 
-    public static Comparison<Release> TitleComparison = delegate(Release p1, Release p2)
-    {
-      return p1.title.CompareTo(p2.title);
-    };
-    public static Comparison<Release> IDComparison = delegate(Release p1, Release p2)
-    {
-      return p1.id.CompareTo(p2.id);
-    };
+    public static Comparison<Release> TitleComparison =
+      (p1, p2) => System.String.Compare(p1.title, p2.title, System.StringComparison.Ordinal);
+
+    public static Comparison<Release> IdComparison =
+      (p1, p2) => System.String.Compare(p1.id, p2.id, System.StringComparison.Ordinal);
 
     #region IComparable<Product> Members
     public int CompareTo(Release other)
     {
-      return title.CompareTo(other.title);
+      return System.String.Compare(title, other.title, System.StringComparison.Ordinal);
     }
     #endregion
   }

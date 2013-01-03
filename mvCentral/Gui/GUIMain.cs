@@ -100,8 +100,6 @@ namespace mvCentral.GUI
 
     public int lastItemArt = 0, lastItemVid = 0, lastItemAlb = 0, lastGenreItem = 0,artistID = 0, albumID = 0;
 
-    private View view = View.Artists;
-
     protected MvView CurrentView
     {
       get { return _currentView; }
@@ -349,7 +347,7 @@ namespace mvCentral.GUI
       {
         itemRating.Rating = (int)userSettings.UserRating/2;
       }
-      catch (DivideByZeroException  e)
+      catch (DivideByZeroException)
       {
         itemRating.Rating = 0;
       }

@@ -102,7 +102,7 @@ namespace mvCentral.ConfigScreen.Popups
 
       if (albumListDialog.ShowDialog() == DialogResult.OK)
       {
-        tbAlbumName.Text = albumListDialog.textBox1.Text;
+        tbAlbumName.Text = albumListDialog.selectedItem.Text;
         AlbumMBID = albumListDialog.label8.Text;
         return true;
       }

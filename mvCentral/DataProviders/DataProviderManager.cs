@@ -272,7 +272,7 @@ namespace mvCentral.DataProviders
               currSource.Commit();
             }
             // Last.Fm is primary for matching
-            else if (currSource.Provider is LastFMProvider)
+            else if (currSource.Provider is LastFmProvider)
             {
               currSource.SetPriority(currType, 5);
               currSource.Commit();
@@ -434,8 +434,8 @@ namespace mvCentral.DataProviders
       logger.Info("Checking internal scripts for updates...");
 
       AddSource(typeof(LocalProvider));
-      AddSource(typeof(LastFMProvider));
-      AddSource(typeof(DGProvider));
+      AddSource(typeof(LastFmProvider));
+      AddSource(typeof(DgProvider));
       AddSource(typeof(AllMusicProvider));
       AddSource(typeof(HTBackdropsProvider)); 
       AddSource(typeof(ManualProvider));
@@ -457,7 +457,7 @@ namespace mvCentral.DataProviders
     {
       // internal scripts dont need to be updated, so just quit
       // if we dont need to reload everything
-      if (updateOnly) return AddSourceResult.FAILED;
+      //if (updateOnly) return AddSourceResult.FAILED;
 
       foreach (DBSourceInfo currSource in allSources)
         if (currSource.ProviderType == providerType)

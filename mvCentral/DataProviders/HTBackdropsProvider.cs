@@ -29,8 +29,9 @@ namespace mvCentral.DataProviders
   class HTBackdropsProvider : InternalProvider, IMusicVideoProvider
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
-
     private static readonly object lockList = new object();
+    
+    public event EventHandler ProgressChanged;
 
     // NOTE: To other developers creating other applications, using this code as a base
     //       or as a reference. PLEASE get your own API key. Do not reuse the one listed here
@@ -344,6 +345,5 @@ namespace mvCentral.DataProviders
 
     #endregion
 
-    public event EventHandler ProgressChanged;
   }
 }

@@ -2060,7 +2060,7 @@
             this.label6.TabIndex = 100;
             this.label6.Text = "GUI Settings";
             // 
-            // textBox1
+            // selectedItem
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Location = new System.Drawing.Point(454, 285);
