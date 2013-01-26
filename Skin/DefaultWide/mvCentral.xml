@@ -154,7 +154,7 @@
       <texture flipY="true" diffuse="Thumb_Mask2.png">#selectedthumb</texture>
       <animation effect="fade" time="70" reversible="false">visible</animation>
       <keepaspectratio>no</keepaspectratio>
-      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)]</visible>
+      <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]+[string.equals(#mvCentral.ArtistView,true)|string.equals(#mvCentral.GenreView,true)|string.equals(#mvCentral.DVDView,true)]</visible>
     </control>
     <control>
       <description>Image for selected Item (Album)</description>

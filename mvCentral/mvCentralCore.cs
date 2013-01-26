@@ -324,14 +324,14 @@ namespace mvCentral
 
     }
 
-    private static void startBackgroundTasks()
+    private static void StartBackgroundTasks()
     {
       logger.Info("Starting Background Processes...");
       ProcessManager.StartProcess(new MediaInfoUpdateProcess());
       ProcessManager.StartProcess(new UpdateArtworkProcess());
     }
 
-    private static void stopBackgroundTasks()
+    private static void StopBackgroundTasks()
     {
       logger.Info("Stopping Background Processes...");
 
@@ -342,25 +342,25 @@ namespace mvCentral
       _processManager = null;
     }
 
-    private static void checkVersionInfo()
+    private static void CheckVersionInfo()
     {
       // check if the version changed, and update the DB accordingly
       Version realVer = Assembly.GetExecutingAssembly().GetName().Version;
 
-      if (realVer > GetDBVersionNumber())
+      if (realVer > GetDbVersionNumber())
       {
         Settings.Version = realVer.ToString();
         Settings.DataProvidersInitialized = false;
       }
     }
 
-    public static Version GetDBVersionNumber()
+    public static Version GetDbVersionNumber()
     {
       return new Version(Settings.Version);
     }
 
     // Centralized handler for PowerMode events, will in turn fire our own event where the other components hook into
-    private static void onSystemPowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
+    private static void OnSystemPowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
     {
       if (e.Mode == Microsoft.Win32.PowerModes.Resume)
       {
@@ -373,7 +373,7 @@ namespace mvCentral
         DeviceManager.StartMonitor();
 
         // Start Background Tasks
-        startBackgroundTasks();
+        StartBackgroundTasks();
 
         // Fire Event Resume
         if (OnPowerEvent != null)
@@ -389,7 +389,7 @@ namespace mvCentral
           OnPowerEvent(PowerEvent.Suspend);
 
         // Stop Background Tasks
-        stopBackgroundTasks();
+        StopBackgroundTasks();
 
         // Stop Device Manager
         DeviceManager.StopMonitor();
@@ -457,7 +457,7 @@ namespace mvCentral
 
       InitLocalization();
       // Register Win32 PowerMode Event Handler
-      Microsoft.Win32.SystemEvents.PowerModeChanged += new Microsoft.Win32.PowerModeChangedEventHandler(onSystemPowerModeChanged);
+      Microsoft.Win32.SystemEvents.PowerModeChanged += new Microsoft.Win32.PowerModeChangedEventHandler(OnSystemPowerModeChanged);
       DatabaseMaintenanceManager.MaintenanceProgress += new ProgressDelegate(DatabaseMaintenanceManager_MaintenanceProgress);
 
 
@@ -476,7 +476,7 @@ namespace mvCentral
       actionDescriptions.Add(newAction, "Updating Import Paths...");
       initActions.Add(newAction);
 
-      newAction = new WorkerDelegate(checkVersionInfo);
+      newAction = new WorkerDelegate(CheckVersionInfo);
       actionDescriptions.Add(newAction, "Initializing Version Information...");
       initActions.Add(newAction);
 
@@ -524,7 +524,7 @@ namespace mvCentral
 
       // Launch background tasks
       mvCentralCore.Settings.AutoRetrieveMediaInfo = true;
-      startBackgroundTasks();
+      StartBackgroundTasks();
 
     }
 
@@ -541,7 +541,7 @@ namespace mvCentral
       logger.Debug("In method : Shutdown()");
 
       // Unregister Win32 PowerMode Event Handler
-      Microsoft.Win32.SystemEvents.PowerModeChanged -= new Microsoft.Win32.PowerModeChangedEventHandler(onSystemPowerModeChanged);
+      Microsoft.Win32.SystemEvents.PowerModeChanged -= new Microsoft.Win32.PowerModeChangedEventHandler(OnSystemPowerModeChanged);
 
       DeviceManager.StopMonitor();
 
@@ -550,7 +550,7 @@ namespace mvCentral
         _importer.Stop();
 
       // Stop all background tasks
-      stopBackgroundTasks();
+      StopBackgroundTasks();
       _importer = null;
       _settings = null;
       

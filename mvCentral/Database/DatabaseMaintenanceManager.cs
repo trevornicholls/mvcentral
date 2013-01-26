@@ -269,7 +269,7 @@ namespace mvCentral.Database
 
                 #region Upgrades required for 0.7.1
 
-                if (mvCentralCore.GetDBVersionNumber() < new Version("0.7.1"))
+                if (mvCentralCore.GetDbVersionNumber() < new Version("0.7.1"))
                 {
 
                     if (mv.LocalMedia.Count > 0 && mv.LocalMedia[0].ImportPath != null) {
