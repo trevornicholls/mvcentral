@@ -1264,7 +1264,7 @@ namespace mvCentral
         artistItem = new TreeNode(mv.ArtistInfo[0].Artist, 1, 1) {Name = mv.ArtistInfo[0].Artist};
 
         if (mv.ArtistInfo[0].ArtFullPath.Trim() == "")
-          artistItem.ForeColor = Color.Blue;
+          artistItem.ForeColor = Color.Red;
 
         mv.ArtistInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
         mv.ArtistInfo[0].Changed += new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
@@ -1295,8 +1295,8 @@ namespace mvCentral
 
           if (mv.AlbumInfo[0].ArtFullPath.Trim() == "")
           {
-            albumItem.BackColor = Color.Yellow;
-            if (artistItem != null) artistItem.BackColor = Color.Yellow;
+            albumItem.ForeColor = Color.Red;
+            if (artistItem != null) artistItem.ForeColor = Color.Red;
           }
 
           mv.AlbumInfo[0].Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
@@ -1312,9 +1312,9 @@ namespace mvCentral
 
       if (mv.ArtFullPath.Trim() == "")
       {
-        trackItem.BackColor = Color.Yellow;
-        if (albumItem != null) albumItem.BackColor = Color.Yellow;
-        if (artistItem != null) artistItem.BackColor = Color.Yellow;
+        trackItem.ForeColor = Color.Red;
+        if (albumItem != null) albumItem.ForeColor = Color.Red;
+        if (artistItem != null) artistItem.ForeColor = Color.Red;
       }
 
       mv.Changed -= new DBBasicInfo.ChangedEventHandler(basicInfoChanged);
@@ -3203,7 +3203,7 @@ namespace mvCentral
       if (mv == null) return;
 
 
-      List<DBSourceInfo> r1 = new List<DBSourceInfo>();
+      var r1 = new List<DBSourceInfo>();
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
 
@@ -3215,25 +3215,23 @@ namespace mvCentral
         }
       }
 
-      SourcePopup sp = new SourcePopup(r1);
-      if (sp.ShowDialog() == DialogResult.OK)
-      {
-        mv.PrimarySource = r1[sp.listBox1.SelectedIndex];
+      var sp = new SourcePopup(r1);
+      if (sp.ShowDialog() != DialogResult.OK) return;
 
-        // the update process can take a little time, so spawn it off in another thread
-        ThreadStart actions = delegate
+      mv.PrimarySource = r1[sp.listBox1.SelectedIndex];
+      // the update process can take a little time, so spawn it off in another thread
+      ThreadStart actions = delegate
         {
-           startArtProgressBar();
-           mv.PrimarySource.Provider.ProgressChanged += (s, args) => updateProgressBar(((ProgressEventArgs)args).Text);
-           mv.PrimarySource.Provider.GetDetails(mv);
-           mv.Commit();
-           stopArtProgressBar();
+          startArtProgressBar();
+          mv.PrimarySource.Provider.ProgressChanged += (s, args) => updateProgressBar(((ProgressEventArgs)args).Text);
+          mv.PrimarySource.Provider.GetDetails(mv);
+          mv.Commit();
+          stopArtProgressBar();
         };
 
-        Thread thread = new Thread(actions);
-        thread.Name = "DetailsUpdater";
-        thread.Start();
-      }
+      var thread = new Thread(actions);
+      thread.Name = "DetailsUpdater";
+      thread.Start();
     }
     #endregion
 
@@ -3293,7 +3291,7 @@ namespace mvCentral
     /// <param name="e"></param>
     private void btLastFMSetup_Click(object sender, EventArgs e)
     {
-      LastFMSetup lfmSetup = new LastFMSetup();
+      var lfmSetup = new LastFMSetup();
       lfmSetup.ShowDialog();
     }
     /// <summary>
@@ -3333,56 +3331,51 @@ namespace mvCentral
         return;
       }
 
-      DBTrackInfo activeTrack = DBTrackInfo.Get((int)selectedTrack.ID);
-      DBArtistInfo activeAtrist = DBArtistInfo.Get(CurrentTrack);
+      var activeTrack = DBTrackInfo.Get((int)selectedTrack.ID);
+      var activeAtrist = DBArtistInfo.Get(CurrentTrack);
 
-      CreateAlbumForTrack createAlbum = new CreateAlbumForTrack(activeTrack);
+      var createAlbum = new CreateAlbumForTrack(activeTrack);
       createAlbum.ShowDialog();
-      if (createAlbum.exitStatus)
+
+      if (!createAlbum.exitStatus) return;
+      var albumCheck = DBAlbumInfo.Get(createAlbum.Album);
+
+      if (albumCheck == null)
       {
-        // Do we already have this album....
-        DBAlbumInfo albumCheck = DBAlbumInfo.Get(createAlbum.Album);
+        // No existing album - create, lookup details and add to track
+        var sourceProviders = mvCentralCore.DataProviderManager.AlbumDetailSources.ToList();
 
-        if (albumCheck == null)
-        {
-          // No existing album - create, lookup details and add to track
-          List<DBSourceInfo> sourceProviders = new List<DBSourceInfo>();
-          foreach (DBSourceInfo sourceProvider in mvCentralCore.DataProviderManager.AlbumDetailSources)
+        var albumToAdd = new DBAlbumInfo
           {
-            sourceProviders.Add(sourceProvider);
-          }
-
-          DBAlbumInfo albumToAdd = new DBAlbumInfo();
-          albumToAdd.Album = createAlbum.Album;
-          albumToAdd.MdID = createAlbum.AlbumMBID;
-          albumToAdd.PrimarySource = sourceProviders[0];
-          albumToAdd.Commit();
-          activeTrack.AlbumInfo.Add(albumToAdd);
-          activeTrack.Commit();
-          albumToAdd.PrimarySource = sourceProviders[0];
-          albumToAdd.PrimarySource.Provider.GetAlbumDetails((DBBasicInfo)albumToAdd, createAlbum.Album, createAlbum.AlbumMBID);
-          albumToAdd.Commit();
-        }
-        else
-        {
-          // Album already exists - add to track
-          activeTrack.AlbumInfo.Add(albumCheck);
-          activeTrack.Commit();
-        }
-        // Reload and display the library
-        ReloadList();
-
-        // Select and expand the artist
-        foreach (TreeNode tn in mvLibraryTreeView.Nodes)
-        {
-          if (tn.Text == activeAtrist.Artist)
-          {
-            mvLibraryTreeView.SelectedNode = tn;
-            tn.Expand();
-          }
-        }
-        mvLibraryTreeView.Refresh();
+            Album = createAlbum.Album,
+            MdID = createAlbum.AlbumMBID,
+            PrimarySource = sourceProviders[0]
+          };
+        albumToAdd.Commit();
+        activeTrack.AlbumInfo.Add(albumToAdd);
+        activeTrack.Commit();
+        albumToAdd.PrimarySource = sourceProviders[0];
+        albumToAdd.PrimarySource.Provider.GetAlbumDetails((DBBasicInfo) albumToAdd, createAlbum.Album,
+                                                          createAlbum.AlbumMBID);
+        albumToAdd.Commit();
       }
+      else
+      {
+        // Album already exists - add to track
+        activeTrack.AlbumInfo.Add(albumCheck);
+        activeTrack.Commit();
+      }
+      // Reload and display the library
+      ReloadList();
+
+      // Select and expand the artist
+      foreach (TreeNode tn in mvLibraryTreeView.Nodes.Cast<TreeNode>().Where(tn => tn.Text == activeAtrist.Artist))
+      {
+        mvLibraryTreeView.SelectedNode = tn;
+        tn.Expand();
+      }
+      mvLibraryTreeView.Refresh();
+      // Do we already have this album....
     }
     /// <summary>
     /// On right click set the selected node to the nodce under the cursor
@@ -3423,7 +3416,7 @@ namespace mvCentral
     private void ResetMissingArtworkHighlight(TreeView treeView, string matchString)
     {
       // Print each node recursively.
-      TreeNodeCollection nodes = treeView.Nodes;
+      var nodes = treeView.Nodes;
       foreach (TreeNode mainNode in nodes)
       {
         if (mainNode.Name != matchString)
@@ -3439,6 +3432,11 @@ namespace mvCentral
         }
       }
     }
+    /// <summary>
+    /// Reset the Album Nodes
+    /// </summary>
+    /// <param name="treeNode"></param>
+    /// <param name="matchString"></param>
     private void ResetAlbumNodes(TreeNode treeNode, string matchString)
     {
       foreach (TreeNode albumNode in treeNode.Nodes)
@@ -3456,6 +3454,11 @@ namespace mvCentral
         }
       }
     }
+    /// <summary>
+    /// Reset the Track Nodes
+    /// </summary>
+    /// <param name="treeNode"></param>
+    /// <param name="matchString"></param>
     private void ResetTrackNodes(TreeNode treeNode, string matchString)
     {
       foreach (TreeNode trackNode in treeNode.Nodes)
@@ -3474,9 +3477,9 @@ namespace mvCentral
     private void CheckIfAllArtworkComplete(TreeNode libraryNode)
     {
       var artworkMissing = false;
+      string artistName;
       TreeNode l0Node = null;
 
-      var artistName = string.Empty;
 
       //Find The Parant
       switch (libraryNode.Level)
@@ -3514,16 +3517,16 @@ namespace mvCentral
 
 
       if (l0Node == null || artworkMissing) return;
-      l0Node.BackColor = Color.White;
+      l0Node.ForeColor = Color.Black;
       foreach (TreeNode mvNode in l0Node.Nodes)
       {
-        mvNode.BackColor = Color.White;
+        mvNode.ForeColor = Color.Black;
         foreach (TreeNode mvNodeAlbum in mvNode.Nodes)
         {
-          mvNodeAlbum.BackColor = Color.White;
+          mvNodeAlbum.ForeColor = Color.Black;
           foreach (TreeNode mvTrackNode in mvNodeAlbum.Nodes)
           {
-            mvTrackNode.BackColor = Color.White;
+            mvTrackNode.ForeColor = Color.Black;
           }
         }
       }

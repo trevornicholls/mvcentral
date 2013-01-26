@@ -614,7 +614,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
               <Params>
                 <Items />
               </Params>
-              <ExecuteLocation>AfterPanelHide</ExecuteLocation>
+              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
             </ActionItem>
           </Items>
         </Actions>
@@ -709,40 +709,6 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
       </SectionItem>
-      <SectionItem Guid="0e8eb28f-e6a0-424f-a982-59edcc976e38" Name="Install Section" ConditionGroup="">
-        <Params>
-          <Items>
-            <SectionParam Name="Header Title">
-              <Value>Status</Value>
-              <ValueType>String</ValueType>
-              <Description>Header title</Description>
-            </SectionParam>
-            <SectionParam Name="Header description">
-              <Value>Please wait while mvCentral is being installed</Value>
-              <ValueType>String</ValueType>
-              <Description>Description of section, shown in under section title</Description>
-            </SectionParam>
-            <SectionParam Name="Header image">
-              <Value>Resources\mvCentral-logo.png</Value>
-              <ValueType>File</ValueType>
-              <Description>Image in upper right part</Description>
-            </SectionParam>
-          </Items>
-        </Params>
-        <Actions>
-          <Items>
-            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="">
-              <Params>
-                <Items />
-              </Params>
-              <ExecuteLocation>AfterPanelShow</ExecuteLocation>
-            </ActionItem>
-          </Items>
-        </Actions>
-        <IncludedGroups />
-        <PanelName>Install Section</PanelName>
-        <WizardButtonsEnum>Next</WizardButtonsEnum>
-      </SectionItem>
       <SectionItem Guid="ce4fe657-5f09-47f7-97fc-f95c2af40bef" Name="Setup Complete" ConditionGroup="">
         <Params>
           <Items>
@@ -834,7 +800,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>4</Build>
-      <Revision>436</Revision>
+      <Revision>439</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1539,21 +1505,21 @@ Amended MPEI to allow for selection of skins and installation of play start file
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{ef4acd2c-f02b-42b0-93e3-c2a4941865ed}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{e566f3e7-c415-493f-a98f-1f6fb0693f8f}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{981a1d36-6984-414d-8527-1b5403a30f34}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{c804f9d7-d76e-4a00-aad6-05bda5ad09a5}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{881a1e30-d8d5-461e-bb5a-33aff9eb2313}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{097f54a8-d7d9-4f4d-a822-1d581b3d24db}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
