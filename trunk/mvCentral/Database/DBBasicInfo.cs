@@ -238,7 +238,10 @@ namespace mvCentral.Database
     {
       get
       {
-        if (_artfullpath.Trim().Length == 0 && AlternateArts.Count > 0)
+        if (AlternateArts == null)
+          return string.Empty;
+
+        if ((_artfullpath == null || _artfullpath.Trim().Length == 0) && AlternateArts.Count > 0)
           _artfullpath = AlternateArts[0];
         return _artfullpath;
       }
