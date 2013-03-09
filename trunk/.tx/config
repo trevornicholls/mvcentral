@@ -1,0 +1,8 @@
+[main]
+host=https://www.transifex.com
+[MP1_CommunityPlugins.mvcentral]
+file_filter=Language\mvCentral\<lang>.xml
+source_file=Language\mvCentral\en-US.xml
+source_lang=en
+lang_map = en: en-US
+type=ANDROID
