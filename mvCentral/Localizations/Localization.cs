@@ -115,12 +115,12 @@ namespace mvCentral.Localizations
         if (stringEntry.NodeType == XmlNodeType.Element)
           try
           {
-            if (stringEntry.Attributes.GetNamedItem("Field").Value.StartsWith("#"))
+            if (stringEntry.Attributes.GetNamedItem("name").Value.StartsWith("#"))
             {
-              FixedTranslations.Add(stringEntry.Attributes.GetNamedItem("Field").Value, stringEntry.InnerText);
+              FixedTranslations.Add(stringEntry.Attributes.GetNamedItem("name").Value, stringEntry.InnerText);
             }
             else
-              TranslatedStrings.Add(stringEntry.Attributes.GetNamedItem("Field").Value, stringEntry.InnerText);
+              TranslatedStrings.Add(stringEntry.Attributes.GetNamedItem("name").Value, stringEntry.InnerText);
           }
           catch (Exception e)
           {
@@ -139,7 +139,7 @@ namespace mvCentral.Localizations
         if (TranslatedStrings != null && TranslatedStrings.ContainsKey(fi.Name))
           TransType.InvokeMember(fi.Name, BindingFlags.SetField, null, TransType, new object[] { TranslatedStrings[fi.Name] });
         else
-          logger.Info("Translation not found for field: {0}. Using hard-coded English default.", fi.Name);
+          logger.Info("Translation not found for name: {0}. Using hard-coded English default.", fi.Name);
       }
       return TranslatedStrings.Count;
     }
