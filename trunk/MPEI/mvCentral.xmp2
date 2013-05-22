@@ -781,8 +781,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Build>6</Build>
           <Revision>27644</Revision>
         </MaxVersion>
-        <WarnOnly>true</WarnOnly>
-        <Message>This version of mvCentral requires MediaPortal 1.2.0 Beta or higher!</Message>
+        <WarnOnly>false</WarnOnly>
+        <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
         <Name>MediaPortal</Name>
       </DependencyItem>
     </Items>
@@ -794,7 +794,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Items>
             <CompatibleVersionItem>
               <MinRequiredVersion>1.1.6.27644</MinRequiredVersion>
-              <DesignedForVersion>1.2.100.0</DesignedForVersion>
+              <DesignedForVersion>1.3.100.0</DesignedForVersion>
             </CompatibleVersionItem>
           </Items>
         </CompatibleVersion>
@@ -821,7 +821,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>4</Build>
-      <Revision>440</Revision>
+      <Revision>445</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1023,7 +1023,7 @@ Amended MPEI to allow for selection of skins and installation of play start file
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2013-01-26T22:26:37</ReleaseDate>
+    <ReleaseDate>2013-04-20T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
@@ -1547,21 +1547,21 @@ Amended MPEI to allow for selection of skins and installation of play start file
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e566f3e7-c415-493f-a98f-1f6fb0693f8f}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{a2c43428-7046-427c-aafe-339f0fb510e9}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{c804f9d7-d76e-4a00-aad6-05bda5ad09a5}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{01120d90-4aa6-4911-98e9-8ff5d99d8987}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{097f54a8-d7d9-4f4d-a822-1d581b3d24db}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{3a07a59f-ec77-4a5e-bc89-c97ea7f93670}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
