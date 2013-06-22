@@ -532,41 +532,6 @@
               <ZipFileName>Installer{CopyFile}\{c78356df-a502-4c57-ba46-a77912b1669f}-dialog_rating_background.png</ZipFileName>
               <DestinationFilename>%Skin%\Titan\media\dialog_rating_background.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvCentral.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{3fdbed80-ed09-40ad-97e4-85a8e5f371c0}-mvCentral.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvCentral.xml.bak</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvCentral.Playlist.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{5617446e-e4ee-4bd4-a91c-175acef471e1}-mvCentral.Playlist.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvCentral.Playlist.xml.bak</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvCentral.PlayStart.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{af009832-5c71-468f-8503-fbe96f7a2b3a}-mvCentral.PlayStart.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml.bak</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvCentral.SmartDJ.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f319ed1c-f1ca-457a-bfad-28c04537d817}-mvCentral.SmartDJ.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvCentral.SmartDJ.xml.bak</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvCentral.StatsAndInfo.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{756251a1-12e4-4ff6-ba2c-a03a738f775f}-mvCentral.StatsAndInfo.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvCentral.StatsAndInfo.xml.bak</DestinationFilename>
-            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -849,7 +814,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>5</Build>
-      <Revision>449</Revision>
+      <Revision>450</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1549,41 +1514,6 @@ Amended MPEI to allow for selection of skins and installation of play start file
         <LocalFileName>..\Skin\Titan\media\dialog_rating_background.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{c78356df-a502-4c57-ba46-a77912b1669f}-dialog_rating_background.png</ZipFileName>
         <DestinationFilename>%Skin%\Titan\media\dialog_rating_background.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvCentral.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{3fdbed80-ed09-40ad-97e4-85a8e5f371c0}-mvCentral.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvCentral.xml.bak</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvCentral.Playlist.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5617446e-e4ee-4bd4-a91c-175acef471e1}-mvCentral.Playlist.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvCentral.Playlist.xml.bak</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvCentral.PlayStart.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{af009832-5c71-468f-8503-fbe96f7a2b3a}-mvCentral.PlayStart.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml.bak</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvCentral.SmartDJ.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f319ed1c-f1ca-457a-bfad-28c04537d817}-mvCentral.SmartDJ.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvCentral.SmartDJ.xml.bak</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvCentral.StatsAndInfo.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{756251a1-12e4-4ff6-ba2c-a03a738f775f}-mvCentral.StatsAndInfo.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvCentral.StatsAndInfo.xml.bak</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
