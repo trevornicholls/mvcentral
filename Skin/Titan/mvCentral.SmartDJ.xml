@@ -76,7 +76,7 @@
       <posX>144</posX>
       <posY>38</posY>
       <width>855</width>
-      <font>fontB22</font>
+      <font>fontB20</font>
       <textcolor>ffffff</textcolor>
       <label>mvCentral - SmartDJ</label>
       <animation effect="fade" time="250">WindowOpen</animation>
@@ -103,7 +103,7 @@
       <posX>1000</posX>
       <posY>550</posY>
       <width>600</width>
-      <font>fontB22</font>
+      <font>fontB20</font>
       <align>left</align>
       <visible>!control.isvisible(50)</visible>
       <label>No Videos in Playlist</label>

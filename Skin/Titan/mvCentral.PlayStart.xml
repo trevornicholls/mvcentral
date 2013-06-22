@@ -99,7 +99,7 @@
         <posY>675</posY>
         <width>100</width>
         <height>32</height>
-        <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Video\#Play.Current.VideoResolution #Play.Current.AspectRatio.png</texture>
+        <texture>Logos\Video\#Play.Current.VideoResolution #Play.Current.AspectRatio.png</texture>
       </control>
       <control>
         <description>Video Codecs</description>
@@ -109,7 +109,7 @@
         <posY>675</posY>
         <width>100</width>
         <height>32</height>
-        <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Video\#Play.Current.VideoCodec.Texture.png</texture>
+        <texture>LogosVideo\#Play.Current.VideoCodec.Texture.png</texture>
       </control>
       <!-- Audio Channels / Codecs-->
       <control>
@@ -120,7 +120,7 @@
         <posY>675</posY>
         <width>100</width>
         <height>32</height>
-        <texture>Logos\MediaInfo\#StreamedMP.MediaInfo.Type\Audio\#Play.Current.AudioCodec.Texture #Play.Current.AudioChannels.png</texture>
+        <texture>Logos\Audio\#Play.Current.AudioCodec.Texture #Play.Current.AudioChannels.png</texture>
       </control>
     </control>
   </controls>

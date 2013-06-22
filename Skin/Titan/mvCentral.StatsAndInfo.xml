@@ -88,7 +88,7 @@
       <posX>144</posX>
       <posY>38</posY>
       <width>855</width>
-      <font>fontB22</font>
+      <font>fontB20</font>
       <textcolor>ffffff</textcolor>
       <visible>yes</visible>
       <label>#currentmodule/#mvCentral.Hierachy</label>
