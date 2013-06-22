@@ -13,6 +13,7 @@
     <StartProgram>S:\HTPC\MediaPortal\MediaPortal.exe</StartProgram>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <StartAction>Project</StartAction>
+    <StartAction>Program</StartAction>
+    <StartProgram>S:\HTPC\MediaPortal\MediaPortal.exe</StartProgram>
   </PropertyGroup>
 </Project>

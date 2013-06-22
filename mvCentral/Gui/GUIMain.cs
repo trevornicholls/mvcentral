@@ -2454,6 +2454,7 @@ namespace mvCentral.GUI
     private void clearVideoAudioProps()
     {
       // Clear the video properites
+      
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoresolution", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videoaspectratio", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.LocalMedia.videocodec", string.Empty);

@@ -422,7 +422,7 @@
       <posY>280</posY>
       <width>100</width>
       <height>32</height>
-      <texture>Logos\Video\#mvCentral.LocalMedia.videoresolution #mvCentral.LocalMedia.videoaspectratio.png</texture>
+      <texture>Logos\resolution\#mvCentral.LocalMedia.videoresolution.png</texture>
       <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons]</visible>
       <animation effect="fade" time="250" delay="0">WindowClose</animation>
       <animation effect="fade" time="250" delay="0">WindowOpen</animation>
