@@ -28,7 +28,7 @@
       <posX>144</posX>
       <posY>38</posY>
       <width>855</width>
-      <font>fontB22</font>
+      <font>fontB20</font>
       <textcolor>ffffff</textcolor>
       <label>mvCentral</label>
       <animation effect="fade" time="250">WindowOpen</animation>
