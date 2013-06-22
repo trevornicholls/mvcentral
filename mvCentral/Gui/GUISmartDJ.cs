@@ -1378,7 +1378,7 @@ namespace mvCentral.GUI
       persisting = true;
       matchingMode = true;
       GUIControl.SetControlLabel(windowID, (int)GUIControls.SmartDJMode, Localization.ModeMatch);
-      GUIPropertyManager.SetProperty("#mvCentral.SmartDJ.Mode", "Mode: Matching");
+      GUIPropertyManager.SetProperty("#mvCentral.SmartDJ.Mode", Localization.ModeMatch);
       setButtonControls();
     }
     /// <summary>
