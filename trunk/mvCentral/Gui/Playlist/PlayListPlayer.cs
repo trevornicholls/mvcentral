@@ -1095,6 +1095,8 @@ namespace mvCentral.Playlist
         if (userSettings.WatchedCount > 0)
           isWatched = "yes";
         userTrackRating = userSettings.UserRating.ToString();
+        if (string.IsNullOrEmpty(userTrackRating.Trim()))
+          userTrackRating = "0";
 
       }
       // Std Play Properities
