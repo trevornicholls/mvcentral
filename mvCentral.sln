@@ -48,8 +48,8 @@ Global
 		UseCaptureDefintionsRelease|x86 = UseCaptureDefintionsRelease|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Any CPU.Build.0 = Debug|x86
+		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|x86.ActiveCfg = Debug|Any CPU
