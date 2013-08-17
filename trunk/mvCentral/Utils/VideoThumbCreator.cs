@@ -42,16 +42,16 @@ namespace mvCentral.Utils
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
-    private static string ExtractApp = "ffmpeg.exe";
-    private static string ExtractorPath = MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Base, "MovieThumbnailer", ExtractApp);
-    private static int PreviewColumns = 2;
-    private static int PreviewRows = 2;
+    private const string ExtractApp = "ffmpeg.exe";
+    private static readonly string ExtractorPath = MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Base, "MovieThumbnailer", ExtractApp);
+    private static int _previewColumns = 2;
+    private static int _previewRows = 2;
 
     public string threadId
     {
       get
       {
-        return Thread.CurrentThread.ManagedThreadId.ToString();
+        return Thread.CurrentThread.ManagedThreadId.ToString(CultureInfo.InvariantCulture);
       }
     }
 
@@ -103,56 +103,57 @@ namespace mvCentral.Utils
       //   -O directory : save output files in the specified directory
 
       // Use this for the working dir to be on the safe side
-      string TempPath = Path.GetTempPath();
+      var tempPath = Path.GetTempPath();
 
 
-      PreviewColumns = (int)mvCentralCore.Settings["videoThumbNail_cols"].Value;
-      PreviewRows = (int)mvCentralCore.Settings["videoThumbNail_rows"].Value;
+      _previewColumns = (int)mvCentralCore.Settings["videoThumbNail_cols"].Value;
+      _previewRows = (int)mvCentralCore.Settings["videoThumbNail_rows"].Value;
 
 
       //string ExtractorArgs =         string.Format(" -D 0 -c {0} -r {1} -t -i -w {2} -n -O \"{3}\" -P \"{4}\"", PreviewColumns, PreviewRows, 0, TempPath, aVideoPath);
       // Honour we are using a unix app
       //ExtractorArgs = ExtractorArgs.Replace('\\', '/');
 
-      int preGapSec = 5;
+      const int preGapSec = 5;
       int postGapSec = 5;
 
-      string strFilenamewithoutExtension = Path.ChangeExtension(aVideoPath, null);
-      strFilenamewithoutExtension = Path.Combine(TempPath, Path.GetFileName(strFilenamewithoutExtension));
+      var strFilenamewithoutExtension = Path.ChangeExtension(aVideoPath, null);
+      if (strFilenamewithoutExtension != null)
+        strFilenamewithoutExtension = Path.Combine(tempPath, Path.GetFileName(strFilenamewithoutExtension));
 
-      string ffmpegArgs = string.Format("select=isnan(prev_selected_t)+gte(t-prev_selected_t" + "\\" + ",5),yadif=0:-1:0,scale=600:337,setsar=1:1,tile={0}x{1}", PreviewColumns, PreviewRows);
-      string ExtractorArgs = string.Format("-loglevel quiet -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", preGapSec, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
-      string ExtractorFallbackArgs = string.Format("-loglevel quiet -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", 5, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
+      string ffmpegArgs = string.Format("select=isnan(prev_selected_t)+gte(t-prev_selected_t" + "\\" + ",5),yadif=0:-1:0,scale=600:337,setsar=1:1,tile={0}x{1}", _previewColumns, _previewRows);
+      string extractorArgs = string.Format("-loglevel quiet -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", preGapSec, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
+      string extractorFallbackArgs = string.Format("-loglevel quiet -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", 5, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
 
       
       try
       {
         
-        string outputFilename = Path.Combine(TempPath, Path.GetFileName(aVideoPath));
-        string OutputThumb = string.Format("{0}_s{1}", Path.ChangeExtension(outputFilename, null), ".jpg");
+        string outputFilename = Path.Combine(tempPath, Path.GetFileName(aVideoPath));
+        string outputThumb = string.Format("{0}_s{1}", Path.ChangeExtension(outputFilename, null), ".jpg");
         
-        logger.Debug("ThreadID: {0} - About to start MTN process with {1}",Thread.CurrentThread.ManagedThreadId.ToString() , ExtractorArgs);
-        Process  processStatus = MediaPortal.Util.Utils.StartProcess(ExtractorPath, ExtractorArgs, true, true);
+        logger.Debug("ThreadID: {0} - About to start MTN process with {1}",Thread.CurrentThread.ManagedThreadId.ToString() , extractorArgs);
+        Process  processStatus = MediaPortal.Util.Utils.StartProcess(ExtractorPath, extractorArgs, true, true);
 
         if (!processStatus.HasExited)
           logger.Debug("ThreadID:{0} - ffmpeg process not exited Status:{0)", Thread.CurrentThread.ManagedThreadId.ToString(),processStatus.ExitCode);
         else
-          logger.Debug("ThreadID: {0} - Finished ffmpeg call with exit code:{1) using arguments {2}", Thread.CurrentThread.ManagedThreadId.ToString(), processStatus.ExitCode, ExtractorArgs);
+          logger.Debug("ThreadID: {0} - Finished ffmpeg call with exit code:{1) using arguments {2}", Thread.CurrentThread.ManagedThreadId.ToString(), processStatus.ExitCode, extractorArgs);
 
         // give the system a few IO cycles
         Thread.Sleep(500);
 
-        if (!File.Exists(OutputThumb))
-          logger.Debug("*** ERROR *** - After ffmpeg the file {0} from Video {1} does not exist", Path.GetFileName(OutputThumb), Path.GetFileName(aVideoPath));
+        if (!File.Exists(outputThumb))
+          logger.Debug("*** ERROR *** - After ffmpeg the file {0} from Video {1} does not exist", Path.GetFileName(outputThumb), Path.GetFileName(aVideoPath));
 
         try
         {
           // remove the _s which mdn appends to its files
-          File.Move(OutputThumb, aThumbPath);
+          File.Move(outputThumb, aThumbPath);
         }
         catch (FileNotFoundException)
         {
-          logger.Debug("VideoThumbCreator: {0} did not extract a thumbnail to: {1}", ExtractApp, OutputThumb);
+          logger.Debug("VideoThumbCreator: {0} did not extract a thumbnail to: {1}", ExtractApp, outputThumb);
         }
         catch (Exception e)
         {
@@ -160,7 +161,7 @@ namespace mvCentral.Utils
           {
             // Clean up
             logger.DebugException("VideoThumbCreator: Exception in file move",e);
-            File.Delete(OutputThumb);
+            File.Delete(outputThumb);
             Thread.Sleep(50);
           }
           catch (Exception) { }

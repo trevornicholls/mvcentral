@@ -28,7 +28,10 @@ namespace mvCentral.DataProviders
     private const string BaseURL = "http://www.allmusic.com/search/artists/";
 
     // **** Artist Regex ****
-    private const string ArtistRegExpPattern = @"<tr class=""search-result artist"">.*?<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)</a>\s*</div>\s*<div class=""info"">\s*(?<genres>.*?)\s*<br/>\s*(?<years>.*?)\s*</div>";
+    //private const string ArtistRegExpPattern = @"<tr class=""search-result artist"">.*?<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)</a>\s*</div>\s*<div class=""info"">\s*(?<genres>.*?)\s*<br/>\s*(?<years>.*?)\s*</div>";
+
+    private const string ArtistRegExpPattern = @"<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)</a>\s*</div>\s*<div class=""genres"">\s*(?<genres>.*?)</div>\s*<div class=""decades"">\s*(?<years>.*?)</div>";
+    
     private static readonly Regex ArtistUrlRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
 
     // **** Album Regex ****
@@ -85,12 +88,12 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesArtistDetails
     {
-      get { return true; } // Disabled Currently due to Allmusic site changes
+      get { return false; } // Disabled Currently due to Allmusic site changes
     }
 
     public bool ProvidesAlbumDetails
     {
-      get { return true; }  // Disabled Currently due to Allmusic site changes
+      get { return false; }  // Disabled Currently due to Allmusic site changes
     }
 
     public bool ProvidesArtistArt
@@ -100,7 +103,7 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesAlbumArt
     {
-      get { return true; } // Disabled Currently due to Allmusic site changes
+      get { return false; } // Disabled Currently due to Allmusic site changes
     }
 
     public bool ProvidesTrackArt
