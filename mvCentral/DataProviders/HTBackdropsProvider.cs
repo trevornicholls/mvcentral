@@ -36,20 +36,20 @@ namespace mvCentral.DataProviders
     // NOTE: To other developers creating other applications, using this code as a base
     //       or as a reference. PLEASE get your own API key. Do not reuse the one listed here
     //       it is intended for Music Videos use ONLY. API keys are free and easy to apply
-    //       for. Visit this url: http://htbackdrops.com
+    //       for. Visit this url: http://htbackdrops.org
 
     #region API variables
 
     // Example Calls
-    // http://htbackdrops.com/api/0e9139ab07ccf97ff4cb6568428d46b2/searchXML?keywords=madonna&default_operator=and&aid=1,5,26&fields=title,keywords,caption,mb_name,mb_alias&inc=keywords,caption,mb_name,mb_aliases
-    // http://htbackdrops.com/api/0e9139ab07ccf97ff4cb6568428d46b2/searchXML?mbid=79239441-bfd5-4981-a70c-55c3f15c1287&dratio=1:1
-    // http://htbackdrops.com/api/0e9139ab07ccf97ff4cb6568428d46b2/download/<PICTURE_ID>/fullsize
+    // http://htbackdrops.org/api/0e9139ab07ccf97ff4cb6568428d46b2/searchXML?keywords=madonna&default_operator=and&aid=1,5,26&fields=title,keywords,caption,mb_name,mb_alias&inc=keywords,caption,mb_name,mb_aliases
+    // http://htbackdrops.org/api/0e9139ab07ccf97ff4cb6568428d46b2/searchXML?mbid=79239441-bfd5-4981-a70c-55c3f15c1287&dratio=1:1
+    // http://htbackdrops.org/api/0e9139ab07ccf97ff4cb6568428d46b2/download/<PICTURE_ID>/fullsize
 
     private const string APIKey = "0e9139ab07ccf97ff4cb6568428d46b2";
 
-    private const string SearchArtistImage = "http://htbackdrops.com/api/{0}/searchXML?keywords={1}&default_operator=and&aid=1,5,26&fields=title,keywords,caption,mb_name,mb_alias&dratio=1:1";
-    private const string SearchArtistImageMBID = "http://htbackdrops.com/api/{0}/searchXML?mbid={1}&dratio=1:1";
-    private const string DownloadImage = "http://htbackdrops.com/api/{0}/download/{1}/fullsize";
+    private const string SearchArtistImage = "http://htbackdrops.org/api/{0}/searchXML?keywords={1}&default_operator=and&aid=1,5,26&fields=title,keywords,caption,mb_name,mb_alias&dratio=1:1";
+    private const string SearchArtistImageMBID = "http://htbackdrops.org/api/{0}/searchXML?mbid={1}&dratio=1:1";
+    private const string DownloadImage = "http://htbackdrops.org/api/{0}/download/{1}/fullsize";
 
     //private static bool _strippedPrefixes;
     //private static bool _logMissing;
@@ -64,13 +64,13 @@ namespace mvCentral.DataProviders
     {
       get
       {
-        return "www.htbackdrops.com";
+        return "www.htbackdrops.org";
       }
     }
 
     public string Description
     {
-      get { return "Returns details, art from allmusic.com."; }
+      get { return "Returns art from htbackdrops.org."; }
     }
 
     public string Language

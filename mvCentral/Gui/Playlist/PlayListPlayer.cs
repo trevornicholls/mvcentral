@@ -925,6 +925,10 @@ namespace mvCentral.Playlist
           isWatched = "yes";
         userTrackRating = userSettings.UserRating.ToString();
 
+        // If not rating set to "0"
+        if (string.IsNullOrEmpty(userTrackRating.Trim()))
+          userTrackRating = "0";
+
       }
       // Std Play Properities
       GUIPropertyManager.SetProperty("#Play.Current.Title", clear ? string.Empty : title);
@@ -1009,7 +1013,7 @@ namespace mvCentral.Playlist
         nextItem = GetNextItem();
         // If we have one lets set the next properties
         if (nextItem != null)
-          setNextItemProperties(nextItem, clear);       
+          SetNextItemProperties(nextItem, clear);       
       }
 
       logger.Debug("**** On exit from setProperities ****");
@@ -1022,7 +1026,7 @@ namespace mvCentral.Playlist
     /// </summary>
     /// <param name="item"></param>
     /// <param name="clear"></param>
-    void setNextItemProperties(PlayListItem item, bool clear)
+    void SetNextItemProperties(PlayListItem item, bool clear)
     {
       // List of Play properities that can be overidden
       //#Play.Next.Director
