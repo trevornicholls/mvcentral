@@ -13,9 +13,9 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
+              <LocalFileName>..\..\..\..\HTPC\MediaPortal\plugins\Windows\mvCentral.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
-              <DestinationFilename>%Plugins%\Windows\mvCentral.dll</DestinationFilename>
+              <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -781,27 +781,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     </Items>
   </Dependencies>
   <PluginDependencies>
-    <Items>
-      <PluginDependencyItem AssemblyName="mvCentral.dll">
-        <CompatibleVersion>
-          <Items>
-            <CompatibleVersionItem>
-              <MinRequiredVersion>1.3.100.0</MinRequiredVersion>
-              <DesignedForVersion>1.3.100.0</DesignedForVersion>
-            </CompatibleVersionItem>
-          </Items>
-        </CompatibleVersion>
-        <SubSystemsUsed>
-          <Items>
-            <SubSystemItem Name="MP.Config" />
-            <SubSystemItem Name="MP.Externals" />
-            <SubSystemItem Name="MP.Input" />
-            <SubSystemItem Name="MP.Players" />
-            <SubSystemItem Name="MP.SkinEngine" />
-          </Items>
-        </SubSystemsUsed>
-      </PluginDependencyItem>
-    </Items>
+    <Items />
   </PluginDependencies>
   <GeneralInfo>
     <Name>mvCentral</Name>
@@ -814,7 +794,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>5</Build>
-      <Revision>453</Revision>
+      <Revision>454</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -1056,9 +1036,9 @@ Amended MPEI to allow for selection of skins and installation of play start file
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
+        <LocalFileName>..\..\..\..\HTPC\MediaPortal\plugins\Windows\mvCentral.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
-        <DestinationFilename>%Plugins%\Windows\mvCentral.dll</DestinationFilename>
+        <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1533,21 +1513,21 @@ Amended MPEI to allow for selection of skins and installation of play start file
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{9c66e095-479b-4844-abd2-3c77cf4089db}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{add85842-56c2-407b-90c9-79e6c571f5be}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{824fe016-bd57-401b-9dfc-8b724f9de5d0}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{cc20cda1-8bc0-4b8a-978a-3bb93b098e6c}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{15ae35a7-5ae6-41e6-81fc-81ef3203ce0a}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{ab226a78-82ac-4e42-84a2-8d760ab2553f}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
