@@ -28,6 +28,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Common.GUIPlugins;
 using NLog;
 using mvCentral.Localizations;
 using mvCentral.Database;
@@ -610,36 +611,36 @@ namespace mvCentral.Playlist
 
       return base.AllowLayout(layout);
     }
-    /// <summary>
-    /// Display the keyboard
-    /// </summary>
-    /// <param name="strLine"></param>
-    /// <returns></returns>
-    protected override bool GetKeyboard(ref string strLine)
-    {
-      try
-      {
-        VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
-        if (null == keyboard)
-        {
-          return false;
-        }
-        keyboard.Reset();
-        keyboard.Text = strLine;
-        keyboard.DoModal(GetID);
-        if (keyboard.IsConfirmed)
-        {
-          strLine = keyboard.Text;
-          return true;
-        }
-        return false;
-      }
-      catch (Exception ex)
-      {
-        logger.Info(string.Format("Virtual Keyboard error: {0}, stack: {1}", ex.Message, ex.StackTrace));
-        return false;
-      }
-    }
+    ///// <summary>
+    ///// Display the keyboard
+    ///// </summary>
+    ///// <param name="strLine"></param>
+    ///// <returns></returns>
+    //protected override bool GetKeyboard(ref string strLine)
+    //{
+    //  try
+    //  {
+    //    VirtualKeyboard keyboard = (VirtualKeyboard)GUIWindowManager.GetWindow((int)Window.WINDOW_VIRTUAL_KEYBOARD);
+    //    if (null == keyboard)
+    //    {
+    //      return false;
+    //    }
+    //    keyboard.Reset();
+    //    keyboard.Text = strLine;
+    //    keyboard.DoModal(GetID);
+    //    if (keyboard.IsConfirmed)
+    //    {
+    //      strLine = keyboard.Text;
+    //      return true;
+    //    }
+    //    return false;
+    //  }
+    //  catch (Exception ex)
+    //  {
+    //    logger.Info(string.Format("Virtual Keyboard error: {0}, stack: {1}", ex.Message, ex.StackTrace));
+    //    return false;
+    //  }
+    //}
     /// <summary>
     /// Save the current playlist
     /// </summary>
@@ -647,7 +648,8 @@ namespace mvCentral.Playlist
     {
       currentSelectedItem = facadeLayout.SelectedListItemIndex;
       string playlistFileName = string.Empty;
-      if (GetKeyboard(ref playlistFileName))
+      if (VirtualKeyboard.GetKeyboard(ref playlistFileName, GetID))
+      //if (GetKeyboard(ref playlistFileName, GetID))
       {
         string playListPath = string.Empty;
         // Have we out own playlist folder configured

@@ -36,11 +36,10 @@ using MediaPortal.Common.Utils;
 //[assembly: AssemblyVersion("0.4.0")]
 //[assembly: AssemblyFileVersion("0.4.0")]
 
-[assembly: CompatibleVersion("1.5.100.0", "1.3.100.0")]
-[assembly: UsesSubsystem("MP.SkinEngine")]
-[assembly: UsesSubsystem("MP.Config")]
-[assembly: UsesSubsystem("MP.Input")]
-[assembly: UsesSubsystem("MP.Players")]
-[assembly: UsesSubsystem("MP.Externals")]
-
+[assembly: CompatibleVersion("1.7.1.0", "1.3.100.0")]
+//[assembly: UsesSubsystem("MP.SkinEngine")]
+//[assembly: UsesSubsystem("MP.Config")]
+//[assembly: UsesSubsystem("MP.Input")]
+//[assembly: UsesSubsystem("MP.Players")]
+//[assembly: UsesSubsystem("MP.Externals")]
 
