@@ -159,13 +159,6 @@
               <ZipFileName>Installer{CopyFile}\{9f7b65a3-8030-4678-9ac0-c7c2832b6be8}-H264.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\media\Logos\H264.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Default\mvCentral.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{f127a1a1-4bf7-4ea9-81c8-f1fce1108066}-mvCentral.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\Default\mvCentral.xml.bak</DestinationFilename>
-            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -259,13 +252,6 @@
               <LocalFileName>..\Skin\DefaultWide\media\Logos\H264.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{d7d90a71-43f3-4745-8e95-b21945b31fab}-H264.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\Logos\H264.png</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\DefaultWide\mvCentral.xml.bak</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{bcba2b24-8105-4e11-a228-445d81ab1a0c}-mvCentral.xml.bak</ZipFileName>
-              <DestinationFilename>%Skin%\DefaultWide\mvCentral.xml.bak</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -774,8 +760,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Build>6</Build>
           <Revision>27644</Revision>
         </MaxVersion>
-        <WarnOnly>false</WarnOnly>
-        <Message>This version of mvCentral requires MediaPortal 1.6</Message>
+        <WarnOnly>true</WarnOnly>
+        <Message>This version of mvCentral requires MediaPortal 1.2.0 Beta or higher!</Message>
         <Name>MediaPortal</Name>
       </DependencyItem>
     </Items>
@@ -793,8 +779,8 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>5</Build>
-      <Revision>455</Revision>
+      <Build>7</Build>
+      <Revision>457</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -813,10 +799,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
 
 
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.5.455
+    <VersionDescription>mvCentral v1.0.7.457
 
 
-Built for MP 1.6
+Built for MP 1.7.1
  
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
@@ -980,13 +966,6 @@ Built for MP 1.6
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Default\mvCentral.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{f127a1a1-4bf7-4ea9-81c8-f1fce1108066}-mvCentral.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\Default\mvCentral.xml.bak</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\DialogMvMultiSelect.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0a476747-9fcc-4e3f-bf9d-eb5dea4d1fac}-DialogMvMultiSelect.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\DialogMvMultiSelect.xml</DestinationFilename>
@@ -1067,13 +1046,6 @@ Built for MP 1.6
         <LocalFileName>..\Skin\DefaultWide\media\Logos\H264.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{d7d90a71-43f3-4745-8e95-b21945b31fab}-H264.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\Logos\H264.png</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\DefaultWide\mvCentral.xml.bak</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{bcba2b24-8105-4e11-a228-445d81ab1a0c}-mvCentral.xml.bak</ZipFileName>
-        <DestinationFilename>%Skin%\DefaultWide\mvCentral.xml.bak</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1338,21 +1310,21 @@ Built for MP 1.6
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2573e95c-1bf5-41bb-951c-02cd62680874}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{659034a8-619e-4e05-81b4-68333dd2ac51}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{683f56b1-4743-4022-8e4f-6e8e0a079c45}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{674542cb-b1dd-43f0-b763-0f2f585f9e6d}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{e1376f93-e1ab-4723-b325-e7bf854d3f0a}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{5a9320bc-0898-426a-b270-d3246847e237}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
