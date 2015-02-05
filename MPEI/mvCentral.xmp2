@@ -17,6 +17,13 @@
               <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
             </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>Release\mvCentral.dll.config</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{58e9cbe5-87c8-4939-a53b-75e42a96131b}-mvCentral.dll.config</ZipFileName>
+              <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll.config</DestinationFilename>
+            </FileItem>
           </Items>
         </Files>
       </GroupItem>
@@ -780,7 +787,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>7</Build>
-      <Revision>458</Revision>
+      <Revision>459</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -850,6 +857,13 @@ Built for MP 1.8.0
         <LocalFileName>..\..\..\..\HTPC\MediaPortal\plugins\Windows\mvCentral.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>Release\mvCentral.dll.config</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{58e9cbe5-87c8-4939-a53b-75e42a96131b}-mvCentral.dll.config</ZipFileName>
+        <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll.config</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
