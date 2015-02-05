@@ -780,6 +780,7 @@ namespace mvCentral.Playlist
         }
         else
         {
+          logger.Debug("Starting playing Ok!");
           SetProperties(item, false);
 
           if (mvCentralCore.Settings.ShowOnLastFM)

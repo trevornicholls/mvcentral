@@ -447,6 +447,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Config\rtfFiles\UpdateNotice.rtf" />
+    <None Include="app.config" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoMatch.datasource" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoParser.datasource" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.parseResult.datasource" />
