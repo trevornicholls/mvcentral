@@ -75,9 +75,12 @@ namespace mvCentral.GUI
       }
       if (playNow)
       {
-        Player.playlistPlayer.Play(0);
-        if (mvCentralCore.Settings.AutoFullscreen)
-          GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+          Player.playlistPlayer.Play(0);
+          if (mvCentralCore.Settings.AutoFullscreen)
+          {
+              logger.Debug("Switching to Fullscreen");
+              GUIWindowManager.ActivateWindow((int)GUIWindow.Window.WINDOW_FULLSCREEN_VIDEO);
+          }
       }
     }
     /// <summary>

@@ -780,7 +780,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>7</Build>
-      <Revision>457</Revision>
+      <Revision>458</Revision>
     </Version>
     <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 
@@ -799,10 +799,10 @@ Click Next to continue or Cancel to exit Setup.</Value>
 
 
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.7.457
+    <VersionDescription>mvCentral v1.0.7.458
 
 
-Built for MP 1.7.1
+Built for MP 1.8.0
  
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
