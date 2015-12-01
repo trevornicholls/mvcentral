@@ -59,7 +59,7 @@ namespace mvCentral
 
     private const string dbFileName = "mvCentral.db3";
     private const string logFileName = "mvCentral.log";
-    private const string oldLogFileName = "mvCentral.old.log";
+    private const string oldLogFileName = "mvCentral.bak";
     private static float loadingProgress;
     private static float loadingTotal;
     private static string loadingProgressDescription;

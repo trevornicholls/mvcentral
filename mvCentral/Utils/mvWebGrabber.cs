@@ -296,7 +296,7 @@ namespace mvCentral.Utils
 
 
         public XmlNodeList GetXML(string rootNode) {
-            string data = GetString();
+            string data = GetString().Replace("opensearch:",string.Empty);
             
             // if there's no data return nothing
             if (String.IsNullOrEmpty(data))
