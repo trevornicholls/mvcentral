@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Xml;
-using System.Windows.Forms;
-using System.Linq;
-using System.Net;
+﻿using MediaPortal.Music.Database;
 
-using Cornerstone.Tools;
 using mvCentral.Database;
-using mvCentral.SignatureBuilders;
 using mvCentral.LocalMediaManagement;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
+using mvCentral.SignatureBuilders;
 using mvCentral.Utils;
-using mvCentral.ConfigScreen.Popups;
 
-using MediaPortal.Util;
-using MediaPortal.Music.Database;
 using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using System.Xml;
 
 
 namespace mvCentral.DataProviders

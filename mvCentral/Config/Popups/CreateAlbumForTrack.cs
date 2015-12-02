@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.Threading;
-using System.Xml;
-
-using mvCentral.LocalMediaManagement;
-using mvCentral.Database;
-using mvCentral.Utils;
+﻿using mvCentral.Database;
 using mvCentral.DataProviders;
+using mvCentral.LocalMediaManagement;
+using mvCentral.Utils;
 
 using NLog;
 
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace mvCentral.ConfigScreen.Popups
 {

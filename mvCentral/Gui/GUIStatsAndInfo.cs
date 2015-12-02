@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-// mvCentral
-using mvCentral.Localizations;
-using mvCentral.Database;
-// Cornerstone
-using Cornerstone.Tools;
-// MediaPortal
+﻿using Cornerstone.Tools;
+
 using MediaPortal.GUI.Library;
-using WindowPlugins;
 
+using mvCentral.Database;
+using mvCentral.Localizations;
 
-// Logging
 using NLog;
+
+using System.Collections.Generic;
 
 namespace mvCentral.GUI
 {

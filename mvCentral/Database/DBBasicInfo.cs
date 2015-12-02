@@ -1,24 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections.ObjectModel;
-using System.Drawing;
-using System.IO;
-using System.Drawing.Imaging;
-using NLog;
-using System.Web;
-using System.Net;
-using System.Threading;
-using System.Collections;
 using Cornerstone.Database;
 using Cornerstone.Database.CustomTypes;
 using Cornerstone.Database.Tables;
-using mvCentral.LocalMediaManagement;
-using System.Text.RegularExpressions;
 using Cornerstone.Tools.Translate;
-using System.Runtime.InteropServices;
+
 using mvCentral.LocalMediaManagement.MusicVideoResources;
-using Cornerstone.Extensions;
+
+using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace mvCentral.Database
 {
@@ -613,9 +609,9 @@ namespace mvCentral.Database
 
     public void GenerateThumbnail()
     {
-
       if (ArtFullPath.Trim().Length == 0)
         return;
+
       string thumbsFolder = null;
       if (this.GetType() == typeof(DBTrackInfo)) thumbsFolder = mvCentralCore.Settings.TrackArtThumbsFolder;
       if (this.GetType() == typeof(DBAlbumInfo)) thumbsFolder = mvCentralCore.Settings.AlbumArtThumbsFolder;
@@ -628,7 +624,6 @@ namespace mvCentral.Database
         _thumbfullpath = fullname;
         return;
       }
-
 
       Image track = null;
       try

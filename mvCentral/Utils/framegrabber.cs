@@ -1,13 +1,10 @@
-﻿using System;
+﻿using DirectShowLib;
+
+using System;
 using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
-using DirectShowLib;
-
-using Microsoft.Win32;
 
 namespace mvCentral.Utils
 {

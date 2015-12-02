@@ -1,13 +1,15 @@
-﻿using System;
+﻿using Cornerstone.Extensions.IO;
+
+using DirectShowLib;
+using DirectShowLib.Dvd;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
-using DirectShowLib;
-using DirectShowLib.Dvd;
-using Cornerstone.Extensions;
-using Cornerstone.Extensions.IO;
-using NLog;
 
 namespace mvCentral.LocalMediaManagement {
 

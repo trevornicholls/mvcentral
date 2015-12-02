@@ -1,13 +1,16 @@
-﻿using System;
+﻿using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.Extensions.IO;
+using Cornerstone.Tools;
+
+using mvCentral.Database;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Cornerstone.Extensions.IO;
-using Cornerstone.Tools;
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using mvCentral.Database;
-using NLog;
 
 namespace mvCentral.LocalMediaManagement {
     

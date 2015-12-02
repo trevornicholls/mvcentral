@@ -1,14 +1,15 @@
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
+using Cornerstone.Extensions.IO;
+
+using mvCentral.LocalMediaManagement;
+
+using NLog;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Cornerstone.Extensions;
-using Cornerstone.Extensions.IO;
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using mvCentral.LocalMediaManagement;
-using mvCentral.Extensions;
-using NLog;
 
 namespace mvCentral.Database {
     [DBTableAttribute("import_path")]

@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections;
+﻿using MediaPortal.Dialogs;
+using MediaPortal.GUI.Library;
+using MediaPortal.Player;
+
+using mvCentral.Database;
+using mvCentral.Extensions;
+using mvCentral.Localizations;
+using mvCentral.Playlist;
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-// MediaPortal
-using MediaPortal.Configuration;
-using MediaPortal.GUI.Library;
-using MediaPortal.GUI.Video;
-using MediaPortal.Player;
-using MediaPortal.Util;
-using MediaPortal.Dialogs;
-using MediaPortal.Video.Database;
+
 using Action = MediaPortal.GUI.Library.Action;
-using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
-
-// mvCentral
-using mvCentral.Database;
-using mvCentral;
-using mvCentral.LocalMediaManagement;
-using mvCentral.Playlist;
-using mvCentral.Utils;
-using mvCentral.Localizations;
-using mvCentral.Extensions;
-using WindowPlugins;
-
-// Other
-using NLog;
-
 
 namespace mvCentral.GUI
 {

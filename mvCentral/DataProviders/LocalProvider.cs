@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.IO;
-using mvCentral.Database;
-using NLog;
-using System.Net;
-using Cornerstone.Database;
-using System.Web;
-using mvCentral.LocalMediaManagement;
-using mvCentral.SignatureBuilders;
-using System.Reflection;
-using System.Threading;
-using System.Globalization;
+﻿using Cornerstone.Database;
 using Cornerstone.Extensions;
+
+using mvCentral.Database;
+using mvCentral.SignatureBuilders;
+
+using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace mvCentral.DataProviders
 {

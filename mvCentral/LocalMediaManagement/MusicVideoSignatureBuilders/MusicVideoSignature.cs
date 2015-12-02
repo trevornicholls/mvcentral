@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using Cornerstone.Tools;
+﻿using Cornerstone.Tools;
+
 using mvCentral.Database;
 using mvCentral.Extensions;
 using mvCentral.LocalMediaManagement;
-using System.Text.RegularExpressions;
+
 using NLog;
+
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-
-
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace mvCentral.SignatureBuilders
 {

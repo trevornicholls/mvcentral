@@ -23,11 +23,6 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using MediaPortal.GUI.Library;
-
 namespace mvCentral.Playlist
 {
     public interface IPlayListIO

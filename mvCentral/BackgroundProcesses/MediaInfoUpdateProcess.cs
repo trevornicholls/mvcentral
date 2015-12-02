@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Cornerstone.Tools;
+﻿using Cornerstone.Tools;
+
 using mvCentral.Database;
+
 using NLog;
+
+using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace mvCentral.BackgroundProcesses

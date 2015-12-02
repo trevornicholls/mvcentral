@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cornerstone.Database;
 using Cornerstone.Database.Tables;
-using Cornerstone.Database;
+
 using NLog;
+
+using System;
+using System.Collections.Generic;
 
 namespace mvCentral.Database {
     [DBTable("source_musicvideo_info")]

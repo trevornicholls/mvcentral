@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
-using MediaPortal.Dialogs;
+﻿using MediaPortal.Dialogs;
 using MediaPortal.GUI.Library;
-using NLog;
+
 using mvCentral.Localizations;
+
+using NLog;
+
 using System;
+using System.Collections.Generic;
 
 namespace mvCentral.Utils {
     public static class GUIUtils {

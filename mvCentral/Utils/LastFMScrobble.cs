@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Reflection;
+﻿using NLog;
+
+using System;
 using System.Security.Cryptography;
+using System.Text;
 using System.Xml;
-
-using mvCentral.LocalMediaManagement;
-using mvCentral.Database;
-
-using NLog;
-
 
 namespace mvCentral.Utils
 {

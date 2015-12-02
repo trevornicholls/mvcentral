@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Cornerstone.Extensions;
+
 using mvCentral.Database;
+
 using System.IO;
 using System.Threading;
-using System.Drawing;
-using Cornerstone.Extensions;
 
 namespace mvCentral.LocalMediaManagement.MusicVideoResources
 {

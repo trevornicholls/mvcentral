@@ -1,19 +1,19 @@
-﻿using System;
+﻿using mvCentral.ConfigScreen.Popups;
+using mvCentral.Database;
+using mvCentral.LocalMediaManagement;
+using mvCentral.LocalMediaManagement.MusicVideoResources;
+using mvCentral.SignatureBuilders;
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Threading;
-using System.Text;
 using System.IO;
-using System.Xml;
+using System.Text;
 using System.Windows.Forms;
-using Cornerstone.Tools;
-using mvCentral.Database;
-using mvCentral.SignatureBuilders;
-using mvCentral.LocalMediaManagement;
-using NLog;
-using mvCentral.LocalMediaManagement.MusicVideoResources;
-using mvCentral.Utils;
-using mvCentral.ConfigScreen.Popups;
+using System.Xml;
 
 namespace mvCentral.DataProviders
 {

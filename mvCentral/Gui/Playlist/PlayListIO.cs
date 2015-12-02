@@ -23,15 +23,13 @@
 
 #endregion
 
+using mvCentral.Database;
+
+using NLog;
+
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Xml;
-using NLog;
-using MediaPortal.Util;
-using MediaPortal.GUI.Library;
-using mvCentral.Database;
 
 namespace mvCentral.Playlist
 {

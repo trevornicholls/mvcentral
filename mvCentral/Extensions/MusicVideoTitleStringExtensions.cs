@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Cornerstone.Extensions;
+
+using System;
 using System.Text.RegularExpressions;
-using Cornerstone.Extensions;
 
 namespace mvCentral.Extensions {
 

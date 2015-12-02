@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
+﻿using mvCentral.Utils;
+
+using System;
 using System.Windows.Forms;
-using mvCentral.LocalMediaManagement;
-using mvCentral.Database;
-using mvCentral.Utils;
 
 
 namespace mvCentral.ConfigScreen.Popups

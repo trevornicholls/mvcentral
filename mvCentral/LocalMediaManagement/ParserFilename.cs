@@ -21,14 +21,14 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #endregion
 
+using mvCentral.Database;
+
+using NLog;
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.IO;
-using NLog;
-using mvCentral.Database;
-
+using System.Text.RegularExpressions;
 
 namespace mvCentral.LocalMediaManagement
 {

@@ -1,18 +1,16 @@
-﻿using System;
+﻿using MediaPortal.GUI.Library;
+
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Xml;
 using System.Text.RegularExpressions;
-
-
-using mvCentral.Utils; 
-
-
-using MediaPortal.Configuration;
-using MediaPortal.GUI.Library;
-using NLog;
+using System.Xml;
 
 namespace mvCentral.Localizations
 {

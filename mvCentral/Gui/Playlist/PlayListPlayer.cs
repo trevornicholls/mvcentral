@@ -23,36 +23,30 @@
 
 #endregion
 
-using System;
-using System.Timers;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
-using System.Threading;
-using System.Runtime.InteropServices;
-using NLog;
-
-using DShowNET.Helper;
 using DirectShowLib;
 using DirectShowLib.Dvd;
 
-using Window = MediaPortal.GUI.Library.GUIWindow.Window;
-using MediaPortal.GUI.Video;
-using MediaPortal.Dialogs;
-using MediaPortal.Util;
-using MediaPortal.Player;
-using MediaPortal.Playlists;
-using MediaPortal.Profile;
-using MediaPortal.Configuration;
+using DShowNET.Helper;
+
 using MediaPortal.GUI.Library;
+using MediaPortal.Player;
 
 using mvCentral.Database;
-using mvCentral.ROT;
-using mvCentral.Utils;
+using mvCentral.GUI;
 using mvCentral.Localizations;
 using mvCentral.LocalMediaManagement;
-using mvCentral.GUI;
+using mvCentral.ROT;
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Timers;
 
 namespace mvCentral.Playlist
 {

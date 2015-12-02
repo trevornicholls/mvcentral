@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using mvCentral.ConfigScreen.Popups;
+
+using System;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Globalization;
-using mvCentral.ConfigScreen.Popups;
-using Cornerstone.Tools.Translate;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace mvCentral
 {

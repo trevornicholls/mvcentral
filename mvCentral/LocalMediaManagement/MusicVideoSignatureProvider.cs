@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
-using mvCentral.SignatureBuilders;
+﻿using mvCentral.SignatureBuilders;
+
 using NLog;
+
+using System.Collections.Generic;
 
 namespace mvCentral.LocalMediaManagement
 {

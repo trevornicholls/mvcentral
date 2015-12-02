@@ -1,13 +1,7 @@
-﻿using System;
+﻿using mvCentral.Database;
+
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Collections.ObjectModel;
-using mvCentral.Database;
 
 namespace mvCentral.ConfigScreen.Popups
 {

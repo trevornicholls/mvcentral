@@ -1,13 +1,9 @@
-﻿using System;
+﻿using Cornerstone.Tools.Translate;
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Cornerstone.Tools.Translate;
-using System.Globalization;
 
 namespace mvCentral.ConfigScreen.Popups
 {

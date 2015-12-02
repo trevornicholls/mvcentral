@@ -23,7 +23,6 @@
 
 #endregion
 
-using System;
 using System.IO;
 
 namespace mvCentral.Playlist

@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-// Internal
+﻿using MediaPortal.GUI.Library;
+
 using mvCentral.Database;
-using mvCentral;
-using mvCentral.LocalMediaManagement;
-using mvCentral.Playlist;
-using mvCentral.Utils;
 using mvCentral.Localizations;
+
 using NLog;
-using MediaPortal.GUI.Library;
 
-
+using System.Collections.Generic;
 
 namespace mvCentral.GUI
 {

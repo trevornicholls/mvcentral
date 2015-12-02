@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
+﻿using NLog;
+
+using System;
 using System.IO;
-using NLog;
+using System.Net;
 using System.Threading;
 
 namespace mvCentral.LocalMediaManagement.MusicVideoResources

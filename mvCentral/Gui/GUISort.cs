@@ -1,16 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
-using System.IO;
-using Common.GUIPlugins;
-using NLog;
-using System.Collections.Generic;
-using System.Collections;
-using MediaPortal.Playlists;
-using MediaPortal.GUI.Library;
-using MediaPortal.Dialogs;
-using MediaPortal.Player;
-using WindowPlugins;
+﻿using Common.GUIPlugins;
 
+using MediaPortal.GUI.Library;
+
+using System;
+using System.Windows.Forms;
 
 namespace mvCentral.GUI
 {

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cornerstone.Database;
+
 using mvCentral.Database;
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using mvCentral.Properties;
-using System.Reflection;
-using mvCentral.LocalMediaManagement;
 using mvCentral.SignatureBuilders;
-using System.Collections.ObjectModel;
+
 using NLog;
-using System.IO;
-using Cornerstone.Tools.Translate;
+
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Threading;
 

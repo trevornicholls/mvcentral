@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Cornerstone.Database;
+﻿using Cornerstone.Database;
 using Cornerstone.Database.Tables;
-using mvCentral.Database;
 using Cornerstone.Tools.Translate;
+
+using mvCentral.Database;
+
+using System;
+using System.Collections.Generic;
 
 namespace mvCentral.Settings
 {

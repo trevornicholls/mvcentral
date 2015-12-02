@@ -1,29 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading;
-using System.Text.RegularExpressions;
-using NLog;
-using System.Xml;
-using System.Xml.Schema;
-using System.IO;
-using System.Net;
-using System.Web;
-using System.Drawing;
-
-
-
+﻿using Cornerstone.Tools;
 
 using DirectShowLib.Dvd;
 
-using mvCentral.LocalMediaManagement;
-//using dlCentral.PluginHandlers;
-//using dlCentral.Settings;
-//using dlCentral.Settings.Data;
-using Cornerstone.Tools;
 using MediaPortal.GUI.Library;
-using MediaPortal.Util;
 using MediaPortal.Ripper;
+using MediaPortal.Util;
+
+using mvCentral.LocalMediaManagement;
+
+using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Reflection;
+using System.Threading;
+using System.Xml;
 
 namespace mvCentral.Utils
 {
@@ -32,7 +26,7 @@ namespace mvCentral.Utils
     private static Logger logger = LogManager.GetCurrentClassLogger();
     public static readonly string SettingsFileName = "mvCentral.xml";
     public static string LogFileName = "mvCentral.log";
-    public static string OldLogFileName = "mvCentral.log.bak";
+    public static string OldLogFileName = "mvCentral.bak";
     private static readonly object syncRoot = new object();
 
     public static string PluginName()

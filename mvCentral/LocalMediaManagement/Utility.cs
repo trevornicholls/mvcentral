@@ -1,18 +1,19 @@
-﻿using System;
+﻿using Cornerstone.Extensions;
+using Cornerstone.Extensions.IO;
+
+using MediaPortal.Util;
+
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using Cornerstone.Tools;
-using Cornerstone.Extensions;
-using Cornerstone.Extensions.IO;
-using MediaPortal.Util;
-using mvCentral.Utils;
-using NLog;
 
 namespace mvCentral.LocalMediaManagement {
 

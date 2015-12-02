@@ -1,41 +1,33 @@
-﻿using System;
+﻿using Cornerstone.Extensions;
+using Cornerstone.GUI.Dialogs;
+
+using MediaPortal.Configuration;
+using MediaPortal.GUI.Library;
+
+using mvCentral.ConfigScreen.Popups;
+using mvCentral.Database;
+using mvCentral.DataProviders;
+using mvCentral.Extractors;
+using mvCentral.LocalMediaManagement;
+using mvCentral.LocalMediaManagement.MusicVideoResources;
+using mvCentral.Properties;
+using mvCentral.SignatureBuilders;
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
-using System.Xml;
 using System.Threading;
-
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using Cornerstone.GUI.Dialogs;
-using Cornerstone.Tools;
-using Cornerstone.Extensions;
-
-using MediaPortal.Configuration;
-using MediaPortal.GUI.Library;
-using MediaPortal.Threading;
-using MediaPortal.Util;
-using MediaPortal.Utils;
-using NLog;
-//using SQLite.NET;
-
-using mvCentral.Database;
-using mvCentral.Properties;
-using mvCentral.SignatureBuilders;
-using mvCentral.DataProviders;
-using mvCentral.ConfigScreen.Popups;
-using mvCentral.LocalMediaManagement;
-using mvCentral.LocalMediaManagement.MusicVideoResources;
-using mvCentral.Utils;
-using mvCentral.Extractors;
+using System.Windows.Forms;
 
 namespace mvCentral
 {

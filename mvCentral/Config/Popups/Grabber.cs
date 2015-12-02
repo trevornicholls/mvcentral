@@ -1,33 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.IO;
-using System.Windows.Forms;
-
-
-using NLog;
-
-
-using System.Runtime.InteropServices;
-
-using Cornerstone.Extensions;
+﻿using Cornerstone.Extensions;
 
 using DirectShowLib;
 using DirectShowLib.Dvd;
+
 using DShowNET.Helper;
 
-using Microsoft.Win32;
-using MediaPortal.Profile;
 using MediaPortal.GUI.Library;
-using MediaPortal.Player;
+using MediaPortal.Profile;
 
-using mvCentral.LocalMediaManagement;
-using mvCentral.LocalMediaManagement.MusicVideoResources;
+using Microsoft.Win32;
+
 using mvCentral.Database;
+using mvCentral.LocalMediaManagement;
 using mvCentral.Utils;
+
+using NLog;
+
+using System;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 
 namespace mvCentral.ConfigScreen.Popups {

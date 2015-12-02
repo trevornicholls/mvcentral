@@ -1,33 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading;
-using System.Reflection;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
+﻿using Cornerstone.Database;
 using Cornerstone.GUI.Dialogs;
-using Cornerstone.GUI;
 using Cornerstone.Tools;
 
+using MediaPortal.GUI.Library;
+using MediaPortal.Services;
+
+using mvCentral.BackgroundProcesses;
+using mvCentral.Database;
+using mvCentral.DataProviders;
+using mvCentral.Localizations;
+using mvCentral.LocalMediaManagement;
+using mvCentral.Settings;
 
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 
-using mvCentral.BackgroundProcesses;
-using mvCentral.Settings;
-using mvCentral.Database;
-using mvCentral.LocalMediaManagement;
-using mvCentral.DataProviders;
-using mvCentral.GUI;
-using mvCentral.Localizations;
-//using mvCentral.Utils;
-using MediaPortal.Configuration;
-using MediaPortal.Services;
-using MediaPortal.GUI.Library;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace mvCentral
 {

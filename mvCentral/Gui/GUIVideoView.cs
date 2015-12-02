@@ -1,27 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using System.IO;
-using Common.GUIPlugins;
-using NLog;
-using System.Collections.Generic;
-using System.Collections;
-using MediaPortal.Playlists;
+﻿using Common.GUIPlugins;
+
 using MediaPortal.GUI.Library;
-using MediaPortal.Dialogs;
 using MediaPortal.Player;
-using MediaPortal.Profile;
-using mvCentral.ROT;
 using mvCentral.Database;
-using mvCentral.Utils;
-using DShowNET.Helper;
-using DirectShowLib;
-using DirectShowLib.Dvd;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using WindowPlugins;
-
-
-
 
 namespace mvCentral.GUI
 {

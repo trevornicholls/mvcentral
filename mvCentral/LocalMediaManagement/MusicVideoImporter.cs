@@ -1,22 +1,22 @@
-using System;
-using System.Linq;
-using System.Collections;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.Threading;
 using Cornerstone.Database;
 using Cornerstone.Database.Tables;
-using Cornerstone.Tools;
-using Cornerstone.Extensions;
 using Cornerstone.Extensions.IO;
-using mvCentral.Database;
-using mvCentral.DataProviders;
-using mvCentral.SignatureBuilders;
+using Cornerstone.Tools;
+
 using mvCentral.BackgroundProcesses;
-using MediaPortal.Profile;
+using mvCentral.Database;
+using mvCentral.SignatureBuilders;
+
 using NLog;
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.IO;
+using System.Linq;
+using System.Threading;
 
 namespace mvCentral.LocalMediaManagement
 {

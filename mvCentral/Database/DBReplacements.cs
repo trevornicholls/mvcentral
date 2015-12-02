@@ -21,16 +21,11 @@
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 #endregion
 
+using Cornerstone.Database;
+using Cornerstone.Database.Tables;
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using SQLite.NET;
-using MediaPortal.Database;
-using Cornerstone.Extensions;
-//using Cornerstone.Extensions.IO;
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
 
 
 namespace mvCentral.Database

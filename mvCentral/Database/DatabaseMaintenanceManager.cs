@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using NLog;
-//using Cornerstone.Extensions.IO;
-using Cornerstone.GUI.Dialogs;
+﻿using Cornerstone.Database;
 using Cornerstone.Database.Tables;
-using Cornerstone.Database;
+using Cornerstone.GUI.Dialogs;
+
+using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
-//using mvCentral.MainUI;
-using mvCentral.LocalMediaManagement;
 
 namespace mvCentral.Database
 {

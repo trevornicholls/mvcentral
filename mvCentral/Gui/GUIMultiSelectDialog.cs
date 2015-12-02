@@ -23,34 +23,13 @@
 
 #endregion
 
-using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Threading;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text.RegularExpressions;
-// Cornerstone
-using Cornerstone.Database;
-using Cornerstone.Database.Tables;
-using Cornerstone.GUI.Dialogs;
-using Cornerstone.Tools;
-// Internal
-using mvCentral.Database;
-using mvCentral;
-using mvCentral.LocalMediaManagement;
-using mvCentral.Playlist;
-using mvCentral.Utils;
-using mvCentral.Localizations;
-// Mediaportal
 using MediaPortal.GUI.Library;
-using MediaPortal.Dialogs;
-using MediaPortal.Player;
-using Action = MediaPortal.GUI.Library.Action;
-using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 
-using NLog;
+using mvCentral;
+
+using System.Collections.Generic;
+
+using Action = MediaPortal.GUI.Library.Action;
 
 /*
  * void InitializeSearch		-> Initialize e.g. SQL data connections

@@ -1,30 +1,31 @@
-﻿using System;
-using System.Globalization;
-using System.Timers;
-using System.IO;
-using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-// Cornerstone
-using Common.GUIPlugins;
+﻿using Common.GUIPlugins;
+
 using Cornerstone.GUI.Dialogs;
 using Cornerstone.Tools;
-// Internal
+
+using MediaPortal.Dialogs;
+using MediaPortal.GUI.Library;
+using MediaPortal.Player;
+
 using mvCentral.Database;
+using mvCentral.Localizations;
 using mvCentral.LocalMediaManagement;
 using mvCentral.Playlist;
 using mvCentral.Utils;
-using mvCentral.Localizations;
-// Mediaportal
-using MediaPortal.GUI.Library;
-using MediaPortal.Dialogs;
-using MediaPortal.Player;
-using WindowPlugins;
-using Action = MediaPortal.GUI.Library.Action;
-using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 
 using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Timers;
+
+using Action = MediaPortal.GUI.Library.Action;
+using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
 
 namespace mvCentral.GUI
 {

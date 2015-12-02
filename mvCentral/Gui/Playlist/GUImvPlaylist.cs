@@ -24,30 +24,27 @@
 
 #endregion
 
+using Common.GUIPlugins;
+
+using MediaPortal.Dialogs;
+using MediaPortal.GUI.Library;
+using MediaPortal.GUI.Video;
+using MediaPortal.Player;
+using MediaPortal.Util;
+
+using mvCentral.Database;
+using mvCentral.Localizations;
+using mvCentral.Utils;
+
+using NLog;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using Common.GUIPlugins;
-using NLog;
-using mvCentral.Localizations;
-using mvCentral.Database;
-using mvCentral.Utils;
-// MediaPortal
-using MediaPortal.Configuration;
-using MediaPortal.GUI.Library;
-using MediaPortal.GUI.Video;
-using MediaPortal.Player;
-using MediaPortal.Playlists;
-using MediaPortal.Util;
-using MediaPortal.Dialogs;
-using MediaPortal.Video.Database;
+
 using Action = MediaPortal.GUI.Library.Action;
 using Layout = MediaPortal.GUI.Library.GUIFacadeControl.Layout;
-using mvCentral.GUI;
-using WindowPlugins;
-
-
 
 
 namespace mvCentral.Playlist

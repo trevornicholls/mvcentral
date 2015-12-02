@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Globalization;
-using Cornerstone.Extensions.IO;
-using MediaPortal.GUI.Library;
+﻿using Cornerstone.Extensions.IO;
+
 using MediaPortal.Player;
-using System.IO;
+
 using NLog;
-using System.Text.RegularExpressions;
+
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 #region API
 

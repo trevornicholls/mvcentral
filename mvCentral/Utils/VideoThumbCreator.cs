@@ -18,27 +18,20 @@
 
 #endregion
 
+using MediaPortal.Services;
+
+using NLog;
+
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Diagnostics;
-using MediaPortal.Configuration;
-using MediaPortal.ServiceImplementations;
-using MediaPortal.Profile;
-using MediaPortal.Services;
-using MediaPortal.Util;
-using MediaPortal.Utils;
-using NLog;
-
 
 namespace mvCentral.Utils
 {
-  
 
-  public class VideoThumbCreator
+    public class VideoThumbCreator
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -115,7 +108,7 @@ namespace mvCentral.Utils
       //ExtractorArgs = ExtractorArgs.Replace('\\', '/');
 
       const int preGapSec = 5;
-      int postGapSec = 5;
+      // int postGapSec = 5;
 
       var strFilenamewithoutExtension = Path.ChangeExtension(aVideoPath, null);
       if (strFilenamewithoutExtension != null)

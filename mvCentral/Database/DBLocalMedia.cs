@@ -1,13 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using Cornerstone.Extensions;
-using Cornerstone.Extensions.IO;
 using Cornerstone.Database;
 using Cornerstone.Database.CustomTypes;
 using Cornerstone.Database.Tables;
+using Cornerstone.Extensions.IO;
+
 using mvCentral.LocalMediaManagement;
+
 using NLog;
+
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace mvCentral.Database {
     [DBTableAttribute("local_media")]

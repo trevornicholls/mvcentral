@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cornerstone.Database;
 using Cornerstone.Database.Tables;
+
 using mvCentral.DataProviders;
-using Cornerstone.Database;
-using Cornerstone.Database.CustomTypes;
+
 using NLog;
-using System.Threading;
+
+using System;
+using System.Collections.Generic;
 
 namespace mvCentral.Database
 {

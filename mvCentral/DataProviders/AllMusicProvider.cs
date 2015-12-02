@@ -1,19 +1,20 @@
-﻿using System;
+﻿using MediaPortal.Music.Database;
+
+using mvCentral.Database;
+using mvCentral.LocalMediaManagement.MusicVideoResources;
+using mvCentral.SignatureBuilders;
+using mvCentral.Utils;
+
+using NLog;
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.IO;
 using System.Linq;
 using System.Net;
-
-using mvCentral.Database;
-using mvCentral.SignatureBuilders;
-using mvCentral.LocalMediaManagement.MusicVideoResources;
-using mvCentral.Utils;
-
-using MediaPortal.Music.Database;
-using NLog;
+using System.Text;
+using System.Text.RegularExpressions;
 
 
 namespace mvCentral.DataProviders

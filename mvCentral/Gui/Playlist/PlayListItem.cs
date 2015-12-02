@@ -23,11 +23,9 @@
 
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using MediaPortal.TagReader;
 using mvCentral.Database;
+
+using System;
 
 namespace mvCentral.Playlist
 {

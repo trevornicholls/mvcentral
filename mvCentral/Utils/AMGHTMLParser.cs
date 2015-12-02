@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using mvCentral.DataProviders;
+
+using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using mvCentral.DataProviders;
-//using MediaPortal.Music.Database;
 
 namespace mvCentral.Utils
 {
