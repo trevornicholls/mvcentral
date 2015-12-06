@@ -26,17 +26,19 @@ namespace mvCentral.DataProviders
 
     #region Provider variables
 
-    private const string BaseURL = "http://www.allmusic.com/search/artists/";
+    private const string BaseURL = "http://www.allmusic.com";
+    private const string SearchURL = BaseURL + "/search/artists/";
 
     // **** Artist Regex ****
     //private const string ArtistRegExpPattern = @"<tr class=""search-result artist"">.*?<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)</a>\s*</div>\s*<div class=""info"">\s*(?<genres>.*?)\s*<br/>\s*(?<years>.*?)\s*</div>";
 
-    private const string ArtistRegExpPattern = @"<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)</a>\s*</div>\s*<div class=""genres"">\s*(?<genres>.*?)</div>\s*<div class=""decades"">\s*(?<years>.*?)</div>";
+    private const string ArtistRegExpPattern = @"<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)<\/a>\s*<\/div>\s*<div class=""genres"">\s*(?<genres>.*?)<\/div>\s*<div class=""decades"">\s*(?<years>.*?)<\/div>";
     
     private static readonly Regex ArtistUrlRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
 
     // **** Album Regex ****
-    private const string AlbumRegExpPattern = @"<td class=""title primary_link"".*?<a href=""(?<albumURL>.*?)"" class=""title.*?"" data-tooltip="".*?"">(?<albumName>.*?)</a>";
+    // private const string AlbumRegExpPattern = @"<td class=""title primary_link"".*?<a href=""(?<albumURL>.*?)"" class=""title.*?"" data-tooltip="".*?"">(?<albumName>.*?)</a>";
+    private const string AlbumRegExpPattern = @"<td.class=.cover.>[^<]*?<a.href=""(?<albumURL>.*?)""[^<]*?title=""(?<albumName>.*?)""";
     private static readonly Regex AlbumUrlRegEx = new Regex(AlbumRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
 
     // Some clean up regex
@@ -472,17 +474,21 @@ namespace mvCentral.DataProviders
       GroupCollection groupCollection;
       try
       {
-        Regex trackRegex = new Regex("Composed by:\\s*(?:<a\\s*href=\"[^\"]+\">(?<composer>[^<]+)</a>(?:<span>\\s*/\\s*</span>)?)*\\s*</div>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
-        allMatchResults = trackRegex.Matches(trackHTML);
-
-        foreach (Match match in allMatchResults)
-        {
-          groupCollection = match.Groups;
-          captureCollection = groupCollection[1].Captures;
-          for (int i = 0; i < captureCollection.Count; i++)
-            songComposers += (i == captureCollection.Count - 1) ? captureCollection[i].Value : captureCollection[i].Value + "|";
-
-        }
+        Regex composerRegion = new Regex("Composed by(?<composers>.+?)<\/h3>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        Match match = composerRegion.Match(trackHTML);
+        if (match.Success)
+      	{
+   	      string _composers = match.Groups[1].Value;
+          Regex trackRegex = new Regex("<a.href=[^>]+?>(?<composer>[^<]+)<\/a>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+          allMatchResults = trackRegex.Matches(_composers);
+          foreach (Match match in allMatchResults)
+          {
+            groupCollection = match.Groups;
+            captureCollection = groupCollection[1].Captures;
+            for (int i = 0; i < captureCollection.Count; i++)
+              songComposers += (i == captureCollection.Count - 1) ? captureCollection[i].Value : captureCollection[i].Value + "|";
+          }
+       	}
         trackObject.Composers = songComposers;
         return true;
       }
@@ -697,7 +703,7 @@ namespace mvCentral.DataProviders
       try
       {
         var strEncodedArtist = EncodeString(strArtist);
-        var strURL = BaseURL + strEncodedArtist;
+        var strURL = SearchURL + strEncodedArtist;
 
         Logger.Debug("GetArtistURL: Request URL: {0}", strURL);
 
@@ -865,31 +871,35 @@ namespace mvCentral.DataProviders
             if (strFoundValue == strAlbum.ToLower())
             {
               albumFound = true;
-              Logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album first time: {0}", strAlbum);
+              Logger.Debug("AllMusic: GetAlbumURL: Matched album first time: {0}", strAlbum);
             }
             else if (strFoundValue == strStripStackEnding.ToLower())
             {
               albumFound = true;
-              Logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after stripping stack endings: {0}", strStripStackEnding);
+              Logger.Debug("AllMusic: GetAlbumURL: Matched album after stripping stack endings: {0}", strStripStackEnding);
             }
             else if (strFoundValue == strAlbumRemoveBrackets.ToLower())
             {
               albumFound = true;
-              Logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after stripping trailing brackets: {0}", strStripStackEnding);
+              Logger.Debug("AllMusic: GetAlbumURL: Matched album after stripping trailing brackets: {0}", strStripStackEnding);
             }
             else if (strFoundPunctuation == strRemovePunctuation.ToLower())
             {
               albumFound = true;
-              Logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after removing punctuation: {0}", strRemovePunctuation);
+              Logger.Debug("AllMusic: GetAlbumURL: Matched album after removing punctuation: {0}", strRemovePunctuation);
             }
             else if (strAndAlbum == strFoundAnd)
             {
               albumFound = true;
-              Logger.Debug("MusicInfoHandler: GetAlbumURL: Matched album after replacing and: {0}", strAndAlbum);
+              Logger.Debug("AllMusic: GetAlbumURL: Matched album after replacing and: {0}", strAndAlbum);
             }
 
             if (!albumFound) continue;
             strAlbumURL = m.Groups["albumURL"].ToString();
+            if (!String.IsNullOrEmpty(strAlbumURL) && !strAlbumURL.StartsWith("http"))
+            {
+              strAlbumURL = BaseUrl + strAlbumURL;
+            }
             break;
           }
 
@@ -916,7 +926,7 @@ namespace mvCentral.DataProviders
 
       try
       {
-        var strURL = strRedirect + "#discography";
+        var strURL = strRedirect + "/discography";
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
 
@@ -947,7 +957,15 @@ namespace mvCentral.DataProviders
 
           for (var m = AlbumUrlRegEx.Match(discHTML); m.Success; m = m.NextMatch())
           {
-            _albumUrlList.Add(m.Groups["albumURL"].ToString());
+            string strAlbumURL = m.Groups["albumURL"].ToString();
+            if (!String.IsNullOrEmpty(strAlbumURL))
+            {
+              if (!strAlbumURL.StartsWith("http"))
+              {
+                strAlbumURL = BaseUrl + strAlbumURL;
+              }
+              _albumUrlList.Add(strAlbumURL);
+            }
           }
 
           // return true if we have picked up a URL
@@ -976,7 +994,7 @@ namespace mvCentral.DataProviders
 
       try
       {
-        var strURL = strRedirect + "/discography/dvds-videos/";
+        var strURL = strRedirect + "/discography/video/";
 
         var x = (HttpWebRequest)WebRequest.Create(strURL);
 
@@ -1007,7 +1025,15 @@ namespace mvCentral.DataProviders
 
           for (var m = AlbumUrlRegEx.Match(discHTML); m.Success; m = m.NextMatch())
           {
-            _albumUrlList.Add(m.Groups["albumURL"].ToString());
+            string strAlbumURL = m.Groups["albumURL"].ToString();
+            if (!String.IsNullOrEmpty(strAlbumURL))
+            {
+              if (!strAlbumURL.StartsWith("http"))
+              {
+                strAlbumURL = BaseUrl + strAlbumURL;
+              }
+              _albumUrlList.Add(strAlbumURL);
+            }
           }
 
           // return true if we have picked up a URL
@@ -1104,10 +1130,10 @@ namespace mvCentral.DataProviders
           return false;
         }
 
-        var strURL = strRedirect + "/overview/main#discography";
+        var strURL = strRedirect + "/discography/";
         if (!GetAlbumURL(strURL, strAlbum, out strAlbumURL))
         {
-          strURL = strRedirect + "/overview/compilations#discography";
+          strURL = strRedirect + "/discography/compilations/";
           if (!GetAlbumURL(strURL, strAlbum, out strAlbumURL))
           {
             return false;
@@ -1231,8 +1257,6 @@ namespace mvCentral.DataProviders
         ProgressChanged(this, new ProgressEventArgs { Text = "AllMusic: " + text });
       }
     }
-
-
     #endregion
 
   }
