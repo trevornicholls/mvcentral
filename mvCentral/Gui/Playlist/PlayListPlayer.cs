@@ -429,6 +429,7 @@ namespace mvCentral.Playlist
             PlayListItem item = GetCurrentItem();
             if (item != null && mvCentralCore.Settings.SubmitOnLastFM)
               ScrobbleSubmit(item);
+            SetProperties(item, true);
           }
           break;
 

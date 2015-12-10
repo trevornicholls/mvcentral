@@ -474,16 +474,16 @@ namespace mvCentral.DataProviders
       GroupCollection groupCollection;
       try
       {
-        Regex composerRegion = new Regex("Composed by(?<composers>.+?)<\/h3>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+        Regex composerRegion = new Regex(@"Composed by(?<composers>.+?)<\/h3>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
         Match match = composerRegion.Match(trackHTML);
         if (match.Success)
       	{
    	      string _composers = match.Groups[1].Value;
-          Regex trackRegex = new Regex("<a.href=[^>]+?>(?<composer>[^<]+)<\/a>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
+          Regex trackRegex = new Regex(@"<a.href=[^>]+?>(?<composer>[^<]+)<\/a>", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled);
           allMatchResults = trackRegex.Matches(_composers);
-          foreach (Match match in allMatchResults)
+          foreach (Match cmatch in allMatchResults)
           {
-            groupCollection = match.Groups;
+            groupCollection = cmatch.Groups;
             captureCollection = groupCollection[1].Captures;
             for (int i = 0; i < captureCollection.Count; i++)
               songComposers += (i == captureCollection.Count - 1) ? captureCollection[i].Value : captureCollection[i].Value + "|";
@@ -898,7 +898,7 @@ namespace mvCentral.DataProviders
             strAlbumURL = m.Groups["albumURL"].ToString();
             if (!String.IsNullOrEmpty(strAlbumURL) && !strAlbumURL.StartsWith("http"))
             {
-              strAlbumURL = BaseUrl + strAlbumURL;
+              strAlbumURL = BaseURL + strAlbumURL;
             }
             break;
           }
@@ -962,7 +962,7 @@ namespace mvCentral.DataProviders
             {
               if (!strAlbumURL.StartsWith("http"))
               {
-                strAlbumURL = BaseUrl + strAlbumURL;
+                strAlbumURL = BaseURL + strAlbumURL;
               }
               _albumUrlList.Add(strAlbumURL);
             }
@@ -1030,7 +1030,7 @@ namespace mvCentral.DataProviders
             {
               if (!strAlbumURL.StartsWith("http"))
               {
-                strAlbumURL = BaseUrl + strAlbumURL;
+                strAlbumURL = BaseURL + strAlbumURL;
               }
               _albumUrlList.Add(strAlbumURL);
             }
