@@ -2587,6 +2587,10 @@ namespace mvCentral.GUI
           SetProperty("#mvCentral.Latest.Track1", allTracks[0].Track);
           SetProperty("#mvCentral.Latest.Track2", allTracks[1].Track);
           SetProperty("#mvCentral.Latest.Track3", allTracks[2].Track);
+          // Images for latest 3 tracks
+          SetProperty("#mvCentral.Latest.TrackImage1", allTracks[0].ArtFullPath);
+          SetProperty("#mvCentral.Latest.TrackImage2", allTracks[1].ArtFullPath);
+          SetProperty("#mvCentral.Latest.TrackImage3", allTracks[2].ArtFullPath);
 
           SetProperty("#mvCentral.latest.enabled", "true");
         }

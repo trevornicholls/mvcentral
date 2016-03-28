@@ -158,13 +158,10 @@ namespace mvCentral
 
     #endregion
 
-
-
     private static mvCentralCore _instance = null;
 
     // Constructor. Private because we are a singleton.
     private mvCentralCore() { }
-
 
     // Initializes the database connection to the Music video Plugin database
     private static void initDB()
