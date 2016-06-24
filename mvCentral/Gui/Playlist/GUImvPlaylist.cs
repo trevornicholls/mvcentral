@@ -1122,7 +1122,7 @@ namespace mvCentral.Playlist
         string filename = playlist[0].FileName;
         if (mvCentralUtils.IsImageFile(filename))
         {
-          if (!GUIVideoFiles.MountImageFile(GUIWindowManager.ActiveWindow, filename))
+          if (!GUIVideoFiles.MountImageFile(GUIWindowManager.ActiveWindow, filename, true))
           {
             return;
           }
