@@ -781,27 +781,28 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Id>1f288e48-6f5b-481c-a1b4-605393c913db</Id>
     <Author>Trevor/Gup</Author>
     <HomePage>https://github.com/andrewjswan/mvcentral</HomePage>
-    <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/mvcentral-music-vidoes-plugin-beta-release-101640/</ForumPage>
+    <ForumPage>http://forum.team-mediaportal.com/forums/mvcentral-music-videos-plugin.573/</ForumPage>
     <UpdateUrl>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Update/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
-      <Build>7</Build>
-      <Revision>477</Revision>
+      <Build>8</Build>
+      <Revision>0</Revision>
     </Version>
-    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. 
+    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos.
+ 
 Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
-The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
-    <VersionDescription>* mvCentral v1.0.7.477
 
-Built for MP 1.15
+The plugin will also scrobble playing videos to Last.FM and update your Library if required.
+</ExtensionDescription>
+    <VersionDescription>Built for MP 1.15
  
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-1.0.7.477.mpe1 </OnlineLocation>
+    <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-{VERSION}.MPE1</OnlineLocation>
     <ReleaseDate>2016-06-25T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
-    <Location>.\Release\[Name]-[Version].mpe1</Location>
+    <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.MPE1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -810,7 +811,7 @@ Built for MP 1.15
           <Description>The icon file of the package (jpg,png,bmp)</Description>
         </SectionParam>
         <SectionParam Name="Online Icon">
-          <Value>http://http://mvcentral.googlecode.com/svn/trunk/gfx/mvCentral-logo.png</Value>
+          <Value>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Resources/mvCentral-logo.png</Value>
           <ValueType>String</ValueType>
           <Description>The icon file of the package stored online (jpg,png,bmp)</Description>
         </SectionParam>
@@ -822,12 +823,12 @@ Built for MP 1.15
  If have .dll extension used like MP plugin configuration</Description>
         </SectionParam>
         <SectionParam Name="Online Screenshots">
-          <Value>http://code.google.com/p/mvcentral/</Value>
+          <Value>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Screenshots/screenshot1.png;https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Screenshots/screenshot2.png;https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Screenshots/screenshot3.png</Value>
           <ValueType>String</ValueType>
           <Description>Online stored screenshot urls separated by ; </Description>
         </SectionParam>
         <SectionParam Name="Force to uninstall on update">
-          <Value>yes</Value>
+          <Value>YES</Value>
           <ValueType>Bool</ValueType>
           <Description>Show dialog and force to uninstall previous version when updating an extension. Should only be disabled if you are using an NSIS/MSI installer.</Description>
         </SectionParam>
@@ -1385,7 +1386,7 @@ Built for MP 1.15
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>mvCentral.xmp2</ProjectFilename>
-    <UpdatePath1>Update\update.xml</UpdatePath1>
+    <UpdatePath1>mvCentral-{VERSION}.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
