@@ -574,7 +574,10 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if exist $(SolutionDir)PostBuild.bat call $(SolutionDir)PostBuild.bat $(SolutionDir) $(ConfigurationName)</PostBuildEvent>
-    <PreBuildEvent>ECHO subwcrev "$(SolutionDir)." "$(ProjectDir)Properties\VersionInfo.cs.tmpl" "$(ProjectDir)Properties\VersionInfo.cs"</PreBuildEvent>
+    <PostBuildEvent>cd $(TargetDir)
+copy $(ProjectDir)..\scripts\merge.bat .
+copy $(ProjectDir)..\scripts\Tools\ILMerge.exe .
+merge.bat
+del /q merge.bat ILMerge.exe</PostBuildEvent>
   </PropertyGroup>
 </Project>
