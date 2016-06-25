@@ -13,14 +13,14 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\..\..\..\HTPC\MediaPortal\plugins\Windows\mvCentral.dll</LocalFileName>
+              <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>Release\mvCentral.dll.config</LocalFileName>
+              <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{58e9cbe5-87c8-4939-a53b-75e42a96131b}-mvCentral.dll.config</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll.config</DestinationFilename>
             </FileItem>
@@ -780,41 +780,26 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Name>mvCentral</Name>
     <Id>1f288e48-6f5b-481c-a1b4-605393c913db</Id>
     <Author>Trevor/Gup</Author>
-    <HomePage>http://code.google.com/p/mvcentral/</HomePage>
+    <HomePage>https://github.com/andrewjswan/mvcentral</HomePage>
     <ForumPage>http://forum.team-mediaportal.com/mediaportal-plugins-47/mvcentral-music-vidoes-plugin-beta-release-101640/</ForumPage>
-    <UpdateUrl>http://mvcentral.googlecode.com/svn/trunk/MPEI/Update/update.xml</UpdateUrl>
+    <UpdateUrl>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Update/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
       <Minor>0</Minor>
       <Build>7</Build>
-      <Revision>459</Revision>
+      <Revision>477</Revision>
     </Version>
-    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos. 
+Last.FM, Discogs, Allmusic.com and HTBackdrops are used to provide metadata.
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.</ExtensionDescription>
-    <VersionDescription>mvCentral v1.0.7.458
+    <VersionDescription>* mvCentral v1.0.7.477
 
-
-Built for MP 1.8.0
+Built for MP 1.15
  
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>http://mvcentral.googlecode.com/files/mvCentral-1.0.0.229.mpe1</OnlineLocation>
-    <ReleaseDate>2014-03-02T22:26:37</ReleaseDate>
+    <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-1.0.7.477.mpe1 </OnlineLocation>
+    <ReleaseDate>2016-06-25T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>.\Release\[Name]-[Version].mpe1</Location>
     <Params>
@@ -854,16 +839,9 @@ Built for MP 1.8.0
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\..\..\..\HTPC\MediaPortal\plugins\Windows\mvCentral.dll</LocalFileName>
+        <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>Release\mvCentral.dll.config</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{58e9cbe5-87c8-4939-a53b-75e42a96131b}-mvCentral.dll.config</ZipFileName>
-        <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll.config</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1324,21 +1302,21 @@ Built for MP 1.8.0
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{659034a8-619e-4e05-81b4-68333dd2ac51}-sidepanel.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{ef5e87fc-1177-4138-bd9d-9a79a52db730}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{674542cb-b1dd-43f0-b763-0f2f585f9e6d}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{5109232d-54a8-4883-872c-5cea02253f2b}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{5a9320bc-0898-426a-b270-d3246847e237}-mvCentral-logo.png</ZipFileName>
+        <ZipFileName>Installer{CopyFile}\{30fb2c18-6fd9-475c-b22d-05c96734b1a5}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
     </Items>
@@ -1407,7 +1385,7 @@ Built for MP 1.8.0
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>mvCentral.xmp2</ProjectFilename>
-    <UpdatePath1>G:\Development\mvcentral\MPEI\Update\update.xml</UpdatePath1>
+    <UpdatePath1>Update\update.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
