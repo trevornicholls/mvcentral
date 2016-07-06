@@ -2777,7 +2777,7 @@ namespace mvCentral
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
 
-        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider || r2.Provider is HTBackdropsProvider)
+        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider || r2.Provider is HTBackdropsProvider || r2.Provider is LocalProvider)
         {
           if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DgProvider)
           { }
@@ -3199,7 +3199,7 @@ namespace mvCentral
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
 
-        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider)
+        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider || r2.Provider is LocalProvider)
         {
           if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DgProvider)
           { }
