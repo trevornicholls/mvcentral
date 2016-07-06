@@ -726,6 +726,12 @@ namespace mvCentral.DataProviders
 
   public class Release : IComparable<Release>
   {
+    public Release(string Title, string MBID)
+    {
+      title = Title;
+      id = MBID;
+    }
+
     public Release(XmlNode artistTopTrackPage)
     {
 
