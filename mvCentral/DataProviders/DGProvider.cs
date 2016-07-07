@@ -720,8 +720,15 @@ namespace mvCentral.DataProviders
       else
         return null;
     }
-  }
 
+    private void ReportProgress(string text)
+    {
+      if (ProgressChanged != null)
+      {
+        ProgressChanged(this, new ProgressEventArgs { Text = "Discos.org DB: " + text });
+      }
+    }
+  }
 
 
   public class Release : IComparable<Release>
@@ -778,7 +785,7 @@ namespace mvCentral.DataProviders
       (p1, p2) => System.String.Compare(p1.id, p2.id, System.StringComparison.Ordinal);
 
     #region IComparable<Product> Members
-    public int CompareTo(Release other)
+        public int CompareTo(Release other)
     {
       return System.String.Compare(title, other.title, System.StringComparison.Ordinal);
     }

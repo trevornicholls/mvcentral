@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Threading;
 
 namespace mvCentral.DataProviders
@@ -434,6 +435,7 @@ namespace mvCentral.DataProviders
       AddSource(typeof(DgProvider));
       AddSource(typeof(AllMusicProvider));
       AddSource(typeof(HTBackdropsProvider)); 
+      AddSource(typeof(MyMusicProvider));
       AddSource(typeof(ManualProvider));
       //AddSource(typeof(EchoNestProvider));
       normalizePriorities();
@@ -754,11 +756,22 @@ namespace mvCentral.DataProviders
     {
       bool success = false;
       int artWorkAdded = 0;
+      logger.Debug("In Method: GetArt(DBBasicInfo mvDBObject, bool primarySourceOnly)");
+
       // Artist
       if (mvDBObject.GetType() == typeof(DBArtistInfo))
       {
+        var _count = 0;
+        foreach (string _art in mvDBObject.AlternateArts)
+        {
+          if (File.Exists(_art))
+            _count++;
+        }
+        // logger.Debug("GetArt: mvDBObject.AlternateArts.Count: " + mvDBObject.AlternateArts.Count + " mvCentralCore.Settings.MaxArtistArts: " + mvCentralCore.Settings.MaxArtistArts);
+        logger.Debug("GetArt: Artist: mvDBObject.AlternateArts.Count: " + _count + " mvCentralCore.Settings.MaxArtistArts: " + mvCentralCore.Settings.MaxArtistArts);
         // if we have already hit our limit for the number of artist arts to load, quit
-        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
+        // if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
+        if (_count >= mvCentralCore.Settings.MaxArtistArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -769,6 +782,7 @@ namespace mvCentral.DataProviders
           if (currSource.IsDisabled(DataType.ARTISTART))
             continue;
 
+          logger.Debug("GetArt: currSource.Provider: " + currSource.Provider + " mvDBObject.PrimarySource.Provider: " + mvDBObject.PrimarySource.Provider);
           if (currSource.Provider != mvDBObject.PrimarySource.Provider && primarySourceOnly)
             continue;
 
@@ -789,8 +803,16 @@ namespace mvCentral.DataProviders
       // Album
       if (mvDBObject.GetType() == typeof(DBAlbumInfo))
       {
+        var _count = 0;
+        foreach (string _art in mvDBObject.AlternateArts)
+        {
+          if (File.Exists(_art))
+            _count++;
+        }
+        logger.Debug("GetArt: Album: mvDBObject.AlternateArts.Count: " + _count + " mvCentralCore.Settings.MaxAlbumArts: " + mvCentralCore.Settings.MaxAlbumArts);
         // if we have already hit our limit for the number of album arts to load, quit
-        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
+        // if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
+        if (_count >= mvCentralCore.Settings.MaxAlbumArts)
           return true;
 
         List<DBSourceInfo> sources;
@@ -815,8 +837,16 @@ namespace mvCentral.DataProviders
       // Track
       if (mvDBObject.GetType() == typeof(DBTrackInfo))
       {
+        var _count = 0;
+        foreach (string _art in mvDBObject.AlternateArts)
+        {
+          if (File.Exists(_art))
+            _count++;
+        }
+        logger.Debug("GetArt: Track: mvDBObject.AlternateArts.Count: " + _count + " mvCentralCore.Settings.MaxTrackArts: " + mvCentralCore.Settings.MaxTrackArts);
         // if we have already hit our limit for the number of Track arts to load, quit
-        if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+        // if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
+        if (_count >= mvCentralCore.Settings.MaxTrackArts)
           return true;
 
         List<DBSourceInfo> sources;

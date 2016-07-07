@@ -300,6 +300,7 @@
     <Compile Include="Utils\AMGHTMLParser.cs" />
     <Compile Include="Utils\LastFMScrobble.cs" />
     <Compile Include="DataProviders\LocalProvider.cs" />
+    <Compile Include="DataProviders\MyMusicProvider.cs" />
     <Compile Include="DataProviders\ManuallProvider.cs" />
     <Compile Include="Extensions\MusicVideoTitleStringExtensions.cs" />
     <Compile Include="Config\ConfigForm.cs">

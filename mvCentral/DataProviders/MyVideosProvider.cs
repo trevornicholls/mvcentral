@@ -83,12 +83,10 @@ namespace MusicVideos.DataProviders
         }
 
         public bool GetArtwork(DBTrackInfo mv) {
-            string myVideoCoversFolder = Config.GetFolder(Config.Dir.Thumbs) + "\\Videos\\Title";
-            
-            Regex cleaner = new Regex("[\\\\/:*?\"<>|]");
-            string cleanTitle = cleaner.Replace(mv.Title, "_");
+            string myVideoCoversFolder = Thumbs.MovieTitle;
+            string cleanTitle = Util.Utils.MakeFileName(mv.Title);
 
-            string filename = myVideoCoversFolder + "\\" + cleanTitle + "L.jpg";
+            string filename = myVideoCoversFolder + @"\" + cleanTitle + "L.jpg";
 
             if (System.IO.File.Exists(filename)) 
                 return mv.AddCoverFromFile(filename);

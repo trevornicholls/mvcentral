@@ -110,7 +110,6 @@ namespace mvCentral.DataProviders
       }
     }
 
-
     public bool ProvidesTrackDetails
     {
       get { return true; }
@@ -156,7 +155,6 @@ namespace mvCentral.DataProviders
       setMusicVideoAlbum(ref albumData, artist, albumTitle, albumMbid);
       return mv;
     }
-
 
     /// <summary>
     /// Get the Artist, Album or Track details
@@ -377,6 +375,7 @@ namespace mvCentral.DataProviders
       }
       return true;
     }
+
     /// <summary>
     /// Get the album details 
     /// </summary>
@@ -438,6 +437,7 @@ namespace mvCentral.DataProviders
       }
       return false;
     }
+
     /// <summary>
     /// Lets see if last.fm has some artwork for us
     /// </summary>
@@ -517,6 +517,7 @@ namespace mvCentral.DataProviders
       else
         return false; // Well all that was a water of CPU cycles...bugger all found
     }
+
     /// <summary>
     /// Generate Thumbnail
     /// </summary>
@@ -544,6 +545,7 @@ namespace mvCentral.DataProviders
       else
         return false;
     }
+
     /// <summary>
     /// Get album art work
     /// </summary>
@@ -591,6 +593,7 @@ namespace mvCentral.DataProviders
       mvAlbumObject.Commit();
       return true;
     }
+
     /// <summary>
     /// GetDetails - not used but will keep for now
     /// </summary>
@@ -600,6 +603,7 @@ namespace mvCentral.DataProviders
     {
       throw new NotImplementedException();
     }
+
     /// <summary>
     /// Retrive Track, Artist and if requested Album data
     /// </summary>
@@ -661,7 +665,6 @@ namespace mvCentral.DataProviders
             mvTrackData.AlbumInfo.Clear();
             mvTrackData.ArtistInfo[0].Artist = mvSignature.Artist;
             mvTrackData.AlbumInfo.Add(albumInfo);
-
           }
           else
             mvTrackData.AlbumInfo.Clear();
@@ -765,6 +768,7 @@ namespace mvCentral.DataProviders
       }
       return;
     }
+
     /// <summary>
     /// Grab the album data and process (overload)
     /// </summary>
@@ -774,6 +778,7 @@ namespace mvCentral.DataProviders
     {
       setMusicVideoAlbum(ref mv, null, null, mbid);
     }
+
     /// <summary>
     /// Grab the album data and process (overload)
     /// </summary>
@@ -784,6 +789,7 @@ namespace mvCentral.DataProviders
     {
       setMusicVideoAlbum(ref mv, null, Album, mbid);
     }
+
     /// <summary>
     /// Grab the album data and process
     /// </summary>
@@ -871,6 +877,7 @@ namespace mvCentral.DataProviders
       }
       return;
     }
+
     /// <summary>
     /// Grab the track data and process
     /// </summary>
@@ -967,7 +974,6 @@ namespace mvCentral.DataProviders
       }
       return;
     }
-
 
     /// <summary>
     /// Get the track info
@@ -1117,6 +1123,7 @@ namespace mvCentral.DataProviders
       if (n1 != null && n1.InnerText != "") return n1.InnerText;
       return null;
     }
+
     /// <summary>
     /// 
     /// </summary>
@@ -1202,8 +1209,8 @@ namespace mvCentral.DataProviders
       //    }
       //  }
       //}
-
     }
+
     /// <summary>
     /// 
     /// </summary>

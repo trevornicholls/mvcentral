@@ -145,6 +145,7 @@ namespace mvCentral.DataProviders
 
       return found;
     }
+
     /// <summary>
     /// Get Album Artwork already on disk
     /// </summary>
@@ -177,6 +178,7 @@ namespace mvCentral.DataProviders
 
       return found;
     }
+
     /// <summary>
     /// Get Track/Video Artwork already on disk
     /// </summary>
@@ -269,6 +271,7 @@ namespace mvCentral.DataProviders
       }
       return false;
     }
+
     /// <summary>
     /// Get the Artist Artwork using the old Method
     /// </summary>
@@ -294,6 +297,7 @@ namespace mvCentral.DataProviders
       }
       return found;
     }
+
     /// <summary>
     /// get the Album Artwork from the custom album artwork folder 
     /// </summary>
@@ -322,6 +326,7 @@ namespace mvCentral.DataProviders
       }
       return false;
     }
+
     /// <summary>
     /// get the Album Artwork from Album Artwork folder 
     /// </summary>
@@ -348,6 +353,7 @@ namespace mvCentral.DataProviders
       }
       return false;
     }
+
     /// <summary>
     /// Get the Album Artwork using the old method
     /// </summary>
@@ -373,6 +379,7 @@ namespace mvCentral.DataProviders
       }
       return found;
     }
+
     /// <summary>
     /// Get Track Artwork from Custom Track Artwork folder
     /// </summary>
@@ -432,6 +439,7 @@ namespace mvCentral.DataProviders
       }
       return found;
     }
+
     /// <summary>
     /// Get the Track Artwork using the old Method
     /// </summary>
@@ -458,6 +466,7 @@ namespace mvCentral.DataProviders
 
       return found;
     }
+
     /// <summary>
     /// parses and replaces variables from a filename based on the pattern supplied
     /// returning a list of possible file matches
@@ -532,8 +541,8 @@ namespace mvCentral.DataProviders
 
       //should never get here
       return null;
-
     }
+
     /// <summary>
     /// Get Artist field
     /// </summary>
@@ -556,6 +565,7 @@ namespace mvCentral.DataProviders
 
       return field.GetValue(mvArtistObject).ToString();
     }
+
     /// <summary>
     /// Get Album Field
     /// </summary>
@@ -578,6 +588,7 @@ namespace mvCentral.DataProviders
 
       return field.GetValue(mvAlbumObject).ToString();
     }
+
     /// <summary>
     /// Get Track field
     /// </summary>
@@ -604,6 +615,7 @@ namespace mvCentral.DataProviders
 
       return field.GetValue(mvTrackObject).ToString();
     }
+
     /// <summary>
     /// based on the filename list, returns the first file in the folder, otherwise null
     /// </summary>
@@ -652,5 +664,12 @@ namespace mvCentral.DataProviders
       throw new NotImplementedException();
     }
 
+    private void ReportProgress(string text)
+    {
+      if (ProgressChanged != null)
+      {
+        ProgressChanged(this, new ProgressEventArgs { Text = "Local DB: " + text });
+      }
+    }
   }
 }

@@ -318,8 +318,7 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXMLFromURL(string url)
     {
-      logger.Debug("Sending the request: " + url.Replace("3b40fddfaeaf4bf786fad7e4a42ac81c","<apiKey>"));
-      //logger.Debug("Sending the request: " + url);
+      logger.Debug("Sending the request: " + url.Replace(APIKey,"<apiKey>"));
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
@@ -338,5 +337,12 @@ namespace mvCentral.DataProviders
 
     #endregion
 
+    private void ReportProgress(string text)
+    {
+      if (ProgressChanged != null)
+      {
+        ProgressChanged(this, new ProgressEventArgs { Text = "HTBackdrops DB: " + text });
+      }
+    }
   }
 }

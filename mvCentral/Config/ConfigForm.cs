@@ -2559,8 +2559,12 @@ namespace mvCentral
         int ArtIndexNum = 0;
         int ArtCount = 0;
 
-        MemoryStream ms = new MemoryStream(File.ReadAllBytes(mvBasicInfo.ArtFullPath));
-        newArt = Image.FromStream(ms);
+        if (File.Exists(mvBasicInfo.ArtFullPath))
+        {
+          MemoryStream ms = new MemoryStream(File.ReadAllBytes(mvBasicInfo.ArtFullPath));
+          newArt = Image.FromStream(ms);
+        }
+
         ArtIndexNum = mvBasicInfo.AlternateArts.IndexOf(mvBasicInfo.ArtFullPath);
         ArtCount = mvBasicInfo.AlternateArts.Count;
         Image oldArt = artImage.Image;
@@ -2613,7 +2617,8 @@ namespace mvCentral
           mv = CurrentTrack;
           break;
       }
-      if (mv == null || mv.ArtFullPath.Trim().Length == 0) return;
+      if (mv == null || mv.ArtFullPath.Trim().Length == 0 || !File.Exists(mv.ArtFullPath)) 
+        return;
       ArtPopup popup = new ArtPopup(mv.ArtFullPath);
       popup.Owner = this.ParentForm;
       popup.ShowDialog();
@@ -3502,6 +3507,8 @@ namespace mvCentral
 
       if (!string.IsNullOrEmpty(artistName) && DBArtistInfo.Get(artistName).ArtFullPath.Trim() == "")
         artworkMissing = true;
+      if (!string.IsNullOrEmpty(artistName) && !string.IsNullOrEmpty(DBArtistInfo.Get(artistName).ArtFullPath.Trim()) && !File.Exists(DBArtistInfo.Get(artistName).ArtFullPath.Trim()))
+        artworkMissing = true;
 
       List<DBTrackInfo> trackList = DBTrackInfo.GetEntriesByArtist(DBArtistInfo.Get(artistName));
       if (trackList == null) return;
@@ -3510,9 +3517,13 @@ namespace mvCentral
       {
         if (track.ArtFullPath.Trim() == "")
           artworkMissing = true;
+        if (!File.Exists(track.ArtFullPath.Trim()))
+          artworkMissing = true;
 
         DBAlbumInfo album = DBAlbumInfo.Get(track);
         if (album != null && album.ArtFullPath.Trim() == "")
+          artworkMissing = true;
+        if (album != null && !string.IsNullOrEmpty(album.ArtFullPath.Trim()) && !File.Exists(album.ArtFullPath.Trim()))
           artworkMissing = true;
       }
 

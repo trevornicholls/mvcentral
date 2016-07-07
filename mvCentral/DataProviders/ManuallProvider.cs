@@ -134,5 +134,13 @@ namespace mvCentral.DataProviders
         }
 
         public event EventHandler ProgressChanged;
+
+        private void ReportProgress(string text)
+        {
+          if (ProgressChanged != null)
+          {
+            ProgressChanged(this, new ProgressEventArgs { Text = "Manual: " + text });
+          }
+        }
     }
 }
