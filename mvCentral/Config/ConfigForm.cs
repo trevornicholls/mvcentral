@@ -2776,13 +2776,17 @@ namespace mvCentral
       List<DBSourceInfo> r1 = new List<DBSourceInfo>();
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
+        var flag = false;
+        if (mv.GetType() == typeof(DBArtistInfo))
+          flag = r2.Provider.ProvidesArtistDetails;
+        if (mv.GetType() == typeof(DBAlbumInfo))
+          flag = r2.Provider.ProvidesAlbumDetails;
+        if (mv.GetType() == typeof(DBTrackInfo))
+          flag = r2.Provider.ProvidesTrackDetails;
 
-        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider || r2.Provider is HTBackdropsProvider || r2.Provider is LocalProvider)
+        if (flag)
         {
-          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DgProvider)
-          { }
-          else
-            r1.Add(r2);
+          r1.Add(r2);
         }
       }
 
@@ -3198,12 +3202,17 @@ namespace mvCentral
       var r1 = new List<DBSourceInfo>();
       foreach (DBSourceInfo r2 in mvCentralCore.DataProviderManager.AllSources)
       {
+        var flag = false;
+        if (mv.GetType() == typeof(DBArtistInfo))
+          flag = r2.Provider.ProvidesArtistDetails;
+        if (mv.GetType() == typeof(DBAlbumInfo))
+          flag = r2.Provider.ProvidesAlbumDetails;
+        if (mv.GetType() == typeof(DBTrackInfo))
+          flag = r2.Provider.ProvidesTrackDetails;
 
-        if (r2.Provider is LastFmProvider || r2.Provider is DgProvider || r2.Provider is AllMusicProvider || r2.Provider is LocalProvider)
+        if (flag)
         {
-          if (mv.GetType() == typeof(DBArtistInfo) && r2.Provider is DgProvider)
-          { }
-          else r1.Add(r2);
+          r1.Add(r2);
         }
       }
 
