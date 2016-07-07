@@ -111,13 +111,13 @@ namespace mvCentral.LocalMediaManagement.MusicVideoResources
                     logger.Info("Added art for \"{0}\" from: {1}", mv.Basic, url);
                     break;
                 case ImageLoadResults.SUCCESS_REDUCED_SIZE:
-                    logger.Info("Added resized art for \"{1}\" from: {2}", mv.Basic, url);
+                    logger.Info("Added resized art for \"{0}\" from: {1}", mv.Basic, url);
                     break;
                 case ImageLoadResults.FAILED_ALREADY_LOADED:
                     logger.Debug("Art for \"{0}\" from the following URL is already loaded: {1}", mv.Basic, url);
                     return null;
                 case ImageLoadResults.FAILED_TOO_SMALL:
-                    logger.Debug("Downloaded art for \"{1}\" failed minimum resolution requirements: {2}", mv.Basic, url);
+                    logger.Debug("Downloaded art for \"{0}\" failed minimum resolution requirements: {1}", mv.Basic, url);
                     return null;
                 case ImageLoadResults.FAILED:
                     logger.Error("Failed downloading art for \"{0}\": {1}", mv.Basic, url);
