@@ -1,24 +1,15 @@
 ﻿using Cornerstone.Database;
 using Cornerstone.Extensions;
 
-using MediaPortal.Database;
-using MediaPortal.Music.Database;
-
-using mvCentral.ConfigScreen.Popups;
 using mvCentral.Database;
 using mvCentral.SignatureBuilders;
 
 using NLog;
 
-using SQLite.NET;
-
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Windows.Forms;
 
 namespace mvCentral.DataProviders
 {
@@ -60,17 +51,17 @@ namespace mvCentral.DataProviders
 
     public string Description
     {
-      get { return "Returns info and artwork already available on the local system."; }
+      get { return "Returns artwork already available on the local system."; }
     }
 
     public string Language
     {
-      get { return new CultureInfo("en").DisplayName; }
+      get { return ""; }
     }
 
     public string LanguageCode
     {
-      get { return "various"; }
+      get { return ""; }
     }
 
     public List<string> LanguageCodeList
@@ -90,12 +81,12 @@ namespace mvCentral.DataProviders
 
     public bool ProvidesArtistDetails
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool ProvidesAlbumDetails
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool ProvidesAlbumArt
@@ -115,18 +106,12 @@ namespace mvCentral.DataProviders
 
     public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
     {
-      return mv;
+      throw new NotImplementedException();
     }
 
     public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
     {
-      var albumTitle = mv.AlbumInfo[0].Album;
-      var albumMbid = mv.AlbumInfo[0].MdID;
-      var artist = mv.ArtistInfo[0].Artist;
-      var albumData = mv.AlbumInfo[0];
-
-      setMusicVideoAlbum(ref albumData, artist, albumTitle, albumMbid);
-      return mv;
+      throw new NotImplementedException();
     }
 
     /// <summary>
@@ -644,280 +629,12 @@ namespace mvCentral.DataProviders
 
     public bool GetDetails(DBBasicInfo mv)
     {
-      logger.Debug("In Method: GetDetails(DBBasicInfo mv)");
-      MusicDatabase m_db = null;
-      string inLang = mvCentralCore.Settings.DataProviderAutoLanguage;
-
-      ReportProgress(string.Empty);
-      try
-      {
-        m_db = MusicDatabase.Instance;
-      }
-      catch (Exception e)
-      {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
-        return false;
-      }
-
-      // ---------------- Get Artist Info ---------------------
-      if (mv.GetType() == typeof (DBArtistInfo))
-      {
-        var artist = ((DBArtistInfo) mv).Artist;
-        var releases = new List<Release>();
-        var artists = new ArrayList();
-
-        // Grab the Artist Info
-        if (artist != null)
-        {
-          ReportProgress("Getting Artists...");
-          artists.Clear();
-          
-          string strArtist = artist;
-          DatabaseUtility.RemoveInvalidChars(ref strArtist);
-          strArtist = strArtist.Replace('ä', '%');
-          strArtist = strArtist.Replace('ö', '%');
-          strArtist = strArtist.Replace('ü', '%');
-          strArtist = strArtist.Replace('/', '%');
-          strArtist = strArtist.Replace('-', '%');
-          strArtist = strArtist.Replace("%%", "%");
-          string strSQL = String.Format("SELECT a.strArtist FROM artist a, artistinfo i WHERE LOWER(a.strArtist) = LOWER(i.strArtist) AND i.strAMGBio IS NOT NULL AND TRIM(i.strAMGBio) <> '' AND LOWER(i.strArtist) LIKE '%{0}%';", strArtist);
-
-          List<Song> songInfo = new List<Song>();
-          m_db.GetSongsByFilter(strSQL, out songInfo, "artist");
-          foreach (Song mySong in songInfo)
-          {
-            if (!string.IsNullOrEmpty(mySong.Artist))
-            {
-              artists.Add(mySong.Artist);
-            }
-          }
-        }
-        else
-          return false;
-
-        if (artists == null || artists.Count <= 0) 
-          return false;
-
-        foreach (string _artist in artists)
-        {
-          Release r2 = new Release(_artist, string.Empty);
-          releases.Add(r2);
-        }
-        ReportProgress("Done!");
-
-        // Now sort and Display the retrived matches
-        releases.Sort(Release.TitleComparison);
-        var resultsDialog = new DetailsPopup(releases);
-        // Get the full info for the selection
-        if (resultsDialog.ShowDialog() == DialogResult.OK)
-        {
-          var mv1 = (DBArtistInfo)mv;
-          mv.ArtUrls.Clear();
-
-          string title = resultsDialog.selectedItem.Text;
-          string mbid = resultsDialog.label8.Text;
-          if (title.Trim().Length == 0) title = null;
-          if (mbid.Trim().Length == 0) mbid = null;
-
-          setMusicVideoArtist(ref mv1, title, mbid);
-          GetArtistArt((DBArtistInfo) mv);
-        }
-      }
-
-      // -------------- Get Album Info --------------
-      if (mv.GetType() == typeof(DBAlbumInfo))
-      {
-        List<DBTrackInfo> a1 = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)mv);
-        if (a1.Count > 0)
-        {
-          string artist = a1[0].ArtistInfo[0].Artist;
-          var albums = new ArrayList();;
-
-          if (artist != null)
-          {
-            ReportProgress("Getting Albums...");
-            logger.Debug("GetDetails: Getting Albums: " + artist);
-
-            albums.Clear();
-
-            string strArtist = artist;
-            DatabaseUtility.RemoveInvalidChars(ref strArtist);
-            strArtist = strArtist.Replace('ä', '%');
-            strArtist = strArtist.Replace('ö', '%');
-            strArtist = strArtist.Replace('ü', '%');
-            strArtist = strArtist.Replace('/', '%');
-            strArtist = strArtist.Replace('-', '%');
-            strArtist = strArtist.Replace("%%", "%");
-            string strSQL = String.Format("select strAlbum, strReview FROM albuminfo WHERE strReview IS NOT NULL AND TRIM(strReview) <> '' AND (strArtist LIKE '%{0}%' OR strAlbumArtist LIKE '%{1}%');", strArtist, strArtist);
-
-            List<Song> songInfo = new List<Song>();
-            m_db.GetSongsByFilter(strSQL, out songInfo, "album");
-            logger.Debug("GetDetails: Getting Albums: " + artist + " - " + songInfo.Count);
-            foreach (Song mySong in songInfo)
-            {
-              if (!string.IsNullOrEmpty(mySong.Album))
-              {
-                albums.Add(mySong.Album);
-              }
-            }
-          }
-          else
-              return false;
-
-          if (albums == null || albums.Count <= 0)
-            return false;
-
-          List<Release> artistTopAlbumns = new List<Release>();
-          foreach (string _album in albums)
-          {
-            logger.Debug("GetDetails: Getting Albums: " + artist + " - " + _album);
-            Release r2 = new Release(_album, string.Empty);
-            artistTopAlbumns.Add(r2);
-          }
-
-          ReportProgress("Done!");
-          artistTopAlbumns.Sort(Release.TitleComparison);
-          DetailsPopup d1 = new DetailsPopup(artistTopAlbumns);
-
-          if (d1.ShowDialog() == DialogResult.OK)
-          {
-            DBAlbumInfo mv1 = (DBAlbumInfo)mv;
-            mv.ArtUrls.Clear();
-            string title = d1.selectedItem.Text;
-            string mbid = d1.label8.Text;
-            if (title.Trim().Length == 0) title = null;
-            if (mbid.Trim().Length == 0) mbid = null;
-
-            setMusicVideoAlbum(ref mv1, artist, title, mbid);
-            GetAlbumArt((DBAlbumInfo)mv);
-          }
-        }
-      }
-      return true;
+      throw new NotImplementedException();
     }
 
-    private void setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)
-    {
-      if (string.IsNullOrEmpty(artistName))
-        return;
-
-      logger.Debug("In Method: setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)");
-      logger.Debug("In Method: setMusicVideoArtist(Artist: "+artistName+" MBID: "+artistmbid+")");
-
-      MusicDatabase m_db = null;
-      try
-      {
-        m_db = MusicDatabase.Instance;
-      }
-      catch (Exception e)
-      {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
-        return;
-      }
-
-      var artistInfo = new MediaPortal.Music.Database.ArtistInfo();
-      if (!m_db.GetArtistInfo(artistName, ref artistInfo))
-        return;
-
-      // Name
-      mv.Artist = artistName;
-      // MBID
-      // mv.MdID = 
-      // Tags
-      char[] delimiters = new char[] { ',' };
-      string[] tags = artistInfo.Genres.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-      foreach (string tag in tags)
-      {
-        mv.Tag.Add(tag.Trim());
-      }
-      tags = artistInfo.Styles.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-      foreach (string tag in tags)
-      {
-        mv.Tag.Add(tag.Trim());
-      }
-      // Bio
-      mv.bioSummary = artistInfo.AMGBio;
-      mv.bioContent = artistInfo.AMGBio;
-      // Additional
-      mv.Born = artistInfo.Born;
-      mv.Genre = artistInfo.Genres;
-      mv.Styles = artistInfo.Styles;
-      mv.YearsActive = artistInfo.YearsActive;
-      // Image URL
-      if (!string.IsNullOrEmpty(artistInfo.Image) && !mv.ArtUrls.Contains(artistInfo.Image))
-        mv.ArtUrls.Add(artistInfo.Image);
-    }
-    
-    /// <summary>
-    /// Grab the album data and process
-    /// </summary>
-    /// <param name="mv"></param>
-    /// <param name="artist"></param>
-    /// <param name="album"></param>
-    /// <param name="mbid"></param>
-    private void setMusicVideoAlbum(ref DBAlbumInfo mv, string artistName, string albumName, string mbid)
-    {
-      if (string.IsNullOrEmpty(artistName) && string.IsNullOrEmpty(albumName))
-        return;
-
-      logger.Debug(string.Format("In Method: setMusicVideoAlbum : " + (!string.IsNullOrEmpty(artistName) ? "Atrist ({0}) | " : "") +
-                                                                      (!string.IsNullOrEmpty(albumName) ? "Album ({1}) | " : "") +
-                                                                      (!string.IsNullOrEmpty(mbid) ? "MBID ({2})" : ""), 
-                                                                      artistName, albumName, mbid));
-      MusicDatabase m_db = null;
-      try
-      {
-        m_db = MusicDatabase.Instance;
-      }
-      catch (Exception e)
-      {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
-        return;
-      }
-
-      var albumInfo = new MediaPortal.Music.Database.AlbumInfo();
-      if (!m_db.GetAlbumInfo(albumName, artistName, ref albumInfo))
-        return;
-
-      // Album name
-      mv.Album = albumInfo.Album;
-      // MBID
-      // mv.MdID
-      // Image URL
-      if (!string.IsNullOrEmpty(albumInfo.Image) && !mv.ArtUrls.Contains(albumInfo.Image))
-        mv.ArtUrls.Add(albumInfo.Image);
-      // Tags: Actors, Directors and Writers
-      // mv.Tag.Add(tagstr);
-      // WIKI
-      mv.bioSummary = albumInfo.Review;
-      mv.bioContent = albumInfo.Review;
-      // Tag
-      char[] delimiters = new char[] { ',' };
-      string[] tags = albumInfo.Styles.Split(delimiters, StringSplitOptions.RemoveEmptyEntries);
-      foreach (string tag in tags)
-      {
-        mv.Tag.Add(tag.Trim());
-      }
-      // Additional
-      if (albumInfo.Year > 0)
-      {
-        mv.YearReleased = Convert.ToString(albumInfo.Year);
-      }
-    }
-    
     public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
     {
-      logger.Debug("In Method: GetAlbumDetails: Album: " + albumTitle + " MBID: " + albumMbid);
-      List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)basicInfo);
-      if (tracksOnAlbum.Count > 0)
-      {
-        string artist = tracksOnAlbum[0].ArtistInfo[0].Artist;
-        DBAlbumInfo mv1 = (DBAlbumInfo)basicInfo;
-        basicInfo.ArtUrls.Clear();
-        setMusicVideoAlbum(ref mv1, artist, albumTitle, albumMbid);
-        GetAlbumArt((DBAlbumInfo)basicInfo);
-      }
-      return true;
+      throw new NotImplementedException();
     }
 
     public bool GetDetails(DBTrackInfo mv)
@@ -935,13 +652,5 @@ namespace mvCentral.DataProviders
       throw new NotImplementedException();
     }
 
-    private void ReportProgress(string text)
-    {
-      if (ProgressChanged != null)
-      {
-        ProgressChanged(this, new ProgressEventArgs { Text = "Local music DB: " + text });
-      }
-    }
   }
-
 }
