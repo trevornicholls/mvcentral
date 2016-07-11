@@ -1,13 +1,13 @@
-﻿using Cornerstone.Tools;
-
-using mvCentral.Database;
-
-using NLog;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Cornerstone.Tools;
+using NLog;
+using mvCentral.Database;
 using System.IO;
 using System.Threading;
+//using mvCentral.DataProviders;
 
 namespace mvCentral.BackgroundProcesses
 {
@@ -47,12 +47,87 @@ namespace mvCentral.BackgroundProcesses
     public void RemoveOrphanArtwork()
     {
       logger.Info("Checking for Orphaned Artwork....");
-      foreach (DBTrackInfo currMusicVideo in DBTrackInfo.GetAll())
-      {
 
+      // Artist
+      logger.Debug("Checking for Orphaned Artists Artwork....");
+      foreach (DBArtistInfo currMusicVideo in DBArtistInfo.GetAll())
+      {
         if (currMusicVideo.ID == null)
           continue;
 
+        logger.Debug("Checking " + currMusicVideo.GetType().ToString() + " CurrArtist.ID : " + currMusicVideo.Artist);
+        // get the list of elements to remove
+        List<string> toRemove = new List<string>();
+        foreach (string currTrackArtPath in currMusicVideo.AlternateArts)
+        {
+          if (!new FileInfo(currTrackArtPath).Exists)
+            toRemove.Add(currTrackArtPath);
+        }
+
+        // remove them
+        foreach (string currItem in toRemove)
+        {
+          currMusicVideo.AlternateArts.Remove(currItem);
+        }
+
+        // reset default cover is needed
+        if (!currMusicVideo.AlternateArts.Contains(currMusicVideo.ArtFullPath))
+          if (currMusicVideo.AlternateArts.Count == 0)
+            currMusicVideo.ArtFullPath = " ";
+          else
+            currMusicVideo.ArtFullPath = currMusicVideo.AlternateArts[0];
+
+        // get rid of the backdrop link if it doesnt exist
+        if (currMusicVideo.ArtFullPath.Trim().Length > 0 && !new FileInfo(currMusicVideo.ArtFullPath).Exists)
+          currMusicVideo.ArtFullPath = " ";
+
+        currMusicVideo.Commit();
+      }
+
+      // Album
+      logger.Debug("Checking for Orphaned Albums Artwork....");
+      foreach (DBAlbumInfo currMusicVideo in DBAlbumInfo.GetAll())
+      {
+        if (currMusicVideo.ID == null)
+          continue;
+
+        logger.Debug("Checking " + currMusicVideo.GetType().ToString() + " CurrAlbum.ID : " + currMusicVideo.Album);
+        // get the list of elements to remove
+        List<string> toRemove = new List<string>();
+        foreach (string currTrackArtPath in currMusicVideo.AlternateArts)
+        {
+          if (!new FileInfo(currTrackArtPath).Exists)
+            toRemove.Add(currTrackArtPath);
+        }
+
+        // remove them
+        foreach (string currItem in toRemove)
+        {
+          currMusicVideo.AlternateArts.Remove(currItem);
+        }
+
+        // reset default cover is needed
+        if (!currMusicVideo.AlternateArts.Contains(currMusicVideo.ArtFullPath))
+          if (currMusicVideo.AlternateArts.Count == 0)
+            currMusicVideo.ArtFullPath = " ";
+          else
+            currMusicVideo.ArtFullPath = currMusicVideo.AlternateArts[0];
+
+        // get rid of the backdrop link if it doesnt exist
+        if (currMusicVideo.ArtFullPath.Trim().Length > 0 && !new FileInfo(currMusicVideo.ArtFullPath).Exists)
+          currMusicVideo.ArtFullPath = " ";
+
+        currMusicVideo.Commit();
+      }
+
+      // Track
+      logger.Debug("Checking for Orphaned Tracks Artwork....");
+      foreach (DBTrackInfo currMusicVideo in DBTrackInfo.GetAll())
+      {
+        if (currMusicVideo.ID == null)
+          continue;
+
+        logger.Debug("Checking " + currMusicVideo.GetType().ToString() + " CurrMusicVideo.ID : " + currMusicVideo.Track);
         // get the list of elements to remove
         List<string> toRemove = new List<string>();
         foreach (string currTrackArtPath in currMusicVideo.AlternateArts)
@@ -102,7 +177,7 @@ namespace mvCentral.BackgroundProcesses
 
         try
         {
-          logger.Debug("Checking " + currArtist.GetType().ToString() + " CurrAlbum.ID : " + currArtist.Artist);
+          logger.Debug("Checking " + currArtist.GetType().ToString() + " CurrArtist.ID : " + currArtist.Artist);
           if (currArtist.ID == null)
             continue;
 
@@ -135,7 +210,7 @@ namespace mvCentral.BackgroundProcesses
 
         try
         {
-          logger.Debug("Checking " + currAlbum.GetType().ToString() + " CurrMusicVideo.ID : " + currAlbum.Album);
+          logger.Debug("Checking " + currAlbum.GetType().ToString() + " CurrAlbum.ID : " + currAlbum.Album);
           if (currAlbum.ID == null)
             continue;
 
