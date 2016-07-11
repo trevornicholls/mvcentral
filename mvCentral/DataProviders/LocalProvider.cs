@@ -8,6 +8,7 @@ using NLog;
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -56,12 +57,12 @@ namespace mvCentral.DataProviders
 
     public string Language
     {
-      get { return ""; }
+      get { return "various"; }
     }
 
     public string LanguageCode
     {
-      get { return ""; }
+      get { return new CultureInfo("en").DisplayName; }
     }
 
     public List<string> LanguageCodeList
