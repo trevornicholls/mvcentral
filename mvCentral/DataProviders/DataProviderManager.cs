@@ -406,7 +406,6 @@ namespace mvCentral.DataProviders
       return getEditableList(type).AsReadOnly();
     }
 
-
     #endregion
 
     #region DataProvider Loading Logic
@@ -435,9 +434,10 @@ namespace mvCentral.DataProviders
       AddSource(typeof(DgProvider));
       AddSource(typeof(AllMusicProvider));
       AddSource(typeof(HTBackdropsProvider)); 
-      AddSource(typeof(MyMusicProvider));
-      AddSource(typeof(ManualProvider));
       //AddSource(typeof(EchoNestProvider));
+      AddSource(typeof(MyMusicProvider));
+      //AddSource(typeof(MyVideosProvider));
+      AddSource(typeof(ManualProvider));
       normalizePriorities();
     }
 
@@ -569,6 +569,7 @@ namespace mvCentral.DataProviders
     #endregion
 
     #region Data Loading Methods
+
     /// <summary>
     /// Based on the calculated signature retrive data from providers
     /// </summary>
@@ -591,8 +592,7 @@ namespace mvCentral.DataProviders
           continue;
 
         // if we have reached the minimum number of possible matches required, we are done
-        if (results.Count >= mvCentralCore.Settings.MinimumMatches &&
-            mvCentralCore.Settings.MinimumMatches != 0)
+        if (results.Count >= mvCentralCore.Settings.MinimumMatches && mvCentralCore.Settings.MinimumMatches != 0)
           break;
 
         // search with the current provider
@@ -640,14 +640,12 @@ namespace mvCentral.DataProviders
           currMusicVideo.AlbumInfo[0] = albumInfo;
         }       
 
-
-
         // add results to our total result list and log what we found
         results.AddRange(newResults);
       }
-
       return results;
     }
+
     /// <summary>
     /// Update the track with the received data
     /// </summary>
@@ -722,6 +720,7 @@ namespace mvCentral.DataProviders
 
       return mv;
     }
+
     /// <summary>
     /// get the album details
     /// </summary>
@@ -747,6 +746,7 @@ namespace mvCentral.DataProviders
 
       return mv;
     }
+
     /// <summary>
     /// Get artwork for suppiled object, Artist, Album or Track
     /// </summary>
@@ -767,10 +767,8 @@ namespace mvCentral.DataProviders
           if (File.Exists(_art))
             _count++;
         }
-        // logger.Debug("GetArt: mvDBObject.AlternateArts.Count: " + mvDBObject.AlternateArts.Count + " mvCentralCore.Settings.MaxArtistArts: " + mvCentralCore.Settings.MaxArtistArts);
         logger.Debug("GetArt: Artist: mvDBObject.AlternateArts.Count: " + _count + " mvCentralCore.Settings.MaxArtistArts: " + mvCentralCore.Settings.MaxArtistArts);
         // if we have already hit our limit for the number of artist arts to load, quit
-        // if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxArtistArts)
         if (_count >= mvCentralCore.Settings.MaxArtistArts)
           return true;
 
@@ -811,7 +809,6 @@ namespace mvCentral.DataProviders
         }
         logger.Debug("GetArt: Album: mvDBObject.AlternateArts.Count: " + _count + " mvCentralCore.Settings.MaxAlbumArts: " + mvCentralCore.Settings.MaxAlbumArts);
         // if we have already hit our limit for the number of album arts to load, quit
-        // if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxAlbumArts)
         if (_count >= mvCentralCore.Settings.MaxAlbumArts)
           return true;
 
@@ -845,7 +842,6 @@ namespace mvCentral.DataProviders
         }
         logger.Debug("GetArt: Track: mvDBObject.AlternateArts.Count: " + _count + " mvCentralCore.Settings.MaxTrackArts: " + mvCentralCore.Settings.MaxTrackArts);
         // if we have already hit our limit for the number of Track arts to load, quit
-        // if (mvDBObject.AlternateArts.Count >= mvCentralCore.Settings.MaxTrackArts)
         if (_count >= mvCentralCore.Settings.MaxTrackArts)
           return true;
 
@@ -870,6 +866,7 @@ namespace mvCentral.DataProviders
       }
       return false;
     }
+
     /// <summary>
     /// Get the details for the suppkied object type, Artist, Album or Track
     /// </summary>
