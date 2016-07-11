@@ -94,12 +94,12 @@ namespace mvCentral.DataProviders
     {
       get { return false; }
     }
+
     public bool ProvidesAlbumDetails
     {
       get { return false; }
     }
      
-
     public bool ProvidesArtistArt
     {
       get { return true; }
