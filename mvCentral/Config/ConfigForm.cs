@@ -1750,6 +1750,9 @@ namespace mvCentral
       DialogResult result = MessageBox.Show("This will remove all Import Paths and Remove all Videos and Artwork, are you sure?", "Warning!", MessageBoxButtons.YesNo);
       if (result == DialogResult.Yes)
       {
+        // stop the importer
+        mvCentralCore.Importer.Stop();
+
         try
         {
           System.IO.Directory.Delete(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Thumbs, "mvCentral\\Artists\\"), true);
@@ -1760,9 +1763,6 @@ namespace mvCentral
         {
           logger.DebugException("Error in DeleteDB", e);
         }
-
-        // stop the importer
-        mvCentralCore.Importer.Stop();
 
         // Have we a path to clear?
         if (pathBindingSource.Count > 0)
@@ -2443,7 +2443,7 @@ namespace mvCentral
     {
       DBArtistInfo artist = null;
 
-      logger.Debug("****** Update the DB ********");
+      logger.Debug("Update the DB: " + tcMusicVideo.SelectedTab.Name);
 
       if (InvokeRequired)
       {
@@ -2533,6 +2533,7 @@ namespace mvCentral
       btnArtDelete.Enabled = false;
       lblArtResolution.Text = "";
       lblArtNum.Text = "";
+
       switch (tcMusicVideo.SelectedTab.Name)
       {
         case "tpArtist":
@@ -2553,9 +2554,11 @@ namespace mvCentral
         this.Invoke(new InvokeDelegate(setArtImage));
         return;
       }
+
       try
       {
         Image newArt = null;
+        Image oldArt = null;
         int ArtIndexNum = 0;
         int ArtCount = 0;
 
@@ -2563,27 +2566,42 @@ namespace mvCentral
         {
           MemoryStream ms = new MemoryStream(File.ReadAllBytes(mvBasicInfo.ArtFullPath));
           newArt = Image.FromStream(ms);
+          oldArt = artImage.Image;
+          artImage.Image = newArt;
+          lblArtResolution.Text = newArt.Width + " x " + newArt.Height;
+          ArtIndexNum = mvBasicInfo.AlternateArts.IndexOf(mvBasicInfo.ArtFullPath);
         }
-
-        ArtIndexNum = mvBasicInfo.AlternateArts.IndexOf(mvBasicInfo.ArtFullPath);
-        ArtCount = mvBasicInfo.AlternateArts.Count;
-        Image oldArt = artImage.Image;
-        artImage.Image = newArt;
-        if (oldArt != null) oldArt.Dispose();
-        lblArtNum.Text = ArtIndexNum + 1 + " / " + ArtCount;
-        lblArtResolution.Text = newArt.Width + " x " + newArt.Height;
-        if (ArtIndexNum == ArtCount - 1)
-          btnNextArt.Enabled = false;
         else
-          btnNextArt.Enabled = true;
-        if (ArtIndexNum == 0)
-          btnPrevArt.Enabled = false;
-        else
-          btnPrevArt.Enabled = true;
-        if (ArtCount > 0)
         {
-          btnArtZoom.Enabled = true;
-          btnArtDelete.Enabled = true;
+          lblArtResolution.Text = "";
+          artImage.Image = null;
+        }
+        if (oldArt != null) oldArt.Dispose();
+
+        ArtCount = mvBasicInfo.AlternateArts.Count;
+
+        if (ArtCount == 0)
+        {
+          lblArtNum.Text = "0 / 0";
+          btnArtZoom.Enabled = false;
+          btnArtDelete.Enabled = false;
+        }
+        else
+        {
+          lblArtNum.Text = ArtIndexNum + 1 + " / " + ArtCount;
+          if (ArtIndexNum == ArtCount - 1)
+            btnNextArt.Enabled = false;
+          else
+            btnNextArt.Enabled = true;
+          if (ArtIndexNum == 0)
+            btnPrevArt.Enabled = false;
+          else
+            btnPrevArt.Enabled = true;
+          if (ArtCount > 0)
+          {
+            btnArtZoom.Enabled = true;
+            btnArtDelete.Enabled = true;
+          }
         }
       }
       catch (Exception)
