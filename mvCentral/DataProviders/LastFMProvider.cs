@@ -147,9 +147,9 @@ namespace mvCentral.DataProviders
 
     public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
     {
+      var artist = mv.ArtistInfo[0].Artist;
       var albumTitle = mv.AlbumInfo[0].Album;
       var albumMbid = mv.AlbumInfo[0].MdID;
-      var artist = mv.ArtistInfo[0].Artist;
       var albumData = mv.AlbumInfo[0];
 
       setMusicVideoAlbum(ref albumData, artist, albumTitle, albumMbid);
@@ -183,6 +183,7 @@ namespace mvCentral.DataProviders
         }
         else
           return false;
+
         // If we did not get any data bail out
         if (xml == null) return false;
 
@@ -209,17 +210,17 @@ namespace mvCentral.DataProviders
         if (resultsDialog.ShowDialog() == DialogResult.OK)
         {
           var mv1 = (DBArtistInfo) mv;
-          mv.ArtUrls.Clear();
           string title = resultsDialog.selectedItem.Text;
           string mbid = resultsDialog.label8.Text;
+
           if (title.Trim().Length == 0) title = null;
           if (mbid.Trim().Length == 0) mbid = null;
 
+          mv.ArtUrls.Clear();
           if (string.IsNullOrEmpty(mbid))
             setMusicVideoArtist(ref mv1, title, string.Empty);
           else
             setMusicVideoArtist(ref mv1, string.Empty, mbid);
-
           GetArtistArt((DBArtistInfo) mv);
         }
       }
@@ -249,10 +250,10 @@ namespace mvCentral.DataProviders
           if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
           XmlNode n1 = root.SelectSingleNode(@"/lfm/topalbums");
 
-          int page = Convert.ToInt16(n1.Attributes["page"].Value);
-          int perPage = Convert.ToInt16(n1.Attributes["perPage"].Value);
-          int totalPages = Convert.ToInt16(n1.Attributes["totalPages"].Value);
-          int total = Convert.ToInt16(n1.Attributes["total"].Value);
+          int page = Convert.ToInt32(n1.Attributes["page"].Value);
+          int perPage = Convert.ToInt32(n1.Attributes["perPage"].Value);
+          int totalPages = Convert.ToInt32(n1.Attributes["totalPages"].Value);
+          int total = Convert.ToInt32(n1.Attributes["total"].Value);
           // Process the page we already have
           List<Release> artistTopAlbumns = new List<Release>();
           foreach (XmlNode x1 in n1.ChildNodes)
@@ -281,19 +282,21 @@ namespace mvCentral.DataProviders
                   }
               }
           }
-
           ReportProgress("Done!");
+
           artistTopAlbumns.Sort(Release.TitleComparison);
           DetailsPopup d1 = new DetailsPopup(artistTopAlbumns);
 
           if (d1.ShowDialog() == DialogResult.OK)
           {
             DBAlbumInfo mv1 = (DBAlbumInfo)mv;
-            mv.ArtUrls.Clear();
             string title = d1.selectedItem.Text;
             string mbid = d1.label8.Text;
+
             if (title.Trim().Length == 0) title = null;
             if (mbid.Trim().Length == 0) mbid = null;
+
+            mv.ArtUrls.Clear();
             setMusicVideoAlbum(ref mv1, artist, title, mbid);
             GetAlbumArt((DBAlbumInfo)mv);
           }
@@ -320,12 +323,12 @@ namespace mvCentral.DataProviders
 
         XmlNode root = xml.Item(0).ParentNode;
         if (root.Attributes != null && root.Attributes["status"].Value != "ok") return false;
-        XmlNode n1 = root.SelectSingleNode(@"/lfm/toptracks");
 
-        int page = Convert.ToInt16(n1.Attributes["page"].Value);
-        int perPage = Convert.ToInt16(n1.Attributes["perPage"].Value);
-        int totalPages = Convert.ToInt16(n1.Attributes["totalPages"].Value);
-        int total = Convert.ToInt16(n1.Attributes["total"].Value);
+        XmlNode n1 = root.SelectSingleNode(@"/lfm/toptracks");
+        int page = Convert.ToInt32(n1.Attributes["page"].Value);
+        int perPage = Convert.ToInt32(n1.Attributes["perPage"].Value);
+        int totalPages = Math.Min(Convert.ToInt32(n1.Attributes["totalPages"].Value), 100);
+        int total = Convert.ToInt32(n1.Attributes["total"].Value);
         // Process the page we already have
         List<Release> artistTopTracks = new List<Release>();
 
@@ -355,20 +358,22 @@ namespace mvCentral.DataProviders
                 }
             }
         }
-
         ReportProgress("Done!");
+
         artistTopTracks.Sort(Release.TitleComparison);
         DetailsPopup d1 = new DetailsPopup(artistTopTracks);
 
         if (d1.ShowDialog() == DialogResult.OK)
         {
           DBTrackInfo mv1 = (DBTrackInfo)mv;
-          mv.ArtUrls.Clear();
-          if (artist.Trim().Length == 0) artist = null;
           string title = d1.selectedItem.Text;
           string mbid = d1.label8.Text;
+
+          if (artist.Trim().Length == 0) artist = null;
           if (title.Trim().Length == 0) title = null;
           if (mbid.Trim().Length == 0) mbid = null;
+
+          mv.ArtUrls.Clear();
           setMusicVideoTrack(ref mv1, artist, title, mbid);
           GetTrackArt((DBTrackInfo)mv);
         };
@@ -623,9 +628,9 @@ namespace mvCentral.DataProviders
       lock (LockList)
       {
         DBTrackInfo mvTrackData = null;
-          // Artist/Album handling, if the track and artist dont match and the track contains the artist name this would indicate the that track is in the format /<artist>/<album>/<atrist - track>.<ext>
-          // This will throw out the parseing so remove the artist name from the track.
-          // This is not the best fix, need to add code so I know whch expression produced the result or better still have a ignore folder structure when pasring option.
+        // Artist/Album handling, if the track and artist dont match and the track contains the artist name this would indicate the that track is in the format /<artist>/<album>/<atrist - track>.<ext>
+        // This will throw out the parseing so remove the artist name from the track.
+        // This is not the best fix, need to add code so I know whch expression produced the result or better still have a ignore folder structure when pasring option.
         if (mvSignature.Track != null && mvSignature.Artist != null)
         {
           if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().Contains(mvSignature.Artist.ToLower().Trim()))
@@ -726,6 +731,7 @@ namespace mvCentral.DataProviders
 
       XmlNodeList mvNodes = xml.Item(0).ChildNodes;
 
+      var _image = string.Empty;
       foreach (XmlNode node in mvNodes)
       {
         string value = node.InnerText;
@@ -737,6 +743,12 @@ namespace mvCentral.DataProviders
           case "mbid":
             mv.MdID = value;
             break;
+          case "image":
+            if (node.Attributes != null && (node.Attributes["size"].Value == "extralarge" || node.Attributes["size"].Value == "mega"))
+            {
+              _image = value;
+            }
+            break;
           case "tags":
             foreach (XmlNode tag in node.ChildNodes)
             {
@@ -747,24 +759,20 @@ namespace mvCentral.DataProviders
 
           case "bio":
             XmlNode n1 = root.SelectSingleNode(@"/lfm/artist/bio/summary");
-            if (n1 != null && n1.ChildNodes != null)
-            {
-              XmlNode childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-              n1 = root.SelectSingleNode(@"/lfm/artist/bio/content");
-              childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-            }
+            var _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            n1 = root.SelectSingleNode(@"/lfm/artist/bio/content");
+            _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioContent = mvCentralUtils.StripHTML(_text);
             break;
         }
+      }
+      // Add bigger picture...
+      if (!string.IsNullOrEmpty(_image) && !mv.ArtUrls.Contains(_image))
+      {
+        mv.ArtUrls.Add(_image);
       }
       return;
     }
@@ -802,17 +810,14 @@ namespace mvCentral.DataProviders
       if (string.IsNullOrEmpty(artist) && string.IsNullOrEmpty(album) && string.IsNullOrEmpty(mbid))
         return;
 
-      Logger.Debug(string.Format("In Method: setMusicVideoAlbum : " + (!string.IsNullOrEmpty(artist) ? "Atrist ({0}) | " : "") +
-                                                                      (!string.IsNullOrEmpty(album) ? "Album ({1}) | " : "") +
-                                                                      (!string.IsNullOrEmpty(mbid) ? "MBID ({2})" : ""), 
-                                                                      artist, album, mbid));
+      Logger.Debug(string.Format("In Method: setMusicVideoAlbum: " + (!string.IsNullOrEmpty(artist) ? "Atrist ({0})" : "") +
+                                                                     (!string.IsNullOrEmpty(album) ? " | Album ({1})" : "") +
+                                                                     (!string.IsNullOrEmpty(mbid) ? " | MBID ({2})" : ""), 
+                                                                     artist, album, mbid));
       XmlNodeList xml = null;                                
-      //if (mbid != null)
-      //  if (mbid.Trim().Length == 0)
-      //    mbid = string.Empty;
 
       // Do we have a valid parameter - bail out if not
-      if (album == null && mbid == null)
+      if (string.IsNullOrEmpty(album) && string.IsNullOrEmpty(mbid))
         return;
 
       // API Call takes MbId or Artist & Album
@@ -831,6 +836,8 @@ namespace mvCentral.DataProviders
         return;
       // Grab the infomation nodes
       XmlNodeList mvAlbumNodes = xml.Item(0).ChildNodes;
+
+      var _image = string.Empty;
       // and process
       foreach (XmlNode node in mvAlbumNodes)
       {
@@ -851,29 +858,27 @@ namespace mvCentral.DataProviders
             }
             break;
           case "image":
-            if (!mv.ArtUrls.Contains(value))
-              mv.ArtUrls.Add(value);
+            if (node.Attributes != null && (node.Attributes["size"].Value == "extralarge" || node.Attributes["size"].Value == "mega"))
+            {
+              _image = value;
+            }
             break;
           case "wiki":
             XmlNode n1 = root.SelectSingleNode(@"/lfm/album/wiki/summary");
-            if (n1 != null && n1.ChildNodes != null)
-            {
-              XmlNode childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-              n1 = root.SelectSingleNode(@"/lfm/album/wiki/content");
-              childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-            }
+            var _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            n1 = root.SelectSingleNode(@"/lfm/album/wiki/content");
+            _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioContent = mvCentralUtils.StripHTML(_text);
             break;
         }
+      }
+      // Add bigger picture...
+      if (!string.IsNullOrEmpty(_image) && !mv.ArtUrls.Contains(_image))
+      {
+        mv.ArtUrls.Add(_image);
       }
       return;
     }
@@ -887,34 +892,34 @@ namespace mvCentral.DataProviders
     /// <param name="mbid"></param>
     private void setMusicVideoTrack(ref DBTrackInfo mv, string artist, string track, string mbid)
     {
-      if (track == null && mbid == null)
+      if (string.IsNullOrEmpty(track) && string.IsNullOrEmpty(mbid))
         return;
 
       Logger.Debug("In Method: setMusicVideoTrack(Artist: "+artist+" Track: "+track+" MBID: "+mbid+")");
       XmlNodeList xml = null;
 
       // If we only have a valid track name
-      if (artist == null && mbid == null && track != null)
+      if (string.IsNullOrEmpty(artist) && string.IsNullOrEmpty(mbid) && !string.IsNullOrEmpty(track))
         xml = GetXml(ApiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // if we only have a valid MBID
-      if (track == null && artist == null && mbid != null)
+      if (string.IsNullOrEmpty(track) && string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(mbid))
         xml = GetXml(ApiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // If now MBID but we do have Artist & Track
-      if (mbid == null && artist != null && track != null)
+      if (string.IsNullOrEmpty(mbid) && !string.IsNullOrEmpty(artist) && !string.IsNullOrEmpty(track))
         xml = GetXml(ApiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
 
       // We had nothing so lets get out of here
       if (xml == null)
         return;
 
-
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
 
       XmlNodeList mvNodes = xml.Item(0).ChildNodes;
 
+      var _image = string.Empty;
       foreach (XmlNode node in mvNodes)
       {
         string value = node.InnerText;
@@ -934,7 +939,10 @@ namespace mvCentral.DataProviders
             }
             break;
           case "image":
-            mv.ArtUrls.Add(value);
+            if (node.Attributes != null && (node.Attributes["size"].Value == "extralarge" || node.Attributes["size"].Value == "mega"))
+            {
+              _image = value;
+            }
             break;
           case "artist":
             break;
@@ -952,25 +960,20 @@ namespace mvCentral.DataProviders
             break;
           case "wiki":
             XmlNode n1 = root.SelectSingleNode(@"/lfm/track/wiki/summary");
-            if (n1 != null && n1.ChildNodes != null)
-            {
-              XmlNode childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-              n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
-              childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-            }
-
+            var _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
+            _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioContent = mvCentralUtils.StripHTML(_text);
             break;
         }
+      }
+      // Add bigger picture...
+      if (!string.IsNullOrEmpty(_image) && !mv.ArtUrls.Contains(_image))
+      {
+        mv.ArtUrls.Add(_image);
       }
       return;
     }
@@ -987,14 +990,14 @@ namespace mvCentral.DataProviders
 
     private DBTrackInfo getMusicVideoTrack(string artist, string track)
     {
-      if (track == null)
+      if (string.IsNullOrEmpty(track))
         return null;
 
       Logger.Debug("In Method: getMusicVideoTrack(Artist: "+artist+" Track: "+track+")");
 
       XmlNodeList xml = null;
 
-      if (artist == null)
+      if (string.IsNullOrEmpty(artist))
         xml = GetXml(ApiTrackGetInfo, track, mvCentralCore.Settings.DataProviderAutoLanguage);
       else
         xml = GetXml(ApiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
@@ -1055,31 +1058,19 @@ namespace mvCentral.DataProviders
             break;
           case "wiki":
             XmlNode n1 = root.SelectSingleNode(@"/lfm/track/wiki/summary");
-            if (n1 != null && n1.ChildNodes != null)
-            {
-              XmlNode childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioSummary = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-              n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
-              childNode1 = n1.ChildNodes[0];
-              if (childNode1 is XmlCDataSection)
-              {
-                XmlCDataSection cdataSection = childNode1 as XmlCDataSection;
-                mv.bioContent = mvCentralUtils.StripHTML(cdataSection.Value);
-              }
-            }
+            var _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
+            _text = n1.InnerText;
+            if (!string.IsNullOrEmpty(_text))
+              mv.bioContent = mvCentralUtils.StripHTML(_text);
             break;
         }
       }
 
       if (mv.ArtistInfo.Count == 0)
         return null;
-
-      //if (mv.ArtistInfo[0].MdID.Trim().Length == 0)
-      //    return null;
 
       return mv;
     }
@@ -1096,8 +1087,10 @@ namespace mvCentral.DataProviders
           XmlNodeList xml = null;
           xml = GetXml(ApiArtistTrackGetInfo, artist, s1, mvCentralCore.Settings.DataProviderAutoLanguage);
           if (xml == null) continue;
+
           XmlNode root = xml.Item(0).ParentNode;
           if (root.Attributes != null && root.Attributes["status"].Value != "ok") continue;
+
           XmlNode n1 = root.SelectSingleNode(@"/lfm/track/album/mbid");
           if (n1 != null && n1.InnerText != "") result.Add(n1.InnerText);
         }
@@ -1115,10 +1108,11 @@ namespace mvCentral.DataProviders
       XmlNodeList xml = null;
 
       xml = GetXml(ApiArtistGetInfo, artist, mvCentralCore.Settings.DataProviderAutoLanguage);
-
       if (xml == null) return null;
+
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
+
       XmlNode n1 = root.SelectSingleNode(@"/lfm/artist/mbid");
       if (n1 != null && n1.InnerText != "") return n1.InnerText;
       return null;
@@ -1140,75 +1134,53 @@ namespace mvCentral.DataProviders
         xml = GetXml(ApiArtistmbidGetImagesInfo, mv.MdID);
       else
         xml = GetXml(ApiArtistNameGetImagesInfo, mv.Artist);
-
       if (xml == null) return;
+
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return;
-      // XmlNode aImages = root.SelectSingleNode(@"/lfm/images");
-      // XmlNodeList imageSizes = root.SelectNodes(@"/lfm/images/image/sizes");
-      XmlNode aImages = root.SelectSingleNode(@"/lfm/artist");
 
+      XmlNode aImages = root.SelectSingleNode(@"/lfm/artist");
       if (aImages != null)
       {
-        foreach (XmlNode iSize in aImages.ChildNodes)
+        var _image = string.Empty;
+        foreach (XmlNode n1 in aImages.ChildNodes)
         {
-          // Logger.Debug("*** GetArtistImages: " + iSize.Name);
-          switch (iSize.Name)
+          // Logger.Debug("*** GetArtistImages: " + n1.Name);
+          switch (n1.Name)
           {
             case "image":
               // See if we just have a size option....
-              XmlNode imageSize = iSize.Attributes["size"];
+              XmlNode imageSize = n1.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value != "small")
-                  mv.ArtUrls.Add(iSize.InnerText);
+                if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
+                {
+                  _image = n1.InnerText;
+                }
               }
               else
               {
-                foreach (XmlNode n3 in iSize.ChildNodes)
+                foreach (XmlNode n3 in n1.ChildNodes)
                 {
                   XmlNode imageWidth = n3.Attributes["width"];
                   if (imageWidth != null)
                   {
                     XmlNode imageHeight = n3.Attributes["height"];
                     if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
-                      mv.ArtUrls.Add(iSize.InnerText);
+                      mv.ArtUrls.Add(n1.InnerText);
                   }
                 }
               }
               break;
           }
         }
+        // Add bigger picture...
+        if (!string.IsNullOrEmpty(_image) && !mv.ArtUrls.Contains(_image))
+        {
+          mv.ArtUrls.Add(_image);
+        }
       }
-
-      //if (imageSizes.Count > 0)
-      //{
-      //  foreach (XmlNode artistImage in imageSizes)
-      //  {
-      //    foreach (XmlNode iSize in artistImage.ChildNodes)
-      //    {
-      //      // Do we have width (assume must have height)
-      //      XmlNode imageWidth = iSize.Attributes["width"];
-      //      if (imageWidth != null)
-      //      {
-      //        XmlNode imageHeight = iSize.Attributes["height"];
-      //        if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
-      //          mv.ArtUrls.Add(iSize.InnerText);
-      //      }
-      //      else
-      //      {
-      //        // No height/width see if we just have a name 
-      //        XmlNode imageSize = iSize.Attributes["size"];
-      //        if (imageSize != null)
-      //        {
-      //          if (imageSize.Value != "small")
-      //            mv.ArtUrls.Add(iSize.InnerText);
-      //        }
-      //      }
-      //    }
-      //  }
-      //}
     }
 
     /// <summary>
@@ -1224,17 +1196,20 @@ namespace mvCentral.DataProviders
       int minWidth = mvCentralCore.Settings.MinimumAlbumWidth;
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
-
       xml = GetXml(ApiAlbummbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
       if (xml == null) return null;
+
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
+
       XmlNode n1 = root.SelectSingleNode(@"/lfm/album");
       if (n1 != null)
       {
+        var _image = string.Empty;
         foreach (XmlNode n2 in n1.ChildNodes)
         {
+          Logger.Debug("*** GetAlbumImages: " + n1.Name);
           switch (n2.Name)
           {
             case "image":
@@ -1242,8 +1217,10 @@ namespace mvCentral.DataProviders
               XmlNode imageSize = n2.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value != "small")
-                  result.Add(n2.InnerText);
+                if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
+                {
+                  _image = n2.InnerText;
+                }
               }
               else
               {
@@ -1259,6 +1236,11 @@ namespace mvCentral.DataProviders
                 }
               }
               break;
+          }
+          // Add bigger picture...
+          if (!string.IsNullOrEmpty(_image) && !result.Contains(_image))
+          {
+            result.Add(_image);
           }
         }
       }
@@ -1275,20 +1257,43 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private List<string> GetTrackImages(string mbid)
     {
-      Logger.Debug("In Method: GetTrackImages(MBID:"+mbid+")");
+      return GetTrackImages(null, null, mbid);
+    }
 
-      XmlNodeList xml = null;
+    private List<string> GetTrackImages(string artist, string track)
+    {
+      return GetTrackImages(artist, track, null);
+    }
+
+    private List<string> GetTrackImages(string artist, string track, string mbid)
+    {
+      if ((string.IsNullOrEmpty(artist) && string.IsNullOrEmpty(track)) || string.IsNullOrEmpty(mbid))
+        return null;
+
+      Logger.Debug("In Method: GetTrackImages(Artist:" + artist + " Track: " + track + " MBID: " + mbid + ")");
+
       int minWidth = mvCentralCore.Settings.MinimumTrackWidth;
       int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
 
-      xml = GetXml(ApiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
+      XmlNodeList xml = null;
+      if (string.IsNullOrEmpty(mbid))
+      {
+        xml = GetXml(ApiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
+      }
+      else
+      {
+        xml = GetXml(ApiTrackmbidGetInfo, mbid, mvCentralCore.Settings.DataProviderAutoLanguage);
+      }
       if (xml == null) return null;
+
       List<string> result = new List<string>();
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
+
       XmlNode n1 = root.SelectSingleNode(@"/lfm/track/album");
       if (n1 != null)
       {
+        var _image = string.Empty;
         foreach (XmlNode n2 in n1.ChildNodes)
         {
           switch (n2.Name)
@@ -1298,8 +1303,10 @@ namespace mvCentral.DataProviders
               XmlNode imageSize = n2.Attributes["size"];
               if (imageSize != null)
               {
-                if (imageSize.Value != "small")
-                  result.Add(n2.InnerText);
+                if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
+                {
+                  _image = n2.InnerText;
+                }
               }
               else
               {
@@ -1316,56 +1323,10 @@ namespace mvCentral.DataProviders
               }
               break;
           }
-        }
-      }
-      if (result.Count > 0)
-        return result;
-      else
-        return null;
-    }
-
-    private List<string> GetTrackImages(string artist, string track)
-    {
-      Logger.Debug("In Method: GetTrackImages(Artist:"+artist+" Track: "+track+")");
-
-      int minWidth = mvCentralCore.Settings.MinimumTrackWidth;
-      int minHeight = mvCentralCore.Settings.MinimumAlbumHeight;
-
-      XmlNodeList xml = null;
-      xml = GetXml(ApiArtistTrackGetInfo, artist, track, mvCentralCore.Settings.DataProviderAutoLanguage);
-      if (xml == null) return null;
-      List<string> result = new List<string>();
-      XmlNode root = xml.Item(0).ParentNode;
-      if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
-      XmlNode n1 = root.SelectSingleNode(@"/lfm/track/album");
-      if (n1 != null)
-      {
-        foreach (XmlNode n2 in n1.ChildNodes)
-        {
-          switch (n2.Name)
+          // Add bigger picture...
+          if (!string.IsNullOrEmpty(_image) && !result.Contains(_image))
           {
-            case "image":
-              // See if we just have a size option....
-              XmlNode imageSize = n2.Attributes["size"];
-              if (imageSize != null)
-              {
-                if (imageSize.Value != "small")
-                  result.Add(n2.InnerText);
-              }
-              else
-              {
-                foreach (XmlNode n3 in n2.ChildNodes)
-                {
-                  XmlNode imageWidth = n3.Attributes["width"];
-                  if (imageWidth != null)
-                  {
-                    XmlNode imageHeight = n3.Attributes["height"];
-                    if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
-                      result.Add(n3.InnerText);
-                  }
-                }
-              }
-              break;
+            result.Add(_image);
           }
         }
       }
@@ -1382,20 +1343,20 @@ namespace mvCentral.DataProviders
 
     private List<string> getMusicVideoTrackSearch(string artist, string track)
     {
-      if (track == null)
+      if (string.IsNullOrEmpty(track))
         return null;
 
       Logger.Debug("In Method: getMusicVideoTrackSearch(Artist:"+artist+" Track: "+track+")");
 
       XmlNodeList xml = null;
 
-      if (artist == null)
+      if (string.IsNullOrEmpty(artist))
         xml = GetXml(ApiTrackSearch, track);
       else
         xml = GetXml(ApiArtistTrackSearch, artist, track);
-
       if (xml == null)
         return null;
+
       XmlNode root = xml.Item(0).ParentNode;
       if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
 
@@ -1474,14 +1435,21 @@ namespace mvCentral.DataProviders
     {
       Logger.Debug("Sending the request: " + url.Replace(Apikey,"<apiKey>").Replace(apiSecret,"<apiSecret>"));
 
-      mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
-      grabber.Encoding = Encoding.UTF8;
-      grabber.Timeout = 5000;
-      grabber.TimeoutIncrement = 10;
-      if (grabber.GetResponse())
-        return grabber.GetXML();
+      try
+      {
+        mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
+        grabber.Encoding = Encoding.UTF8;
+        grabber.Timeout = 5000;
+        grabber.TimeoutIncrement = 10;
+        if (grabber.GetResponse())
+          return grabber.GetXML();
 
-      Logger.Debug("***** API ERROR *****: Code:{0} ({1})", grabber.errorCode, grabber.errorText);
+        Logger.Debug("***** API ERROR *****: Code:{0} ({1})", grabber.errorCode, grabber.errorText);
+      }
+      catch (Exception ex)
+      {
+        Logger.Debug("GetXmlFromUrl: ERROR: " + ex);
+      }
       return null;
     }
 
