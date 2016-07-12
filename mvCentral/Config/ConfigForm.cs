@@ -3779,5 +3779,10 @@ namespace mvCentral
 
     #endregion
 
+    private void cmLibrary_Opening(object sender, CancelEventArgs e)
+    {
+
+    }
+
   }
 }

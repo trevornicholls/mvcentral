@@ -573,7 +573,8 @@
             this.tsmGetInfo,
             this.tsmCreateAlbum});
       this.cmLibrary.Name = "cmLibrary";
-      this.cmLibrary.Size = new System.Drawing.Size(214, 158);
+      this.cmLibrary.Size = new System.Drawing.Size(214, 180);
+      this.cmLibrary.Opening += new System.ComponentModel.CancelEventHandler(this.cmLibrary_Opening);
       this.cmLibrary.Opened += new System.EventHandler(this.cmLibrary_Opened);
       // 
       // sentToImporterToolStripMenuItem

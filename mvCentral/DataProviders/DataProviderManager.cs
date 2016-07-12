@@ -759,7 +759,7 @@ namespace mvCentral.DataProviders
     {
       bool success = false;
       int artWorkAdded = 0;
-      logger.Debug("In Method: GetArt(DBBasicInfo mvDBObject, bool primarySourceOnly)");
+      logger.Debug("In Method: GetArt(DBBasicInfo mvDBObject, bool primarySourceOnly = " + primarySourceOnly + ")");
 
       // Artist
       if (mvDBObject.GetType() == typeof(DBArtistInfo))
@@ -819,7 +819,12 @@ namespace mvCentral.DataProviders
         {
           if (currSource.IsDisabled(DataType.ALBUMART))
             continue;
-          logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
+
+          logger.Debug("*** : " + currSource.Provider.Name + " - " + mvDBObject.PrimarySource.Provider.Name + " - " + primarySourceOnly);
+          if (currSource.Provider != mvDBObject.PrimarySource.Provider && primarySourceOnly)
+            continue;
+
+          logger.Debug("Try to get art from provider: " + currSource.Provider.Name);
 
           success = currSource.Provider.GetAlbumArt((DBAlbumInfo)mvDBObject);
           if (success)
@@ -853,6 +858,10 @@ namespace mvCentral.DataProviders
         {
           if (currSource.IsDisabled(DataType.TRACKART))
             continue;
+          
+          if (currSource.Provider != mvDBObject.PrimarySource.Provider && primarySourceOnly)
+            continue;
+
           logger.Debug("Try to get art from provider : " + currSource.Provider.Name);
 
           success = currSource.Provider.GetTrackArt((DBTrackInfo)mvDBObject);
