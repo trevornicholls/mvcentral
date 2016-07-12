@@ -142,11 +142,13 @@ namespace mvCentral.DataProviders
 
     public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
     {
+      Logger.Debug("In Method: GetArtistDetail(DBTrackInfo mv)");
       return mv;
     }
 
     public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
     {
+      Logger.Debug("In Method: GetAlbumDetail(DBTrackInfo mv)");
       var artist = mv.ArtistInfo[0].Artist;
       var albumTitle = mv.AlbumInfo[0].Album;
       var albumMbid = mv.AlbumInfo[0].MdID;
@@ -252,7 +254,7 @@ namespace mvCentral.DataProviders
 
           int page = Convert.ToInt32(n1.Attributes["page"].Value);
           int perPage = Convert.ToInt32(n1.Attributes["perPage"].Value);
-          int totalPages = Convert.ToInt32(n1.Attributes["totalPages"].Value);
+          int totalPages = Math.Min(Convert.ToInt32(n1.Attributes["totalPages"].Value), mvCentralCore.Settings.MaxLastFMSearchPages);
           int total = Convert.ToInt32(n1.Attributes["total"].Value);
           // Process the page we already have
           List<Release> artistTopAlbumns = new List<Release>();
@@ -327,7 +329,7 @@ namespace mvCentral.DataProviders
         XmlNode n1 = root.SelectSingleNode(@"/lfm/toptracks");
         int page = Convert.ToInt32(n1.Attributes["page"].Value);
         int perPage = Convert.ToInt32(n1.Attributes["perPage"].Value);
-        int totalPages = Math.Min(Convert.ToInt32(n1.Attributes["totalPages"].Value), 100);
+        int totalPages = Math.Min(Convert.ToInt32(n1.Attributes["totalPages"].Value), mvCentralCore.Settings.MaxLastFMSearchPages);
         int total = Convert.ToInt32(n1.Attributes["total"].Value);
         // Process the page we already have
         List<Release> artistTopTracks = new List<Release>();
@@ -390,7 +392,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
     {
-      Logger.Debug("In Method: GetAlbumDetails: Album: " + albumTitle + " MBID: " + albumMbid);
+      Logger.Debug("In Method: GetAlbumDetails(DBBasicInfo basicInfo, Album: " + albumTitle + ", MBID: " + albumMbid + ")");
       List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)basicInfo);
       if (tracksOnAlbum.Count > 0)
       {
@@ -410,9 +412,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetArtistArt(DBArtistInfo mvArtistObject)
     {
-      Logger.Debug("In Method: GetArtistArt(DBArtistInfo mv)");
       if (mvArtistObject == null)
         return false;
+      Logger.Debug("In Method: GetArtistArt(DBArtistInfo mvArtistObject)");
 
       // Request artist images
       GetArtistImages(mvArtistObject);
@@ -450,7 +452,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetTrackArt(DBTrackInfo mvTrackObject)
     {
-      Logger.Debug("In Method: GetTrackArt(DBTrackInfo mv)");
+      Logger.Debug("In Method: GetTrackArt(DBTrackInfo mvTrackObject)");
 
       List<string> trackImageList = null;
       int trackartAdded = 0;
@@ -530,9 +532,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     bool generateVideoThumbnail(DBTrackInfo mv)
     {
-      Logger.Debug("In Method: generateVideoThumbnail(DBTrackInfo mv)");
       if (mvCentralCore.Settings.DisableMTN)
         return false;
+      Logger.Debug("In Method: generateVideoThumbnail(DBTrackInfo mv)");
 
       string outputFilename = Path.Combine(Path.GetTempPath(), mv.Track + ".jpg");
 
@@ -558,10 +560,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo mvAlbumObject)
     {
-      Logger.Debug("In Method: GetAlbumArt(DBAlbumInfo mv)");
-
       if (mvAlbumObject == null)
         return false;
+      Logger.Debug("In Method: GetAlbumArt(DBAlbumInfo mvAlbumObject)");
 
       List<string> albumImageList = mvAlbumObject.ArtUrls;
       // First reload any artwork we have strored
@@ -616,7 +617,6 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
-      Logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mv)");
       // Switch off album support
       if (mvCentralCore.Settings.DisableAlbumSupport)
         mvSignature.Album = null;
@@ -625,6 +625,11 @@ namespace mvCentral.DataProviders
       if (mvSignature == null)
         return results;
 
+      Logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
+      Logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
+      Logger.Debug("*** Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
+      Logger.Debug("*** Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
+      Logger.Debug("*** Other: " + mvSignature.Title + " - " + mvSignature.MdId);
       lock (LockList)
       {
         DBTrackInfo mvTrackData = null;
@@ -656,6 +661,9 @@ namespace mvCentral.DataProviders
             {
               DBAlbumInfo albumInfo = new DBAlbumInfo();
               albumInfo.Album = mvSignature.Album;
+              Logger.Debug("*** *** Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
+              Logger.Debug("*** *** Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
+              Logger.Debug("*** *** Other: " + mvSignature.Title + " - " + mvSignature.MdId);
               setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvSignature.Album, null);
               mvTrackData.AlbumInfo.Clear();
               mvTrackData.AlbumInfo.Add(albumInfo);
@@ -666,7 +674,7 @@ namespace mvCentral.DataProviders
             Logger.Debug("There are {0} Albums found for Artist: {1} / {2}", mvTrackData.AlbumInfo.Count.ToString(), mvSignature.Artist, mvSignature.Title);
             DBAlbumInfo albumInfo = new DBAlbumInfo();
             albumInfo.Album = mvTrackData.AlbumInfo[0].Album;
-            setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvTrackData.AlbumInfo[0].Album, null);
+            setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvTrackData.AlbumInfo[0].Album, mvTrackData.AlbumInfo[0].MdID);
             mvTrackData.AlbumInfo.Clear();
             mvTrackData.ArtistInfo[0].Artist = mvSignature.Artist;
             mvTrackData.AlbumInfo.Add(albumInfo);
@@ -709,8 +717,7 @@ namespace mvCentral.DataProviders
 
     private void setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)
     {
-      Logger.Debug("In Method: setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)");
-      Logger.Debug("In Method: setMusicVideoArtist(Artist: "+artistName+" MBID: "+artistmbid+")");
+      Logger.Debug("In Method: setMusicVideoArtist(ref DBArtistInfo mv, Artist: "+artistName+" MBID: "+artistmbid+")");
 
       XmlNodeList xml = null;
 
@@ -809,11 +816,8 @@ namespace mvCentral.DataProviders
     {
       if (string.IsNullOrEmpty(artist) && string.IsNullOrEmpty(album) && string.IsNullOrEmpty(mbid))
         return;
+      Logger.Debug(string.Format("In Method: setMusicVideoAlbum(ref DBAlbumInfo mv, Atrist: {0}, Album: {1}, MBID: {2})", artist, album, mbid));
 
-      Logger.Debug(string.Format("In Method: setMusicVideoAlbum: " + (!string.IsNullOrEmpty(artist) ? "Atrist ({0})" : "") +
-                                                                     (!string.IsNullOrEmpty(album) ? " | Album ({1})" : "") +
-                                                                     (!string.IsNullOrEmpty(mbid) ? " | MBID ({2})" : ""), 
-                                                                     artist, album, mbid));
       XmlNodeList xml = null;                                
 
       // Do we have a valid parameter - bail out if not
@@ -894,8 +898,8 @@ namespace mvCentral.DataProviders
     {
       if (string.IsNullOrEmpty(track) && string.IsNullOrEmpty(mbid))
         return;
+      Logger.Debug("In Method: setMusicVideoTrack(ref DBTrackInfo mv, Artist: "+artist+" Track: "+track+" MBID: "+mbid+")");
 
-      Logger.Debug("In Method: setMusicVideoTrack(Artist: "+artist+" Track: "+track+" MBID: "+mbid+")");
       XmlNodeList xml = null;
 
       // If we only have a valid track name
@@ -1078,6 +1082,7 @@ namespace mvCentral.DataProviders
     private List<string> GetAlbumMbid(string artist, string track)
     {
       Logger.Debug("In Method: GetAlbumMbid(Artist: "+artist+" Track: "+track+")");
+
       List<string> str = getMusicVideoTrackSearch(artist, track);
       if (str != null)
       {
@@ -1102,7 +1107,6 @@ namespace mvCentral.DataProviders
 
     private string GetArtistMbid(string artist)
     {
-      Logger.Debug("In Method: GetArtistMbid(string artist)");
       Logger.Debug("In Method: GetArtistMbid(Artist: "+artist+")");
 
       XmlNodeList xml = null;
@@ -1390,7 +1394,7 @@ namespace mvCentral.DataProviders
       if (trackData == null)
         return UpdateResults.FAILED;
 
-      Logger.Debug("In Method: UpdateTrack(DBTrackInfo mv)");
+      Logger.Debug("In Method: UpdateTrack(DBTrackInfo trackData)");
 
       lock (LockList)
       {
@@ -1441,7 +1445,7 @@ namespace mvCentral.DataProviders
         grabber.Encoding = Encoding.UTF8;
         grabber.Timeout = 5000;
         grabber.TimeoutIncrement = 10;
-        if (grabber.GetResponse())
+        if (grabber.GetResponse(Apikey))
           return grabber.GetXML();
 
         Logger.Debug("***** API ERROR *****: Code:{0} ({1})", grabber.errorCode, grabber.errorText);

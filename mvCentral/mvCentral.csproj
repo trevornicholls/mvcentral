@@ -302,6 +302,8 @@
     <Compile Include="DataProviders\LocalProvider.cs" />
     <Compile Include="DataProviders\MyMusicProvider.cs" />
     <Compile Include="DataProviders\ManuallProvider.cs" />
+    <Compile Include="DataProviders\MyVideosProvider.cs" />
+    <Compile Include="DataProviders\FanartTVProvider.cs" />
     <Compile Include="Extensions\MusicVideoTitleStringExtensions.cs" />
     <Compile Include="Config\ConfigForm.cs">
       <SubType>Form</SubType>

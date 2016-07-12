@@ -44,13 +44,6 @@ namespace mvCentral.DataProviders
     private const string SearchArtistImageMBID = "http://htbackdrops.org/api/{0}/searchXML?mbid={1}&dratio=1:1";
     private const string DownloadImage = "http://htbackdrops.org/api/{0}/download/{1}/fullsize";
 
-    //private static bool _strippedPrefixes;
-    //private static bool _logMissing;
-    //private static bool _useAlternative = true;
-    //private static bool _useProxy;
-    //private static string _proxyHost;
-    //private static int _proxyPort;
-
     #endregion
 
     public string Name
@@ -102,7 +95,7 @@ namespace mvCentral.DataProviders
      
     public bool ProvidesArtistArt
     {
-      get { return true; }
+      get { return false; } // true; }
     }
 
     public bool ProvidesAlbumArt
@@ -135,7 +128,8 @@ namespace mvCentral.DataProviders
     {
       List<DBTrackInfo> results = new List<DBTrackInfo>();
       if (mvSignature == null)
-        return results;
+        return results;  
+
       lock (lockList)
       {
         DBTrackInfo mv = getMusicVideoTrack(mvSignature.Artist, mvSignature.Album, mvSignature.Track);
@@ -190,11 +184,9 @@ namespace mvCentral.DataProviders
           artistartAdded++;
 
       }
-      if (artistartAdded > 0)
-        return true;
-      else
-        return false;
+      return (artistartAdded > 0);
     }
+
     /// <summary>
     /// Get Track Artwork
     /// </summary>
@@ -204,6 +196,7 @@ namespace mvCentral.DataProviders
     {
       return false;
     }
+
     /// <summary>
     /// Get the Album Art
     /// </summary>
@@ -213,6 +206,7 @@ namespace mvCentral.DataProviders
     {
       return false;
     }
+
     /// <summary>
     /// Generate Thumbnail
     /// </summary>
@@ -239,6 +233,7 @@ namespace mvCentral.DataProviders
           return false;
       }
     }
+
     /// <summary>
     /// Get the Artist, Album Details
     /// </summary>
@@ -260,6 +255,7 @@ namespace mvCentral.DataProviders
     {
       return true;
     }
+
     /// <summary>
     /// Set the Artist information
     /// </summary>
@@ -267,8 +263,8 @@ namespace mvCentral.DataProviders
     /// <param name="artistInfo"></param>
     private void setMusicVideoArtist(ref DBArtistInfo mv, MusicArtistInfo artistInfo)
     {
-
     }
+
     /// <summary>
     /// Set the Album Information
     /// </summary>
@@ -324,7 +320,7 @@ namespace mvCentral.DataProviders
       grabber.Encoding = Encoding.UTF8;
       grabber.Timeout = 5000;
       grabber.TimeoutIncrement = 10;
-      if (grabber.GetResponse())
+      if (grabber.GetResponse(APIKey))
       {
         return grabber.GetXML();
       }

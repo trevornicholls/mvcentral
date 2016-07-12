@@ -119,7 +119,12 @@ namespace mvCentral.Utils
 
         #region Public methods
 
-        public bool GetResponse() {
+        public bool GetResponse()
+        {
+          return GetResponse(string.Empty);
+        }
+
+        public bool GetResponse(string apiKey) {
             try {
 
                 bool completed = false;
@@ -187,7 +192,7 @@ namespace mvCentral.Utils
                               logger.Debug("Error with API Call = Status:{0} with Error Code:{1} ({2})", apiStatus, errorCode, errorText);
                               return false;
                             default:
-                              logger.Error("Connection failed: URL={0}, Status={1}, Description={2}.", requestUrl, statusCode, ((HttpWebResponse)e.Response).StatusDescription);
+                              logger.Error("Connection failed: URL={0}, Status={1}, Description={2}.", requestUrl.Replace(apiKey, "<apiKey>"), statusCode, ((HttpWebResponse)e.Response).StatusDescription);
                               return false;
                           }
                         }
@@ -195,7 +200,7 @@ namespace mvCentral.Utils
 
                         // Return when hitting maximum retries.
                         if (tryCount == maxRetries) {
-                            logger.Warn("Connection failed: Reached retry limit of " + maxRetries + ". URL=" + requestUrl);
+                          logger.Warn("Connection failed: Reached retry limit of " + maxRetries + ". URL=" + requestUrl.Replace(apiKey, "<apiKey>"));
                             return false;
                         }
 
@@ -227,7 +232,7 @@ namespace mvCentral.Utils
                 cookieHeader = request.CookieContainer.GetCookieHeader(request.RequestUri);
 
                 // Debug
-                if (_debug) logger.Debug("GetResponse: URL={0}, UserAgent={1}, CookieHeader={3}", requestUrl, userAgent, cookieHeader);
+                if (_debug) logger.Debug("GetResponse: URL={0}, UserAgent={1}, CookieHeader={3}", requestUrl.Replace(apiKey, "<apiKey>"), userAgent, cookieHeader);
 
                 // disable unsafe header parsing if it was enabled
                 if (_allowUnsafeHeader) SetAllowUnsafeHeaderParsing(false);
@@ -235,8 +240,8 @@ namespace mvCentral.Utils
                 return true;
             }
             catch (Exception e) {
-                logger.Warn("Unexpected error getting http response from '{0}': {1}", requestUrl, e.Message);
-                return false;
+              logger.Warn("Unexpected error getting http response from '{0}': {1}", requestUrl.Replace(apiKey, "<apiKey>"), e.Message);
+              return false;
             }
         }
 
@@ -290,14 +295,18 @@ namespace mvCentral.Utils
             return GetXML(null);
         }
 
+        public XmlNodeList GetJSONasXML() 
+        {
+            return GetJSONasXML(null);
+        }
+
         public XmlDocument GetXMLDoc()
         {
           return GetXMLAsDoc(null);
         }
 
-
         public XmlNodeList GetXML(string rootNode) {
-            string data = GetString().Replace("opensearch:",string.Empty);
+            string data = GetString().Replace("opensearch:", string.Empty);
             
             // if there's no data return nothing
             if (String.IsNullOrEmpty(data))
@@ -353,11 +362,95 @@ namespace mvCentral.Utils
           return xml; ;
         }
 
+        public XmlNodeList GetJSONasXML(string rootNode)
+        {
+          string data = GetString();
 
+          // if there's no data return nothing
+          if (String.IsNullOrEmpty(data))
+            return null;
+
+          XmlDocument xml = new XmlDocument();
+
+          // attempts to convert data into an XmlDocument
+          try
+          {
+            xml = JsonToXml(data);
+          }
+          catch (XmlException e)
+          {
+            logger.ErrorException("JSON as XML Parse error: URL=" + requestUrl, e);
+            logger.Debug("JSON: " + data);
+            return null;
+          }
+
+          // get the document root
+          XmlElement xmlRoot = xml.DocumentElement;
+          if (xmlRoot == null)
+            return null;
+
+          // if a root node name is given check for it
+          // return null when the root name doesn't match
+          if (rootNode != null && xmlRoot.Name != rootNode)
+            return null;
+
+          return xmlRoot.ChildNodes;
+        }
 
         #endregion
 
         #region Private methods
+
+        private static XmlDocument JsonToXml(string json)
+        {
+          XmlNode newNode = null;
+          XmlNode appendToNode = null;
+          XmlDocument returnXmlDoc = new XmlDocument();
+          returnXmlDoc.LoadXml("<Document />");
+          XmlNode rootNode = returnXmlDoc.SelectSingleNode("Document");
+          appendToNode = rootNode;
+
+          string[] arrElementData;
+          string[] arrElements = json.Split('\r');
+          foreach (string element in arrElements)
+          {
+            string processElement = element.Replace("\r", "").Replace("\n", "").Replace("\t", "").Trim();
+            if ((processElement.IndexOf("}") > -1 || processElement.IndexOf("]") > -1) && appendToNode != rootNode)
+            {
+              appendToNode = appendToNode.ParentNode;
+            }
+            else if (processElement.IndexOf("[") > -1)
+            {
+              processElement = processElement.Replace(":", "").Replace("[", "").Replace("\"", "").Trim();
+              newNode = returnXmlDoc.CreateElement(processElement);
+              appendToNode.AppendChild(newNode);
+              appendToNode = newNode;
+            }
+            else if (processElement.IndexOf("{") > -1 && processElement.IndexOf(":") > -1)
+            {
+              processElement = processElement.Replace(":", "").Replace("{", "").Replace("\"", "").Trim();
+              newNode = returnXmlDoc.CreateElement(processElement);
+              appendToNode.AppendChild(newNode);
+              appendToNode = newNode;
+            }
+            else
+            {
+              if (processElement.IndexOf(":") > -1)
+              {
+                arrElementData = processElement.Replace(": \"", ":").Replace("\",", "").Replace("\"", "").Split(':');
+                newNode = returnXmlDoc.CreateElement(arrElementData[0]);
+                for (int i = 1; i < arrElementData.Length; i++)
+                {
+                  newNode.InnerText += arrElementData[i];
+                }
+
+                appendToNode.AppendChild(newNode);
+              }
+            }
+          }
+
+          return returnXmlDoc;
+        }
 
         //Method to change the AllowUnsafeHeaderParsing property of HttpWebRequest.
         private bool SetAllowUnsafeHeaderParsing(bool setState) {

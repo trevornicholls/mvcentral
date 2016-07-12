@@ -1867,17 +1867,17 @@ namespace mvCentral
 
     private void labelGoogleCode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://code.google.com/p/mvcentral");
+      Process.Start(@"https://github.com/andrewjswan/mvcentral");
     }
 
     private void labelManual_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://code.google.com/p/mvcentral/wiki/mvCentralSkinningGuide");
+      Process.Start(@"https://github.com/trevornicholls/mvcentral/tree/wiki");
     }
 
     private void labelForum_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://forum.team-mediaportal.com/forums/mvcentral-music-videos-plugin.573//");
+      Process.Start(@"http://forum.team-mediaportal.com/threads/mvcentral-1-0-8-xxx-by-ajs.134648/");
     }
 
     #endregion
@@ -2801,11 +2801,11 @@ namespace mvCentral
       {
         var flag = false;
         if (mv.GetType() == typeof(DBArtistInfo))
-          flag = r2.Provider.ProvidesArtistDetails;
+          flag = r2.Provider.ProvidesArtistArt;
         if (mv.GetType() == typeof(DBAlbumInfo))
-          flag = r2.Provider.ProvidesAlbumDetails;
+          flag = r2.Provider.ProvidesAlbumArt;
         if (mv.GetType() == typeof(DBTrackInfo))
-          flag = r2.Provider.ProvidesTrackDetails;
+          flag = r2.Provider.ProvidesTrackArt;
 
         if (flag)
         {
@@ -2816,9 +2816,7 @@ namespace mvCentral
       SourcePopup sp = new SourcePopup(r1);
       if (sp.ShowDialog() == DialogResult.OK)
       {
-
         mv.PrimarySource = r1[sp.listBox1.SelectedIndex];
-
       }
 
       // the update process can take a little time, so spawn it off in another thread
@@ -3776,9 +3774,10 @@ namespace mvCentral
 
     private void llSupportedSkins_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
     {
-      Process.Start(@"http://code.google.com/p/mvcentral/wiki/mvCentralSkinningGuide#Skins_Supporting_Video_Info_Pop-up");
+      Process.Start(@"https://github.com/trevornicholls/mvcentral/blob/wiki/mvCentralSkinningGuide.md#Skins_Supporting_Video_Info_Pop-up");
     }
 
     #endregion
+
   }
 }

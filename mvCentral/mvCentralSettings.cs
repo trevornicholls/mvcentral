@@ -2993,6 +2993,23 @@ namespace mvCentral.Settings
     private bool _submitonlastfm;
 
 
+    [CornerstoneSetting(
+        Name = "Maximum Last.FM search pages for retrieve.",
+        Description = "Maximum Last.FM search pages for retrieve.",
+        Groups = "|Extras|Last.FM|",
+        Identifier = "max_lastfm_search_pages",
+        Default = 10)]
+    public int MaxLastFMSearchPages
+    {
+      get { return _maxlastfmsearchpages; }
+      set
+      {
+        _maxlastfmsearchpages = value;
+        OnSettingChanged("max_lastfm_search_pages");
+      }
+    }
+    private int _maxlastfmsearchpages;
+
 
     #endregion
 

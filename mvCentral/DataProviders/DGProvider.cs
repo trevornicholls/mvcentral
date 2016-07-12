@@ -91,12 +91,12 @@ namespace mvCentral.DataProviders
      
     public bool ProvidesArtistArt
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool ProvidesAlbumArt
     {
-      get { return true; }
+      get { return false; }
     }
 
     public bool ProvidesTrackArt
@@ -706,14 +706,14 @@ namespace mvCentral.DataProviders
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
     private static XmlNodeList getXMLFromURL(string url)
     {
-      Logger.Debug("Sending the request: " + url);
+      Logger.Debug("Sending the request: " + url.Replace(apikey,"<apikey>"));
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
       grabber.Timeout = 5000;
       grabber.TimeoutIncrement = 10;
       grabber.Request.AutomaticDecompression = System.Net.DecompressionMethods.GZip;
-      if (grabber.GetResponse())
+      if (grabber.GetResponse(apikey))
       {
         return grabber.GetXML();
       }

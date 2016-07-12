@@ -42,7 +42,7 @@ namespace mvCentral.DataProviders
     {
       get
       {
-        return "mediaportal.music";
+        return "local.mediaportal.music";
       }
     }
 
@@ -115,11 +115,13 @@ namespace mvCentral.DataProviders
 
     public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
     {
+      logger.Debug("In Method: GetArtistDetail(DBTrackInfo mv)");
       return mv;
     }
 
     public DBTrackInfo GetAlbumDetail(DBTrackInfo mv)
     {
+      logger.Debug("In Method: GetAlbumDetail(DBTrackInfo mv)");
       var albumTitle = mv.AlbumInfo[0].Album;
       var albumMbid = mv.AlbumInfo[0].MdID;
       var artist = mv.ArtistInfo[0].Artist;
@@ -136,10 +138,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetArtistArt(DBArtistInfo artistInfo)
     {
-      logger.Debug("In Method GetArtistArt(DBArtistInfo artistInfo)");
-
       if (artistInfo == null)
         return false;
+      logger.Debug("In Method: GetArtistArt(DBArtistInfo artistInfo)");
 
       // if we already have a artist move on for now
       if (artistInfo.ArtFullPath.Trim().Length > 0 && File.Exists(artistInfo.ArtFullPath.Trim()))
@@ -156,10 +157,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetAlbumArt(DBAlbumInfo albumInfo)
     {
-      logger.Debug("In Method GetAlbumArt(DBAlbumInfo mv)");
-
       if (albumInfo == null)
         return false;
+      logger.Debug("In Method: GetAlbumArt(DBAlbumInfo mv)");
 
       // if we already have a artist move on for now
       if (albumInfo.ArtFullPath.Trim().Length > 0 && File.Exists(albumInfo.ArtFullPath.Trim()))
@@ -175,10 +175,9 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     public bool GetTrackArt(DBTrackInfo trackInfo)
     {
-      logger.Debug("In Method GetTrackArt(DBTrackInfo mv)");
-
       if (trackInfo == null)
         return false;
+      logger.Debug("In Method: GetTrackArt(DBTrackInfo trackInfo)");
 
       if (this.mvTrackObject == null) this.mvTrackObject = trackInfo;
 
@@ -196,18 +195,18 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private bool getMPArtistArt(DBArtistInfo mvArtistObject)
     {
-      logger.Debug("In Method getMPArtistArt(DBArtistInfo mv)");
+      logger.Debug("In Method: getMPArtistArt(DBArtistInfo mvArtistObject)");
       bool found = false;
 
       string thumbFolder = Thumbs.MusicArtists;
       string cleanTitle = MediaPortal.Util.Utils.MakeFileName(mvArtistObject.Artist);
       string filename = thumbFolder + @"\" + cleanTitle + "L.jpg";
 
-      logger.Debug("In Method getMPArtistArt(DBArtistInfo mv) filename: " + filename);
       if (File.Exists(filename)) 
       {
         found &= mvArtistObject.AddArtFromFile(filename);
       }
+      logger.Debug("In Method: getMPArtistArt(DBArtistInfo mvArtistObject) filename: " + filename + " - " + found);
       return found;
     }
 
@@ -218,7 +217,7 @@ namespace mvCentral.DataProviders
     /// <returns></returns>
     private bool getMPAlbumArt(DBAlbumInfo mvAlbumObject)
     {
-      logger.Debug("In Method getMPAlbumArt(DBAlbumInfo mv)");
+      logger.Debug("In Method: getMPAlbumArt(DBAlbumInfo mvAlbumObject)");
       bool found = false;
 
       string artist = string.Empty;
@@ -234,11 +233,11 @@ namespace mvCentral.DataProviders
       string cleanTitle = string.Format("{0}-{1}", MediaPortal.Util.Utils.MakeFileName(artist), MediaPortal.Util.Utils.MakeFileName(album));
       string filename = thumbFolder + @"\" + cleanTitle + "L.jpg";
 
-      logger.Debug("In Method getMPAlbumArt(DBAlbumInfo mv) filename: " + filename);
       if (File.Exists(filename)) 
       {
         found &= mvAlbumObject.AddArtFromFile(filename);
       }
+      logger.Debug("In Method: getMPAlbumArt(DBAlbumInfo mvAlbumObject) filename: " + filename + " - " + found);
       return found;
     }
 
@@ -270,6 +269,7 @@ namespace mvCentral.DataProviders
         if (artist != null)
         {
           ReportProgress("Getting Artists...");
+          logger.Debug("GetDetails: Getting Artists: " + artist);
           artists.Clear();
 
           string strArtist = NormalizeArtist(artist);
@@ -330,11 +330,10 @@ namespace mvCentral.DataProviders
           {
             ReportProgress("Getting Albums...");
             logger.Debug("GetDetails: Getting Albums: " + artist);
-
             albums.Clear();
 
             string strArtist = NormalizeArtist(artist);
-            string strSQL = String.Format("select strAlbum, strReview FROM albuminfo WHERE strReview IS NOT NULL AND TRIM(strReview) <> '' AND (strArtist LIKE '%{0}%' OR strAlbumArtist LIKE '%{1}%');", strArtist, strArtist);
+            string strSQL = String.Format("SELECT DISTINCT T.strAlbum, A.strReview FROM albuminfo A, tracks T WHERE A.strReview IS NOT NULL AND TRIM(A.strReview) <> '' AND (A.strArtist LIKE '%{0}%' OR A.strAlbumArtist LIKE '%{1}%') AND T.strAlbum = A.strAlbum COLLATE NOCASE;", strArtist, strArtist);
 
             List<Song> songInfo = new List<Song>();
             m_db.GetSongsByFilter(strSQL, out songInfo, "album");
@@ -390,11 +389,10 @@ namespace mvCentral.DataProviders
         {
           ReportProgress("Getting Tracks...");
           logger.Debug("GetDetails: Getting Tracks: " + artist);
-
           tracks.Clear();
 
           string strArtist = NormalizeArtist(artist);
-          string strSQL = String.Format("select strTitle FROM tracks WHERE strArtist LIKE '%| {0} |%' OR strAlbumArtist LIKE '%| {1} |%';');", strArtist, strArtist);
+          string strSQL = String.Format("SELECT strTitle FROM tracks WHERE strArtist LIKE '%| {0} |%' OR strAlbumArtist LIKE '%| {1} |%';');", strArtist, strArtist);
 
           List<Song> songInfo = new List<Song>();
           m_db.GetSongsByFilter(strSQL, out songInfo, "tracks");
@@ -446,9 +444,7 @@ namespace mvCentral.DataProviders
     {
       if (string.IsNullOrEmpty(artistName))
         return;
-
-      logger.Debug("In Method: setMusicVideoArtist(ref DBArtistInfo mv, string artistName, string artistmbid)");
-      logger.Debug("In Method: setMusicVideoArtist(Artist: "+artistName+" MBID: "+artistmbid+")");
+      logger.Debug("In Method: setMusicVideoArtist(ref DBArtistInfo mv, Artist: " + artistName + " MBID: " + artistmbid + ")");
 
       MusicDatabase m_db = null;
       try
@@ -457,7 +453,7 @@ namespace mvCentral.DataProviders
       }
       catch (Exception e)
       {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
+        logger.Error("setMusicVideoArtist: Music database init failed " + e.ToString());
         return;
       }
 
@@ -505,11 +501,8 @@ namespace mvCentral.DataProviders
     {
       if (string.IsNullOrEmpty(artistName) && string.IsNullOrEmpty(albumName))
         return;
+      logger.Debug(string.Format("In Method: setMusicVideoAlbum(ref DBAlbumInfo mv, Atrist: {0}, Album: {1}, MBID: {2})", artistName, albumName, mbid));
 
-      logger.Debug(string.Format("In Method: setMusicVideoAlbum : " + (!string.IsNullOrEmpty(artistName) ? "Atrist ({0}) | " : "") +
-                                                                      (!string.IsNullOrEmpty(albumName) ? "Album ({1}) | " : "") +
-                                                                      (!string.IsNullOrEmpty(mbid) ? "MBID ({2})" : ""), 
-                                                                      artistName, albumName, mbid));
       MusicDatabase m_db = null;
       try
       {
@@ -517,7 +510,7 @@ namespace mvCentral.DataProviders
       }
       catch (Exception e)
       {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
+        logger.Error("setMusicVideoAlbum: Music database init failed " + e.ToString());
         return;
       }
 
@@ -526,7 +519,14 @@ namespace mvCentral.DataProviders
         return;
 
       // Album name
-      mv.Album = albumInfo.Album;
+      if (albumInfo.Album.ToLower() == albumInfo.Album)
+      {
+        mv.Album = System.Globalization.CultureInfo.InvariantCulture.TextInfo.ToTitleCase(albumInfo.Album);
+      }
+      else
+      {
+        mv.Album = albumInfo.Album;
+      }
       // MBID
       // mv.MdID
       // Image URL
@@ -562,8 +562,7 @@ namespace mvCentral.DataProviders
     {
       if (track == null && mbid == null)
         return;
-
-      logger.Debug("In Method: setMusicVideoTrack(Artist: " + artist + " Track: " + track + " MBID: " + mbid + ")");
+      logger.Debug("In Method: setMusicVideoTrack(ref DBTrackInfo mv, Artist: " + artist + ", Track: " + track + ", MBID: " + mbid + ")");
 
       MusicDatabase m_db = null;
       try
@@ -572,7 +571,7 @@ namespace mvCentral.DataProviders
       }
       catch (Exception e)
       {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
+        logger.Error("setMusicVideoTrack: Music database init failed " + e.ToString());
         return;
       }
 
@@ -619,7 +618,7 @@ namespace mvCentral.DataProviders
       }
       catch (Exception e)
       {
-        logger.Error("GetDetails: Music database init failed " + e.ToString());
+        logger.Error("getMusicVideoTrack: Music database init failed " + e.ToString());
         return null;
       }
 
@@ -672,7 +671,7 @@ namespace mvCentral.DataProviders
 
     public bool GetAlbumDetails(DBBasicInfo basicInfo, string albumTitle, string albumMbid)
     {
-      logger.Debug("In Method: GetAlbumDetails: Album: " + albumTitle + " MBID: " + albumMbid);
+      logger.Debug("In Method: GetAlbumDetails(DBBasicInfo basicInfo, Album: " + albumTitle + " MBID: " + albumMbid + ")");
       List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum((DBAlbumInfo)basicInfo);
       if (tracksOnAlbum.Count > 0)
       {
@@ -692,7 +691,6 @@ namespace mvCentral.DataProviders
 
     public List<DBTrackInfo> GetTrackDetail(MusicVideoSignature mvSignature)
     {
-      logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mv)");
       // Switch off album support
       if (mvCentralCore.Settings.DisableAlbumSupport)
         mvSignature.Album = null;
@@ -701,6 +699,10 @@ namespace mvCentral.DataProviders
       if (mvSignature == null)
         return results;
 
+      logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
+      logger.Debug("*** Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
+      logger.Debug("*** Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
+      logger.Debug("*** Other: " + mvSignature.Title + " - " + mvSignature.MdId);
       lock (lockObj)
       {
         DBTrackInfo mvTrackData = null;
