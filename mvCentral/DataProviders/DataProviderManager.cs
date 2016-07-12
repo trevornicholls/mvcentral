@@ -508,6 +508,7 @@ namespace mvCentral.DataProviders
 
       lock (albumArtSources)
       {
+        logger.Info("albumArtSources: " + newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !albumArtSources.Contains(newSource));
         if (newSource.Provider.ProvidesAlbumArt && !albumArtSources.Contains(newSource))
           albumArtSources.Add(newSource);
         else if (!newSource.Provider.ProvidesAlbumArt && albumArtSources.Contains(newSource))
@@ -817,6 +818,7 @@ namespace mvCentral.DataProviders
         artWorkAdded = 0;
         foreach (DBSourceInfo currSource in sources)
         {
+          logger.Debug("*** : " + currSource.Provider.Name + " - " + currSource.IsDisabled(DataType.ALBUMART));
           if (currSource.IsDisabled(DataType.ALBUMART))
             continue;
 

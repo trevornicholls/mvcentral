@@ -19,7 +19,7 @@ using System.Xml;
 namespace mvCentral.DataProviders
 {
 
-  class FanartTVProvider : InternalProvider, IMusicVideoProvider
+  class FanartTVProvider : IMusicVideoProvider
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
     private static readonly object lockList = new object();
@@ -52,6 +52,19 @@ namespace mvCentral.DataProviders
       }
     }
 
+    public string Version
+    {
+      get
+      {
+        return "Internal";
+      }
+    }
+
+    public string Author
+    {
+      get { return "ajs"; }
+    }
+
     public string Description
     {
       get { return "Returns art from fanart.tv"; }
@@ -64,7 +77,7 @@ namespace mvCentral.DataProviders
 
     public string LanguageCode
     {
-      get { return "en"; }
+      get { return "various"; }
     }
 
     public List<string> LanguageCodeList
