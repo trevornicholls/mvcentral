@@ -1,18 +1,16 @@
 ﻿using MediaPortal.Music.Database;
-
 using mvCentral.Database;
 using mvCentral.LocalMediaManagement;
 using mvCentral.LocalMediaManagement.MusicVideoResources;
 using mvCentral.SignatureBuilders;
 using mvCentral.Utils;
-
 using NLog;
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 
@@ -34,8 +32,8 @@ namespace mvCentral.DataProviders
     #region API variables
 
     // Example Calls
-    // http://webservice.fanart.tv/v3/music/f4a31f0a-51dd-4fa7-986d-3095c40c5ed9?api_key=
-    // http://webservice.fanart.tv/v3/music/albums/9ba659df-5814-32f6-b95f-02b738698e7c?api_key=
+    // http://webservice.fanart.tv/v3/music/f4a31f0a-51dd-4fa7-986d-3095c40c5ed9?api_key=...&client_key=...
+    // http://webservice.fanart.tv/v3/music/albums/9ba659df-5814-32f6-b95f-02b738698e7c?api_key=...&client_key=...
 
     private const string APIKey = "9dc9aec601b49ca7a9899186161f57bd";
 
@@ -170,26 +168,25 @@ namespace mvCentral.DataProviders
         return false;
       logger.Debug("In Method: GetArtistArt(DBArtistInfo mvArtistObject)");
 
-      XmlNodeList xml;
-
       // Get the images
       // If we have a MBID for this Artist use this to retrive the image otherwise fall back to keyword search
-      xml = getXML(SearchArtistImage, APIKey, mvArtistObject.MdID.Trim());
+      var html = getJSON(SearchArtistImage, APIKey, mvArtistObject.MdID.Trim());
 
       // If we reveived nothing back, bail out
-      if (xml == null)
+      if (string.IsNullOrEmpty(html))
         return false;
 
-      XmlNode root = xml.Item(0).ParentNode;
-      // Get image nodes
-      XmlNodeList images = root.SelectNodes(@"/artistthumb");
       int artistartAdded = 0;
-      // Loop though each nodce and add it
-      foreach (XmlNode imageNode in images)
+      var URLList = new List<string>();
+      URLList = ExtractURL("artistthumb", html);
+      if (URLList != null)
       {
-        XmlNode imageIDNode = imageNode.SelectSingleNode("url");
-        if (mvArtistObject.AddArtFromURL(imageIDNode.InnerText) == ImageLoadResults.SUCCESS)
-          artistartAdded++;
+        foreach (string _url in URLList)
+        {
+          var _fileURL = _url.Substring(checked(_url.IndexOf("|") + 1));
+          if (mvArtistObject.AddArtFromURL(_fileURL) == ImageLoadResults.SUCCESS)
+            artistartAdded++;
+        }
       }
 
       return (artistartAdded > 0);
@@ -206,25 +203,25 @@ namespace mvCentral.DataProviders
         return false;
       logger.Debug("In Method: GetAlbumArt(DBAlbumInfo mv)");
 
-      XmlNodeList xml;
       // Get the images
       // If we have a MBID for this Artist use this to retrive the image otherwise fall back to keyword search
-      xml = getXML(SearchAlbumImage, APIKey, mv.MdID.Trim());
+      var html = getJSON(SearchAlbumImage, APIKey, mv.MdID.Trim());
 
       // If we reveived nothing back, bail out
-      if (xml == null)
+      if (string.IsNullOrEmpty(html))
         return false;
 
-      XmlNode root = xml.Item(0).ParentNode;
-      // Get image nodes
-      XmlNodeList images = root.SelectNodes(@"/albumcover");
       int albumartAdded = 0;
-      // Loop though each nodce and add it
-      foreach (XmlNode imageNode in images)
+      var URLList = new List<string>();
+      URLList = ExtractURL("albumcover", html);
+      if (URLList != null)
       {
-        XmlNode imageIDNode = imageNode.SelectSingleNode("url");
-        if (mv.AddArtFromURL(imageIDNode.InnerText) == ImageLoadResults.SUCCESS)
-          albumartAdded++;
+        foreach (string _url in URLList)
+        {
+          var _fileURL = _url.Substring(checked(_url.IndexOf("|") + 1));
+          if (mv.AddArtFromURL(_fileURL) == ImageLoadResults.SUCCESS)
+            albumartAdded++;
+        }
       }
 
       return (albumartAdded > 0);
@@ -334,28 +331,34 @@ namespace mvCentral.DataProviders
 
     // calls the getXMLFromURL but the URL is formatted using
     // the baseString with the given parameters escaped them to be usable on URLs.
-    private static XmlNodeList getXML(string baseString, params object[] parameters)
+    private static string getJSON(string baseString, params object[] parameters)
     {
         for (int i = 0; i < parameters.Length; i++)
         {
             parameters[i] = Uri.EscapeDataString((string)parameters[i]);
         }
 
-        return getXMLFromURL(string.Format(baseString, parameters));
+        return getJSONFromURL(string.Format(baseString, parameters));
     }
 
     // given a url, retrieves the xml result set and returns the nodelist of Item objects
-    private static XmlNodeList getXMLFromURL(string url)
+    private static string getJSONFromURL(string url)
     {
-      logger.Debug("Sending the request: " + url.Replace(APIKey,"<apiKey>"));
+      // Add Fanart.TV personal API Key
+      if (!string.IsNullOrEmpty(mvCentralCore.Settings.FanartTVPersonalAPIkey))
+      {
+        url = url + "&client_key=" + mvCentralCore.Settings.FanartTVPersonalAPIkey;
+      }
+
+      logger.Debug("Sending the request: " + url.Replace(APIKey, "<apiKey>").Replace(mvCentralCore.Settings.FanartTVPersonalAPIkey,"<personalAPIkey>"));
 
       mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
       grabber.Encoding = Encoding.UTF8;
-      grabber.Timeout = 5000;
-      grabber.TimeoutIncrement = 10;
+      grabber.Timeout = 10000;
+      grabber.TimeoutIncrement = 1000;
       if (grabber.GetResponse(APIKey))
       {
-        return grabber.GetJSONasXML();
+        return grabber.GetString();
       }
       else
       {
@@ -365,6 +368,59 @@ namespace mvCentral.DataProviders
     }
 
     #endregion
+
+    private List<string> ExtractURLLang(string Sec, string AInputString, string Lang, bool LangIndep = true)
+    {
+      const string SECRE = @"\""%1.+?\[([^\]]+?)\]";
+      const string URLRE = @"\""id.\:[^}]*?\""([^}]+?)\""[^}]+?url.\:[^}]*?\""([^}]+?)\""([^}]+?lang.\:[^}]*?\""(%1)\"")"; // Id URL
+
+      var B = (string)null;
+      var URLList = new List<string>();
+      var L = (string)null;
+
+      if (string.IsNullOrEmpty(AInputString) || (AInputString == "null"))
+        return URLList;
+
+      L = (string.IsNullOrEmpty(Lang) ? "Any" : ("en".Equals(Lang, StringComparison.CurrentCulture) ? Lang : Lang + "/" + "en"));
+      L = (LangIndep ? string.Empty : L);
+
+      Regex r = new Regex(SECRE.Replace("%1", Sec), RegexOptions.IgnoreCase);
+      MatchCollection mc = r.Matches(AInputString);
+      foreach (Match m in mc)
+      {
+        B = m.Value;
+        break;
+      }
+
+      if (!string.IsNullOrWhiteSpace(B))
+      {
+        Regex ru = new Regex(URLRE.Replace("%1", (string.IsNullOrEmpty(Lang) ? "[^}]+?" : Lang)) + (LangIndep ? "?" : string.Empty), RegexOptions.IgnoreCase);
+        MatchCollection mcu = ru.Matches(B);
+        foreach (Match mu in mcu)
+        {
+          URLList.Add(mu.Groups[1] + "|" + mu.Groups[2]);
+        }
+        logger.Debug("Extract URL - " + (string.IsNullOrEmpty(L) ? string.Empty : "Lang: [" + L + "] ") + "[" + Sec + "] URLs Found: " + URLList.Count);
+      }
+      return URLList;
+    }
+
+    private List<string> ExtractURL(string Sec, string AInputString, bool LangIndep = true)
+    {
+      if (LangIndep || string.IsNullOrEmpty(mvCentralCore.Settings.DataProviderAutoLanguage))
+        return ExtractURLLang(Sec, AInputString, string.Empty, true);                                                 // Any Language
+      else
+      {
+        var URLList = new List<string>();
+
+        URLList = ExtractURLLang(Sec, AInputString, mvCentralCore.Settings.DataProviderAutoLanguage, LangIndep);      // Language from Settings
+        if ((URLList.Count <= 0) && !"en".Equals(mvCentralCore.Settings.DataProviderAutoLanguage, StringComparison.CurrentCulture))
+          URLList = ExtractURLLang(Sec, AInputString, "en", LangIndep);                                               // Default Language
+        if ((URLList.Count <= 0) && !"en".Equals(mvCentralCore.Settings.DataProviderAutoLanguage, StringComparison.CurrentCulture))
+          URLList = ExtractURLLang(Sec, AInputString, string.Empty, true);                                            // Any Language
+        return URLList;
+      }
+    }
 
     private void ReportProgress(string text)
     {

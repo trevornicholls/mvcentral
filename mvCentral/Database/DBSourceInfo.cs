@@ -118,6 +118,7 @@ namespace mvCentral.Database
 
     public void SetPriority(DataType type, int value)
     {
+      logger.Debug("*** SetPriority: " + type + " " + value);
       switch (type)
       {
         case DataType.TRACKDETAIL:
@@ -164,6 +165,7 @@ namespace mvCentral.Database
 
     public bool IsDisabled(DataType type)
     {
+      logger.Debug("*** IsDisabled: " + type);
       return GetPriority(type) == -1;
     }
 

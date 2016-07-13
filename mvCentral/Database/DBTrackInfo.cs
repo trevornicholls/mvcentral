@@ -159,10 +159,6 @@ namespace mvCentral.Database
       return DBSourceMusicVideoInfo.GetOrCreate(this, source);
     }
 
-
-
-
-
     [DBRelation(AutoRetrieve = true)]
     public RelationList<DBTrackInfo, DBUserMusicVideoSettings> UserSettings
     {
@@ -209,6 +205,7 @@ namespace mvCentral.Database
         return UserSettings[0];
       }
     }
+
     #endregion
 
     #region General Management Methods
@@ -237,19 +234,19 @@ namespace mvCentral.Database
       if (this.AlbumInfo.Count > 0) a1 = this.AlbumInfo[0];
       DBArtistInfo a3 = null;
       if (this.ArtistInfo.Count > 0) a3 = this.ArtistInfo[0];
-
+      
       base.Delete();
+
       if (a1 != null)
       {
-
         List<DBTrackInfo> a7 = GetEntriesByAlbum(a1);
         if (a7 == null || a7.Count == 0)
         {
           logger.Info("Removing Album '{0}' .", a1.Album);
           a1.Delete();
         }
-
       }
+
       if (a3 != null)
       {
         List<DBTrackInfo> a7 = GetEntriesByArtist(a3);
@@ -258,7 +255,6 @@ namespace mvCentral.Database
           logger.Info("Removing Artist '{0}' .", a3.Artist);
           a3.Delete();
         }
-
       }
     }
 
@@ -276,6 +272,7 @@ namespace mvCentral.Database
       {
         currInfo.Commit();
       }
+
       base.Commit();
     }
 
@@ -362,7 +359,9 @@ namespace mvCentral.Database
     /// <returns></returns>
     public static List<DBTrackInfo> GetEntriesByAlbum(DBAlbumInfo mv)
     {
-      if (mv == null) return null;
+      if (mv == null) 
+        return null;
+
       lock (lockList)
       {
         List<DBTrackInfo> results = new List<DBTrackInfo>();
@@ -370,7 +369,8 @@ namespace mvCentral.Database
         foreach (DBTrackInfo db2 in db1)
         {
           if (db2.AlbumInfo.Count > 0)
-            if (mv == db2.AlbumInfo[0]) results.Add(db2);
+            if (mv == db2.AlbumInfo[0]) 
+              results.Add(db2);
         }
         return results;
       }
@@ -383,15 +383,19 @@ namespace mvCentral.Database
     /// <returns></returns>
     public static List<DBTrackInfo> GetEntriesByArtist(DBArtistInfo mv)
     {
-      if (mv == null) return null;
+      if (mv == null) 
+        return null;
+
       lock (lockList)
       {
         List<DBTrackInfo> results = new List<DBTrackInfo>();
         List<DBTrackInfo> db1 = DBTrackInfo.GetAll();
+
         foreach (DBTrackInfo db2 in db1)
         {
           if (db2.ArtistInfo.Count > 0)
-            if (mv == db2.ArtistInfo[0]) results.Add(db2);
+            if (mv == db2.ArtistInfo[0]) 
+              results.Add(db2);
         }
         return results;
       }

@@ -1,4 +1,6 @@
-﻿using NLog;
+﻿using Newtonsoft.Json;
+
+using NLog;
 
 using System;
 using System.IO;
@@ -189,10 +191,12 @@ namespace mvCentral.Utils
                               apiStatus = lfmStatusCode.Attributes["status"].Value;
                               errorCode = lfmStatusText.Attributes["code"].Value;
                               errorText = lfmStatusText.InnerText;
+                              if (string.IsNullOrEmpty(errorText)) errorText = lfmStatusResponse.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty);
                               logger.Debug("Error with API Call = Status:{0} with Error Code:{1} ({2})", apiStatus, errorCode, errorText);
                               return false;
                             default:
-                              logger.Error("Connection failed: URL={0}, Status={1}, Description={2}.", requestUrl.Replace(apiKey, "<apiKey>"), statusCode, ((HttpWebResponse)e.Response).StatusDescription);
+                              logger.Error("Connection failed: URL={0}, Status={1}, Description={2}.", requestUrl.Replace(apiKey, "<apiKey>").Replace(mvCentralCore.Settings.FanartTVPersonalAPIkey,"<personalAPIkey>"), statusCode, ((HttpWebResponse)e.Response).StatusDescription);
+                              if (string.IsNullOrEmpty(errorText)) errorText = lfmStatusResponse.Replace("\r\n", string.Empty).Replace("\n", string.Empty).Replace("\r", string.Empty);
                               return false;
                           }
                         }
@@ -200,8 +204,9 @@ namespace mvCentral.Utils
 
                         // Return when hitting maximum retries.
                         if (tryCount == maxRetries) {
-                          logger.Warn("Connection failed: Reached retry limit of " + maxRetries + ". URL=" + requestUrl.Replace(apiKey, "<apiKey>"));
-                            return false;
+                          logger.Warn("Connection failed: Reached retry limit of " + maxRetries + ". URL=" + requestUrl.Replace(apiKey, "<apiKey>").Replace(mvCentralCore.Settings.FanartTVPersonalAPIkey, "<personalAPIkey>"));
+                          if (string.IsNullOrEmpty(errorText)) errorText = "Reached retry limit of " + maxRetries ;
+                          return false;
                         }
 
                         // If we did not experience a timeout but some other error
@@ -232,7 +237,7 @@ namespace mvCentral.Utils
                 cookieHeader = request.CookieContainer.GetCookieHeader(request.RequestUri);
 
                 // Debug
-                if (_debug) logger.Debug("GetResponse: URL={0}, UserAgent={1}, CookieHeader={3}", requestUrl.Replace(apiKey, "<apiKey>"), userAgent, cookieHeader);
+                if (_debug) logger.Debug("GetResponse: URL={0}, UserAgent={1}, CookieHeader={3}", requestUrl.Replace(apiKey, "<apiKey>").Replace(mvCentralCore.Settings.FanartTVPersonalAPIkey, "<personalAPIkey>"), userAgent, cookieHeader);
 
                 // disable unsafe header parsing if it was enabled
                 if (_allowUnsafeHeader) SetAllowUnsafeHeaderParsing(false);
@@ -240,7 +245,7 @@ namespace mvCentral.Utils
                 return true;
             }
             catch (Exception e) {
-              logger.Warn("Unexpected error getting http response from '{0}': {1}", requestUrl.Replace(apiKey, "<apiKey>"), e.Message);
+              logger.Warn("Unexpected error getting http response from '{0}': {1}", requestUrl.Replace(apiKey, "<apiKey>").Replace(mvCentralCore.Settings.FanartTVPersonalAPIkey, "<personalAPIkey>"), e.Message);
               return false;
             }
         }
@@ -293,11 +298,6 @@ namespace mvCentral.Utils
         public XmlNodeList GetXML() 
         {
             return GetXML(null);
-        }
-
-        public XmlNodeList GetJSONasXML() 
-        {
-            return GetJSONasXML(null);
         }
 
         public XmlDocument GetXMLDoc()
@@ -362,95 +362,9 @@ namespace mvCentral.Utils
           return xml; ;
         }
 
-        public XmlNodeList GetJSONasXML(string rootNode)
-        {
-          string data = GetString();
-
-          // if there's no data return nothing
-          if (String.IsNullOrEmpty(data))
-            return null;
-
-          XmlDocument xml = new XmlDocument();
-
-          // attempts to convert data into an XmlDocument
-          try
-          {
-            xml = JsonToXml(data);
-          }
-          catch (XmlException e)
-          {
-            logger.ErrorException("JSON as XML Parse error: URL=" + requestUrl, e);
-            logger.Debug("JSON: " + data);
-            return null;
-          }
-
-          // get the document root
-          XmlElement xmlRoot = xml.DocumentElement;
-          if (xmlRoot == null)
-            return null;
-
-          // if a root node name is given check for it
-          // return null when the root name doesn't match
-          if (rootNode != null && xmlRoot.Name != rootNode)
-            return null;
-
-          return xmlRoot.ChildNodes;
-        }
-
         #endregion
 
         #region Private methods
-
-        private static XmlDocument JsonToXml(string json)
-        {
-          XmlNode newNode = null;
-          XmlNode appendToNode = null;
-          XmlDocument returnXmlDoc = new XmlDocument();
-          returnXmlDoc.LoadXml("<Document />");
-          XmlNode rootNode = returnXmlDoc.SelectSingleNode("Document");
-          appendToNode = rootNode;
-
-          string[] arrElementData;
-          string[] arrElements = json.Split('\r');
-          foreach (string element in arrElements)
-          {
-            string processElement = element.Replace("\r", "").Replace("\n", "").Replace("\t", "").Trim();
-            if ((processElement.IndexOf("}") > -1 || processElement.IndexOf("]") > -1) && appendToNode != rootNode)
-            {
-              appendToNode = appendToNode.ParentNode;
-            }
-            else if (processElement.IndexOf("[") > -1)
-            {
-              processElement = processElement.Replace(":", "").Replace("[", "").Replace("\"", "").Trim();
-              newNode = returnXmlDoc.CreateElement(processElement);
-              appendToNode.AppendChild(newNode);
-              appendToNode = newNode;
-            }
-            else if (processElement.IndexOf("{") > -1 && processElement.IndexOf(":") > -1)
-            {
-              processElement = processElement.Replace(":", "").Replace("{", "").Replace("\"", "").Trim();
-              newNode = returnXmlDoc.CreateElement(processElement);
-              appendToNode.AppendChild(newNode);
-              appendToNode = newNode;
-            }
-            else
-            {
-              if (processElement.IndexOf(":") > -1)
-              {
-                arrElementData = processElement.Replace(": \"", ":").Replace("\",", "").Replace("\"", "").Split(':');
-                newNode = returnXmlDoc.CreateElement(arrElementData[0]);
-                for (int i = 1; i < arrElementData.Length; i++)
-                {
-                  newNode.InnerText += arrElementData[i];
-                }
-
-                appendToNode.AppendChild(newNode);
-              }
-            }
-          }
-
-          return returnXmlDoc;
-        }
 
         //Method to change the AllowUnsafeHeaderParsing property of HttpWebRequest.
         private bool SetAllowUnsafeHeaderParsing(bool setState) {

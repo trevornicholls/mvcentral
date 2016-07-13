@@ -566,7 +566,7 @@ namespace mvCentral.DataProviders
 
       List<string> albumImageList = mvAlbumObject.ArtUrls;
       // First reload any artwork we have strored
-      if (albumImageList.Count > 0)
+      if (albumImageList != null && albumImageList.Count > 0)
       {
         // grab album art loading settings
         int maxAlbumArt = mvCentralCore.Settings.MaxAlbumArts;
@@ -587,13 +587,20 @@ namespace mvCentral.DataProviders
         // Now add any new artwork, this handles the sitution where an album has been created manually
         DBArtistInfo artist = null;
         List<DBTrackInfo> tracksOnAlbum = DBTrackInfo.GetEntriesByAlbum(mvAlbumObject);
-        if (tracksOnAlbum.Count > 0)
+        if (tracksOnAlbum != null && tracksOnAlbum.Count > 0)
           artist = DBArtistInfo.Get(tracksOnAlbum[0]);
 
         if (mvAlbumObject.MdID == null || string.IsNullOrEmpty(mvAlbumObject.MdID.Trim()))
+        {
+          if (artist == null)
+            return false;
+
           setMusicVideoAlbum(ref mvAlbumObject, artist.Artist, mvAlbumObject.Album, null);
+        }
         else
+        {
           setMusicVideoAlbum(ref mvAlbumObject, mvAlbumObject.MdID);
+        }
       }
 
       mvAlbumObject.Commit();
@@ -626,10 +633,9 @@ namespace mvCentral.DataProviders
         return results;
 
       Logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
-      Logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
-      Logger.Debug("*** Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
-      Logger.Debug("*** Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
-      Logger.Debug("*** Other: " + mvSignature.Title + " - " + mvSignature.MdId);
+      Logger.Debug("*** GetTrackDetail Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
+      Logger.Debug("*** GetTrackDetail Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
+      Logger.Debug("*** GetTrackDetail Other: " + mvSignature.Title + " - " + mvSignature.MdId);
       lock (LockList)
       {
         DBTrackInfo mvTrackData = null;
@@ -661,9 +667,9 @@ namespace mvCentral.DataProviders
             {
               DBAlbumInfo albumInfo = new DBAlbumInfo();
               albumInfo.Album = mvSignature.Album;
-              Logger.Debug("*** *** Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
-              Logger.Debug("*** *** Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
-              Logger.Debug("*** *** Other: " + mvSignature.Title + " - " + mvSignature.MdId);
+              Logger.Debug("*** *** GetTrackDetail Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
+              Logger.Debug("*** *** GetTrackDetail Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
+              Logger.Debug("*** *** GetTrackDetail Other: " + mvSignature.Title + " - " + mvSignature.MdId);
               setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvSignature.Album, null);
               mvTrackData.AlbumInfo.Clear();
               mvTrackData.AlbumInfo.Add(albumInfo);

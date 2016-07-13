@@ -179,15 +179,16 @@ namespace mvCentral.Database
 
     public static DBArtistInfo Get(string Artist)
     {
-      if (Artist.Trim().Length == 0) return null;
+      if (Artist.Trim().Length == 0) 
+        return null;
+
       foreach (DBArtistInfo db1 in GetAll())
       {
-        if (String.Equals(Artist, db1.Artist, StringComparison.OrdinalIgnoreCase))
+        if (String.Equals(Artist.Trim(), db1.Artist.Trim(), StringComparison.InvariantCultureIgnoreCase))
           return db1;
 
-        if (String.Equals(Artist, db1.MdID))
+        if (String.Equals(Artist.Trim(), db1.MdID.Trim(), StringComparison.InvariantCultureIgnoreCase))
           return db1;
-
       }
       return null;
     }
@@ -198,6 +199,7 @@ namespace mvCentral.Database
 
       if (Artist.Trim().Length == 0)
         return null;
+
       foreach (DBArtistInfo artistRecord in GetAll())
       {
         if (artistRecord.Artist.Contains(Artist, StringComparison.OrdinalIgnoreCase))
@@ -211,14 +213,18 @@ namespace mvCentral.Database
 
     public static DBArtistInfo Get(DBTrackInfo mv)
     {
-      if (mv.ArtistInfo.Count == 0) return null;
+      if (mv.ArtistInfo.Count == 0) 
+        return null;
+
       foreach (DBArtistInfo db1 in GetAll())
       {
         if (db1.MdID.Trim().Length > 0)
-          if (String.Equals(db1.MdID, mv.ArtistInfo[0].MdID)) return db1;
-        if (db1.Artist.Trim().Length > 0)
-          if (String.Equals(db1.Artist, mv.ArtistInfo[0].Artist)) return db1;
+          if (String.Equals(db1.MdID.Trim(), mv.ArtistInfo[0].MdID.Trim(), StringComparison.InvariantCultureIgnoreCase)) 
+            return db1;
 
+        if (db1.Artist.Trim().Length > 0)
+          if (String.Equals(db1.Artist.Trim(), mv.ArtistInfo[0].Artist.Trim(), StringComparison.InvariantCultureIgnoreCase)) 
+            return db1;
       }
       return null;
     }

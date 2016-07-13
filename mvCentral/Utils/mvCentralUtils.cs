@@ -16,7 +16,9 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Web;
 using System.Xml;
 
 namespace mvCentral.Utils
@@ -440,6 +442,78 @@ namespace mvCentral.Utils
       FullsizeImage = null; ;
     }
 
+
+    #region MusicBrainz
+    // Begin: Extract MusicBrainz ID
+    public static string ExtractMID (string AInputString)
+    {
+      const string URLRE = @"id=\""(.+?)\""" ;
+      var Result = (string) null ;         
+
+      if (string.IsNullOrEmpty(AInputString))
+      {
+        logger.Debug("MusicBrainz: Extract ID: Input empty") ;
+        return Result ;
+      }
+
+      Regex ru = new Regex(URLRE,RegexOptions.IgnoreCase);
+      MatchCollection mcu = ru.Matches(AInputString) ;
+      foreach(Match mu in mcu)
+      {
+        Result = mu.Groups[1].Value.ToString();
+        if (Result.Length > 10)
+        {
+          logger.Debug("MusicBrainz: Extract ID: " + Result) ;
+          break;
+        }
+      }
+      if (!string.IsNullOrEmpty(Result) && Result.Length < 10)
+      {
+        Result = string.Empty;
+      }
+      if (string.IsNullOrEmpty(Result))
+      {
+        logger.Debug("MusicBrainz: Extract ID: Empty") ;
+      }
+      return Result ;
+    }
+    // End: Extract MusicBrainz ID
+
+    // Begin: GetMusicBrainzID
+    public static string GetMusicBrainzID(string artist, string album)
+    {
+      const string MBURL    = "http://www.musicbrainz.org/ws/2" ;
+      const string MIDURL   = "/artist/?query=artist:" ;
+      const string MIDURLA  = "/release-group/?query=artist:" ;
+
+      var URL  = MBURL + (string.IsNullOrEmpty(album) ? MIDURL + HttpUtility.UrlEncode(artist) : MIDURLA + HttpUtility.UrlEncode(artist + " " + album)) ;
+      var html = GetHTMLFromUrl(URL) ;
+
+      return ExtractMID(html);
+    }
+    // End: GetMusicBrainzID
+
+    private static string GetHTMLFromUrl(string url)
+    {
+      logger.Debug("Sending the request: " + url);
+
+      try
+      {
+        mvWebGrabber grabber = Utility.GetWebGrabberInstance(url);
+        grabber.Encoding = System.Text.Encoding.UTF8;
+        grabber.Timeout = 5000;
+        grabber.TimeoutIncrement = 10;
+        if (grabber.GetResponse())
+          return grabber.GetString();
+      }
+      catch (Exception ex)
+      {
+        logger.Debug("GetHTMLFromUrl: ERROR: " + ex);
+      }
+      return null;
+    }
+
+    #endregion
 
     #region Mounting
 

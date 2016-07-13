@@ -84,26 +84,33 @@ namespace mvCentral.Database {
 
         public static DBAlbumInfo Get(string Album)
         {
-            if (Album.Trim().Length == 0) return null;
+            if (Album.Trim().Length == 0) 
+              return null;
+
             foreach (DBAlbumInfo db1 in GetAll())
             {
-                if (String.Equals(Album, db1.Album)) return db1;
-                if (String.Equals(Album, db1.MdID)) return db1;
-
+                if (String.Equals(Album.Trim(), db1.Album.Trim(), StringComparison.InvariantCultureIgnoreCase)) 
+                  return db1;
+                if (String.Equals(Album.Trim(), db1.MdID.Trim(), StringComparison.InvariantCultureIgnoreCase)) 
+                  return db1;
             }
             return null;
         }
+
         public static DBAlbumInfo Get(DBTrackInfo mv)
         {
-            if (mv.AlbumInfo.Count == 0) return null;
+            if (mv.AlbumInfo.Count == 0) 
+              return null;
+
             foreach (DBAlbumInfo db1 in GetAll())
             {
                 if (db1.MdID != null && db1.MdID.Trim().Length > 0)
-                  if (String.Equals(db1.MdID, mv.AlbumInfo[0].MdID)) return db1;
+                  if (String.Equals(db1.MdID.Trim(), mv.AlbumInfo[0].MdID.Trim(), StringComparison.InvariantCultureIgnoreCase)) 
+                    return db1;
 
                 if (db1.Album.Trim().Length > 0)
-                    if (db1 == mv.AlbumInfo[0]) return db1;
-
+                    if (String.Equals(db1.Album.Trim(), mv.AlbumInfo[0].Album.Trim(), StringComparison.InvariantCultureIgnoreCase)) 
+                      return db1;
             }
             return null;
         }

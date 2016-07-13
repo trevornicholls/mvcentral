@@ -3013,6 +3013,29 @@ namespace mvCentral.Settings
 
     #endregion
 
+    #region Fanart.TV Profile
+
+    [CornerstoneSetting(
+        Name = "Fanart.TV Personal API key:",
+        Description = "Fanart.TV Personal API key",
+        MoreInfoLink = "https://fanart.tv/?mymail=17791&k=052ca886c07189254e6f316a9b3cc21d&t=fanart.tv&c=2&s=1",
+        Groups = "|Extras|Fanart.TV|",
+        Identifier = "fanart_tv_personal_api_key",
+        Default = "")]
+    public string FanartTVPersonalAPIkey
+    {
+      get { return _fanarttvpersonalapikey; }
+      set
+      {
+        _fanarttvpersonalapikey = value;
+        OnSettingChanged("fanart_tv_personal_api_key");
+      }
+    }
+    private string _fanarttvpersonalapikey;
+
+
+    #endregion
+
     #endregion
     #endregion
 
