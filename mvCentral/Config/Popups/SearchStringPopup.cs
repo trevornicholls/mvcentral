@@ -34,7 +34,6 @@ namespace mvCentral.ConfigScreen.Popups
       musicVideoMatch.Signature.Artist = uxArtistName.Text;
       musicVideoMatch.Signature.Album = uxAlbumName.Text;
       musicVideoMatch.Signature.Track = uxTrackName.Text;
-
     }
   }
 }

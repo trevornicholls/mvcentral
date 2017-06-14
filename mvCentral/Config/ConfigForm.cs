@@ -100,7 +100,10 @@ namespace mvCentral
         if (mvLibraryTreeView.Nodes.Count == 0 || mvLibraryTreeView.SelectedNode == null || mvLibraryTreeView.SelectedNode.Level != 0)
           return null;
 
-        return (DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag;
+        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBArtistInfo))
+          return (DBArtistInfo)mvLibraryTreeView.SelectedNode.Tag;
+        else
+          return null;
       }
     }
     /// <summary>
@@ -113,7 +116,10 @@ namespace mvCentral
         if (mvLibraryTreeView.Nodes.Count == 0 || mvLibraryTreeView.SelectedNode == null || mvLibraryTreeView.SelectedNode.Level != 1)
           return null;
 
-        return (DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag;
+        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBAlbumInfo))
+          return (DBAlbumInfo)mvLibraryTreeView.SelectedNode.Tag;
+        else
+          return null;
       }
     }
     /// <summary>
@@ -126,7 +132,10 @@ namespace mvCentral
         if (mvLibraryTreeView.Nodes.Count == 0 || mvLibraryTreeView.SelectedNode == null || mvLibraryTreeView.SelectedNode.Level == 0)
           return null;
 
-        return (DBTrackInfo)mvLibraryTreeView.SelectedNode.Tag;
+        if (mvLibraryTreeView.SelectedNode.Tag.GetType() == typeof(DBTrackInfo))
+          return (DBTrackInfo)mvLibraryTreeView.SelectedNode.Tag;
+        else
+          return null;
       }
     }
 
@@ -2240,7 +2249,6 @@ namespace mvCentral
             if (resultInsert == DialogResult.Cancel)
               return;
           }
-
         }
 
         SearchStringPopup popup = new SearchStringPopup(selectedMatch);
@@ -2249,7 +2257,6 @@ namespace mvCentral
         // reprocess
         if (popup.DialogResult == DialogResult.OK)
           mvCentralCore.Importer.Reprocess(selectedMatch);
-
       }
     }
 

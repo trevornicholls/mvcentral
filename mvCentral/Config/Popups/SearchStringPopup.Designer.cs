@@ -43,7 +43,7 @@
       this.okButton.Location = new System.Drawing.Point(311, 193);
       this.okButton.Name = "okButton";
       this.okButton.Size = new System.Drawing.Size(75, 23);
-      this.okButton.TabIndex = 3;
+      this.okButton.TabIndex = 4;
       this.okButton.Text = "OK";
       this.okButton.UseVisualStyleBackColor = true;
       this.okButton.Click += new System.EventHandler(this.okButton_Click);
@@ -55,7 +55,7 @@
       this.cancelButton.Location = new System.Drawing.Point(396, 193);
       this.cancelButton.Name = "cancelButton";
       this.cancelButton.Size = new System.Drawing.Size(75, 23);
-      this.cancelButton.TabIndex = 2;
+      this.cancelButton.TabIndex = 5;
       this.cancelButton.Text = "Cancel";
       this.cancelButton.UseVisualStyleBackColor = true;
       // 
@@ -70,7 +70,7 @@
       this.descriptionLabel.Name = "descriptionLabel";
       this.descriptionLabel.ReadOnly = true;
       this.descriptionLabel.Size = new System.Drawing.Size(459, 30);
-      this.descriptionLabel.TabIndex = 5;
+      this.descriptionLabel.TabIndex = 6;
       this.descriptionLabel.Text = "Please enter a new search string for the following file(s).";
       // 
       // fileListBox
@@ -86,7 +86,7 @@
       this.fileListBox.Name = "fileListBox";
       this.fileListBox.SelectionMode = System.Windows.Forms.SelectionMode.None;
       this.fileListBox.Size = new System.Drawing.Size(459, 58);
-      this.fileListBox.TabIndex = 6;
+      this.fileListBox.TabIndex = 7;
       // 
       // uxArtistName
       // 
@@ -95,7 +95,7 @@
       this.uxArtistName.Location = new System.Drawing.Point(82, 114);
       this.uxArtistName.Name = "uxArtistName";
       this.uxArtistName.Size = new System.Drawing.Size(389, 20);
-      this.uxArtistName.TabIndex = 7;
+      this.uxArtistName.TabIndex = 1;
       // 
       // label1
       // 
@@ -105,7 +105,7 @@
       this.label1.Location = new System.Drawing.Point(38, 114);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(30, 13);
-      this.label1.TabIndex = 17;
+      this.label1.TabIndex = 8;
       this.label1.Text = "Artist";
       // 
       // uxTrackName
@@ -115,7 +115,7 @@
       this.uxTrackName.Location = new System.Drawing.Point(82, 167);
       this.uxTrackName.Name = "uxTrackName";
       this.uxTrackName.Size = new System.Drawing.Size(389, 20);
-      this.uxTrackName.TabIndex = 18;
+      this.uxTrackName.TabIndex = 3;
       // 
       // label2
       // 
@@ -125,7 +125,7 @@
       this.label2.Location = new System.Drawing.Point(13, 170);
       this.label2.Name = "label2";
       this.label2.Size = new System.Drawing.Size(58, 13);
-      this.label2.TabIndex = 19;
+      this.label2.TabIndex = 10;
       this.label2.Text = "Track Title";
       // 
       // label3
@@ -136,7 +136,7 @@
       this.label3.Location = new System.Drawing.Point(32, 144);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(36, 13);
-      this.label3.TabIndex = 21;
+      this.label3.TabIndex = 9;
       this.label3.Text = "Album";
       // 
       // uxAlbumName
@@ -146,7 +146,7 @@
       this.uxAlbumName.Location = new System.Drawing.Point(82, 141);
       this.uxAlbumName.Name = "uxAlbumName";
       this.uxAlbumName.Size = new System.Drawing.Size(389, 20);
-      this.uxAlbumName.TabIndex = 20;
+      this.uxAlbumName.TabIndex = 2;
       // 
       // SearchStringPopup
       // 

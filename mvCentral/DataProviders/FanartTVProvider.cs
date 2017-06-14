@@ -345,7 +345,7 @@ namespace mvCentral.DataProviders
     private static string getJSONFromURL(string url)
     {
       // Add Fanart.TV personal API Key
-      if (!string.IsNullOrEmpty(mvCentralCore.Settings.FanartTVPersonalAPIkey))
+      if (!string.IsNullOrWhiteSpace(mvCentralCore.Settings.FanartTVPersonalAPIkey))
       {
         url = url + "&client_key=" + mvCentralCore.Settings.FanartTVPersonalAPIkey;
       }

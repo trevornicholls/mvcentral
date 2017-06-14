@@ -56,9 +56,7 @@ namespace mvCentral.SignatureBuilders
         }
 
       }
-    }
-
-    private string title = null;
+    } private string title = null;
 
     /// <summary>
     /// Keywords derived from the full mv title, can be used
@@ -142,6 +140,15 @@ namespace mvCentral.SignatureBuilders
       }
       set { filehash = value; }
     } private string filehash = null;
+
+    /// <summary>
+    /// Track - isAlbum
+    /// </summary>
+    public bool IsAlbum
+    {
+      get { return isalbum; }
+      set { isalbum = value; }
+    } private bool isalbum = false;
 
     public List<DBLocalMedia> LocalMedia = null; // LocalMedia collection 
 
@@ -266,7 +273,8 @@ namespace mvCentral.SignatureBuilders
       //            Year = mv.Year;
       MdId = mv.MdID;
       ArtistMdId = mv.ArtistInfo[0].MdID;
-      if (mv.AlbumInfo.Count > 0) AlbumMdId = mv.AlbumInfo[0].MdID;
+      if (mv.AlbumInfo.Count > 0) 
+        AlbumMdId = mv.AlbumInfo[0].MdID;
       LocalMedia = mv.LocalMedia;
     }
 
