@@ -116,6 +116,9 @@
     <Reference Include="GUIVideos">
       <HintPath>..\External\GUIVideos.dll</HintPath>
     </Reference>
+    <Reference Include="MediaInfo.Wrapper">
+      <HintPath>..\External\MediaInfo.Wrapper.dll</HintPath>
+    </Reference>
     <Reference Include="MediaPortal.Support">
       <HintPath>..\External\MediaPortal.Support.dll</HintPath>
     </Reference>
@@ -351,7 +354,6 @@
     <Compile Include="LocalMediaManagement\ParserFilename.cs" />
     <Compile Include="Localizations\Localization.cs" />
     <Compile Include="LocalMediaManagement\DeviceManager.cs" />
-    <Compile Include="LocalMediaManagement\MediaInfoWrapper.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoImporter.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoResources\FileBasedResource.cs" />
     <Compile Include="LocalMediaManagement\MusicVideoResources\ImageResource.cs" />

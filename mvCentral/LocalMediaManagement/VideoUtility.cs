@@ -3,6 +3,10 @@
 using DirectShowLib;
 using DirectShowLib.Dvd;
 
+using MediaInfo;
+
+using MediaPortal.Services;
+
 using NLog;
 
 using System;
@@ -187,7 +191,8 @@ namespace mvCentral.LocalMediaManagement {
             if (videoPath != mainFeatureFile)
                 logger.Debug("Format={0}, FeatureFilmFile='{1}'", self, mainFeatureFile);
 
-            return new MediaInfoWrapper(mainFeatureFile);
+            var milog = GlobalServiceProvider.Get<MediaInfo.ILogger>();
+            return new MediaInfoWrapper(mainFeatureFile, milog);
         }
 
         /// <summary>
@@ -400,9 +405,12 @@ namespace mvCentral.LocalMediaManagement {
         public static string FindFeatureFilm(List<string> files) {
             if (files.Count == 1) return files[0];
 
+            var milog = GlobalServiceProvider.Get<MediaInfo.ILogger>();
+
             Dictionary<string, MediaInfoWrapper> mediaInfos = new Dictionary<string, MediaInfoWrapper>();
-            foreach (string file in files) {
-                mediaInfos.Add(file, new MediaInfoWrapper(file));
+            foreach (string file in files)
+            {
+                mediaInfos.Add(file, new MediaInfoWrapper(file, milog));
             }
 
             // first filter out the fullscreen files if there are widescreen files present

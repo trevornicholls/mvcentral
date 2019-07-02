@@ -803,19 +803,13 @@ namespace mvCentral.ConfigScreen.Popups {
 
                 if (_vmr9Filter != null)
                 {
-                    while ((hr = DirectShowUtil.ReleaseComObject(_vmr9Filter)) > 0)
-                    {
-                        ;
-                    }
+                    DirectShowUtil.FinalReleaseComObject(_vmr9Filter);
                     _vmr9Filter = null;
                 }
 
                 if (_dvdbasefilter != null)
                 {
-                    while ((hr = DirectShowUtil.ReleaseComObject(_dvdbasefilter)) > 0)
-                    {
-                        ;
-                    }
+                    DirectShowUtil.FinalReleaseComObject(_dvdbasefilter);
                     _dvdbasefilter = null;
                 }
 
@@ -827,10 +821,7 @@ namespace mvCentral.ConfigScreen.Popups {
                 _pendingCmd = false;
                 if (_line21Decoder != null)
                 {
-                    while ((hr = DirectShowUtil.ReleaseComObject(_line21Decoder)) > 0)
-                    {
-                        ;
-                    }
+                    DirectShowUtil.FinalReleaseComObject(_line21Decoder);
                     _line21Decoder = null;
                 }
 
@@ -843,19 +834,13 @@ namespace mvCentral.ConfigScreen.Popups {
                         _rotEntry.Dispose();
                         _rotEntry = null;
                     }
-                    while ((hr = DirectShowUtil.ReleaseComObject(_graphBuilder)) > 0)
-                    {
-                        ;
-                    }
+                    DirectShowUtil.FinalReleaseComObject(_graphBuilder);
                     _graphBuilder = null;
                 }
 
                 if (_dvdGraph != null)
                 {
-                    while ((hr = DirectShowUtil.ReleaseComObject(_dvdGraph)) > 0)
-                    {
-                        ;
-                    }
+                    DirectShowUtil.ReleaseComObject(_dvdGraph);
                     _dvdGraph = null;
                 }
                 _state = PlayState.Init;
