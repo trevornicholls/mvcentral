@@ -359,8 +359,10 @@ namespace mvCentral.GUI
       itemRating.SetTitle(String.Format("{0}-{1}", artist.Artist, videoToRate.Track));
       itemRating.FileName = videoToRate.LocalMedia[0].FullPath;
       itemRating.SetHeading("Rate Music Video");
+
       // Open the Dialog
       itemRating.DoModal(GetID);
+
       // Set the rating
       logger.Debug("Set rating of ({0}) for video {1}", (itemRating.Rating*2).ToString(CultureInfo.InvariantCulture), itemRating.FileName);
       userSettings.UserRating = itemRating.Rating*2;
@@ -1741,6 +1743,7 @@ namespace mvCentral.GUI
         facadeItem.TVTag = mvCentralUtils.bioNoiseFilter(trackData.bioContent);
         facadeItem.Path = trackData.LocalMedia[0].File.FullName;
         facadeItem.IsFolder = false;
+        facadeItem.IsBdDvdFolder = trackData.LocalMedia[0].IsDVD;
         facadeItem.OnItemSelected += new GUIListItem.ItemSelectedHandler(onVideoSelected);
         facadeItem.MusicTag = trackData;
         facadeItem.Rating = trackData.Rating;
