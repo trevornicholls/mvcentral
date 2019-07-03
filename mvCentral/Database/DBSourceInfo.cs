@@ -118,7 +118,7 @@ namespace mvCentral.Database
 
     public void SetPriority(DataType type, int value)
     {
-      logger.Debug("*** SetPriority: " + type + " " + value);
+      // logger.Debug("*** SetPriority: " + type + " " + value);
       switch (type)
       {
         case DataType.TRACKDETAIL:
@@ -165,14 +165,14 @@ namespace mvCentral.Database
 
     public bool IsDisabled(DataType type)
     {
-      logger.Debug("*** IsDisabled: " + type);
+      // logger.Debug("*** IsDisabled: " + type);
       return GetPriority(type) == -1;
     }
 
     public bool IsScriptable()
     {
       return false;
-      //            return !(SelectedScript == null || SelectedScript.Contents.Trim().Length == 0);
+      // return !(SelectedScript == null || SelectedScript.Contents.Trim().Length == 0);
     }
 
     #endregion

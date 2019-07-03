@@ -2777,7 +2777,7 @@ namespace mvCentral.GUI
       }
       catch
       {
-        return "00:00:00";
+        return "00:00";
       }
     }
 
@@ -2808,7 +2808,7 @@ namespace mvCentral.GUI
       }
       catch
       {
-        return "00:00:00";
+        return "00:00";
       }
     }
 
@@ -2825,7 +2825,6 @@ namespace mvCentral.GUI
       try
       {
         TimeSpan tt = TimeSpan.Parse("00:00:00");
-
         foreach (DBArtistInfo artistInfo in artistFullList)
         {
           if (tagMatched(facadeLayout.SelectedListItem.Label, artistInfo) || artistInfo.Genre.Equals(facadeLayout.SelectedListItem.Label,StringComparison.OrdinalIgnoreCase))
@@ -2863,7 +2862,7 @@ namespace mvCentral.GUI
       }
       catch
       {
-        return "00:00:00";
+        return "00:00";
       }
     }
 

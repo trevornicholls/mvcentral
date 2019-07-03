@@ -8,7 +8,67 @@
   <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
   <controls>
+    <import>common.default.background.xml</import>
+    <import>common.music.random.fanart.xml</import> 
+    <import>common.music.selected.fanart.xml</import>
+    <import>common.default.background.overlay.xml</import>
     <import>common.window.playlist.xml</import>
+
+    <!-- ClearArt -->
+    <control>
+        <description>ClearArt</description>
+        <type>image</type>
+        <id>258456951</id>
+        <posX>1650</posX>
+        <posY>200</posY>
+        <width>200</width>
+        <height>77</height>
+        <texture>#fanarthandler.music.artistclearart.selected</texture>
+        <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons|facadeview.playlist]</visible>
+        <animation effect="fade" time="250">WindowOpen</animation>
+        <animation effect="fade" time="250">WindowClose</animation>
+    </control>  
+    <control>
+        <description>ClearArt</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>1650</posX>
+        <posY>200</posY>
+        <width>200</width>
+        <height>77</height>
+        <texture>..\..\..\Thumbs\ClearArt\Music\#(string.trim(#selectedartist)).png</texture>
+        <visible>[facadeview.list|facadeview.smallicons|facadeview.largeicons|facadeview.playlist]+!control.hasthumb(258456951)</visible>
+        <animation effect="fade" time="250">WindowOpen</animation>
+        <animation effect="fade" time="250">WindowClose</animation>
+    </control>  
+
+    <control>
+        <description>ClearArt</description>
+        <type>image</type>
+        <id>258456952</id>
+        <posX>1650</posX>
+        <posY>140</posY>
+        <width>200</width>
+        <height>77</height>
+        <texture>#fanarthandler.music.artistclearart.selected</texture>
+        <visible>[facadeview.filmstrip]</visible>
+        <animation effect="fade" time="250">WindowOpen</animation>
+        <animation effect="fade" time="250">WindowClose</animation>
+    </control>  
+    <control>
+        <description>ClearArt</description>
+        <type>image</type>
+        <id>0</id>
+        <posX>1650</posX>
+        <posY>140</posY>
+        <width>200</width>
+        <height>77</height>
+        <texture>..\..\..\Thumbs\ClearArt\Music\#(string.trim(#selectedartist)).png</texture>
+        <visible>[facadeview.filmstrip]+!control.hasthumb(258456952)</visible>
+        <animation effect="fade" time="250">WindowOpen</animation>
+        <animation effect="fade" time="250">WindowClose</animation>
+    </control>  
+
     <control>
       <id>1</id>
       <type>image</type>
@@ -38,7 +98,7 @@
       <type>fadelabel</type>
       <description>mvCentral Hierarchy</description>
       <id>1</id>
-      <posX>144</posX>
+      <posX>66</posX>
       <posY>100</posY>
       <align>left</align>
       <font>fontB11</font>
@@ -127,6 +187,21 @@
     <!-- **************************************** -->
     <!--                  Images                  -->
     <!-- **************************************** -->
+    <control>
+        <id>55555</id>
+        <description>CD Image</description>
+        <type>image</type>
+        <posX>155</posX>
+        <posY>308</posY>
+        <width>200</width>
+        <height>200</height>
+        <texture>..\..\..\Thumbs\CDArt\Music\#selectedartist - #selectedalbum.png</texture>
+        <keepaspectratio>yes</keepaspectratio>
+        <animation effect="rotate" delay="0" end="-360" time="8000" loop="true" condition="true">Conditional</animation>
+        <centered>yes</centered>    
+        <visible>[facadeview.playlist|facadeview.smallicons|facadeview.largeicons]</visible>
+    </control>
+
     <control>
       <description>Video Image (Playlist)</description>
       <id>0</id>
@@ -739,4 +814,3 @@
     <import>common.time.xml</import>
   </controls>
 </window>
-<!--Checksum:e02afd7e4dfca5ef0e80125d7125695f-->

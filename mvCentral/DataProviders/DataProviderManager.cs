@@ -417,7 +417,7 @@ namespace mvCentral.DataProviders
 
       foreach (DBSourceInfo currSource in DBSourceInfo.GetAll())
       {
-        logger.Debug("*** loadProvidersFromDatabase: " + currSource);
+        // logger.Debug("*** loadProvidersFromDatabase: " + currSource);
         updateListsWith(currSource);
       }
 
@@ -466,7 +466,7 @@ namespace mvCentral.DataProviders
         if (currSource.ProviderType == providerType)
           return AddSourceResult.FAILED;
 
-      logger.Debug("*** AddSource: " + providerType);
+      // logger.Debug("*** AddSource: " + providerType);
       DBSourceInfo newSource = new DBSourceInfo();
       newSource.ProviderType = providerType;
       newSource.Commit();
@@ -502,13 +502,13 @@ namespace mvCentral.DataProviders
       {
         if (!allSources.Contains(newSource))
         {
-          logger.Debug("*** updateListsWith: allSource.Add: " + newSource);
+          // logger.Debug("*** updateListsWith: allSource.Add: " + newSource);
           allSources.Add(newSource);
         }
       }
       lock (artistArtSources)
       {
-        logger.Debug("*** updateListsWith: artistArtSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !artistArtSources.Contains(newSource));
+        // logger.Debug("*** updateListsWith: artistArtSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !artistArtSources.Contains(newSource));
         if (newSource.Provider.ProvidesArtistArt && !artistArtSources.Contains(newSource))
           artistArtSources.Add(newSource);
         else if (!newSource.Provider.ProvidesArtistArt && artistArtSources.Contains(newSource))
@@ -517,7 +517,7 @@ namespace mvCentral.DataProviders
 
       lock (albumArtSources)
       {
-        logger.Info("*** updateListsWith: albumArtSources: " + newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !albumArtSources.Contains(newSource));
+        // logger.Info("*** updateListsWith: albumArtSources: " + newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !albumArtSources.Contains(newSource));
         if (newSource.Provider.ProvidesAlbumArt && !albumArtSources.Contains(newSource))
           albumArtSources.Add(newSource);
         else if (!newSource.Provider.ProvidesAlbumArt && albumArtSources.Contains(newSource))
@@ -526,7 +526,7 @@ namespace mvCentral.DataProviders
 
       lock (trackArtSources)
       {
-        logger.Debug("*** updateListsWith: trackArtSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !trackArtSources.Contains(newSource));
+        // logger.Debug("*** updateListsWith: trackArtSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !trackArtSources.Contains(newSource));
         if (newSource.Provider.ProvidesTrackArt && !trackArtSources.Contains(newSource))
           trackArtSources.Add(newSource);
         else if (!newSource.Provider.ProvidesTrackArt && trackArtSources.Contains(newSource))
@@ -535,7 +535,7 @@ namespace mvCentral.DataProviders
       
       lock (trackDetailSources)
       {
-        logger.Debug("*** updateListsWith: trackDetailSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !trackDetailSources.Contains(newSource));
+        // logger.Debug("*** updateListsWith: trackDetailSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !trackDetailSources.Contains(newSource));
         if (newSource.Provider.ProvidesTrackDetails && !trackDetailSources.Contains(newSource))
           trackDetailSources.Add(newSource);
         else if (!newSource.Provider.ProvidesTrackDetails && trackDetailSources.Contains(newSource))
@@ -544,7 +544,7 @@ namespace mvCentral.DataProviders
 
       lock (artistDetailSources)
       {
-        logger.Debug("*** updateListsWith: artistDetailSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !artistDetailSources.Contains(newSource));
+        // logger.Debug("*** updateListsWith: artistDetailSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !artistDetailSources.Contains(newSource));
         if (newSource.Provider.ProvidesArtistDetails && !artistDetailSources.Contains(newSource))
           artistDetailSources.Add(newSource);
         else if (!newSource.Provider.ProvidesArtistDetails && artistDetailSources.Contains(newSource))
@@ -553,7 +553,7 @@ namespace mvCentral.DataProviders
 
       lock (albumDetailSources)
       {
-        logger.Debug("*** updateListsWith: albumDetailSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !albumDetailSources.Contains(newSource));
+        // logger.Debug("*** updateListsWith: albumDetailSources: " +  newSource.Provider + " " + newSource.Provider.ProvidesAlbumArt + " - " + !albumDetailSources.Contains(newSource));
         if (newSource.Provider.ProvidesAlbumDetails && !albumDetailSources.Contains(newSource))
           albumDetailSources.Add(newSource);
         else if (!newSource.Provider.ProvidesAlbumDetails && albumDetailSources.Contains(newSource))
@@ -572,7 +572,7 @@ namespace mvCentral.DataProviders
         int count = 0;
         foreach (DBSourceInfo currSource in getEditableList(currType))
         {
-          logger.Debug("*** normalizePriorities: currSource.GetPriority(currType): " + currSource.GetPriority(currType) + " count: " + count);
+          // logger.Debug("*** normalizePriorities: currSource.GetPriority(currType): " + currSource.GetPriority(currType) + " count: " + count);
           if (currSource.GetPriority(currType) != count && currSource.GetPriority(currType) != -1)
           {
             currSource.SetPriority(currType, count);
@@ -683,7 +683,7 @@ namespace mvCentral.DataProviders
       if (mvTrackInfo.PrimarySource != null && mvTrackInfo.PrimarySource.Provider != null)
       {
         UpdateResults success = mvTrackInfo.PrimarySource.Provider.UpdateTrack(mvTrackInfo);
-        logger.Debug("*** UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mvTrackInfo.Track, mvTrackInfo.PrimarySource.Provider.Name, mvTrackInfo.PrimarySource.Provider.Version, success.ToString());
+        // logger.Debug("*** UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mvTrackInfo.Track, mvTrackInfo.PrimarySource.Provider.Name, mvTrackInfo.PrimarySource.Provider.Version, success.ToString());
         providerCount++;
       }
 
@@ -700,7 +700,7 @@ namespace mvCentral.DataProviders
         if (providerCount <= mvCentralCore.Settings.DataProviderRequestLimit || mvCentralCore.Settings.DataProviderRequestLimit == 0)
         {
           UpdateResults success = currSource.Provider.UpdateTrack(mvTrackInfo);
-          logger.Debug("*** UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mvTrackInfo.Track, currSource.Provider.Name, currSource.Provider.Version, success.ToString());
+          // logger.Debug("*** UPDATE: Track='{0}', Provider='{1}', Version={2}, Result={3}", mvTrackInfo.Track, currSource.Provider.Name, currSource.Provider.Version, success.ToString());
         }
         else
         {
@@ -832,11 +832,11 @@ namespace mvCentral.DataProviders
         artWorkAdded = 0;
         foreach (DBSourceInfo currSource in sources)
         {
-          logger.Debug("*** : " + currSource.Provider.Name + " - " + currSource.IsDisabled(DataType.ALBUMART));
+          // logger.Debug("*** : " + currSource.Provider.Name + " - " + currSource.IsDisabled(DataType.ALBUMART));
           if (currSource.IsDisabled(DataType.ALBUMART))
             continue;
 
-          logger.Debug("*** : " + currSource.Provider.Name + " - " + mvDBObject.PrimarySource.Provider.Name + " - " + primarySourceOnly);
+          // logger.Debug("*** : " + currSource.Provider.Name + " - " + mvDBObject.PrimarySource.Provider.Name + " - " + primarySourceOnly);
           if (currSource.Provider != mvDBObject.PrimarySource.Provider && primarySourceOnly)
             continue;
 

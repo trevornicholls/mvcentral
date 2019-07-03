@@ -427,37 +427,9 @@
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvcentral.autofanart.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{2f1b9611-28d9-419a-b219-01f0cc0fc836}-mvcentral.autofanart.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvcentral.autofanart.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0e56a293-5201-4f01-8c09-78b58fa805cf}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\mvCentral.Playlist.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvCentral.PlayStart.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{ff1034d1-e60e-42be-8330-cbf449327e47}-mvCentral.PlayStart.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvcentral.selected.fanart.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{7d0ee6c3-a722-4316-877f-c7a9c7284ec6}-mvcentral.selected.fanart.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvcentral.selected.fanart.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>OverwriteIfOlder</UpdateOption>
-              <LocalFileName>..\Skin\Titan\mvcentral.smartdj.selected.fanart.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{68c65e64-93fe-4886-9204-1f1374716ed3}-mvcentral.smartdj.selected.fanart.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\mvcentral.smartdj.selected.fanart.xml</DestinationFilename>
             </FileItem>
             <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
               <Param1 />
@@ -524,13 +496,6 @@
               <LocalFileName>..\Skin\TitanPlayStart\mvCentral.PlayStart.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{cc919293-2bd0-4344-928e-94ad1f9fd217}-mvCentral.PlayStart.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml</DestinationFilename>
-            </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-              <Param1 />
-              <UpdateOption>AlwaysOverwrite</UpdateOption>
-              <LocalFileName>..\Skin\TitanPlayStart\videoFullScreen.xml</LocalFileName>
-              <ZipFileName>Installer{CopyFile}\{44670b11-b210-479e-8f10-1bc12ca1f3e1}-videoFullScreen.xml</ZipFileName>
-              <DestinationFilename>%Skin%\Titan\videoFullScreen.xml</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -703,7 +668,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Revision>0</Revision>
         </MaxVersion>
         <WarnOnly>true</WarnOnly>
-        <Message>This version of mvCentral requires MediaPortal 1.22 Pre or higher!</Message>
+        <Message>This version of mvCentral requires MediaPortal 1.23 Pre or higher!</Message>
         <Name>Installer</Name>
       </DependencyItem>
       <DependencyItem>
@@ -722,7 +687,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Revision>27644</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
-        <Message>requires MediaPortal version 1.1.6.27644 to 1.1.6.27644.</Message>
+        <Message>This version of mvCentral requires MediaPortal 1.23 Pre or higher!</Message>
         <Name>MediaPortal</Name>
       </DependencyItem>
     </Items>
@@ -754,7 +719,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-{VERSION}.MPE1</OnlineLocation>
-    <ReleaseDate>2019-07-02T22:26:37</ReleaseDate>
+    <ReleaseDate>2019-07-03T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.MPE1</Location>
     <Params>
@@ -1151,37 +1116,9 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvcentral.autofanart.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{2f1b9611-28d9-419a-b219-01f0cc0fc836}-mvcentral.autofanart.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvcentral.autofanart.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\mvCentral.Playlist.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0e56a293-5201-4f01-8c09-78b58fa805cf}-mvCentral.Playlist.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.Playlist.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvCentral.PlayStart.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{ff1034d1-e60e-42be-8330-cbf449327e47}-mvCentral.PlayStart.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvcentral.selected.fanart.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{7d0ee6c3-a722-4316-877f-c7a9c7284ec6}-mvcentral.selected.fanart.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvcentral.selected.fanart.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>OverwriteIfOlder</UpdateOption>
-        <LocalFileName>..\Skin\Titan\mvcentral.smartdj.selected.fanart.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{68c65e64-93fe-4886-9204-1f1374716ed3}-mvcentral.smartdj.selected.fanart.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\mvcentral.smartdj.selected.fanart.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
@@ -1238,13 +1175,6 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
         <LocalFileName>..\Skin\TitanPlayStart\mvCentral.PlayStart.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{cc919293-2bd0-4344-928e-94ad1f9fd217}-mvCentral.PlayStart.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml</DestinationFilename>
-      </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
-        <Param1 />
-        <UpdateOption>AlwaysOverwrite</UpdateOption>
-        <LocalFileName>..\Skin\TitanPlayStart\videoFullScreen.xml</LocalFileName>
-        <ZipFileName>Installer{CopyFile}\{44670b11-b210-479e-8f10-1bc12ca1f3e1}-videoFullScreen.xml</ZipFileName>
-        <DestinationFilename>%Skin%\Titan\videoFullScreen.xml</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />

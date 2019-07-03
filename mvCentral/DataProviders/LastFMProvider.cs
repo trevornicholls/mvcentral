@@ -633,9 +633,9 @@ namespace mvCentral.DataProviders
         return results;
 
       Logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
-      Logger.Debug("*** GetTrackDetail Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
-      Logger.Debug("*** GetTrackDetail Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
-      Logger.Debug("*** GetTrackDetail Other: " + mvSignature.Title + " - " + mvSignature.MdId);
+      Logger.Debug("- GetTrackDetail Artist: " + mvSignature.Artist + " MBID: " + mvSignature.ArtistMdId);
+      Logger.Debug("- GetTrackDetail Album: " + mvSignature.Album + " MBID: " + mvSignature.AlbumMdId);
+      Logger.Debug("- GetTrackDetail Title: " + mvSignature.Title + " MBID: " + mvSignature.MdId);
       lock (LockList)
       {
         DBTrackInfo mvTrackData = null;
@@ -667,9 +667,9 @@ namespace mvCentral.DataProviders
             {
               DBAlbumInfo albumInfo = new DBAlbumInfo();
               albumInfo.Album = mvSignature.Album;
-              Logger.Debug("*** *** GetTrackDetail Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
-              Logger.Debug("*** *** GetTrackDetail Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
-              Logger.Debug("*** *** GetTrackDetail Other: " + mvSignature.Title + " - " + mvSignature.MdId);
+              Logger.Debug("- SetTrackDetail Artist: " + mvSignature.Artist + " MBID: " + mvSignature.ArtistMdId);
+              Logger.Debug("- SetTrackDetail Album: " + mvSignature.Album + " MBID: " + mvSignature.AlbumMdId);
+              Logger.Debug("- SetTrackDetail Title: " + mvSignature.Title + " MBID: " + mvSignature.MdId);
               setMusicVideoAlbum(ref albumInfo, mvSignature.Artist, mvSignature.Album, null);
               mvTrackData.AlbumInfo.Clear();
               mvTrackData.AlbumInfo.Add(albumInfo);
@@ -1219,7 +1219,7 @@ namespace mvCentral.DataProviders
         var _image = string.Empty;
         foreach (XmlNode n2 in n1.ChildNodes)
         {
-          Logger.Debug("*** GetAlbumImages: " + n1.Name);
+          // Logger.Debug("*** GetAlbumImages: " + n1.Name);
           switch (n2.Name)
           {
             case "image":

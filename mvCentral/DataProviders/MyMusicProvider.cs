@@ -700,9 +700,9 @@ namespace mvCentral.DataProviders
         return results;
 
       logger.Debug("In Method: GetTrackDetail(MusicVideoSignature mvSignature)");
-      logger.Debug("*** Artist: " + mvSignature.Artist + " - " + mvSignature.ArtistMdId);
-      logger.Debug("*** Album: " + mvSignature.Album + " - " + mvSignature.AlbumMdId);
-      logger.Debug("*** Other: " + mvSignature.Title + " - " + mvSignature.MdId);
+      logger.Debug("- Artist: " + mvSignature.Artist + " MBID: " + mvSignature.ArtistMdId);
+      logger.Debug("- Album: " + mvSignature.Album + " MBID: " + mvSignature.AlbumMdId);
+      logger.Debug("- Title: " + mvSignature.Title + " MBID: " + mvSignature.MdId);
       lock (lockObj)
       {
         DBTrackInfo mvTrackData = null;

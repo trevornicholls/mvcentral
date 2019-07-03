@@ -31,9 +31,7 @@ namespace mvCentral.DataProviders
 
     // **** Artist Regex ****
     //private const string ArtistRegExpPattern = @"<tr class=""search-result artist"">.*?<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)</a>\s*</div>\s*<div class=""info"">\s*(?<genres>.*?)\s*<br/>\s*(?<years>.*?)\s*</div>";
-
     private const string ArtistRegExpPattern = @"<div class=""name"">\s*<a href=""(?<artistURL>.*?)"".*?>(?<artist>.*?)<\/a>\s*<\/div>\s*<div class=""genres"">\s*(?<genres>.*?)<\/div>\s*<div class=""decades"">\s*(?<years>.*?)<\/div>";
-    
     private static readonly Regex ArtistUrlRegEx = new Regex(ArtistRegExpPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled);
 
     // **** Album Regex ****
