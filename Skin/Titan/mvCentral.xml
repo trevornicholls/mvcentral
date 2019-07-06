@@ -9,7 +9,6 @@
   <define>#shadow.dark:ff000000</define>
   <controls>
     <import>common.default.background.xml</import> 
-    <import>common.music.random.fanart.xml</import> 
     <import>common.music.selected.fanart.xml</import> 
     <import>common.default.background.overlay.xml</import> 
 
@@ -1343,6 +1342,7 @@
           <valuePrefixText>95</valuePrefixText>
           <onright>50</onright>
           <ondown>3</ondown>
+          <onup>12</onup>
         </control>
         <control>
           <description>Sort Menu button</description>
@@ -1482,6 +1482,7 @@
           <textXOff>62</textXOff>
           <textYOff>16</textYOff>
           <onup>10</onup>
+          <ondown>12</ondown>
           <onright>50</onright>
           <label>#mvCentral.Translation.Search.Label #mvCentral.Translation.Artists.Label</label>
         </control>
@@ -1499,6 +1500,8 @@
           <hyperlink>29050</hyperlink>
           <hyperlinkParameter>ARTISTVIDEOS:#mvCentral.ArtistName</hyperlinkParameter>
           <onright>50</onright>
+          <ondown>2</ondown>
+          <onup>11</onup>
         </control>
       </control>
     </control>

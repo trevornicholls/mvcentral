@@ -212,7 +212,10 @@ namespace mvCentral.LocalMediaManagement
         {
           m_Tags.Add(replacement.Key.ToString());
         }
-        runAgainst = replacement.Key.Replace(runAgainst, replacement.Value);
+        if (!string.IsNullOrEmpty(runAgainst))
+        {
+          runAgainst = replacement.Key.Replace(runAgainst, replacement.Value);
+        }
       }
       return runAgainst;
     }
@@ -232,7 +235,7 @@ namespace mvCentral.LocalMediaManagement
 
         // run Before replacements
         m_FileNameAfterReplacement = RunReplacements(replacementRegexBefore, m_Filename);
-        //logger.Info(String.Format("Replacements -> Filename before {0}   Filename after : {1}",m_Filename, m_FileNameAfterReplacement));
+        logger.Info(String.Format("Replacements -> Filename before {0} Filename after : {1}",m_Filename, m_FileNameAfterReplacement));
 
         foreach (Regex regularExpression in regularExpressions)
         {
@@ -275,7 +278,6 @@ namespace mvCentral.LocalMediaManagement
           catch
           { }
 
-
           // Success - now continue processing
           if (matchResults.Success)
           {
@@ -290,7 +292,7 @@ namespace mvCentral.LocalMediaManagement
                 GroupValue = RunReplacements(replacementRegexAfter, GroupValue);
                 GroupValue = GroupValue.Trim();
 
-                if (string.IsNullOrEmpty(GroupName.Trim()) || string.IsNullOrEmpty(GroupValue.Trim()))
+                if (string.IsNullOrWhiteSpace(GroupName) || string.IsNullOrWhiteSpace(GroupValue))
                   logger.Debug("Attempt to add empty value to dictionary");
                 else
                   m_Matches.Add(GroupName, GroupValue);

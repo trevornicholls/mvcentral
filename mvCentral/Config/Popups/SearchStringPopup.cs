@@ -23,10 +23,26 @@ namespace mvCentral.ConfigScreen.Popups
       {
         fileListBox.Items.Add(currFile.File);
       }
-      musicVideoMatch = match;
-      uxArtistName.Text = musicVideoMatch.Signature.Artist;
-      uxTrackName.Text = musicVideoMatch.Signature.Track;
-      uxAlbumName.Text = musicVideoMatch.Signature.Album;
+      try
+      {
+        musicVideoMatch = match;
+      }
+      catch { };
+      try
+      {
+        uxArtistName.Text = musicVideoMatch.Signature.Artist;
+      }
+      catch { };
+      try
+      {
+        uxTrackName.Text = musicVideoMatch.Signature.Track;
+      }
+      catch { };
+      try
+      {
+        uxAlbumName.Text = musicVideoMatch.Signature.Album;
+      }
+      catch { };
     }
 
     private void okButton_Click(object sender, EventArgs e)

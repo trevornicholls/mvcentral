@@ -62,7 +62,6 @@ namespace mvCentral.BackgroundProcesses
           if (currTrack.ArtistInfo[0].DisallowBackgroundUpdate && !mvCentralCore.Settings.BackgroundScanAlways)
             continue;
 
-
           logger.Debug("Checking for Artist missing deails " + currTrack.GetType().ToString() + " CurrMusicVideo.ID : " + currTrack.Track);
           mvCentralCore.DataProviderManager.GetArtistDetail(currTrack);
 

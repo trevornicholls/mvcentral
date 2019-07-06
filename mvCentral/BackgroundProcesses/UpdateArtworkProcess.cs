@@ -56,6 +56,7 @@ namespace mvCentral.BackgroundProcesses
           continue;
 
         logger.Debug("Checking " + currMusicVideo.GetType().ToString() + " CurrArtist.ID : " + currMusicVideo.Artist);
+
         // get the list of elements to remove
         List<string> toRemove = new List<string>();
         foreach (string currTrackArtPath in currMusicVideo.AlternateArts)

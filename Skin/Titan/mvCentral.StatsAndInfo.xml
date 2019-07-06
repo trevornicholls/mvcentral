@@ -6,12 +6,12 @@
   <define>#header.hover:-</define>
   <define>#header.label:-</define>
   <define>#usePlayFanart:Yes</define>
-  <define>#useSelectedFanart:Yes</define>
+  <define>#useRandomMusicScraperFanart:Yes</define>
   <define>#shadow.dark:ff000000</define>
   <controls>
     <import>common.default.background.xml</import> 
     <import>common.music.random.fanart.xml</import> 
-    <import>common.music.selected.fanart.xml</import> 
+    <import>common.music.play.fanart.xml</import> 
     <import>common.default.background.overlay.xml</import> 
     <control>
       <description>background</description>
@@ -84,7 +84,7 @@
       <font>fontB20</font>
       <textcolor>ffffff</textcolor>
       <visible>yes</visible>
-      <label>#currentmodule/#mvCentral.Hierachy</label>
+      <label>#currentmodule | #mvCentral.Hierachy</label>
       <animation effect="fade" time="250">WindowOpen</animation>
       <animation effect="fade" time="250">WindowClose</animation>
     </control>

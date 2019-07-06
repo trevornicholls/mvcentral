@@ -526,6 +526,7 @@ namespace mvCentral.Database
 
       if (status != ImageLoadResults.SUCCESS && status != ImageLoadResults.SUCCESS_REDUCED_SIZE)
         return status;
+
       AlternateArts.Add(newBasic.Filename);
       GenerateThumbnail();
       commitNeeded = true;
@@ -542,7 +543,6 @@ namespace mvCentral.Database
         return false;
       else return true;
     }
-
 
     // Attempts to load track art for this Basic from a given URL. Optionally
     // ignores minimum resolution restrictions
@@ -565,7 +565,6 @@ namespace mvCentral.Database
     {
       return AddArtFromURL(url, false);
     }
-
 
     private bool saveImage(string filename, Image image)
     {

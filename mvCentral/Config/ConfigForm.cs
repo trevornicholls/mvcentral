@@ -185,7 +185,6 @@ namespace mvCentral
       albumDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBAlbumInfo);
       trackDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBTrackInfo);
       fileDetailsList.FieldDisplaySettings.Table = typeof(mvCentral.Database.DBLocalMedia);
-
     }
 
     #endregion
@@ -2231,9 +2230,13 @@ namespace mvCentral
             if (localMedia.DriveLetter != null)
             {
               if (localMedia.ImportPath.GetDriveType() == DriveType.CDRom)
+              {
                 connect = "Please insert the disc labeled '" + localMedia.MediaLabel + "'.";
+              }
               else
+              {
                 connect = "Please reconnect the media labeled '" + localMedia.MediaLabel + "' to " + localMedia.DriveLetter;
+              }
             }
             else
             {

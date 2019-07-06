@@ -34,6 +34,14 @@ namespace mvCentral.DataProviders
       }
     }
 
+    #region LastFM variables
+
+    private const string LastFMStarPicture = "2a96cbd8b46e442fc41c2b86b821562f.png";
+    private const string LastFMAdv = "Read more on Last.fm.";
+    private const string LastFMWikiAdv = "User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.";
+
+    #endregion
+
     // NOTE: To other developers creating other applications, using this code as a base
     //       or as a reference. PLEASE get your own API key. Do not reuse the one listed here
     //       it is intended for Music Videos use ONLY. API keys are free and easy to apply
@@ -41,29 +49,30 @@ namespace mvCentral.DataProviders
 
     #region API variables
 
-    
-
     private const string ApiMusicVideoUrl = "http://ws.audioscrobbler.com/2.0/?method={0}&api_key={1}";
     private const string Apikey = "eadfb84ac56eddbf072efbfc18a90845";
     private const string apiSecret = "88b9694c60b240bd97ac1f02959f17c4";
 
-    //        http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=cher&track=believe
-    //        http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=Cher&album=Believe
+    // http://ws.audioscrobbler.com/2.0/?method=track.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=cher&track=believe
+    // http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=Cher&album=Believe
     
     // Artist Info
     private static readonly string ApiArtistGetInfo = string.Format(ApiMusicVideoUrl, "artist.getinfo&artist={0}&lang={1}", Apikey);
     private static readonly string ApiArtistmbidGetInfo = string.Format(ApiMusicVideoUrl, "artist.getinfo&mbid={0}&lang={1}", Apikey);
     private static readonly string ApiArtistNameGetInfo = string.Format(ApiMusicVideoUrl, "artist.getinfo&artist={0}&lang={1}", Apikey);
+
     //Images
     // private static readonly string ApiArtistmbidGetImagesInfo = string.Format(ApiMusicVideoUrl, "artist.getimages&mbid={0}", Apikey);
     // private static readonly string ApiArtistNameGetImagesInfo = string.Format(ApiMusicVideoUrl, "artist.getimages&artist={0}", Apikey);
     private static readonly string ApiArtistmbidGetImagesInfo = string.Format(ApiMusicVideoUrl, "artist.getinfo&mbid={0}", Apikey);
     private static readonly string ApiArtistNameGetImagesInfo = string.Format(ApiMusicVideoUrl, "artist.getinfo&artist={0}", Apikey);
+
     // Albums
     private static readonly string ApiAlbummbidGetInfo = string.Format(ApiMusicVideoUrl, "album.getinfo&mbid={0}&lang={1}", Apikey);
     private static readonly string ApiArtistAlbumGetInfo = string.Format(ApiMusicVideoUrl, "album.getinfo&artist={0}&album={1}&lang={2}", Apikey);
     private static readonly string ApiArtistTopAlbums = string.Format(ApiMusicVideoUrl, "artist.gettopalbums&artist={0}", Apikey);
     private static readonly string ApiArtistTopAlbumsPages = string.Format(ApiMusicVideoUrl, "artist.gettopalbums&artist={0}&page={1}", Apikey);
+
     // Tracks
     private static readonly string ApiArtistTopTracks = string.Format(ApiMusicVideoUrl, "artist.gettoptracks&artist={0}", Apikey);
     private static readonly string ApiArtistTopTracksPages = string.Format(ApiMusicVideoUrl, "artist.gettoptracks&artist={0}&page={1}", Apikey);
@@ -71,6 +80,7 @@ namespace mvCentral.DataProviders
     private static readonly string ApiTrackGetInfo = string.Format(ApiMusicVideoUrl, "track.search&track={0}&lang={1}", Apikey);
     private static readonly string ApiTrackmbidGetInfo = string.Format(ApiMusicVideoUrl, "track.getinfo&mbid={0}&lang={1}", Apikey);
     private static readonly string ApiArtistTrackGetInfo = string.Format(ApiMusicVideoUrl, "track.getinfo&artist={0}&track={1}&lang={2}", Apikey);
+
     // Search
     private static readonly string ApiTrackSearch = string.Format(ApiMusicVideoUrl, "track.search&track={0}", Apikey);
     private static readonly string ApiArtistSearch = string.Format(ApiMusicVideoUrl, "artist.search&artist={0}", Apikey);
@@ -138,7 +148,6 @@ namespace mvCentral.DataProviders
     {
       get { return true; }
     }
-
 
     public DBTrackInfo GetArtistDetail(DBTrackInfo mv)
     {
@@ -305,7 +314,7 @@ namespace mvCentral.DataProviders
         }
       }
 
-      // Get Track Info
+      // -------------- Get Track Info --------------
       if (mv.GetType() == typeof(DBTrackInfo))
       {
         string artist = ((DBTrackInfo)mv).ArtistInfo[0].Artist;
@@ -644,7 +653,8 @@ namespace mvCentral.DataProviders
         // This is not the best fix, need to add code so I know whch expression produced the result or better still have a ignore folder structure when pasring option.
         if (mvSignature.Track != null && mvSignature.Artist != null)
         {
-          if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().Contains(mvSignature.Artist.ToLower().Trim()))
+          // if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().Contains(mvSignature.Artist.ToLower().Trim()))
+          if ((mvSignature.Track.ToLower().Trim() != mvSignature.Artist.ToLower().Trim()) && mvSignature.Track.ToLower().StartsWith(mvSignature.Artist.ToLower().Trim()))
             mvTrackData = getMusicVideoTrack(mvSignature.Artist, Regex.Replace(mvSignature.Track, mvSignature.Artist, string.Empty, RegexOptions.IgnoreCase));
           else
             mvTrackData = getMusicVideoTrack(mvSignature.Artist, mvSignature.Track);
@@ -877,11 +887,15 @@ namespace mvCentral.DataProviders
             XmlNode n1 = root.SelectSingleNode(@"/lfm/album/wiki/summary");
             var _text = n1.InnerText;
             if (!string.IsNullOrEmpty(_text))
-              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            {
+              mv.bioSummary = mvCentralUtils.StripHTML(_text).Replace(LastFMAdv,"").Replace(LastFMWikiAdv,"");
+            }
             n1 = root.SelectSingleNode(@"/lfm/album/wiki/content");
             _text = n1.InnerText;
             if (!string.IsNullOrEmpty(_text))
-              mv.bioContent = mvCentralUtils.StripHTML(_text);
+            {
+              mv.bioContent = mvCentralUtils.StripHTML(_text).Replace(LastFMAdv,"").Replace(LastFMWikiAdv,"");
+            }
             break;
         }
       }
@@ -972,11 +986,15 @@ namespace mvCentral.DataProviders
             XmlNode n1 = root.SelectSingleNode(@"/lfm/track/wiki/summary");
             var _text = n1.InnerText;
             if (!string.IsNullOrEmpty(_text))
-              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            {
+              mv.bioSummary = mvCentralUtils.StripHTML(_text).Replace(LastFMAdv,"").Replace(LastFMWikiAdv,"");
+            }
             n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
             _text = n1.InnerText;
             if (!string.IsNullOrEmpty(_text))
-              mv.bioContent = mvCentralUtils.StripHTML(_text);
+            {
+              mv.bioContent = mvCentralUtils.StripHTML(_text).Replace(LastFMAdv,"").Replace(LastFMWikiAdv,"");
+            }
             break;
         }
       }
@@ -1070,11 +1088,15 @@ namespace mvCentral.DataProviders
             XmlNode n1 = root.SelectSingleNode(@"/lfm/track/wiki/summary");
             var _text = n1.InnerText;
             if (!string.IsNullOrEmpty(_text))
-              mv.bioSummary = mvCentralUtils.StripHTML(_text);
+            {
+              mv.bioSummary = mvCentralUtils.StripHTML(_text).Replace(LastFMAdv,"").Replace(LastFMWikiAdv,"");
+            }
             n1 = root.SelectSingleNode(@"/lfm/track/wiki/content");
             _text = n1.InnerText;
             if (!string.IsNullOrEmpty(_text))
-              mv.bioContent = mvCentralUtils.StripHTML(_text);
+            {
+              mv.bioContent = mvCentralUtils.StripHTML(_text).Replace(LastFMAdv,"").Replace(LastFMWikiAdv,"");
+            }
             break;
         }
       }
@@ -1118,13 +1140,22 @@ namespace mvCentral.DataProviders
       XmlNodeList xml = null;
 
       xml = GetXml(ApiArtistGetInfo, artist, mvCentralCore.Settings.DataProviderAutoLanguage);
-      if (xml == null) return null;
+      if (xml == null) 
+      {
+        return null;
+      }
 
       XmlNode root = xml.Item(0).ParentNode;
-      if (root.Attributes != null && root.Attributes["status"].Value != "ok") return null;
+      if (root.Attributes != null && root.Attributes["status"].Value != "ok")
+      {
+        return null;
+      }
 
       XmlNode n1 = root.SelectSingleNode(@"/lfm/artist/mbid");
-      if (n1 != null && n1.InnerText != "") return n1.InnerText;
+      if (n1 != null && !string.IsNullOrEmpty(n1.InnerText))
+      {
+        return n1.InnerText;
+      }
       return null;
     }
 
@@ -1166,7 +1197,10 @@ namespace mvCentral.DataProviders
               {
                 if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
                 {
-                  _image = n1.InnerText;
+                  if (!string.IsNullOrWhiteSpace(n1.InnerText) && !n1.InnerText.Contains(LastFMStarPicture))
+                  {
+                    _image = n1.InnerText;
+                  }
                 }
               }
               else
@@ -1178,7 +1212,12 @@ namespace mvCentral.DataProviders
                   {
                     XmlNode imageHeight = n3.Attributes["height"];
                     if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
-                      mv.ArtUrls.Add(n1.InnerText);
+                    {
+                      if (!string.IsNullOrWhiteSpace(n1.InnerText) && !mv.ArtUrls.Contains(n1.InnerText) && !n1.InnerText.Contains(LastFMStarPicture))
+                      {
+                        mv.ArtUrls.Add(n1.InnerText);
+                      }
+                    }
                   }
                 }
               }
@@ -1229,7 +1268,10 @@ namespace mvCentral.DataProviders
               {
                 if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
                 {
-                  _image = n2.InnerText;
+                  if (!string.IsNullOrWhiteSpace(n2.InnerText))
+                  {
+                    _image = n2.InnerText;
+                  }
                 }
               }
               else
@@ -1241,7 +1283,12 @@ namespace mvCentral.DataProviders
                   {
                     XmlNode imageHeight = n3.Attributes["height"];
                     if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
-                      result.Add(n3.InnerText);
+                    {
+                      if (!string.IsNullOrWhiteSpace(n3.InnerText) && !result.Contains(n3.InnerText))
+                      {
+                        result.Add(n3.InnerText);
+                      }
+                    }
                   }
                 }
               }
@@ -1315,7 +1362,10 @@ namespace mvCentral.DataProviders
               {
                 if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
                 {
-                  _image = n2.InnerText;
+                  if (!string.IsNullOrWhiteSpace(n2.InnerText))
+                  {
+                    _image = n2.InnerText;
+                  }
                 }
               }
               else
@@ -1327,7 +1377,12 @@ namespace mvCentral.DataProviders
                   {
                     XmlNode imageHeight = n3.Attributes["height"];
                     if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
-                      result.Add(n3.InnerText);
+                    {
+                      if (!string.IsNullOrWhiteSpace(n3.InnerText))
+                      {
+                        result.Add(n3.InnerText);
+                      }
+                    }
                   }
                 }
               }
@@ -1414,6 +1469,7 @@ namespace mvCentral.DataProviders
           trackData.ArtistInfo[0].PrimarySource = trackData.PrimarySource;
           trackData.ArtistInfo[0].Commit();
         }
+
         // Update the Album
         var albumData = DBAlbumInfo.Get(trackData);
         if (albumData != null)

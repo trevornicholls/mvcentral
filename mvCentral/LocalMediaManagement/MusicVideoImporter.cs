@@ -2049,7 +2049,7 @@ namespace mvCentral.LocalMediaManagement
     {
       get
       {
-        if (_localMediaString == string.Empty)
+        if (string.IsNullOrEmpty(_localMediaString))
         {
           _localMediaString = "";
           foreach (DBLocalMedia currFile in LocalMedia)
@@ -2061,16 +2061,18 @@ namespace mvCentral.LocalMediaManagement
 
             // if this is a ripped video disc type show the base directory as display name
             if (displayname.ToLower() == "video_ts.ifo" || displayname.ToLower() == "index.bdmv" || displayname.ToLower() == "discid.dat")
+            {
               displayname = Utility.GetMusicVideoBaseDirectory(currFile.File.Directory).Name;
+            }
 
             // If read from optical drive
             if (currFile.ImportPath.GetDriveType() == DriveType.CDRom && displayname.Length == 3)
             {
-
               // Add the video disc type and media label
               if (currFile.IsVideoDisc)
                 displayname = String.Format("({0}) <{1}>", currFile.VideoFormat.ToString(), currFile.MediaLabel);
             }
+
             _localMediaString += displayname;
           }
         }
@@ -2089,7 +2091,9 @@ namespace mvCentral.LocalMediaManagement
           foreach (DBLocalMedia currFile in LocalMedia)
           {
             if (_longLocalMediaString.Length > 0)
+            {
               _longLocalMediaString += "\n";
+            }
 
             _longLocalMediaString += currFile.File.FullName;
           }
@@ -2109,7 +2113,9 @@ namespace mvCentral.LocalMediaManagement
           foreach (DBLocalMedia currFile in LocalMedia)
           {
             if (_trimmedlongLocalMediaString.Length > 0)
+            {
               _trimmedlongLocalMediaString += "\n";
+            }
 
             _longLocalMediaString = currFile.TrimmedFullPath;
           }
@@ -2124,7 +2130,9 @@ namespace mvCentral.LocalMediaManagement
       get
       {
         if (_possibleMatches == null)
+        {
           _possibleMatches = new List<PossibleMatch>();
+        }
 
         return _possibleMatches;
       }

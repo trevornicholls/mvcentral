@@ -692,8 +692,6 @@ namespace mvCentral.ConfigScreen.Popups {
                     return false;
                 }
 
-
-
                 if (_basicVideo != null)
                 {
                     _basicVideo.SetDefaultSourcePosition();

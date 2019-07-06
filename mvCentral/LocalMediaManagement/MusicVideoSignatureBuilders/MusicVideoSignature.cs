@@ -273,8 +273,10 @@ namespace mvCentral.SignatureBuilders
       //            Year = mv.Year;
       MdId = mv.MdID;
       ArtistMdId = mv.ArtistInfo[0].MdID;
-      if (mv.AlbumInfo.Count > 0) 
+      if (mv.AlbumInfo.Count > 0)
+      {
         AlbumMdId = mv.AlbumInfo[0].MdID;
+      }
       LocalMedia = mv.LocalMedia;
     }
 
@@ -438,21 +440,41 @@ namespace mvCentral.SignatureBuilders
         if (!CurrentParseResult.failedArtist)
         {
           artist = CurrentParseResult.Artist;
-          artist = Regex.Replace(artist, @"\s{2,}", " ").Trim();
+          if (!string.IsNullOrEmpty(artist))
+          {
+            artist = Regex.Replace(artist, @"\s{2,}", " ").Trim();
+          }
+          else
+          {
+            artist = string.Empty;
+          }
         }
 
         if (!CurrentParseResult.failedAlbum)
         {
           album = CurrentParseResult.Album;
-          album = Regex.Replace(album, @"\s{2,}", " ").Trim();
+          if (!string.IsNullOrEmpty(album))
+          {
+            album = Regex.Replace(album, @"\s{2,}", " ").Trim();
+          }
+          else
+          {
+            album = string.Empty;
+          }
         }
 
         if (!CurrentParseResult.failedTrack)
         {
           track = CurrentParseResult.Track;
-          track = Regex.Replace(track, @"\s{2,}", " ").Trim();
+          if (!string.IsNullOrEmpty(track))
+          {
+            track = Regex.Replace(track, @"\s{2,}", " ").Trim();
+          }
+          else
+          {
+            track = string.Empty;
+          }
         }
-
 
         logger.Debug(string.Format("Result of Parsing : Artist: {0}    Album: {1}    Track: {2}", artist, album, track));
       }

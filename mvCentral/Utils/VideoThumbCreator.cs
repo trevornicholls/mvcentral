@@ -31,7 +31,7 @@ using System.Threading;
 namespace mvCentral.Utils
 {
 
-    public class VideoThumbCreator
+  public class VideoThumbCreator
   {
     private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -112,12 +112,12 @@ namespace mvCentral.Utils
 
       var strFilenamewithoutExtension = Path.ChangeExtension(aVideoPath, null);
       if (strFilenamewithoutExtension != null)
+      {
         strFilenamewithoutExtension = Path.Combine(tempPath, Path.GetFileName(strFilenamewithoutExtension));
-
+      }
       string ffmpegArgs = string.Format("select=isnan(prev_selected_t)+gte(t-prev_selected_t" + "\\" + ",5),yadif=0:-1:0,scale=600:337,setsar=1:1,tile={0}x{1}", _previewColumns, _previewRows);
-      string extractorArgs = string.Format("-loglevel quiet -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", preGapSec, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
-      string extractorFallbackArgs = string.Format("-loglevel quiet -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", 5, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
-
+      string extractorArgs = string.Format("-loglevel quiet -y -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", preGapSec, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
+      string extractorFallbackArgs = string.Format("-loglevel quiet -y -ss {0} -i \"{1}\" -vf {2} -vframes 1 -vsync 0 -an \"{3}_s.jpg\"", 5, aVideoPath, ffmpegArgs, strFilenamewithoutExtension);
       
       try
       {
@@ -199,6 +199,5 @@ namespace mvCentral.Utils
     }
 
     #endregion
-
   }
 }

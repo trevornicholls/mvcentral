@@ -5,6 +5,7 @@
   <allowoverlay>no</allowoverlay>
   <define>#header.hover:-</define>
   <define>#header.label:-</define>
+  <define>#usePlayFanart:Yes</define>
   <define>#useSelectedFanart:Yes</define>
   <controls>
     <import>common.default.background.xml</import> 
