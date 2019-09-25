@@ -667,7 +667,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
           <Build>0</Build>
           <Revision>0</Revision>
         </MaxVersion>
-        <WarnOnly>true</WarnOnly>
+        <WarnOnly>false</WarnOnly>
         <Message>This version of mvCentral requires MediaPortal 1.23 Pre or higher!</Message>
         <Name>Installer</Name>
       </DependencyItem>
