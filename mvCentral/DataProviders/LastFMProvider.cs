@@ -37,6 +37,7 @@ namespace mvCentral.DataProviders
     #region LastFM variables
 
     private const string LastFMStarPicture = "2a96cbd8b46e442fc41c2b86b821562f.png";
+    private const string LastFMBadTag = "bad_tag";
     private const string LastFMAdv = "Read more on Last.fm.";
     private const string LastFMWikiAdv = "User-contributed text is available under the Creative Commons By-SA License; additional terms may apply.";
 
@@ -769,7 +770,10 @@ namespace mvCentral.DataProviders
           case "image":
             if (node.Attributes != null && (node.Attributes["size"].Value == "extralarge" || node.Attributes["size"].Value == "mega"))
             {
-              _image = value;
+              if (!string.IsNullOrWhiteSpace(value) && !value.Contains(LastFMBadTag) && !value.Contains(LastFMStarPicture))
+              {
+                _image = value;
+              }
             }
             break;
           case "tags":
@@ -1197,7 +1201,7 @@ namespace mvCentral.DataProviders
               {
                 if (imageSize.Value == "extralarge" || imageSize.Value == "mega")
                 {
-                  if (!string.IsNullOrWhiteSpace(n1.InnerText) && !n1.InnerText.Contains(LastFMStarPicture))
+                  if (!string.IsNullOrWhiteSpace(n1.InnerText) && !n1.InnerText.Contains(LastFMBadTag) && !n1.InnerText.Contains(LastFMStarPicture))
                   {
                     _image = n1.InnerText;
                   }
@@ -1213,7 +1217,7 @@ namespace mvCentral.DataProviders
                     XmlNode imageHeight = n3.Attributes["height"];
                     if (int.Parse(imageHeight.Value) >= minHeight && int.Parse(imageWidth.Value) >= minWidth)
                     {
-                      if (!string.IsNullOrWhiteSpace(n1.InnerText) && !mv.ArtUrls.Contains(n1.InnerText) && !n1.InnerText.Contains(LastFMStarPicture))
+                      if (!string.IsNullOrWhiteSpace(n1.InnerText) && !mv.ArtUrls.Contains(n1.InnerText) && !n1.InnerText.Contains(LastFMBadTag) && !n1.InnerText.Contains(LastFMStarPicture))
                       {
                         mv.ArtUrls.Add(n1.InnerText);
                       }

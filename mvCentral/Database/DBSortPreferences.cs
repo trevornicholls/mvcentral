@@ -170,7 +170,37 @@ namespace mvCentral.Database
       }
     } private bool _sortComposerAscending;
 
+    [DBFieldAttribute(Default = "True")]
+    public bool SortNameAscending
+    {
+      get { return _sortNameAscending; }
+      set
+      {
+        if (_sortNameAscending != value)
+        {
+          _sortNameAscending = value;
+          commitNeeded = true;
+        }
+      }
+    }
+    private bool _sortNameAscending;
 
+    [DBFieldAttribute(Default = "True")]
+    public bool SortFilenameAscending
+    {
+      get { return _sortFilenameAscending; }
+      set
+      {
+        if (_sortFilenameAscending != value)
+        {
+          _sortFilenameAscending = value;
+          commitNeeded = true;
+        }
+      }
+    }
+    private bool _sortFilenameAscending;
+
+    
     #endregion
 
     static DBSortPreferences instance;

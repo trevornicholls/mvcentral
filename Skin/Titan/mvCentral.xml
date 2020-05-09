@@ -1342,7 +1342,7 @@
           <valuePrefixText>95</valuePrefixText>
           <onright>50</onright>
           <ondown>3</ondown>
-          <onup>12</onup>
+          <onup>13</onup>
         </control>
         <control>
           <description>Sort Menu button</description>
@@ -1482,13 +1482,13 @@
           <textXOff>62</textXOff>
           <textYOff>16</textYOff>
           <onup>10</onup>
-          <ondown>12</ondown>
+          <ondown>13</ondown>
           <onright>50</onright>
           <label>#mvCentral.Translation.Search.Label #mvCentral.Translation.Artists.Label</label>
         </control>
         <control>
-          <description>Search Youtube.FM</description>
-          <id>12</id>
+          <description>Search OnlineVideos</description>
+          <id>13</id>
           <type>button</type>
           <textureFocus>hiddenmenu_item_selected.png</textureFocus>
           <textureNoFocus>-</textureNoFocus>
@@ -1496,12 +1496,13 @@
           <height>69</height>
           <textXOff>62</textXOff>
           <textYOff>16</textYOff>
-          <label>#mvCentral.Translation.Search.Label Youtube.FM</label>
-          <hyperlink>29050</hyperlink>
-          <hyperlinkParameter>ARTISTVIDEOS:#mvCentral.ArtistName</hyperlinkParameter>
+          <label>#mvCentral.Translation.Search.Label #(iif(eq(#mvCentral.AlbumView,'true'),#mvCentral.Translation.Album.Label,#mvCentral.Translation.Artists.Label))</label>
+          <hyperlink>4755</hyperlink>
+          <hyperlinkParameter>site:YouTube|search:#(iif(eq(#mvCentral.AlbumView,'true'),#mvCentral.ArtistName - #mvCentral.Album,#mvCentral.ArtistName))|return:Locked</hyperlinkParameter>
           <onright>50</onright>
           <ondown>2</ondown>
           <onup>11</onup>
+          <visible>plugin.isenabled(OnlineVideos)</visible> 
         </control>
       </control>
     </control>

@@ -671,6 +671,9 @@ namespace mvCentral.Database
       {
         logger.Debug("Updating media info for '{0}'", videoPath);
         MediaInfoWrapper mInfoWrapper = this.VideoFormat.GetMediaInfo(videoPath);
+
+        mInfoWrapper.WriteInfo();
+
         this.Duration = mInfoWrapper.Duration;
         this.VideoWidth = mInfoWrapper.Width;
         this.VideoHeight = mInfoWrapper.Height;

@@ -526,7 +526,7 @@ namespace mvCentral.Settings
 
     [CornerstoneSetting(
         Name = "Disable Album Support",
-        Description = "Disable the processing of Albums in Configuration and GUI",
+        Description = "Disable the processing of Albums in Configuration",
         Groups = "|MusicVideo Importer|Preprocessing|",
         Identifier = "disable_album_support",
         Default = false,
@@ -541,6 +541,24 @@ namespace mvCentral.Settings
       }
     }
     private bool _disablealbumsupport;
+
+    [CornerstoneSetting(
+        Name = "Disable Album Support in GUI",
+        Description = "Disable the processing of Albums in GUI",
+        Groups = "|MusicVideo Importer|Preprocessing|",
+        Identifier = "disable_gui_album_support",
+        Default = false,
+        Hidden = false)]
+    public bool DisableGUIAlbumSupport
+    {
+      get { return _disableguialbumsupport; }
+      set
+      {
+        _disableguialbumsupport = value;
+        OnSettingChanged("disable_gui_album_support");
+      }
+    }
+    private bool _disableguialbumsupport;
 
     [CornerstoneSetting(
         Name = "Use MD for Album",
@@ -1841,6 +1859,100 @@ namespace mvCentral.Settings
     }
     private string _viewas;
 
+
+    [CornerstoneSetting(
+        Name = "Artist Sort Method",
+        Description = "The last selected sort method for Artists",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "sort_method_artist",
+        Default = "1",
+        Hidden = false)]
+    public string ArtistSortMethod
+    {
+      get { return _artistSortMethod; }
+      set
+      {
+        _artistSortMethod = value;
+        OnSettingChanged("sort_method_artist");
+      }
+    }
+    private string _artistSortMethod;
+
+
+    [CornerstoneSetting(
+        Name = "Album Sort Method",
+        Description = "The last selected sort method for Albums",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "sort_method_album",
+        Default = "2",
+        Hidden = false)]
+    public string AlbumSortMethod
+    {
+      get { return _albumSortMethod; }
+      set
+      {
+        _albumSortMethod = value;
+        OnSettingChanged("sort_method_album");
+      }
+    }
+    private string _albumSortMethod;
+
+
+    [CornerstoneSetting(
+        Name = "Video Sort Method",
+        Description = "The last selected sort method for Videos",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "sort_method_video",
+        Default = "3",
+        Hidden = false)]
+    public string TrackSortMethod
+    {
+      get { return _trackSortMethod; }
+      set
+      {
+        _trackSortMethod = value;
+        OnSettingChanged("sort_method_video");
+      }
+    }
+    private string _trackSortMethod;
+
+
+    [CornerstoneSetting(
+        Name = "Genres Sort Method",
+        Description = "The last selected sort method for Genres",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "sort_method_genres",
+        Default = "12",
+        Hidden = false)]
+    public string GenresSortMethod
+    {
+      get { return _genresSortMethod; }
+      set
+      {
+        _genresSortMethod = value;
+        OnSettingChanged("sort_method_genres");
+      }
+    }
+    private string _genresSortMethod;
+
+
+    [CornerstoneSetting(
+        Name = "DVDs Sort Method",
+        Description = "The last selected sort method for DVDs",
+        Groups = "|MediaPortal GUI|Interface Options|",
+        Identifier = "sort_method_dvds",
+        Default = "1",
+        Hidden = false)]
+    public string DVDsSortMethod
+    {
+      get { return _dvdsSortMethod; }
+      set
+      {
+        _dvdsSortMethod = value;
+        OnSettingChanged("sort_method_dvds");
+      }
+    }
+    private string _dvdsSortMethod;
 
 
     [CornerstoneSetting(

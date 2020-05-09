@@ -486,7 +486,7 @@ namespace mvCentral.Utils
       const string MIDURL   = "/artist/?query=artist:" ;
       const string MIDURLA  = "/release-group/?query=artist:" ;
 
-      var URL  = MBURL + (string.IsNullOrEmpty(album) ? MIDURL + HttpUtility.UrlEncode(artist) : MIDURLA + HttpUtility.UrlEncode(artist + " " + album)) ;
+      var URL  = MBURL + (string.IsNullOrEmpty(album) ? MIDURL + HttpUtility.UrlEncode(artist) : MIDURLA + HttpUtility.UrlEncode(artist + " AND release:" + album)) ;
       var html = GetHTMLFromUrl(URL) ;
 
       return ExtractMID(html);

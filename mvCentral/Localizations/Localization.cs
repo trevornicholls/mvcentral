@@ -108,6 +108,7 @@ namespace mvCentral.Localizations
         Lang = "en-US";
         return LoadTranslations();
       }
+
       foreach (XmlNode stringEntry in doc.DocumentElement.ChildNodes)
       {
         if (stringEntry.NodeType == XmlNodeType.Element)
@@ -271,6 +272,7 @@ namespace mvCentral.Localizations
     public static string Date = "Date";
     public static string DateAdded = "Date Added";
     public static string DBInfo = "Watched History Statistics & Database Info";
+    public static string DVDs = "Music DVD";
 
     // E
     public static string Error = "Error";
@@ -280,6 +282,7 @@ namespace mvCentral.Localizations
     public static string FavouriteVideos = "Favourite Videos";
     public static string Formed = "Formed";
     public static string Field = "Field";
+    public static string Filename = "Filename";
 
     // G
     public static string Genre = "Genre";
@@ -312,6 +315,7 @@ namespace mvCentral.Localizations
     public static string ModeFilter = "Mode: Filter";
 
     // N
+    public static string Name = "Name";
     public static string NoPlaylistsFound = "No Playlists found in:";
     public static string NoArtistBio = "No Biography Available for Artist {0}";
     public static string NoTrackInfo = "No Track Description Available";
@@ -334,6 +338,7 @@ namespace mvCentral.Localizations
 
     // R
     public static string RandomHD = "Random (HD)";
+    public static string Runtime = "Runtime";
     public static string Retry = "Retry";
     public static string ResumeFrom = "Resume from:";
     public static string ResumeFromLast = "Resume Music Video from last time?";

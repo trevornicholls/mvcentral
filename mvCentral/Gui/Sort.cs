@@ -25,7 +25,9 @@ namespace mvCentral.GUI
     LeastPlayedArtists = 8,
     LeastPlayedVideos = 9,
     AlbumReleaseDate = 10,
-    Composer = 11
+    Composer = 11,
+    Name = 12,
+    Filename = 13
   }
   /// <summary>
   /// Enum for Direction
@@ -52,7 +54,7 @@ namespace mvCentral.GUI
         case SortingFields.Album:
           return Localization.Album;
         case SortingFields.VideoTitle:
-          return Localization.VideoTitle; ;
+          return Localization.VideoTitle;
         case SortingFields.DateAdded:
           return Localization.DateAdded;
         case SortingFields.MostPlayedArtists:
@@ -67,6 +69,12 @@ namespace mvCentral.GUI
           return Localization.AlbumReleaseDate;
         case SortingFields.Composer:
           return Localization.Composer;
+        case SortingFields.Name:
+          return Localization.Name;
+        case SortingFields.Filename:
+          return Localization.Filename;
+        case SortingFields.Runtime:
+          return Localization.Runtime;
         default:
           return "";
       }
@@ -113,6 +121,12 @@ namespace mvCentral.GUI
           break;
         case SortingFields.Composer:
           ascending = DBSortPreferences.Instance.SortComposerAscending;
+          break;
+        case SortingFields.Name:
+          ascending = DBSortPreferences.Instance.SortNameAscending;
+          break;
+        case SortingFields.Filename:
+          ascending = DBSortPreferences.Instance.SortFilenameAscending;
           break;
         default:
           ascending = true;
@@ -166,6 +180,12 @@ namespace mvCentral.GUI
         case SortingFields.Composer:
           DBSortPreferences.Instance.SortComposerAscending = isAscending;
           break;
+        case SortingFields.Name:
+          DBSortPreferences.Instance.SortNameAscending = isAscending;
+          break;
+        case SortingFields.Filename:
+          DBSortPreferences.Instance.SortFilenameAscending = isAscending;
+          break;
         default:
           break;
       }
@@ -202,7 +222,6 @@ namespace mvCentral.GUI
     {
       try
       {
-
         DBArtistInfo artistX = (DBArtistInfo)x.MusicTag;
         DBArtistInfo artistY = (DBArtistInfo)y.MusicTag;
 
@@ -210,10 +229,13 @@ namespace mvCentral.GUI
 
         switch (_sortField)
         {
+          case SortingFields.Name:
+            rtn = artistX.Artist.CompareTo(artistY.Artist);
+            break;
+
           case SortingFields.DateAdded:
             rtn = artistX.DateAdded.CompareTo(artistY.DateAdded);
             break;
-
 
           // default to the title field
           case SortingFields.Artist:
@@ -268,23 +290,44 @@ namespace mvCentral.GUI
 
     public int Compare(GUIListItem x, GUIListItem y)
     {
+      if (x.IsFolder && x.Label == "..")
+      {
+        return -1;
+      }
+      if (y.IsFolder && y.Label == "..")
+      {
+        return 1;
+      }
+
       try
       {
-
         DBAlbumInfo albumX = (DBAlbumInfo)x.MusicTag;
         DBAlbumInfo albumY = (DBAlbumInfo)y.MusicTag;
 
-        int rtn;
+        int rtn = 0;
 
         switch (_sortField)
         {
+          case SortingFields.Name:
+          case SortingFields.Album:
+            rtn = albumX.Album.CompareTo(albumY.Album);
+            break;
+
           case SortingFields.DateAdded:
             rtn = albumX.DateAdded.CompareTo(albumY.DateAdded);
             break;
 
+          case SortingFields.Artist:
+            List<DBTrackInfo> tracksInAlbum = DBTrackInfo.GetEntriesByAlbum(albumX);
+            DBArtistInfo artistX = DBArtistInfo.Get(tracksInAlbum[0]);
+            tracksInAlbum = DBTrackInfo.GetEntriesByAlbum(albumY);
+            DBArtistInfo artistY = DBArtistInfo.Get(tracksInAlbum[0]);
+
+            if (artistX != null && artistY != null)
+              rtn = artistX.Artist.CompareTo(artistY.Artist);
+            break;
 
           // default to the title field
-          case SortingFields.Artist:
           default:
             rtn = albumX.SortBy.CompareTo(albumY.SortBy);
             break;
@@ -336,23 +379,71 @@ namespace mvCentral.GUI
 
     public int Compare(GUIListItem x, GUIListItem y)
     {
+      if (x.IsFolder && x.Label == "..")
+      {
+        return -1;
+      }
+      if (y.IsFolder && y.Label == "..")
+      {
+        return 1;
+      }
+
+      if (x.IsFolder && y.IsFolder)
+      {
+        return x.Label.CompareTo(y.Label);
+      }
+
+      if (x.IsFolder && !y.IsFolder)
+      {
+        return -1;
+      }
+      if (!x.IsFolder && y.IsFolder)
+      {
+        return 1;
+      }
+
       try
       {
-
         DBTrackInfo trackX = (DBTrackInfo)x.MusicTag;
         DBTrackInfo trackY = (DBTrackInfo)y.MusicTag;
 
-        int rtn;
+        int rtn = 0;
 
         switch (_sortField)
         {
+          case SortingFields.Name:
+            rtn = trackX.Track.CompareTo(trackY.Track);
+            break;
+
           case SortingFields.DateAdded:
             rtn = trackX.DateAdded.CompareTo(trackY.DateAdded);
             break;
 
+          case SortingFields.Filename:
+            rtn = trackX.LocalMedia[0].File.FullName.CompareTo(trackY.LocalMedia[0].File.FullName);
+            break;
+
+          case SortingFields.Runtime:
+            rtn = trackX.LocalMedia[0].Duration.CompareTo(trackY.LocalMedia[0].Duration);
+            break;
+
+          case SortingFields.Artist:
+            rtn = x.Label2.CompareTo(y.Label2);
+            break;
+
+          case SortingFields.Album:
+            DBAlbumInfo albumX = null;
+            DBAlbumInfo albumY = null;
+
+            if (trackX.AlbumInfo.Count > 0)
+              albumX = DBAlbumInfo.Get(trackX);
+            if (trackY.AlbumInfo.Count > 0)
+              albumY = DBAlbumInfo.Get(trackY);
+            if (albumX != null && albumY != null)
+              rtn = albumX.Album.CompareTo(albumY.Album);
+            break;
 
           // default to the title field
-          case SortingFields.Artist:
           default:
             rtn = trackX.SortBy.CompareTo(trackY.SortBy);
             break;

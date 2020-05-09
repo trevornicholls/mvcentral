@@ -157,6 +157,7 @@ namespace mvCentral
 
       tbHomeScreen.Setting = mvCentralCore.Settings["home_name"];
       cbDisableAlbumSupport.Setting = mvCentralCore.Settings["disable_album_support"];
+      cbDisableGUIAlbumSupport.Setting = mvCentralCore.Settings["disable_gui_album_support"];
 
       cbUseMDAlbum.Setting = mvCentralCore.Settings["use_md_album"];
       cbAutoApprove.Setting = mvCentralCore.Settings["auto_approve"];
@@ -3298,8 +3299,9 @@ namespace mvCentral
     {
       customFolders.ShowDialog();
     }
+
     /// <summary>
-    /// Disable Album Support
+    /// Disable Album Support (Parsing)
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
@@ -3316,6 +3318,7 @@ namespace mvCentral
         cbAlbumFromTrackData.Enabled = true;
       }
     }
+
     /// <summary>
     /// Get Last.Fm login details
     /// </summary>
