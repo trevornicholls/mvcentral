@@ -32,8 +32,14 @@ namespace mvCentral.SignatureBuilders
     private static string removeNoise(string input)
     {
       if (string.IsNullOrEmpty(input))
+      {
         return string.Empty;
-
+      }
+      if (string.IsNullOrWhiteSpace(mvCentralCore.Settings.NoiseFilter))
+      {
+        return input;
+      }
+      
       Regex expr = new Regex(mvCentralCore.Settings.NoiseFilter, RegexOptions.IgnoreCase);
       string denoisedTitle = expr.Replace(input, "");
       denoisedTitle = denoisedTitle.TrimWhiteSpace();
