@@ -151,7 +151,7 @@ namespace mvCentral
     {
       get
       {
-        MediaPortal.Profile.Settings mpSettings = new MediaPortal.Profile.Settings(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Config, "MediaPortal.xml"));
+        MediaPortal.Profile.Settings mpSettings = new MediaPortal.Profile.MPSettings();
         return mpSettings;
       }
     }

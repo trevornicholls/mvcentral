@@ -271,6 +271,8 @@ namespace mvCentral.Localizations
     // D
     public static string Date = "Date";
     public static string DateAdded = "Date Added";
+    public static string Death = "Death";
+    public static string Disbanded = "Disbanded";
     public static string DBInfo = "Watched History Statistics & Database Info";
     public static string DVDs = "Music DVD";
 
@@ -316,6 +318,8 @@ namespace mvCentral.Localizations
 
     // N
     public static string Name = "Name";
+    public static string NoBornFormedDetails = "No Born/Formed Details";
+    public static string NoDeathDisbandedDetails = "No Death/Disbanded Details";
     public static string NoPlaylistsFound = "No Playlists found in:";
     public static string NoArtistBio = "No Biography Available for Artist {0}";
     public static string NoTrackInfo = "No Track Description Available";

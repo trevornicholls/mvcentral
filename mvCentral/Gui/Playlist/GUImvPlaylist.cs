@@ -136,9 +136,11 @@ namespace mvCentral.Playlist
       m_directory.SetExtensions(MediaPortal.Util.Utils.VideoExtensions);
       m_directory.AddExtension(".mvplaylist");
       // Check if External Player is being used
-      MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Config, "MediaPortal.xml"));
-      m_bIsExternalPlayer = !xmlreader.GetValueAsBool("movieplayer", "internal", true);
-      m_bIsExternalDVDPlayer = !xmlreader.GetValueAsBool("dvdplayer", "internal", true);
+      using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+      {
+        m_bIsExternalPlayer = !xmlreader.GetValueAsBool("movieplayer", "internal", true);
+        m_bIsExternalDVDPlayer = !xmlreader.GetValueAsBool("dvdplayer", "internal", true);
+      }
     }
 
     #endregion
@@ -922,35 +924,77 @@ namespace mvCentral.Playlist
       GUIPropertyManager.SetProperty("#selectedthumb", mvTrack.ArtThumbFullPath);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistName", artistInfo.Artist);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistImg", artistInfo.ArtFullPath);
+
       // Artist Genres
       string artistTags = string.Empty;
       foreach (string tag in artistInfo.Tag)
+      {
         artistTags += tag + " | ";
+      }
       // Last.FM Tags
       if (!string.IsNullOrEmpty(artistTags))
+      {
         GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", artistTags.Remove(artistTags.Length - 2, 2));
+      }
+
       // AllMusic Genre
       GUIPropertyManager.SetProperty("#mvCentral.Genre", artistInfo.Genre);
+
       // Set BornOrFormed property
       if (artistInfo.Formed == null)
+      {
         artistInfo.Formed = string.Empty;
+      }
       if (artistInfo.Born == null)
+      {
         artistInfo.Born = string.Empty;
+      }
 
       if (artistInfo.Formed.Trim().Length == 0 && artistInfo.Born.Trim().Length == 0)
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", Localization.NoBornFormedDetails);
+      }
       else if (artistInfo.Formed.Trim().Length == 0)
+      {
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Born, artistInfo.Born));
+      }
       else
+      {
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Formed, artistInfo.Formed));
+      }
+
+      // Set DeathOrDisbanded property
+      if (artistInfo.Death == null)
+      {
+        artistInfo.Disbanded = string.Empty;
+      }
+      if (artistInfo.Death == null)
+      {
+        artistInfo.Death = string.Empty;
+      }
+
+      if (string.IsNullOrWhiteSpace(artistInfo.Disbanded) && string.IsNullOrWhiteSpace(artistInfo.Death))
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", Localization.NoDeathDisbandedDetails);
+      }
+      else if (string.IsNullOrWhiteSpace(artistInfo.Disbanded))
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", String.Format("{0}: {1}", Localization.Death, artistInfo.Death));
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", String.Format("{0}: {1}", Localization.Disbanded, artistInfo.Disbanded));
+      }
 
       // Track Image
       if (string.IsNullOrEmpty(mvTrack.ArtThumbFullPath.Trim()))
         GUIPropertyManager.SetProperty("#mvCentral.VideoImage", "defaultVideoBig.png");
       else
         GUIPropertyManager.SetProperty("#mvCentral.VideoImage", mvTrack.ArtThumbFullPath);
+
       // Track Rating
       GUIPropertyManager.SetProperty("#mvCentral.Track.Rating", mvTrack.Rating.ToString());
+
       // Track Composers
       if (mvTrack.Composers.Trim().Length == 0)
         GUIPropertyManager.SetProperty("#mvCentral.Composers", Localization.NoComposerInfo);
@@ -980,6 +1024,7 @@ namespace mvCentral.Playlist
       GUIPropertyManager.Changed = true;
       prevSelectedmvTrack = mvTrack;
     }
+
     /// <summary>
     /// Clear all GUI Skin Properties
     /// </summary>

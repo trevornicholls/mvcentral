@@ -51,8 +51,6 @@ using System.Timers;
 namespace mvCentral.Playlist
 {
 
-
-
   public class PlayListPlayer
   {
     #region g_Player
@@ -258,9 +256,11 @@ namespace mvCentral.Playlist
     {
       Init();
       // Check if External Player is being used
-      MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.Settings(MediaPortal.Configuration.Config.GetFile(MediaPortal.Configuration.Config.Dir.Config, "MediaPortal.xml"));
-      m_bIsExternalPlayer = !xmlreader.GetValueAsBool("movieplayer", "internal", true);
-      m_bIsExternalDVDPlayer = !xmlreader.GetValueAsBool("dvdplayer", "internal", true);
+      using (MediaPortal.Profile.Settings xmlreader = new MediaPortal.Profile.MPSettings())
+      {
+        m_bIsExternalPlayer = !xmlreader.GetValueAsBool("movieplayer", "internal", true);
+        m_bIsExternalDVDPlayer = !xmlreader.GetValueAsBool("dvdplayer", "internal", true);
+      }
 
       if (!LastFMProfile.IsLoged)
         LastFMProfile.Login(mvCentralCore.Settings.LastFMUsername, mvCentralCore.Settings.LastFMPassword);

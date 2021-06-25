@@ -714,13 +714,11 @@ Last.FM, Discogs, Allmusic.com and Fanart.tv are used to provide metadata.
 
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.
 </ExtensionDescription>
-    <VersionDescription>Add sorting.
-Bug fixes ...
- 
+    <VersionDescription>MP Configuration fix
 </VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-{VERSION}.MPE1</OnlineLocation>
-    <ReleaseDate>2020-05-09T22:26:37</ReleaseDate>
+    <ReleaseDate>2021-06-25T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.MPE1</Location>
     <Params>

@@ -2633,6 +2633,7 @@ namespace mvCentral.GUI
       GUIPropertyManager.SetProperty("#mvCentral.Description", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTags", string.Empty);
       GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", string.Empty);
+      GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", string.Empty);
 
       GUIPropertyManager.SetProperty("#mvCentral.ArtistTracksRuntime", genreRunningTime(selectGenre));
       GUIPropertyManager.SetProperty("#mvCentral.VideosByArtist", _genreTracks.ToString());
@@ -2693,16 +2694,40 @@ namespace mvCentral.GUI
 
       if (string.IsNullOrWhiteSpace(_currArtist.Formed) && string.IsNullOrWhiteSpace(_currArtist.Born))
       {
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", Localization.NoBornFormedDetails);
       }
       else if (string.IsNullOrWhiteSpace(_currArtist.Formed))
       {
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}",Localization.Born, _currArtist.Born));
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Born, _currArtist.Born));
       }
       else
       {
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}",Localization.Formed, _currArtist.Formed));
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Formed, _currArtist.Formed));
       }
+
+      // Set DeathOrDisbanded property
+      if (_currArtist.Death == null)
+      {
+        _currArtist.Disbanded = string.Empty;
+      }
+      if (_currArtist.Death == null)
+      {
+        _currArtist.Death = string.Empty;
+      }
+
+      if (string.IsNullOrWhiteSpace(_currArtist.Disbanded) && string.IsNullOrWhiteSpace(_currArtist.Death))
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", Localization.NoDeathDisbandedDetails);
+      }
+      else if (string.IsNullOrWhiteSpace(_currArtist.Disbanded))
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", String.Format("{0}: {1}", Localization.Death, _currArtist.Death));
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", String.Format("{0}: {1}", Localization.Disbanded, _currArtist.Disbanded));
+      }
+
       GUIPropertyManager.SetProperty("#mvCentral.Genre", _currArtist.Genre);
 
       // Artist Genres
@@ -2972,7 +2997,7 @@ namespace mvCentral.GUI
 
       if (string.IsNullOrWhiteSpace(_currArtist.Formed) && string.IsNullOrWhiteSpace(_currArtist.Born))
       {
-        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", "No Born/Formed Details");
+        GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", Localization.NoBornFormedDetails);
       }
       else if (string.IsNullOrWhiteSpace(_currArtist.Formed))
       {
@@ -2981,6 +3006,29 @@ namespace mvCentral.GUI
       else
       {
         GUIPropertyManager.SetProperty("#mvCentral.BornOrFormed", String.Format("{0}: {1}", Localization.Formed, _currArtist.Formed));
+      }
+
+      // Set DeathOrDisbanded property
+      if (_currArtist.Death == null)
+      {
+        _currArtist.Disbanded = string.Empty;
+      }
+      if (_currArtist.Death == null)
+      {
+        _currArtist.Death = string.Empty;
+      }
+
+      if (string.IsNullOrWhiteSpace(_currArtist.Disbanded) && string.IsNullOrWhiteSpace(_currArtist.Death))
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", Localization.NoDeathDisbandedDetails);
+      }
+      else if (string.IsNullOrWhiteSpace(_currArtist.Disbanded))
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", String.Format("{0}: {1}", Localization.Death, _currArtist.Death));
+      }
+      else
+      {
+        GUIPropertyManager.SetProperty("#mvCentral.DeathOrDisbanded", String.Format("{0}: {1}", Localization.Disbanded, _currArtist.Disbanded));
       }
 
       // Misc Proprities
