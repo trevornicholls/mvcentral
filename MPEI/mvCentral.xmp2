@@ -500,6 +500,23 @@
           </Items>
         </Files>
       </GroupItem>
+      <GroupItem Name="Libraries">
+        <ParentGroup />
+        <DisplayName>Libraries</DisplayName>
+        <DefaulChecked>true</DefaulChecked>
+        <Description>Libraries</Description>
+        <Files>
+          <Items>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>NeverOverwrite</UpdateOption>
+              <LocalFileName>..\External\Newtonsoft.Json.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{50f53661-d682-47cc-8271-d212a8aa3299}-Newtonsoft.Json.dll</ZipFileName>
+              <DestinationFilename>%Base%\Newtonsoft.Json.dll</DestinationFilename>
+            </FileItem>
+          </Items>
+        </Files>
+      </GroupItem>
     </Items>
   </Groups>
   <Sections>
@@ -1176,6 +1193,13 @@ Support for Newtonsoft.Json.13.0.3
         <LocalFileName>..\Skin\TitanPlayStart\mvCentral.PlayStart.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{cc919293-2bd0-4344-928e-94ad1f9fd217}-mvCentral.PlayStart.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>NeverOverwrite</UpdateOption>
+        <LocalFileName>..\External\Newtonsoft.Json.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{50f53661-d682-47cc-8271-d212a8aa3299}-Newtonsoft.Json.dll</ZipFileName>
+        <DestinationFilename>%Base%\Newtonsoft.Json.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
         <Param1 />

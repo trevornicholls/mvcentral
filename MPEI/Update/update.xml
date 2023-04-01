@@ -1254,6 +1254,14 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
               <Items />
             </Files>
           </GroupItem>
+          <GroupItem Name="Libraries">
+            <DisplayName>Libraries</DisplayName>
+            <DefaulChecked>true</DefaulChecked>
+            <Description>Libraries</Description>
+            <Files>
+              <Items />
+            </Files>
+          </GroupItem>
         </Items>
       </Groups>
       <Sections>
@@ -1315,7 +1323,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
           <Major>1</Major>
           <Minor>0</Minor>
           <Build>8</Build>
-          <Revision>429</Revision>
+          <Revision>430</Revision>
         </Version>
         <ExtensionDescription>mvCentral is a plugin to catalog and play local Music Videos.
  
@@ -1328,8 +1336,8 @@ Support for Newtonsoft.Json.13.0.3
 
 *** We Stand with Ukraine ***</VersionDescription>
         <DevelopmentStatus>Stable</DevelopmentStatus>
-        <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-1.0.8.429.mpe1</OnlineLocation>
-        <ReleaseDate>2023-04-01T13:47:21.1907322+03:00</ReleaseDate>
+        <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-1.0.8.430.mpe1</OnlineLocation>
+        <ReleaseDate>2023-04-01T14:10:35.4485889+03:00</ReleaseDate>
         <Tags>music video last.fm</Tags>
         <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.MPE1</Location>
         <Params>
