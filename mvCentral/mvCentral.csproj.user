@@ -8,12 +8,4 @@
     <StartAction>Program</StartAction>
     <StartProgram>D:\HTPC\MediaPortal\Configuration.exe</StartProgram>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <StartAction>Program</StartAction>
-    <StartProgram>S:\HTPC\MediaPortal\Configuration.exe</StartProgram>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <StartAction>Program</StartAction>
-    <StartProgram>S:\HTPC\MediaPortal\MediaPortal.exe</StartProgram>
-  </PropertyGroup>
 </Project>

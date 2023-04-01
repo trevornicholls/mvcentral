@@ -1,26 +1,25 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mvCentral", "mvCentral\mvCentral.csproj", "{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Debug|x86 = Debug|x86
-		Release|Any CPU = Release|Any CPU
-		Release|x86 = Release|x86
+		Debug|AnyCPU = Debug|AnyCPU
+		Release|AnyCPU = Release|AnyCPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|Any CPU.Build.0 = Debug|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|x86.ActiveCfg = Debug|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|x86.Build.0 = Debug|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Release|Any CPU.ActiveCfg = Release|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Release|Any CPU.Build.0 = Release|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Release|x86.ActiveCfg = Release|x86
-		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Release|x86.Build.0 = Release|x86
+		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|AnyCPU.ActiveCfg = Debug|Any CPU
+		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Debug|AnyCPU.Build.0 = Debug|Any CPU
+		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Release|AnyCPU.ActiveCfg = Release|Any CPU
+		{EECF8509-9C9C-4AA6-A4B4-898C9399FA5D}.Release|AnyCPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7216EFAB-6B6B-4853-9B11-396AFC4D5BB8}
 	EndGlobalSection
 EndGlobal
