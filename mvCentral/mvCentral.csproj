@@ -115,6 +115,9 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ValueTuple">
+      <HintPath>..\External\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -436,7 +439,6 @@
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoMatch.datasource" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.MusicVideoParser.datasource" />
     <None Include="Properties\DataSources\MusicVideos.LocalMediaManagement.parseResult.datasource" />
-    <None Include="Properties\VersionInfo.cs.tmpl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Edit.png" />
@@ -559,11 +561,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>cd $(TargetDir)
-copy $(ProjectDir)..\scripts\merge.bat .
-copy $(ProjectDir)..\scripts\Tools\ILMerge.exe .
-merge.bat
-del /q merge.bat ILMerge.exe</PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
         None
     </ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>

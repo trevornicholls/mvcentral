@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PackageClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<PackageClass xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>2.0</Version>
   <Groups>
     <Items>
@@ -23,6 +23,27 @@
               <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{58e9cbe5-87c8-4939-a53b-75e42a96131b}-mvCentral.dll.config</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll.config</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\External\Cornerstone.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{f5d7ba3f-f5f6-45e1-8678-c6afa6f11007}-Cornerstone.dll</ZipFileName>
+              <DestinationFilename>%Base%\plugins\Windows\Cornerstone.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\External\Cornerstone.MP.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{98da0f60-2571-4b02-ab18-72d85b3078d6}-Cornerstone.MP.dll</ZipFileName>
+              <DestinationFilename>%Base%\plugins\Windows\Cornerstone.MP.dll</DestinationFilename>
+            </FileItem>
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+              <Param1 />
+              <UpdateOption>OverwriteIfOlder</UpdateOption>
+              <LocalFileName>..\External\NLog.dll</LocalFileName>
+              <ZipFileName>Installer{CopyFile}\{774601ba-8467-4ca0-8368-9ac1a047b457}-NLog.dll</ZipFileName>
+              <DestinationFilename>%Base%\plugins\Windows\NLog.dll</DestinationFilename>
             </FileItem>
           </Items>
         </Files>
@@ -717,7 +738,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
     <Id>1f288e48-6f5b-481c-a1b4-605393c913db</Id>
     <Author>ajs/Trevor/Gup</Author>
     <HomePage>https://github.com/andrewjswan/mvcentral</HomePage>
-    <ForumPage>http://forum.team-mediaportal.com/forums/mvcentral-music-videos-plugin.573/</ForumPage>
+    <ForumPage>https://forum.team-mediaportal.com/forums/mvcentral-music-videos-plugin.573/</ForumPage>
     <UpdateUrl>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Update/update.xml</UpdateUrl>
     <Version>
       <Major>1</Major>
@@ -731,13 +752,12 @@ Last.FM, Discogs, Allmusic.com and Fanart.tv are used to provide metadata.
 
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.
 </ExtensionDescription>
-    <VersionDescription>Rebuild to support x86 and x64 architectures.
-Support for Newtonsoft.Json.13.0.3
+    <VersionDescription>Fix support x86 and x64 architectures.
 
 *** We Stand with Ukraine ***</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
     <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-{VERSION}.MPE1</OnlineLocation>
-    <ReleaseDate>2023-04-01T22:26:37</ReleaseDate>
+    <ReleaseDate>2023-05-23T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
     <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.MPE1</Location>
     <Params>
@@ -780,6 +800,27 @@ Support for Newtonsoft.Json.13.0.3
         <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\External\Cornerstone.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{f5d7ba3f-f5f6-45e1-8678-c6afa6f11007}-Cornerstone.dll</ZipFileName>
+        <DestinationFilename>%Base%\plugins\Windows\Cornerstone.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\External\Cornerstone.MP.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{98da0f60-2571-4b02-ab18-72d85b3078d6}-Cornerstone.MP.dll</ZipFileName>
+        <DestinationFilename>%Base%\plugins\Windows\Cornerstone.MP.dll</DestinationFilename>
+      </FileItem>
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+        <Param1 />
+        <UpdateOption>OverwriteIfOlder</UpdateOption>
+        <LocalFileName>..\External\NLog.dll</LocalFileName>
+        <ZipFileName>Installer{CopyFile}\{774601ba-8467-4ca0-8368-9ac1a047b457}-NLog.dll</ZipFileName>
+        <DestinationFilename>%Base%\plugins\Windows\NLog.dll</DestinationFilename>
       </FileItem>
       <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
         <Param1 />
