@@ -1,0 +1,298 @@
+name: Build / mvCentral Plugin
+
+on:
+  push:
+    # On Push to Master branch
+    branches: 
+      - master
+    # Ignore all Tags / Release
+    tags-ignore:
+      - '**'
+
+  workflow_call:
+    inputs:
+      retention-build:
+        description: "Retention Period for Setup files. Default is 90"
+        default: 90
+        required: false
+        type: number
+    outputs:
+      version:
+        description: "MPE1 Version"
+        value: ${{ jobs.mpe.outputs.version }}
+
+jobs:
+  build:
+    name: mvCentral Plugin / Build
+    runs-on: windows-2019
+    steps:
+      - name: Setup Visual Studio 2019
+        uses: microsoft/setup-msbuild@v2
+        with:
+          vs-version: 16.11
+
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build
+        run: |
+          build_git.bat < nul
+        working-directory: ${{ github.workspace }}\scripts
+        shell: cmd
+
+      - name: Upload Artifact / Plugin
+        uses: actions/upload-artifact@v4
+        if: ${{ success() }}
+        with:
+          name: mvCentral
+          path: |
+            ${{ github.workspace }}\mvCentral\bin\Release\mvCentral.dll
+          retention-days: ${{ inputs.retention-build || 90 }}
+          if-no-files-found: error
+
+      - name: Save cache
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ github.workspace }}
+          key: plugin
+
+  codeql:
+    name: CodeQL
+    if: "contains(github.event.head_commit.message, '[release]')"
+    uses: andrewjswan/MPE/.github/workflows/codeql.yml@master
+    needs: 
+      - build
+    permissions:
+      security-events: write
+    secrets: inherit
+
+  mpe:
+    name: mvCentral Plugin / MPE
+    runs-on: windows-2019
+    needs:
+      - build
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Restore cache
+        uses: actions/cache/restore@v4
+        with:
+          path: ${{ github.workspace }}
+          key: plugin
+
+      - name: Git Checkout / MPE / XPath
+        uses: actions/checkout@v4
+        with:
+          repository: andrewjswan/MPE
+          path: MPE
+
+      - name: MP folder for MPEMaker
+        run: |
+          mkdir "C:\Team MediaPortal"
+        shell: cmd
+
+      - name: Link to MPEMaker
+        run: |
+          mklink /J "C:\Team MediaPortal\MediaPortal" "${{ github.workspace }}\MPE\MPEMaker"
+        shell: cmd
+
+      - name: Clear Build folder
+        run: |
+          del /F /Q *.*
+        working-directory: ${{ github.workspace }}\MPEI\Release
+        shell: cmd
+
+      - name: Get MPE1 Version
+        id: version
+        run: |
+          FOR /F "tokens=*" %%i IN ('Tools\sigcheck.exe -accepteula -nobanner -n "..\mvCentral\bin\Release\mvCentral.dll"') DO (ECHO version=%%i >> %GITHUB_OUTPUT%)
+        working-directory: ${{ github.workspace }}\scripts
+        shell: cmd
+
+      - name: Build MPE1
+        run: |
+          Create_Installer.bat
+        working-directory: ${{ github.workspace }}\scripts
+        shell: cmd
+
+      - name: Upload Artifact / MPE1
+        uses: actions/upload-artifact@v4
+        if: ${{ success() }}
+        with:
+          name: mvCentral MPE1
+          path: |
+            ${{ github.workspace }}\MPEI\Release\mvCentral-*.mpe1
+          retention-days: ${{ inputs.retention-build || 90 }}
+          if-no-files-found: error
+
+      - name: Upload Artifact / MPE XML
+        uses: actions/upload-artifact@v4
+        if: ${{ success() && contains(github.event.head_commit.message, '[release]') }}
+        with:
+          name: mvCentral XML
+          path: |
+            ${{ github.workspace }}\MPEI\mvCentral.xml
+          retention-days: ${{ inputs.retention-build || 90 }}
+          if-no-files-found: error
+
+      - name: Get Release Version Description
+        if: ${{ success() && contains(github.event.head_commit.message, '[release]') }}
+        run: |
+          call ..\MPE\XPath\xpath.cmd "mvCentral.xml" "//Items/PackageClass/GeneralInfo/VersionDescription" last > description.txt
+        working-directory: ${{ github.workspace }}\MPEI
+        shell: cmd
+
+      - name: Clean Release Version Description
+        if: ${{ success() && contains(github.event.head_commit.message, '[release]') }}
+        run: |
+          sed.exe -i "s/\*\*\* We Stand with Ukraine \*\*\*//g" description.txt
+        working-directory: ${{ github.workspace }}\MPEI
+        shell: cmd
+
+      - name: Add Badges to Release Version Description
+        if: ${{ success() && contains(github.event.head_commit.message, '[release]') }}
+        run: |
+          ECHO [![Downloads](https://img.shields.io/github/downloads/andrewjswan/mvcentral/v${{steps.version.outputs.version}}/total)](https://github.com/andrewjswan/mvcentral/releases/tag/v${{steps.version.outputs.version}}) [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md) >> description.txt
+        working-directory: ${{ github.workspace }}\MPEI
+        shell: cmd
+
+      - name: Clean Release Version Description
+        if: ${{ success() && contains(github.event.head_commit.message, '[release]') }}
+        run: |
+          sed.exe -i "s/ \//\//g" description.txt
+        working-directory: ${{ github.workspace }}\MPEI
+        shell: cmd
+
+      - name: Upload Artifact / Version Description
+        uses: actions/upload-artifact@v4
+        if: ${{ success() && contains(github.event.head_commit.message, '[release]') }}
+        with:
+          name: mvCentral Version Description
+          path: |
+            ${{ github.workspace }}\MPEI\description.txt
+          retention-days: ${{ inputs.retention-build || 90 }}
+          if-no-files-found: error
+
+  xml:
+    name: mvCentral Plugin / XML
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '[release]')"
+    needs:
+      - mpe
+    permissions:
+      contents: write
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: mvCentral XML
+          path: ${{ github.workspace }}/MPEI/
+
+      - name: Update / MPE1 XML
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: 'mvCentral ${{needs.mpe.outputs.version}} / Release'
+          add: '${{ github.workspace }}/MPEI/mvCentral.xml'
+
+      - name: Delete XML Artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+            name: mvCentral XML
+            failOnError: false
+
+  release:
+    name: mvCentral Plugin / Release
+    if: "contains(github.event.head_commit.message, '[release]')"
+    needs:
+      - mpe
+      - xml
+    permissions:
+      contents: write
+    
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: mvCentral MPE1
+          path: release-files
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: mvCentral Version Description
+          path: release-description
+
+      - name: Check Artifacts
+        run: |
+          ls -l
+        working-directory: release-files
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: mvCentral v${{needs.mpe.outputs.version}}
+          tag_name: v${{needs.mpe.outputs.version}}
+          body_path: release-description/description.txt
+          generate_release_notes: true
+          files: |
+            release-files/*.mpe1
+
+      - name: Delete MPE1 Artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: mvCentral MPE1
+          failOnError: false
+
+      - name: Delete Version Description Artifact
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: mvCentral Version Description
+          failOnError: false
+
+  ci-status:
+    name: Build Status
+    runs-on: ubuntu-latest
+    needs:
+      - build
+      - mpe
+    if: always()
+    steps:
+      - name: Success
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+      - name: Failure
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+
+  release-status:
+    name: Release Status
+    if: "contains(github.event.head_commit.message, '[release]')"
+    runs-on: ubuntu-latest
+    needs:
+      - release
+    steps:
+      - name: Success
+        if: ${{ !(contains(needs.*.result, 'failure')) }}
+        run: exit 0
+      - name: Failure
+        if: ${{ contains(needs.*.result, 'failure') }}
+        run: exit 1
+  
+  cache-clear:
+    name: Clear cache
+    runs-on: ubuntu-latest
+    needs:
+      - mpe
+    if: always()
+    steps:
+      - name: Clear cache
+        uses: easimon/wipe-cache@main

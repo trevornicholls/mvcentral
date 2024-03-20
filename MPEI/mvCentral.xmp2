@@ -10,35 +10,35 @@
         <Description>Default</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{58e9cbe5-87c8-4939-a53b-75e42a96131b}-mvCentral.dll.config</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll.config</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\External\Cornerstone.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{f5d7ba3f-f5f6-45e1-8678-c6afa6f11007}-Cornerstone.dll</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\Cornerstone.dll</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\External\Cornerstone.MP.dll</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{98da0f60-2571-4b02-ab18-72d85b3078d6}-Cornerstone.MP.dll</ZipFileName>
               <DestinationFilename>%Base%\plugins\Windows\Cornerstone.MP.dll</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\External\NLog.dll</LocalFileName>
@@ -55,28 +55,28 @@
         <Description>Translations for the mvCentral plugin.</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Language\mvCentral\de.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{f2cc0e3b-5c5d-45ab-bf9a-5a9973e4dc9a}-de.xml</ZipFileName>
               <DestinationFilename>%Language%\mvCentral\de.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{c18595aa-6b21-4863-963a-006a3e64dceb}-en-US.xml</ZipFileName>
               <DestinationFilename>%Language%\mvCentral\en-US.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Language\mvCentral\pl.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{eb9cc28f-2442-4e64-88b3-42fcf2bfbb6b}-pl.xml</ZipFileName>
               <DestinationFilename>%Language%\mvCentral\pl.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Language\mvCentral\zh-CN.xml</LocalFileName>
@@ -93,77 +93,77 @@
         <Description>mvCentral skin and gfx files for the Default Skin</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\DialogMvMultiSelect.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0554f8db-8104-4c89-be4a-500946f7ef1b}-DialogMvMultiSelect.xml</ZipFileName>
               <DestinationFilename>%Skin%\Default\DialogMvMultiSelect.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0789b8a6-41c6-4ce8-a495-77c8eb9c3089}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\Default\mvCentral.Playlist.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\mvCentral.SmartDJ.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{be0033a8-cbef-403d-a282-dc30c0e9341d}-mvCentral.SmartDJ.xml</ZipFileName>
               <DestinationFilename>%Skin%\Default\mvCentral.SmartDJ.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\mvCentral.StatsAndInfo.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{985d36c6-bf0f-410c-8327-be569f6bd56c}-mvCentral.StatsAndInfo.xml</ZipFileName>
               <DestinationFilename>%Skin%\Default\mvCentral.StatsAndInfo.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\mvCentral.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0fe76c78-ea24-4f8f-a01a-08455ade4e5e}-mvCentral.xml</ZipFileName>
               <DestinationFilename>%Skin%\Default\mvCentral.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\media\defaultArtist.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0b9ae784-4a7f-406b-bca7-b02dd72ba6f9}-defaultArtist.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\media\defaultArtist.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\media\defaultArtistBig.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{7b9b0ccf-2ed2-4a0a-a985-f064c1068d82}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\media\DefaultGenre.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{01b3a436-6cfa-497c-ae43-61586bd87d5d}-DefaultGenre.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\media\DefaultGenre.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\media\hover_mvCentral.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{95ffc612-2721-4520-be4b-4cb5ecb3fca8}-hover_mvCentral.png</ZipFileName>
               <DestinationFilename>%Skin%\Default\media\hover_mvCentral.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\media\mvcSmartDJDefault.jpg</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{6ed0aa3f-1033-4219-a6e7-645f2223414e}-mvcSmartDJDefault.jpg</ZipFileName>
               <DestinationFilename>%Skin%\Default\media\mvcSmartDJDefault.jpg</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Default\media\Logos\H264.png</LocalFileName>
@@ -180,84 +180,84 @@
         <Description>mvCentral skin and gfx files for theDefaultWide Skin</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\DialogMvMultiSelect.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0a476747-9fcc-4e3f-bf9d-eb5dea4d1fac}-DialogMvMultiSelect.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\DialogMvMultiSelect.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{3da74a2f-39e9-43b0-b208-94deddebcc89}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\mvCentral.Playlist.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\mvCentral.SmartDJ.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{d0ed7471-5bfc-4fd6-ba68-bb58a278d4d0}-mvCentral.SmartDJ.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\mvCentral.SmartDJ.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\mvCentral.StatsAndInfo.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{55ba9287-06e6-4ba2-9c7b-48f8e305d272}-mvCentral.StatsAndInfo.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\mvCentral.StatsAndInfo.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\mvCentral.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{6300af2a-8ad6-4f44-883f-5ffd1c13a72f}-mvCentral.xml</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\mvCentral.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\defaultArtist.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{8d8c44ac-eb91-4c3a-a63f-7514d38406ae}-defaultArtist.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\defaultArtist.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\defaultArtistBig.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{20fa9781-22d2-4964-b4e9-e1f6ec075f29}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\DefaultGenre.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{fecb0726-46d6-472d-82a6-5c7522021ddd}-DefaultGenre.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\DefaultGenre.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\hover_mvCentral.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{3e1902a4-bc2b-4d8d-9223-476acc21be56}-hover_mvCentral.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\hover_mvCentral.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\mvcSmartDJ.jpg</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{711a3e9f-0038-4adc-b340-32ef6502d124}-mvcSmartDJ.jpg</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\mvcSmartDJ.jpg</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\Thumb_Mask2.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{9db2542f-55dd-4010-8409-c6573ace1935}-Thumb_Mask2.png</ZipFileName>
               <DestinationFilename>%Skin%\DefaultWide\media\Thumb_Mask2.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\DefaultWide\media\Logos\H264.png</LocalFileName>
@@ -274,154 +274,154 @@
         <Description>mvCentral skin and gfx files for theStreamedMP Skin</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\DialogMvMultiSelect.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{f5fad08e-ae66-4959-92f9-29e85a124783}-DialogMvMultiSelect.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\DialogMvMultiSelect.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{57b7b6fc-dfb9-43e3-8df9-3e94f5d1d300}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvCentral.Playlist.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvCentral.PlayStart.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{000d8666-5498-4c4f-bbe2-bcd41d48406e}-mvCentral.PlayStart.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvCentral.PlayStart.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvcentral.smartdj.selected.fanart.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{b0c35375-faf4-43a2-94f4-bad8ab3aa6fe}-mvcentral.smartdj.selected.fanart.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvcentral.smartdj.selected.fanart.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvCentral.SmartDJ.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{f23aed81-caa3-4eca-9aad-86c2d6354b16}-mvCentral.SmartDJ.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvCentral.SmartDJ.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvCentral.StatsAndInfo.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{b2d6508b-e3a3-4dfe-95f9-5941d75277d8}-mvCentral.StatsAndInfo.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvCentral.StatsAndInfo.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\mvCentral.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{7e75edae-b793-4c6e-a8e6-d08747ae9f66}-mvCentral.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\mvCentral.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\videoFullScreen.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{81e885ef-c0ab-4e33-b4d1-a52fb509bf14}-videoFullScreen.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\videoFullScreen.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\videoOSD.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{241ad98e-8427-49ce-a80f-453fa1dfbe3b}-videoOSD.xml</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\videoOSD.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\darkwithboarder.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{40d706f8-9b63-4569-943f-89f7bec3d487}-darkwithboarder.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\darkwithboarder.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\defaultArtist.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{02e10b2d-4c0a-4301-9099-7594eaa50b21}-defaultArtist.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\defaultArtist.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\defaultArtistBig.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{dc34dade-a9c0-4600-81de-1d0278cbb7c9}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\DefaultGenre.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{2bb51123-aa90-4f0c-9c09-ad0317b580b7}-DefaultGenre.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\DefaultGenre.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\hover_mvCentral.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{8c71e2a8-0fd0-433b-af33-7269f7287914}-hover_mvCentral.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\missing_coverart2.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{e100d952-104e-4358-8667-ef3bfe6bc828}-missing_coverart2.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\missing_coverart2.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\mvcSmartDJ.jpg</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{62a76105-3368-4a66-833b-05141f463583}-mvcSmartDJ.jpg</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\mvcSmartDJ.jpg</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\Thumb_Mask2.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{6d61428a-76b8-4d36-9c3d-d0bf7ae7e30d}-Thumb_Mask2.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Thumb_Mask2.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\1080i Widescreen.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{930e7ee1-5ae9-42ef-ac07-c83cc28e463e}-1080i Widescreen.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\1080i Widescreen.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\1080P Widescreen.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{20786478-10b3-4138-976e-2dbd7a7d5340}-1080P Widescreen.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\1080P Widescreen.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\720P Widescreen.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{c503bda6-96c0-4998-b267-7e8f8c9ab108}-720P Widescreen.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\720P Widescreen.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\MPEG-4V.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{dffc80f2-3eb7-423f-8e3e-d4f6b6be1cf7}-MPEG-4V.png</ZipFileName>
               <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\MPEG-4V.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\StreamedMP\media\Logos\Audio\MP2A Stereo.png</LocalFileName>
@@ -438,63 +438,63 @@
         <Description>mvCentral skin and gfx files for theStreamedMP Titan Skin</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\DialogMvMultiSelect.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{3cfd41c1-d6f8-4014-902b-329ece5655cb}-DialogMvMultiSelect.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\DialogMvMultiSelect.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\mvCentral.Playlist.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{0e56a293-5201-4f01-8c09-78b58fa805cf}-mvCentral.Playlist.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\mvCentral.Playlist.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\mvCentral.SmartDJ.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{3374282e-9790-486a-9a3c-1d7ba2869dd9}-mvCentral.SmartDJ.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\mvCentral.SmartDJ.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\mvCentral.StatsAndInfo.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{43bae4d9-c4da-4fe9-b618-bf60197659ef}-mvCentral.StatsAndInfo.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\mvCentral.StatsAndInfo.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\mvCentral.xml</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{dfadfe91-fab8-4b0b-bed7-0514ce8b2cd9}-mvCentral.xml</ZipFileName>
               <DestinationFilename>%Skin%\Titan\mvCentral.xml</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\media\defaultArtist.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{aa7527d2-6c37-4156-8b1b-0d96df0590fc}-defaultArtist.png</ZipFileName>
               <DestinationFilename>%Skin%\Titan\media\defaultArtist.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\media\defaultArtistBig.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{26d7d2c2-3da1-4a5e-a570-0281423a369e}-defaultArtistBig.png</ZipFileName>
               <DestinationFilename>%Skin%\Titan\media\defaultArtistBig.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\media\DefaultGenre.png</LocalFileName>
               <ZipFileName>Installer{CopyFile}\{3ee1174a-7037-4a36-a1bf-8ef4d660921e}-DefaultGenre.png</ZipFileName>
               <DestinationFilename>%Skin%\Titan\media\DefaultGenre.png</DestinationFilename>
             </FileItem>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
               <Param1 />
               <UpdateOption>OverwriteIfOlder</UpdateOption>
               <LocalFileName>..\Skin\Titan\media\dialog_rating_background.png</LocalFileName>
@@ -511,7 +511,7 @@
         <Description>Additional skins file to allow for pop-up info box when a video starts to play.</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>AlwaysOverwrite</UpdateOption>
               <LocalFileName>..\Skin\TitanPlayStart\mvCentral.PlayStart.xml</LocalFileName>
@@ -528,7 +528,7 @@
         <Description>Libraries</Description>
         <Files>
           <Items>
-            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+            <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
               <Param1 />
               <UpdateOption>NeverOverwrite</UpdateOption>
               <LocalFileName>..\External\Newtonsoft.Json.dll</LocalFileName>
@@ -542,7 +542,7 @@
   </Groups>
   <Sections>
     <Items>
-      <SectionItem Guid="bf87fd4a-cb2f-4dda-9f1a-e5dfdd82a5a0" Name="Welcome Screen" ConditionGroup="">
+      <SectionItem Guid="bf87fd4a-cb2f-4dda-9f1a-e5dfdd82a5a0" Name="Welcome Screen" ConditionGroup="" Condition="None">
         <Params>
           <Items>
             <SectionParam Name="Header text">
@@ -576,7 +576,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <PanelName>Welcome Screen</PanelName>
         <WizardButtonsEnum>NextCancel</WizardButtonsEnum>
       </SectionItem>
-      <SectionItem Guid="a8c088c0-3402-4391-8977-8d4e43bcb5ed" Name="Skin File Installation" ConditionGroup="">
+      <SectionItem Guid="a8c088c0-3402-4391-8977-8d4e43bcb5ed" Name="Skin File Installation" ConditionGroup="" Condition="None">
         <Params>
           <Items>
             <SectionParam Name="Header Title">
@@ -613,7 +613,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
       </SectionItem>
-      <SectionItem Guid="cc5ddda2-e550-4a69-bfc2-2681a9842437" Name="Titan PlayStart additional skin files" ConditionGroup="Titan Skin">
+      <SectionItem Guid="cc5ddda2-e550-4a69-bfc2-2681a9842437" Name="Titan PlayStart additional skin files" ConditionGroup="Titan Skin" Condition="None">
         <Params>
           <Items>
             <SectionParam Name="Header Title">
@@ -640,7 +640,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         </Params>
         <Actions>
           <Items>
-            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="Titan Skin">
+            <ActionItem Name="InstallFiles" ActionType="InstallFiles" ConditionGroup="Titan Skin" Condition="None">
               <Params>
                 <Items />
               </Params>
@@ -654,7 +654,7 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <PanelName>Tree View Selector</PanelName>
         <WizardButtonsEnum>BackNextCancel</WizardButtonsEnum>
       </SectionItem>
-      <SectionItem Guid="ce4fe657-5f09-47f7-97fc-f95c2af40bef" Name="Setup Complete" ConditionGroup="">
+      <SectionItem Guid="ce4fe657-5f09-47f7-97fc-f95c2af40bef" Name="Setup Complete" ConditionGroup="" Condition="None">
         <Params>
           <Items>
             <SectionParam Name="Header text">
@@ -708,25 +708,27 @@ Click Next to continue or Cancel to exit Setup.</Value>
         <WarnOnly>false</WarnOnly>
         <Message>This version of mvCentral requires MediaPortal 1.23 Pre or higher!</Message>
         <Name>Installer</Name>
+        <Condition>None</Condition>
       </DependencyItem>
       <DependencyItem>
         <Type>MediaPortal</Type>
         <Id />
         <MinVersion>
-          <Major>1</Major>
-          <Minor>1</Minor>
-          <Build>6</Build>
-          <Revision>27644</Revision>
+          <Major>*</Major>
+          <Minor>*</Minor>
+          <Build>*</Build>
+          <Revision>*</Revision>
         </MinVersion>
         <MaxVersion>
-          <Major>1</Major>
-          <Minor>1</Minor>
-          <Build>6</Build>
-          <Revision>27644</Revision>
+          <Major>*</Major>
+          <Minor>*</Minor>
+          <Build>*</Build>
+          <Revision>*</Revision>
         </MaxVersion>
         <WarnOnly>false</WarnOnly>
-        <Message>This version of mvCentral requires MediaPortal 1.23 Pre or higher!</Message>
+        <Message />
         <Name>MediaPortal</Name>
+        <Condition>None</Condition>
       </DependencyItem>
     </Items>
   </Dependencies>
@@ -753,13 +755,15 @@ Last.FM, Discogs, Allmusic.com and Fanart.tv are used to provide metadata.
 The plugin will also scrobble playing videos to Last.FM and update your Library if required.
 </ExtensionDescription>
     <VersionDescription>Fix support x86 and x64 architectures.
+Migrate to Github Action\
 
 *** We Stand with Ukraine ***</VersionDescription>
     <DevelopmentStatus>Stable</DevelopmentStatus>
-    <OnlineLocation>https://raw.githubusercontent.com/andrewjswan/mvcentral/master/MPEI/Release/mvCentral-{VERSION}.MPE1</OnlineLocation>
-    <ReleaseDate>2023-05-23T22:26:37</ReleaseDate>
+    <OnlineLocation>https://github.com/andrewjswan/mvcentral/releases/download/v{VERSION}/mvCentral-{VERSION}.mpe1</OnlineLocation>
+    <ReleaseDate>2024-03-20T22:26:37</ReleaseDate>
     <Tags>music video last.fm</Tags>
-    <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.MPE1</Location>
+    <PlatformCompatibility>AnyCPU</PlatformCompatibility>
+    <Location>..\MPEI\Release\[Name]-MAJOR.MINOR.BUILD.REVISION.mpe1</Location>
     <Params>
       <Items>
         <SectionParam Name="Icon">
@@ -794,469 +798,469 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
   </GeneralInfo>
   <UniqueFileList>
     <Items>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\mvCentral\bin\Release\mvCentral.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8213e179-59a7-4368-a362-690d1da1e9f0}-mvCentral.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\mvCentral.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\External\Cornerstone.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{f5d7ba3f-f5f6-45e1-8678-c6afa6f11007}-Cornerstone.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\Cornerstone.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\External\Cornerstone.MP.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{98da0f60-2571-4b02-ab18-72d85b3078d6}-Cornerstone.MP.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\Cornerstone.MP.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\External\NLog.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{774601ba-8467-4ca0-8368-9ac1a047b457}-NLog.dll</ZipFileName>
         <DestinationFilename>%Base%\plugins\Windows\NLog.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Language\mvCentral\de.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{f2cc0e3b-5c5d-45ab-bf9a-5a9973e4dc9a}-de.xml</ZipFileName>
         <DestinationFilename>%Language%\mvCentral\de.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Language\mvCentral\en-US.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{c18595aa-6b21-4863-963a-006a3e64dceb}-en-US.xml</ZipFileName>
         <DestinationFilename>%Language%\mvCentral\en-US.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Language\mvCentral\pl.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{eb9cc28f-2442-4e64-88b3-42fcf2bfbb6b}-pl.xml</ZipFileName>
         <DestinationFilename>%Language%\mvCentral\pl.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Language\mvCentral\zh-CN.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{a73f74c8-a6e0-47dd-8101-3cdc151280a5}-zh-CN.xml</ZipFileName>
         <DestinationFilename>%Language%\mvCentral\zh-CN.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\DialogMvMultiSelect.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0554f8db-8104-4c89-be4a-500946f7ef1b}-DialogMvMultiSelect.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\DialogMvMultiSelect.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\mvCentral.Playlist.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0789b8a6-41c6-4ce8-a495-77c8eb9c3089}-mvCentral.Playlist.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\mvCentral.Playlist.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\mvCentral.SmartDJ.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{be0033a8-cbef-403d-a282-dc30c0e9341d}-mvCentral.SmartDJ.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\mvCentral.SmartDJ.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\mvCentral.StatsAndInfo.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{985d36c6-bf0f-410c-8327-be569f6bd56c}-mvCentral.StatsAndInfo.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\mvCentral.StatsAndInfo.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\mvCentral.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0fe76c78-ea24-4f8f-a01a-08455ade4e5e}-mvCentral.xml</ZipFileName>
         <DestinationFilename>%Skin%\Default\mvCentral.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\media\defaultArtist.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0b9ae784-4a7f-406b-bca7-b02dd72ba6f9}-defaultArtist.png</ZipFileName>
         <DestinationFilename>%Skin%\Default\media\defaultArtist.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\media\defaultArtistBig.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{7b9b0ccf-2ed2-4a0a-a985-f064c1068d82}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Skin%\Default\media\defaultArtistBig.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\media\DefaultGenre.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{01b3a436-6cfa-497c-ae43-61586bd87d5d}-DefaultGenre.png</ZipFileName>
         <DestinationFilename>%Skin%\Default\media\DefaultGenre.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\media\hover_mvCentral.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{95ffc612-2721-4520-be4b-4cb5ecb3fca8}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\Default\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\media\mvcSmartDJDefault.jpg</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{6ed0aa3f-1033-4219-a6e7-645f2223414e}-mvcSmartDJDefault.jpg</ZipFileName>
         <DestinationFilename>%Skin%\Default\media\mvcSmartDJDefault.jpg</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Default\media\Logos\H264.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9f7b65a3-8030-4678-9ac0-c7c2832b6be8}-H264.png</ZipFileName>
         <DestinationFilename>%Skin%\Default\media\Logos\H264.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\DialogMvMultiSelect.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0a476747-9fcc-4e3f-bf9d-eb5dea4d1fac}-DialogMvMultiSelect.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\DialogMvMultiSelect.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\mvCentral.Playlist.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3da74a2f-39e9-43b0-b208-94deddebcc89}-mvCentral.Playlist.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\mvCentral.Playlist.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\mvCentral.SmartDJ.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{d0ed7471-5bfc-4fd6-ba68-bb58a278d4d0}-mvCentral.SmartDJ.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\mvCentral.SmartDJ.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\mvCentral.StatsAndInfo.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{55ba9287-06e6-4ba2-9c7b-48f8e305d272}-mvCentral.StatsAndInfo.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\mvCentral.StatsAndInfo.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\mvCentral.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{6300af2a-8ad6-4f44-883f-5ffd1c13a72f}-mvCentral.xml</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\mvCentral.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\defaultArtist.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8d8c44ac-eb91-4c3a-a63f-7514d38406ae}-defaultArtist.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\defaultArtist.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\defaultArtistBig.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{20fa9781-22d2-4964-b4e9-e1f6ec075f29}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\defaultArtistBig.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\DefaultGenre.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{fecb0726-46d6-472d-82a6-5c7522021ddd}-DefaultGenre.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\DefaultGenre.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\hover_mvCentral.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3e1902a4-bc2b-4d8d-9223-476acc21be56}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\mvcSmartDJ.jpg</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{711a3e9f-0038-4adc-b340-32ef6502d124}-mvcSmartDJ.jpg</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\mvcSmartDJ.jpg</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\Thumb_Mask2.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{9db2542f-55dd-4010-8409-c6573ace1935}-Thumb_Mask2.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\Thumb_Mask2.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\DefaultWide\media\Logos\H264.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{d7d90a71-43f3-4745-8e95-b21945b31fab}-H264.png</ZipFileName>
         <DestinationFilename>%Skin%\DefaultWide\media\Logos\H264.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\DialogMvMultiSelect.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{f5fad08e-ae66-4959-92f9-29e85a124783}-DialogMvMultiSelect.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\DialogMvMultiSelect.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\mvCentral.Playlist.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{57b7b6fc-dfb9-43e3-8df9-3e94f5d1d300}-mvCentral.Playlist.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvCentral.Playlist.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\mvCentral.PlayStart.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{000d8666-5498-4c4f-bbe2-bcd41d48406e}-mvCentral.PlayStart.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvCentral.PlayStart.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\mvcentral.smartdj.selected.fanart.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{b0c35375-faf4-43a2-94f4-bad8ab3aa6fe}-mvcentral.smartdj.selected.fanart.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvcentral.smartdj.selected.fanart.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\mvCentral.SmartDJ.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{f23aed81-caa3-4eca-9aad-86c2d6354b16}-mvCentral.SmartDJ.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvCentral.SmartDJ.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\mvCentral.StatsAndInfo.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{b2d6508b-e3a3-4dfe-95f9-5941d75277d8}-mvCentral.StatsAndInfo.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvCentral.StatsAndInfo.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\mvCentral.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{7e75edae-b793-4c6e-a8e6-d08747ae9f66}-mvCentral.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\mvCentral.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\videoFullScreen.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{81e885ef-c0ab-4e33-b4d1-a52fb509bf14}-videoFullScreen.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\videoFullScreen.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\videoOSD.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{241ad98e-8427-49ce-a80f-453fa1dfbe3b}-videoOSD.xml</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\videoOSD.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\darkwithboarder.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{40d706f8-9b63-4569-943f-89f7bec3d487}-darkwithboarder.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\darkwithboarder.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\defaultArtist.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{02e10b2d-4c0a-4301-9099-7594eaa50b21}-defaultArtist.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\defaultArtist.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\defaultArtistBig.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{dc34dade-a9c0-4600-81de-1d0278cbb7c9}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\defaultArtistBig.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\DefaultGenre.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{2bb51123-aa90-4f0c-9c09-ad0317b580b7}-DefaultGenre.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\DefaultGenre.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\hover_mvCentral.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{8c71e2a8-0fd0-433b-af33-7269f7287914}-hover_mvCentral.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\hover_mvCentral.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\missing_coverart2.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{e100d952-104e-4358-8667-ef3bfe6bc828}-missing_coverart2.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\missing_coverart2.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\mvcSmartDJ.jpg</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{62a76105-3368-4a66-833b-05141f463583}-mvcSmartDJ.jpg</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\mvcSmartDJ.jpg</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\Thumb_Mask2.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{6d61428a-76b8-4d36-9c3d-d0bf7ae7e30d}-Thumb_Mask2.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Thumb_Mask2.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\1080i Widescreen.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{930e7ee1-5ae9-42ef-ac07-c83cc28e463e}-1080i Widescreen.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\1080i Widescreen.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\1080P Widescreen.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{20786478-10b3-4138-976e-2dbd7a7d5340}-1080P Widescreen.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\1080P Widescreen.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\720P Widescreen.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{c503bda6-96c0-4998-b267-7e8f8c9ab108}-720P Widescreen.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\720P Widescreen.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\Logos\Video\MPEG-4V.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{dffc80f2-3eb7-423f-8e3e-d4f6b6be1cf7}-MPEG-4V.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Video\MPEG-4V.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\StreamedMP\media\Logos\Audio\MP2A Stereo.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{f4949e01-dd1a-4987-b80b-670199f32119}-MP2A Stereo.png</ZipFileName>
         <DestinationFilename>%Skin%\StreamedMP\media\Logos\Audio\MP2A Stereo.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\DialogMvMultiSelect.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3cfd41c1-d6f8-4014-902b-329ece5655cb}-DialogMvMultiSelect.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\DialogMvMultiSelect.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\mvCentral.Playlist.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{0e56a293-5201-4f01-8c09-78b58fa805cf}-mvCentral.Playlist.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.Playlist.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\mvCentral.SmartDJ.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3374282e-9790-486a-9a3c-1d7ba2869dd9}-mvCentral.SmartDJ.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.SmartDJ.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\mvCentral.StatsAndInfo.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{43bae4d9-c4da-4fe9-b618-bf60197659ef}-mvCentral.StatsAndInfo.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.StatsAndInfo.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\mvCentral.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{dfadfe91-fab8-4b0b-bed7-0514ce8b2cd9}-mvCentral.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\media\defaultArtist.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{aa7527d2-6c37-4156-8b1b-0d96df0590fc}-defaultArtist.png</ZipFileName>
         <DestinationFilename>%Skin%\Titan\media\defaultArtist.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\media\defaultArtistBig.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{26d7d2c2-3da1-4a5e-a570-0281423a369e}-defaultArtistBig.png</ZipFileName>
         <DestinationFilename>%Skin%\Titan\media\defaultArtistBig.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\media\DefaultGenre.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3ee1174a-7037-4a36-a1bf-8ef4d660921e}-DefaultGenre.png</ZipFileName>
         <DestinationFilename>%Skin%\Titan\media\DefaultGenre.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="false" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\Skin\Titan\media\dialog_rating_background.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{c78356df-a502-4c57-ba46-a77912b1669f}-dialog_rating_background.png</ZipFileName>
         <DestinationFilename>%Skin%\Titan\media\dialog_rating_background.png</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName>..\Skin\TitanPlayStart\mvCentral.PlayStart.xml</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{cc919293-2bd0-4344-928e-94ad1f9fd217}-mvCentral.PlayStart.xml</ZipFileName>
         <DestinationFilename>%Skin%\Titan\mvCentral.PlayStart.xml</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>NeverOverwrite</UpdateOption>
         <LocalFileName>..\External\Newtonsoft.Json.dll</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{50f53661-d682-47cc-8271-d212a8aa3299}-Newtonsoft.Json.dll</ZipFileName>
         <DestinationFilename>%Base%\Newtonsoft.Json.dll</DestinationFilename>
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\sidepanel.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{defddf62-a952-4174-8550-2cfcf75626d1}-sidepanel.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>Resources\mvCentral-logo.png</LocalFileName>
         <ZipFileName>Installer{CopyFile}\{3d81d0ea-c01d-4e35-89fc-252c2db04b48}-mvCentral-logo.png</ZipFileName>
         <DestinationFilename />
       </FileItem>
-      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true">
+      <FileItem InstallType="CopyFile" SystemFile="true" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName>..\gfx\mvCentral-logo.png</LocalFileName>
@@ -1267,7 +1271,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
   </UniqueFileList>
   <ProjectSettings>
     <FolderGroups>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName />
@@ -1277,7 +1281,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
         <Group>Languages</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName />
@@ -1287,7 +1291,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
         <Group>Default Skin</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName />
@@ -1297,7 +1301,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
         <Group>DefaultWide Skin</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName />
@@ -1307,7 +1311,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
         <Group>StreamedMP Skin</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>OverwriteIfOlder</UpdateOption>
         <LocalFileName />
@@ -1317,7 +1321,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
         <Group>Titan Skin</Group>
         <Recursive>true</Recursive>
       </FolderGroup>
-      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true">
+      <FolderGroup InstallType="CopyFile" SystemFile="false" Modified="true" Condition="None">
         <Param1 />
         <UpdateOption>AlwaysOverwrite</UpdateOption>
         <LocalFileName />
@@ -1329,7 +1333,7 @@ The plugin will also scrobble playing videos to Last.FM and update your Library 
       </FolderGroup>
     </FolderGroups>
     <ProjectFilename>mvCentral.xmp2</ProjectFilename>
-    <UpdatePath1>mvCentral-{VERSION}.xml</UpdatePath1>
+    <UpdatePath1>mvCentral.xml</UpdatePath1>
     <UpdatePath2 />
     <UpdatePath3 />
   </ProjectSettings>
